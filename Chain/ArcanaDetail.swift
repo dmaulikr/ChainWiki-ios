@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -35,6 +35,7 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
             return 0
         }
     }
+    
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
@@ -136,9 +137,9 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
                         // update some UI
-                        for i in self.attributeValues {
-                            print(i)
-                        }
+//                        for i in self.attributeValues {
+//                            //print(i)
+//                        }
                     }
                 }
 

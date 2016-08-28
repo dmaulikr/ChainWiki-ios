@@ -172,7 +172,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         super.viewDidLoad()
         tableView.dataSource = self
         configureSearchController()
-        
+      
         getHTML()
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -183,6 +183,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         // Dispose of any resources that can be recreated.
     }
 
-
+    
 }
+
 

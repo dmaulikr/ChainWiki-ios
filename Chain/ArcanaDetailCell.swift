@@ -11,4 +11,13 @@ import UIKit
 class ArcanaDetailCell: UICollectionViewCell {
     
     @IBOutlet weak var attributeKey: UILabel!
+    
+    func setupViews() {
+        
+        print("HI")
+    }
+    
+//    override func layoutSubviews() {
+//        addConstraint(NSLayoutConstraint.constraintsWithVisualFormat("H:|-16-[v0]-16-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : attributeKey]))
+//    }
 }
