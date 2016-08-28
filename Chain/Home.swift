@@ -9,7 +9,6 @@
 import UIKit
 import Kanna
 
-
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating {
 
     @IBOutlet weak var tableView: UITableView!
@@ -96,17 +95,52 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     func getHTML() {
         // Set the page URL we want to download
         
-        let scheme = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-        let baseURL = "宴の魔神ハハブ"
+        _ = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
+        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+        let arcanaURL = "年代記の剣士リヴェラ"
         
-        let encodedString = baseURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
 
-        let encodedURL = NSURL(string: "\(scheme)\(encodedString!)")
+        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
         //print(encodedURL)
         // Try downloading it
         do {
-            let htmlSource = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
-            print(htmlSource)
+            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
+            // print(htmlSource)
+            
+            // Kanna, search through htmㅣ
+ 
+            if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+                // "#id"
+//                for i in doc.css("#s") {
+//                    print(i["@scan"])
+//                }
+                
+                // Search for nodes by XPath
+                //div[@class='ks']
+                
+                // Arcana Attribute Key
+                //th[@class='   js_col_sort_desc ui_col_sort_asc']
+                
+                
+                // Arcana Attribute Value
+                //td[@class='   ']
+                //span[@data-jscol_sort]"
+                
+                //td[@data-col]"
+                
+                
+                for (link) in doc.xpath("//td[@data-col]") {
+                    if let attribute = link.text {
+                        //print(link.index)
+                        print(attribute)
+                    }
+                }
+            }
+            
+
+
+            
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
