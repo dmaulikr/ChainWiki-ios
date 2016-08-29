@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+
+let FIREBASE_REF = FIRDatabase.database().reference()
 
 let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
 let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"

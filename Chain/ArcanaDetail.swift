@@ -9,10 +9,10 @@
 import UIKit
 import Kanna
 
-class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var arcanaID: Int?
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     
     var attributeValues = [String]()
@@ -62,8 +62,23 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
 
         default:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("detail", forIndexPath: indexPath) as! ArcanaDetailCell
+
+            return cell
             
-            var attribute = ""
+            
+//        default:
+//            print("DEFAULT")
+        }
+
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        var attribute = ""
+        
+        if indexPath.section == 1 {
+            
+            let c = cell as! ArcanaDetailCell
             
             switch (indexPath.row) {
                 
@@ -82,15 +97,14 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
                 
             }
             
-            cell.attributeKey.text = attribute
-            return cell
+            c.attributeKey.text = attribute
             
-            
-//        default:
-//            print("DEFAULT")
         }
 
+        
     }
+    
+    
     
     func downloadArcana() {
         do {
@@ -117,6 +131,7 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
                 
                 
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    
                     
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//td[@class='   ']").enumerate() {
@@ -157,11 +172,15 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        downloadArcana()
-        
+//        let layout = MyCollectionViewLayout()
+//        collectionView.collectionViewLayout = layout
         collectionView.dataSource = self
         collectionView.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        downloadArcana()
     }
 
     override func didReceiveMemoryWarning() {

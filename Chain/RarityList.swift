@@ -12,12 +12,23 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var rarity: Int?
-    let testArc = Arcana(n: "치도리", r: "5")
+    //let testArc = Arcana(n: "치도리", r: "5")
     var dict = [String: Arcana]()
     
     var dict1 = [Arcana]()
     
     var filteredArray = [Arcana]()
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showArcana") {
+            let vc = segue.destinationViewController as! ArcanaDetail
+            vc.arcanaID = tableView.indexPathForSelectedRow!.row
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
+    }
     
     func filterArray() {
         if let r = rarity {
@@ -27,10 +38,22 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     if (value.rarity! == "5") {
                         filteredArray.append(value)
                     }
-//                case 1: // Rarity 4
-//                case 2: // Rarity 3
-//                case 3: // Rarity 2
-//                case 4: // Rarity 1
+                case 1: // Rarity 4
+                    if (value.rarity! == "4") {
+                        filteredArray.append(value)
+                    }
+                case 2: // Rarity 3
+                    if (value.rarity! == "3") {
+                        filteredArray.append(value)
+                    }
+                case 3: // Rarity 2
+                    if (value.rarity! == "2") {
+                        filteredArray.append(value)
+                    }
+                case 4: // Rarity 1
+                    if (value.rarity! == "1") {
+                        filteredArray.append(value)
+                    }
                 default: print("MAJOR ERROR, NO FILTERED ARRAY")
                 }
             }
@@ -39,36 +62,48 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.reloadData()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dict.updateValue(testArc!, forKey: "OI")
-        filterArray()
-        
-        tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        // Do any additional setup after loading the view.
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return filteredArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
         
-        cell.name.text = filteredArray[indexPath.row].name
         return cell
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let c = cell as! ArcanaCell
+        guard let n = filteredArray[indexPath.row].name
+            else {
+                return
+            }
+        c.name.text = n
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //dict.updateValue(testArc!, forKey: "OI")
+        filterArray()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     /*
     // MARK: - Navigation
