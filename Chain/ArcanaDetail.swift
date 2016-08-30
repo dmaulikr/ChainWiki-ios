@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import AlamofireImage
+import Polyglot
 
 class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -42,13 +43,32 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        switch section {
+        case 0:
+            let line = UIView()
+            
+            let sepFrame = CGRectMake(10, 0, SCREENWIDTH-20, 2)
+            let seperatorView = UIView(frame: sepFrame)
+            seperatorView.backgroundColor = UIColor.lightGrayColor()
+            line.addSubview(seperatorView)
+            
+            return line
+        default:
+            return UIView()
+        }
+
+        
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         switch(indexPath.section) {
         case 0:
             return 400
         default:
-            return 70
+            return 40
         }
     }
 
@@ -58,10 +78,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
         case 0: // arcanaImage
             let cell = tableView.dequeueReusableCellWithIdentifier("arcanaImage") as! ArcanaImageCell
+            cell.layoutMargins = UIEdgeInsetsZero
             return cell
             
         default:    // arcanaAttribute
             let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
+            cell.layoutMargins = UIEdgeInsetsZero
             return cell
             
         }
@@ -127,7 +149,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 attributeKey = "이름"
                 attributeValue = "치도리"
             case 1:
-                attributeKey = "등급"
+                attributeKey = "레어"
                 attributeValue = "SSR"
             case 2:
                 attributeKey = "직업"
@@ -144,7 +166,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
             c.attributeKey.text = attributeKey
+            //c.attributeKey.sizeToFit()
             c.attributeValue.text = attributeValue
+            //c.attributeKey.sizeToFit()
             
         }
         
@@ -153,6 +177,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.layoutMargins = UIEdgeInsetsZero
+        tableView.separatorInset = UIEdgeInsetsZero
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
