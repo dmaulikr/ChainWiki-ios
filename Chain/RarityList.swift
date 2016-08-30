@@ -7,22 +7,26 @@
 //
 
 import UIKit
+import Firebase
 
 class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var rarity: Int?
+    var rarityIndex: Int?
     //let testArc = Arcana(n: "치도리", r: "5")
     var dict = [String: Arcana]()
     
-    var dict1 = [Arcana]()
+    //var dict1 = [Arcana]()
     
     var filteredArray = [Arcana]()
+    var rarityArray = [String]()
+    
+    //let ref = FIREBASE_REF.child("")
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showArcana") {
             let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcanaID = tableView.indexPathForSelectedRow!.row
+            vc.arcana = filteredArray[tableView.indexPathForSelectedRow!.row]
         }
     }
     
@@ -31,34 +35,62 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func filterArray() {
-        if let r = rarity {
-            for (_,value) in dict {
-                switch (r) {
-                case 0: // Rarity 5
-                    if (value.rarity == "5") {
-                        filteredArray.append(value)
-                    }
-                case 1: // Rarity 4
-                    if (value.rarity == "4") {
-                        filteredArray.append(value)
-                    }
-                case 2: // Rarity 3
-                    if (value.rarity == "3") {
-                        filteredArray.append(value)
-                    }
-                case 3: // Rarity 2
-                    if (value.rarity == "2") {
-                        filteredArray.append(value)
-                    }
-                case 4: // Rarity 1
-                    if (value.rarity == "1") {
-                        filteredArray.append(value)
-                    }
-                default: print("MAJOR ERROR, NO FILTERED ARRAY")
-                }
+        
+        var rarity = ""
+        
+        if let r = rarityIndex {
+            
+            switch (r) {
+            case 0: // Rarity 5
+                rarity = "SSR"
+            case 1: // Rarity 4
+                rarity = "SR"
+            case 2: // Rarity 3
+                rarity = "R"
+            case 3: // Rarity 2
+                rarity = "HN"
+            case 4: // Rarity 1
+                rarity = "N"
+            default: print("MAJOR ERROR, NO FILTERED ARRAY")
+                rarity = "SSR"
             }
             
+            print("RARITYREF = \(rarity)")
+            let rarityRef = FIREBASE_REF.child("\(rarity)")
+            rarityRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                //print(snapshot)
+                for item in snapshot.children {
+                    self.rarityArray.append(item.key)
+                }
+                
+                
+                let ref = FIREBASE_REF.child("arcana")
+                
+                for item in self.rarityArray {
+                    //print(item)
+                    ref.child("\(item)").observeEventType(.Value, withBlock: { snapshot in
+                        print("snap \(snapshot)")
+                        var filter = [Arcana]()
+                        
+                       // for a in snapshot {
+                       //     print("a is \(a)")
+                            let arcana = Arcana(snapshot: snapshot)
+                            filter.append(arcana!)
+                      //  }
+                        
+                        self.filteredArray = filter
+                        self.tableView.reloadData()
+                    })
+                }
+                
+            })
+            
+
+
+            
+            
         }
+        
         tableView.reloadData()
     }
     
@@ -91,6 +123,7 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //dict.updateValue(testArc!, forKey: "OI")
         filterArray()
         

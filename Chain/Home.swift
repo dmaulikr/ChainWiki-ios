@@ -8,180 +8,102 @@
 
 import UIKit
 import Kanna
+import Firebase
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating {
+class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+
+    var dict = [String: Arcana]()
     
-    var searchController: UISearchController!
     
-    var dataArray = ["안녕", "Bolivia"]
+    var filteredArray = [Arcana]()
+    var recentArray = [String]()
     
-    var filteredArray = [String]()
-    
-    var shouldShowSearchResults = false
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if shouldShowSearchResults {
-            return filteredArray.count
-        }
-        else {
-            return dataArray.count
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showArcana") {
+            let vc = segue.destinationViewController as! ArcanaDetail
+            vc.arcana = filteredArray[tableView.indexPathForSelectedRow!.row]
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! HomeCell
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
+    }
+    
+    func filterArray() {
         
-        if shouldShowSearchResults {
-            cell.name.text = filteredArray[indexPath.row]
-        }
-        else {
-            cell.name.text = dataArray[indexPath.row]
-        }
+        let recentRef = FIREBASE_REF.child("arcana")
+        
+        let recentQuery = recentRef.queryLimitedToFirst(10).observeEventType(.ChildAdded, withBlock: { snapshot in
+            
+            var filter = [Arcana]()
+            
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: snapshot)
+                filter.append(arcana!)
+            }
+
+            self.filteredArray = filter
+            self.tableView.reloadData()
+        
+            })
+        
+    }
+    
+    
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredArray.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
         
         return cell
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        shouldShowSearchResults = true
-        tableView.reloadData()
-    }
-    
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        shouldShowSearchResults = false
-        tableView.reloadData()
-    }
-    
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if !shouldShowSearchResults {
-            shouldShowSearchResults = true
-            tableView.reloadData()
-        }
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        searchController.searchBar.resignFirstResponder()
-    }
-    
-    func configureSearchController() {
-        // Initialize and perform a minimum configuration to the search controller.
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search here..."
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
+        let c = cell as! ArcanaCell
+        //        guard let n = filteredArray[indexPath.row].name
+        //            else {
+        //                return
+        //            }
+        c.name.text = filteredArray[indexPath.row].name
         
-        // Place the search bar view to the tableview headerview.
-        tableView.tableHeaderView = searchController.searchBar
-    }
-    
-    
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchString = searchController.searchBar.text
-        
-        // Filter the data array and get only those countries that match the search text.
-        filteredArray = dataArray.filter({ (country) -> Bool in
-            let countryText: NSString = country
-            
-            return (countryText.rangeOfString(searchString!, options: NSStringCompareOptions.CaseInsensitiveSearch).location) != NSNotFound
-        })
-        
-        // Reload the tableview.
-        tableView.reloadData()
-    }
-    
-    func getHTML() {
-        // Set the page URL we want to download
-        
-        _ = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
-        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-        let arcanaURL = "年代記の剣士リヴェラ"
-        
-        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-
-        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
-        //print(encodedURL)
-        // Try downloading it
-        do {
-            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
-            // print(htmlSource)
-            
-            // Kanna, search through htmㅣ
- 
-            if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
-                // "#id"
-//                for i in doc.css("#s") {
-//                    print(i["@scan"])
-//                }
-                
-                // Search for nodes by XPath
-                //div[@class='ks']
-                
-                // Arcana Attribute Key
-                //th[@class='   js_col_sort_desc ui_col_sort_asc']
-                
-                
-                // Arcana Attribute Value
-                //td[@class='   ']
-                //span[@data-jscol_sort]"
-                
-                //td[@data-col]"
-                
-                
-                for (link) in doc.xpath("//td[@data-col]") {
-                    if let attribute = link.text {
-                        //print(link.index)
-                        print(attribute)
-                    }
-                }
-            }
-            
-
-
-            
-        }
-        catch let error as NSError {
-            print("Ooops! Something went wrong: \(error)")
-        }
-        
-    }
-    
-    func parseHTML() {
-        let html = "<html>...</html>"
-        
-        if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
-            print(doc.title)
-            
-            // Search for nodes by CSS
-            for link in doc.css("a, link") {
-                print(link.text)
-                print(link["href"])
-            }
-            
-            // Search for nodes by XPath
-            for link in doc.xpath("//a | //link") {
-                print(link.text)
-                print(link["href"])
-            }
-        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //dict.updateValue(testArc!, forKey: "OI")
+        filterArray()
+        
         tableView.dataSource = self
-        configureSearchController()
-      
-        getHTML()
-
-        // Do any additional setup after loading the view, typically from a nib.
+        tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 
     
 }

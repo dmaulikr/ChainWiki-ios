@@ -1,21 +1,19 @@
 //
-//  HomeCell.swift
+//  ArcanaSkillCell.swift
 //  Chain
 //
-//  Created by Jitae Kim on 8/25/16.
+//  Created by Jitae Kim on 8/30/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
 
-class HomeCell: UITableViewCell {
+class ArcanaSkillCell: UITableViewCell {
 
-
-    @IBOutlet weak var arcanaImage: UIImageView!
-    @IBOutlet weak var arcanaNameKR: UILabel!
-    @IBOutlet weak var arcanaNameJP: UILabel!
-    @IBOutlet weak var arcanaRarity: UILabel!
-    @IBOutlet weak var arcanaWeapon: UILabel!
+    @IBOutlet weak var skillNumber: UILabel!
+    @IBOutlet weak var skillName: UILabel!
+    @IBOutlet weak var skillMana: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

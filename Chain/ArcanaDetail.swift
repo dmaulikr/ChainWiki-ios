@@ -15,6 +15,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var tableView: UITableView!
     var arcanaID: Int?
+    var arcana: Arcana?
     
     let downloader = ImageDownloader(
         configuration: ImageDownloader.defaultURLSessionConfiguration(),
@@ -29,7 +30,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     )
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,8 +38,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch (section) {
         case 0: // arcanaImage
             return 1
-        default: // arcanaAttribute
-            return 5
+        case 1: // arcanaAttribute
+            return 6
+        default:
+            
+            // TODO: Calculate # of skills arcana has (1, 2, or 3)
+            return 2
         }
         
     }
@@ -46,17 +51,18 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         switch section {
-        case 0:
+        case 2:
+            return UIView()
+        
+        default:
             let line = UIView()
             
-            let sepFrame = CGRectMake(10, 0, SCREENWIDTH-20, 2)
+            let sepFrame = CGRectMake(10, 5, SCREENWIDTH-20, 2)
             let seperatorView = UIView(frame: sepFrame)
             seperatorView.backgroundColor = UIColor.lightGrayColor()
             line.addSubview(seperatorView)
             
             return line
-        default:
-            return UIView()
         }
 
         
@@ -81,19 +87,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.layoutMargins = UIEdgeInsetsZero
             return cell
             
-        default:    // arcanaAttribute
+        case 1:    // arcanaAttribute
             let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsetsZero
             return cell
             
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
+            cell.layoutMargins = UIEdgeInsetsZero
+            return cell
         }
         
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        var attributeKey = ""
-        var attributeValue = ""
+        guard let arcana = arcana
+            else {
+                print("ARCANA IS NOT INITIALIZED!")
+                return
+            }
         
         switch (indexPath.section) {
             
@@ -140,26 +153,33 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             //c.arcanaImage.image = UIImage(named: "apple.jpg")
 
-        default:    // arcanaAttribute
+        case 1:    // arcanaAttribute
             let c = cell as! ArcanaAttributeCell
+            
+            var attributeKey = ""
+            var attributeValue = ""
             
             switch (indexPath.row) {
                 
             case 0:
                 attributeKey = "이름"
-                attributeValue = "치도리"
+                attributeValue = arcana.name
             case 1:
                 attributeKey = "레어"
-                attributeValue = "SSR"
+                attributeValue = arcana.rarity
             case 2:
                 attributeKey = "직업"
-                attributeValue = "전사"
+                attributeValue = arcana.group
             case 3:
                 attributeKey = "소속"
-                attributeValue = ""
+                attributeValue = arcana.affiliation
             case 4:
                 attributeKey = "코스트"
-                attributeValue = "20"
+                attributeValue = arcana.cost
+            case 5:
+                attributeKey = "무기"
+                attributeValue = arcana.weapon
+                
             default:
                 break
                 
@@ -169,6 +189,32 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             //c.attributeKey.sizeToFit()
             c.attributeValue.text = attributeValue
             //c.attributeKey.sizeToFit()
+            
+        default:
+            let c = cell as! ArcanaSkillCell
+            
+            // TODO: Calculate # of skills
+            
+            switch (indexPath.row) {
+                
+            case 0:
+                c.skillNumber.text = "1"
+                c.skillName.text = arcana.skillName1
+                c.skillMana.text = arcana.skillMana1
+            case 1:
+                c.skillNumber.text = "2"
+                c.skillName.text = arcana.skillName2
+                c.skillMana.text = arcana.skillMana2
+            case 2:
+                c.skillNumber.text = "3"
+                c.skillName.text = arcana.skillName3
+                c.skillMana.text = arcana.skillMana3
+
+                
+            default:
+                break
+                
+            }
             
         }
         

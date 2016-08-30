@@ -13,7 +13,7 @@ class RarityTableView: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listArcana") {
             let vc = segue.destinationViewController as! RarityList
-            vc.rarity = tableView.indexPathForSelectedRow!.row
+            vc.rarityIndex = tableView.indexPathForSelectedRow!.row
         }
     }
     
