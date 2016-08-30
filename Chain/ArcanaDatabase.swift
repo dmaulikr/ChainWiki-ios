@@ -44,6 +44,9 @@ class ArcanaDatabase: UIViewController {
                 //td[@class='   ']    This doesn't get skills #3 title. TODO: individually get skill #3 title?
                 //span[@data-jscol_sort]"   This gets skill #3 title, but not skill descriptions.
                 
+                // Table
+                
+                
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
                     // Find Skill 3 Desc
@@ -57,18 +60,20 @@ class ArcanaDatabase: UIViewController {
 
                     
                     // Fetched required attributes
-                    for (index, link) in doc.xpath("//td[@class='   ']").enumerate() {
-                        
+                    for (index, link) in doc.xpath("//th").enumerate() {
+                        print(link.text!)
                         // TODO: Filter needed attributes, then append to attributeValues.
-                        if index >= 41 {
-                            break // Don't need attributes after this point
-                        }
+//                        if index >= 41 {
+//                            break // Don't need attributes after this point
+//                        }
+                        
+                        
                         if let attribute = link.text {
-                            if (self.requiredAttributes.contains(index)) {
+                           // if (self.requiredAttributes.contains(index)) {
                                 
                                 // TODO: Need to setValue Dictionary.
                                 self.attributeValues.append(attribute)
-                            }
+                            //}
                             
                             //print(attribute)
                         }
@@ -77,12 +82,12 @@ class ArcanaDatabase: UIViewController {
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
                         // update some UI
-                        print(self.attributeValues.count)
-                        
+//                        print(self.attributeValues.count)
+//                        
 //                        for i in self.attributeValues {
 //                            print(i)
 //                        }
-                        self.uploadArcana()
+                        //self.uploadArcana()
                     }
                 }
                 
@@ -112,21 +117,185 @@ class ArcanaDatabase: UIViewController {
     func uploadArcana() {
         let ref = FIREBASE_REF.child("arcana")
         
-        let arcana = Arcana(n: attributeValues[0], r: attributeValues[1], g: attributeValues[2], a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20])
-        
-        
         let id = ref.childByAutoId().key
+        
+        let arcana = Arcana(u: id, n: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "TAVERN", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20])
+        
+        
+        
         
         guard let a = arcana
             else {
                 return
         }
-        let arcanaDetail = ["uid" : id, "name" : "\(a.name)" ]
+        let arcanaDetail = ["uid" : "\(a.uid)", "name" : "\(a.name)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)"]
         
         
         
         let arcanaRef = ["\(id)" : arcanaDetail]
         ref.updateChildValues(arcanaRef)
+    }
+    
+    func getRarity(string: String) -> String {
+        
+        switch string {
+            
+        case "★★★★★SSR":
+            return "5"
+        case "★★★★SR":
+            return "4"
+        case "★★★R":
+            return "3"
+        case "★★HN":
+            return "2"
+        case "★N":
+            return "1"
+        default:
+            return "0"
+        }
+        
+    }
+    
+    func getClass(string: String) -> String {
+        
+        switch string {
+            
+        case "戦士":
+            return "전사"
+        case "騎士":
+            return "기사"
+        case "弓使い":
+            return "궁수"
+        case "魔法使い":
+            return "법사"
+        case "僧侶":
+            return "승려"
+        default:
+            return ""
+        }
+        
+    }
+    
+    func getTavern(string: String) -> String {
+        
+        switch string {
+            
+        case "副都":
+            return "부도"
+        case "聖都":
+            return "성도"
+        case "賢者の塔":
+            return "현자의탑"
+        case "迷宮山脈":
+            return "미궁산맥"
+        case "砂漠の湖都":
+            return "호수도시"
+        case "精霊島":
+            return "정령섬"
+        case "炎の九領":
+            return "화염구령"
+        case "海風の港":
+            return "해풍의항구"
+        case "夜明けの大海":
+            return "새벽대해"
+        case "ケ者の大陸":
+            return "개들의대륙"
+        case "罪の大陸":
+            return "죄의대륙"
+        case "薄命の大陸":
+            return "박명의대륙"
+        case "鉄煙の大陸":
+            return "철연의대륙"
+        case "年代記の大陸":
+            return "연대기의대륙"
+        case "レムレス島":
+            return "레무레스섬"
+        case "魔神":
+            return "마신"
+        case "旅人":
+            return "여행자"
+        case "義勇軍":
+            return "의용군"
+        
+        default:
+            return ""
+        }
+        
+    }
+    
+    
+    func getAffiliation(string: String) -> String {
+        
+        switch string {
+        case "副都":
+            return "부도"
+        case "聖都":
+            return "성도"
+        case "賢者の塔":
+            return "현자의탑"
+        case "迷宮山脈":
+            return "미궁산맥"
+        case "砂漠の湖都":
+            return "호수도시"
+        case "精霊島":
+            return "정령섬"
+        case "炎の九領":
+            return "화염구령"
+        case "大海":
+            return "대해"
+        case "ケ者の大陸":
+            return "개들의대륙"
+        case "罪の大陸":
+            return "죄의대륙"
+        case "薄命の大陸":
+            return "박명의대륙"
+        case "鉄煙の大陸":
+            return "철연의대륙"
+        case "年代記の大陸":
+            return "연대기의대륙"
+        case "レムレス島":
+            return "레무레스섬"
+        case "魔神":
+            return "마신"
+        case "旅人":
+            return "여행자"
+        case "義勇軍":
+            return "의용군"
+            
+        default:
+            return ""
+        }
+        
+    }
+    
+    func getWeapon(string: String) -> String {
+        
+        let s = string[string.startIndex]
+        switch s {
+            
+        case "斬":
+            return "참"
+        case "打":
+            return "타"
+        case "突":
+            return "창"
+        case "弓":
+            return "궁"
+        case "魔":
+            return "마"
+        case "聖":
+            return "성"
+        case "拳":
+            return "권"
+        case "銃":
+            return "총"
+        case "狙":
+            return "저"
+
+        default:
+            return "0"
+        }
+        
     }
     
     override func viewDidLoad() {

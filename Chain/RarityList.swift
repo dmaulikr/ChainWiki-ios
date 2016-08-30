@@ -35,23 +35,23 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             for (_,value) in dict {
                 switch (r) {
                 case 0: // Rarity 5
-                    if (value.rarity! == "5") {
+                    if (value.rarity == "5") {
                         filteredArray.append(value)
                     }
                 case 1: // Rarity 4
-                    if (value.rarity! == "4") {
+                    if (value.rarity == "4") {
                         filteredArray.append(value)
                     }
                 case 2: // Rarity 3
-                    if (value.rarity! == "3") {
+                    if (value.rarity == "3") {
                         filteredArray.append(value)
                     }
                 case 3: // Rarity 2
-                    if (value.rarity! == "2") {
+                    if (value.rarity == "2") {
                         filteredArray.append(value)
                     }
                 case 4: // Rarity 1
-                    if (value.rarity! == "1") {
+                    if (value.rarity == "1") {
                         filteredArray.append(value)
                     }
                 default: print("MAJOR ERROR, NO FILTERED ARRAY")
@@ -81,11 +81,11 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         let c = cell as! ArcanaCell
-        guard let n = filteredArray[indexPath.row].name
-            else {
-                return
-            }
-        c.name.text = n
+//        guard let n = filteredArray[indexPath.row].name
+//            else {
+//                return
+//            }
+        c.name.text = filteredArray[indexPath.row].name
 
     }
     
