@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaValueCell: UICollectionViewCell {
+class ArcanaValueCellOld: UICollectionViewCell {
     
     @IBOutlet weak var attributeValue: UILabel!
     

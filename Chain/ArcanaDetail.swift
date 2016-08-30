@@ -2,225 +2,160 @@
 //  ArcanaDetail.swift
 //  Chain
 //
-//  Created by Jitae Kim on 8/27/16.
+//  Created by Jitae Kim on 8/29/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
-import Kanna
+import Firebase
+import AlamofireImage
 
-class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-
-    @IBOutlet weak var collectionView: UICollectionView!
+class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
     var arcanaID: Int?
-    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     
-    var attributeValues = [String]()
-    let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
+    let downloader = ImageDownloader(
+        configuration: ImageDownloader.defaultURLSessionConfiguration(),
+        downloadPrioritization: .FIFO,
+        maximumActiveDownloads: 4,
+        imageCache: AutoPurgingImageCache()
+    )
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        var header: MyCollectionViewHeader?
-        
-        if kind == UICollectionElementKindSectionHeader {
-            header =
-                collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                                                                      withReuseIdentifier: "header", forIndexPath: indexPath)
-                as? MyCollectionViewHeader
-            
-            header?.arcanaImage.image = UIImage(named: "apple.jpg")
-        }
-        return header!
-        
-    }
+    let imageCache = AutoPurgingImageCache(
+        memoryCapacity: 100 * 1024 * 1024,
+        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    )
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         switch (section) {
-            
-        
-        case 0: // Attributes
-            return 10
-            
-        case 1: // Values
-            return 10
-        default:
-            return 0
+        case 0: // arcanaImage
+            return 1
+        default: // arcanaAttribute
+            return 5
         }
+        
     }
     
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        //let cellConstraint = (NSLayoutConstraint(item: cell, attribute: .CenterX, relatedBy: .Equal, toItem: self.collectionView, attribute: .CenterX, multiplier: 1, constant: 0))
-        //cell.addConstraint(cellConstraint)
-        //NSLayoutConstraint.activateConstraints([cellConstraint])
-        switch (indexPath.section) {
-        case 10:
-            return CGSizeMake(collectionView.bounds.size.width, collectionView.bounds.size.height * 3/5)
-        default:
-            return CGSizeMake(collectionView.bounds.size.width, 30)
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-       // var cellIdentifier = "
-        
-        switch (indexPath.section) {
-            
+        switch(indexPath.section) {
         case 0:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("attribute", forIndexPath: indexPath) as! ArcanaDetailCell
-            return cell
-
+            return 400
         default:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("value", forIndexPath: indexPath) as! ArcanaValueCell
+            return 70
+        }
+    }
 
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        switch (indexPath.section) {
+            
+        case 0: // arcanaImage
+            let cell = tableView.dequeueReusableCellWithIdentifier("arcanaImage") as! ArcanaImageCell
             return cell
             
-            
-//        default:
-//            print("DEFAULT")
-        }
-
-    }
-    
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        
-        var attribute = ""
-        
-        if indexPath.section == 0 {
-            
-            let c = cell as! ArcanaDetailCell
-            
-            switch (indexPath.row) {
-                
-            case 0:
-                attribute = "name"
-            case 1:
-                attribute = "rarity"
-            case 2:
-                attribute = "class"
-            case 3:
-                attribute = "affinity"
-            case 4:
-                attribute = "cost"
-            default:
-                break
-                
-            }
-            
-            c.attributeKey.text = attribute
+        default:    // arcanaAttribute
+            let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
+            return cell
             
         }
-        
-        if indexPath.section == 1 {
-            
-            let c = cell as! ArcanaValueCell
-            
-            switch (indexPath.row) {
-                
-            case 0:
-                attribute = "치도리"
-            case 1:
-                attribute = "SSR"
-            case 2:
-                attribute = "전사"
-            case 3:
-                attribute = "구령"
-            case 4:
-                attribute = "20"
-            default:
-                break
-                
-            }
-            
-            c.attributeValue.text = attribute
-        }
-
         
     }
     
-    
-    
-    func downloadArcana() {
-        do {
-            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
-            // print(htmlSource)
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        var attributeKey = ""
+        var attributeValue = ""
+        
+        switch (indexPath.section) {
             
-            // Kanna, search through htmㅣ
+        case 0: // arcanaImage
+            let c = cell as! ArcanaImageCell
             
-            if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
-                // "#id"
-                //                for i in doc.css("#s") {
-                //                    print(i["@scan"])
-                //                }
+            // Check Cache, or download from Firebase
+            
+            // Check cache first
+            if let i = imageCache.imageWithIdentifier("\(indexPath.section)/main") {
+                c.arcanaImage.image = i
+            }
                 
-                // Search for nodes by XPath
-                //div[@class='ks']
+                //  Not in cache, download from firebase
+            else {
                 
-                // Arcana Attribute Key
-                //th[@class='   js_col_sort_desc ui_col_sort_asc']
-                
-                
-                // Arcana Attribute Value
-                //td[@class='   ']
-                
-                
-                dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                    
-                    
-                    // Fetched required attributes
-                    for (index, link) in doc.xpath("//td[@class='   ']").enumerate() {
-                        
-                        // TODO: Filter needed attributes, then append to attributeValues.
-                        if index >= 41 {
-                            break // Don't need attributes after this point
-                        }
-                        if let attribute = link.text {
-                            if (self.requiredAttributes.contains(index)) {
-                                self.attributeValues.append(attribute)
-                            }
+                STORAGE_REF.child("image/arcana/1/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+                    if (error != nil) {
+                        print("image download error")
+                        // Handle any errors
+                    } else {
+                        // Get the download URL
+                        self.downloader.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
                             
-                            //print(attribute)
+                            if let image = response.result.value {
+                                // Set the Image
+                                
+                                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+                                
+                                let aspectScaledToFitImage = image.af_imageAspectScaledToFitSize(size)
+                                
+                                c.arcanaImage.image = aspectScaledToFitImage
+                                print("DOWNLOADED")
+                                
+                                // Cache the Image
+                                self.imageCache.addImage(image, withIdentifier: "\(indexPath.section)/main")
+                                
+                            }
                         }
-                    }
-                    
-                    // After fetching, print array
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // update some UI
-//                        for i in self.attributeValues {
-//                            //print(i)
-//                        }
                     }
                 }
-
+                
             }
             
+            //c.arcanaImage.image = UIImage(named: "apple.jpg")
+
+        default:    // arcanaAttribute
+            let c = cell as! ArcanaAttributeCell
             
+            switch (indexPath.row) {
+                
+            case 0:
+                attributeKey = "이름"
+                attributeValue = "치도리"
+            case 1:
+                attributeKey = "등급"
+                attributeValue = "SSR"
+            case 2:
+                attributeKey = "직업"
+                attributeValue = "전사"
+            case 3:
+                attributeKey = "소속"
+                attributeValue = ""
+            case 4:
+                attributeKey = "코스트"
+                attributeValue = "20"
+            default:
+                break
+                
+            }
             
+            c.attributeKey.text = attributeKey
+            c.attributeValue.text = attributeValue
             
         }
-        catch let error as NSError {
-            print("Ooops! Something went wrong: \(error)")
-        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let layout = MyCollectionViewLayout()
-//        collectionView.collectionViewLayout = layout
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        downloadArcana()
     }
 
     override func didReceiveMemoryWarning() {
