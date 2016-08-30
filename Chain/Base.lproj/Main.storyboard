@@ -276,35 +276,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fgw-0v-8Fp">
                                     <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="300"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="image" id="AMo-eI-3Pp">
-                                        <rect key="frame" x="62" y="64" width="477" height="381"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="477" height="381"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nhX-6J-sjS">
-                                                    <rect key="frame" x="18" y="18" width="441" height="345"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottomMargin" secondItem="nhX-6J-sjS" secondAttribute="bottom" constant="10" id="3qG-ge-ANJ"/>
-                                            <constraint firstItem="nhX-6J-sjS" firstAttribute="leading" secondItem="AMo-eI-3Pp" secondAttribute="leadingMargin" constant="10" id="Mvh-bo-YuU"/>
-                                            <constraint firstItem="nhX-6J-sjS" firstAttribute="top" secondItem="AMo-eI-3Pp" secondAttribute="topMargin" constant="10" id="fcu-WP-Bz4"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="nhX-6J-sjS" secondAttribute="trailing" constant="10" id="jts-zT-CQv"/>
-                                        </constraints>
-                                        <size key="customSize" width="477" height="381"/>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="detail" id="uaJ-GX-40R" customClass="ArcanaDetailCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="224" y="455" width="152" height="68"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="attribute" id="uaJ-GX-40R" customClass="ArcanaDetailCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="364" width="152" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="152" height="68"/>
@@ -333,7 +311,50 @@
                                             <outlet property="attributeKey" destination="JDZ-3v-XFB" id="KqY-hc-1dp"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="value" id="j5P-Ji-q8s" customClass="ArcanaValueCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="162" y="366" width="274" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="274" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-eh-YbG">
+                                                    <rect key="frame" x="116" y="21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="lZV-eh-YbG" firstAttribute="centerY" secondItem="j5P-Ji-q8s" secondAttribute="centerY" id="IvK-Zn-H9T"/>
+                                            <constraint firstItem="lZV-eh-YbG" firstAttribute="centerX" secondItem="j5P-Ji-q8s" secondAttribute="centerX" id="i3b-eP-AfN"/>
+                                        </constraints>
+                                        <size key="customSize" width="274" height="64"/>
+                                        <connections>
+                                            <outlet property="attributeValue" destination="lZV-eh-YbG" id="El2-xd-hdr"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="pAp-Hw-xFc" customClass="MyCollectionViewHeader" customModule="Chain" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZAO-LC-h7O">
+                                            <rect key="frame" x="10" y="10" width="580" height="280"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZAO-LC-h7O" firstAttribute="leading" secondItem="pAp-Hw-xFc" secondAttribute="leading" constant="10" id="6s1-jW-r4b"/>
+                                        <constraint firstItem="ZAO-LC-h7O" firstAttribute="top" secondItem="pAp-Hw-xFc" secondAttribute="top" constant="10" id="KJF-L5-u31"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZAO-LC-h7O" secondAttribute="bottom" constant="10" id="XJv-Jh-cwF"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZAO-LC-h7O" secondAttribute="trailing" constant="10" id="akn-fN-0sH"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="arcanaImage" destination="ZAO-LC-h7O" id="4Pg-gH-2cL"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="Dwv-ZE-k2f" id="xRI-Ek-EVz"/>
                                     <outlet property="delegate" destination="Dwv-ZE-k2f" id="s2r-Qv-SJT"/>

@@ -18,6 +18,22 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
     var attributeValues = [String]()
     let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
     
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        var header: MyCollectionViewHeader?
+        
+        if kind == UICollectionElementKindSectionHeader {
+            header =
+                collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                                                                      withReuseIdentifier: "header", forIndexPath: indexPath)
+                as? MyCollectionViewHeader
+            
+            header?.arcanaImage.image = UIImage(named: "apple.jpg")
+        }
+        return header!
+        
+    }
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
     }
@@ -26,10 +42,10 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
         switch (section) {
             
         
-        case 0: // Image
-            return 1
+        case 0: // Attributes
+            return 10
             
-        case 1: // Attributes
+        case 1: // Values
             return 10
         default:
             return 0
@@ -43,7 +59,7 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
         //cell.addConstraint(cellConstraint)
         //NSLayoutConstraint.activateConstraints([cellConstraint])
         switch (indexPath.section) {
-        case 0:
+        case 10:
             return CGSizeMake(collectionView.bounds.size.width, collectionView.bounds.size.height * 3/5)
         default:
             return CGSizeMake(collectionView.bounds.size.width, 30)
@@ -57,11 +73,11 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
         switch (indexPath.section) {
             
         case 0:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("image", forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("attribute", forIndexPath: indexPath) as! ArcanaDetailCell
             return cell
 
         default:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("detail", forIndexPath: indexPath) as! ArcanaDetailCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("value", forIndexPath: indexPath) as! ArcanaValueCell
 
             return cell
             
@@ -76,7 +92,7 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
         
         var attribute = ""
         
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
             
             let c = cell as! ArcanaDetailCell
             
@@ -99,6 +115,30 @@ class ArcanaDetail: UIViewController, UICollectionViewDelegate, UICollectionView
             
             c.attributeKey.text = attribute
             
+        }
+        
+        if indexPath.section == 1 {
+            
+            let c = cell as! ArcanaValueCell
+            
+            switch (indexPath.row) {
+                
+            case 0:
+                attribute = "치도리"
+            case 1:
+                attribute = "SSR"
+            case 2:
+                attribute = "전사"
+            case 3:
+                attribute = "구령"
+            case 4:
+                attribute = "20"
+            default:
+                break
+                
+            }
+            
+            c.attributeValue.text = attribute
         }
 
         

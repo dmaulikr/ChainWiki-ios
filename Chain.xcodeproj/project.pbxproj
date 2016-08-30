@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0401B2841D752D0B00A0A728 /* ArcanaValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2831D752D0B00A0A728 /* ArcanaValueCell.swift */; };
+		0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
 		046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046FDD411D73AD83001E955B /* GoogleService-Info.plist */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0401B2831D752D0B00A0A728 /* ArcanaValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaValueCell.swift; sourceTree = "<group>"; };
+		0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewHeader.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
 		046FDD411D73AD83001E955B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 				04941A3E1D6FC05B00BAE389 /* ArcanaCell.swift */,
 				048E6E501D72602400687513 /* ArcanaDetail.swift */,
 				048E6E521D727CD400687513 /* ArcanaDetailCell.swift */,
+				0401B2831D752D0B00A0A728 /* ArcanaValueCell.swift */,
+				0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */,
 				046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */,
 			);
 			name = Controller;
@@ -508,9 +514,11 @@
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				048E6E511D72602400687513 /* ArcanaDetail.swift in Sources */,
+				0401B2841D752D0B00A0A728 /* ArcanaValueCell.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCell.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				04941A431D6FC1A600BAE389 /* RarityTableView.swift in Sources */,
+				0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */,
 				046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */,
 				04941A3D1D6FAD2800BAE389 /* HomeCell.swift in Sources */,
 			);
