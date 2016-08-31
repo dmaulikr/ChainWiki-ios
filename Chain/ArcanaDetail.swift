@@ -17,17 +17,17 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var arcanaID: Int?
     var arcana: Arcana?
     
-    let downloader = ImageDownloader(
-        configuration: ImageDownloader.defaultURLSessionConfiguration(),
-        downloadPrioritization: .FIFO,
-        maximumActiveDownloads: 4,
-        imageCache: AutoPurgingImageCache()
-    )
-    
-    let imageCache = AutoPurgingImageCache(
-        memoryCapacity: 100 * 1024 * 1024,
-        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-    )
+//    let downloader = ImageDownloader(
+//        configuration: ImageDownloader.defaultURLSessionConfiguration(),
+//        downloadPrioritization: .FIFO,
+//        maximumActiveDownloads: 4,
+//        imageCache: AutoPurgingImageCache()
+//    )
+//    
+//    let imageCache = AutoPurgingImageCache(
+//        memoryCapacity: 100 * 1024 * 1024,
+//        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+//    )
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
@@ -48,25 +48,28 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        switch section {
-        case 2:
-            return UIView()
-        
-        default:
-            let line = UIView()
-            
-            let sepFrame = CGRectMake(10, 5, SCREENWIDTH-20, 2)
-            let seperatorView = UIView(frame: sepFrame)
-            seperatorView.backgroundColor = UIColor.lightGrayColor()
-            line.addSubview(seperatorView)
-            
-            return line
-        }
-
-        
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 5
     }
+//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        
+//        switch section {
+//        case 2:
+//            return UIView()
+//        
+//        default:
+//            let line = UIView()
+//            
+//            let sepFrame = CGRectMake(10, 5, SCREENWIDTH-20, 2)
+//            let seperatorView = UIView(frame: sepFrame)
+//            seperatorView.backgroundColor = UIColor.lightGrayColor()
+//            line.addSubview(seperatorView)
+//            
+//            return line
+//        }
+//
+//        
+//    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
@@ -115,9 +118,18 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Check Cache, or download from Firebase
             
+            c.arcanaImage.image = UIImage(named: "main.jpg")
+            
+            /*
             // Check cache first
-            if let i = imageCache.imageWithIdentifier("\(indexPath.section)/main") {
-                c.arcanaImage.image = i
+            print(arcana.uid)
+            if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/mainThumbnail") {
+                print("LOADED CACHE IMAGE")
+                
+                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+                let aspectScaledToFitImage = i.af_imageAspectScaledToFitSize(size)
+                
+                c.arcanaImage.image = aspectScaledToFitImage
             }
                 
                 //  Not in cache, download from firebase
@@ -129,20 +141,27 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                         // Handle any errors
                     } else {
                         // Get the download URL
-                        self.downloader.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
+                        DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
                             
                             if let image = response.result.value {
                                 // Set the Image
                                 
                                 let size = CGSize(width: SCREENWIDTH - 20, height: 400)
                                 
-                                let aspectScaledToFitImage = image.af_imageAspectScaledToFitSize(size)
+                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
+                                    
+                                    let aspectScaledToFitImage = thumbnail.af_imageAspectScaledToFitSize(size)
+                                    
+                                    c.arcanaImage.image = aspectScaledToFitImage
+                                    print("DOWNLOADED")
+                                    
+                                    // Cache the Image
+                                    print(arcana.uid)
+                                    IMAGECACHE.addImage(thumbnail, withIdentifier: "\(arcana.uid)/mainThumbnail")
+                                }
                                 
-                                c.arcanaImage.image = aspectScaledToFitImage
-                                print("DOWNLOADED")
+
                                 
-                                // Cache the Image
-                                self.imageCache.addImage(image, withIdentifier: "\(indexPath.section)/main")
                                 
                             }
                         }
@@ -150,6 +169,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
                 
             }
+ */
             
             //c.arcanaImage.image = UIImage(named: "apple.jpg")
 
@@ -163,7 +183,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
             case 0:
                 attributeKey = "이름"
-                attributeValue = arcana.name
+                attributeValue = arcana.nameKR
             case 1:
                 attributeKey = "레어"
                 attributeValue = arcana.rarity
@@ -220,15 +240,65 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
+    func setupViews() {
+        
+        self.title = "\(arcana!.nameKR)"
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+        self.tableView.backgroundColor = UIColor.clearColor()
+        
+        // Change Navigation Bar Color based on arcana class
+        
+        var color = UIColor()
+        
+        switch(arcana!.group) {
+        case "전사":
+            color = WARRIORCOLOR
+        case "기사":
+            color = KNIGHTCOLOR
+        case "궁수":
+            color = ARCHERCOLOR
+        case "법사":
+            color = MAGICIANCOLOR
+        case "승려":
+            color = HEALERCOLOR
+        default:
+            break
+            
+        }
+        
+        self.navigationController!.navigationBar.barTintColor = color
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViews()
+        
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
+        tableView.contentInset = UIEdgeInsetsZero;
+
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
         // Do any additional setup after loading the view.
     }
+
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        navigationController?.hidesBarsOnSwipe = true
+//    }
+
+
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

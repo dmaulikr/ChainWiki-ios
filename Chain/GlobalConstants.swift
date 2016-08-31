@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import AlamofireImage
 
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
@@ -22,3 +23,21 @@ let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
 
 let SCREENWIDTH = UIScreen.mainScreen().bounds.width
 let SCREENHEIGHT = UIScreen.mainScreen().bounds.height
+
+let DOWNLOADER = ImageDownloader(
+    configuration: ImageDownloader.defaultURLSessionConfiguration(),
+    downloadPrioritization: .FIFO,
+    maximumActiveDownloads: 4,
+    imageCache: AutoPurgingImageCache()
+)
+
+let IMAGECACHE = AutoPurgingImageCache(
+    memoryCapacity: 100 * 1024 * 1024,
+    preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+)
+
+let WARRIORCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
+let KNIGHTCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
+let ARCHERCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
+let MAGICIANCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
+let HEALERCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeCell: UITableViewCell {
+class ArcanaCell: UITableViewCell {
 
 
     @IBOutlet weak var arcanaImage: UIImageView!

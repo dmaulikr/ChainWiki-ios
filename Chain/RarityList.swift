@@ -117,7 +117,7 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
 //            else {
 //                return
 //            }
-        c.name.text = filteredArray[indexPath.row].name
+        c.arcanaNameKR.text = filteredArray[indexPath.row].nameKR
 
     }
     

@@ -119,7 +119,8 @@ class ArcanaDatabase: UIViewController {
         
         let id = ref.childByAutoId().key
         
-        let arcana = Arcana(u: id, n: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "TAVERN", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20])
+        
+        let arcana = Arcana(u: id, nKR: attributeValues[0], nJP: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "TAVERN", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20])
         
         
         
@@ -128,7 +129,9 @@ class ArcanaDatabase: UIViewController {
             else {
                 return
         }
-        let arcanaDetail = ["uid" : "\(a.uid)", "name" : "\(a.name)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)"]
+ 
+        
+        let arcanaDetail = ["uid" : "\(a.uid)", "nameKR" : "\(a.nameKR)", "nameJP" : "\(a.nameJP)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)"]
         
         
         
