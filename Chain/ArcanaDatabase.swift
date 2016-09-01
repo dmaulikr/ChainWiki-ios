@@ -77,6 +77,8 @@ class ArcanaDatabase: UIViewController {
                 // Number of tables.
                 //tbody
                 
+                //<table width="" id="ui
+                
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
                     // Find Skill 3 Desc
@@ -93,17 +95,15 @@ class ArcanaDatabase: UIViewController {
                     for (index, link) in doc.xpath("//tbody").enumerate() {
                         
                         // TODO: Check for the table index. Skip through unneeded tables
-                        //print(link.text!)
+                        
                         if index == 0 {
-                            
-                            if let att = Kanna.HTML(html: link.text!, encoding: NSUTF8StringEncoding) {
-                                for a in att.xpath("//*") {
-                                    print(a.text)
-                                }
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            for a in table!.xpath(".//td") {
+                                print(a.text!)
                             }
-
-                            
                         }
+                        
+                       
                         
                         // TODO: Filter needed attributes, then append to attributeValues.
 //                        if index >= 41 {
