@@ -15,16 +15,57 @@ class ArcanaDatabase: UIViewController {
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
-    //var firebaseNSArray =
-//    let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
+
     var dict = [String : String]()
     var arcanaID: Int?
     
     
-    
+    func downloadWeapon() {
+        do {
+            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
+        
+            if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+
+                var textWithWeapon = ""
+                // Search for nodes by XPath
+                findingTable : for (index, link) in doc.xpath("//table[@id='']").enumerate() {
+                    
+                    let weapon = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                    
+                    guard let linkText = link.text else {
+                        return
+                    }
+                    
+                    if linkText.containsString("斬") || linkText.containsString("打") || linkText.containsString("突") || linkText.containsString("弓") || linkText.containsString("魔") || linkText.containsString("聖") || linkText.containsString("拳") || linkText.containsString("銃") || linkText.containsString("狙") {
+                        
+                        
+                        // Nested Loop. Should return right at first iteration.
+                        for (weaponIndex, a) in weapon!.xpath(".//a['title']").enumerate() {
+                            
+                            if weaponIndex == 0 {
+                                if let text = a.text {
+                                    textWithWeapon.appendContentsOf(text)
+                                    print(text)
+                                    break findingTable
+                                }
+                            }
+                        }
+                        
+                    }
+
+                }
+                
+                dict.updateValue(textWithWeapon, forKey: "weapon")
+            }
+            
+        } catch {
+            print("PARSING ERROR")
+        }
+    }
 
     
     func downloadArcana() {
+        downloadWeapon()
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
             // print(htmlSource)
@@ -47,17 +88,6 @@ class ArcanaDatabase: UIViewController {
                     numberOfSkills = 3
                 }
                 
-                
-                let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
-                var skillIndex = 0
-                switch numberOfSkills {
-                case 1:
-                    skillIndex = 1
-                case 2:
-                    break
-                default:    // 3 skills
-                    break
-                }
                 // "#id"
                 //                for i in doc.css("#s") {
                 //                    print(i["@scan"])
@@ -71,8 +101,8 @@ class ArcanaDatabase: UIViewController {
                 
                 
                 // Arcana Attribute Value
-                //td[@class='   ']    This doesn't get skills #3 title. TODO: individually get skill #3 title?
-                //span[@data-jscol_sort]"   This gets skill #3 title, but not skill descriptions.
+                //td[@class='   ']
+                //span[@data-jscol_sort]"
                 
                 // Number of tables.
                 //tbody
@@ -96,18 +126,270 @@ class ArcanaDatabase: UIViewController {
                         
                         // TODO: Check for the table index. Skip through unneeded tables
                         
-                        if index == 0 { // Arcana base info
+                        switch index {
+                            
+                        case 0: // Arcana base info
                             let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
                             for (attIndex, a) in table!.xpath(".//td").enumerate() {
-                                print(a.text!)
+                                print(a.text)
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                
+                                // TODO: translate each before adding to dictionary.
                                 switch attIndex {
                                 case 0:
-                                    self.dict.updateValue(a.text!, forKey: "nameJP")
+                                    self.dict.updateValue(attribute, forKey: "nameJP")
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "rarity")
+                                case 3:
+                                    self.dict.updateValue(attribute, forKey: "group")
+                                case 4:
+                                    self.dict.updateValue(attribute, forKey: "affiliation")
+                                case 7:
+                                    self.dict.updateValue(attribute, forKey: "cost")
                                 default:
                                     break
                                 }
                             }
+                    
+                        
+                        case 2: // Kizuna
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                print(a)
+                                // TODO: translate each before adding to dictionary.
+                                switch attIndex {
+                                    
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "kizunaName")
+                                case 2:
+                                    self.dict.updateValue(attribute, forKey: "kizunaCost")
+                                case 3:
+                                    self.dict.updateValue(attribute, forKey: "kizunaAbility")
+                                default:
+                                    break
+                                }
+                            }
+                            
+                        case 3: // Skill 1
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                // TODO: translate each before adding to dictionary.
+                                switch attIndex {
+                                    
+                                case 0:
+                                    self.dict.updateValue(attribute, forKey: "skillName1")
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "skillMana1")
+                                case 2:
+                                    self.dict.updateValue(attribute, forKey: "skillDesc1")
+                                default:
+                                    break
+                                }
+                            }
+                        
+                            // Skip cases 4,5 if only one skill
+                            
+                        case 4: // Skill 2
+                            if numberOfSkills == 1 {
+                                // Just get ability 1
+                                
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    // TODO: translate each before adding to dictionary.
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.dict.updateValue(attribute, forKey: "abilityName1")
+                                    case 1:
+                                        self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                    default:
+                                        break
+                                    }
+                                }
+                                
+                                break
+                            }
+                            
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                // TODO: translate each before adding to dictionary.
+                                switch attIndex {
+                                    
+                                case 0:
+                                    self.dict.updateValue(attribute, forKey: "skillName2")
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "skillMana2")
+                                case 2:
+                                    self.dict.updateValue(attribute, forKey: "skillDesc2")
+                                default:
+                                    break
+                                }
+                            }
+                            
+                        case 5:
+                            
+                            switch numberOfSkills {
+                                
+                            case 1:
+                                // Just get ability 2
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    // TODO: translate each before adding to dictionary.
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.dict.updateValue(attribute, forKey: "abilityName2")
+                                    case 1:
+                                        self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                    default:
+                                        break
+                                    }
+                                }
+                                break
+                                
+                            case 2:
+                                // Just get ability 1
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    // TODO: translate each before adding to dictionary.
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.dict.updateValue(attribute, forKey: "abilityName1")
+                                    case 1:
+                                        self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                    default:
+                                        break
+                                    }
+                                }
+                                break
+                                
+                            default:
+                                
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    // TODO: translate each before adding to dictionary.
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.dict.updateValue(attribute, forKey: "skillName3")
+                                    case 1:
+                                        self.dict.updateValue(attribute, forKey: "skillMana3")
+                                    case 2:
+                                        self.dict.updateValue(attribute, forKey: "skillDesc3")
+                                    default:
+                                        break
+                                    }
+                                }
+                            }
+  
+                            
+
+                            
+                        case 6:
+                            
+                            guard numberOfSkills == 3 else {
+                                print("ONLY 1 OR 2 SKILL, DON'T COME THIS FAR")
+                                if numberOfSkills == 1 {
+                                    break
+                                }
+                                else { // numberofskills 2, get ability 2
+                                    let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                    
+                                    for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                        guard let attribute = a.text else {
+                                            return
+                                        }
+                                        // TODO: translate each before adding to dictionary.
+                                        switch attIndex {
+                                            
+                                        case 0:
+                                            self.dict.updateValue(attribute, forKey: "abilityName2")
+                                        case 1:
+                                            self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                        default:
+                                            break
+                                        }
+                                    }
+                                }
+                                
+                                break
+                            }
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                // TODO: translate each before adding to dictionary.
+                                switch attIndex {
+                                    
+                                case 0:
+                                    self.dict.updateValue(attribute, forKey: "abilityName1")
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                default:
+                                    break
+                                }
+                            }
+                            
+                        case 7:
+                            guard numberOfSkills == 3 else {
+                                print("ONLY 1 OR 2 SKILL, DON'T COME THIS FAR")
+                                break
+                            }
+                            let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                            
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                guard let attribute = a.text else {
+                                    return
+                                }
+                                // TODO: translate each before adding to dictionary.
+                                switch attIndex {
+                                    
+                                case 0:
+                                    self.dict.updateValue(attribute, forKey: "abilityName2")
+                                case 1:
+                                    self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                default:
+                                    break
+                                }
+                            }
+                        default:
+                        break
                         }
+
                         
                        
                         
@@ -131,9 +413,9 @@ class ArcanaDatabase: UIViewController {
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
                         for i in self.dict {
-                            print("DICTIONARY")
                             print(i)
                         }
+                        self.uploadArcana()
                         // update some UI
 //                        print(self.attributeValues.count)
 //                        
@@ -171,20 +453,25 @@ class ArcanaDatabase: UIViewController {
         let ref = FIREBASE_REF.child("arcana")
         
         let id = ref.childByAutoId().key
+
+        print("beee is unwrapped")
+        guard let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let sN2 = dict["skillName2"], let sM2 = dict["skillMana2"], let sD2 = dict["skillDesc2"], let sN3 = dict["skillName3"], let sM3 = dict["skillMana3"], let sD3 = dict["skillDesc3"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"],  let aN2 = dict["abilityName2"], let aD2 = dict["abilityDesc2"] else {
+            print("DICTIONARY IS NOT UNWRAPPED")
+            return
+        }
         
+//        guard let u = snapshot.value!["uid"] as? String, let nKR = snapshot.value!["nameKR"] as? String, let nJP = snapshot.value!["nameJP"] as? String, let r = snapshot.value!["rarity"] as? String, let g = snapshot.value!["class"] as? String, let t = snapshot.value!["tavern"] as? String, let a = snapshot.value!["affiliation"] as? String, let c = snapshot.value!["cost"] as? String, let w = snapshot.value!["weapon"] as? String, let kN = snapshot.value!["kizunaName"] as? String, let kC = snapshot.value!["kizunaCost"] as? String, let kA = snapshot.value!["kizunaAbility"] as? String, let sC = snapshot.value!["skillCount"] as? String, let sN1 = snapshot.value!["skillName1"] as? String, let sM1 = snapshot.value!["skillMana1"] as? String, let sD1 = snapshot.value!["skillDesc1"] as? String, let sN2 = snapshot.value!["skillName2"] as? String, let sM2 = snapshot.value!["skillMana2"] as? String, let sD2 = snapshot.value!["skillDesc2"] as? String, let sN3 = snapshot.value!["skillName3"] as? String, let sM3 = snapshot.value!["skillMana3"] as? String, let sD3 = snapshot.value!["skillDesc1"] as? String, let aN1 = snapshot.value!["abilityName1"] as? String, let aD1 = snapshot.value!["abilityDesc1"] as? String, let aN2 = snapshot.value!["abilityName2"] as? String, let aD2 = snapshot.value!["abilityDesc2"] as? String, let v = snapshot.value!["numberOfViews"] as? Int {
+//            
+//        }
+        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: "OI", r: "\(dict["rarity"])", g: "\(dict["group"])", t: "얻는 장소", a: "\(dict["affiliation"])", c: "\(dict["cost"])", w: "\(dict["weapon"])", kN: "\(dict["kizunaName"])", kC: "\(dict["kizunaCost"])", kA: "\(dict["kizunaAbility"])", sC: "3", sN1: "\(dict["skillName1"])", sM1: "\(dict["skillMana1"])", sD1: "\(dict["skillDesc1"])", sN2: "\(dict["skillName2"])", sM2: "\(dict["skillMana2"])", sD2: "\(dict["skillDesc2"])", sN3: "\(dict["skillName2"])", sM3: "\(dict["skillMana3"])", sD3: "\(dict["skillDesc3"])", aN1: "\(dict["abilityName1"])", aD1: "\(dict["abilityDesc1"])", aN2: "\(dict["abilityName2"])", aD2: "\(dict["abilityName2"])", v : 1)
         
-//        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "얻는 장소", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sC: "3", sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20], v : 1)
-        
-        
-        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: attributeValues[0], r: "5성", g: attributeValues[2], t: "얻는 장소", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sC: "3", sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3 Desc", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20], v : 1)
-        
-        guard let a = arcana
-            else {
+        guard let arc = arcana else {
+            print("arc is not arcana")
                 return
         }
  
         
-        let arcanaDetail = ["uid" : "\(a.uid)", "nameKR" : "\(a.nameKR)", "nameJP" : "\(a.nameJP)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillCount" : "\(a.skillCount)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)", "numberOfViews" : "\(a.numberOfViews)"]
+        let arcanaDetail = ["uid" : "\(arc.uid)", "nameKR" : "\(arc.nameKR)", "nameJP" : "\(arc.nameJP)", "rarity" : "\(arc.rarity)", "class" : "\(arc.group)", "tavern" : "\(arc.tavern)", "affiliation" : "\(arc.affiliation)", "cost" : "\(arc.cost)", "weapon" : "\(arc.weapon)", "kizunaName" : "\(arc.kizunaName)", "kizunaCost" : "\(arc.kizunaCost)", "kizunaAbility" : "\(arc.kizunaAbility)", "skillCount" : "\(arc.skillCount)", "skillName1" : "\(arc.skillName1)", "skillMana1" : "\(arc.skillMana1)", "skillDesc1" : "\(arc.skillDesc1)", "skillName2" : "\(arc.skillName2)", "skillMana2" : "\(arc.skillMana2)", "skillDesc2" : "\(arc.skillDesc2)", "skillName3" : "\(arc.skillName3)", "skillMana3" : "\(arc.skillMana3)", "skillDesc3" : "\(arc.skillDesc3)", "abilityName1" : "\(arc.abilityName1)", "abilityDesc1" : "\(arc.abilityDesc1)", "abilityName2" : "\(arc.abilityName2)", "abilityDesc2" : "\(arc.abilityDesc2)", "numberOfViews" : "\(arc.numberOfViews)"]
         
         
         
@@ -362,9 +649,9 @@ class ArcanaDatabase: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-
+        
         self.downloadArcana()
-
+        
         
         //translate()
     }
