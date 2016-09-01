@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.rootViewController = itemsViewControler
             window.makeKeyAndVisible()
         }
+        FIRDatabase.database().persistenceEnabled = true
+        
+        let scoresRef = FIRDatabase.database().reference()
+        scoresRef.keepSynced(true)
         
         return true
     }

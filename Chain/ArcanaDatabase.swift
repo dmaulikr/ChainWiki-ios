@@ -17,7 +17,7 @@ class ArcanaDatabase: UIViewController {
     var attributeValues = [String]()
     //var firebaseNSArray =
 //    let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
-    var dict: [String : String]?
+    var dict = [String : String]()
     var arcanaID: Int?
     
     
@@ -96,10 +96,16 @@ class ArcanaDatabase: UIViewController {
                         
                         // TODO: Check for the table index. Skip through unneeded tables
                         
-                        if index == 0 {
+                        if index == 0 { // Arcana base info
                             let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
-                            for a in table!.xpath(".//td") {
+                            for (attIndex, a) in table!.xpath(".//td").enumerate() {
                                 print(a.text!)
+                                switch attIndex {
+                                case 0:
+                                    self.dict.updateValue(a.text!, forKey: "nameJP")
+                                default:
+                                    break
+                                }
                             }
                         }
                         
@@ -124,6 +130,10 @@ class ArcanaDatabase: UIViewController {
                     
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
+                        for i in self.dict {
+                            print("DICTIONARY")
+                            print(i)
+                        }
                         // update some UI
 //                        print(self.attributeValues.count)
 //                        
