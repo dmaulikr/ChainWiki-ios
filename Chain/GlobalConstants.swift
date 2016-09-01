@@ -11,6 +11,8 @@ import Firebase
 import AlamofireImage
 import Polyglot
 
+let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
+
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
 

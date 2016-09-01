@@ -8,7 +8,7 @@
 
 import UIKit
 import Kanna
-import Polyglot
+import SwiftyJSON
 
 class ArcanaDatabase: UIViewController {
 
@@ -73,10 +73,10 @@ class ArcanaDatabase: UIViewController {
             
             if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
                 // TODO: check for # of skills
-                var numberOfSkills = 1
+                var numberOfSkills = 0
                 
                 if !html.containsString("SKILL 2") {    // Only has 1 skill
-                    
+                    numberOfSkills = 1
                 }
                 
                 else if !html.containsString("SKILL 3") {   // Only has 2 skills
@@ -108,6 +108,7 @@ class ArcanaDatabase: UIViewController {
                 
                 //<table width="" id="ui
                 
+                
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
                     // Find Skill 3 Desc
@@ -136,16 +137,20 @@ class ArcanaDatabase: UIViewController {
                                     return
                                 }
                                 
-                                // TODO: translate each before adding to dictionary.
+                                // TODO: translate each before adding to
+                                
                                 switch attIndex {
                                 case 0:
                                     self.dict.updateValue(attribute, forKey: "nameJP")
+                                    self.translate(attribute, key: "nameKR")
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "rarity")
                                 case 3:
-                                    self.dict.updateValue(attribute, forKey: "group")
+                                    //self.dict.updateValue(attribute, forKey: "group")
+                                    self.dict.updateValue(self.getClass(attribute), forKey: "group")
                                 case 4:
-                                    self.dict.updateValue(attribute, forKey: "affiliation")
+                                    //self.dict.updateValue(attribute, forKey: "affiliation")
+                                    self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
                                 case 7:
                                     self.dict.updateValue(attribute, forKey: "cost")
                                 default:
@@ -166,11 +171,13 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 1:
-                                    self.dict.updateValue(attribute, forKey: "kizunaName")
+                                    //self.dict.updateValue(attribute, forKey: "kizunaName")
+                                    self.translate(attribute, key: "kizunaName")
                                 case 2:
                                     self.dict.updateValue(attribute, forKey: "kizunaCost")
                                 case 3:
-                                    self.dict.updateValue(attribute, forKey: "kizunaAbility")
+                                    //self.dict.updateValue(attribute, forKey: "kizunaAbility")
+                                    self.translate(attribute, key: "kizunaAbility")
                                 default:
                                     break
                                 }
@@ -187,11 +194,13 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
-                                    self.dict.updateValue(attribute, forKey: "skillName1")
+                                    //self.dict.updateValue(attribute, forKey: "skillName1")
+                                    self.translate(attribute, key: "skillName1")
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana1")
                                 case 2:
-                                    self.dict.updateValue(attribute, forKey: "skillDesc1")
+                                    //self.dict.updateValue(attribute, forKey: "skillDesc1")
+                                    self.translate(attribute, key: "skillDesc1")
                                 default:
                                     break
                                 }
@@ -213,9 +222,11 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
-                                        self.dict.updateValue(attribute, forKey: "abilityName1")
+                                        //self.dict.updateValue(attribute, forKey: "abilityName1")
+                                        self.translate(attribute, key: "abilityName1")
                                     case 1:
-                                        self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                        //self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                        self.translate(attribute, key: "AbilityDesc1")
                                     default:
                                         break
                                     }
@@ -234,11 +245,13 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
-                                    self.dict.updateValue(attribute, forKey: "skillName2")
+                                    //self.dict.updateValue(attribute, forKey: "skillName2")
+                                    self.translate(attribute, key: "skillName2")
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana2")
                                 case 2:
-                                    self.dict.updateValue(attribute, forKey: "skillDesc2")
+                                    //self.dict.updateValue(attribute, forKey: "skillDesc2")
+                                    self.translate(attribute, key: "skillDesc2")
                                 default:
                                     break
                                 }
@@ -260,9 +273,11 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
-                                        self.dict.updateValue(attribute, forKey: "abilityName2")
+                                        //self.dict.updateValue(attribute, forKey: "abilityName2")
+                                        self.translate(attribute, key: "abilityName2")
                                     case 1:
-                                        self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                        //self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                        self.translate(attribute, key: "abilityDesc2")
                                     default:
                                         break
                                     }
@@ -282,9 +297,11 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
-                                        self.dict.updateValue(attribute, forKey: "abilityName1")
+                                        //self.dict.updateValue(attribute, forKey: "abilityName1")
+                                        self.translate(attribute, key: "abilityName1")
                                     case 1:
-                                        self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                        //self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                        self.translate(attribute, key: "abilityDesc1")
                                     default:
                                         break
                                     }
@@ -305,11 +322,13 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
-                                        self.dict.updateValue(attribute, forKey: "skillName3")
+                                        //self.dict.updateValue(attribute, forKey: "skillName3")
+                                        self.translate(attribute, key: "skillName3")
                                     case 1:
                                         self.dict.updateValue(attribute, forKey: "skillMana3")
                                     case 2:
-                                        self.dict.updateValue(attribute, forKey: "skillDesc3")
+                                        //self.dict.updateValue(attribute, forKey: "skillDesc3")
+                                        self.translate(attribute, key: "skillDesc3")
                                     default:
                                         break
                                     }
@@ -334,9 +353,11 @@ class ArcanaDatabase: UIViewController {
                                         switch attIndex {
                                             
                                         case 0:
-                                            self.dict.updateValue(attribute, forKey: "abilityName2")
+                                            //self.dict.updateValue(attribute, forKey: "abilityName2")
+                                            self.translate(attribute, key: "abilityName2")
                                         case 1:
-                                            self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                            //self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                            self.translate(attribute, key: "abilityDesc2")
                                         default:
                                             break
                                         }
@@ -355,9 +376,11 @@ class ArcanaDatabase: UIViewController {
                                         switch attIndex {
                                             
                                         case 0:
-                                            self.dict.updateValue(attribute, forKey: "abilityName1")
+                                            //self.dict.updateValue(attribute, forKey: "abilityName1")
+                                            self.translate(attribute, key: "abilityName1")
                                         case 1:
-                                            self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                            //self.dict.updateValue(attribute, forKey: "abilityDesc1")
+                                            self.translate(attribute, key: "abilityDesc1")
                                         default:
                                             break
                                         }
@@ -383,9 +406,11 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
-                                    self.dict.updateValue(attribute, forKey: "abilityName2")
+                                    //self.dict.updateValue(attribute, forKey: "abilityName2")
+                                    self.translate(attribute, key: "abilityName2")
                                 case 1:
-                                    self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                    //self.dict.updateValue(attribute, forKey: "abilityDesc2")
+                                    self.translate(attribute, key: "abilityDesc2")
                                 default:
                                     break
                                 }
@@ -402,6 +427,9 @@ class ArcanaDatabase: UIViewController {
 //                        for i in self.dict {
 //                            print(i)
 //                        }
+                        for (key,value) in self.dict {
+                            print("\(key)   \(value)")
+                        }
                         self.uploadArcana()
                         // update some UI
 //                        print(self.attributeValues.count)
@@ -423,74 +451,83 @@ class ArcanaDatabase: UIViewController {
         }
     }
     
-    func translate() {
-        let translator = Polyglot(clientId: "ChainChronicle1126", clientSecret: "hCRxD8K8n4SkJ+m/yQtV1cFxm/JG4JfjzMFptQSBwWE=")
-        translator.fromLanguage = Language.Japanese
-        translator.toLanguage = Language.Korean
+    func translate(value: String, key: String) {
         
-        let text = "敵陣で発動すると目の前の敵１体に連続攻撃によるダメージを10回（0.5倍×10回）与えた後、小ダメージ（4倍）を与える。"
-        
-        
-        translator.translate(text) { translation in
-            print(translation)
+        let encodedString = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        if let encodedString = encodedString {
+            
+             let semaphore = dispatch_semaphore_create(0)
+            
+            let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
+            
+            let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: {(data, response, error) in
+                
+                if let data = data {
+                    
+                    let json = JSON(data: data)
+                    
+                    if let translatedText = json["data"]["translations"][0]["translatedText"].string {
+                        //print("\(translatedText)'s key is \(key)")
+                        self.dict.updateValue(translatedText, forKey: key)
+                        dispatch_semaphore_signal(semaphore)
+                    }
+                    
+                }
+            })
+            
+            
+            task.resume()
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         }
+        
     }
     
     func uploadArcana() {
         let ref = FIREBASE_REF.child("arcana")
         
         let id = ref.childByAutoId().key
-
-
-        guard let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let sN2 = dict["skillName2"], let sM2 = dict["skillMana2"], let sD2 = dict["skillDesc2"], let sN3 = dict["skillName3"], let sM3 = dict["skillMana3"], let sD3 = dict["skillDesc3"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"],  let aN2 = dict["abilityName2"], let aD2 = dict["abilityDesc2"] else {
+        // translate, put korean in dict values.
+        
+        // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
+        
+        
+        // Base Case: only  1 skill
+        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"],  let aN2 = dict["abilityName2"], let aD2 = dict["abilityDesc2"] else {
             
             print("ARCANA DICTIONARY VALUE IS NIL")
             return
         }
         
-//        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: nJP, r: r, g: g, t: "얻는 장소", a: a, c: c, w: w, kN: kN, kC: kC, kA: kA, sC: "3", sN1: sN1, sM1: sM1, sD1: sD1, sN2: sN2, sM2: sM2, sD2: sD2, sN3: sN3, sM3: sM3, sD3: sD3, aN1: aN1, aD1: aD1, aN2: aN2, aD2: aD2, v : 0)
-//        //print("SKILLDESC3 is \(arcana!.skillDesc3)")
-//        guard let arc = arcana else {
-//            print("arc is not arcana")
-//                return
-//        }
- 
         
-        // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
         
         let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "한글 이름", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
         
-        ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
-            // If arcana has 2 or 3 skills, update them.
-            let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
-            
-            switch (sC) {
-            case "2":
-                let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
-                newArcanaRef.updateChildValues(skill2)
-            case "3":
-                let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
-                newArcanaRef.updateChildValues(skill3)
-            default:
-                break
-                
+        switch (sC) {
+        case "1":
+            break
+        default:
+            guard let sN2 = dict["skillName2"], let sM2 = dict["skillMana2"], let sD2 = dict["skillDesc2"], let sN3 = dict["skillName3"], let sM3 = dict["skillMana3"], let sD3 = dict["skillDesc3"] else {
+                return
             }
-        })
-
-        
-
-        
-
-        
-//        let arcanaDetail = ["uid" : "\(uid)", "nameKR" : "\(arc.nameKR)", "nameJP" : "\(arc.nameJP)", "rarity" : "\(arc.rarity)", "class" : "\(arc.group)", "tavern" : "\(arc.tavern)", "affiliation" : "\(arc.affiliation)", "cost" : "\(arc.cost)", "weapon" : "\(arc.weapon)", "kizunaName" : "\(arc.kizunaName)", "kizunaCost" : "\(arc.kizunaCost)", "kizunaAbility" : "\(arc.kizunaAbility)", "skillCount" : "\(arc.skillCount)", "skillName1" : "\(arc.skillName1)", "skillMana1" : "\(arc.skillMana1)", "skillDesc1" : "\(arc.skillDesc1)", "skillName2" : "\(arc.skillName2)", "skillMana2" : "\(arc.skillMana2)", "skillDesc2" : "\(arc.skillDesc2)", "skillName3" : "\(arc.skillName3)", "skillMana3" : "\(arc.skillMana3)", "skillDesc3" : "\(arc.skillDesc3)", "aN1" : "\(arc.abilityName1)", "abilityDesc1" : "\(arc.abilityDesc1)", "abilityName2" : "\(arc.abilityName2)", "abilityDesc2" : "\(arc.abilityDesc2)", "numberOfViews" : "\(arc.numberOfViews)"]
-        
-        
-        
-        //"skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"
-        
-
+            ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
+                // If arcana has 2 or 3 skills, update them.
+                let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
+                
+                switch (sC) {
+                case "2":
+                    let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
+                    newArcanaRef.updateChildValues(skill2)
+                case "3":
+                    let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
+                    newArcanaRef.updateChildValues(skill3)
+                default:
+                    break
+                    
+                }
+            })
+        }
     }
     
     func getRarity(string: String) -> String {

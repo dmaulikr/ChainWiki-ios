@@ -19,20 +19,7 @@ struct Arcana {
     var affiliation: String // 소속
     var cost: String
     var weapon: String
-    
-//    enum weap: String {
-//        
-//        case 斬
-//        case 打
-//        case 突
-//        case 弓
-//        case 魔
-//        case 聖
-//        case 拳
-//        case 銃
-//        case 狙
-// 
-//    }
+
     var kizunaName: String
     var kizunaCost: String
     var kizunaAbility: String

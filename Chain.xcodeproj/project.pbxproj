@@ -16,6 +16,7 @@
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
 		046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046FDD411D73AD83001E955B /* GoogleService-Info.plist */; };
+		0488B2241D78B177003657EB /* mySource.htm in Resources */ = {isa = PBXBuildFile; fileRef = 0488B2231D78B177003657EB /* mySource.htm */; };
 		048B31261D7642CA0011477D /* ArcanaAbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31251D7642CA0011477D /* ArcanaAbilityList.swift */; };
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E501D72602400687513 /* ArcanaDetailOld.swift */; };
@@ -68,6 +69,7 @@
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
 		046FDD411D73AD83001E955B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0488B2231D78B177003657EB /* mySource.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = mySource.htm; sourceTree = "<group>"; };
 		048B31251D7642CA0011477D /* ArcanaAbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityList.swift; sourceTree = "<group>"; };
 		048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillAbilityDescCell.swift; sourceTree = "<group>"; };
 		048E6E501D72602400687513 /* ArcanaDetailOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailOld.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 		04A2EC931D6F7FA300189142 /* Chain */ = {
 			isa = PBXGroup;
 			children = (
+				0488B2231D78B177003657EB /* mySource.htm */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
 				04AA13CD1D73D47E004AC3A7 /* ArcanaDatabase.swift */,
@@ -388,6 +391,7 @@
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
+				0488B2241D78B177003657EB /* mySource.htm in Resources */,
 				046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
