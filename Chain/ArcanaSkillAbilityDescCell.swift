@@ -1,17 +1,16 @@
 //
-//  ArcanaImageCell.swift
+//  ArcanaSkillAbilityDescCell.swift
 //  Chain
 //
-//  Created by Jitae Kim on 8/29/16.
+//  Created by Jitae Kim on 8/31/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
 
-class ArcanaImageCell: UITableViewCell {
+class ArcanaSkillAbilityDescCell: UITableViewCell {
 
-    @IBOutlet weak var arcanaImage: UIImageView!
-    @IBOutlet weak var imageSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var skillAbilityDesc: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

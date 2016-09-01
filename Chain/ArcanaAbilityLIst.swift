@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaAbilityLIst: UIViewController {
+class ArcanaAbilityList: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

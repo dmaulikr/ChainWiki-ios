@@ -11,23 +11,12 @@ import Firebase
 import AlamofireImage
 import Polyglot
 
-class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var arcanaID: Int?
     var arcana: Arcana?
-    
-//    let downloader = ImageDownloader(
-//        configuration: ImageDownloader.defaultURLSessionConfiguration(),
-//        downloadPrioritization: .FIFO,
-//        maximumActiveDownloads: 4,
-//        imageCache: AutoPurgingImageCache()
-//    )
-//    
-//    let imageCache = AutoPurgingImageCache(
-//        memoryCapacity: 100 * 1024 * 1024,
-//        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-//    )
+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
@@ -40,17 +29,30 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             return 1
         case 1: // arcanaAttribute
             return 6
-        default:
+        case 2: // arcanaSkill
             
-            // TODO: Calculate # of skills arcana has (1, 2, or 3)
-            return 2
+            // Returning 2 * skillCount for description.
+            
+            switch arcana!.skillCount {
+            case "1":
+                return 2
+            case "2":
+                return 4
+            case "3":
+                return 6
+            default:
+                return 2
+            }
+        
+        default:
+            return 0
         }
         
     }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 5
-    }
+
+//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 5
+//    }
 //    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 //        
 //        switch section {
@@ -71,19 +73,36 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 //        
 //    }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        switch(indexPath.section) {
+        switch indexPath.section {
         case 0:
             return 400
+        case 1:
+            return 80
         default:
-            return 40
+            return UITableViewAutomaticDimension
         }
+    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    
+//        switch indexPath.section {
+//        case 0:
+//            return 400
+//        case 1:
+//            return 80
+//        default:
+//            return UITableViewAutomaticDimension
+//        }
+//    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        switch (indexPath.section) {
+        switch indexPath.section {
             
         case 0: // arcanaImage
             let cell = tableView.dequeueReusableCellWithIdentifier("arcanaImage") as! ArcanaImageCell
@@ -96,9 +115,61 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             return cell
             
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
-            cell.layoutMargins = UIEdgeInsetsZero
-            return cell
+            //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
+            
+            guard let arcana = arcana else {
+                return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+            }
+            // Odd rows will be the description
+            //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
+            //let descCell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+
+            switch indexPath.row {
+            
+            case 0,2,4:
+                let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
+                
+                switch indexPath.row {
+                    
+                case 0:
+                    headerCell.skillNumber.text = "스킬 1"
+                    headerCell.skillName.text = arcana.skillName1
+                    headerCell.skillMana.text = arcana.skillMana1
+                    
+                case 2:
+                    headerCell.skillNumber.text = "스킬 2"
+                    headerCell.skillName.text = arcana.skillName2
+                    headerCell.skillMana.text = arcana.skillMana2
+                default:
+                    headerCell.skillNumber.text = "스킬 3"
+                    headerCell.skillName.text = arcana.skillName3
+                    headerCell.skillMana.text = arcana.skillMana3
+    
+                }
+                
+                headerCell.layoutMargins = UIEdgeInsetsZero
+                return headerCell
+
+                
+            case 1,3,5:
+                let descCell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+
+                switch indexPath.row {
+                case 1:
+                    descCell.skillAbilityDesc.text = arcana.skillDesc1
+                case 3:
+                    descCell.skillAbilityDesc.text = arcana.skillDesc2
+                default:
+                    descCell.skillAbilityDesc.text = arcana.skillDesc3
+                    
+                }
+                descCell.layoutMargins = UIEdgeInsetsZero
+                return descCell
+                
+            default:
+                return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+                
+            }
         }
         
     }
@@ -118,11 +189,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Check Cache, or download from Firebase
             
-            c.arcanaImage.image = UIImage(named: "main.jpg")
+            let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+            let aspectScaledToFitImage = UIImage(named: "main.jpg")!.af_imageAspectScaledToFitSize(size)
+            c.arcanaImage.image = aspectScaledToFitImage
             
-            /*
+            
             // Check cache first
-            print(arcana.uid)
+            /*
+
             if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/mainThumbnail") {
                 print("LOADED CACHE IMAGE")
                 
@@ -134,7 +208,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 //  Not in cache, download from firebase
             else {
-                
+                c.imageSpinner.startAnimating()
                 STORAGE_REF.child("image/arcana/1/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                     if (error != nil) {
                         print("image download error")
@@ -149,10 +223,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                 let size = CGSize(width: SCREENWIDTH - 20, height: 400)
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-                                    
+                                    c.imageSpinner.stopAnimating()
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaledToFitSize(size)
                                     
                                     c.arcanaImage.image = aspectScaledToFitImage
+                                    
                                     print("DOWNLOADED")
                                     
                                     // Cache the Image
@@ -167,12 +242,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                         }
                     }
                 }
-                
+ 
             }
  */
+ 
             
-            //c.arcanaImage.image = UIImage(named: "apple.jpg")
-
         case 1:    // arcanaAttribute
             let c = cell as! ArcanaAttributeCell
             
@@ -211,25 +285,39 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             //c.attributeKey.sizeToFit()
             
         default:
-            let c = cell as! ArcanaSkillCell
             
             // TODO: Calculate # of skills
             
             switch (indexPath.row) {
                 
             case 0:
-                c.skillNumber.text = "1"
-                c.skillName.text = arcana.skillName1
-                c.skillMana.text = arcana.skillMana1
+                let headerCell = cell as! ArcanaSkillCell
+                headerCell.skillNumber.text = "스킬 1"
+                headerCell.skillName.text = arcana.skillName1
+                headerCell.skillMana.text = arcana.skillMana1
+        
             case 1:
-                c.skillNumber.text = "2"
-                c.skillName.text = arcana.skillName2
-                c.skillMana.text = arcana.skillMana2
+                let descCell = cell as! ArcanaSkillAbilityDescCell
+                descCell.skillAbilityDesc.text = arcana.skillDesc1
+                
             case 2:
-                c.skillNumber.text = "3"
-                c.skillName.text = arcana.skillName3
-                c.skillMana.text = arcana.skillMana3
-
+                let headerCell = cell as! ArcanaSkillCell
+                headerCell.skillNumber.text = "스킬 2"
+                headerCell.skillName.text = arcana.skillName2
+                headerCell.skillMana.text = arcana.skillMana2
+                
+            case 3:
+                let descCell = cell as! ArcanaSkillAbilityDescCell
+                descCell.skillAbilityDesc.text = arcana.skillDesc2
+            case 4:
+                let headerCell = cell as! ArcanaSkillCell
+                headerCell.skillNumber.text = "스킬 3"
+                headerCell.skillName.text = arcana.skillName3
+                headerCell.skillMana.text = arcana.skillMana3
+            
+            case 5:
+                let descCell = cell as! ArcanaSkillAbilityDescCell
+                descCell.skillAbilityDesc.text = arcana.skillDesc3
                 
             default:
                 break
@@ -268,33 +356,38 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         self.navigationController!.navigationBar.barTintColor = color
-        
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
         setupViews()
-        
+        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = UIEdgeInsetsZero;
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        scrollViewDidEndDragging(tableView, willDecelerate: true)
         
         
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.hidesBarsOnSwipe = true
+        
+    }
+
 //    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
 //        
-//        navigationController?.hidesBarsOnSwipe = true
+//        tableView.reloadData()
+//        
 //    }
-
-
+    
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
     }
@@ -305,7 +398,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Dispose of any resources that can be recreated.
     }
     
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
+
+    
     /*
     // MARK: - Navigation
 

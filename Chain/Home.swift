@@ -9,11 +9,23 @@
 import UIKit
 import Firebase
 import AlamofireImage
+import Polyglot
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func translate(sender: AnyObject) {
+        
+        TRANSLATOR.fromLanguage = Language.Japanese
+        TRANSLATOR.toLanguage = Language.Korean
+        
+        let text = "斬空剣"
+        TRANSLATOR.translate(text) { translate in
+            print(translate)
+        }
+    }
 
+    @IBOutlet weak var translate: UIButton!
     var dict = [String: Arcana]()
     
 //    let downloader = ImageDownloader(
@@ -49,7 +61,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         ref.queryLimitedToLast(20).observeEventType(.ChildAdded, withBlock: { snapshot in
             var filter = [Arcana]()
-            
+            print(snapshot)
             let arcana = Arcana(snapshot: snapshot)
             filter.append(arcana!)
             

@@ -16,18 +16,48 @@ class ArcanaDatabase: UIViewController {
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
     //var firebaseNSArray =
-    let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
+//    let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
     var dict: [String : String]?
     var arcanaID: Int?
+    
+    
+    
+
     
     func downloadArcana() {
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
             // print(htmlSource)
             
-            // Kanna, search through htmㅣ
+            // Kanna, search through html
             
             if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+                // TODO: check for # of skills
+                var numberOfSkills = 1
+                
+                if !html.containsString("SKILL 2") {    // Only has 1 skill
+                    
+                }
+                
+                else if !html.containsString("SKILL 3") {   // Only has 2 skills
+                    numberOfSkills = 2
+                }
+                
+                else {  // Only has 3 skills
+                    numberOfSkills = 3
+                }
+                
+                
+                let requiredAttributes = [1, 2, 4, 5, 8, 11, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40]
+                var skillIndex = 0
+                switch numberOfSkills {
+                case 1:
+                    skillIndex = 1
+                case 2:
+                    break
+                default:    // 3 skills
+                    break
+                }
                 // "#id"
                 //                for i in doc.css("#s") {
                 //                    print(i["@scan"])
@@ -44,8 +74,8 @@ class ArcanaDatabase: UIViewController {
                 //td[@class='   ']    This doesn't get skills #3 title. TODO: individually get skill #3 title?
                 //span[@data-jscol_sort]"   This gets skill #3 title, but not skill descriptions.
                 
-                // Table
-                
+                // Number of tables.
+                //tbody
                 
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
@@ -60,8 +90,21 @@ class ArcanaDatabase: UIViewController {
 
                     
                     // Fetched required attributes
-                    for (index, link) in doc.xpath("//th").enumerate() {
-                        print(link.text!)
+                    for (index, link) in doc.xpath("//tbody").enumerate() {
+                        
+                        // TODO: Check for the table index. Skip through unneeded tables
+                        //print(link.text!)
+                        if index == 0 {
+                            
+                            if let att = Kanna.HTML(html: link.text!, encoding: NSUTF8StringEncoding) {
+                                for a in att.xpath("//*") {
+                                    print(a.text)
+                                }
+                            }
+
+                            
+                        }
+                        
                         // TODO: Filter needed attributes, then append to attributeValues.
 //                        if index >= 41 {
 //                            break // Don't need attributes after this point
@@ -120,10 +163,10 @@ class ArcanaDatabase: UIViewController {
         let id = ref.childByAutoId().key
         
         
-        let arcana = Arcana(u: id, nKR: attributeValues[0], nJP: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "TAVERN", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20])
+//        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: attributeValues[0], r: attributeValues[1], g: attributeValues[2], t: "얻는 장소", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sC: "3", sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20], v : 1)
         
         
-        
+        let arcana = Arcana(u: id, nKR: "한글 이름", nJP: attributeValues[0], r: "5성", g: attributeValues[2], t: "얻는 장소", a: attributeValues[3], c: attributeValues[4], w: attributeValues[5], kN: attributeValues[6], kC: attributeValues[7], kA: attributeValues[8], sC: "3", sN1: attributeValues[9], sM1: attributeValues[10], sD1: attributeValues[11], sN2: attributeValues[12], sM2: attributeValues[13], sD2: attributeValues[14], sN3: attributeValues[15], sM3: attributeValues[16], sD3: "SKILL 3 Desc", aN1: attributeValues[17], aD1: attributeValues[18], aN2: attributeValues[19], aD2: attributeValues[20], v : 1)
         
         guard let a = arcana
             else {
@@ -131,7 +174,7 @@ class ArcanaDatabase: UIViewController {
         }
  
         
-        let arcanaDetail = ["uid" : "\(a.uid)", "nameKR" : "\(a.nameKR)", "nameJP" : "\(a.nameJP)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)"]
+        let arcanaDetail = ["uid" : "\(a.uid)", "nameKR" : "\(a.nameKR)", "nameJP" : "\(a.nameJP)", "rarity" : "\(a.rarity)", "class" : "\(a.group)", "tavern" : "\(a.tavern)", "affiliation" : "\(a.affiliation)", "cost" : "\(a.cost)", "weapon" : "\(a.weapon)", "kizunaName" : "\(a.kizunaName)", "kizunaCost" : "\(a.kizunaCost)", "kizunaAbility" : "\(a.kizunaAbility)", "skillCount" : "\(a.skillCount)", "skillName1" : "\(a.skillName1)", "skillMana1" : "\(a.skillMana1)", "skillDesc1" : "\(a.skillDesc1)", "skillName2" : "\(a.skillName2)", "skillMana2" : "\(a.skillMana2)", "skillDesc2" : "\(a.skillDesc2)", "skillName3" : "\(a.skillName3)", "skillMana3" : "\(a.skillMana3)", "skillDesc3" : "\(a.skillDesc3)", "abilityName1" : "\(a.abilityName1)", "abilityDesc1" : "\(a.abilityDesc1)", "abilityName2" : "\(a.abilityName2)", "abilityDesc2" : "\(a.abilityDesc2)", "numberOfViews" : "\(a.numberOfViews)"]
         
         
         

@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
-//        let frame = UIScreen.mainScreen().bounds
-//        window = UIWindow(frame: frame)
-//        
-//        let itemsViewControler: UIViewController = ArcanaDatabase()
-//        if let window = self.window{
-//            window.rootViewController = itemsViewControler
-//            window.makeKeyAndVisible()
-//        }
+        let frame = UIScreen.mainScreen().bounds
+        window = UIWindow(frame: frame)
+        
+        let itemsViewControler: UIViewController = ArcanaDatabase()
+        if let window = self.window{
+            window.rootViewController = itemsViewControler
+            window.makeKeyAndVisible()
+        }
         
         return true
     }

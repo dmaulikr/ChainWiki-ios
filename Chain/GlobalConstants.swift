@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import AlamofireImage
+import Polyglot
 
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
@@ -41,3 +42,9 @@ let KNIGHTCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) 
 let ARCHERCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
 let MAGICIANCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
 let HEALERCOLOR = UIColor(red: 0.9882, green: 0.4039, blue: 0.4039, alpha: 1.0) /* #fc6767 */
+
+
+
+
+let TRANSLATOR = Polyglot(clientId: "ChainChronicle1126", clientSecret: "hCRxD8K8n4SkJ+m/yQtV1cFxm/JG4JfjzMFptQSBwWE=")
+
