@@ -12,6 +12,8 @@
 		0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2871D75386C00A0A728 /* ArcanaDetail.swift */; };
 		0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */; };
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
+		0401B4011D79DFF200AF1BF1 /* SegmentedContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B4001D79DFF200AF1BF1 /* SegmentedContainerView.swift */; };
+		0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
@@ -37,6 +39,8 @@
 		04A2ECB81D6F7FA300189142 /* ChainUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2ECB71D6F7FA300189142 /* ChainUITests.swift */; };
 		04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2ECC81D6F80EB00189142 /* Arcana.swift */; };
 		04AA13CE1D73D47E004AC3A7 /* ArcanaDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA13CD1D73D47E004AC3A7 /* ArcanaDatabase.swift */; };
+		04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E251D7A2C23008902A8 /* Filter.swift */; };
+		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
 		C5E22DEC04C0CDB19F2CCB51 /* Pods_Chain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */; };
@@ -65,6 +69,8 @@
 		0401B2871D75386C00A0A728 /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
 		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
+		0401B4001D79DFF200AF1BF1 /* SegmentedContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedContainerView.swift; sourceTree = "<group>"; };
+		0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -96,6 +102,8 @@
 		04A2ECB91D6F7FA300189142 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04A2ECC81D6F80EB00189142 /* Arcana.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arcana.swift; sourceTree = "<group>"; };
 		04AA13CD1D73D47E004AC3A7 /* ArcanaDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDatabase.swift; sourceTree = "<group>"; };
+		04AE0E251D7A2C23008902A8 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,7 +238,10 @@
 			isa = PBXGroup;
 			children = (
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
+				0401B4001D79DFF200AF1BF1 /* SegmentedContainerView.swift */,
 				04A2EC961D6F7FA300189142 /* Home.swift */,
+				04AE0E251D7A2C23008902A8 /* Filter.swift */,
+				04AE0E271D7A2E70008902A8 /* FilterCell.swift */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
 				048B31251D7642CA0011477D /* ArcanaAbilityList.swift */,
 				04941A421D6FC1A600BAE389 /* RarityTableView.swift */,
@@ -238,6 +249,7 @@
 				046C93351D7582D6000E3FBD /* ARCANA */,
 				0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */,
 				046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */,
+				0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -544,19 +556,23 @@
 				04941A411D6FC0AB00BAE389 /* RarityList.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
 				04AA13CE1D73D47E004AC3A7 /* ArcanaDatabase.swift in Sources */,
 				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
+				0401B4011D79DFF200AF1BF1 /* SegmentedContainerView.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				048B31261D7642CA0011477D /* ArcanaAbilityList.swift in Sources */,
+				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
 				048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				0401B2841D752D0B00A0A728 /* ArcanaValueCellOld.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
+				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,
 				04941A431D6FC1A600BAE389 /* RarityTableView.swift in Sources */,
 				0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */,
 				046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */,

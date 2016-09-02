@@ -20,21 +20,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
-        let frame = UIScreen.mainScreen().bounds
-        window = UIWindow(frame: frame)
+//        let frame = UIScreen.mainScreen().bounds
+//        window = UIWindow(frame: frame)
+//        
+//        let itemsViewControler: UIViewController = ArcanaDatabase()
+//        if let window = self.window{
+//            window.rootViewController = itemsViewControler
+//            window.makeKeyAndVisible()
+//        }
         
-        let itemsViewControler: UIViewController = ArcanaDatabase()
-        if let window = self.window{
-            window.rootViewController = itemsViewControler
-            window.makeKeyAndVisible()
-        }
+        // Navigation Bar Setup
         
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+        UINavigationBar.appearance().tintColor = UIColor.blackColor()
+
         
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)
+        
         
         return true
     }

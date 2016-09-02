@@ -13,19 +13,13 @@ import Polyglot
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBAction func translate(sender: AnyObject) {
-        
-        TRANSLATOR.fromLanguage = Language.Japanese
-        TRANSLATOR.toLanguage = Language.Korean
-        
-        let text = "斬空剣"
-        TRANSLATOR.translate(text) { translate in
-            print(translate)
-        }
-    }
 
-    @IBOutlet weak var translate: UIButton!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
+    @IBAction func indexChanged(sender: AnyObject) {
+    }
+    @IBOutlet weak var tableView: UITableView!
+
     var dict = [String: Arcana]()
     
 //    let downloader = ImageDownloader(
@@ -171,7 +165,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
+
         //dict.updateValue(testArc!, forKey: "OI")
         filterArray()
         

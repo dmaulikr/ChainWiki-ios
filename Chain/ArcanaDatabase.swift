@@ -251,7 +251,6 @@ class ArcanaDatabase: UIViewController {
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana2")
                                 case 2:
-                                    print("SKILL 2 DESC = \(attribute)")
                                     //self.dict.updateValue(attribute, forKey: "skillDesc2")
                                     self.translate(attribute, key: "skillDesc2")
                                 default:

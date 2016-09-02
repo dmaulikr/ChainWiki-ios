@@ -63,6 +63,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
         return 20
     }
 
@@ -286,9 +289,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
             c.attributeKey.text = attributeKey
-            //c.attributeKey.sizeToFit()
             c.attributeValue.text = attributeValue
-            //c.attributeKey.sizeToFit()
             
         case 2:
             
@@ -356,31 +357,29 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func setupViews() {
         
         self.title = "\(arcana!.nameKR)"
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
-        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.backgroundColor = UIColor.whiteColor()
         
         // Change Navigation Bar Color based on arcana class
         
-        var color = UIColor()
-        
-        switch(arcana!.group) {
-        case "전사":
-            color = WARRIORCOLOR
-        case "기사":
-            color = KNIGHTCOLOR
-        case "궁수":
-            color = ARCHERCOLOR
-        case "법사":
-            color = MAGICIANCOLOR
-        case "승려":
-            color = HEALERCOLOR
-        default:
-            break
-            
-        }
-        
-        self.navigationController!.navigationBar.barTintColor = color
+//        var color = UIColor()
+//        
+//        switch(arcana!.group) {
+//        case "전사":
+//            color = WARRIORCOLOR
+//        case "기사":
+//            color = KNIGHTCOLOR
+//        case "궁수":
+//            color = ARCHERCOLOR
+//        case "법사":
+//            color = MAGICIANCOLOR
+//        case "승려":
+//            color = HEALERCOLOR
+//        default:
+//            break
+//            
+//        }
+//        
+//        self.navigationController!.navigationBar.barTintColor = color
     }
     
     override func viewDidLoad() {
@@ -403,7 +402,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         
     }
 
@@ -413,10 +412,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 //        
 //    }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
-    }
 
+
+    override func viewDidDisappear(animated: Bool) {
+        
+        if let navController = self.navigationController {
+            navController.popViewControllerAnimated(true)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

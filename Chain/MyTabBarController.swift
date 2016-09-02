@@ -28,8 +28,11 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        
+        
         if viewController == self.viewControllers![0] {
             print("home")
+            
         }
         
         if viewController == self.viewControllers![1] {
