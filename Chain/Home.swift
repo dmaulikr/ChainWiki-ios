@@ -61,7 +61,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         ref.queryLimitedToLast(20).observeEventType(.ChildAdded, withBlock: { snapshot in
             var filter = [Arcana]()
-            print(snapshot)
             let arcana = Arcana(snapshot: snapshot)
             filter.append(arcana!)
             

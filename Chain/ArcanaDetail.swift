@@ -19,7 +19,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,35 +44,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return 2
             }
         
-        default:
-            return 0
+        default:    // Arcana abilities. TODO: Check if only 1 or 2 abilities.
+            return 4
         }
         
     }
 
-//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 5
-//    }
-//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        
-//        switch section {
-//        case 2:
-//            return UIView()
-//        
-//        default:
-//            let line = UIView()
-//            
-//            let sepFrame = CGRectMake(10, 5, SCREENWIDTH-20, 2)
-//            let seperatorView = UIView(frame: sepFrame)
-//            seperatorView.backgroundColor = UIColor.lightGrayColor()
-//            line.addSubview(seperatorView)
-//            
-//            return line
-//        }
-//
-//        
-//    }
-    
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         switch indexPath.section {
@@ -84,18 +61,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             return UITableViewAutomaticDimension
         }
     }
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    
-//        switch indexPath.section {
-//        case 0:
-//            return 400
-//        case 1:
-//            return 80
-//        default:
-//            return UITableViewAutomaticDimension
-//        }
-//    }
-    
+
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
@@ -114,7 +80,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.layoutMargins = UIEdgeInsetsZero
             return cell
             
-        default:
+        case 2:
             //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
             
             guard let arcana = arcana else {
@@ -170,6 +136,46 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 
             }
+        default:
+            
+            guard let arcana = arcana else {
+                return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+            }
+            
+            switch indexPath.row {
+            case 0,2:
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
+                
+                if indexPath == 0 {
+                    cell.attributeKey.text = "어빌 1"
+                    cell.attributeValue.text = arcana.abilityName1
+                    
+                }
+                else {
+                    cell.attributeKey.text = "어빌 2"
+                    cell.attributeValue.text = arcana.abilityName2
+                }
+                
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
+
+
+            default:
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+                
+                if indexPath.row == 1 {
+                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+                }
+                else {
+                    cell.skillAbilityDesc.text = arcana.abilityDesc2
+                }
+
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
+            }
+
         }
         
     }
@@ -284,7 +290,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             c.attributeValue.text = attributeValue
             //c.attributeKey.sizeToFit()
             
-        default:
+        case 2:
             
             // TODO: Calculate # of skills
             
@@ -323,7 +329,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 break
                 
             }
-            
+        default:
+            switch (indexPath.row) {
+                
+            case 0:
+                let name = cell as! ArcanaAttributeCell
+                name.attributeKey.text = "어빌 1"
+                name.attributeValue.text = arcana.abilityName1
+            case 1:
+                let desc = cell as! ArcanaSkillAbilityDescCell
+                desc.skillAbilityDesc.text = arcana.abilityDesc1
+            case 2:
+                let name = cell as! ArcanaAttributeCell
+                name.attributeKey.text = "어빌 2"
+                name.attributeValue.text = arcana.abilityName2
+            default:
+                let desc = cell as! ArcanaSkillAbilityDescCell
+                desc.skillAbilityDesc.text = arcana.abilityDesc2
+                
+            }
+
         }
         
     }

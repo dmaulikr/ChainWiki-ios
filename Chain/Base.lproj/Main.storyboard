@@ -337,20 +337,20 @@
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="420" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="114" width="600" height="420"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="40" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="114" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="419"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
                                                     <rect key="frame" x="10" y="10" width="580" height="400"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="400" id="Z76-ad-afY"/>
                                                     </constraints>
                                                 </imageView>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7DJ-Q2-f40">
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7DJ-Q2-f40">
                                                     <rect key="frame" x="290" y="200" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="FkX-1m-Cn6"/>
@@ -374,7 +374,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="534" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="154" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQV-i6-ups" id="Wp4-Kh-E70">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
@@ -417,7 +417,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="574" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="194" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuO-ry-Tec" id="m4X-aj-7v4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
@@ -493,7 +493,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="614" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="234" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMM-l5-U6h" id="kM3-g4-1jI">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>

@@ -54,7 +54,8 @@ class ArcanaDatabase: UIViewController {
 
                 }
                 
-                dict.updateValue(textWithWeapon, forKey: "weapon")
+                
+                dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
             }
             
         } catch {
@@ -250,6 +251,7 @@ class ArcanaDatabase: UIViewController {
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana2")
                                 case 2:
+                                    print("SKILL 2 DESC = \(attribute)")
                                     //self.dict.updateValue(attribute, forKey: "skillDesc2")
                                     self.translate(attribute, key: "skillDesc2")
                                 default:
@@ -264,7 +266,7 @@ class ArcanaDatabase: UIViewController {
                             case 1:
                                 // Just get ability 2
                                 let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
-                                
+                                print("ABILITY 2 TEXT")
                                 for (attIndex, a) in table!.xpath(".//td").enumerate() {
                                     guard let attribute = a.text else {
                                         return
@@ -276,6 +278,7 @@ class ArcanaDatabase: UIViewController {
                                         //self.dict.updateValue(attribute, forKey: "abilityName2")
                                         self.translate(attribute, key: "abilityName2")
                                     case 1:
+                                        
                                         //self.dict.updateValue(attribute, forKey: "abilityDesc2")
                                         self.translate(attribute, key: "abilityDesc2")
                                     default:
@@ -467,8 +470,8 @@ class ArcanaDatabase: UIViewController {
                     let json = JSON(data: data)
                     
                     if let translatedText = json["data"]["translations"][0]["translatedText"].string {
-                        //print("\(translatedText)'s key is \(key)")
-                        self.dict.updateValue(translatedText, forKey: key)
+                        // gets rid of &quot
+                        self.dict.updateValue(String(htmlEncodedString: translatedText), forKey: key)
                         dispatch_semaphore_signal(semaphore)
                     }
                     
@@ -500,7 +503,7 @@ class ArcanaDatabase: UIViewController {
         
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "한글 이름", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0]
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
         
@@ -668,9 +671,9 @@ class ArcanaDatabase: UIViewController {
         switch s {
             
         case "斬":
-            return "참"
+            return "검"
         case "打":
-            return "타"
+            return "봉"
         case "突":
             return "창"
         case "弓":
@@ -727,5 +730,19 @@ class ArcanaDatabase: UIViewController {
 extension String {
     func indexOf(string: String) -> String.Index? {
         return rangeOfString(string, options: .LiteralSearch, range: nil, locale: nil)?.startIndex
+    }
+    
+    init(htmlEncodedString: String) {
+        do {
+            let encodedData = htmlEncodedString.dataUsingEncoding(NSUTF8StringEncoding)!
+            let attributedOptions : [String: AnyObject] = [
+                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+            ]
+            let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
+            self.init(attributedString.string)
+        } catch {
+            fatalError("Unhandled error: \(error)")
+        }
     }
 }
