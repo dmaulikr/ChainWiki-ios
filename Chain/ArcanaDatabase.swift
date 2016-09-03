@@ -13,7 +13,7 @@ import Firebase
 
 class ArcanaDatabase: UIViewController {
 
-    let arcanaURL = "正義魔法の保安官アステリア"
+    let arcanaURL = "成功の魔神ラベゼリン"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -23,10 +23,12 @@ class ArcanaDatabase: UIViewController {
     
     func handleImage() {
         let ref = FIREBASE_REF.child("arcana")
-        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.ChildAdded, withBlock: { snapshot in
+            print(snapshot)
+        //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            for item in snapshot.children {
-                let imageURL = item.value!["imageURL"] as! String
+           // for item in snapshot {
+                let imageURL = snapshot.value!["imageURL"] as! String
                 let url = NSURL(string: imageURL)
                 let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
                     if error != nil {
@@ -37,7 +39,7 @@ class ArcanaDatabase: UIViewController {
                         print("DOWNLOADED IMAGE!")
                         // upload to firebase storage.
                         
-                        let arcanaImageRef = STORAGE_REF.child("image/arcana/\(item.value!["uid"] as! String)/main.jpg")
+                        let arcanaImageRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/main.jpg")
                         
                         arcanaImageRef.putData(NSData(data: data), metadata: nil) { metadata, error in
                             if (error != nil) {
@@ -54,11 +56,12 @@ class ArcanaDatabase: UIViewController {
                     
                 })
                 task.resume()
-            }
+            //}
         })
     
     }
 
+    
     func downloadWeaponAndPicture() {
         let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
         let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
@@ -208,7 +211,8 @@ class ArcanaDatabase: UIViewController {
                                     self.dict.updateValue(attribute, forKey: "nameJP")
                                     self.translate(attribute, key: "nameKR")
                                 case 1:
-                                    self.dict.updateValue(attribute, forKey: "rarity")
+                                    
+                                    self.dict.updateValue(self.getRarity(attribute), forKey: "rarity")
                                 case 3:
                                     //self.dict.updateValue(attribute, forKey: "group")
                                     self.dict.updateValue(self.getClass(attribute), forKey: "group")
@@ -595,15 +599,15 @@ class ArcanaDatabase: UIViewController {
         switch string {
             
         case "★★★★★SSR":
-            return "5"
+            return "5★"
         case "★★★★SR":
-            return "4"
+            return "4★"
         case "★★★R":
-            return "3"
+            return "3★"
         case "★★HN":
-            return "2"
+            return "2★"
         case "★N":
-            return "1"
+            return "1★"
         default:
             return "0"
         }
@@ -761,7 +765,7 @@ class ArcanaDatabase: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         
-        //self.downloadArcana()
+        self.downloadArcana()
         
         
         //translate()

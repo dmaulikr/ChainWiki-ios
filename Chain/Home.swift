@@ -22,7 +22,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var arcanaArray = [Arcana]()
-    
+    var originalArray = [Arcana]()
 
     
 //    let downloader = ImageDownloader(
@@ -52,23 +52,23 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
     }
     
-    func filterArray() {
-
-        let ref = FIREBASE_REF.child("arcana")
-
-        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
-            
-            var filter = [Arcana]()
-            for item in snapshot.children {
-                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                filter.append(arcana!)
-            }
-            self.arcanaArray = filter
-            self.tableView.reloadData()
-        })
-        
-    }
-    
+//    func filterArray() {
+//
+//        let ref = FIREBASE_REF.child("arcana")
+//
+//        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
+//            
+//            var filter = [Arcana]()
+//            for item in snapshot.children {
+//                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+//                filter.append(arcana!)
+//            }
+//            self.arcanaArray = filter
+//            self.tableView.reloadData()
+//        })
+//        
+//    }
+//    
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -95,22 +95,22 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
         c.arcanaWeapon.text = arcanaArray[indexPath.row].weapon
         
-        var rarityPreview = ""
-        switch(arcanaArray[indexPath.row].rarity) {
-            case "★★★★★SSR":
-                rarityPreview = "5★"
-            case "★★★★SR":
-                rarityPreview = "4★"
-            case "★★★R":
-                rarityPreview = "3★"
-            case "★★HN":
-                rarityPreview = "2★"
-            case "★N":
-                rarityPreview = "1★"
-            default:
-                break
-        }
-        c.arcanaRarity.text = rarityPreview
+//        var rarityPreview = ""
+//        switch(arcanaArray[indexPath.row].rarity) {
+//            case "★★★★★SSR":
+//                rarityPreview = "5★"
+//            case "★★★★SR":
+//                rarityPreview = "4★"
+//            case "★★★R":
+//                rarityPreview = "3★"
+//            case "★★HN":
+//                rarityPreview = "2★"
+//            case "★N":
+//                rarityPreview = "1★"
+//            default:
+//                break
+//        }
+        c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
         
         // Check Cache, or download from Firebase
         c.arcanaImage.image = UIImage(named: "main.jpg")
@@ -171,12 +171,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let scv = self.parentViewController as? SegmentedContainerView {
-            print("LOADED CONTAINER VIEW")
-            arcanaArray = scv.arcanaArray
-        }
+
         //dict.updateValue(testArc!, forKey: "OI")
-        filterArray()
+        //filterArray()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -185,6 +182,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
+        if let scv = self.parentViewController as? SegmentedContainerView {
+            print("LOADED CONTAINER VIEW")
+            arcanaArray = scv.arcanaArray
+        }
+        self.tableView.reloadData()
+        
         print("VIEW CHANGED")
     }
     override func didReceiveMemoryWarning() {

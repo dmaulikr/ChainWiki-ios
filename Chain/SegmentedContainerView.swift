@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import Foundation
 
 class SegmentedContainerView: UIViewController {
 
@@ -31,20 +33,36 @@ class SegmentedContainerView: UIViewController {
                 
                 filters = vc.filterTypes
                 
-                if vc.filterTypes.count == 0 {
+                if vc.hasFilter == false {
+                    // TODO: replace arcanaArray with original arcanaArray.
+                    if let vc = self.childViewControllers[0] as? Home {
+                        print("NO FILTERS, PREPARING ORIGINAL ARRAY")
+                        vc.arcanaArray = vc.originalArray
+                        vc.tableView.reloadData()
+                    }
                     print("NO FILTERS")
                 }
                 
-                else {
-                    filteredArray = arcanaArray.filter({$0.rarity == "★★★★★SSR"})
-                    for i in filteredArray {
-                        print(i.nameKR)
-                    }
+                else {  // hasFilter == true
                     if let vc = self.childViewControllers[0] as? Home {
-                        print("BACK TO HOME")
-                        vc.arcanaArray = filteredArray
-                        vc.tableView.reloadData()
+                        if let r = filters["rarity"] {
+                            var newArray = [Arcana]()
+                            for rarity in r {
+                                print(rarity)
+                                print(vc.originalArray.count)
+                                for arcana in vc.originalArray {
+                                    if arcana.rarity == rarity {
+                                        
+                                        newArray.append(arcana)
+                                    }
+                                }
+                                vc.arcanaArray = newArray
+                                vc.tableView.reloadData()
+                            }
+                        
+                        }
                     }
+
                 }
             }
             
@@ -103,9 +121,34 @@ class SegmentedContainerView: UIViewController {
     @IBOutlet weak var filterView: UIView!
 
     
+    func getArray() {
+        
+        let ref = FIREBASE_REF.child("arcana")
+        
+        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
+            
+            var filter = [Arcana]()
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                filter.append(arcana!)
+            }
+
+            if let vc = self.childViewControllers[0] as? Home {
+                //print("BACK TO HOME")
+                vc.arcanaArray = filter
+                vc.originalArray = filter
+                self.arcanaArray = filter
+                vc.tableView.reloadData()
+            }
+            
+        })
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getArray()
         
         segmentedControl.selectedSegmentIndex = 0
         arcanaView.hidden = false

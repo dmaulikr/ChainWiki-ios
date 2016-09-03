@@ -13,11 +13,12 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     @IBOutlet weak var collectionView: UICollectionView!
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
     private let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
+    var hasFilter = false
     
     let rarity = ["5★", "4★", "3★", "2★", "1★"]
     let group = ["전사", "기사","궁수","법사","승려"]
     let weapon = ["검", "봉", "창", "마", "궁", "성", "권", "총", "저"]
-    let affiliation = ["의용군", "마신", "여행자", "부도", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무레스"]
+    let affiliation = ["여행자", "마신", "부도", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무레스", "의용군", "화격단"]
     
     var filterTypes = [String : [String]]()
     /*
@@ -157,6 +158,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             affiliationArray.append(cell.filterType.text!)
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
         }
+        
+        hasFilter = true
 
         
     }
@@ -199,7 +202,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(weaponArray, forKey: "weapon")
         default:
             let deleteAffiliation = cell.filterType.text!
-            var affiliationArray = filterTypes["weapon"]!
+            var affiliationArray = filterTypes["affiliation"]!
             for (index, rarity) in affiliationArray.enumerate().reverse() {
                 if rarity == deleteAffiliation {
                     print("DELETED \(deleteAffiliation)")
@@ -209,6 +212,13 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
         }
         
+        // Check if deselected last cell, meaning no filters selected
+        if let list = collectionView.indexPathsForSelectedItems() {
+            if list.count == 0 {
+                hasFilter = false
+            }
+    
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,6 +233,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     override func viewWillDisappear(animated: Bool) {
         print("CHANGED VIEW")
+        
     }
     
     override func didReceiveMemoryWarning() {

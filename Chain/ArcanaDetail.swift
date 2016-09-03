@@ -276,7 +276,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 attributeValue = arcana.nameKR
             case 1:
                 attributeKey = "레어"
-                attributeValue = arcana.rarity
+                attributeValue = getRarityLong(arcana.rarity)
             case 2:
                 attributeKey = "직업"
                 attributeValue = arcana.group
@@ -387,6 +387,27 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 //        }
 //        
 //        self.navigationController!.navigationBar.barTintColor = color
+    }
+    
+    
+    func getRarityLong(string: String) -> String {
+        
+        switch string {
+            
+        case "5★":
+            return "★★★★★SSR"
+        case "4★":
+            return "★★★★SR"
+        case "3★":
+            return "★★★R"
+        case "2★":
+            return "★★HN"
+        case "1★":
+            return "★N"
+        default:
+            return "0"
+        }
+        
     }
     
     override func viewDidLoad() {
