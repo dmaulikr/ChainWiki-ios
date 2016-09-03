@@ -19,28 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        FIRApp.configure()
+        //FIRDatabase.database().persistenceEnabled = true
         
-//        let frame = UIScreen.mainScreen().bounds
-//        window = UIWindow(frame: frame)
-//        
-//        let itemsViewControler: UIViewController = ArcanaDatabase()
-//        if let window = self.window{
-//            window.rootViewController = itemsViewControler
-//            window.makeKeyAndVisible()
-//        }
+        let scoresRef = FIRDatabase.database().reference()
+        scoresRef.keepSynced(true)
         
+        //database()
+        
+
         // Navigation Bar Setup
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
 
         
-        FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = true
-        
-        let scoresRef = FIRDatabase.database().reference()
-        scoresRef.keepSynced(true)
-        
+
         
         return true
     }
@@ -130,6 +124,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    
+    func database() {
+        // Load Arcana Database
+        let frame = UIScreen.mainScreen().bounds
+        window = UIWindow(frame: frame)
+        
+        let itemsViewControler: UIViewController = ArcanaDatabase()
+        if let window = self.window{
+            window.rootViewController = itemsViewControler
+            window.makeKeyAndVisible()
+        }
+        
     }
 
 }

@@ -56,11 +56,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         let ref = FIREBASE_REF.child("arcana")
 
-        ref.queryLimitedToLast(20).observeEventType(.ChildAdded, withBlock: { snapshot in
-            var filter = [Arcana]()
-            let arcana = Arcana(snapshot: snapshot)
-            filter.append(arcana!)
+        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
             
+            var filter = [Arcana]()
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                filter.append(arcana!)
+            }
             self.arcanaArray = filter
             self.tableView.reloadData()
         })
@@ -111,11 +113,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         c.arcanaRarity.text = rarityPreview
         
         // Check Cache, or download from Firebase
-        c.arcanaImage.image = UIImage(named: "main.jpg")
+        //c.arcanaImage.image = UIImage(named: "main.jpg")
         
-        /*
+        
         // Check cache first
-        if let i = IMAGECACHE.imageWithIdentifier("\(filteredArray[indexPath.row].uid)/cellThumbnail") {
+        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
             
             let size = CGSize(width: SCREENHEIGHT/7, height: SCREENHEIGHT/7)
             let aspectScaledToFitImage = i.af_imageAspectScaledToFitSize(size)
@@ -125,8 +127,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             //  Not in cache, download from firebase
         else {
+            print("UID \(arcanaArray[indexPath.row].uid)")
             
-            STORAGE_REF.child("image/arcana/1/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
                     // Handle any errors
@@ -149,7 +152,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
-                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.filteredArray[indexPath.row].uid)/cellThumbnail")
+                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/cellThumbnail")
                             }
 
                             
@@ -159,7 +162,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    */
+    
 
     }
     

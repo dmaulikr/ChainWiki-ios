@@ -9,9 +9,11 @@
 import UIKit
 import Kanna
 import SwiftyJSON
+import Firebase
 
 class ArcanaDatabase: UIViewController {
 
+    let arcanaURL = "正義魔法の保安官アステリア"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -19,8 +21,53 @@ class ArcanaDatabase: UIViewController {
     var dict = [String : String]()
     var arcanaID: Int?
     
+    func handleImage() {
+        let ref = FIREBASE_REF.child("arcana")
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            for item in snapshot.children {
+                let imageURL = item.value!["imageURL"] as! String
+                let url = NSURL(string: imageURL)
+                let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+                    if error != nil {
+                        print("DOWNLOAD IMAGE ERROR")
+                    }
+                    
+                    if let data = data {
+                        print("DOWNLOADED IMAGE!")
+                        // upload to firebase storage.
+                        
+                        let arcanaImageRef = STORAGE_REF.child("image/arcana/\(item.value!["uid"] as! String)/main.jpg")
+                        
+                        arcanaImageRef.putData(NSData(data: data), metadata: nil) { metadata, error in
+                            if (error != nil) {
+                                print("ERROR OCCURED WHILE UPLOADING IMAGE")
+                                // Uh-oh, an error occurred!
+                            } else {
+                                // Metadata contains file metadata such as size, content-type, and download URL.
+                                print("UPLOADED IMAGE.")
+                                //let downloadURL = metadata!.downloadURL
+                            }
+                        }
+
+                    }
+                    
+                })
+                task.resume()
+            }
+        })
     
-    func downloadWeapon() {
+    }
+
+    func downloadWeaponAndPicture() {
+        let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
+        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+        
+        
+        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        
+        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+        
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
         
@@ -30,17 +77,26 @@ class ArcanaDatabase: UIViewController {
                 // Search for nodes by XPath
                 findingTable : for (index, link) in doc.xpath("//table[@id='']").enumerate() {
                     
-                    let weapon = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                    let tables = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
                     
                     guard let linkText = link.text else {
                         return
                     }
-                    
+                    if index == 0 {
+                        for a in tables!.xpath("//a | //link") {
+                            if let a = a["href"] {
+                                dict.updateValue("\(a)", forKey: "imageURL")
+                            }
+                            else {
+                                print("IMAGE URL NOT FOUND")
+                            }
+                        }
+                    }
                     if linkText.containsString("斬") || linkText.containsString("打") || linkText.containsString("突") || linkText.containsString("弓") || linkText.containsString("魔") || linkText.containsString("聖") || linkText.containsString("拳") || linkText.containsString("銃") || linkText.containsString("狙") {
                         
                         
                         // Nested Loop. Should return right at first iteration.
-                        for (weaponIndex, a) in weapon!.xpath(".//a['title']").enumerate() {
+                        for (weaponIndex, a) in tables!.xpath(".//a['title']").enumerate() {
                             
                             if weaponIndex == 0 {
                                 if let text = a.text {
@@ -63,9 +119,15 @@ class ArcanaDatabase: UIViewController {
         }
     }
 
-    
     func downloadArcana() {
-        downloadWeapon()
+        let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
+        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+        
+        
+        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        
+        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+        downloadWeaponAndPicture()
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
             // print(htmlSource)
@@ -81,6 +143,7 @@ class ArcanaDatabase: UIViewController {
                 }
                 
                 else if !html.containsString("SKILL 3") {   // Only has 2 skills
+                    print("PAGE ONLY HAS 2 SKILLS")
                     numberOfSkills = 2
                 }
                 
@@ -227,7 +290,7 @@ class ArcanaDatabase: UIViewController {
                                         self.translate(attribute, key: "abilityName1")
                                     case 1:
                                         //self.dict.updateValue(attribute, forKey: "abilityDesc1")
-                                        self.translate(attribute, key: "AbilityDesc1")
+                                        self.translate(attribute, key: "abilityDesc1")
                                     default:
                                         break
                                     }
@@ -426,20 +489,11 @@ class ArcanaDatabase: UIViewController {
                     
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
-//                        for i in self.dict {
-//                            print(i)
-//                        }
                         for (key,value) in self.dict {
                             print("\(key)   \(value)")
                         }
                         self.uploadArcana()
-                        // update some UI
-//                        print(self.attributeValues.count)
-//                        
-//                        for i in self.attributeValues {
-//                            print(i)
-//                        }
-                        //self.uploadArcana()
+
                     }
                 }
                 
@@ -500,23 +554,24 @@ class ArcanaDatabase: UIViewController {
             return
         }
         
+        guard let imageURL = dict["imageURL"] else {
+            print("COULD NOT GET IMAGEURL FROM DICT")
+            return
+        }
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0]
+        
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
-        
-        switch (sC) {
-        case "1":
-            break
-        default:
-            guard let sN2 = dict["skillName2"], let sM2 = dict["skillMana2"], let sD2 = dict["skillDesc2"], let sN3 = dict["skillName3"], let sM3 = dict["skillMana3"], let sD3 = dict["skillDesc3"] else {
-                return
-            }
-            ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
-                // If arcana has 2 or 3 skills, update them.
-                let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
-                
+
+
+        ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
+            print("UPLOADED ARCANA")
+            // If arcana has 2 or 3 skills, update them.
+            let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
+            
+            if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
                 switch (sC) {
                 case "2":
                     let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
@@ -528,8 +583,11 @@ class ArcanaDatabase: UIViewController {
                     break
                     
                 }
-            })
-        }
+            }
+            
+
+        })
+        
     }
     
     func getRarity(string: String) -> String {
@@ -635,7 +693,7 @@ class ArcanaDatabase: UIViewController {
             return "호수도시"
         case "精霊島":
             return "정령섬"
-        case "炎の九領":
+        case "九領":
             return "화염구령"
         case "大海":
             return "대해"
@@ -696,14 +754,14 @@ class ArcanaDatabase: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        handleImage()
         
         // Do any additional setup after loading the view.
     }
 
     override func viewDidAppear(animated: Bool) {
         
-        self.downloadArcana()
+        //self.downloadArcana()
         
         
         //translate()

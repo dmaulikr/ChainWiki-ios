@@ -12,7 +12,7 @@ class SegmentedContainerView: UIViewController {
 
     var arcanaArray = [Arcana]()
     var filteredArray = [Arcana]()
-    var filters = [String]()
+    var filters = [String: [String]]()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
@@ -20,13 +20,43 @@ class SegmentedContainerView: UIViewController {
         }
     }
     
+    
     @IBAction func segmentedControl(sender: AnyObject) {
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             arcanaView.hidden = false
             filterView.hidden = true
+            if let vc = self.childViewControllers[1] as? Filter {
+                print("UNWRAPPED Filter VC")
+                filters = vc.filterTypes
+            }
             
+            arcanaLoop: for arcana in arcanaArray {
+
+                
+                for group in filters["group"]! {
+                    if arcana.group == group {
+                        filteredArray.append(arcana)
+                        break arcanaLoop
+                    }
+                }
+                
+                for weapon in filters["weapon"]! {
+                    if arcana.weapon == weapon {
+                        filteredArray.append(arcana)
+                        break arcanaLoop
+                    }
+                }
+
+                for affiliation in filters["affiliation"]! {
+                    if arcana.affiliation == affiliation {
+                        filteredArray.append(arcana)
+                        break arcanaLoop
+                    }
+                }
+
+            }
             // TODO: get filters from Filter, and filter array before switching.
         case 1:
             arcanaView.hidden = true
@@ -34,6 +64,28 @@ class SegmentedContainerView: UIViewController {
         default:
             break;
         }
+    }
+    
+    func filter(string: String) {
+//        switch string {
+//            case "rarity":
+//                for rarity in filters["rarity"]! {
+//                    if arcana.rarity == rarity {
+//                        filteredArray.append(arcana)
+//                        break arcanaLoop
+//                    }
+//            }
+//            case "group":
+//            case "weapon":
+//        default:
+//        }
+//        for attribute in filters["\(string)"]! {
+//            if arcana.rarity == rarity {
+//                filteredArray.append(arcana)
+//                break arcanaLoop
+//            }
+//        }
+
     }
     
     @IBOutlet weak var arcanaView: UIView!
