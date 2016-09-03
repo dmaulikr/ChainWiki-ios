@@ -776,7 +776,8 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Fu-jK-Bwr">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i7o-kd-RAW">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="1" id="i7o-kd-RAW">
                                     <size key="itemSize" width="146" height="92"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -791,10 +792,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전사" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-sm-hae">
-                                                    <rect key="frame" x="58" y="33" width="30" height="25"/>
+                                                    <rect key="frame" x="10" y="33" width="126" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Z0z-Ym-721"/>
-                                                        <constraint firstAttribute="width" constant="30" id="dFi-pK-0N8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -805,7 +805,9 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="tfR-sm-hae" firstAttribute="centerX" secondItem="M22-Lo-WgC" secondAttribute="centerX" id="1S6-Qo-SG8"/>
+                                            <constraint firstItem="tfR-sm-hae" firstAttribute="leading" secondItem="M22-Lo-WgC" secondAttribute="leading" constant="10" id="NTf-na-WaA"/>
                                             <constraint firstItem="tfR-sm-hae" firstAttribute="centerY" secondItem="M22-Lo-WgC" secondAttribute="centerY" id="Qm0-s1-7K4"/>
+                                            <constraint firstAttribute="trailing" secondItem="tfR-sm-hae" secondAttribute="trailing" constant="10" id="uJp-dM-Yes"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="filterType" destination="tfR-sm-hae" id="PE9-5J-oaD"/>

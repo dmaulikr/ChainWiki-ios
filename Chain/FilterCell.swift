@@ -12,4 +12,22 @@ class FilterCell: UICollectionViewCell {
     
     @IBOutlet weak var filterType: UILabel!
     
+    override var highlighted: Bool {
+        get {
+            return super.highlighted
+        }
+        set {
+            if newValue {
+                self.contentView.backgroundColor = lightNavyColor
+                filterType.textColor = UIColor.whiteColor()
+            }
+            else {
+                self.contentView.backgroundColor = UIColor.whiteColor()
+                filterType.textColor = lightNavyColor
+
+            }
+            super.highlighted = newValue
+        }
+    }
+
 }

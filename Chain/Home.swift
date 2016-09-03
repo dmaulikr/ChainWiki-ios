@@ -11,6 +11,7 @@ import Firebase
 import AlamofireImage
 import Polyglot
 
+
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 
@@ -19,8 +20,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBAction func indexChanged(sender: AnyObject) {
     }
     @IBOutlet weak var tableView: UITableView!
+    
+    var arcanaArray = [Arcana]()
+    
 
-    var dict = [String: Arcana]()
     
 //    let downloader = ImageDownloader(
 //        configuration: ImageDownloader.defaultURLSessionConfiguration(),
@@ -34,14 +37,14 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
 //    )
     
-    var filteredArray = [Arcana]()
+
     var rarityArray = [String]()
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showArcana") {
             let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcana = filteredArray[tableView.indexPathForSelectedRow!.row]
+            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
         }
     }
     
@@ -58,7 +61,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let arcana = Arcana(snapshot: snapshot)
             filter.append(arcana!)
             
-            self.filteredArray = filter
+            self.arcanaArray = filter
             self.tableView.reloadData()
         })
         
@@ -71,7 +74,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredArray.count
+        return arcanaArray.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -86,12 +89,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         let c = cell as! ArcanaCell
-        c.arcanaNameKR.text = filteredArray[indexPath.row].nameKR
-        c.arcanaNameJP.text = filteredArray[indexPath.row].nameJP
-        c.arcanaWeapon.text = filteredArray[indexPath.row].weapon
+        c.arcanaNameKR.text = arcanaArray[indexPath.row].nameKR
+        c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
+        c.arcanaWeapon.text = arcanaArray[indexPath.row].weapon
         
         var rarityPreview = ""
-        switch(filteredArray[indexPath.row].rarity) {
+        switch(arcanaArray[indexPath.row].rarity) {
             case "★★★★★SSR":
                 rarityPreview = "5★"
             case "★★★★★SSR":
@@ -165,7 +168,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let scv = self.parentViewController as? SegmentedContainerView {
+            print("LOADED CONTAINER VIEW")
+            arcanaArray = scv.arcanaArray
+        }
         //dict.updateValue(testArc!, forKey: "OI")
         filterArray()
         

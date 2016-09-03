@@ -10,6 +10,10 @@ import UIKit
 
 class SegmentedContainerView: UIViewController {
 
+    var arcanaArray = [Arcana]()
+    var filteredArray = [Arcana]()
+    var filters = [String]()
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
             segmentedControl.tintColor = salmonColor
@@ -22,6 +26,8 @@ class SegmentedContainerView: UIViewController {
         case 0:
             arcanaView.hidden = false
             filterView.hidden = true
+            
+            // TODO: get filters from Filter, and filter array before switching.
         case 1:
             arcanaView.hidden = true
             filterView.hidden = false
@@ -40,6 +46,7 @@ class SegmentedContainerView: UIViewController {
         
         segmentedControl.selectedSegmentIndex = 0
         arcanaView.hidden = false
+        filterView.hidden = true
 //        if let n = navigationController {
 //            n.navigationBar.barTintColor = lightNavyColor
 //            
