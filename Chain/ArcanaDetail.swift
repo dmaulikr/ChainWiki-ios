@@ -205,13 +205,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Check Cache, or download from Firebase
             
-            let size = CGSize(width: SCREENWIDTH - 20, height: 400)
-            let aspectScaledToFitImage = UIImage(named: "main.jpg")!.af_imageAspectScaledToFitSize(size)
-            c.arcanaImage.image = aspectScaledToFitImage
+//            let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+//            let aspectScaledToFitImage = UIImage(named: "main.jpg")!.af_imageAspectScaledToFitSize(size)
+//            c.arcanaImage.image = aspectScaledToFitImage
             
             
             // Check cache first
-            /*
+            
 
             if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/mainThumbnail") {
                 print("LOADED CACHE IMAGE")
@@ -225,7 +225,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 //  Not in cache, download from firebase
             else {
                 c.imageSpinner.startAnimating()
-                STORAGE_REF.child("image/arcana/1/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+                STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                     if (error != nil) {
                         print("image download error")
                         // Handle any errors
@@ -260,7 +260,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
  
             }
- */
+ 
  
             
         case 1:    // arcanaAttribute

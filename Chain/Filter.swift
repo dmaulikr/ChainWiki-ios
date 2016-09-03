@@ -178,16 +178,34 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             filterTypes.updateValue(rarityArray, forKey: "rarity")
         case 1:
-            var classArray = [String]()
-            classArray.append(cell.filterType.text!)
+            let deleteClass = cell.filterType.text!
+            var classArray = filterTypes["group"]!
+            for (index, rarity) in classArray.enumerate().reverse() {
+                if rarity == deleteClass {
+                    print("DELETED \(deleteClass)")
+                    classArray.removeAtIndex(index)
+                }
+            }
             filterTypes.updateValue(classArray, forKey: "group")
         case 2:
-            var weaponArray = [String]()
-            weaponArray.append(cell.filterType.text!)
+            let deleteWeapon = cell.filterType.text!
+            var weaponArray = filterTypes["weapon"]!
+            for (index, rarity) in weaponArray.enumerate().reverse() {
+                if rarity == deleteWeapon {
+                    print("DELETED \(deleteWeapon)")
+                    weaponArray.removeAtIndex(index)
+                }
+            }
             filterTypes.updateValue(weaponArray, forKey: "weapon")
         default:
-            var affiliationArray = [String]()
-            affiliationArray.append(cell.filterType.text!)
+            let deleteAffiliation = cell.filterType.text!
+            var affiliationArray = filterTypes["weapon"]!
+            for (index, rarity) in affiliationArray.enumerate().reverse() {
+                if rarity == deleteAffiliation {
+                    print("DELETED \(deleteAffiliation)")
+                    affiliationArray.removeAtIndex(index)
+                }
+            }
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
         }
         

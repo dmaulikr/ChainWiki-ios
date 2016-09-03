@@ -28,35 +28,46 @@ class SegmentedContainerView: UIViewController {
             arcanaView.hidden = false
             filterView.hidden = true
             if let vc = self.childViewControllers[1] as? Filter {
-                print("UNWRAPPED Filter VC")
+                
                 filters = vc.filterTypes
+                
+                if vc.filterTypes.count == 0 {
+                    print("NO FILTERS")
+                }
+                
+                else {
+                    filteredArray = arcanaArray.filter({$0.rarity == "★★★★★SSR"})
+                    for i in filteredArray {
+                        print(i.nameKR)
+                    }
+                    if let vc = self.childViewControllers[0] as? Home {
+                        print("BACK TO HOME")
+                        vc.arcanaArray = filteredArray
+                        vc.tableView.reloadData()
+                    }
+                }
             }
             
-            arcanaLoop: for arcana in arcanaArray {
+//            arcanaLoop: for arcana in arcanaArray {
+            
 
+                //filteredArray = arcanaArray( {0["rarity"] == "★★★★★SSR"})
                 
-                for group in filters["group"]! {
-                    if arcana.group == group {
-                        filteredArray.append(arcana)
-                        break arcanaLoop
-                    }
-                }
-                
-                for weapon in filters["weapon"]! {
-                    if arcana.weapon == weapon {
-                        filteredArray.append(arcana)
-                        break arcanaLoop
-                    }
-                }
+//                for weapon in filters["weapon"]! {
+//                    if arcana.weapon == weapon {
+//                        filteredArray.append(arcana)
+//                        break arcanaLoop
+//                    }
+//                }
+//
+//                for affiliation in filters["affiliation"]! {
+//                    if arcana.affiliation == affiliation {
+//                        filteredArray.append(arcana)
+//                        break arcanaLoop
+//                    }
+//                }
 
-                for affiliation in filters["affiliation"]! {
-                    if arcana.affiliation == affiliation {
-                        filteredArray.append(arcana)
-                        break arcanaLoop
-                    }
-                }
-
-            }
+//            }
             // TODO: get filters from Filter, and filter array before switching.
         case 1:
             arcanaView.hidden = true

@@ -336,14 +336,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
-                                                    <rect key="frame" x="10" y="10" width="580" height="400"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
+                                                    <rect key="frame" x="10" y="10" width="580" height="401"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="400" id="Z76-ad-afY"/>
                                                     </constraints>
                                                 </imageView>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7DJ-Q2-f40">
-                                                    <rect key="frame" x="290" y="200" width="20" height="20"/>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7DJ-Q2-f40">
+                                                    <rect key="frame" x="290" y="201" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="FkX-1m-Cn6"/>
                                                         <constraint firstAttribute="width" constant="20" id="mye-8Y-6yE"/>
@@ -770,6 +770,10 @@
         <scene sceneID="163-PP-N2i">
             <objects>
                 <viewController id="bWs-Rw-KUT" userLabel="Filter" customClass="Filter" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sQU-8q-nbO"/>
+                        <viewControllerLayoutGuide type="bottom" id="0K8-cy-Sy1"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Kn-9j-Lo6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -797,7 +801,7 @@
                                                         <constraint firstAttribute="height" constant="25" id="Z0z-Ym-721"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

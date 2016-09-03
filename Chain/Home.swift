@@ -99,13 +99,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         switch(arcanaArray[indexPath.row].rarity) {
             case "★★★★★SSR":
                 rarityPreview = "5★"
-            case "★★★★★SSR":
+            case "★★★★SR":
                 rarityPreview = "4★"
-            case "★★★★★SSR":
+            case "★★★R":
                 rarityPreview = "3★"
-            case "★★★★★SSR":
+            case "★★HN":
                 rarityPreview = "2★"
-            case "★★★★★SSR":
+            case "★N":
                 rarityPreview = "1★"
             default:
                 break
@@ -113,9 +113,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         c.arcanaRarity.text = rarityPreview
         
         // Check Cache, or download from Firebase
-        //c.arcanaImage.image = UIImage(named: "main.jpg")
+        c.arcanaImage.image = UIImage(named: "main.jpg")
         
-        
+  /*
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
             
@@ -162,7 +162,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    
+    */
 
     }
     
@@ -184,7 +184,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewDidAppear(animated: Bool) {
+        print("VIEW CHANGED")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
