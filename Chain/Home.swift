@@ -135,6 +135,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     // Handle any errors
                 } else {
                     // Get the download URL
+                    print("DOWNLOAD URL = \(URL!)")
                     DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
                         
                         if let image = response.result.value {

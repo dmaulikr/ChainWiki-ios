@@ -46,6 +46,13 @@ struct Arcana {
     
     var numberOfViews: Int
     
+//    var hashValue: Int {
+//        return rarity.hashValue
+//    }
+    
+    
+
+    
     
     init?(u: String, nKR: String, nJP: String, r: String, g: String, t: String, a: String, c: String, w: String, kN: String, kC: String, kA: String, sC: String, sN1: String, sM1: String, sD1: String, sN2: String, sM2: String, sD2: String, sN3: String, sM3: String, sD3: String, aN1: String, aD1: String, aN2: String, aD2: String, v: Int) {
         
@@ -137,8 +144,13 @@ struct Arcana {
   
     }
     
-}
 
+    
+}
+//
+//func ==(lhs: Arcana, rhs: Arcana) -> Bool {
+//    return lhs.rarity == rhs.rarity
+//}
 struct ArcanaDictionary {
     var arcanaDictionary: [Arcana]?
 }

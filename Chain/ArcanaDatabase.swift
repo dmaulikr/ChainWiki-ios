@@ -13,6 +13,8 @@ import Firebase
 
 class ArcanaDatabase: UIViewController {
 
+    // let google = "https://www.google.com/searchbyimage?&image_url="
+    // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
     let arcanaURL = "成功の魔神ラベゼリン"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
