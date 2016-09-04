@@ -135,9 +135,12 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             var rarityArray = [String]()
             
+            // If there is already another rarity selected
             if let rarityDict = filterTypes["rarity"] {
                 rarityArray = rarityDict
             }
+                
+            // Else make a new one
             else {
                 rarityArray = [String]()
             }

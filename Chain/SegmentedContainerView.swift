@@ -46,59 +46,86 @@ class SegmentedContainerView: UIViewController {
                 else {  // hasFilter == true
                     if let vc = self.childViewControllers[0] as? Home {
                         
-                        var rarityArray = [Arcana]()
+                        // create set that combines all filters
+                        //flatmap
+                        
+                        var raritySet = Set<Arcana>()
                         if let r = filters["rarity"] {
                             
                             for rarity in r {
-                                for arcana in vc.originalArray {
-                                    if arcana.rarity == rarity {
-                                        
-                                        rarityArray.append(arcana)
-                                    }
-                                }
-                                vc.arcanaArray = rarityArray
-                                vc.tableView.reloadData()
+                                print("FOR RARITY \(rarity)")
+                                let filteredRarity = vc.originalArray.filter({$0.rarity == rarity})
+                                
+                                raritySet = raritySet.union(Set(filteredRarity))
                             }
+//                            for rarity in r {
+//                                for arcana in vc.originalArray {
+//                                    if arcana.rarity == rarity {
+//                                        
+//                                        raritySet.insert(arcana)
+//                                    }
+//                                }
+//                            }
                         
                         }
+                        for i in raritySet {
+                            print("FILTERED RARITY \(i)")
+                        }
                         
-                        var groupArray = [Arcana]()
+                        var groupSet = Set<Arcana>()
                         if let g = filters["group"] {
                             
                             for group in g {
+                                print(group)
                                 let filteredGroup = vc.originalArray.filter({$0.group == group})
-                                groupArray += filteredGroup
+                                groupSet = groupSet.union(Set(filteredGroup))
                             }
-                            vc.arcanaArray = groupArray
-                            vc.tableView.reloadData()
                             
                         }
                         
-                        var weaponArray = [Arcana]()
+                        var weaponSet = Set<Arcana>()
                         if let w = filters["weapon"] {
                             
                             for weapon in w {
                                 let filteredWeapon = vc.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
-                                weaponArray += filteredWeapon
+                                weaponSet = weaponSet.union(Set(filteredWeapon))
                             }
-                            vc.arcanaArray = weaponArray
-                            vc.tableView.reloadData()
                             
                         }
                         
-                        var affiliationArray = [Arcana]()
+                        var affiliationSet = Set<Arcana>()
                         if let a = filters["affiliation"] {
                             
                             for affiliation in a {
                                 let filteredAffiliation = vc.originalArray.filter({$0.affiliation.containsString(affiliation)})
-                                affiliationArray += filteredAffiliation
+                                affiliationSet = affiliationSet.union(Set(filteredAffiliation))
                             }
-                            vc.arcanaArray = affiliationArray
-                            vc.tableView.reloadData()
                             
                         }
                         
+                        let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
                         
+                        var finalFilter: Set = Set<Arcana>()
+                        for (key,value) in sets {
+                            if value.count != 0 {
+                                
+                                // if set is empty, create a new one
+                                if finalFilter.count == 0 {
+                                    finalFilter = finalFilter.union(value)
+                                }
+                                
+                                // Set already exists, so intersect
+                                else {
+                                    finalFilter = finalFilter.intersect(value)
+                                }
+                            }
+                        }
+                        for i in finalFilter {
+                            print(i)
+                        }
+                        vc.arcanaArray = Array(finalFilter)
+                        vc.tableView.reloadData()
+
                     }
 
                 }

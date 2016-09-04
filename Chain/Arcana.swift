@@ -8,7 +8,7 @@
 
 import Firebase
 
-struct Arcana {
+struct Arcana: Equatable, Hashable {
     
     var uid: String
     var nameKR: String
@@ -46,9 +46,9 @@ struct Arcana {
     
     var numberOfViews: Int
     
-//    var hashValue: Int {
-//        return rarity.hashValue
-//    }
+    var hashValue: Int {
+        return uid.hashValue
+    }
     
     
 
@@ -147,10 +147,10 @@ struct Arcana {
 
     
 }
-//
-//func ==(lhs: Arcana, rhs: Arcana) -> Bool {
-//    return lhs.rarity == rhs.rarity
-//}
+
+func ==(lhs: Arcana, rhs: Arcana) -> Bool {
+    return lhs.uid == rhs.uid
+}
 struct ArcanaDictionary {
     var arcanaDictionary: [Arcana]?
 }
