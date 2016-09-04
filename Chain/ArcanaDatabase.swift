@@ -15,7 +15,7 @@ class ArcanaDatabase: UIViewController {
 
     // let google = "https://www.google.com/searchbyimage?&image_url="
     // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
-    let arcanaURL = "成功の魔神ラベゼリン"
+    let arcanaURL = "北西の族長モルバ"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -25,7 +25,7 @@ class ArcanaDatabase: UIViewController {
     
     func handleImage() {
         let ref = FIREBASE_REF.child("arcana")
-        ref.observeSingleEventOfType(.ChildAdded, withBlock: { snapshot in
+        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
             print(snapshot)
         //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
@@ -156,6 +156,7 @@ class ArcanaDatabase: UIViewController {
                     numberOfSkills = 3
                 }
                 
+                var numberOfAbilities = 0
                 // "#id"
                 //                for i in doc.css("#s") {
                 //                    print(i["@scan"])
@@ -213,8 +214,12 @@ class ArcanaDatabase: UIViewController {
                                     self.dict.updateValue(attribute, forKey: "nameJP")
                                     self.translate(attribute, key: "nameKR")
                                 case 1:
-                                    
-                                    self.dict.updateValue(self.getRarity(attribute), forKey: "rarity")
+                                    let rarity = self.getRarity(attribute)
+                                    // check if rarity is 3 or lower
+                                    if rarity != "5★" && rarity != "4★" {
+                                        numberOfAbilities = 1
+                                    }
+                                    self.dict.updateValue(rarity, forKey: "rarity")
                                 case 3:
                                     //self.dict.updateValue(attribute, forKey: "group")
                                     self.dict.updateValue(self.getClass(attribute), forKey: "group")
@@ -332,6 +337,10 @@ class ArcanaDatabase: UIViewController {
                             switch numberOfSkills {
                                 
                             case 1:
+                                // TODO: Check if only 1 ability
+                                if numberOfAbilities == 1 {
+                                    break
+                                }
                                 // Just get ability 2
                                 let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
                                 print("ABILITY 2 TEXT")
@@ -553,8 +562,8 @@ class ArcanaDatabase: UIViewController {
         // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
         
         
-        // Base Case: only  1 skill
-        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"],  let aN2 = dict["abilityName2"], let aD2 = dict["abilityDesc2"] else {
+        // Base Case: only 1 skill, 1 ability
+        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
             
             print("ARCANA DICTIONARY VALUE IS NIL")
             return
@@ -567,31 +576,43 @@ class ArcanaDatabase: UIViewController {
         
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
 
 
         ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
             print("UPLOADED ARCANA")
-            // If arcana has 2 or 3 skills, update them.
-            let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
             
-            if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
-                switch (sC) {
-                case "2":
-                    let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
-                    newArcanaRef.updateChildValues(skill2)
-                case "3":
-                    let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
-                    newArcanaRef.updateChildValues(skill3)
-                default:
-                    break
-                    
+            // Check if arcana has 2 abilities
+            if r.containsString("5") || r.containsString("4") {
+                guard let aN2 = self.dict["abilityName2"], let aD2 = self.dict["abilityDesc2"] else {
+                    return
                 }
-            }
-            
+                
+                let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
+                
+                let abilityRef = ["abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)"]
+                newArcanaRef.updateChildValues(abilityRef, withCompletionBlock: { completion in
+                    // If arcana has 2 or 3 skills, update them.
+                    
+                    
+                    if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
+                        switch (sC) {
+                        case "2":
+                            let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
+                            newArcanaRef.updateChildValues(skill2)
+                        case "3":
+                            let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
+                            newArcanaRef.updateChildValues(skill3)
+                        default:
+                            break
+                            
+                        }
+                    }
+                })
 
+            }
         })
         
     }

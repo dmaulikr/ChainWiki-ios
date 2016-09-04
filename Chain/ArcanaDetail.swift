@@ -212,7 +212,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Check cache first
             
-
+            
             if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/mainThumbnail") {
                 print("LOADED CACHE IMAGE")
                 

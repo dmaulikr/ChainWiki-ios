@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import AlamofireImage
 import Polyglot
-
+import Toucan
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -80,7 +80,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return SCREENHEIGHT/7
+        return SCREENHEIGHT/8
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
@@ -113,16 +113,29 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
         
         // Check Cache, or download from Firebase
-        c.arcanaImage.image = UIImage(named: "main.jpg")
-        
-  /*
+        //c.arcanaImage.image = UIImage(named: "main.jpg")
+        c.arcanaImage.image = nil
+        var borderColor = UIColor()
+        switch arcanaArray[indexPath.row].group {
+            case "전사":
+            borderColor = WARRIORCOLOR
+            case "기사":
+            borderColor = KNIGHTCOLOR
+            case "궁수":
+            borderColor = ARCHERCOLOR
+            case "법사":
+            borderColor = MAGICIANCOLOR
+        default:
+            borderColor = HEALERCOLOR
+        }
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
             
-            let size = CGSize(width: SCREENHEIGHT/7, height: SCREENHEIGHT/7)
-            let aspectScaledToFitImage = i.af_imageAspectScaledToFitSize(size)
+            let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+            let crop = Toucan(image: i).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
             
-            c.arcanaImage.image = aspectScaledToFitImage
+//            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+            c.arcanaImage.image = crop
         }
             
             //  Not in cache, download from firebase
@@ -143,13 +156,15 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             
                             // TODO: MAKE SMALL THUMBNAIL
                             
-                            let size = CGSize(width: SCREENHEIGHT/7, height: SCREENHEIGHT/7)
+                            let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.0)!) {
                                 
-                                let aspectScaledToFitImage = thumbnail.af_imageAspectScaledToFitSize(size)
+                                let crop = Toucan(image: thumbnail).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
+                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+                                c.arcanaImage.image = crop
                                 
-                                c.arcanaImage.image = aspectScaledToFitImage
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
@@ -163,7 +178,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    */
+    
 
     }
     
