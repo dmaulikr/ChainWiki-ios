@@ -45,22 +45,60 @@ class SegmentedContainerView: UIViewController {
                 
                 else {  // hasFilter == true
                     if let vc = self.childViewControllers[0] as? Home {
+                        
+                        var rarityArray = [Arcana]()
                         if let r = filters["rarity"] {
-                            var newArray = [Arcana]()
+                            
                             for rarity in r {
-                                print(rarity)
-                                print(vc.originalArray.count)
                                 for arcana in vc.originalArray {
                                     if arcana.rarity == rarity {
                                         
-                                        newArray.append(arcana)
+                                        rarityArray.append(arcana)
                                     }
                                 }
-                                vc.arcanaArray = newArray
+                                vc.arcanaArray = rarityArray
                                 vc.tableView.reloadData()
                             }
                         
                         }
+                        
+                        var groupArray = [Arcana]()
+                        if let g = filters["group"] {
+                            
+                            for group in g {
+                                let filteredGroup = vc.originalArray.filter({$0.group == group})
+                                groupArray += filteredGroup
+                            }
+                            vc.arcanaArray = groupArray
+                            vc.tableView.reloadData()
+                            
+                        }
+                        
+                        var weaponArray = [Arcana]()
+                        if let w = filters["weapon"] {
+                            
+                            for weapon in w {
+                                let filteredWeapon = vc.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
+                                weaponArray += filteredWeapon
+                            }
+                            vc.arcanaArray = weaponArray
+                            vc.tableView.reloadData()
+                            
+                        }
+                        
+                        var affiliationArray = [Arcana]()
+                        if let a = filters["affiliation"] {
+                            
+                            for affiliation in a {
+                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation.containsString(affiliation)})
+                                affiliationArray += filteredAffiliation
+                            }
+                            vc.arcanaArray = affiliationArray
+                            vc.tableView.reloadData()
+                            
+                        }
+                        
+                        
                     }
 
                 }

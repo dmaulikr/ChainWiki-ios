@@ -18,12 +18,12 @@ class FilterCell: UICollectionViewCell {
         }
         set {
             if newValue {
-                self.contentView.backgroundColor = lightNavyColor
+                self.contentView.backgroundColor = darkNavyColor
                 filterType.textColor = UIColor.whiteColor()
             }
             else {
                 self.contentView.backgroundColor = UIColor.whiteColor()
-                filterType.textColor = lightNavyColor
+                filterType.textColor = darkNavyColor
 
             }
             super.highlighted = newValue

@@ -82,34 +82,34 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         switch indexPath.section {
             
         case 0: // Rarity
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("rarity", forIndexPath: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = rarity[indexPath.row]
             cell.contentView.layer.borderWidth = 1
-            cell.contentView.layer.borderColor = lightNavyColor.CGColor
+            cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
             return cell
             
         case 1:    // Class
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("rarity", forIndexPath: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = group[indexPath.row]
             cell.contentView.layer.borderWidth = 1
-            cell.contentView.layer.borderColor = lightNavyColor.CGColor
+            cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
             return cell
             
         case 2:    // Weapon
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("rarity", forIndexPath: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = weapon[indexPath.row]
             cell.contentView.layer.borderWidth = 1
-            cell.contentView.layer.borderColor = lightNavyColor.CGColor
+            cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
             return cell
             
         default:    // Affiliation
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("rarity", forIndexPath: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = affiliation[indexPath.row]
             cell.contentView.layer.borderWidth = 1
-            cell.contentView.layer.borderColor = lightNavyColor.CGColor
+            cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
             return cell
         }
@@ -146,17 +146,45 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             print(filterTypes["rarity"]!)
         case 1:
-            var classArray = [String]()
-            classArray.append(cell.filterType.text!)
-            filterTypes.updateValue(classArray, forKey: "group")
+            print("SELECTED GROUP \(cell.filterType.text!)")
+
+            var groupArray = [String]()
+            
+            if let groupDict = filterTypes["group"] {
+                groupArray = groupDict
+            }
+            else {
+                groupArray = [String]()
+            }
+            groupArray.append(cell.filterType.text!)
+            filterTypes.updateValue(groupArray, forKey: "group")
         case 2:
+            print("SELECTED WEAPON \(cell.filterType.text!)")
+            
             var weaponArray = [String]()
+            
+            if let weaponDict = filterTypes["weapon"] {
+                weaponArray = weaponDict
+            }
+            else {
+                weaponArray = [String]()
+            }
             weaponArray.append(cell.filterType.text!)
             filterTypes.updateValue(weaponArray, forKey: "weapon")
         default:
+            print("SELECTED AFFILIATION \(cell.filterType.text!)")
+            
             var affiliationArray = [String]()
+            
+            if let affiliationDict = filterTypes["affiliation"] {
+                affiliationArray = affiliationDict
+            }
+            else {
+                affiliationArray = [String]()
+            }
             affiliationArray.append(cell.filterType.text!)
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
+
         }
         
         hasFilter = true
@@ -181,15 +209,15 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             filterTypes.updateValue(rarityArray, forKey: "rarity")
         case 1:
-            let deleteClass = cell.filterType.text!
-            var classArray = filterTypes["group"]!
-            for (index, rarity) in classArray.enumerate().reverse() {
-                if rarity == deleteClass {
-                    print("DELETED \(deleteClass)")
-                    classArray.removeAtIndex(index)
+            let deleteGroup = cell.filterType.text!
+            var groupArray = filterTypes["group"]!
+            for (index, rarity) in groupArray.enumerate().reverse() {
+                if rarity == deleteGroup {
+                    print("DELETED \(deleteGroup)")
+                    groupArray.removeAtIndex(index)
                 }
             }
-            filterTypes.updateValue(classArray, forKey: "group")
+            filterTypes.updateValue(groupArray, forKey: "group")
         case 2:
             let deleteWeapon = cell.filterType.text!
             var weaponArray = filterTypes["weapon"]!
