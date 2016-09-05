@@ -45,7 +45,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
         
         default:    // Arcana abilities. TODO: Check if only 1 or 2 abilities.
-            return 4
+            
+            guard let arcana = arcana else {
+                return 0
+            }
+            if let _ = arcana.abilityName2 {    // has 2 abilities
+                return 4
+            }
+            else {  // has only 1 ability
+                return 2
+            }
         }
         
     }

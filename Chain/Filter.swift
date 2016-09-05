@@ -84,6 +84,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         case 0: // Rarity
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = rarity[indexPath.row]
+            cell.filterType.textColor = darkNavyColor
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
@@ -92,6 +93,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         case 1:    // Class
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = group[indexPath.row]
+            cell.filterType.textColor = darkNavyColor
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
@@ -100,6 +102,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         case 2:    // Weapon
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = weapon[indexPath.row]
+            cell.filterType.textColor = darkNavyColor
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5
@@ -108,6 +111,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         default:    // Affiliation
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = affiliation[indexPath.row]
+            cell.filterType.textColor = darkNavyColor
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.borderColor = darkNavyColor.CGColor
             cell.contentView.layer.cornerRadius = 5

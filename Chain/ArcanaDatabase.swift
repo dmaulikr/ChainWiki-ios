@@ -10,12 +10,13 @@ import UIKit
 import Kanna
 import SwiftyJSON
 import Firebase
+import Foundation
 
 class ArcanaDatabase: UIViewController {
 
     // let google = "https://www.google.com/searchbyimage?&image_url="
     // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
-    let arcanaURL = "北西の族長モルバ"
+    let arcanaURL = "破壊魔人ロレッタ"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -63,9 +64,37 @@ class ArcanaDatabase: UIViewController {
     
     }
 
+    func downloadTavern() {
+        
+        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+
+        
+        do {
+            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
+            if html.containsString("入　手　方　法") {
+                print("FOUND 入　手　方　法")
+                let trim = html.substringWithRange(Range<String.Index>(html.indexOf("入　手　方　法")!..<html.indexOf("専　用　武　器")!))
+                print(trim)
+                if let doc = Kanna.HTML(html: trim, encoding: NSUTF8StringEncoding) {
+                    for tavern in doc.xpath(".//a[@href]") {
+                        print(tavern.text)
+                    }
+
+                }
+            }
+            
+
+            
+        } catch {
+            print("PARSING ERROR")
+        }
+
+    }
     
     func downloadWeaponAndPicture() {
-        let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
+
         let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
         
         
@@ -148,7 +177,7 @@ class ArcanaDatabase: UIViewController {
                 }
                 
                 else if !html.containsString("SKILL 3") {   // Only has 2 skills
-                    print("PAGE ONLY HAS 2 SKILLS")
+                    //print("PAGE ONLY HAS 2 SKILLS")
                     numberOfSkills = 2
                 }
                 
@@ -524,32 +553,32 @@ class ArcanaDatabase: UIViewController {
     
     func translate(value: String, key: String) {
         
-        let encodedString = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-        if let encodedString = encodedString {
-            
-             let semaphore = dispatch_semaphore_create(0)
-            
-            let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
-            
-            let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: {(data, response, error) in
-                
-                if let data = data {
-                    
-                    let json = JSON(data: data)
-                    
-                    if let translatedText = json["data"]["translations"][0]["translatedText"].string {
-                        // gets rid of &quot
-                        self.dict.updateValue(String(htmlEncodedString: translatedText), forKey: key)
-                        dispatch_semaphore_signal(semaphore)
-                    }
-                    
-                }
-            })
-            
-            
-            task.resume()
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-        }
+//        let encodedString = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+//        if let encodedString = encodedString {
+//            
+//             let semaphore = dispatch_semaphore_create(0)
+//            
+//            let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
+//            
+//            let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: {(data, response, error) in
+//                
+//                if let data = data {
+//                    
+//                    let json = JSON(data: data)
+//                    
+//                    if let translatedText = json["data"]["translations"][0]["translatedText"].string {
+//                        // gets rid of &quot
+//                        self.dict.updateValue(String(htmlEncodedString: translatedText), forKey: key)
+//                        dispatch_semaphore_signal(semaphore)
+//                    }
+//                    
+//                }
+//            })
+//            
+//            
+//            task.resume()
+//            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+//        }
         
     }
     
@@ -591,25 +620,34 @@ class ArcanaDatabase: UIViewController {
                 }
                 
                 let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
-                
                 let abilityRef = ["abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)"]
+                
+                // Upload Ability 2
                 newArcanaRef.updateChildValues(abilityRef, withCompletionBlock: { completion in
-                    // If arcana has 2 or 3 skills, update them.
                     
-                    
-                    if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
+                    // Check if arcana has at least 2 skills
+                    if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"] {
+                        
                         switch (sC) {
                         case "2":
+                            
                             let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
                             newArcanaRef.updateChildValues(skill2)
+                            
                         case "3":
-                            let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
-                            newArcanaRef.updateChildValues(skill3)
+                            
+                            if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
+                                let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
+                                newArcanaRef.updateChildValues(skill3)
+                            }
+                            
                         default:
                             break
                             
                         }
+
                     }
+
                 })
 
             }
@@ -781,14 +819,14 @@ class ArcanaDatabase: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        handleImage()
-        
+        //handleImage()
+        downloadTavern()
         // Do any additional setup after loading the view.
     }
 
     override func viewDidAppear(animated: Bool) {
         
-        self.downloadArcana()
+        //self.downloadArcana()
         
         
         //translate()

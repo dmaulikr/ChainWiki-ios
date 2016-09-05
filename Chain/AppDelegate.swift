@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)
         
-        //database()
+        database()
         
 
         // Navigation Bar Setup

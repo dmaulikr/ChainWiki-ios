@@ -79,12 +79,18 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return arcanaArray.count
     }
     
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
         cell.arcanaImage.image = nil
+        //let image = UIImage(named: "main.jpg")!
+//        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+//        cell.arcanaImage.image = image
         return cell
     }
     
@@ -111,12 +117,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                break
 //        }
         c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
-        
+        c.arcanaImage.image = nil
         // Check Cache, or download from Firebase
        // c.arcanaImage.image = UIImage(named: "main.jpg")
-        let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-        let crop = Toucan(image: UIImage(named: "main.jpg")!).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
-        c.arcanaImage.image = crop
+        //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+//        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+//        cell.arcanaImage.image = image
         
 //        var borderColor = UIColor()
 //        switch arcanaArray[indexPath.row].group {
@@ -133,12 +139,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        }
         
         
-        /*
+        
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
             
-            let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-            let crop = Toucan(image: i).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
+            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
             
 //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
             c.arcanaImage.image = crop
@@ -162,12 +168,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             
                             // TODO: MAKE SMALL THUMBNAIL
                             
-                            let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+                            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.0)!) {
                                 
-                                let crop = Toucan(image: thumbnail).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
+                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
                                 //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
                                 c.arcanaImage.image = crop
                                 
@@ -184,7 +190,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    */
+    
 
     }
     
@@ -199,19 +205,20 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         if let scv = self.parentViewController as? SegmentedContainerView {
             print("LOADED CONTAINER VIEW")
             arcanaArray = scv.arcanaArray
         }
         self.tableView.reloadData()
-        
-        print("VIEW CHANGED")
+        // Do any additional setup after loading the view.
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//
+//        
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
