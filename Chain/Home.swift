@@ -80,11 +80,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return SCREENHEIGHT/8
+        return UITableViewAutomaticDimension
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
-        
+        cell.arcanaImage.image = nil
         return cell
     }
     
@@ -113,21 +113,27 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
         
         // Check Cache, or download from Firebase
-        //c.arcanaImage.image = UIImage(named: "main.jpg")
-        c.arcanaImage.image = nil
-        var borderColor = UIColor()
-        switch arcanaArray[indexPath.row].group {
-            case "전사":
-            borderColor = WARRIORCOLOR
-            case "기사":
-            borderColor = KNIGHTCOLOR
-            case "궁수":
-            borderColor = ARCHERCOLOR
-            case "법사":
-            borderColor = MAGICIANCOLOR
-        default:
-            borderColor = HEALERCOLOR
-        }
+       // c.arcanaImage.image = UIImage(named: "main.jpg")
+        let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+        let crop = Toucan(image: UIImage(named: "main.jpg")!).resize(size, fitMode: Toucan.Resize.FitMode.Crop).image
+        c.arcanaImage.image = crop
+        
+//        var borderColor = UIColor()
+//        switch arcanaArray[indexPath.row].group {
+//            case "전사":
+//            borderColor = WARRIORCOLOR
+//            case "기사":
+//            borderColor = KNIGHTCOLOR
+//            case "궁수":
+//            borderColor = ARCHERCOLOR
+//            case "법사":
+//            borderColor = MAGICIANCOLOR
+//        default:
+//            borderColor = HEALERCOLOR
+//        }
+        
+        
+        /*
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
             
@@ -178,7 +184,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    
+    */
 
     }
     
