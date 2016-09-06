@@ -16,7 +16,7 @@ class ArcanaDatabase: UIViewController {
 
     // let google = "https://www.google.com/searchbyimage?&image_url="
     // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
-    let arcanaURL = "破壊魔人ロレッタ"
+    let arcanaURL = "真理の魔神ハティファス"
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -93,7 +93,7 @@ class ArcanaDatabase: UIViewController {
 
     }
     
-    func downloadWeaponAndPicture() {
+    func downloadWeaponAndPicture(string: String) {
 
         let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
         
@@ -157,15 +157,24 @@ class ArcanaDatabase: UIViewController {
         let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
         let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
         
+        // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
         
         let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
         
         let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
-        downloadWeaponAndPicture()
+        
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
             // print(htmlSource)
             
+
+            if html.containsString("#ui_wikidb") {
+                print("NEW PAGE")
+                downloadWeaponAndPicture("new")
+
+            
+            
+
             // Kanna, search through html
             
             if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
@@ -250,10 +259,8 @@ class ArcanaDatabase: UIViewController {
                                     }
                                     self.dict.updateValue(rarity, forKey: "rarity")
                                 case 3:
-                                    //self.dict.updateValue(attribute, forKey: "group")
                                     self.dict.updateValue(self.getClass(attribute), forKey: "group")
                                 case 4:
-                                    //self.dict.updateValue(attribute, forKey: "affiliation")
                                     self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
                                 case 7:
                                     self.dict.updateValue(attribute, forKey: "cost")
@@ -533,16 +540,81 @@ class ArcanaDatabase: UIViewController {
                     
                     // After fetching, print array
                     dispatch_async(dispatch_get_main_queue()) {
-                        for (key,value) in self.dict {
-                            print("\(key)   \(value)")
-                        }
-                        self.uploadArcana()
+//                        for (key,value) in self.dict {
+//                            print("\(key)   \(value)")
+//                        }
+//                        self.uploadArcana()
 
                     }
                 }
                 
             }
-            
+            }
+            else {
+
+                //downloadWeaponAndPicture("old")
+                if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+                    
+                    //print("Trimming Old Page")
+                    let trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("<hr />")!..<html.indexOf("ス　キ　ル　範　囲")!)))
+                    //print(trim)
+                    let lines = trim.componentsSeparatedByString("<br>")
+                    for (index, i) in lines.enumerate() {
+                        let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>", options: [.CaseInsensitive])
+                        let regex = try! NSRegularExpression(pattern: "<.*?>", options: [.CaseInsensitive])
+                        let rangeSpan = NSMakeRange(0, i.characters.count)
+                        
+                        let spanLessString :String = regexSpan.stringByReplacingMatchesInString(i, options: [], range:rangeSpan, withTemplate: "")
+                        let range = NSMakeRange(0, spanLessString.characters.count)
+                        
+                        let htmlLessString :String = regex.stringByReplacingMatchesInString(spanLessString, options: [], range:range, withTemplate: "")
+                        
+                        let attribute = htmlLessString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        
+                        switch index {
+                        case 0:
+                            print("INDEX 0 HAS NAME \(attribute)")
+                            self.dict.updateValue(attribute, forKey: "nameJP")
+                            self.translate(attribute, key: "nameKR")
+                        case 1:
+                            print("INDEX 1 HAS RARITY \(attribute)")
+                            let rarity = self.getRarity(attribute)
+                            // check if rarity is 3 or lower
+                            if rarity != "5★" && rarity != "4★" {
+                                //numberOfAbilities = 1
+                            }
+                            self.dict.updateValue(rarity, forKey: "rarity")
+
+                        case 4:// Old pages have no affiliation..
+                            self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
+                        case 5:
+                            self.dict.updateValue(attribute, forKey: "cost")
+                        case 6:
+                            self.dict.updateValue(self.getClass(attribute), forKey: "group")
+                        default:
+                            break
+                        }
+                        
+                        //print(removeSpaces)
+                    }
+
+                 //   if let doc = Kanna.HTML(html: trim, encoding: NSUTF8StringEncoding) {
+                        
+                            //print(attribute.innerHTML)
+//                            if let a = attribute.innerHTML {
+//                                if let line = Kanna.HTML(html: a, encoding: NSUTF8StringEncoding) {
+//                                    print(line.innerHTML)
+//                                    let attributeTrim = a.substringWithRange(Range<String.Index>(a.indexOf("</span></span>")!..<a.indexOf("<br>")!))
+//                                    print(attributeTrim)
+//                                }
+//                            }
+
+                        
+                            
+                  //  }
+                }
+                
+            }
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
@@ -820,13 +892,13 @@ class ArcanaDatabase: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //handleImage()
-        downloadTavern()
+        //downloadTavern()
         // Do any additional setup after loading the view.
     }
 
     override func viewDidAppear(animated: Bool) {
         
-        //self.downloadArcana()
+        self.downloadArcana()
         
         
         //translate()
@@ -866,5 +938,17 @@ extension String {
         } catch {
             fatalError("Unhandled error: \(error)")
         }
+    }
+    
+    func deleteHTMLTag(tag:String) -> String {
+        return self.stringByReplacingOccurrencesOfString("(?i)</?\(tag)\\b[^<]*>", withString: "", options: .RegularExpressionSearch, range: nil)
+    }
+    
+    func deleteHTMLTags(tags:[String]) -> String {
+        var mutableString = self
+        for tag in tags {
+            mutableString = mutableString.deleteHTMLTag(tag)
+        }
+        return mutableString
     }
 }

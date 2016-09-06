@@ -36,7 +36,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         if viewController == self.viewControllers![1] {
-            print("RARITY")
+            print("tavern")
         }
     }
     

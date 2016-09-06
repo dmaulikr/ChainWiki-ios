@@ -138,7 +138,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            borderColor = HEALERCOLOR
 //        }
         
-        
+        /*
         
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
@@ -190,7 +190,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    
+    */
 
     }
     
