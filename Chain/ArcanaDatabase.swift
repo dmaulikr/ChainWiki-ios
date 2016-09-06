@@ -247,9 +247,11 @@ class ArcanaDatabase: UIViewController {
                                 
                                 switch attIndex {
                                 case 0:
-                                    self.dict.updateValue(attribute, forKey: "nameJP")
+                                    // use this name to search through arcanaData.txt and find name+nickname
+                                    //self.dict.updateValue(attribute, forKey: "nameJP")
+                                    
                                     self.downloadIcon(attribute)
-                                    self.translate(attribute, key: "nameKR")
+                                    //self.translate(attribute, key: "nameKR")
                                 case 1:
                                     let rarity = self.getRarity(attribute)
                                     // check if rarity is 3 or lower
@@ -690,7 +692,7 @@ class ArcanaDatabase: UIViewController {
         
         
         // Base Case: only 1 skill, 1 ability
-        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
+        guard let nKR = dict["nameKR"], let nnKR = dict["nickKR"], let nJP = dict["nameJP"], let nnJP = dict["nickJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
             
             print("ARCANA DICTIONARY VALUE IS NIL")
             return
@@ -707,11 +709,11 @@ class ArcanaDatabase: UIViewController {
         }
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)", "iconURL" : "\(iconURL)"]
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nickKR" : "\(nnKR)", "nameJP" : "\(nJP)", "nickJP" : "\(nnJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)", "iconURL" : "\(iconURL)"]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
 
-
+        
         ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
             print("UPLOADED ARCANA")
             
@@ -943,6 +945,43 @@ class ArcanaDatabase: UIViewController {
                     let arcanaID = subJson["No"].stringValue
                     print("FOUND ID # \(arcanaID)")
                     self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
+                    
+                    // Upload to firebase
+                    let ref = FIREBASE_REF.child("arcana")
+                    ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+                        print(snapshot)
+                        //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        
+                        let iconURL = snapshot.value!["iconURL"] as! String
+                        let url = NSURL(string: iconURL)
+                        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+                            if error != nil {
+                                print("DOWNLOAD ICON ERROR")
+                            }
+                            
+                            if let data = data {
+                                print("DOWNLOADED ICON!")
+                                // upload to firebase storage.
+                                
+                                let arcanaIconRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/icon.jpg")
+                                
+                                arcanaIconRef.putData(NSData(data: data), metadata: nil) { metadata, error in
+                                    if (error != nil) {
+                                        print("ERROR OCCURED WHILE UPLOADING IMAGE")
+                                        // Uh-oh, an error occurred!
+                                    } else {
+                                        // Metadata contains file metadata such as size, content-type, and download URL.
+                                        print("UPLOADED ICON")
+                                        //let downloadURL = metadata!.downloadURL
+                                    }
+                                }
+                                
+                            }
+                            
+                        })
+                        task.resume()
+                    })
+
                     break
                 }
             }
@@ -952,7 +991,79 @@ class ArcanaDatabase: UIViewController {
         }
     }
     
-    
+    func getNamesAndIcon(string: String) {
+        print("SEARCHING FOR \(string)")
+        
+        let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
+        let file = try? NSString(contentsOfFile: path! as String, encoding: NSUTF8StringEncoding)
+        let data: NSData? = NSData(contentsOfFile: path!)
+        do {
+            let jsonObject : AnyObject! =  try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+            let json = JSON(jsonObject)
+            
+            
+            for (_, subJson) : (String, JSON) in json["array"] {
+                if string.containsString(subJson["name"].stringValue) {
+                    
+                    let nameJP = subJson["name"].stringValue
+                    let nickJP = subJson["nickname"].stringValue
+                    self.translate(nameJP, key: "nameKR")
+                    self.translate(nickJP, key: "nickKR")
+                    let arcanaID = subJson["No"].stringValue
+                    print("FOUND ID # \(arcanaID) NAME \(nickJP)")
+                    
+                    self.dict.updateValue("\(nameJP)", forKey: "nameJP")
+                    self.dict.updateValue("\(nickJP)", forKey: "nickJP")
+                    self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
+                    
+                    // Upload to firebase
+                    let ref = FIREBASE_REF.child("arcana")
+                    ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+                        print(snapshot)
+                        //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        
+                        let iconURL = snapshot.value!["iconURL"] as! String
+                        let url = NSURL(string: iconURL)
+                        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+                            if error != nil {
+                                print("DOWNLOAD ICON ERROR")
+                            }
+                            
+                            if let data = data {
+                                print("DOWNLOADED ICON!")
+                                // upload to firebase storage.
+                                
+                                let arcanaIconRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/icon.jpg")
+                                
+                                arcanaIconRef.putData(NSData(data: data), metadata: nil) { metadata, error in
+                                    if (error != nil) {
+                                        print("ERROR OCCURED WHILE UPLOADING IMAGE")
+                                        // Uh-oh, an error occurred!
+                                    } else {
+                                        // Metadata contains file metadata such as size, content-type, and download URL.
+                                        print("UPLOADED ICON")
+                                        //let downloadURL = metadata!.downloadURL
+                                    }
+                                }
+                                
+                            }
+                            
+                        })
+                        task.resume()
+                    })
+                    
+                    break
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+    }
+    func retrieveURLS() {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

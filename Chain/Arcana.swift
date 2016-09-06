@@ -12,7 +12,9 @@ struct Arcana: Equatable, Hashable {
     
     var uid: String
     var nameKR: String
+    var nickNameKR: String?
     var nameJP: String
+    var nickNameJP: String?
     var rarity: String
     var group: String  // Class, 직업
     var tavern: String  // 주점
@@ -55,11 +57,13 @@ struct Arcana: Equatable, Hashable {
 
     
     
-    init?(u: String, nKR: String, nJP: String, r: String, g: String, t: String, a: String, c: String, w: String, kN: String, kC: String, kA: String, sC: String, sN1: String, sM1: String, sD1: String, sN2: String, sM2: String, sD2: String, sN3: String, sM3: String, sD3: String, aN1: String, aD1: String, aN2: String, aD2: String, v: Int) {
+    init?(u: String, nKR: String, nnKR: String, nJP: String, nnJP: String, r: String, g: String, t: String, a: String, c: String, w: String, kN: String, kC: String, kA: String, sC: String, sN1: String, sM1: String, sD1: String, sN2: String, sM2: String, sD2: String, sN3: String, sM3: String, sD3: String, aN1: String, aD1: String, aN2: String, aD2: String, v: Int) {
         
         uid = u
         nameKR = nKR
+        nickNameKR = nnKR
         nameJP = nJP
+        nickNameJP = nnJP
         rarity = r
         group = g
         tavern = t
@@ -126,9 +130,13 @@ struct Arcana: Equatable, Hashable {
             abilityName1 = aN1
             abilityDesc1 = aD1
             
-        
-            
             numberOfViews = v
+        
+        if let nnKR = snapshot.value!["nickNameKR"] as? String, let nnJP = snapshot.value!["nickNameJP"] as? String {
+            nickNameKR = nnKR
+            nickNameJP = nnJP
+        }
+        
         if let aN2 = snapshot.value!["abilityName2"] as? String, let aD2 = snapshot.value!["abilityDesc2"] as? String {
             abilityName2 = aN2
             abilityDesc2 = aD2
