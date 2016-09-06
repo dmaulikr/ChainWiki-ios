@@ -97,7 +97,7 @@ class SegmentedContainerView: UIViewController {
                         if let a = filters["affiliation"] {
                             
                             for affiliation in a {
-                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation.containsString(affiliation)})
+                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.containsString(affiliation)})
                                 affiliationSet = affiliationSet.union(Set(filteredAffiliation))
                             }
                             

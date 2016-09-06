@@ -16,7 +16,7 @@ struct Arcana: Equatable, Hashable {
     var rarity: String
     var group: String  // Class, 직업
     var tavern: String  // 주점
-    var affiliation: String // 소속
+    var affiliation: String? // 소속
     var cost: String
     var weapon: String
 

@@ -1,0 +1,3 @@
+{ "array" : [
+{"No":"00023","nickname":"破壊魔人","name":"ロレッタ", "rank":"SSR", "job":"戦", "wepon":"打", "cost":"16", "bar":"fukuto","syozoku":"副都", "maxAtk":"8400", "maxHp":"8400" },
+{"No":"00028","nickname":"防衛委員長","name":"ミーム", "rank":"SSR", "job":"戦", "wepon":"打", "cost":"17", "bar":"fukuto","syozoku":"副都", "maxAtk":"8370", "maxHp":"8750" },

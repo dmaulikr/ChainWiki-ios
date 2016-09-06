@@ -291,7 +291,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 attributeValue = arcana.group
             case 3:
                 attributeKey = "소속"
-                attributeValue = arcana.affiliation
+                if let a = arcana.affiliation {
+                    attributeValue = a
+                }
             case 4:
                 attributeKey = "코스트"
                 attributeValue = arcana.cost
@@ -439,8 +441,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        // Increment number of views
+        let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
+        viewRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            let views = snapshot.value as! Int
+            print("numberOfViews is \(views)")
+            viewRef.setValue(views+1)            
+        })
+
         //navigationController?.hidesBarsOnSwipe = true
-        
+    
     }
 
 //    override func viewDidAppear(animated: Bool) {
