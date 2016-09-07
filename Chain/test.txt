@@ -1,3 +1,24 @@
 { "array" : [
 {"No":"00023","nickname":"破壊魔人","name":"ロレッタ", "rank":"SSR", "job":"戦", "wepon":"打", "cost":"16", "bar":"fukuto","syozoku":"副都", "maxAtk":"8400", "maxHp":"8400" },
 {"No":"00028","nickname":"防衛委員長","name":"ミーム", "rank":"SSR", "job":"戦", "wepon":"打", "cost":"17", "bar":"fukuto","syozoku":"副都", "maxAtk":"8370", "maxHp":"8750" },
+
+// "#id"
+//                for i in doc.css("#s") {
+//                    print(i["@scan"])
+//                }
+
+// Search for nodes by XPath
+//div[@class='ks']
+
+// Arcana Attribute Key
+//th[@class='   js_col_sort_desc ui_col_sort_asc']
+
+
+// Arcana Attribute Value
+//td[@class='   ']
+//span[@data-jscol_sort]"
+
+// Number of tables.
+//tbody
+
+//<table width="" id="ui

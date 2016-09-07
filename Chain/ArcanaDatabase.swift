@@ -17,10 +17,11 @@ class ArcanaDatabase: UIViewController {
     // let google = "https://www.google.com/searchbyimage?&image_url="
     // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
     let arcanaURL = "激情の爆弾魔ボムボマー"
+    let dispatch_group = dispatch_group_create()
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
-
+    var urls = [String]()
     var dict = [String : String]()
     var arcanaID: Int?
     
@@ -142,13 +143,16 @@ class ArcanaDatabase: UIViewController {
 
                 }
                 
-                
+                if textWithWeapon == "" {
+                    print("WEAPON IS BLANK")
+                }
                 dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
             }
             
         } catch {
             print("PARSING ERROR")
         }
+        dispatch_group_leave(dispatch_group)
     }
 
     func downloadArcana() {
@@ -156,22 +160,20 @@ class ArcanaDatabase: UIViewController {
         let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
         
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
-        
-        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-        
+        for (index, url) in urls.enumerate() {
+            
+        print(urls[index])
+        let encodedString = urls[index].stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        let nonencodedString = urls[index]
         let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
-        
+        print("ABOUT TO PARSE \(encodedURL!)")
+            
         do {
             let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
-            // print(htmlSource)
-            
 
             if html.containsString("#ui_wikidb") {
-                print("NEW PAGE")
+                print("IDENTIFIED NEW PAGE")
                 downloadWeaponAndPicture("new")
-
-            
-            
 
             // Kanna, search through html
             
@@ -182,55 +184,18 @@ class ArcanaDatabase: UIViewController {
                 if !html.containsString("SKILL 2") {    // Only has 1 skill
                     numberOfSkills = 1
                 }
-                
                 else if !html.containsString("SKILL 3") {   // Only has 2 skills
-                    //print("PAGE ONLY HAS 2 SKILLS")
                     numberOfSkills = 2
                 }
-                
                 else {  // Only has 3 skills
                     numberOfSkills = 3
                 }
                 
                 var numberOfAbilities = 0
-                // "#id"
-                //                for i in doc.css("#s") {
-                //                    print(i["@scan"])
-                //                }
+              
                 
-                // Search for nodes by XPath
-                //div[@class='ks']
-                
-                // Arcana Attribute Key
-                //th[@class='   js_col_sort_desc ui_col_sort_asc']
-                
-                
-                // Arcana Attribute Value
-                //td[@class='   ']
-                //span[@data-jscol_sort]"
-                
-                // Number of tables.
-                //tbody
-                
-                //<table width="" id="ui
-                
-                
-                dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                    
-                    // Find Skill 3 Desc
-//                    let h = html as NSString
-//
-//                    //let startIndex = h.rangeOfString("SKILL 3")
-//                    if let startIndex = html.indexOf("SKILL 3") as? Int {
-//                        print(startIndex)
-//                        html.substringWithRange(Range<String.Index>(start: html.startIndex.advancedBy(startIndex), end: html.endIndex))
-//                    }
-
-                    
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//tbody").enumerate() {
-                        
-                        // TODO: Check for the table index. Skip through unneeded tables
                         
                         switch index {
                             
@@ -243,13 +208,12 @@ class ArcanaDatabase: UIViewController {
                                     return
                                 }
                                 
-                                // TODO: translate each before adding to
-                                
                                 switch attIndex {
                                 case 0:
                                     // use this name to search through arcanaData.txt and find name+nickname
                                     //self.dict.updateValue(attribute, forKey: "nameJP")
-                                    
+                                    dispatch_group_enter(dispatch_group)
+
                                     self.downloadIcon(attribute)
                                     //self.translate(attribute, key: "nameKR")
                                 case 1:
@@ -258,11 +222,21 @@ class ArcanaDatabase: UIViewController {
                                     if rarity != "5★" && rarity != "4★" {
                                         numberOfAbilities = 1
                                     }
+                                    dispatch_group_enter(dispatch_group)
                                     self.dict.updateValue(rarity, forKey: "rarity")
                                 case 3:
-                                    self.dict.updateValue(self.getClass(attribute), forKey: "group")
+                                    
+                                    // Check if this arcana existed in arcanaData
+                                    //if self.dict["group"] == nil {
+                                    dispatch_group_enter(dispatch_group)
+                                        self.dict.updateValue(self.getClass(attribute), forKey: "group")
+                                    //}
                                 case 4:
-                                    self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
+                                    // Check if this arcana existed in arcanaData
+                                  //  if self.dict["affiliation"] == nil {
+                                    dispatch_group_enter(dispatch_group)
+                                        self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
+                                   // }
                                 case 7:
                                     self.dict.updateValue(attribute, forKey: "cost")
                                 default:
@@ -282,10 +256,12 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 1:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "kizunaName")
                                 case 2:
                                     self.dict.updateValue(attribute, forKey: "kizunaCost")
                                 case 3:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "kizunaAbility")
                                 default:
                                     break
@@ -302,10 +278,12 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "skillName1")
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana1")
                                 case 2:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "skillDesc1")
                                 default:
                                     break
@@ -327,8 +305,10 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityName1")
                                     case 1:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityDesc1")
                                     default:
                                         break
@@ -347,10 +327,12 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "skillName2")
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana2")
                                 case 2:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "skillDesc2")
                                 default:
                                     break
@@ -376,9 +358,10 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityName2")
                                     case 1:
-                                        
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityDesc2")
                                     default:
                                         break
@@ -398,8 +381,10 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityName1")
                                     case 1:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "abilityDesc1")
                                     default:
                                         break
@@ -420,19 +405,18 @@ class ArcanaDatabase: UIViewController {
                                     switch attIndex {
                                         
                                     case 0:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "skillName3")
                                     case 1:
                                         self.dict.updateValue(attribute, forKey: "skillMana3")
                                     case 2:
+                                        dispatch_group_enter(dispatch_group)
                                         self.translate(attribute, key: "skillDesc3")
                                     default:
                                         break
                                     }
                                 }
                             }
-  
-                            
-
                             
                         case 6:
                                 if numberOfSkills == 1 {
@@ -448,8 +432,10 @@ class ArcanaDatabase: UIViewController {
                                         switch attIndex {
                                             
                                         case 0:
+                                            dispatch_group_enter(dispatch_group)
                                             self.translate(attribute, key: "abilityName2")
                                         case 1:
+                                            dispatch_group_enter(dispatch_group)
                                             self.translate(attribute, key: "abilityDesc2")
                                         default:
                                             break
@@ -468,8 +454,10 @@ class ArcanaDatabase: UIViewController {
                                         switch attIndex {
                                             
                                         case 0:
+                                            dispatch_group_enter(dispatch_group)
                                             self.translate(attribute, key: "abilityName1")
                                         case 1:
+                                            dispatch_group_enter(dispatch_group)
                                             self.translate(attribute, key: "abilityDesc1")
                                         default:
                                             break
@@ -478,9 +466,7 @@ class ArcanaDatabase: UIViewController {
                                 }
                                 
                                 break
-                            
-
-                            
+                        
                         case 7:
                             guard numberOfSkills == 3 else {
                                 print("ONLY 1 OR 2 SKILL, DON'T COME THIS FAR")
@@ -496,8 +482,10 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                     
                                 case 0:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "abilityName2")
                                 case 1:
+                                    dispatch_group_enter(dispatch_group)
                                     self.translate(attribute, key: "abilityDesc2")
                                 default:
                                     break
@@ -509,21 +497,18 @@ class ArcanaDatabase: UIViewController {
                         }
 
                     }
-                    
                     // After fetching, print array
-                    dispatch_async(dispatch_get_main_queue()) {
-//                        for (key,value) in self.dict {
-//                            print("\(key)   \(value)")
-//                        }
-                        self.uploadArcana()
-
-                    }
-                }
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        //self.uploadArcana()
+//
+//                    }
+                    
+                
                 
             }
             }
             else {
-
+                print("IDENTIFIED OLD PAGE")
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
                     if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
@@ -552,7 +537,11 @@ class ArcanaDatabase: UIViewController {
                     
                     // Already has skill count 1
                     self.dict.updateValue("1", forKey: "skillCount")
-                    let trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("<hr />")!..<html.indexOf("ス　キ　ル　範　囲")!)))
+                    guard let h = html.indexOf("ス　キ　ル　範　囲") else {
+                        print("POSSIBLY BLANK PAGE FOR  \(encodedURL!)")
+                        return
+                    }
+                    let trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("<hr />")!..<h)))
                     let lines = trim.componentsSeparatedByString("<br>")
                     for (index, i) in lines.enumerate() {
                         let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>", options: [.CaseInsensitive])
@@ -630,24 +619,26 @@ class ArcanaDatabase: UIViewController {
                             break
                         }
                         
-
+                        
                     }
-
-                    dispatch_async(dispatch_get_main_queue()) {
-                        for (key,value) in self.dict {
-                            print("\(key)   \(value)")
-                        }
- 
-                        self.uploadArcana()
-                    }
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.uploadArcana()
+//                    }
                 }
                 
+                
             }
+
+            self.uploadArcana()
+
+
+
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
         } catch {
             print("SOME OTHER ERROR")
+        }
         }
     }
     
@@ -656,7 +647,7 @@ class ArcanaDatabase: UIViewController {
         let encodedString = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
         if let encodedString = encodedString {
             
-             let semaphore = dispatch_semaphore_create(0)
+            let semaphore = dispatch_semaphore_create(0)
             
             let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
             
@@ -679,12 +670,16 @@ class ArcanaDatabase: UIViewController {
             task.resume()
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         }
-        
+        dispatch_group_leave(dispatch_group)
+
     }
     
     func uploadArcana() {
         let ref = FIREBASE_REF.child("arcana")
-        
+        for (key,value) in dict {
+            print("\(key)   \(value)")
+        }
+        print("STARTING UPLOAD PROCESS")
         let id = ref.childByAutoId().key
         // translate, put korean in dict values.
         
@@ -801,7 +796,7 @@ class ArcanaDatabase: UIViewController {
     
     func getTavern(string: String) -> String {
         
-        let taverns = ["副都", "聖都", "賢者の塔", "迷宮山脈", "砂漠の湖都", "精霊島", "炎の九領", "海風の港", "夜明けの大海", "ケ者の大陸", "罪の大陸", "薄命の大陸", "鉄煙の大陸", "書架", "レムレス島", "魔神"]
+        let taverns = ["副都", "聖都", "賢者の塔", "迷宮山脈", "砂漠の湖都", "精霊島", "炎の九領", "海風の港", "夜明けの大海", "ケ者の大陸", "罪の大陸", "薄命の大陸", "鉄煙の大陸", "書架", "レムレス島", "魔神", "ガチャ", "グ交換"]
         var tav = ""
         
         for (index, t) in taverns.enumerate() {
@@ -847,14 +842,16 @@ class ArcanaDatabase: UIViewController {
             return "마신"
         case "義勇軍":
             return "의용군"
-        
+        case "ガチャ":
+            return "링가챠"
+        case "グ交換":
+            return "링교환"
         default:
             return ""
         }
         
     }
-    
-    
+
     func getAffiliation(string: String) -> String {
         
         switch string {
@@ -989,9 +986,10 @@ class ArcanaDatabase: UIViewController {
         } catch {
             print(error)
         }
+        dispatch_group_leave(dispatch_group)
     }
     
-    func getNamesAndIcon(string: String) {
+    func getAttributes(string: String) {
         print("SEARCHING FOR \(string)")
         
         let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
@@ -1063,11 +1061,42 @@ class ArcanaDatabase: UIViewController {
     }
     func retrieveURLS() {
         
+        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+        
+        
+        
+        //print("SEARCHING FOR \(string)")
+        
+        let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
+        let file = try? NSString(contentsOfFile: path! as String, encoding: NSUTF8StringEncoding)
+        let data: NSData? = NSData(contentsOfFile: path!)
+        
+        do {
+            let jsonObject : AnyObject! =  try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+            let json = JSON(jsonObject)
+            
+            
+            for (_, subJson) : (String, JSON) in json["array"] {
+                let nameJP = subJson["name"].stringValue
+                let nickJP = subJson["nickname"].stringValue
+                //print("FOUND NAME \(nickJP)\(nameJP)")
+                
+                let arcanaURL = nickJP+nameJP
+                self.urls.append(arcanaURL)
+//                let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+//                let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+
+            }
+        } catch {
+            print(error)
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        retrieveURLS()
+//        for i in urls {
+//            print(i)
+//        }
         //let json = JSON(data: )
         //handleImage()
         //downloadTavern()
@@ -1076,8 +1105,11 @@ class ArcanaDatabase: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         
-        self.downloadArcana()
-        
+        downloadArcana()
+//        for (index, u) in urls.enumerate() {
+//            print(index, u)
+//            
+//        }
         
         
     }
@@ -1129,4 +1161,6 @@ extension String {
         }
         return mutableString
     }
+    
+    
 }
