@@ -164,7 +164,7 @@ class ArcanaDatabase: UIViewController {
         if string == "new" {
                 
                 print("IDENTIFIED NEW PAGE")
-                //downloadWeaponAndPicture("new")
+                downloadWeaponAndPicture("new")
                 
                 // Kanna, search through html
                 
@@ -187,7 +187,6 @@ class ArcanaDatabase: UIViewController {
                     
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//tbody").enumerate() {
-                        print("LOOPING THROUGH ATTRIBUTES")
                         switch index {
                             
                         case 0: // Arcana base info
@@ -341,7 +340,7 @@ class ArcanaDatabase: UIViewController {
                                 }
                                 // Just get ability 2
                                 let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
-                                print("ABILITY 2 TEXT")
+                                //print("ABILITY 2 TEXT")
                                 for (attIndex, a) in table!.xpath(".//td").enumerate() {
                                     guard let attribute = a.text else {
                                         return
@@ -460,7 +459,7 @@ class ArcanaDatabase: UIViewController {
                             
                         case 7:
                             guard numberOfSkills == 3 else {
-                                print("ONLY 1 OR 2 SKILL, DON'T COME THIS FAR")
+                                //print("ONLY 1 OR 2 SKILL, DON'T COME THIS FAR")
                                 break
                             }
                             let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
@@ -615,10 +614,10 @@ class ArcanaDatabase: UIViewController {
                 
             }
         }
+        
+        // WAIT FOR ALL TRANSLATIONS, THEN UPLOAD
         dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-            for (key, value) in self.dict {
-                print(key, value)
-            }
+        uploadArcana()
         
         
     }
@@ -1019,11 +1018,12 @@ class ArcanaDatabase: UIViewController {
             //print(json)
             
             for (_, subJson) : (String, JSON) in json["array"] {
-                if string.containsString(subJson["name"].stringValue) {
+                
+                // Checking for nickname because of ver 2.
+                if string.containsString(subJson["nickname"].stringValue) {
                     
                     let nameJP = subJson["name"].stringValue
                     let nickJP = subJson["nickname"].stringValue
-                    print(nameJP, nickJP)
                     self.translate(nameJP, key: "nameKR")
                     self.translate(nickJP, key: "nickKR")
                     let arcanaID = subJson["No"].stringValue
