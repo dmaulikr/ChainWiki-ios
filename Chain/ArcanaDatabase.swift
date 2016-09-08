@@ -20,7 +20,7 @@ class ArcanaDatabase: UIViewController {
     let group = dispatch_group_create()
 
     let arcanaURL = "幸運に導く戦士ニンファ"
-    let dispatch_group = dispatch_group_create()
+    //let dispatch_group = dispatch_group_create()
 
     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
     var attributeValues = [String]()
@@ -187,7 +187,9 @@ class ArcanaDatabase: UIViewController {
                     
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//tbody").enumerate() {
+                        
                         switch index {
+                            
                             
                         case 0: // Arcana base info
                             let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
@@ -211,6 +213,7 @@ class ArcanaDatabase: UIViewController {
                                 case 1:
                                     let rarity = self.getRarity(attribute)
                                     // check if rarity is 3 or lower
+                                    //print(attribute)
                                     if rarity != "5★" && rarity != "4★" {
                                         numberOfAbilities = 1
                                     }
@@ -253,7 +256,6 @@ class ArcanaDatabase: UIViewController {
                                 case 2:
                                     self.dict.updateValue(attribute, forKey: "kizunaCost")
                                 case 3:
-                                    
                                     self.translate(attribute, key: "kizunaAbility")
                                 default:
                                     break
@@ -275,6 +277,8 @@ class ArcanaDatabase: UIViewController {
                                 case 1:
                                     self.dict.updateValue(attribute, forKey: "skillMana1")
                                 case 2:
+                                    //print("SKILL DESC1 is \(attribute)")
+                                    //dispatch_group_enter(self.group)
                                     
                                     self.translate(attribute, key: "skillDesc1")
                                 default:
@@ -621,8 +625,14 @@ class ArcanaDatabase: UIViewController {
         }
         
         // WAIT FOR ALL TRANSLATIONS, THEN UPLOAD
-        dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-        uploadArcana()
+        dispatch_group_notify(group, dispatch_get_main_queue(), { // Calls the given block when all blocks are finished in the group.
+            // All blocks finished, do whatever you like.
+            for (key, value) in self.dict {
+                print(key, value)
+            }
+            self.uploadArcana()
+            })
+        
         
         
     }
@@ -632,7 +642,7 @@ class ArcanaDatabase: UIViewController {
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
     //    for url in urls {
 
-            let encodedString = "成功の魔神ラベゼリン".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "強欲な花タチアナ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
@@ -661,12 +671,12 @@ class ArcanaDatabase: UIViewController {
     
     func translate(value: String, key: String) {
         
-        dispatch_group_enter(group)
+        
         
         let encodedString = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
         
         if let encodedString = encodedString {
-            
+            dispatch_group_enter(group)
 //            let semaphore = dispatch_semaphore_create(0)
             
             let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
@@ -679,8 +689,8 @@ class ArcanaDatabase: UIViewController {
                     
                     if let translatedText = json["data"]["translations"][0]["translatedText"].string {
                         // gets rid of &quot
-                        print("TRANSLATED TEXT : \(translatedText)")
-                        self.dict.updateValue(translatedText, forKey: key)
+                        print("TRANSLATED TEXT IS \(translatedText)")
+                        self.dict.updateValue(String(htmlEncodedString: translatedText), forKey: key)
                         dispatch_group_leave(self.group)
 //                        dispatch_semaphore_signal(semaphore)
                     }
@@ -697,9 +707,9 @@ class ArcanaDatabase: UIViewController {
     
     func uploadArcana() {
         let ref = FIREBASE_REF.child("arcana")
-        for (key,value) in dict {
-            print("\(key)   \(value)")
-        }
+//        for (key,value) in dict {
+//            print("\(key)   \(value)")
+//        }
         print("STARTING UPLOAD PROCESS")
         let id = ref.childByAutoId().key
         // translate, put korean in dict values.
@@ -996,41 +1006,7 @@ class ArcanaDatabase: UIViewController {
                     self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
                     
                     // Upload to firebase
-                    let ref = FIREBASE_REF.child("arcana")
-                    ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-                        print(snapshot)
-                        //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                        
-                        let iconURL = snapshot.value!["iconURL"] as! String
-                        let url = NSURL(string: iconURL)
-                        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
-                            if error != nil {
-                                print("DOWNLOAD ICON ERROR")
-                            }
-                            
-                            if let data = data {
-                                print("DOWNLOADED ICON!")
-                                // upload to firebase storage.
-                                
-                                let arcanaIconRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/icon.jpg")
-                                
-                                arcanaIconRef.putData(NSData(data: data), metadata: nil) { metadata, error in
-                                    if (error != nil) {
-                                        print("ERROR OCCURED WHILE UPLOADING IMAGE")
-                                        // Uh-oh, an error occurred!
-                                    } else {
-                                        // Metadata contains file metadata such as size, content-type, and download URL.
-                                        print("UPLOADED ICON")
-                                        //let downloadURL = metadata!.downloadURL
-                                    }
-                                }
-                                
-                            }
-                            
-                        })
-                        task.resume()
-                    })
-                    
+
                     break
                 }
             }
