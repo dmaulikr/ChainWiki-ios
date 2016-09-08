@@ -16,6 +16,7 @@
 		0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */; };
 		042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570731D7EB4A4002F5AD0 /* arcanaData.txt */; };
 		042570761D7EB4CF002F5AD0 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570751D7EB4CF002F5AD0 /* test.txt */; };
+		042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DB3E81D8155970049AC0D /* MySupplementaryView.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
@@ -46,6 +47,7 @@
 		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */; };
+		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
 		C5E22DEC04C0CDB19F2CCB51 /* Pods_Chain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */; };
@@ -78,6 +80,7 @@
 		0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		042570731D7EB4A4002F5AD0 /* arcanaData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcanaData.txt; sourceTree = "<group>"; };
 		042570751D7EB4CF002F5AD0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		042DB3E81D8155970049AC0D /* MySupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySupplementaryView.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDictionary.swift; sourceTree = "<group>"; };
+		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +259,8 @@
 				0401B4001D79DFF200AF1BF1 /* SegmentedContainerView.swift */,
 				04A2EC961D6F7FA300189142 /* Home.swift */,
 				04AE0E251D7A2C23008902A8 /* Filter.swift */,
+				042DB3E81D8155970049AC0D /* MySupplementaryView.swift */,
+				04ED6FD41D813F4800C87B17 /* RarityCell.swift */,
 				04AE0E271D7A2E70008902A8 /* FilterCell.swift */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
 				048B31251D7642CA0011477D /* ArcanaAbilityList.swift */,
@@ -570,6 +576,7 @@
 			files = (
 				0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */,
 				04941A411D6FC0AB00BAE389 /* RarityList.swift in Sources */,
+				04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */,
 				04AA10221D7D667500387D22 /* TavernViewCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
@@ -582,6 +589,7 @@
 				04AA10201D7D653B00387D22 /* TavernView.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
+				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				048B31261D7642CA0011477D /* ArcanaAbilityList.swift in Sources */,

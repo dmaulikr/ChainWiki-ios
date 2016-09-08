@@ -99,17 +99,17 @@ class ArcanaDatabase: UIViewController {
 
     }
     
-    func downloadWeaponAndPicture(string: String) {
+    func downloadWeaponAndPicture(string: String, url: NSURL) {
 
-        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-        
-        
-        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-        
-        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+//        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+//        
+//        
+//        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+//        
+//        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
         
         do {
-            let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
+            let html = try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
         
             if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
 
@@ -168,8 +168,7 @@ class ArcanaDatabase: UIViewController {
         if string == "new" {
                 
                 print("IDENTIFIED NEW PAGE")
-                downloadWeaponAndPicture("new")
-                
+            
                 // Kanna, search through html
                 
                 if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
@@ -646,7 +645,7 @@ class ArcanaDatabase: UIViewController {
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
     //    for url in urls {
 
-            let encodedString = "希望の闇リヒト".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "哀しき人形ドーリィ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
@@ -656,10 +655,14 @@ class ArcanaDatabase: UIViewController {
                 
                 if html.containsString("#ui_wikidb") {
                     downloadAttributes("new", html: html)
+                    downloadWeaponAndPicture("new", url: encodedURL!)
+
                 }
                 
                 else {
                     downloadAttributes("old", html: html)
+                    downloadWeaponAndPicture("new", url: encodedURL!)
+
                 }
                 
 
@@ -1065,6 +1068,8 @@ class ArcanaDatabase: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //retrieveURLS()
+        //handleImage()
+        downloadArcana()
 //        for i in urls {
 //            print(i)
 //        }
@@ -1075,8 +1080,7 @@ class ArcanaDatabase: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        handleImage()
-        //downloadArcana()
+        
 //        for (index, u) in urls.enumerate() {
 //            print(index, u)
 //            

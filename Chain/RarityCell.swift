@@ -1,16 +1,16 @@
 //
-//  FilterCell.swift
+//  RarityCell.swift
 //  Chain
 //
-//  Created by Jitae Kim on 9/2/16.
+//  Created by Jitae Kim on 9/7/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
 
-class FilterCell: UICollectionViewCell {
+class RarityCell: UICollectionViewCell {
     
-    @IBOutlet weak var filterType: UILabel!
+    @IBOutlet weak var rarity: UILabel!
     
     override var highlighted: Bool {
         get {
@@ -19,15 +19,15 @@ class FilterCell: UICollectionViewCell {
         set {
             if newValue {
                 self.contentView.backgroundColor = lightGreenColor
-                filterType.textColor = UIColor.whiteColor()
+                rarity.textColor = UIColor.whiteColor()
             }
             else {
                 self.contentView.backgroundColor = UIColor.whiteColor()
-                filterType.textColor = lightGreenColor
-
+                rarity.textColor = lightGreenColor
+                
             }
             super.highlighted = newValue
         }
     }
-
+    
 }

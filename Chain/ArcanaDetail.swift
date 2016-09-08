@@ -222,7 +222,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             // Check cache first
             
             
-            if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/mainThumbnail") {
+            if let i = IMAGECACHE.imageWithIdentifier("\(arcana.uid)/main.jpg") {
                 print("LOADED CACHE IMAGE")
                 
                 let size = CGSize(width: SCREENWIDTH - 20, height: 400)
@@ -257,7 +257,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                     
                                     // Cache the Image
                                     print(arcana.uid)
-                                    IMAGECACHE.addImage(thumbnail, withIdentifier: "\(arcana.uid)/mainThumbnail")
+                                    IMAGECACHE.addImage(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
                                 }
                                 
 

@@ -153,7 +153,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         // Check cache first
-        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon") {
+        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon.jpg") {
             
             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
             let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
@@ -192,7 +192,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
-                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon")
+                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon.jpg")
                             }
 
                             
@@ -219,10 +219,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        if let scv = self.parentViewController as? SegmentedContainerView {
-            print("LOADED CONTAINER VIEW")
-            arcanaArray = scv.arcanaArray
-        }
+//        if let scv = self.parentViewController as? SegmentedContainerView {
+//            print("LOADED CONTAINER VIEW")
+//            arcanaArray = scv.arcanaArray
+//        }
         self.tableView.reloadData()
         // Do any additional setup after loading the view.
     }

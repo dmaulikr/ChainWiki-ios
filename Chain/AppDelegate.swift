@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UINavigationBar.appearance().barTintColor = lightGreenColor
-
+        //UILabel.appearance().font = UIFont(name: "yourFont", size: yourSize)
 
         
         return true
