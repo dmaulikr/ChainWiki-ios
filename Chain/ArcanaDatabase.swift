@@ -201,11 +201,13 @@ class ArcanaDatabase: UIViewController {
                                 switch attIndex {
                                 case 0:
                                     // use this name to search through arcanaData.txt and find name+nickname
-                                    //self.dict.updateValue(attribute, forKey: "nameJP")
                                     
-                                    self.getAttributes(attribute)
+                                    if self.getAttributes(attribute) == false {
+                                        //TODO: Update names.
+                                        self.dict.updateValue(attribute, forKey: "nameJP")
+                                        self.translate(attribute, key: "nameKR")
+                                    }
                                     //self.downloadIcon(attribute)
-                                //self.translate(attribute, key: "nameKR")
                                 case 1:
                                     let rarity = self.getRarity(attribute)
                                     // check if rarity is 3 or lower
@@ -572,6 +574,7 @@ class ArcanaDatabase: UIViewController {
                 case 7:
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
                 case 16:
+                    print(attribute)
                     let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf(" (")!))))
                     self.translate(skillName1, key: "skillName1")
                     let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
@@ -579,7 +582,9 @@ class ArcanaDatabase: UIViewController {
                     let skillDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(3)..<attribute.endIndex))))
                     self.translate(skillDesc1, key: "skillDesc1")
                     
+                    // TODO: ACCOUNT FOR SKILL UPDATE *
                 case 17:
+                    print(attribute)
                     let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
                     self.translate(abilityName1, key: "abilityName1")
                     let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
@@ -625,9 +630,9 @@ class ArcanaDatabase: UIViewController {
     func downloadArcana() {
         
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
-       // for url in urls {
+    //    for url in urls {
 
-            let encodedString = "幸運に導く戦士ニンファ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "成功の魔神ラベゼリン".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
@@ -651,7 +656,7 @@ class ArcanaDatabase: UIViewController {
             }
             
             //self.uploadArcana()
-        //}
+     //   }
     }
     
     func translate(value: String, key: String) {
@@ -702,32 +707,45 @@ class ArcanaDatabase: UIViewController {
         // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
         
         
-        // Base Case: only 1 skill, 1 ability
-        guard let nKR = dict["nameKR"], let nnKR = dict["nickKR"], let nJP = dict["nameJP"], let nnJP = dict["nickJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
+        // Base Case: only 1 skill, 1 ability. Does not have nickname.
+        
+        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
             
             print("ARCANA DICTIONARY VALUE IS NIL")
             return
         }
+        
         
         guard let imageURL = dict["imageURL"] else {
             print("COULD NOT GET IMAGEURL FROM DICT")
             return
         }
         
-        guard let iconURL = dict["iconURL"] else {
-            print("COULD NOT GET ICONURL FROM DICT")
-            return
-        }
+
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nickKR" : "\(nnKR)", "nameJP" : "\(nJP)", "nickJP" : "\(nnJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)", "iconURL" : "\(iconURL)"]
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
 
         
         ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
             print("UPLOADED ARCANA")
+            // Check if arcana was in file. If yes, get nicknames, iconURL
             
+            dispatch_group_enter(self.group)
+            
+            if let nnKR = self.dict["nickKR"], let nnJP = self.dict["nickJP"], let iconURL = self.dict["iconURL"] {
+                let nickNameRef = FIREBASE_REF.child("arcana/\(id)")
+                let nickNameAndIconRef = ["nickNameKR" : "\(nnKR)", "nickNameJP" : "\(nnJP)", "iconURL" : "\(iconURL)"]
+                
+                nickNameRef.updateChildValues(nickNameAndIconRef, withCompletionBlock: { completion in
+                    dispatch_group_leave(self.group)
+                })
+            }
+            
+            dispatch_group_wait(self.group, 3)
+            print("COULD NOT FIND ARCANA IN FILE. NO NICKNAME AND ICONURL")
             // Check if arcana has 2 abilities
             if r.containsString("5") || r.containsString("4") {
                 guard let aN2 = self.dict["abilityName2"], let aD2 = self.dict["abilityDesc2"] else {
@@ -760,12 +778,16 @@ class ArcanaDatabase: UIViewController {
                             break
                             
                         }
-
+                        
                     }
-
+                    
                 })
-
+                
             }
+            
+            
+            
+            
         })
         
     }
@@ -942,70 +964,9 @@ class ArcanaDatabase: UIViewController {
         
     }
 
-    func downloadIconAndNames(string: String) {
-        print("downloadIconAndNames- DONT EVER COME HERE")
 
-        let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
-        let file = try? NSString(contentsOfFile: path! as String, encoding: NSUTF8StringEncoding)
-        let data: NSData? = NSData(contentsOfFile: path!)
-        do {
-            let jsonObject : AnyObject! =  try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-            let json = JSON(jsonObject)
-            
-            
-            for (_, subJson) : (String, JSON) in json["array"] {
-                if string.containsString(subJson["name"].stringValue) {
-                    let arcanaID = subJson["No"].stringValue
-                    print("FOUND ID # \(arcanaID)")
-                    self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
-                    
-                    // Upload to firebase
-                    let ref = FIREBASE_REF.child("arcana")
-                    ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-                        print(snapshot)
-                        //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                        
-                        let iconURL = snapshot.value!["iconURL"] as! String
-                        let url = NSURL(string: iconURL)
-                        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
-                            if error != nil {
-                                print("DOWNLOAD ICON ERROR")
-                            }
-                            
-                            if let data = data {
-                                print("DOWNLOADED ICON!")
-                                // upload to firebase storage.
-                                
-                                let arcanaIconRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/icon.jpg")
-                                
-                                arcanaIconRef.putData(NSData(data: data), metadata: nil) { metadata, error in
-                                    if (error != nil) {
-                                        print("ERROR OCCURED WHILE UPLOADING IMAGE")
-                                        // Uh-oh, an error occurred!
-                                    } else {
-                                        // Metadata contains file metadata such as size, content-type, and download URL.
-                                        print("UPLOADED ICON")
-                                        //let downloadURL = metadata!.downloadURL
-                                    }
-                                }
-                                
-                            }
-                            
-                        })
-                        task.resume()
-                    })
-
-                    break
-                }
-            }
-            
-        } catch {
-            print(error)
-        }
-        
-    }
     
-    func getAttributes(string: String) {
+    func getAttributes(string: String) -> Bool {
         print("SEARCHING FOR \(string)")
         
         let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
@@ -1015,7 +976,8 @@ class ArcanaDatabase: UIViewController {
         do {
             let jsonObject : AnyObject! =  try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
             let json = JSON(jsonObject)
-            //print(json)
+            let a = string.substringToIndex(string.startIndex.advancedBy(3))
+            var contains = false
             
             for (_, subJson) : (String, JSON) in json["array"] {
                 
@@ -1028,7 +990,7 @@ class ArcanaDatabase: UIViewController {
                     self.translate(nickJP, key: "nickKR")
                     let arcanaID = subJson["No"].stringValue
                     print("FOUND ID # \(arcanaID) NAME \(nickJP)")
-                    
+                    contains = true
                     self.dict.updateValue("\(nameJP)", forKey: "nameJP")
                     self.dict.updateValue("\(nickJP)", forKey: "nickJP")
                     self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
@@ -1073,9 +1035,19 @@ class ArcanaDatabase: UIViewController {
                 }
             }
             
+            if contains == false {
+                
+                //TODO: get names from original html
+                print("THIS ARCANA IS NOT IN THE TEXT FILE")
+                return false
+            }
+            
+            
+            
         } catch {
             print(error)
         }
+        return true
         
     }
     func retrieveURLS() {
@@ -1102,9 +1074,7 @@ class ArcanaDatabase: UIViewController {
                 
                 let arcanaURL = nickJP+nameJP
                 self.urls.append(arcanaURL)
-//                let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-//                let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
-
+                
             }
         } catch {
             print(error)
@@ -1112,7 +1082,7 @@ class ArcanaDatabase: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-       // retrieveURLS()
+        retrieveURLS()
 //        for i in urls {
 //            print(i)
 //        }
