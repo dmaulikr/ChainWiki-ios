@@ -25,15 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)
         
-        database()
+        //database()
         
 
         // Navigation Bar Setup
         
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
+        UINavigationBar.appearance().barTintColor = lightGreenColor
 
-        
 
         
         return true

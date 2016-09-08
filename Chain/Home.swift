@@ -97,8 +97,18 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         let c = cell as! ArcanaCell
-        c.arcanaNameKR.text = arcanaArray[indexPath.row].nameKR
-        c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
+        // check if arcana has only name, or nickname.
+        if let nnKR = arcanaArray[indexPath.row].nickNameKR, let nnJP = arcanaArray[indexPath.row].nickNameJP {
+            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
+            c.arcanaNameKR.text = combinedNameKR
+            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
+            c.arcanaNameJP.text = combinedNameJP
+        }
+        else {
+            c.arcanaNameKR.text = arcanaArray[indexPath.row].nameKR
+            c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
+        }
+        
         c.arcanaWeapon.text = arcanaArray[indexPath.row].weapon
         
 //        var rarityPreview = ""
@@ -118,6 +128,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        }
         c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
         c.arcanaImage.image = nil
+        
+        
         // Check Cache, or download from Firebase
        // c.arcanaImage.image = UIImage(named: "main.jpg")
         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
@@ -138,10 +150,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            borderColor = HEALERCOLOR
 //        }
         
-        /*
+        
         
         // Check cache first
-        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/cellThumbnail") {
+        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon") {
             
             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
             let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
@@ -154,7 +166,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         else {
             print("UID \(arcanaArray[indexPath.row].uid)")
             
-            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
                     // Handle any errors
@@ -171,7 +183,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
 
                             
-                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.0)!) {
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
                                 
                                 let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
                                 //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
@@ -180,7 +192,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
-                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/cellThumbnail")
+                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon")
                             }
 
                             
@@ -190,7 +202,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    */
+    
 
     }
     
@@ -202,7 +214,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         //dict.updateValue(testArc!, forKey: "OI")
         //filterArray()
-        
+        self.navigationController?.navigationController!.title = "아르카나"
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 100

@@ -30,38 +30,42 @@ class ArcanaDatabase: UIViewController {
     
     func handleImage() {
         let ref = FIREBASE_REF.child("arcana")
-        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-            print(snapshot)
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            for i in snapshot.children {
+                if let imageURL = i.value?["iconURL"] as? String {
+                    //let imageURL = snapshot.value!["iconURL"] as! String
+                    let url = NSURL(string: imageURL)
+                    let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+                        if error != nil {
+                            print("DOWNLOAD IMAGE ERROR")
+                        }
+                        
+                        if let data = data {
+                            print("DOWNLOADED IMAGE!")
+                            // upload to firebase storage.
+                            
+                            let arcanaImageRef = STORAGE_REF.child("image/arcana/\(i.value!["uid"] as! String)/icon.jpg")
+                            
+                            arcanaImageRef.putData(NSData(data: data), metadata: nil) { metadata, error in
+                                if (error != nil) {
+                                    print("ERROR OCCURED WHILE UPLOADING IMAGE")
+                                    // Uh-oh, an error occurred!
+                                } else {
+                                    // Metadata contains file metadata such as size, content-type, and download URL.
+                                    print("UPLOADED IMAGE.")
+                                    //let downloadURL = metadata!.downloadURL
+                                }
+                            }
+                            
+                        }
+                        
+                    })
+                    task.resume()
+                }
+            }
         //ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-                let imageURL = snapshot.value!["imageURL"] as! String
-                let url = NSURL(string: imageURL)
-                let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
-                    if error != nil {
-                        print("DOWNLOAD IMAGE ERROR")
-                    }
-                    
-                    if let data = data {
-                        print("DOWNLOADED IMAGE!")
-                        // upload to firebase storage.
-                        
-                        let arcanaImageRef = STORAGE_REF.child("image/arcana/\(snapshot.value!["uid"] as! String)/main.jpg")
-                        
-                        arcanaImageRef.putData(NSData(data: data), metadata: nil) { metadata, error in
-                            if (error != nil) {
-                                print("ERROR OCCURED WHILE UPLOADING IMAGE")
-                                // Uh-oh, an error occurred!
-                            } else {
-                                // Metadata contains file metadata such as size, content-type, and download URL.
-                                print("UPLOADED IMAGE.")
-                                //let downloadURL = metadata!.downloadURL
-                            }
-                        }
-
-                    }
-                    
-                })
-                task.resume()
+            
         })
     
     }
@@ -642,7 +646,7 @@ class ArcanaDatabase: UIViewController {
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
     //    for url in urls {
 
-            let encodedString = "強欲な花タチアナ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "希望の闇リヒト".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
@@ -753,9 +757,11 @@ class ArcanaDatabase: UIViewController {
                     dispatch_group_leave(self.group)
                 })
             }
-            
+            else {
+                print("COULD NOT FIND ARCANA IN FILE. NO NICKNAME AND ICONURL")
+
+            }
             dispatch_group_wait(self.group, 3)
-            print("COULD NOT FIND ARCANA IN FILE. NO NICKNAME AND ICONURL")
             // Check if arcana has 2 abilities
             if r.containsString("5") || r.containsString("4") {
                 guard let aN2 = self.dict["abilityName2"], let aD2 = self.dict["abilityDesc2"] else {
@@ -1058,7 +1064,7 @@ class ArcanaDatabase: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        retrieveURLS()
+        //retrieveURLS()
 //        for i in urls {
 //            print(i)
 //        }
@@ -1069,8 +1075,8 @@ class ArcanaDatabase: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        
-        downloadArcana()
+        handleImage()
+        //downloadArcana()
 //        for (index, u) in urls.enumerate() {
 //            print(index, u)
 //            

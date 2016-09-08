@@ -18,7 +18,7 @@ class SegmentedContainerView: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = salmonColor
+            segmentedControl.tintColor = UIColor.whiteColor()
         }
     }
     

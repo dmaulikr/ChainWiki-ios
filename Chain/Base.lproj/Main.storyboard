@@ -25,46 +25,51 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="arcanaCell" rowHeight="90" id="o0t-Q7-wCk" customClass="ArcanaCell" customModule="Chain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0t-Q7-wCk" id="Kwg-68-Imq">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="o0t-Q7-wCk" id="Kwg-68-Imq">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-LS-NY5">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" ambiguous="YES" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-LS-NY5">
                                                     <rect key="frame" x="109" y="10" width="481" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text="일본어 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="xwP-ok-Ha4">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" ambiguous="YES" text="일본어 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="xwP-ok-Ha4">
                                                     <rect key="frame" x="109" y="32" width="481" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" text="5★" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6f-mC-mqR">
-                                                    <rect key="frame" x="109" y="67" width="20" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" ambiguous="YES" text="5★" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6f-mC-mqR">
+                                                    <rect key="frame" x="109" y="67" width="17" height="15"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="12"/>
+                                                    <color key="textColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" placeholderIntrinsicWidth="75" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="2uJ-h6-Fco">
-                                                    <rect key="frame" x="16" y="12" width="75" height="65"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" ambiguous="YES" placeholderIntrinsicWidth="75" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="2uJ-h6-Fco">
+                                                    <rect key="frame" x="16" y="10" width="75" height="75"/>
+                                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="8Ux-Ia-zEa"/>
+                                                        <constraint firstAttribute="height" constant="75" id="WlW-M9-B51"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" text="참 / 斬" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ty-2W-Lw5">
-                                                    <rect key="frame" x="139" y="67" width="34" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" ambiguous="YES" text="참 / 斬" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ty-2W-Lw5">
+                                                    <rect key="frame" x="136" y="67" width="32" height="15"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="12"/>
+                                                    <color key="textColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="2uJ-h6-Fco" firstAttribute="top" secondItem="Kwg-68-Imq" secondAttribute="top" constant="12" id="0mF-JF-y5T"/>
+                                                <constraint firstItem="2uJ-h6-Fco" firstAttribute="top" secondItem="Kwg-68-Imq" secondAttribute="top" constant="10" id="0mF-JF-y5T"/>
                                                 <constraint firstItem="e6f-mC-mqR" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3e7-LO-pzf"/>
                                                 <constraint firstItem="xwP-ok-Ha4" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3x8-lB-mIz"/>
                                                 <constraint firstItem="5Ty-2W-Lw5" firstAttribute="top" secondItem="xwP-ok-Ha4" secondAttribute="bottom" constant="20" id="5o5-12-3PM"/>
                                                 <constraint firstAttribute="trailing" secondItem="xwP-ok-Ha4" secondAttribute="trailing" constant="10" id="M31-Dh-WC7"/>
                                                 <constraint firstItem="xwP-ok-Ha4" firstAttribute="top" secondItem="mZL-LS-NY5" secondAttribute="bottom" constant="5" id="ONk-uP-JqA"/>
-                                                <constraint firstAttribute="bottom" secondItem="2uJ-h6-Fco" secondAttribute="bottom" constant="12" id="Oar-Zr-ZB2"/>
+                                                <constraint firstAttribute="bottom" secondItem="2uJ-h6-Fco" secondAttribute="bottom" constant="10" id="Oar-Zr-ZB2"/>
                                                 <constraint firstItem="e6f-mC-mqR" firstAttribute="top" secondItem="xwP-ok-Ha4" secondAttribute="bottom" constant="20" id="U6W-FK-zTq"/>
                                                 <constraint firstItem="5Ty-2W-Lw5" firstAttribute="leading" secondItem="e6f-mC-mqR" secondAttribute="trailing" constant="10" id="cCe-tu-k3B"/>
                                                 <constraint firstAttribute="trailing" secondItem="mZL-LS-NY5" secondAttribute="trailing" constant="10" id="mrQ-VE-x8m"/>
@@ -94,6 +99,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="필터" id="gXG-q1-cgm"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -112,7 +118,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1012" y="532.5"/>
+            <point key="canvasLocation" x="1038" y="532.5"/>
         </scene>
         <!--Tavern View-->
         <scene sceneID="Axr-pG-zdl">
@@ -510,7 +516,7 @@
         <scene sceneID="K89-eY-laz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ULm-Vo-i7l" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="아르카나" id="Inl-L0-ewH"/>
+                    <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Inl-L0-ewH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hNU-iW-UxL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -595,11 +601,11 @@
             </objects>
             <point key="canvasLocation" x="2089" y="532.5"/>
         </scene>
-        <!--주점-->
+        <!--어빌리티-->
         <scene sceneID="5BN-Ay-y1R">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Kfd-kw-ljW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="주점" id="wxO-gF-32V"/>
+                    <tabBarItem key="tabBarItem" title="어빌리티" image="abilityTab" id="wxO-gF-32V"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jam-8P-FA6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -615,4 +621,8 @@
             <point key="canvasLocation" x="690" y="1735"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="abilityTab" width="25" height="25"/>
+        <image name="arcanaTab" width="25" height="25"/>
+    </resources>
 </document>

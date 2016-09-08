@@ -52,6 +52,7 @@ let lightNavyColor = UIColor(red:0.23, green:0.29, blue:0.37, alpha:1.0)
 let darkGrayColor = UIColor(red:0.53, green:0.59, blue:0.65, alpha:1.0)
 let lightGrayColor = UIColor(red:0.86, green:0.88, blue:0.9, alpha:1.0)
 let greenColor = UIColor(red:0.3, green:0.85, blue:0.39, alpha:1.0)
+let lightGreenColor = UIColor(red:0.41, green:0.64, blue:0.51, alpha:1.0)
 
 
 

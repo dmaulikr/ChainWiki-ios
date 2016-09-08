@@ -11,6 +11,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         self.delegate = self
+        self.tabBar.tintColor = lightGreenColor
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
