@@ -1,0 +1,6 @@
+framework module Pods_ChainUITests {
+  umbrella header "Pods-ChainUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
