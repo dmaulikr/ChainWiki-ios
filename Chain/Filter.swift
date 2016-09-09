@@ -263,6 +263,7 @@ extension Filter : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         
+        
         var count = 0
         var totalCellWidth = 0
         var totalSpacingWidth = 0
@@ -280,10 +281,17 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         
         
         
-        let leftInset = (SCREENWIDTH - CGFloat(totalCellWidth + totalSpacingWidth)) / 2;
+        let leftInset = (SCREENWIDTH - 95 - CGFloat(totalCellWidth + totalSpacingWidth)) / 2;
         let rightInset = leftInset
         
-        return UIEdgeInsetsMake(10, leftInset, 10, rightInset)
+        switch section {
+        case 0: // This one needs higher top inset
+            return UIEdgeInsetsMake(14, leftInset, 7, rightInset)
+        default:
+            return UIEdgeInsetsMake(7, leftInset, 7, rightInset)
+
+        }
+        
     }
     
     

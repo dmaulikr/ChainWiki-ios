@@ -218,7 +218,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         downloadArray()
         //dict.updateValue(testArc!, forKey: "OI")
         //filterArray()
-        self.navigationController!.title = "아르카나"
+        self.navigationController?.navigationController?.title = "아르카나"
         
         tableView.dataSource = self
         tableView.delegate = self
