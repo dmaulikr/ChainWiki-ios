@@ -253,7 +253,7 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         case 2:
             return CGSize(width: 50, height: 50)
         default:
-            return CGSize(width: 65, height: 65)
+            return CGSize(width: 65, height: 50)
             
             
         }

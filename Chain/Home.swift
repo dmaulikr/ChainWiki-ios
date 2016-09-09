@@ -11,16 +11,19 @@ import Firebase
 import AlamofireImage
 import Polyglot
 import Toucan
+import MMDrawerController
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-
-    @IBAction func indexChanged(sender: AnyObject) {
-    }
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var filter: UIBarButtonItem!
+    @IBAction func filter(sender: AnyObject) {
+        
+        // Access an instance of AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.drawerContainer?.toggleDrawerSide(MMDrawerSide.Right, animated: true, completion: nil)
+    }
+
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
 
@@ -52,23 +55,23 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
     }
     
-//    func filterArray() {
-//
-//        let ref = FIREBASE_REF.child("arcana")
-//
-//        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
-//            
-//            var filter = [Arcana]()
-//            for item in snapshot.children {
-//                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-//                filter.append(arcana!)
-//            }
-//            self.arcanaArray = filter
-//            self.tableView.reloadData()
-//        })
-//        
-//    }
-//    
+    func downloadArray() {
+
+        let ref = FIREBASE_REF.child("arcana")
+
+        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
+            
+            var filter = [Arcana]()
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                filter.append(arcana!)
+            }
+            self.arcanaArray = filter
+            self.tableView.reloadData()
+        })
+        
+    }
+    
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -152,6 +155,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         
+        /*
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon.jpg") {
             
@@ -203,7 +207,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
     
-
+*/
     }
     
         
@@ -211,10 +215,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        downloadArray()
         //dict.updateValue(testArc!, forKey: "OI")
         //filterArray()
-        self.navigationController?.navigationController!.title = "아르카나"
+        self.navigationController!.title = "아르카나"
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 100

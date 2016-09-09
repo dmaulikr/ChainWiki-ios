@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9nz-JD-WkP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i1o-Ts-uAI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -99,9 +99,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="필터" id="gXG-q1-cgm"/>
+                        <barButtonItem key="rightBarButtonItem" title="필터" id="gXG-q1-cgm">
+                            <connections>
+                                <action selector="filter:" destination="BYZ-38-t0r" id="qUt-tv-l93"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="GRP-ev-0Rs" id="awy-MW-NmG"/>
                         <outlet property="tableView" destination="GAE-o0-dWx" id="pd9-Zf-9ZD"/>
@@ -118,7 +121,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1850" y="532"/>
+            <point key="canvasLocation" x="2474" y="532"/>
         </scene>
         <!--Tavern View-->
         <scene sceneID="Axr-pG-zdl">
@@ -193,7 +196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rfI-HX-Tmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1502" y="1735"/>
+            <point key="canvasLocation" x="1620" y="2305"/>
         </scene>
         <!--ArcanaName-->
         <scene sceneID="Gq4-M3-XGI">
@@ -413,121 +416,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5Q-SD-je4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3019" y="1250.5"/>
+            <point key="canvasLocation" x="3265" y="532"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="wub-9E-Ucz">
             <objects>
-                <tabBarController id="i1o-Ts-uAI" customClass="MyTabBarController" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MyTabBarController" id="i1o-Ts-uAI" customClass="MyTabBarController" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Ofl-jn-V4o">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="k3N-N4-ia0" kind="relationship" relationship="viewControllers" id="j3P-iD-TuH"/>
+                        <segue destination="7rg-wy-GHd" kind="relationship" relationship="viewControllers" id="bkZ-c1-5U7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXv-l5-2uM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-780" y="795"/>
-        </scene>
-        <!--Segmented Container View-->
-        <scene sceneID="Gro-t2-29E">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="LJB-Yn-Ga6" customClass="SegmentedContainerView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xZ1-WB-pSD"/>
-                        <viewControllerLayoutGuide type="bottom" id="zdk-6T-s3l"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="AL0-rt-skP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzM-eX-pDs">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ykL-13-an0">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZzM-eX-pDs" firstAttribute="leading" secondItem="AL0-rt-skP" secondAttribute="leading" id="0nC-9t-bsV"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ZzM-eX-pDs" secondAttribute="bottom" constant="49" id="2Jp-Ur-HMg"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ykL-13-an0" secondAttribute="bottom" constant="49" id="HfM-eC-oww"/>
-                            <constraint firstItem="ykL-13-an0" firstAttribute="leading" secondItem="AL0-rt-skP" secondAttribute="leading" id="N4E-9g-0CK"/>
-                            <constraint firstItem="ykL-13-an0" firstAttribute="top" secondItem="AL0-rt-skP" secondAttribute="topMargin" constant="64" id="NU9-QM-ycU"/>
-                            <constraint firstAttribute="trailing" secondItem="ykL-13-an0" secondAttribute="trailing" id="ZJm-9j-nQe"/>
-                            <constraint firstAttribute="trailing" secondItem="ZzM-eX-pDs" secondAttribute="trailing" id="lmk-B7-8XL"/>
-                            <constraint firstItem="ZzM-eX-pDs" firstAttribute="top" secondItem="AL0-rt-skP" secondAttribute="topMargin" constant="64" id="rXl-Js-Cvc"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="jyd-rH-te9">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="nmK-Ty-0ea">
-                            <rect key="frame" x="20" y="7" width="560" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="아르카나"/>
-                                <segment title="정리"/>
-                            </segments>
-                            <connections>
-                                <action selector="segmentedControl:" destination="LJB-Yn-Ga6" eventType="valueChanged" id="NAU-c3-4w7"/>
-                            </connections>
-                        </segmentedControl>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="arcanaView" destination="ZzM-eX-pDs" id="vKI-aY-g6S"/>
-                        <outlet property="filterView" destination="ykL-13-an0" id="Spg-kM-rGr"/>
-                        <outlet property="segmentedControl" destination="nmK-Ty-0ea" id="bXq-CQ-tzi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bQg-wF-RDm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1615" y="-191"/>
-        </scene>
-        <!--Reverse Image Search-->
-        <scene sceneID="w9e-dM-bNQ">
-            <objects>
-                <viewController id="7jg-C7-rK9" customClass="ReverseImageSearch" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sKa-gb-Y5O"/>
-                        <viewControllerLayoutGuide type="bottom" id="pzs-v3-iBX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="h8n-kA-z8x">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rIy-Me-mEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1367" y="2601"/>
-        </scene>
-        <!--아르카나-->
-        <scene sceneID="K89-eY-laz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ULm-Vo-i7l" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Inl-L0-ewH"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hNU-iW-UxL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="LJB-Yn-Ga6" kind="relationship" relationship="rootViewController" id="ShM-73-nCw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fbj-KP-ebL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="907" y="-191"/>
+            <point key="canvasLocation" x="828" y="532"/>
         </scene>
         <!--Filter-->
         <scene sceneID="163-PP-N2i">
             <objects>
-                <viewController id="bWs-Rw-KUT" userLabel="Filter" customClass="Filter" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Filter" id="bWs-Rw-KUT" userLabel="Filter" customClass="Filter" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sQU-8q-nbO"/>
                         <viewControllerLayoutGuide type="bottom" id="0K8-cy-Sy1"/>
@@ -547,7 +458,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rarityCell" id="PlB-gN-nBM" customClass="RarityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="146" height="92"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -584,7 +495,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="border" id="gpl-DK-4Gl">
-                                        <rect key="frame" x="151" y="64" width="146" height="92"/>
+                                        <rect key="frame" x="151" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -593,7 +504,7 @@
                                         </view>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="303" y="64" width="146" height="92"/>
+                                        <rect key="frame" x="303" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -622,9 +533,19 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctm-Oo-QdD">
+                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="모두 해제" id="onb-Bi-MDA"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ctm-Oo-QdD" secondAttribute="trailing" id="AbJ-5F-qf6"/>
+                            <constraint firstItem="Ctm-Oo-QdD" firstAttribute="leading" secondItem="5Kn-9j-Lo6" secondAttribute="leading" id="HMZ-Eh-KAn"/>
+                            <constraint firstItem="0K8-cy-Sy1" firstAttribute="top" secondItem="Ctm-Oo-QdD" secondAttribute="bottom" id="KPf-0m-Oic"/>
                             <constraint firstItem="5Fu-jK-Bwr" firstAttribute="top" secondItem="5Kn-9j-Lo6" secondAttribute="top" id="VlV-je-kuL"/>
                             <constraint firstAttribute="bottom" secondItem="5Fu-jK-Bwr" secondAttribute="bottom" id="rvs-my-tGt"/>
                             <constraint firstItem="5Fu-jK-Bwr" firstAttribute="leading" secondItem="5Kn-9j-Lo6" secondAttribute="leading" id="wXf-hc-wiv"/>
@@ -638,7 +559,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MH4-Sk-koW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3713" y="532"/>
+            <point key="canvasLocation" x="1032" y="1308"/>
         </scene>
         <!--어빌리티-->
         <scene sceneID="5BN-Ay-y1R">
@@ -657,49 +578,30 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRF-1R-PYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="690" y="1735"/>
+            <point key="canvasLocation" x="886" y="2305"/>
         </scene>
         <!--Item-->
-        <scene sceneID="3Uj-ta-Hd4">
+        <scene sceneID="3Qo-ge-H97">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k3N-N4-ia0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="NGc-QP-lbu"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7rg-wy-GHd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p2c-AA-oU9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="TJL-7P-t9I"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="o9p-Uj-WMl"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zsH-rU-kBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hPE-PY-w1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1038" y="532"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="GDa-44-Nhz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9nz-JD-WkP" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ht4-bS-39S">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="bWs-Rw-KUT" kind="relationship" relationship="rootViewController" id="mrh-YJ-nSz"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="s4V-qJ-xsx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2901" y="532"/>
+            <point key="canvasLocation" x="1642" y="532"/>
         </scene>
     </scenes>
     <resources>
         <image name="abilityTab" width="25" height="25"/>
-        <image name="arcanaTab" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>
 </document>

@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 import Firebase
+import MMDrawerController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var drawerContainer: MMDrawerController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -31,10 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Navigation Bar Setup
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        UINavigationBar.appearance().tintColor = UIColor.blackColor()
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = lightGreenColor
         //UILabel.appearance().font = UIFont(name: "yourFont", size: yourSize)
-
+        //buildNavigationDrawer()
         
         return true
     }
@@ -138,6 +140,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
+    }
+    
+    func buildNavigationDrawer() {
+        let mainStoryBoard:UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+        let mainPage:MyTabBarController = mainStoryBoard.instantiateViewControllerWithIdentifier("MyTabBarController") as! MyTabBarController
+        let rightSideMenu:Filter = mainStoryBoard.instantiateViewControllerWithIdentifier("Filter") as! Filter
+        let rightSideMenuNav = UINavigationController(rootViewController:rightSideMenu)
+        drawerContainer = MMDrawerController(centerViewController: mainPage, leftDrawerViewController: nil, rightDrawerViewController: rightSideMenuNav)
+        
+        drawerContainer!.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView
+        drawerContainer!.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView
+        window?.rootViewController = drawerContainer
+
     }
 
 }
