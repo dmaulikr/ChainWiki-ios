@@ -124,6 +124,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             print(filterTypes["rarity"]!)
             
             if let vc = parentViewController as? HomeContainerView {
+                print("SELECT ACCESSED HOME")
                 let home = vc.childViewControllers[0] as! Home
                 home.arcanaArray = home.arcanaArray.filter({$0.rarity == cell.rarity.text})
             }
@@ -235,12 +236,18 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         // Check if deselected last cell, meaning no filters selected
-        if let list = collectionView.indexPathsForSelectedItems() {
-            if list.count == 0 {
-                hasFilter = false
+        print("DESELECTED COUNT \(collectionView.indexPathsForSelectedItems())")
+        if collectionView.indexPathsForSelectedItems()!.count == 0 {
+            if let vc = parentViewController as? HomeContainerView {
+                let home = vc.childViewControllers[0] as! Home
+                print("LOADED HOMEEEEEEEE")
+                home.arcanaArray = home.originalArray
+                self.delegate!.didUpdate(self)
             }
-    
         }
+
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()

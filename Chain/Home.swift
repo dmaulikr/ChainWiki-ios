@@ -47,6 +47,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 filter.append(arcana!)
             }
             self.arcanaArray = filter
+            self.originalArray = filter
             self.tableView.reloadData()
         })
         

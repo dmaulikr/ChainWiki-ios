@@ -12,10 +12,8 @@ import Canvas
 class HomeContainerView: UIViewController, FilterDelegate {
 
     func didUpdate(sender: Filter) {
-        print("UPDATED TABLE")
         dispatch_async(dispatch_get_main_queue()) {
             if let vc = self.childViewControllers[0] as? Home {
-                print("HOME TABLE ACCESSED")
                 vc.tableView.reloadData()
             }
         }
