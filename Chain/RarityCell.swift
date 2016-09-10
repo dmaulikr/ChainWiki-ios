@@ -11,6 +11,7 @@ import UIKit
 class RarityCell: UICollectionViewCell {
     
     @IBOutlet weak var rarity: UILabel!
+    @IBOutlet weak var rarityIcon: UIImageView!
     
     override var highlighted: Bool {
         get {
@@ -20,10 +21,12 @@ class RarityCell: UICollectionViewCell {
             if newValue {
                 self.contentView.backgroundColor = lightGreenColor
                 rarity.textColor = UIColor.whiteColor()
+                rarityIcon.image = UIImage(named: "starWhite.png")
             }
             else {
                 self.contentView.backgroundColor = UIColor.whiteColor()
                 rarity.textColor = lightGreenColor
+                rarityIcon.image = UIImage(named: "starGray.png")
                 
             }
             super.highlighted = newValue

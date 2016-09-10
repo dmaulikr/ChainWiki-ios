@@ -446,7 +446,7 @@
                         <viewControllerLayoutGuide type="bottom" id="0K8-cy-Sy1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Kn-9j-Lo6">
-                        <rect key="frame" x="0.0" y="0.0" width="505" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="506" height="488"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Fu-jK-Bwr">
@@ -494,32 +494,27 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="rarity" destination="7jw-kF-DZs" id="YEo-Kk-gHW"/>
+                                            <outlet property="rarityIcon" destination="kOF-yd-FAD" id="k41-Et-heq"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="border" id="gpl-DK-4Gl">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
                                         <rect key="frame" x="180" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="359" y="0.0" width="146" height="92"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="필터 유형" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-sm-hae">
-                                                    <rect key="frame" x="10" y="33" width="126" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="필터 유형" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-sm-hae">
+                                                    <rect key="frame" x="47" y="34" width="53" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Z0z-Ym-721"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
-                                                    <color key="textColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="10" y="33" width="126" height="25"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -535,19 +530,10 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctm-Oo-QdD">
-                                <rect key="frame" x="0.0" y="438" width="505" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem title="모두 해제" id="onb-Bi-MDA"/>
-                                </items>
-                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Ctm-Oo-QdD" secondAttribute="trailing" id="AbJ-5F-qf6"/>
-                            <constraint firstItem="Ctm-Oo-QdD" firstAttribute="leading" secondItem="5Kn-9j-Lo6" secondAttribute="leading" id="HMZ-Eh-KAn"/>
-                            <constraint firstItem="0K8-cy-Sy1" firstAttribute="top" secondItem="Ctm-Oo-QdD" secondAttribute="bottom" id="KPf-0m-Oic"/>
                             <constraint firstAttribute="bottom" secondItem="5Fu-jK-Bwr" secondAttribute="bottom" id="rvs-my-tGt"/>
                             <constraint firstItem="5Fu-jK-Bwr" firstAttribute="top" secondItem="sQU-8q-nbO" secondAttribute="bottom" id="vgE-rn-OQt"/>
                             <constraint firstItem="5Fu-jK-Bwr" firstAttribute="leading" secondItem="5Kn-9j-Lo6" secondAttribute="leading" id="wXf-hc-wiv"/>
@@ -555,6 +541,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Y80-2J-cPw"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="5Fu-jK-Bwr" id="aGj-a5-5Ux"/>
                     </connections>
@@ -600,7 +587,7 @@
                                     <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
                                 <rect key="frame" x="95" y="64" width="505" height="487"/>
                                 <connections>
                                     <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
@@ -609,15 +596,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="Xfr-WL-NeS" secondAttribute="bottom" constant="49" id="8Ff-cz-PkK">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="trailing" secondItem="Xfr-WL-NeS" secondAttribute="trailing" id="AnN-WG-oVH"/>
                             <constraint firstItem="B2c-bo-R45" firstAttribute="leading" secondItem="NQg-C0-h60" secondAttribute="leading" id="DxC-uP-7YS"/>
                             <constraint firstItem="Xfr-WL-NeS" firstAttribute="top" secondItem="feh-so-k9D" secondAttribute="bottom" id="GzJ-vd-vW1"/>
                             <constraint firstAttribute="trailing" secondItem="B2c-bo-R45" secondAttribute="trailing" id="Nwa-2J-QOl"/>
-                            <constraint firstItem="3HJ-7i-xha" firstAttribute="top" secondItem="Xfr-WL-NeS" secondAttribute="bottom" id="QQD-j8-fFR"/>
                             <constraint firstItem="B2c-bo-R45" firstAttribute="top" secondItem="feh-so-k9D" secondAttribute="bottom" id="psi-qV-yDH"/>
                             <constraint firstItem="Xfr-WL-NeS" firstAttribute="leading" secondItem="NQg-C0-h60" secondAttribute="leading" constant="95" id="uFT-J0-rmx"/>
                             <constraint firstItem="3HJ-7i-xha" firstAttribute="top" secondItem="B2c-bo-R45" secondAttribute="bottom" id="vMX-aY-GQs"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8Ff-cz-PkK"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="8Ff-cz-PkK"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="EA8-5b-Lns"/>
                     <navigationItem key="navigationItem" id="pt2-ng-HMA">
@@ -659,6 +658,10 @@
         <scene sceneID="z8B-Wp-Icd">
             <objects>
                 <viewController id="zYE-tI-Hjz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BJx-F9-s7g"/>
+                        <viewControllerLayoutGuide type="bottom" id="bFm-yq-puA"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="suG-8e-uYZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

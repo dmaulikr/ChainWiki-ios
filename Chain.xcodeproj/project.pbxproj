@@ -50,6 +50,9 @@
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */; };
 		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
+		04FABD201D83DB2F005D9EEC /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FABD1E1D83DB2F005D9EEC /* Interactor.swift */; };
+		04FABD211D83DB2F005D9EEC /* MenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FABD1F1D83DB2F005D9EEC /* MenuHelper.swift */; };
+		04FABD241D83DBAF005D9EEC /* PresentMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FABD231D83DBAF005D9EEC /* PresentMenuAnimator.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
 		C5E22DEC04C0CDB19F2CCB51 /* Pods_Chain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */; };
@@ -124,6 +127,9 @@
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDictionary.swift; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
+		04FABD1E1D83DB2F005D9EEC /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		04FABD1F1D83DB2F005D9EEC /* MenuHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHelper.swift; sourceTree = "<group>"; };
+		04FABD231D83DBAF005D9EEC /* PresentMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMenuAnimator.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +224,7 @@
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
 				04AA13CD1D73D47E004AC3A7 /* ArcanaDatabase.swift */,
 				04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */,
+				04FABD221D83DB34005D9EEC /* SideMenu */,
 				04A2ECC71D6F80D300189142 /* Model */,
 				04A2ECC61D6F80C800189142 /* Controller */,
 				04A2ECC51D6F80BF00189142 /* View */,
@@ -292,6 +299,16 @@
 				04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		04FABD221D83DB34005D9EEC /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				04FABD1E1D83DB2F005D9EEC /* Interactor.swift */,
+				04FABD1F1D83DB2F005D9EEC /* MenuHelper.swift */,
+				04FABD231D83DBAF005D9EEC /* PresentMenuAnimator.swift */,
+			);
+			name = SideMenu;
 			sourceTree = "<group>";
 		};
 		775C9A4348BE0849F66B6F00 /* Frameworks */ = {
@@ -596,6 +613,8 @@
 				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				0401B4011D79DFF200AF1BF1 /* SegmentedContainerView.swift in Sources */,
+				04FABD201D83DB2F005D9EEC /* Interactor.swift in Sources */,
+				04FABD211D83DB2F005D9EEC /* MenuHelper.swift in Sources */,
 				04AA10201D7D653B00387D22 /* TavernView.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				04734C521D837A2C00FA1CDE /* HomeContainerView.swift in Sources */,
@@ -615,6 +634,7 @@
 				0404DDA21D8292D100FF390F /* SWRevealViewController.m in Sources */,
 				04941A431D6FC1A600BAE389 /* RarityTableView.swift in Sources */,
 				0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */,
+				04FABD241D83DBAF005D9EEC /* PresentMenuAnimator.swift in Sources */,
 				046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */,
 				04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */,
 			);

@@ -10,11 +10,21 @@ import UIKit
 
 class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+//    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
+//        let translation = recognizer.translationInView(self.view)
+//        if let view = recognizer.view {
+//            view.center = CGPoint(x:view.center.x + translation.x,
+//                                  y:view.center.y)
+//        }
+//        recognizer.setTranslation(CGPointZero, inView: self.view)
+//    }
+
     @IBOutlet weak var collectionView: UICollectionView!
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     private let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
     var hasFilter = false
-    
+//    var panGesture : UIPanGestureRecognizer?
+
     let rarity = ["5", "4", "3", "2", "1"]
     let group = ["전사", "기사","궁수","법사","승려"]
     let weapon = ["검", "봉", "창", "마", "궁", "성", "권", "총", "저"]
@@ -22,7 +32,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     var filterTypes = [String : [String]]()
     
-
+    let cellSize = CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
+    let affCellSize = CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 4
@@ -229,6 +240,10 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        //panGesture!.isLeft(view) // returns true or false
+
+    }
     override func viewWillDisappear(animated: Bool) {
         print("CHANGED VIEW")
         
@@ -244,25 +259,21 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 extension Filter : UICollectionViewDelegateFlowLayout {
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
+        // 414
         switch indexPath.section {
-        case 0:
-            return CGSize(width: 50, height: 50)
-        case 1:
-            return CGSize(width: 50, height: 50)
-        case 2:
-            return CGSize(width: 50, height: 50)
+        case 0,1,2:
+            return CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
+            //return CGSize(width: 50, height: 50)
         default:
-            return CGSize(width: 65, height: 50)
-            
+            return CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
             
         }
+        
     }
     
     func collectionView(collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
         
         var count = 0
         var totalCellWidth = 0
@@ -270,11 +281,11 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         switch section {
         case 0,1,2:
             count = 5
-            totalCellWidth = 50 * count
+            totalCellWidth = Int(cellSize.width) * count
             totalSpacingWidth = 1 * (count - 1)
         default:
             count = 4
-            totalCellWidth = 65 * count
+            totalCellWidth = Int(affCellSize.width) * count
             totalSpacingWidth = 1 * (count - 1)
             
         }
@@ -286,11 +297,12 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         
         switch section {
         case 0: // This one needs higher top inset
-            return UIEdgeInsetsMake(14, leftInset, 7, rightInset)
+            return UIEdgeInsetsMake(14, 14, 7, 14)
         default:
-            return UIEdgeInsetsMake(7, leftInset, 7, rightInset)
-
+            return UIEdgeInsetsMake(7, 14, 7, 14)
         }
+        
+
         
     }
     
@@ -312,3 +324,13 @@ extension Filter : UICollectionViewDelegateFlowLayout {
     
 
 }
+
+//extension Filter: UIGestureRecognizerDelegate {
+//    // MARK: Gesture recognizer
+//    
+//    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+//        
+//        
+//    }
+//    
+//}
