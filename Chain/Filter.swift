@@ -9,15 +9,20 @@
 import UIKit
 import Canvas
 
-class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+protocol FilterDelegate : class {
+    func didUpdate(sender: Filter)
+}
 
+class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    weak var delegate: FilterDelegate?
 
     @IBOutlet weak var collectionView: UICollectionView!
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     private let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
     var hasFilter = false
-    var home = Home()
-    
+    var array = [Arcana]()
+
     let rarity = ["5", "4", "3", "2", "1"]
     let group = ["전사", "기사","궁수","법사","승려"]
     let weapon = ["검", "봉", "창", "마", "궁", "성", "권", "총", "저"]
@@ -118,7 +123,13 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             print(filterTypes["rarity"]!)
             
-            home.arcanaArray = home.originalArray.filter({$0.rarity == 
+            if let vc = parentViewController as? HomeContainerView {
+                let home = vc.childViewControllers[0] as! Home
+                home.arcanaArray = home.arcanaArray.filter({$0.rarity == cell.rarity.text})
+            }
+            self.delegate!.didUpdate(self)
+
+
         case 1:
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
             cell.highlighted = true
@@ -238,16 +249,14 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true
         //self.collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: "border", withReuseIdentifier: "border")
-
         
-
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        //panGesture!.isLeft(view) // returns true or false
-        print("OPENED FILTER")
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        //panGesture!.isLeft(view) // returns true or false
+//        print("OPENED FILTER")
+//    }
     override func viewWillDisappear(animated: Bool) {
         print("CHANGED VIEW")
         

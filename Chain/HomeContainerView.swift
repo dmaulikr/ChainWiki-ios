@@ -9,10 +9,21 @@
 import UIKit
 import Canvas
 
-class HomeContainerView: UIViewController {
+class HomeContainerView: UIViewController, FilterDelegate {
 
+    func didUpdate(sender: Filter) {
+        print("UPDATED TABLE")
+        dispatch_async(dispatch_get_main_queue()) {
+            if let vc = self.childViewControllers[0] as? Home {
+                print("HOME TABLE ACCESSED")
+                vc.tableView.reloadData()
+            }
+        }
+    }
+    
     @IBOutlet weak var homeView: UIView!
     @IBOutlet weak var filterView: UIView!
+    var array = [Arcana]()
     @IBAction func filter(sender: AnyObject) {
         
         if filterView.alpha == 0.0 {
@@ -31,8 +42,12 @@ class HomeContainerView: UIViewController {
     }
 
     
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationViewController = segue.destinationViewController as? Filter {
+            print("SEGUE DONE")
+            destinationViewController.delegate = self
             destinationViewController.transitioningDelegate = self
         }
     }
@@ -40,7 +55,15 @@ class HomeContainerView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         filterView.alpha = 0.0
+        
         // Do any additional setup after loading the view.
+//        
+//        if let vc = self.childViewControllers[0] as? Home {
+//            vc.arcanaArray = vc.originalArray
+//            vc.tableView.reloadData()
+//            
+//            
+//        }
     }
 
     override func didReceiveMemoryWarning() {

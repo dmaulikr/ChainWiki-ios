@@ -217,7 +217,7 @@ class ArcanaDatabase: UIViewController {
                                     let rarity = self.getRarity(attribute)
                                     // check if rarity is 3 or lower
                                     //print(attribute)
-                                    if rarity != "5★" && rarity != "4★" {
+                                    if rarity != "5" && rarity != "4" {
                                         numberOfAbilities = 1
                                     }
                                     
@@ -565,7 +565,7 @@ class ArcanaDatabase: UIViewController {
                 case 1:
                     let rarity = self.getRarity(attribute)
                     // check if rarity is 3 or lower
-                    if rarity != "5★" && rarity != "4★" {
+                    if rarity != "5" && rarity != "4" {
                         numberOfAbilities = 1
                     }
                     self.dict.updateValue(rarity, forKey: "rarity")
@@ -816,15 +816,15 @@ class ArcanaDatabase: UIViewController {
         switch string {
             
         case "★★★★★SSR":
-            return "5★"
+            return "5"
         case "★★★★SR":
-            return "4★"
+            return "4"
         case "★★★R":
-            return "3★"
+            return "3"
         case "★★HN":
-            return "2★"
+            return "2"
         case "★N":
-            return "1★"
+            return "1"
         default:
             return "0"
         }

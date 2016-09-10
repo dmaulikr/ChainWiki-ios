@@ -20,21 +20,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
-
-    
-//    let downloader = ImageDownloader(
-//        configuration: ImageDownloader.defaultURLSessionConfiguration(),
-//        downloadPrioritization: .FIFO,
-//        maximumActiveDownloads: 4,
-//        imageCache: AutoPurgingImageCache()
-//    )
-//    
-//    let imageCache = AutoPurgingImageCache(
-//        memoryCapacity: 100 * 1024 * 1024,
-//        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-//    )
-    
-
+    let filterUpdate = Filter()
     var rarityArray = [String]()
     
     
@@ -123,7 +109,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            default:
 //                break
 //        }
-        c.arcanaRarity.text = arcanaArray[indexPath.row].rarity
+        c.arcanaRarity.text = "\(arcanaArray[indexPath.row].rarity)★"
         c.arcanaImage.image = nil
         
         
@@ -149,7 +135,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         
-        /*
+        
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon.jpg") {
             
@@ -159,7 +145,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
             c.arcanaImage.image = crop
         }
-            
+         /*
             //  Not in cache, download from firebase
         else {
             print("UID \(arcanaArray[indexPath.row].uid)")
@@ -200,11 +186,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    
-*/
+    */
+
     }
     
-        
+    func reloadTableData(notification: NSNotification) {
+        tableView.reloadData()
+    }
     
     
     override func viewDidLoad() {
@@ -223,19 +211,23 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            print("LOADED CONTAINER VIEW")
 //            arcanaArray = scv.arcanaArray
 //        }
-        self.tableView.reloadData()
+        
 
+        
         // Do any additional setup after loading the view.
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//
-//        
-//    }
+    override func viewDidAppear(animated: Bool) {
+
+       // tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
 
     
 }
