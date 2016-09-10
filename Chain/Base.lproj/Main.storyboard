@@ -9,7 +9,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="Home" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="Home" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -101,11 +101,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="필터" id="gXG-q1-cgm">
-                            <connections>
-                                <action selector="filter:" destination="BYZ-38-t0r" id="qUt-tv-l93"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="GRP-ev-0Rs" id="awy-MW-NmG"/>
@@ -466,23 +461,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w5o-9w-355">
-                                                    <rect key="frame" x="67" y="31" width="13" height="30"/>
+                                                <stackView opaque="NO" contentMode="center" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w5o-9w-355">
+                                                    <rect key="frame" x="58" y="31" width="31" height="30"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starGray" translatesAutoresizingMaskIntoConstraints="NO" id="kOF-yd-FAD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="13" height="13"/>
+                                                            <rect key="frame" x="9" y="0.0" width="13" height="13"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="13" id="lIT-LK-10E"/>
                                                                 <constraint firstAttribute="width" constant="13" id="whA-04-Yms"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jw-kF-DZs">
-                                                            <rect key="frame" x="0.0" y="13" width="13" height="17"/>
+                                                            <rect key="frame" x="0.0" y="13" width="31" height="17"/>
                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
                                                             <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </stackView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -548,7 +545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MH4-Sk-koW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1031.5" y="1307.5"/>
+            <point key="canvasLocation" x="1909.5" y="1243.5"/>
         </scene>
         <!--어빌리티-->
         <scene sceneID="5BN-Ay-y1R">
@@ -587,17 +584,8 @@
                                     <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS" customClass="CSAnimationView">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
                                 <rect key="frame" x="95" y="64" width="505" height="487"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="slideLeft"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
                                 </connections>
@@ -642,7 +630,7 @@
         <!--Item-->
         <scene sceneID="3Qo-ge-H97">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7rg-wy-GHd" sceneMemberID="viewController">
+                <navigationController id="7rg-wy-GHd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">

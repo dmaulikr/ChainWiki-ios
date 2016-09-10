@@ -54,6 +54,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SideMenu-SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SideMenuController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,7 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>06471526804C53B56F25DE6212426D28</key>
+		<key>49138153698601D29B8D25C07A4542A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>684449B3741FC13D90B2F25101572DE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +107,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7F1593863D4965638CA972268362E0AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>80CBCC225074FD190F9BEA2940592423</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>86D98902407DE4EB77E974CBA1DBC958</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,22 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A28AF34ACB5A711A92F0F155E113F1D0</key>
+		<key>AE44A9FD2EDCEFFF81EE4E011E328A2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A7361BA14B7A318A53C3D45FDF6D0B1B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD4858FD2BE9C9239B1C30E821FF7A17</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C4AE9A3F948F9A06BECA3F4520AA3523</key>
+		<key>BFA695209FE9809E8E57387D8344681E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -133,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>EE57040B0F2FD9464A60DBE1F82FE001</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE9ECFEA347EB24483811BF343DB7955</key>
 		<dict>
 			<key>primary</key>
 			<true/>

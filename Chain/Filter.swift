@@ -7,24 +7,17 @@
 //
 
 import UIKit
+import Canvas
 
 class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-//    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-//        let translation = recognizer.translationInView(self.view)
-//        if let view = recognizer.view {
-//            view.center = CGPoint(x:view.center.x + translation.x,
-//                                  y:view.center.y)
-//        }
-//        recognizer.setTranslation(CGPointZero, inView: self.view)
-//    }
 
     @IBOutlet weak var collectionView: UICollectionView!
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     private let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
     var hasFilter = false
-//    var panGesture : UIPanGestureRecognizer?
-
+    var home = Home()
+    
     let rarity = ["5", "4", "3", "2", "1"]
     let group = ["전사", "기사","궁수","법사","승려"]
     let weapon = ["검", "봉", "창", "마", "궁", "성", "권", "총", "저"]
@@ -61,6 +54,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         case 0: // Rarity
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("rarityCell", forIndexPath: indexPath) as! RarityCell
             cell.rarity.text = rarity[indexPath.row]
+            
 //            cell.layer.shadowColor = UIColor.grayColor().CGColor;
 //            cell.layer.shadowOffset = CGSizeMake(0, 0.5);
 //            cell.layer.shadowRadius = 1.0;
@@ -72,7 +66,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = group[indexPath.row]
             return cell
-            
         case 2:    // Weapon
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filter", forIndexPath: indexPath) as! FilterCell
             cell.filterType.text = weapon[indexPath.row]
@@ -87,15 +80,21 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     }
     
 //    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-//        //
+//        
+//        let backgroundView = UIView()
+//        backgroundView.backgroundColor = lightGreenColor
+//        cell.selectedBackgroundView = backgroundView
+//
 //    }
-    
+//    
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         
         
         // TODO: Add to filterTypes based on section
+        // Hold an array to be updated after selection
+        var filteredArray = [Arcana]()
         
         switch indexPath.section {
             
@@ -118,6 +117,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             rarityArray.append(cell.rarity.text!)
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             print(filterTypes["rarity"]!)
+            
+            home.arcanaArray = home.originalArray.filter({$0.rarity == 
         case 1:
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
             cell.highlighted = true
@@ -173,12 +174,12 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
 
         switch indexPath.section {
             
         case 0:
-            let deleteRarity = cell.filterType.text!
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RarityCell
+            let deleteRarity = cell.rarity.text!
             var rarityArray = filterTypes["rarity"]!
             for (index, rarity) in rarityArray.enumerate().reverse() {
                 if rarity == deleteRarity {
@@ -188,6 +189,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             filterTypes.updateValue(rarityArray, forKey: "rarity")
         case 1:
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
             let deleteGroup = cell.filterType.text!
             var groupArray = filterTypes["group"]!
             for (index, rarity) in groupArray.enumerate().reverse() {
@@ -198,6 +200,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             filterTypes.updateValue(groupArray, forKey: "group")
         case 2:
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
             let deleteWeapon = cell.filterType.text!
             var weaponArray = filterTypes["weapon"]!
             for (index, rarity) in weaponArray.enumerate().reverse() {
@@ -208,6 +211,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             filterTypes.updateValue(weaponArray, forKey: "weapon")
         default:
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FilterCell
             let deleteAffiliation = cell.filterType.text!
             var affiliationArray = filterTypes["affiliation"]!
             for (index, rarity) in affiliationArray.enumerate().reverse() {
@@ -242,7 +246,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     override func viewDidAppear(animated: Bool) {
         //panGesture!.isLeft(view) // returns true or false
-
+        print("OPENED FILTER")
     }
     override func viewWillDisappear(animated: Bool) {
         print("CHANGED VIEW")

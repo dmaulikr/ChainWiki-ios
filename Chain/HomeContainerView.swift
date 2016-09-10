@@ -12,29 +12,24 @@ import Canvas
 class HomeContainerView: UIViewController {
 
     @IBOutlet weak var homeView: UIView!
-   // @IBOutlet weak var filterView: UIView!
-    @IBOutlet weak var animView: CSAnimationView!
-    @IBOutlet weak var filterView: CSAnimationView!
+    @IBOutlet weak var filterView: UIView!
     @IBAction func filter(sender: AnyObject) {
-//        if filterView.alpha == 0.0 {
-//            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-//                self.filterView.alpha = 1.0
-//                }, completion: nil)
-//
-//        }
-//        else {
-//            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-//                self.filterView.alpha = 0.0
-//                }, completion: nil)
-//        }
-//        performSegueWithIdentifier("openMenu", sender: nil)
-        animView.startCanvasAnimation()
+        
+        if filterView.alpha == 0.0 {
+            homeView.userInteractionEnabled = false
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                self.filterView.alpha = 1.0
+                }, completion: nil)
+
+        }
+        else {
+            homeView.userInteractionEnabled = true
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.filterView.alpha = 0.0
+                }, completion: nil)
+        }
     }
-    
-    
-    @IBAction func openMenu(sender: AnyObject) {
-        performSegueWithIdentifier("openMenu", sender: nil)
-    }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationViewController = segue.destinationViewController as? Filter {

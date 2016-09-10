@@ -12,22 +12,30 @@ class FilterCell: UICollectionViewCell {
     
     @IBOutlet weak var filterType: UILabel!
     
-    override var highlighted: Bool {
-        get {
-            return super.highlighted
-        }
-        set {
-            if newValue {
-                self.contentView.backgroundColor = lightGreenColor
-                filterType.textColor = UIColor.whiteColor()
-            }
-            else {
-                self.contentView.backgroundColor = UIColor.whiteColor()
-                filterType.textColor = lightGreenColor
+    override func awakeFromNib() {
+        filterType.highlightedTextColor = UIColor.whiteColor()
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = lightGreenColor
+        self.selectedBackgroundView = backgroundView
 
-            }
-            super.highlighted = newValue
-        }
     }
+    
+//    override var highlighted: Bool {
+//        get {
+//            return super.highlighted
+//        }
+//        set {
+//            if newValue {
+//                self.contentView.backgroundColor = lightGreenColor
+//                filterType.textColor = UIColor.whiteColor()
+//            }
+//            else {
+//                self.contentView.backgroundColor = UIColor.whiteColor()
+//                filterType.textColor = lightGreenColor
+//
+//            }
+//            super.highlighted = newValue
+//        }
+//    }
 
 }

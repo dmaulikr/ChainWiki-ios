@@ -17,7 +17,7 @@ target 'Chain' do
     pod 'KTCenterFlowLayout'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'Canvas', '~> 0.1.2'
-
+    pod 'SideMenu'
 
   # Pods for Chain
 

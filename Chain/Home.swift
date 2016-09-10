@@ -11,18 +11,12 @@ import Firebase
 import AlamofireImage
 import Polyglot
 import Toucan
-import MMDrawerController
+import SideMenu
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filter: UIBarButtonItem!
-    @IBAction func filter(sender: AnyObject) {
-        
-        // Access an instance of AppDelegate
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.drawerContainer?.toggleDrawerSide(MMDrawerSide.Right, animated: true, completion: nil)
-    }
 
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
@@ -215,6 +209,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         downloadArray()
         //dict.updateValue(testArc!, forKey: "OI")
         //filterArray()
@@ -229,6 +224,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            arcanaArray = scv.arcanaArray
 //        }
         self.tableView.reloadData()
+
         // Do any additional setup after loading the view.
     }
     
