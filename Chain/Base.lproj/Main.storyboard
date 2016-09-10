@@ -446,7 +446,7 @@
                         <viewControllerLayoutGuide type="bottom" id="0K8-cy-Sy1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Kn-9j-Lo6">
-                        <rect key="frame" x="0.0" y="0.0" width="506" height="488"/>
+                        <rect key="frame" x="0.0" y="0.0" width="505" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Fu-jK-Bwr">
@@ -587,8 +587,17 @@
                                     <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS" customClass="CSAnimationView">
                                 <rect key="frame" x="95" y="64" width="505" height="487"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="slideLeft"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
                                 </connections>
@@ -607,11 +616,6 @@
                             <constraint firstItem="Xfr-WL-NeS" firstAttribute="leading" secondItem="NQg-C0-h60" secondAttribute="leading" constant="95" id="uFT-J0-rmx"/>
                             <constraint firstItem="3HJ-7i-xha" firstAttribute="top" secondItem="B2c-bo-R45" secondAttribute="bottom" id="vMX-aY-GQs"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="8Ff-cz-PkK"/>
-                            </mask>
-                        </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <include reference="8Ff-cz-PkK"/>
@@ -627,7 +631,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="filterView" destination="Xfr-WL-NeS" id="3eu-Su-p4a"/>
+                        <outlet property="filterView" destination="Xfr-WL-NeS" id="bdO-7K-TNe"/>
                         <outlet property="homeView" destination="B2c-bo-R45" id="phD-Vt-TiU"/>
                     </connections>
                 </viewController>

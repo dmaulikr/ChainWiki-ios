@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Canvas
 
 class HomeContainerView: UIViewController {
 
     @IBOutlet weak var homeView: UIView!
-    @IBOutlet weak var filterView: UIView!
+   // @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var animView: CSAnimationView!
+    @IBOutlet weak var filterView: CSAnimationView!
     @IBAction func filter(sender: AnyObject) {
 //        if filterView.alpha == 0.0 {
 //            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
@@ -24,8 +27,8 @@ class HomeContainerView: UIViewController {
 //                self.filterView.alpha = 0.0
 //                }, completion: nil)
 //        }
-        performSegueWithIdentifier("openMenu", sender: nil)
-
+//        performSegueWithIdentifier("openMenu", sender: nil)
+        animView.startCanvasAnimation()
     }
     
     
