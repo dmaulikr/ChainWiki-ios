@@ -575,6 +575,7 @@ class ArcanaDatabase: UIViewController {
                 case 5:
                     self.dict.updateValue(attribute, forKey: "cost")
                 case 6:
+                    print(attribute)
                     // TODO: Get group inside ()
                     let group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf(")")!)))
                     self.dict.updateValue(self.getClass(group as String), forKey: "group")
@@ -645,7 +646,7 @@ class ArcanaDatabase: UIViewController {
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
     //    for url in urls {
 
-            let encodedString = "哀しき人形ドーリィ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "極彩の射手ルクレチア".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")

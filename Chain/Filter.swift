@@ -123,12 +123,11 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             print(filterTypes["rarity"]!)
             
-            if let vc = parentViewController as? HomeContainerView {
-                print("SELECT ACCESSED HOME")
-                let home = vc.childViewControllers[0] as! Home
-                home.arcanaArray = home.arcanaArray.filter({$0.rarity == cell.rarity.text})
-            }
-            self.delegate!.didUpdate(self)
+//            if let vc = parentViewController as? HomeContainerView {
+//                print("SELECT ACCESSED HOME")
+//                let home = vc.childViewControllers[0] as! Home
+//                home.arcanaArray = home.arcanaArray.filter({$0.rarity == cell.rarity.text})
+//            }
 
 
         case 1:
@@ -178,7 +177,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
 
         }
-        
+        self.delegate!.didUpdate(self)
+
         hasFilter = true
 
         
@@ -240,13 +240,13 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         if collectionView.indexPathsForSelectedItems()!.count == 0 {
             if let vc = parentViewController as? HomeContainerView {
                 let home = vc.childViewControllers[0] as! Home
-                print("LOADED HOMEEEEEEEE")
                 home.arcanaArray = home.originalArray
-                self.delegate!.didUpdate(self)
+                hasFilter = false
+                
             }
         }
 
-        
+        self.delegate!.didUpdate(self)
         
     }
     override func viewDidLoad() {

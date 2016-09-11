@@ -10,12 +10,110 @@ import UIKit
 import Canvas
 
 class HomeContainerView: UIViewController, FilterDelegate {
-
+    
+    var filters = [String: [String]]()
+    
     func didUpdate(sender: Filter) {
         dispatch_async(dispatch_get_main_queue()) {
-            if let vc = self.childViewControllers[0] as? Home {
-                vc.tableView.reloadData()
+            
+            if let vc = self.childViewControllers[1] as? Filter {
+                
+                self.filters = vc.filterTypes
+                
+                if vc.hasFilter == false {
+                    // TODO: replace arcanaArray with original arcanaArray.
+                    if let vc = self.childViewControllers[0] as? Home {
+                        print("NO FILTERS, PREPARING ORIGINAL ARRAY")
+                        vc.arcanaArray = vc.originalArray
+                        vc.tableView.reloadData()
+                    }
+                    print("NO FILTERS")
+                }
+                    
+                else {  // hasFilter == true
+                    if let vc = self.childViewControllers[0] as? Home {
+                        
+                        // create set that combines all filters
+                        //flatmap
+                        
+                        var raritySet = Set<Arcana>()
+                        if let r = self.filters["rarity"] {
+                            
+                            for rarity in r {
+                                print("FOR RARITY \(rarity)")
+                                let filteredRarity = vc.originalArray.filter({$0.rarity == rarity})
+                                
+                                raritySet = raritySet.union(Set(filteredRarity))
+                            }
+                            
+                        }
+                        
+                        
+                        var groupSet = Set<Arcana>()
+                        if let g = self.filters["group"] {
+                            
+                            for group in g {
+                                print(group)
+                                let filteredGroup = vc.originalArray.filter({$0.group == group})
+                                groupSet = groupSet.union(Set(filteredGroup))
+                            }
+                            
+                        }
+                        
+                        var weaponSet = Set<Arcana>()
+                        if let w = self.filters["weapon"] {
+                            
+                            for weapon in w {
+                                let filteredWeapon = vc.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
+                                weaponSet = weaponSet.union(Set(filteredWeapon))
+                            }
+                            
+                        }
+                        
+                        var affiliationSet = Set<Arcana>()
+                        if let a = self.filters["affiliation"] {
+                            
+                            for affiliation in a {
+                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.containsString(affiliation)})
+                                affiliationSet = affiliationSet.union(Set(filteredAffiliation))
+                            }
+                            
+                        }
+                        
+                        let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
+                        
+                        var finalFilter: Set = Set<Arcana>()
+                        for (key,value) in sets {
+                            
+                            // TODO: clicking 권 then 철연 gives 철연.
+                            if value.count != 0 {
+                                
+                                // if set is empty, create a new one
+                                if finalFilter.count == 0 {
+                                    finalFilter = finalFilter.union(value)
+                                }
+                                    
+                                    // Set already exists, so intersect
+                                else {
+                                    finalFilter = finalFilter.intersect(value)
+                                }
+                            }
+                        }
+//                        for i in finalFilter {
+//                            print(i)
+//                        }
+                        vc.arcanaArray = Array(finalFilter)
+                        vc.tableView.reloadData()
+                        
+                    }
+                    
+                }
             }
+            
+            
+//            if let vc = self.childViewControllers[0] as? Home {
+//                vc.tableView.reloadData()
+//            }
         }
     }
     

@@ -58,19 +58,9 @@ class SegmentedContainerView: UIViewController {
                                 
                                 raritySet = raritySet.union(Set(filteredRarity))
                             }
-//                            for rarity in r {
-//                                for arcana in vc.originalArray {
-//                                    if arcana.rarity == rarity {
-//                                        
-//                                        raritySet.insert(arcana)
-//                                    }
-//                                }
-//                            }
                         
                         }
-                        for i in raritySet {
-                            print("FILTERED RARITY \(i)")
-                        }
+
                         
                         var groupSet = Set<Arcana>()
                         if let g = filters["group"] {

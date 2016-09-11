@@ -146,7 +146,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
             c.arcanaImage.image = crop
         }
-         /*
+         
             //  Not in cache, download from firebase
         else {
             print("UID \(arcanaArray[indexPath.row].uid)")
@@ -187,7 +187,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-    */
+    
 
     }
     
