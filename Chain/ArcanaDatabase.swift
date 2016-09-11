@@ -19,6 +19,7 @@ class ArcanaDatabase: UIViewController {
     let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
     let group = dispatch_group_create()
     let loop = dispatch_group_create()
+    let download = dispatch_group_create()
     let arcanaURL = "幸運に導く戦士ニンファ"
     //let dispatch_group = dispatch_group_create()
 
@@ -208,7 +209,7 @@ class ArcanaDatabase: UIViewController {
                                 case 0:
                                     // use this name to search through arcanaData.txt and find name+nickname
                                     
-                                    if self.getAttributes(attribute) == false {
+                                    if self.getAttributes(attribute, foundRarity: true) == false {
                                         //TODO: Update names.
                                         self.dict.updateValue(attribute, forKey: "nameJP")
                                         self.translate(attribute, key: "nameKR")
@@ -218,8 +219,11 @@ class ArcanaDatabase: UIViewController {
                                     let rarity = self.getRarity(attribute)
                                     // check if rarity is 3 or lower
                                     //print(attribute)
-                                    if rarity != "5" && rarity != "4" {
+                                    if rarity == "2" && rarity == "3" {
                                         numberOfAbilities = 1
+                                    }
+                                    else if rarity == "1" {
+                                        numberOfAbilities = 0
                                     }
                                     
                                     self.dict.updateValue(rarity, forKey: "rarity")
@@ -539,7 +543,7 @@ class ArcanaDatabase: UIViewController {
             
             // Already has skill count 1
             self.dict.updateValue("1", forKey: "skillCount")
-            guard let h = html.indexOf("ス　キ　ル　範　囲") else {
+            guard let h = html.indexOf("ス　キ　ル") else {
                 print("POSSIBLY BLANK PAGE FOR  \(html)")
                 return
             }
@@ -557,17 +561,34 @@ class ArcanaDatabase: UIViewController {
         
             
             var usefulAttributes = [String]()
-            
+            var foundRarity = true
             for i in lines {
-                if i.containsString("名　前") || i.containsString("レアリティ") || i.containsString("コ　ス　ト") || i.containsString("職　業") || i.containsString("武器タイプ") || i.containsString("ＳＫＩＬＬ") || i.containsString("ＡＢＩＬＩＴＹ") || i.containsString("絆アビリティ") || i.containsString("入　手　方　法") {
+                if i.containsString("名　前") || i.containsString("レアリティ") || i.containsString("コ　ス　ト") || i.containsString("コスト") || i.containsString("職　業") || i.containsString("職業") || i.containsString("武器タイプ") || i.containsString("ＳＫＩＬＬ") || i.containsString("ＡＢＩＬＩＴＹ") || i.containsString("絆アビリティ") || i.containsString("入　手　方　法") {
                     usefulAttributes.append(i)
+                    
                 }
                 
             }
             
+            
+            // no rarity found??
+            if !usefulAttributes[1].containsString("レアリティ") {
+                usefulAttributes.insert("0", atIndex: 1)
+                foundRarity = false
+            }
+            
+            var foundKizuna = true
+            // arcana only has 1 ability, so index 7 should be kizuna. check if kizuna found.
+            if !usefulAttributes[7].containsString("絆アビリティ") && !usefulAttributes[7].containsString("ＡＢＩＬＩＴＹ") {
+                usefulAttributes.insert("정보 없음", atIndex: 7)
+                foundKizuna = false
+            }
+            
+            var numberOfAbilities = 2
+            
             for (index, i) in usefulAttributes.enumerate() {
-
-                let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>", options: [.CaseInsensitive])
+                
+                let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>　", options: [.CaseInsensitive])
                 let regex = try! NSRegularExpression(pattern: "<.*?>", options: [.CaseInsensitive])
                 let rangeSpan = NSMakeRange(0, i.characters.count)
                 
@@ -578,32 +599,50 @@ class ArcanaDatabase: UIViewController {
                 
                 let attribute = htmlLessString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 //print(index, attribute)
-                var numberOfAbilities = 2
                 
+                print(index, attribute)
                 switch index {
                     
                 case 0:
-                    if self.getAttributes(attribute) == false {
+                    if self.getAttributes(attribute, foundRarity: foundRarity) == false {
                         //TODO: Update names.
                         self.dict.updateValue(attribute, forKey: "nameJP")
                         self.translate(attribute, key: "nameKR")
                     }
                     
                 case 1:
-                    let rarity = self.getRarity(attribute)
+                    
                     // check if rarity is 3 or lower
-                    if rarity != "5" && rarity != "4" {
-                        numberOfAbilities = 1
+                    if foundRarity == true {
+                        let rarity = self.getRarity(attribute)
+                        
+                        if rarity == "2" && rarity != "3" {
+                            numberOfAbilities = 1
+                        } else if rarity == "1" {
+                            numberOfAbilities = 0
+                        }
+                        self.dict.updateValue(rarity, forKey: "rarity")
                     }
-                    self.dict.updateValue(rarity, forKey: "rarity")
+                    
                     
                 case 2:
                     self.dict.updateValue(attribute, forKey: "cost")
                     
                 case 3:
                     // Get group inside ()
-                    let group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf(")")!)))
-                    self.dict.updateValue(self.getClass(group as String), forKey: "group")
+                    var group = String()
+                    if let _ = attribute.indexOf("(") {
+                        group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf(")")!))) as String
+                    }
+                    else if let _ = attribute.indexOf("（") {
+                        group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("（")!.advancedBy(1)..<attribute.indexOf("）")!))) as String
+                    }
+                    else {
+                        group = attribute
+                    }
+                    self.dict.updateValue(self.getClass(group), forKey: "group")
+                    print(self.dict["group"]!)
+
                 
                 case 4:
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
@@ -611,13 +650,39 @@ class ArcanaDatabase: UIViewController {
                 case 5:
                     let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                     self.translate(skillName1, key: "skillName1")
-                    let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
-                    self.translate(skillMana1, key: "skillMana1")
-                    let skillDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(3)..<attribute.endIndex))))
-                    self.translate(skillDesc1, key: "skillDesc1")
+                    if let _ = attribute.indexOf(")*") {
+                        let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
+                        self.translate(skillMana1, key: "skillMana1")
+                        let skillDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(3)..<attribute.endIndex))))
+                        self.translate(skillDesc1, key: "skillDesc1")
+                    }
+                    
+                    else {
+                        let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf("(")!.advancedBy(2)))))
+                        self.translate(skillMana1, key: "skillMana1")
+                        let skillDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(skillDesc1, key: "skillDesc1")
+                    }
+                    
                     
                 case 6:
-                    if let _ = attribute.indexOf("　") {
+                    if numberOfAbilities == 0 {
+                        if foundKizuna {
+                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                            self.translate(kizunaName, key: "kizunaName")
+                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                            self.translate(kizunaCost, key: "kizunaCost")
+                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                            self.translate(kizunaAbility, key: "kizunaAbility")
+                        }
+                        else {
+                            self.dict.updateValue("업데이트 필요", forKey: "kizunaName")
+                            self.dict.updateValue("-", forKey: "kizunaCost")
+                            self.dict.updateValue("업데이트 필요", forKey: "kizunaAbility")
+                        }
+
+                    }
+                    else if let _ = attribute.indexOf("　") {
                         let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
                         self.translate(abilityName1, key: "abilityName1")
                         let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
@@ -631,14 +696,25 @@ class ArcanaDatabase: UIViewController {
                     }
                     
                 case 7:
-                    if numberOfAbilities == 1 {
+                    print("INDEX 7 HAS \(attribute)")
+                    if numberOfAbilities == 0 {
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    }
+                    else if numberOfAbilities == 1 {
+                        if foundKizuna {
+                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                            self.translate(kizunaName, key: "kizunaName")
+                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                            self.translate(kizunaCost, key: "kizunaCost")
+                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                            self.translate(kizunaAbility, key: "kizunaAbility")
+                        }
+                        else {
+                            self.dict.updateValue("업데이트 필요", forKey: "kizunaName")
+                            self.dict.updateValue("-", forKey: "kizunaCost")
+                            self.dict.updateValue("업데이트 필요", forKey: "kizunaAbility")
+                        }
                         
-                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                        self.translate(kizunaName, key: "kizunaName")
-                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                        self.translate(kizunaCost, key: "kizunaCost")
-                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                        self.translate(kizunaAbility, key: "kizunaAbility")
                     }
                     else {
                         if let _ = attribute.indexOf("　") {
@@ -647,17 +723,22 @@ class ArcanaDatabase: UIViewController {
                             let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
                             self.translate(abilityDesc2, key: "abilityDesc2")
                         }
-                        else {
+                        else if let _ = attribute.indexOf("：") {
                             
                             let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
                             self.translate(abilityName2, key: "abilityName2")
                             let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
                             self.translate(abilityDesc2, key: "abilityDesc2")
                         }
+                        else {
+                            
+                        }
                     }
 
                 case 8:
-                    if numberOfAbilities == 1 {
+                    if numberOfAbilities == 0 {
+                        break
+                    } else if numberOfAbilities == 1 {
                         self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
                     }
                     else {
@@ -670,7 +751,7 @@ class ArcanaDatabase: UIViewController {
                     }
                     
                 case 9:
-                    if numberOfAbilities == 1 {
+                    if numberOfAbilities == 0 || numberOfAbilities == 1{
                         break
                     }
                     else {
@@ -684,13 +765,14 @@ class ArcanaDatabase: UIViewController {
         // WAIT FOR ALL TRANSLATIONS, THEN UPLOAD
         dispatch_group_notify(group, dispatch_get_main_queue(), { // Calls the given block when all blocks are finished in the group.
             // All blocks finished, do whatever you like.
+            print("TRANSLATED ARCANA")
+            dispatch_group_leave(self.download)
             
-            dispatch_group_leave(self.loop)
             for (key, value) in self.dict {
                 print(key, value)
             }
             self.uploadArcana()
-            })
+        })
         
         
         
@@ -698,54 +780,80 @@ class ArcanaDatabase: UIViewController {
     
     func downloadArcana(index: Int) {
         
-        dispatch_group_enter(loop)
+        dispatch_group_enter(download)
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
  
-       // for url in self.urls {
-            let encodedString = urls[index].stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "救世の聖女リリス".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(self.baseURL)\(encodedString!)")
-                
-            print("ABOUT TO PARSE \(encodedURL!)")
-            
         
-            do {
-                let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
-                
-                
-                // TODO: THERE ARE ACTUALLY 3 TYPES OF PAGES. 
-                // IF IT IS THE OLDEST, IT WONT HAVE <HR>. SO INSTEAD OF PARSING LIKE AN OLD PAGE, SEARCH ARCANADATA FOR BASIC ATTRIBUTES, THEN ONLY GET SKILL/ABILITIES FROM HTML.
-                
-                
-                if html.containsString("#ui_wikidb") {
-                    self.downloadAttributes("new", html: html)
-                    //downloadWeaponAndPicture("new", url: encodedURL!)
+            // first check if this exists in firebase
+        let ref = FIREBASE_REF.child("arcana")
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            var exists = false
+            
+            for arcana in snapshot.children {
 
+                if self.urls[index].containsString(arcana.value!["nameJP"] as! String) {
+                    exists = true
                 }
                 
-                else {
-                    self.downloadAttributes("old", html: html)
-
-                    //downloadWeaponAndPicture("old", url: encodedURL!)
+            }
+            
+            if exists == true {
+                print("\(self.urls[index]) ALREADY EXISTS")
+                dispatch_group_leave(self.download)
+                self.downloadArcana(index + 1)
+            }
+            
+            else {
+                // proceed to download
+                
+                print("PARSING...")
+                print(encodedURL!)
+                
+                
+                do {
+                    let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
+                    
+                    
+                    // TODO: THERE ARE ACTUALLY 3 TYPES OF PAGES.
+                    // IF IT IS THE OLDEST, IT WONT HAVE <HR>. SO INSTEAD OF PARSING LIKE AN OLD PAGE, SEARCH ARCANADATA FOR BASIC ATTRIBUTES, THEN ONLY GET SKILL/ABILITIES FROM HTML.
+                    
+                    
+                    if html.containsString("#ui_wikidb") {
+                        self.downloadAttributes("new", html: html)
+                        //downloadWeaponAndPicture("new", url: encodedURL!)
+                        
+                    }
+                        
+                    else {
+                        self.downloadAttributes("old", html: html)
+                        
+                        //downloadWeaponAndPicture("old", url: encodedURL!)
+                        
+                    }
+                    
                     
                 }
+                    
+                catch {
+                    print(error)
+                }
                 
-
+                
+                dispatch_group_notify(self.download, dispatch_get_main_queue(), {
+                    print("Finished translating.")
+                
+                    dispatch_group_notify(self.loop, dispatch_get_main_queue(), {
+                        print("Finished uploading.")
+                        self.downloadArcana(index + 1)
+                        
+                    })
+                })
             }
-       
-            catch {
-                print(error)
-            }
-            
-        
-        dispatch_group_notify(loop, dispatch_get_main_queue(), {
-            print("Finished all requests.")
-            self.downloadArcana(index + 1)
         })
-    
-            
-            
-            //self.uploadArcana()
-    //    }
+        
         
     }
     
@@ -786,100 +894,143 @@ class ArcanaDatabase: UIViewController {
     }
     
     func uploadArcana() {
+        
+        dispatch_group_enter(loop)
         let ref = FIREBASE_REF.child("arcana")
-//        for (key,value) in dict {
-//            print("\(key)   \(value)")
-//        }
+
+        
         print("STARTING UPLOAD PROCESS")
-        let id = ref.childByAutoId().key
-        // translate, put korean in dict values.
-        
-        // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
         
         
-        // Base Case: only 1 skill, 1 ability. Does not have nickname.
+        // Check if arcana already exists
         
-        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let t = dict["tavern"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            print("ARCANA DICTIONARY VALUE IS NIL")
-            return
-        }
-        
-        
-        guard let imageURL = dict["imageURL"] else {
-            print("COULD NOT GET IMAGEURL FROM DICT")
-            return
-        }
-        
-
-        
-        
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "\(t)", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
-        
-        let arcanaRef = ["\(id)" : arcanaOneSkill]
-
-        
-        ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
-            print("UPLOADED ARCANA")
-            // Check if arcana was in file. If yes, get nicknames, iconURL
+            var exists = false
             
-            dispatch_group_enter(self.group)
-            
-            if let nnKR = self.dict["nickKR"], let nnJP = self.dict["nickJP"], let iconURL = self.dict["iconURL"] {
-                let nickNameRef = FIREBASE_REF.child("arcana/\(id)")
-                let nickNameAndIconRef = ["nickNameKR" : "\(nnKR)", "nickNameJP" : "\(nnJP)", "iconURL" : "\(iconURL)"]
+            for i in snapshot.children {
+                let s = i.value!["nameJP"] as! String
+                let d = self.dict["nameJP"]!
+                if s == d {
+                    exists = true
+                }
                 
-                nickNameRef.updateChildValues(nickNameAndIconRef, withCompletionBlock: { completion in
-                    dispatch_group_leave(self.group)
-                })
             }
+            
+            if exists == true {
+                print("\(self.dict["nameKR"]) ALREADY EXISTS")
+                dispatch_group_leave(self.loop)
+            }
+            
             else {
-                print("COULD NOT FIND ARCANA IN FILE. NO NICKNAME AND ICONURL")
-
-            }
-            dispatch_group_wait(self.group, 3)
-            // Check if arcana has 2 abilities
-            if r.containsString("5") || r.containsString("4") {
-                guard let aN2 = self.dict["abilityName2"], let aD2 = self.dict["abilityDesc2"] else {
+            
+                let id = ref.childByAutoId().key
+                // translate, put korean in dict values.
+                
+                // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
+                
+                
+                // Base Case: only 1 skill, 1 ability. Does not have nickname.
+                
+                guard let nKR = self.dict["nameKR"], let nJP = self.dict["nameJP"], let r = self.dict["rarity"], let g = self.dict["group"], let t = self.dict["tavern"], let a = self.dict["affiliation"], let c = self.dict["cost"], let w = self.dict["weapon"], let kN = self.dict["kizunaName"], let kC = self.dict["kizunaCost"], let kA = self.dict["kizunaAbility"], let sC = self.dict["skillCount"], let sN1 = self.dict["skillName1"], let sM1 = self.dict["skillMana1"], let sD1 = self.dict["skillDesc1"], let aN1 = self.dict["abilityName1"], let aD1 = self.dict["abilityDesc1"] else {
+                    
+                    print("ARCANA DICIONARY VALUE IS NIL")
                     return
                 }
                 
-                let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
-                let abilityRef = ["abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)"]
                 
-                // Upload Ability 2
-                newArcanaRef.updateChildValues(abilityRef, withCompletionBlock: { completion in
+                guard let imageURL = self.dict["imageURL"] else {
+                    print("COULD NOT GET IMAGEURL FROM DICTIONARY")
+                    return
+                }
+                
+                
+                
+                
+                let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "\(t)", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
+                
+                let arcanaRef = ["\(id)" : arcanaOneSkill]
+                
+                
+                ref.updateChildValues(arcanaRef, withCompletionBlock: { completion in
+                    print("UPLOADED ARCANA")
+                    // Check if arcana was in file. If yes, get nicknames, iconURL
                     
-                    // Check if arcana has at least 2 skills
-                    if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"] {
+                    if let nnKR = self.dict["nickKR"], let nnJP = self.dict["nickJP"], let iconURL = self.dict["iconURL"] {
+                        let nickNameRef = FIREBASE_REF.child("arcana/\(id)")
+                        let nickNameAndIconRef = ["nickNameKR" : "\(nnKR)", "nickNameJP" : "\(nnJP)", "iconURL" : "\(iconURL)"]
+                        //dispatch_group_enter(self.loop)
+                        nickNameRef.updateChildValues(nickNameAndIconRef, withCompletionBlock: { completion in
+                            print("uploaded nickname and iconurl")
+                            dispatch_group_leave(self.loop)
+                        })
+                    }
                         
-                        switch (sC) {
-                        case "2":
-                            
-                            let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
-                            newArcanaRef.updateChildValues(skill2)
-                            
-                        case "3":
-                            
-                            if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
-                                let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
-                                newArcanaRef.updateChildValues(skill3)
+                    else {
+                        print("COULD NOT FIND ARCANA IN FILE. NO NICKNAME AND ICONURL")
+                    }
+                    dispatch_group_notify(self.loop, dispatch_get_main_queue(), { // Calls the given block when all blocks are finished in the group.
+                        print("notified")
+        //                dispatch_group_wait(self.group, 3000)
+                        // Check if arcana has 2 abilities
+                        if r.containsString("5") || r.containsString("4") {
+                            print("RARITY IS 4 or 5")
+                            guard let aN2 = self.dict["abilityName2"], let aD2 = self.dict["abilityDesc2"] else {
+                                return
                             }
                             
-                        default:
-                            break
+                            let newArcanaRef = FIREBASE_REF.child("arcana/\(id)")
+                            let abilityRef = ["abilityName2" : "\(aN2)", "abilityDesc2" : "\(aD2)"]
+                            dispatch_group_enter(self.loop)
+                            // Upload Ability 2
+                            newArcanaRef.updateChildValues(abilityRef, withCompletionBlock: { completion in
+                                
+                                // Check if arcana has at least 2 skills
+                                if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"] {
+                                    
+                                    switch (sC) {
+                                    case "2":
+                                        
+                                        let skill2 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)"]
+                                        newArcanaRef.updateChildValues(skill2, withCompletionBlock: { completion in
+                                            dispatch_group_leave(self.loop)
+
+                                        })
+                                        
+                                    case "3":
+                                        
+                                        if let sN2 = self.dict["skillName2"], let sM2 = self.dict["skillMana2"], let sD2 = self.dict["skillDesc2"], let sN3 = self.dict["skillName3"], let sM3 = self.dict["skillMana3"], let sD3 = self.dict["skillDesc3"] {
+                                            let skill3 = ["skillName2" : "\(sN2)", "skillMana2" : "\(sM2)", "skillDesc2" : "\(sD2)", "skillName3" : "\(sN3)", "skillMana3" : "\(sM3)", "skillDesc3" : "\(sD3)"]
+                                            newArcanaRef.updateChildValues(skill3, withCompletionBlock: { completion in
+                                                dispatch_group_leave(self.loop)
+
+                                            })
+                                        }
+                                        
+                                    default:
+                                        
+
+                                        break
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                dispatch_group_leave(self.loop)
+                                
+                            })
                             
                         }
+                        // rarity 1,2,3. only has 1 ability
+                        else {
+                            print("rarity is 1 2 3")
+                            //dispatch_group_leave(self.loop)
+                        }
                         
-                    }
-                    
-                })
-                
+                        
+                        })
+                    })
             }
-            
-            
-            
-            
         })
         
     }
@@ -888,15 +1039,15 @@ class ArcanaDatabase: UIViewController {
         
         switch string {
             
-        case "★★★★★SSR":
+        case "★★★★★SSR", "SSR":
             return "5"
-        case "★★★★SR":
+        case "★★★★SR", "SR":
             return "4"
-        case "★★★R":
+        case "★★★R", "R":
             return "3"
-        case "★★HN":
+        case "★★HN", "HN":
             return "2"
-        case "★N":
+        case "★N", "N":
             return "1"
         default:
             return "0"
@@ -905,7 +1056,7 @@ class ArcanaDatabase: UIViewController {
     }
     
     func getClass(string: String) -> String {
-        
+        print("GETTING CLASS FOR \(string)")
         switch string {
             
         case "戦士":
@@ -1058,7 +1209,7 @@ class ArcanaDatabase: UIViewController {
 
 
     
-    func getAttributes(string: String) -> Bool {
+    func getAttributes(string: String, foundRarity: Bool) -> Bool {
         print("SEARCHING FOR \(string)")
         
         let path = NSBundle.mainBundle().pathForResource(".//arcanaData", ofType: "txt")
@@ -1083,6 +1234,11 @@ class ArcanaDatabase: UIViewController {
 //                        let cost = subJson["cost"].stringValue
 //                        let affiliation = subJson["syozoku"].stringValue
 //                    }
+                    if foundRarity == false {
+                        let rarity = subJson["rank"].stringValue
+                        self.dict.updateValue(self.getRarity(rarity), forKey: "rarity")
+                        
+                    }
                     
                     let nameJP = subJson["name"].stringValue
                     let nickJP = subJson["nickname"].stringValue

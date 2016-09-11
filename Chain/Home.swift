@@ -46,8 +46,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
                 filter.append(arcana!)
             }
-            self.arcanaArray = filter
-            self.originalArray = filter
+            self.arcanaArray = filter.reverse()
+            self.originalArray = filter.reverse()
             self.tableView.reloadData()
         })
         

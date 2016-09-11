@@ -372,6 +372,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
+//    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+//        let cell = tableView.cellForRowAtIndexPath(indexPath)
+//        cell?.backgroundColor = UIColor.redColor()
+//    }
+//    
+//    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+//        let cell = tableView.cellForRowAtIndexPath(indexPath)
+//        cell?.backgroundColor = UIColor.greenColor()
+//    }
     func setupViews() {
         
         self.title = "\(arcana!.nameKR)"
@@ -405,18 +414,18 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         switch string {
             
-        case "5★":
+        case "5★", "5":
             return "★★★★★SSR"
-        case "4★":
+        case "4★", "4":
             return "★★★★SR"
-        case "3★":
+        case "3★", "3":
             return "★★★R"
-        case "2★":
+        case "2★", "2":
             return "★★HN"
-        case "1★":
+        case "1★", "1":
             return "★N"
         default:
-            return "0"
+            return "업데이트 필요"
         }
         
     }

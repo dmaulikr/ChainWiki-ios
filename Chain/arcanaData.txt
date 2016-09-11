@@ -42,7 +42,7 @@
 {"No":"04015","nickname":"踊り子見習い","name":"ニキ", "rank":"R", "job":"弓", "wepon":"弓", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5350", "maxHp":"4080" },
 {"No":"00029","nickname":"法務委員","name":"ビルギット", "rank":"R", "job":"魔", "wepon":"魔", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5449", "maxHp":"4000" },
 {"No":"04019","nickname":"占い師","name":"ネルヴァ", "rank":"R", "job":"魔", "wepon":"魔", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5400", "maxHp":"3900" },
-{"No":"05028","nickname":"精靈の導き","name":"ミニモ", "rank":"R", "job":"魔", "wepon":"魔", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5500", "maxHp":"4020" },
+{"No":"05028","nickname":"精霊の導き","name":"ミニモ", "rank":"R", "job":"魔", "wepon":"魔", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5500", "maxHp":"4020" },
 {"No":"00031","nickname":"秘薬師","name":"メルヴィナ", "rank":"R", "job":"僧", "wepon":"聖", "cost":"8", "bar":"fukuto","syozoku":"副都", "maxAtk":"5599", "maxHp":"4400" },
 {"No":"00025","nickname":"熱血武器商人","name":"ダスティ", "rank":"HN", "job":"戦", "wepon":"斬", "cost":"4", "bar":"fukuto","syozoku":"副都", "maxAtk":"5099", "maxHp":"3800" },
 {"No":"00010","nickname":"無敵の守銭奴","name":"メリッサ", "rank":"HN", "job":"騎", "wepon":"斬", "cost":"4", "bar":"fukuto","syozoku":"副都", "maxAtk":"3660", "maxHp":"3840" },
