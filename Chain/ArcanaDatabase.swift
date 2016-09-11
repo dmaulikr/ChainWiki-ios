@@ -609,8 +609,8 @@ class ArcanaDatabase: UIViewController {
                     print("LOOK HERE \(attribute)")
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
                 case 16:
-                    //print(attribute)
-                    let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf(" (")!))))
+                    print("PARANTHESES \(attribute)")
+                    let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                     self.translate(skillName1, key: "skillName1")
                     let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
                     self.translate(skillMana1, key: "skillMana1")
@@ -619,13 +619,24 @@ class ArcanaDatabase: UIViewController {
                     
                     // TODO: ACCOUNT FOR SKILL UPDATE *
                 case 17:
-                    //print(attribute)
+                    print("ATTRIBETU HERE \(attribute)")
                     // There are no red lines, just get it
                     if numberOfRed == 0 {
-                        let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                        self.translate(abilityName1, key: "abilityName1")
-                        let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                        self.translate(abilityDesc1, key: "abilityDesc1")
+                        
+                        // Check whether weird space or : exists
+                        if let _ = attribute.indexOf("　") {
+                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName1, key: "abilityName1")
+                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc1, key: "abilityDesc1")
+                        }
+                        else {
+                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                            self.translate(abilityName1, key: "abilityName1")
+                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc1, key: "abilityDesc1")
+                        }
+                        
                     }
                     else {
                         break
@@ -638,15 +649,36 @@ class ArcanaDatabase: UIViewController {
                     else {
                         switch numberOfRed {
                         case 0:
-                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                            self.translate(abilityName2, key: "abilityName2")
-                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc2, key: "abilityDesc2")
+                            if let _ = attribute.indexOf("　") {
+                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                                self.translate(abilityName2, key: "abilityName2")
+                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                                self.translate(abilityDesc2, key: "abilityDesc2")
+                            }
+                            else {
+                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                                self.translate(abilityName2, key: "abilityName2")
+                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                                self.translate(abilityDesc2, key: "abilityDesc2")
+                            }
+                            
                         default:
-                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                            self.translate(abilityName1, key: "abilityName1")
-                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc1, key: "abilityDesc1")
+                            
+                            print("ERROR IS \(attribute)")
+
+                            
+                            if let _ = attribute.indexOf("　") {
+                                let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                                self.translate(abilityName1, key: "abilityName1")
+                                let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                                self.translate(abilityDesc1, key: "abilityDesc1")
+                            }
+                            else {
+                                let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                                self.translate(abilityName1, key: "abilityName1")
+                                let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                                self.translate(abilityDesc1, key: "abilityDesc1")
+                            }
                             
                         }
                         
@@ -662,10 +694,19 @@ class ArcanaDatabase: UIViewController {
                         let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
                         self.translate(kizunaAbility, key: "kizunaAbility")
                     case 1:
-                        let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                        self.translate(abilityName2, key: "abilityName2")
-                        let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                        self.translate(abilityDesc2, key: "abilityDesc2")
+                        
+                        if let _ = attribute.indexOf("　") {
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+                        }
+                        else {
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+                        }
                         
                     default:
                         break
@@ -684,11 +725,24 @@ class ArcanaDatabase: UIViewController {
                         let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
                         self.translate(kizunaAbility, key: "kizunaAbility")
                     default:
-                        let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                        self.translate(abilityName2, key: "abilityName2")
-                        let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                        self.translate(abilityDesc2, key: "abilityDesc2")
+                        print("ALMOST THERE \(attribute)")
+                        
+                        if let _ = attribute.indexOf("　") {
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
 
+                        }
+                        else {
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+
+                        }
+                        
+                        
                         
                     }
                     
@@ -765,9 +819,9 @@ class ArcanaDatabase: UIViewController {
     func downloadArcana() {
         
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
-    //    for url in urls {
+        for url in urls {
 
-            let encodedString = "極彩の射手ルクレチア".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
@@ -798,7 +852,7 @@ class ArcanaDatabase: UIViewController {
             }
             
             //self.uploadArcana()
-     //   }
+        }
     }
     
     func translate(value: String, key: String) {
@@ -851,7 +905,7 @@ class ArcanaDatabase: UIViewController {
         
         // Base Case: only 1 skill, 1 ability. Does not have nickname.
         
-        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
+        guard let nKR = dict["nameKR"], let nJP = dict["nameJP"], let r = dict["rarity"], let g = dict["group"], let t = dict["tavern"], let a = dict["affiliation"], let c = dict["cost"], let w = dict["weapon"], let kN = dict["kizunaName"], let kC = dict["kizunaCost"], let kA = dict["kizunaAbility"], let sC = dict["skillCount"], let sN1 = dict["skillName1"], let sM1 = dict["skillMana1"], let sD1 = dict["skillDesc1"], let aN1 = dict["abilityName1"], let aD1 = dict["abilityDesc1"] else {
             
             print("ARCANA DICTIONARY VALUE IS NIL")
             return
@@ -866,7 +920,7 @@ class ArcanaDatabase: UIViewController {
 
         
         
-        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "tavern", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
+        let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "\(t)", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"]
         
         let arcanaRef = ["\(id)" : arcanaOneSkill]
 
