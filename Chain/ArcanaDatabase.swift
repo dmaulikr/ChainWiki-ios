@@ -100,65 +100,65 @@ class ArcanaDatabase: UIViewController {
     }
     
     func downloadWeaponAndPicture(string: String, url: NSURL) {
-
-//        let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-//        
-//        
-//        let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-//        
-//        let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
         
-        do {
-            let html = try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
-        
-            if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
-
-                var textWithWeapon = ""
-                // Search for nodes by XPath
-                findingTable : for (index, link) in doc.xpath("//table[@id='']").enumerate() {
+        if string == "new" {
+            do {
+                let html = try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
+                
+                if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
                     
-                    let tables = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
-                    
-                    guard let linkText = link.text else {
-                        return
-                    }
-                    if index == 0 {
-                        for a in tables!.xpath("//a | //link") {
-                            if let a = a["href"] {
-                                dict.updateValue("\(a)", forKey: "imageURL")
-                            }
-                            else {
-                                print("IMAGE URL NOT FOUND")
-                            }
+                    var textWithWeapon = ""
+                    // Search for nodes by XPath
+                    findingTable : for (index, link) in doc.xpath("//table[@id='']").enumerate() {
+                        
+                        let tables = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                        
+                        guard let linkText = link.text else {
+                            return
                         }
-                    }
-                    if linkText.containsString("斬") || linkText.containsString("打") || linkText.containsString("突") || linkText.containsString("弓") || linkText.containsString("魔") || linkText.containsString("聖") || linkText.containsString("拳") || linkText.containsString("銃") || linkText.containsString("狙") {
-                        
-                        
-                        // Nested Loop. Should return right at first iteration.
-                        for (weaponIndex, a) in tables!.xpath(".//a['title']").enumerate() {
-                            
-                            if weaponIndex == 0 {
-                                if let text = a.text {
-                                    textWithWeapon.appendContentsOf(text)
-                                    break findingTable
+                        if index == 0 {
+                            for a in tables!.xpath("//a | //link") {
+                                if let a = a["href"] {
+                                    dict.updateValue("\(a)", forKey: "imageURL")
+                                }
+                                else {
+                                    print("IMAGE URL NOT FOUND")
                                 }
                             }
                         }
+                        if linkText.containsString("斬") || linkText.containsString("打") || linkText.containsString("突") || linkText.containsString("弓") || linkText.containsString("魔") || linkText.containsString("聖") || linkText.containsString("拳") || linkText.containsString("銃") || linkText.containsString("狙") {
+                            
+                            
+                            // Nested Loop. Should return right at first iteration.
+                            for (weaponIndex, a) in tables!.xpath(".//a['title']").enumerate() {
+                                
+                                if weaponIndex == 0 {
+                                    if let text = a.text {
+                                        textWithWeapon.appendContentsOf(text)
+                                        break findingTable
+                                    }
+                                }
+                            }
+                            
+                        }
                         
                     }
-
+                    
+                    if textWithWeapon == "" {
+                        print("WEAPON IS BLANK")
+                    }
+                    dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
                 }
                 
-                if textWithWeapon == "" {
-                    print("WEAPON IS BLANK")
-                }
-                dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
+            } catch {
+                print("PARSING ERROR")
             }
-            
-        } catch {
-            print("PARSING ERROR")
         }
+        
+        else if string == "old" {
+            
+        }
+
         
     }
 
@@ -542,9 +542,31 @@ class ArcanaDatabase: UIViewController {
                 print("POSSIBLY BLANK PAGE FOR  \(html)")
                 return
             }
-            let trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("<hr />")!..<h)))
-            let lines = trim.componentsSeparatedByString("<br>")
+            var trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("<hr />")!..<h)))
+            
+            var lines = trim.componentsSeparatedByString("<br>")
+            // CHECK IF OLD, OR OLDEST
+            
+            // oldest
+            if !lines[0].containsString("名　前") {
+                // change trim and lines
+                trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("</tbody></table>")!..<h)))
+                lines = trim.componentsSeparatedByString("<br>")
+            }
+            
+            // numberOfRed = skill/ability update lines
+            var numberOfRed = 0
             for (index, i) in lines.enumerate() {
+                if i.containsString("i_oc_wrap")
+                {
+                numberOfRed += 1
+                }
+            }
+            print("numberOfRed IS \(numberOfRed)")
+            
+            for (index, i) in lines.enumerate() {
+                print(index, i)
+                
                 let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>", options: [.CaseInsensitive])
                 let regex = try! NSRegularExpression(pattern: "<.*?>", options: [.CaseInsensitive])
                 let rangeSpan = NSMakeRange(0, i.characters.count)
@@ -559,9 +581,13 @@ class ArcanaDatabase: UIViewController {
                 var numberOfAbilities = 2
                 switch index {
                 case 0:
-                    self.dict.updateValue(attribute, forKey: "nameJP")
-                    //self.downloadIcon(attribute)
-                    self.translate(attribute, key: "nameKR")
+                    
+                    // Also get the affiliation from file
+                    if self.getAttributes(attribute) == false {
+                        //TODO: Update names.
+                        self.dict.updateValue(attribute, forKey: "nameJP")
+                        self.translate(attribute, key: "nameKR")
+                    }
                 case 1:
                     let rarity = self.getRarity(attribute)
                     // check if rarity is 3 or lower
@@ -571,18 +597,19 @@ class ArcanaDatabase: UIViewController {
                     self.dict.updateValue(rarity, forKey: "rarity")
                     
                 case 4:// Old pages have no affiliation..
-                    self.dict.updateValue(self.getAffiliation(attribute), forKey: "affiliation")
+                    print("GET AFFILIATION FROM getAttributes")
                 case 5:
                     self.dict.updateValue(attribute, forKey: "cost")
                 case 6:
-                    print(attribute)
+                    //print(attribute)
                     // TODO: Get group inside ()
                     let group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf(")")!)))
                     self.dict.updateValue(self.getClass(group as String), forKey: "group")
                 case 7:
+                    print("LOOK HERE \(attribute)")
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
                 case 16:
-                    print(attribute)
+                    //print(attribute)
                     let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf(" (")!))))
                     self.translate(skillName1, key: "skillName1")
                     let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
@@ -592,33 +619,127 @@ class ArcanaDatabase: UIViewController {
                     
                     // TODO: ACCOUNT FOR SKILL UPDATE *
                 case 17:
-                    print(attribute)
-                    let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                    self.translate(abilityName1, key: "abilityName1")
-                    let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                    self.translate(abilityDesc1, key: "abilityDesc1")
+                    //print(attribute)
+                    // There are no red lines, just get it
+                    if numberOfRed == 0 {
+                        let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                        self.translate(abilityName1, key: "abilityName1")
+                        let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                        self.translate(abilityDesc1, key: "abilityDesc1")
+                    }
+                    else {
+                        break
+                    }
                     
                 case 18:
                     if numberOfAbilities == 1 {
                         break
                     }
                     else {
+                        switch numberOfRed {
+                        case 0:
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+                        default:
+                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName1, key: "abilityName1")
+                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc1, key: "abilityDesc1")
+                            
+                        }
+                        
+                    }
+                    
+                case 19:
+                    switch numberOfRed {
+                    case 0:
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
+                    case 1:
                         let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
                         self.translate(abilityName2, key: "abilityName2")
                         let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
                         self.translate(abilityDesc2, key: "abilityDesc2")
+                        
+                    default:
+                        break
+                        
                     }
                     
-                case 19:
-                    let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                    self.translate(kizunaName, key: "kizunaName")
-                    let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                    self.translate(kizunaCost, key: "kizunaCost")
-                    let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                    self.translate(kizunaAbility, key: "kizunaAbility")
+                case 20:
+                    switch numberOfRed {
+                    case 0:
+                        break
+                    case 1:
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
+                    default:
+                        let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                        self.translate(abilityName2, key: "abilityName2")
+                        let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                        self.translate(abilityDesc2, key: "abilityDesc2")
+
+                        
+                    }
                     
+                case 21:
+                    switch numberOfRed {
+                    
+                    case 2:
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
+                    default:
+                        break
+                        
+                    }
+                case 22:
+                    switch numberOfRed {
+                    case 3:
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
+                        
+                    default:
+                        break
+                    }
+                    
+                
+               
                 case 27:
-                    self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    if numberOfRed == 0 {
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    }
+                    
+                case 28:
+                    if numberOfRed == 1 {
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    }
+                    
+                case 29:
+                    if numberOfRed == 2 {
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    }
+                case 30:
+                    if numberOfRed == 3 {
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
+                    }
                     
                 default:
                     break
@@ -654,6 +775,9 @@ class ArcanaDatabase: UIViewController {
             do {
                 let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
                 
+                
+                // TODO: THERE ARE ACTUALLY 3 TYPES OF PAGES. 
+                // IF IT IS THE OLDEST, IT WONT HAVE <HR>. SO INSTEAD OF PARSING LIKE AN OLD PAGE, SEARCH ARCANADATA FOR BASIC ATTRIBUTES, THEN ONLY GET SKILL/ABILITIES FROM HTML.
                 if html.containsString("#ui_wikidb") {
                     downloadAttributes("new", html: html)
                     downloadWeaponAndPicture("new", url: encodedURL!)
@@ -662,7 +786,7 @@ class ArcanaDatabase: UIViewController {
                 
                 else {
                     downloadAttributes("old", html: html)
-                    downloadWeaponAndPicture("new", url: encodedURL!)
+                    //downloadWeaponAndPicture("old", url: encodedURL!)
 
                 }
                 
@@ -1003,9 +1127,18 @@ class ArcanaDatabase: UIViewController {
                 
                 // Checking for nickname because of ver 2.
                 if string.containsString(subJson["nickname"].stringValue) {
+                    // check if we need all attributes(Oldest) or some
+//                    if type == "oldest" {
+//                        let rarity = subJson["rank"].stringValue
+//                        let group = subJson["job"].stringValue
+//                        let weapon = subJson["wepon"].stringValue
+//                        let cost = subJson["cost"].stringValue
+//                        let affiliation = subJson["syozoku"].stringValue
+//                    }
                     
                     let nameJP = subJson["name"].stringValue
                     let nickJP = subJson["nickname"].stringValue
+                    let affiliation = subJson["syozoku"].stringValue
                     self.translate(nameJP, key: "nameKR")
                     self.translate(nickJP, key: "nickKR")
                     let arcanaID = subJson["No"].stringValue
@@ -1014,6 +1147,8 @@ class ArcanaDatabase: UIViewController {
                     self.dict.updateValue("\(nameJP)", forKey: "nameJP")
                     self.dict.updateValue("\(nickJP)", forKey: "nickJP")
                     self.dict.updateValue("http://chaincrers.webcrow.jp/icon/\(arcanaID).jpg", forKey: "iconURL")
+                    self.dict.updateValue(self.getAffiliation(affiliation), forKey: "affiliation")
+                    
                     
                     // Upload to firebase
 
