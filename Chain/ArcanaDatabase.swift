@@ -18,7 +18,7 @@ class ArcanaDatabase: UIViewController {
     // let imageURL = "https://cdn.img-conv.gamerch.com/img.gamerch.com/xn--eckfza0gxcvmna6c/149117/20141218143001Q53NTilN.jpg"
     let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
     let group = dispatch_group_create()
-
+    let loop = dispatch_group_create()
     let arcanaURL = "幸運に導く戦士ニンファ"
     //let dispatch_group = dispatch_group_create()
 
@@ -165,6 +165,7 @@ class ArcanaDatabase: UIViewController {
     // MARK: Given old or new page, parses the page.
     func downloadAttributes(string: String, html: String) {
         
+
         if string == "new" {
                 
                 print("IDENTIFIED NEW PAGE")
@@ -553,31 +554,19 @@ class ArcanaDatabase: UIViewController {
                 trim = NSString(string: html.substringWithRange(Range<String.Index>(html.indexOf("</tbody></table>")!..<h)))
                 lines = trim.componentsSeparatedByString("<br>")
             }
+        
             
-            // numberOfRed = skill/ability update lines
-            var numberOfRed = 0
-            for (index, i) in lines.enumerate() {
-                if i.containsString("ＡＢＩＬＩＴＹ") {
-                    print(i)
+            var usefulAttributes = [String]()
+            
+            for i in lines {
+                if i.containsString("名　前") || i.containsString("レアリティ") || i.containsString("コ　ス　ト") || i.containsString("職　業") || i.containsString("武器タイプ") || i.containsString("ＳＫＩＬＬ") || i.containsString("ＡＢＩＬＩＴＹ") || i.containsString("絆アビリティ") || i.containsString("入　手　方　法") {
+                    usefulAttributes.append(i)
                 }
-                if i.containsString("i_oc_wrap")
-                {
-                numberOfRed += 1
-                }
+                
             }
-            for (index, div) in lines.enumerate() {
-                if div.containsString("js_oc_box_0") {
-                    lines.removeAtIndex(index)
-                    
-                }
-            }
-            print("numberOfRed IS \(numberOfRed)")
             
-            
-            
-            for (index, i) in lines.enumerate() {
-                //print(index, i)
-                var tally = 0
+            for (index, i) in usefulAttributes.enumerate() {
+
                 let regexSpan = try! NSRegularExpression(pattern: "<span.*</span></span>", options: [.CaseInsensitive])
                 let regex = try! NSRegularExpression(pattern: "<.*?>", options: [.CaseInsensitive])
                 let rangeSpan = NSMakeRange(0, i.characters.count)
@@ -590,15 +579,16 @@ class ArcanaDatabase: UIViewController {
                 let attribute = htmlLessString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 //print(index, attribute)
                 var numberOfAbilities = 2
+                
                 switch index {
-                case 0:
                     
-                    // Also get the affiliation from file
+                case 0:
                     if self.getAttributes(attribute) == false {
                         //TODO: Update names.
                         self.dict.updateValue(attribute, forKey: "nameJP")
                         self.translate(attribute, key: "nameKR")
                     }
+                    
                 case 1:
                     let rarity = self.getRarity(attribute)
                     // check if rarity is 3 or lower
@@ -607,20 +597,18 @@ class ArcanaDatabase: UIViewController {
                     }
                     self.dict.updateValue(rarity, forKey: "rarity")
                     
-                case 4:// Old pages have no affiliation..
-                    print("GET AFFILIATION FROM getAttributes")
-                case 5:
+                case 2:
                     self.dict.updateValue(attribute, forKey: "cost")
-                case 6:
-                    //print(attribute)
-                    // TODO: Get group inside ()
+                    
+                case 3:
+                    // Get group inside ()
                     let group = NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("(")!.advancedBy(1)..<attribute.indexOf(")")!)))
                     self.dict.updateValue(self.getClass(group as String), forKey: "group")
-                case 7:
-                    print("LOOK HERE \(attribute)")
+                
+                case 4:
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
-                case 16:
-                    print("PARANTHESES \(attribute)")
+                    
+                case 5:
                     let skillName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                     self.translate(skillName1, key: "skillName1")
                     let skillMana1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(2)..<attribute.indexOf(")*")!.advancedBy(3)))))
@@ -628,302 +616,76 @@ class ArcanaDatabase: UIViewController {
                     let skillDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")*")!.advancedBy(3)..<attribute.endIndex))))
                     self.translate(skillDesc1, key: "skillDesc1")
                     
-                    // TODO: ACCOUNT FOR SKILL UPDATE *
-                case 17:
-                    print("ATTRIBUTE HERE \(attribute)")
-                    
-                    // Skill has red line
-                    if attribute.containsString("※") {
-                        print("tally up")
-                        tally += 1
+                case 6:
+                    if let _ = attribute.indexOf("　") {
+                        let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                        self.translate(abilityName1, key: "abilityName1")
+                        let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                        self.translate(abilityDesc1, key: "abilityDesc1")
+                    }
+                    else {
+                        let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                        self.translate(abilityName1, key: "abilityName1")
+                        let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                        self.translate(abilityDesc1, key: "abilityDesc1")
                     }
                     
-                    // There are no red lines, just get ability 1
+                case 7:
+                    if numberOfAbilities == 1 {
+                        
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
+                    }
+                    else {
+                        if let _ = attribute.indexOf("　") {
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+                        }
+                        else {
+                            
+                            let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
+                            self.translate(abilityName2, key: "abilityName2")
+                            let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
+                            self.translate(abilityDesc2, key: "abilityDesc2")
+                        }
+                    }
 
-                    else {
-                        // Check whether weird space or : exists
-                        if let _ = attribute.indexOf("　") {
-                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                            self.translate(abilityName1, key: "abilityName1")
-                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc1, key: "abilityDesc1")
-                        }
-                        else {
-                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                            self.translate(abilityName1, key: "abilityName1")
-                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc1, key: "abilityDesc1")
-                        }
-                            
-                        
-                    }
-                    
-                case 18:
-                    //
-                    if numberOfAbilities == 1 && tally == 0 {
-                        break
-                    }
-                    
-                    // skill was red line, so get first ability now
-                    if tally == 1 {
-                        if let _ = attribute.indexOf("　") {
-                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                            self.translate(abilityName1, key: "abilityName1")
-                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc1, key: "abilityDesc1")
-                        }
-                        else {
-                            let abilityName1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                            self.translate(abilityName1, key: "abilityName1")
-                            let abilityDesc1 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                            self.translate(abilityDesc1, key: "abilityDesc1")
-                        }
-                    }
-                    
-                    // tally = 0, skill has no red line. previously got ability 1. checking for ability 1 red now.
-                    else {
-                        // page has no red, just get ability 2
-                        if numberOfRed == 0 {
-                            if let _ = attribute.indexOf("　") {
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                            }
-                            else {
-                                
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                            }
-                        }
-                        
-                        // ability 1 has been patched
-                        else if attribute.containsString("※") {
-                            tally += 1
-                            
-                        }
-                        // ability 1 has not been patched, get ability 2
-                        else {
-                            if let _ = attribute.indexOf("　") {
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                            }
-                            else {
-                                
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                            }
-                        }
-                            
-                    
-                    }
-                    
-                case 19:
+                case 8:
                     if numberOfAbilities == 1 {
-                        break
+                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
                     }
-                   
                     else {
-                        switch numberOfRed {
-                        case 0:
-                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                            self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                            self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
-                        case 1:
-                            // no more red, get ability 2.
-                            if tally == 1 {
-                                if let _ = attribute.indexOf("　") {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                                else {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                            }
-                                // this means ability 2 is red
-                            else {
-                                break
-                            }
-                            
-                            
-                            
-                        case 2:
-                            // tally has to be at least 1. check if this is red
-                            if attribute.containsString("※") {
-                                tally += 1
-                            }
-                                // ability 1 is not red, which means ability 2 will be red
-                                // get ability 2
-                            else {
-                                if let _ = attribute.indexOf("　") {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                                else {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                            }
-                            
-                        // if 3 red, this will be red
-                        default:
-                            break
-                        }
+                        let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
+                        self.translate(kizunaName, key: "kizunaName")
+                        let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
+                        self.translate(kizunaCost, key: "kizunaCost")
+                        let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
+                        self.translate(kizunaAbility, key: "kizunaAbility")
                     }
                     
-                    
-                case 20:
+                case 9:
                     if numberOfAbilities == 1 {
                         break
                     }
                     else {
-                        print("KIZUNA SHOULD BE HERE \(attribute)")
-                        switch numberOfRed {
-                        case 0:
-                            break
-                        case 1:
-                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                            self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                            self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
-                            
-                        case 2:
-                            // already got 2 red so this is ability 2
-                            if tally == 2 {
-                                if let _ = attribute.indexOf("　") {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                                else {
-                                    let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                    self.translate(abilityName2, key: "abilityName2")
-                                    let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                    self.translate(abilityDesc2, key: "abilityDesc2")
-                                }
-                            }
-                                // tally is 1 and this is last, so ability 2 is red
-                            else {
-                                
-                            }
-                        default:
-                            print("ALMOST THERE \(attribute)")
-                            
-                            if let _ = attribute.indexOf("　") {
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("　")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("　")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                                
-                            }
-                            else {
-                                let abilityName2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("：")!.predecessor()))))
-                                self.translate(abilityName2, key: "abilityName2")
-                                let abilityDesc2 = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("：")!.advancedBy(1)..<attribute.endIndex))))
-                                self.translate(abilityDesc2, key: "abilityDesc2")
-                                
-                            }
-                            
-                            
-                            
-                        }
-                    }
-                    
-                case 21:
-                    
-                    if numberOfAbilities == 1 {
-                        break
-                    }
-                    
-                    else {
-                        switch numberOfRed {
-                            
-                        case 2:
-                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                            self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                            self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
-                        default:
-                            break
-                            
-                        }
-                    }
-                    
-                case 22:
-                    if numberOfAbilities == 1 {
-                        break
-                    }
-                    else {
-                        switch numberOfRed {
-                        case 3:
-                            let kizunaName = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
-                            self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf("+")!.advancedBy(1)..<attribute.indexOf("+")!.advancedBy(2)))))
-                            self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substringWithRange(Range<String.Index>(attribute.indexOf(")　")!.advancedBy(2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
-                            
-                        default:
-                            break
-                        }
-                    }
-                    
-                    
-                
-               
-                case 27:
-                    if numberOfRed == 0 {
                         self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
                     }
-                    
-                case 28:
-                    if numberOfRed == 1 {
-                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
-                    }
-                    
-                case 29:
-                    if numberOfRed == 2 {
-                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
-                    }
-                case 30:
-                    if numberOfRed == 3 {
-                        self.dict.updateValue(self.getTavern(attribute), forKey: "tavern")
-                    }
-                    
                 default:
                     break
                 }
-                
-                
             }
         }
-        
         // WAIT FOR ALL TRANSLATIONS, THEN UPLOAD
         dispatch_group_notify(group, dispatch_get_main_queue(), { // Calls the given block when all blocks are finished in the group.
             // All blocks finished, do whatever you like.
+            
+            dispatch_group_leave(self.loop)
             for (key, value) in self.dict {
                 print(key, value)
             }
@@ -934,32 +696,37 @@ class ArcanaDatabase: UIViewController {
         
     }
     
-    func downloadArcana() {
+    func downloadArcana(index: Int) {
         
+        dispatch_group_enter(loop)
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
-        for url in urls {
-
-            let encodedString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-            let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
+ 
+       // for url in self.urls {
+            let encodedString = urls[index].stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedURL = NSURL(string: "\(self.baseURL)\(encodedString!)")
                 
             print("ABOUT TO PARSE \(encodedURL!)")
-                
+            
+        
             do {
                 let html = try String(contentsOfURL: encodedURL!, encoding: NSUTF8StringEncoding)
                 
                 
                 // TODO: THERE ARE ACTUALLY 3 TYPES OF PAGES. 
                 // IF IT IS THE OLDEST, IT WONT HAVE <HR>. SO INSTEAD OF PARSING LIKE AN OLD PAGE, SEARCH ARCANADATA FOR BASIC ATTRIBUTES, THEN ONLY GET SKILL/ABILITIES FROM HTML.
+                
+                
                 if html.containsString("#ui_wikidb") {
-                    downloadAttributes("new", html: html)
-                    downloadWeaponAndPicture("new", url: encodedURL!)
+                    self.downloadAttributes("new", html: html)
+                    //downloadWeaponAndPicture("new", url: encodedURL!)
 
                 }
                 
                 else {
-                    downloadAttributes("old", html: html)
-                    //downloadWeaponAndPicture("old", url: encodedURL!)
+                    self.downloadAttributes("old", html: html)
 
+                    //downloadWeaponAndPicture("old", url: encodedURL!)
+                    
                 }
                 
 
@@ -969,8 +736,17 @@ class ArcanaDatabase: UIViewController {
                 print(error)
             }
             
+        
+        dispatch_group_notify(loop, dispatch_get_main_queue(), {
+            print("Finished all requests.")
+            self.downloadArcana(index + 1)
+        })
+    
+            
+            
             //self.uploadArcana()
-        }
+    //    }
+        
     }
     
     func translate(value: String, key: String) {
@@ -1377,7 +1153,7 @@ class ArcanaDatabase: UIViewController {
         super.viewDidLoad()
         retrieveURLS()
         //handleImage()
-        downloadArcana()
+        downloadArcana(0)
 //        for i in urls {
 //            print(i)
 //        }
