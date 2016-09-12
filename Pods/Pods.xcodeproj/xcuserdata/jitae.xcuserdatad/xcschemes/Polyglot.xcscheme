@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '86D98902407DE4EB77E974CBA1DBC958'
+               BlueprintIdentifier = 'F0E41A0B114D288449690F6E5CCC192C'
                BlueprintName = 'Polyglot'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Polyglot.framework'>

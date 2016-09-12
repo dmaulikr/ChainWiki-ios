@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import AlamofireImage
-import Polyglot
+import NVActivityIndicatorView
 
 class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
@@ -72,7 +72,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
         case 1:
-            return 80
+            if indexPath.row == 0 {
+                return 160
+            }
+            else {
+                return 80
+            }
         default:
             return UITableViewAutomaticDimension
         }
@@ -97,6 +102,19 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 1:    // arcanaAttribute
             let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsetsZero
+            if indexPath.row == 0 {
+                cell.attributeKey.text = "이름"
+                guard let arcana = arcana else {
+                    return cell
+                }
+                if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
+                    cell.attributeValue.text = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
+                        print("GOT VALUE")
+                }
+                else {
+                    cell.attributeValue.text = "\(arcana.nameKR)\n\(arcana.nameJP)"
+                }
+            }
             return cell
             
         case 2:
@@ -210,6 +228,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch (indexPath.section) {
             
         case 0: // arcanaImage
+            
+            
+
             let c = cell as! ArcanaImageCell
             
             // Check Cache, or download from Firebase
@@ -233,7 +254,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 //  Not in cache, download from firebase
             else {
-                c.imageSpinner.startAnimating()
+                c.imageSpinner.startAnimation()
                 STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                     if (error != nil) {
                         print("image download error")
@@ -248,7 +269,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                 let size = CGSize(width: SCREENWIDTH - 20, height: 400)
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-                                    c.imageSpinner.stopAnimating()
+                                    c.imageSpinner.stopAnimation()
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaledToFitSize(size)
                                     
                                     c.arcanaImage.image = aspectScaledToFitImage
@@ -282,7 +303,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
             case 0:
                 attributeKey = "이름"
-                attributeValue = arcana.nameKR
+                if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
+                    attributeValue = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
+
+                }
+                else {
+                    attributeValue = "\(arcana.nameKR)\n\(arcana.nameJP)"
+                }
             case 1:
                 attributeKey = "레어"
                 attributeValue = getRarityLong(arcana.rarity)
@@ -432,11 +459,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let spinner = NVActivityIndicatorView(frame: CGRectMake(100, 100, 50, 50), type: .BallPulseSync, color: UIColor.blueColor(), padding: NVActivityIndicatorView.DEFAULT_PADDING)
+        
         tableView.delegate = self
         tableView.dataSource = self
         setupViews()
-        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
+        
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = UIEdgeInsetsZero;

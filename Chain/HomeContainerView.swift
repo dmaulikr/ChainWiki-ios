@@ -13,6 +13,29 @@ class HomeContainerView: UIViewController, FilterDelegate {
     
     var filters = [String: [String]]()
     
+    @IBAction func sort(sender: AnyObject) {
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .ActionSheet)
+        alertController.view.tintColor = salmonColor
+        alertController.setValue(NSAttributedString(string:
+            "정렬 방식을 선택하세요", attributes: [NSFontAttributeName : UIFont.systemFontOfSize(17),NSForegroundColorAttributeName : UIColor.blackColor()]), forKey: "attributedTitle")
+
+        let alpha = UIAlertAction(title: "이름순", style: .Default, handler: nil)
+        alertController.addAction(alpha)
+        let recent = UIAlertAction(title: "최신순", style: .Default, handler: nil)
+        alertController.addAction(recent)
+        let views = UIAlertAction(title: "조회순", style: .Default, handler: nil)
+        alertController.addAction(views)
+        let viewed = UIAlertAction(title: "최근본순", style: .Default, handler: nil)
+        alertController.addAction(viewed)
+        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.Cancel, handler: {
+            (alertAction: UIAlertAction!) in
+            alertController.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        presentViewController(alertController, animated: true, completion: { () -> () in
+            alertController.view.tintColor = salmonColor
+        })
+    }
     func didUpdate(sender: Filter) {
         dispatch_async(dispatch_get_main_queue()) {
             

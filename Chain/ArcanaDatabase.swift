@@ -931,7 +931,7 @@ class ArcanaDatabase: UIViewController {
                 
                 
                 // Base Case: only 1 skill, 1 ability. Does not have nickname.
-                
+                // TODO: Change base case to 1 skill 0 ability...
                 guard let nKR = self.dict["nameKR"], let nJP = self.dict["nameJP"], let r = self.dict["rarity"], let g = self.dict["group"], let t = self.dict["tavern"], let a = self.dict["affiliation"], let c = self.dict["cost"], let w = self.dict["weapon"], let kN = self.dict["kizunaName"], let kC = self.dict["kizunaCost"], let kA = self.dict["kizunaAbility"], let sC = self.dict["skillCount"], let sN1 = self.dict["skillName1"], let sM1 = self.dict["skillMana1"], let sD1 = self.dict["skillDesc1"], let aN1 = self.dict["abilityName1"], let aD1 = self.dict["abilityDesc1"] else {
                     
                     print("ARCANA DICIONARY VALUE IS NIL")

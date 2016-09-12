@@ -1,18 +1,37 @@
 //
-//  ArcanaAbilityDB.swift
+//  ArcanaAbilityList.swift
 //  Chain
 //
-//  Created by Jitae Kim on 8/30/16.
+//  Created by Jitae Kim on 9/11/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
 
-class ArcanaAbilityList: UIViewController {
+class ArcanaAbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
+    var abilityType = String()
+    var arcanaArray = [Arcana]()
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
+        return cell
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.delegate = self
+        tableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -21,15 +40,12 @@ class ArcanaAbilityList: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "showArcana") {
+            let vc = segue.destinationViewController as! ArcanaDetail
+            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
+            
+        }
     }
-    */
 
 }

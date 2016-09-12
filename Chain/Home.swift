@@ -12,6 +12,7 @@ import AlamofireImage
 import Polyglot
 import Toucan
 import SideMenu
+import NVActivityIndicatorView
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -93,7 +94,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
         }
         
-        c.arcanaWeapon.text = arcanaArray[indexPath.row].weapon
+        
         
 //        var rarityPreview = ""
 //        switch(arcanaArray[indexPath.row].rarity) {
@@ -110,7 +111,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            default:
 //                break
 //        }
-        c.arcanaRarity.text = "\(arcanaArray[indexPath.row].rarity)★"
+        c.arcanaRarity.text = "#\(arcanaArray[indexPath.row].rarity)★"
+        c.arcanaGroup.text = "#\(arcanaArray[indexPath.row].group)"
+        c.arcanaWeapon.text = "#\(arcanaArray[indexPath.row].weapon)"
+        if let a = arcanaArray[indexPath.row].affiliation {
+            c.arcanaAffiliation.text = "#\(a)"
+        }
+       
         c.arcanaImage.image = nil
         
         
@@ -149,8 +156,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
          
             //  Not in cache, download from firebase
         else {
-            print("UID \(arcanaArray[indexPath.row].uid)")
-            
+            c.imageSpinner.startAnimation()
+
             STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
@@ -169,7 +176,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                
+                                c.imageSpinner.stopAnimation()
+
                                 let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
                                 //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
                                 c.arcanaImage.image = crop

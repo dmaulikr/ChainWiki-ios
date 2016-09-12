@@ -18,6 +18,7 @@ target 'Chain' do
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'Canvas', '~> 0.1.2'
     pod 'SideMenu'
+    pod 'NVActivityIndicatorView'
 
   # Pods for Chain
 

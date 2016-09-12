@@ -1,23 +1,20 @@
 //
-//  ArcanaImageCell.swift
+//  AbilityCell.swift
 //  Chain
 //
-//  Created by Jitae Kim on 8/29/16.
+//  Created by Jitae Kim on 9/11/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import UIKit
-import NVActivityIndicatorView
 
-class ArcanaImageCell: UITableViewCell {
+class AbilityCell: UITableViewCell {
 
-    @IBOutlet weak var arcanaImage: UIImageView!
-    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
+    @IBOutlet weak var abilityName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

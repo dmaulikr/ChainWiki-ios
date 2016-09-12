@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NVActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Chain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,12 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49138153698601D29B8D25C07A4542A0</key>
+		<key>297ED413AE1B95E0395B2D594E1821AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>684449B3741FC13D90B2F25101572DE0</key>
+		<key>30D7C9E40D4157968692A87272243C4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6FF06D93AFCB7F612915C299EBF5B88B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,12 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7D24F3CC754AE6DB39DA46737BB0F8BE</key>
+		<key>7CC49066A9F55DD5C9B533D1F229607C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F1593863D4965638CA972268362E0AB</key>
+		<key>7D24F3CC754AE6DB39DA46737BB0F8BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,7 +127,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86D98902407DE4EB77E974CBA1DBC958</key>
+		<key>8698C4558AE758AD92477EC134E714F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,16 +142,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE44A9FD2EDCEFFF81EE4E011E328A2B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BFA695209FE9809E8E57387D8344681E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
 		<dict>
 			<key>primary</key>
@@ -152,7 +152,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FE9ECFEA347EB24483811BF343DB7955</key>
+		<key>F0E41A0B114D288449690F6E5CCC192C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F12ADE12E09AA9BA76D3CE172E7EBD68</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F26786D6644195F2B054727475843BD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
