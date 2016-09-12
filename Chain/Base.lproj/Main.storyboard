@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Home-->
@@ -643,7 +644,7 @@
             </objects>
             <point key="canvasLocation" x="886" y="2305"/>
         </scene>
-        <!--아르카나-->
+        <!--Item-->
         <scene sceneID="hqp-aT-RME">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="C5Q-VP-8cH" customClass="HomeContainerView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
@@ -655,16 +656,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-bo-R45">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
                                 <rect key="frame" x="95" y="64" width="505" height="487"/>
                                 <connections>
                                     <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-bo-R45">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -688,17 +689,19 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="EA8-5b-Lns"/>
-                    <navigationItem key="navigationItem" title="아르카나" id="pt2-ng-HMA">
-                        <barButtonItem key="leftBarButtonItem" title="정렬" id="EPQ-o8-9tW">
-                            <connections>
-                                <action selector="sort:" destination="C5Q-VP-8cH" id="sJN-hi-rqe"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="필터" id="0VL-vX-3yM">
-                            <connections>
-                                <action selector="filter:" destination="C5Q-VP-8cH" id="vHp-74-jGI"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" id="pt2-ng-HMA">
+                        <rightBarButtonItems>
+                            <barButtonItem title="필터" id="0VL-vX-3yM">
+                                <connections>
+                                    <action selector="filter:" destination="C5Q-VP-8cH" id="vHp-74-jGI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="정렬" id="EPQ-o8-9tW">
+                                <connections>
+                                    <action selector="sort:" destination="C5Q-VP-8cH" id="sJN-hi-rqe"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="filterView" destination="Xfr-WL-NeS" id="bdO-7K-TNe"/>
@@ -754,7 +757,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="마나의 소양" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQ6-aq-uHP">
                                                     <rect key="frame" x="10" y="10" width="580" height="115"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

@@ -10,11 +10,15 @@ import UIKit
 import Firebase
 import Foundation
 
-class SegmentedContainerView: UIViewController {
+class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
     var arcanaArray = [Arcana]()
     var filteredArray = [Arcana]()
     var filters = [String: [String]]()
+    
+    // Search stuff
+    var searchController : UISearchController!
+    
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
@@ -208,6 +212,20 @@ class SegmentedContainerView: UIViewController {
         segmentedControl.selectedSegmentIndex = 0
         arcanaView.hidden = false
         filterView.hidden = true
+        
+        
+        self.searchController = UISearchController(searchResultsController:  nil)
+        
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = true
+        
+        self.navigationItem.titleView = searchController.searchBar
+        
+        self.definesPresentationContext = true
 //        if let n = navigationController {
 //            n.navigationBar.barTintColor = lightNavyColor
 //            
@@ -224,14 +242,8 @@ class SegmentedContainerView: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
     }
-    */
 
 }
