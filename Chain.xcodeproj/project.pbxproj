@@ -50,6 +50,7 @@
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
 		04DD91121D8656540023CDA4 /* ArcanaAbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD91111D8656540023CDA4 /* ArcanaAbilityList.swift */; };
+		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
 		04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */; };
 		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04FABD201D83DB2F005D9EEC /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FABD1E1D83DB2F005D9EEC /* Interactor.swift */; };
@@ -129,6 +130,7 @@
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
 		04DD91111D8656540023CDA4 /* ArcanaAbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityList.swift; sourceTree = "<group>"; };
+		04DD91131D8669B50023CDA4 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDictionary.swift; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04FABD1E1D83DB2F005D9EEC /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				0404DDA01D8292D100FF390F /* SWRevealViewController.h */,
 				0404DDA11D8292D100FF390F /* SWRevealViewController.m */,
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
+				04DD91131D8669B50023CDA4 /* Login.storyboard */,
 				0404DD9F1D8292D000FF390F /* Chain-Bridging-Header.h */,
 			);
 			name = View;
@@ -460,6 +463,7 @@
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
 				042570761D7EB4CF002F5AD0 /* test.txt in Resources */,
 				046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */,
+				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

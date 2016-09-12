@@ -8,6 +8,7 @@
 
 import UIKit
 import Canvas
+import Firebase
 
 class HomeContainerView: UIViewController, FilterDelegate {
     
@@ -17,13 +18,40 @@ class HomeContainerView: UIViewController, FilterDelegate {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .ActionSheet)
         alertController.view.tintColor = salmonColor
         alertController.setValue(NSAttributedString(string:
-            "정렬 방식을 선택하세요", attributes: [NSFontAttributeName : UIFont.systemFontOfSize(17),NSForegroundColorAttributeName : UIColor.blackColor()]), forKey: "attributedTitle")
+            "정렬", attributes: [NSFontAttributeName : UIFont.systemFontOfSize(17),NSForegroundColorAttributeName : UIColor.blackColor()]), forKey: "attributedTitle")
 
-        let alpha = UIAlertAction(title: "이름순", style: .Default, handler: nil)
+        let alpha = UIAlertAction(title: "이름순", style: .Default, handler: { (action:UIAlertAction) in
+            if let vc = self.childViewControllers[0] as? Home {
+                vc.arcanaArray = vc.arcanaArray.sort({$0.nameKR < $1.nameKR})
+                vc.tableView.reloadData()
+            }
+        })
         alertController.addAction(alpha)
-        let recent = UIAlertAction(title: "최신순", style: .Default, handler: nil)
+        let recent = UIAlertAction(title: "최신순", style: .Default, handler: { (action:UIAlertAction) in
+            if let vc = self.childViewControllers[0] as? Home {
+                vc.arcanaArray = vc.originalArray
+                vc.tableView.reloadData()
+            }
+        })
+
         alertController.addAction(recent)
-        let views = UIAlertAction(title: "조회순", style: .Default, handler: nil)
+        let views = UIAlertAction(title: "조회순", style: .Default, handler: { (action:UIAlertAction) in
+            if let vc = self.childViewControllers[0] as? Home {
+                let ref = FIREBASE_REF.child("arcana")
+                ref.queryOrderedByChild("numberOfViews").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    
+                    var array = [Arcana]()
+                    for item in snapshot.children.reverse() {
+                        
+                        let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                        array.append(arcana!)
+                    }
+                    vc.arcanaArray = array
+                    vc.tableView.reloadData()
+                })
+            }
+        })
+
         alertController.addAction(views)
         let viewed = UIAlertAction(title: "최근본순", style: .Default, handler: nil)
         alertController.addAction(viewed)
