@@ -63,13 +63,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         switch indexPath.section {
         case 0:
-            if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
-                return SCREENWIDTH * 3/5
-            }
-            
-            else {
-                return SCREENHEIGHT * 3/5
-            }
+            return SCREENHEIGHT * 3/5
             
         case 1:
             if indexPath.row == 0 {

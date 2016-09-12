@@ -102,7 +102,6 @@ class ArcanaDatabase: UIViewController {
     
     func downloadWeaponAndPicture(string: String, url: NSURL) {
         
-        if string == "new" {
             do {
                 let html = try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
                 
@@ -148,17 +147,16 @@ class ArcanaDatabase: UIViewController {
                     if textWithWeapon == "" {
                         print("WEAPON IS BLANK")
                     }
-                    dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
+                    if string == "new" {
+                        dict.updateValue("\(getWeapon(textWithWeapon)) / \(textWithWeapon)", forKey: "weapon")
+
+                    }
                 }
                 
             } catch {
                 print("PARSING ERROR")
             }
-        }
-        
-        else if string == "old" {
-            
-        }
+
 
         
     }
@@ -192,7 +190,7 @@ class ArcanaDatabase: UIViewController {
                     
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//tbody").enumerate() {
-                        
+                        print(index, link.text)
                         switch index {
                             
                             
@@ -496,6 +494,66 @@ class ArcanaDatabase: UIViewController {
                                 }
                             }
                             
+                        case 9:
+                            if numberOfSkills == 1 {
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    print(attIndex, a.text)
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.translate(self.getTavern(attribute), key: "tavern")
+                                        // case 1. added date.
+                                        
+                                    default:
+                                        break
+                                    }
+                                }
+                            }
+                        case 10:
+                            if numberOfSkills == 2 {
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    print(attIndex, a.text)
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.translate(self.getTavern(attribute), key: "tavern")
+                                        // case 1. added date.
+                                        
+                                    default:
+                                        break
+                                    }
+                                }
+                            }
+                        case 11:
+                            if numberOfSkills == 3 {
+                                let table = Kanna.HTML(html: link.innerHTML!, encoding: NSUTF8StringEncoding)
+                                
+                                for (attIndex, a) in table!.xpath(".//td").enumerate() {
+                                    guard let attribute = a.text else {
+                                        return
+                                    }
+                                    print(attIndex, a.text)
+                                    switch attIndex {
+                                        
+                                    case 0:
+                                        self.translate(self.getTavern(attribute), key: "tavern")
+                                        // case 1. added date.
+                                        
+                                    default:
+                                        break
+                                    }
+                                }
+                            }
                         default:
                             break
                         }
@@ -616,7 +674,7 @@ class ArcanaDatabase: UIViewController {
                     if foundRarity == true {
                         let rarity = self.getRarity(attribute)
                         
-                        if rarity == "2" && rarity != "3" {
+                        if rarity == "2" || rarity == "3" {
                             numberOfAbilities = 1
                         } else if rarity == "1" {
                             numberOfAbilities = 0
@@ -641,7 +699,6 @@ class ArcanaDatabase: UIViewController {
                         group = attribute
                     }
                     self.dict.updateValue(self.getClass(group), forKey: "group")
-                    print(self.dict["group"]!)
 
                 
                 case 4:
@@ -783,7 +840,7 @@ class ArcanaDatabase: UIViewController {
         dispatch_group_enter(download)
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
  
-            let encodedString = "救世の聖女リリス".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = urls[index].stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(self.baseURL)\(encodedString!)")
         
             // first check if this exists in firebase
@@ -823,14 +880,14 @@ class ArcanaDatabase: UIViewController {
                     
                     if html.containsString("#ui_wikidb") {
                         self.downloadAttributes("new", html: html)
-                        //downloadWeaponAndPicture("new", url: encodedURL!)
+                        self.downloadWeaponAndPicture("new", url: encodedURL!)
                         
                     }
                         
                     else {
                         self.downloadAttributes("old", html: html)
                         
-                        //downloadWeaponAndPicture("old", url: encodedURL!)
+                        self.downloadWeaponAndPicture("old", url: encodedURL!)
                         
                     }
                     
@@ -1025,8 +1082,6 @@ class ArcanaDatabase: UIViewController {
                         }
                         // rarity 1,2,3. only has 1 ability
                         else {
-                            print("rarity is 1 2 3")
-                            //dispatch_group_leave(self.loop)
                         }
                         
                         
@@ -1166,7 +1221,6 @@ class ArcanaDatabase: UIViewController {
     }
     
     func getClass(string: String) -> String {
-        print("GETTING CLASS FOR \(string)")
         switch string {
             
         case "戦士":
