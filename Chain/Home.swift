@@ -84,15 +84,17 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let c = cell as! ArcanaCell
         // check if arcana has only name, or nickname.
         if let nnKR = arcanaArray[indexPath.row].nickNameKR, let nnJP = arcanaArray[indexPath.row].nickNameJP {
-            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
-            c.arcanaNameKR.text = combinedNameKR
-            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
-            c.arcanaNameJP.text = combinedNameJP
+            c.arcanaNickJP.text = nnJP
+            c.arcanaNickKR.text = nnKR
+
+//            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
+//            c.arcanaNameKR.text = combinedNameKR
+//            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
+//            c.arcanaNameJP.text = combinedNameJP
         }
-        else {
             c.arcanaNameKR.text = arcanaArray[indexPath.row].nameKR
             c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
-        }
+        
         
         
         

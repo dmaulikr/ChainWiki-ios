@@ -14,7 +14,9 @@ class ArcanaCell: UITableViewCell {
 
     @IBOutlet weak var arcanaImage: UIImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
+    @IBOutlet weak var arcanaNickKR: UILabel!
     @IBOutlet weak var arcanaNameJP: UILabel!
+    @IBOutlet weak var arcanaNickJP: UILabel!
     @IBOutlet weak var arcanaRarity: UILabel!
     @IBOutlet weak var arcanaWeapon: UILabel!
     @IBOutlet weak var arcanaGroup: UILabel!
