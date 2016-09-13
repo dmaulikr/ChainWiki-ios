@@ -75,25 +75,25 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tqv-p3-sUK" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
-                                                    <rect key="frame" x="570" y="5" width="25" height="25"/>
-                                                    <color key="backgroundColor" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="VFn-yU-iJq"/>
-                                                        <constraint firstAttribute="width" constant="25" id="sli-h1-awD"/>
-                                                    </constraints>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNs-io-Wkc" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
                                                     <rect key="frame" x="540" y="5" width="25" height="25"/>
-                                                    <color key="backgroundColor" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="CU9-r6-jx5"/>
                                                         <constraint firstAttribute="height" constant="25" id="lgE-dv-DKh"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3U5-Oc-dDH" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
-                                                    <rect key="frame" x="570" y="36" width="25" height="25"/>
-                                                    <color key="backgroundColor" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tqv-p3-sUK" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
+                                                    <rect key="frame" x="567" y="5" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="VFn-yU-iJq"/>
+                                                        <constraint firstAttribute="width" constant="25" id="sli-h1-awD"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3U5-Oc-dDH" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
+                                                    <rect key="frame" x="567" y="36" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="kL8-tM-iUD"/>
                                                         <constraint firstAttribute="height" constant="25" id="spM-wK-hXC"/>
