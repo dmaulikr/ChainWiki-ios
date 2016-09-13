@@ -190,7 +190,7 @@ class ArcanaDatabase: UIViewController {
                     
                     // Fetched required attributes
                     for (index, link) in doc.xpath("//tbody").enumerate() {
-                        print(index, link.text)
+                        print(index, link.text!)
                         switch index {
                             
                             
@@ -342,11 +342,11 @@ class ArcanaDatabase: UIViewController {
                             }
                             
                         case 5:
-                            
+                            print("CASE 5 HERE")
                             switch numberOfSkills {
                                 
                             case 1:
-                                // TODO: Check if only 1 ability
+                                // get 인연이야기.
                                 if numberOfAbilities == 1 {
                                     break
                                 }
@@ -421,6 +421,7 @@ class ArcanaDatabase: UIViewController {
                             }
                             
                         case 6:
+                            print("case 6")
                             if numberOfSkills == 1 {
                                 break
                             }
@@ -840,7 +841,7 @@ class ArcanaDatabase: UIViewController {
         dispatch_group_enter(download)
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
  
-            let encodedString = urls[index].stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "千河の風読みアイレ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(self.baseURL)\(encodedString!)")
         
             // first check if this exists in firebase
@@ -922,7 +923,6 @@ class ArcanaDatabase: UIViewController {
         
         if let encodedString = encodedString {
             dispatch_group_enter(group)
-//            let semaphore = dispatch_semaphore_create(0)
             
             let url = NSURL(string: "https://www.googleapis.com/language/translate/v2?key=\(API_KEY)&q=\(encodedString)&source=ja&target=ko")
             
@@ -933,18 +933,27 @@ class ArcanaDatabase: UIViewController {
                     let json = JSON(data: data)
                     
                     if let translatedText = json["data"]["translations"][0]["translatedText"].string {
-                        // gets rid of &quot
-                        print("TRANSLATED TEXT IS \(translatedText)")
-                        self.dict.updateValue(String(htmlEncodedString: translatedText), forKey: key)
+                        
+
+                        // get rid of &quot; and &lt &gt;
+                        var t = translatedText.stringByReplacingOccurrencesOfString("&quot;", withString: " ")
+                        t = t.stringByReplacingOccurrencesOfString("&lt;", withString: "")
+                        t = t.stringByReplacingOccurrencesOfString("&gt;", withString: "")
+                        // some have quotes at start, so remove whitespace
+                        t = t.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+                        // remove double spaces
+                        t = t.stringByReplacingOccurrencesOfString("  ", withString: " ")
+                        // remove space in front of %
+                        t = t.stringByReplacingOccurrencesOfString(" %", withString: "%")
+                        print("TRANSLATED TEXT IS \(t)")
+                        self.dict.updateValue(t, forKey: key)
+                        //self.dict.updateValue(String(htmlEncodedString: final), forKey: key)
                         dispatch_group_leave(self.group)
-//                        dispatch_semaphore_signal(semaphore)
                     }
                     
                 }
             })
             task.resume()
-            
-//            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         }
         
 
@@ -983,7 +992,7 @@ class ArcanaDatabase: UIViewController {
             
                 let id = ref.childByAutoId().key
                 // translate, put korean in dict values.
-                
+                self.dict["uid"] = id
                 // TODO: check skillcount. if 1, just do normal. if 2 or 3, just upload the single skill2 or skill3 key-values.
                 
                 
@@ -1094,110 +1103,154 @@ class ArcanaDatabase: UIViewController {
     
     func findAbilities() {
         
-        if let sD1 = self.dict["skillDesc1"] {
-            if sD1.containsString("아군") && sD1.containsString("공격력") {
-                let buffRef = FIREBASE_REF.child("buff/\(self.dict["uid"])")
-                buffRef.setValue(true)
+        if let id = self.dict["uid"] {
+            if let sD1 = self.dict["skillDesc1"] {
+                if sD1.containsString("아군") && sD1.containsString("공격력") {
+                    let buffRef = FIREBASE_REF.child("buff/\(id)")
+                    buffRef.setValue(true)
+                }
             }
-        }
-        if let sD2 = self.dict["skillDesc2"] {
-            if sD2.containsString("아군") && sD2.containsString("공격력") {
-                let buffRef = FIREBASE_REF.child("buff/\(self.dict["uid"])")
-                buffRef.setValue(true)
+            if let sD2 = self.dict["skillDesc2"] {
+                if sD2.containsString("아군") && sD2.containsString("공격력") {
+                    let buffRef = FIREBASE_REF.child("buff/\(id)")
+                    buffRef.setValue(true)
+                }
             }
-        }
-        if let sD3 = self.dict["skillDesc3"] {
-            if sD3.containsString("아군") && sD3.containsString("공격력") {
-                let buffRef = FIREBASE_REF.child("buff/\(self.dict["uid"])")
-                buffRef.setValue(true)
+            if let sD3 = self.dict["skillDesc3"] {
+                if sD3.containsString("아군") && sD3.containsString("공격력") {
+                    let buffRef = FIREBASE_REF.child("buff/\(id)")
+                    buffRef.setValue(true)
+                }
+            }
+            
+            
+            if let aD1 = self.dict["abilityDesc1"] {
+                if aD1.containsString("서브") && !aD1.containsString("마나를") {
+                    let abilityRef = FIREBASE_REF.child("subAbility/\(id)")
+                    abilityRef.setValue(true)
+                } else if aD1.containsString("마나를") && aD1.containsString("시작") {
+                    let abilityRef = FIREBASE_REF.child("manaAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("마나 슬롯") && aD1.containsString("속도") {
+                    let abilityRef = FIREBASE_REF.child("manaSlotAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("마나 슬롯 때") || (aD1.containsString("마나") && aD1.containsString("쉽게한다")) {
+                    let abilityRef = FIREBASE_REF.child("manaChanceAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("보물") {
+                    let abilityRef = FIREBASE_REF.child("treasureAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("골드") {
+                    let abilityRef = FIREBASE_REF.child("goldAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("경험치") {
+                    let abilityRef = FIREBASE_REF.child("expAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                
+                if aD1.containsString("필살기") {
+                    let abilityRef = FIREBASE_REF.child("skillUpAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD1.containsString("AP") {
+                    let abilityRef = FIREBASE_REF.child("apRecoverAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                
+                
+            }
+            if let aD2 = self.dict["abilityDesc2"] {
+                if aD2.containsString("서브") && !aD2.containsString("마나를") {
+                    let abilityRef = FIREBASE_REF.child("subAbility/\(id)")
+                    abilityRef.setValue(true)
+                } else if aD2.containsString("마나를") && aD2.containsString("시작"){
+                    let abilityRef = FIREBASE_REF.child("manaAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("마나 슬롯") && aD2.containsString("속도") {
+                    let abilityRef = FIREBASE_REF.child("manaSlotAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("마나 슬롯 때") || (aD2.containsString("마나") && aD2.containsString("쉽게한다")) {
+                    let abilityRef = FIREBASE_REF.child("manaChanceAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("보물") {
+                    let abilityRef = FIREBASE_REF.child("treasureAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("골드") {
+                    let abilityRef = FIREBASE_REF.child("goldAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("경험치") {
+                    let abilityRef = FIREBASE_REF.child("expAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                
+                if aD2.containsString("필살기") {
+                    let abilityRef = FIREBASE_REF.child("skillUpAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+                if aD2.containsString("AP") {
+                    let abilityRef = FIREBASE_REF.child("apRecoverAbility/\(id)")
+                    abilityRef.setValue(true)
+                }
+            }
+            if let k = self.dict["kizunaAbility"] {
+                if k.containsString("서브") && !k.containsString("마나를") {
+                    let kizunaRef = FIREBASE_REF.child("subKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                } else if k.containsString("마나를") && k.containsString("시작") {
+                    let kizunaRef = FIREBASE_REF.child("manaKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if k.containsString("마나 슬롯") {
+                    let kizunaRef = FIREBASE_REF.child("manaChanceKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if k.containsString("보물") {
+                    let kizunaRef = FIREBASE_REF.child("treasureKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if k.containsString("골드") {
+                    let kizunaRef = FIREBASE_REF.child("goldKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if k.containsString("경험치") {
+                    let kizunaRef = FIREBASE_REF.child("expKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                
+                if k.containsString("필살기") {
+                    let kizunaRef = FIREBASE_REF.child("skillUpKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                
+                if k.containsString("보스") {
+                    let kizunaRef = FIREBASE_REF.child("bossWaveKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if (k.containsString("암흑") || k.containsString("어둠")) && k.containsString("않는다") {
+                    let kizunaRef = FIREBASE_REF.child("darkImmuneKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if k.containsString("독") && k.containsString("않는다") {
+                    let kizunaRef = FIREBASE_REF.child("poisonImmuneKizuna/\(id)")
+                    kizunaRef.setValue(true)
+                }
+                if (k.containsString("슬로우") || k.containsString("스러운")) && k.containsString("않는다") {
+                    let kizunaRef = FIREBASE_REF.child("manaChanceABility/\(id)")
+                    kizunaRef.setValue(true)
+                }
             }
         }
         
-        
-        if let aD1 = self.dict["abilityDesc1"] {
-            if aD1.containsString("서브") && !aD1.containsString("마나를") {
-                let abilityRef = FIREBASE_REF.child("subAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            } else if aD1.containsString("마나를") {
-                let abilityRef = FIREBASE_REF.child("manaAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD1.containsString("보물") {
-                let abilityRef = FIREBASE_REF.child("treasureAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD1.containsString("골드") {
-                let abilityRef = FIREBASE_REF.child("goldAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD1.containsString("경험치") {
-                let abilityRef = FIREBASE_REF.child("expAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            
-            if aD1.containsString("필살기") {
-                let abilityRef = FIREBASE_REF.child("skillUpAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            
-        }
-        if let aD2 = self.dict["abilityDesc"] {
-            if aD2.containsString("서브") && !aD2.containsString("마나를") {
-                let abilityRef = FIREBASE_REF.child("subAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            } else if aD2.containsString("마나를") {
-                let abilityRef = FIREBASE_REF.child("manaAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD2.containsString("보물") {
-                let abilityRef = FIREBASE_REF.child("treasureAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD2.containsString("골드") {
-                let abilityRef = FIREBASE_REF.child("goldAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            if aD2.containsString("경험치") {
-                let abilityRef = FIREBASE_REF.child("expAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-            
-            if aD2.containsString("필살기") {
-                let abilityRef = FIREBASE_REF.child("skillUpAbility/\(self.dict["uid"])")
-                abilityRef.setValue(true)
-            }
-        }
-        if let k = self.dict["kizunaAbility"] {
-            if k.containsString("서브") && !k.containsString("마나를") {
-                let kizunaRef = FIREBASE_REF.child("subKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            } else if k.containsString("마나를") {
-                let kizunaRef = FIREBASE_REF.child("manaKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-            if k.containsString("보물") {
-                let kizunaRef = FIREBASE_REF.child("treasureKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-            if k.containsString("골드") {
-                let kizunaRef = FIREBASE_REF.child("goldKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-            if k.containsString("경험치") {
-                let kizunaRef = FIREBASE_REF.child("expKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-            
-            if k.containsString("필살기") {
-                let kizunaRef = FIREBASE_REF.child("skillUpKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-            
-            if k.containsString("보스") {
-                let kizunaRef = FIREBASE_REF.child("bossWaveKizuna/\(self.dict["uid"])")
-                kizunaRef.setValue(true)
-            }
-        }
     }
     
     func getRarity(string: String) -> String {
@@ -1405,7 +1458,13 @@ class ArcanaDatabase: UIViewController {
                     }
                     
                     let nameJP = subJson["name"].stringValue
-                    let nickJP = subJson["nickname"].stringValue
+                    var nickJPQuotes = subJson["nickname"].stringValue
+                    // get rid of quotation in names.
+                    nickJPQuotes = nickJPQuotes.stringByReplacingOccurrencesOfString("“", withString: " ")
+                    nickJPQuotes = nickJPQuotes.stringByReplacingOccurrencesOfString("”", withString: " ")
+                    // some have quotes at start, so remove whitespace
+                    let nickJP = nickJPQuotes.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+                    
                     let affiliation = subJson["syozoku"].stringValue
                     self.translate(nameJP, key: "nameKR")
                     self.translate(nickJP, key: "nickKR")

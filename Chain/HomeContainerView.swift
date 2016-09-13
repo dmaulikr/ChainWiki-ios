@@ -10,8 +10,75 @@ import UIKit
 import Canvas
 import Firebase
 
-class HomeContainerView: UIViewController, FilterDelegate {
+class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDelegate {
+
+//    func handleEdgePanGesture(recognizer: UIScreenEdgePanGestureRecognizer) {
+//        filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
+//        filterView.alpha = 1
+//        switch recognizer.state {
+//        case .Began:
+//            // move filterview to right of screen
+//            
+//            print("BEGAN")
+//        case .Changed:
+//            print("CHANGED")
+//            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(filterView).x
+//            recognizer.setTranslation(CGPointZero, inView: filterView)
+//        default:
+//            break
+//        }
+//    }
     
+    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        
+        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
+        
+        switch(recognizer.state) {
+        case .Began:
+//            if self.filterView.alpha == 0 {
+//                self.filterView.alpha = 1
+//                self.filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
+//            }
+//            
+            print("BEGAN")
+        case .Changed:
+            
+            if CGRectContainsPoint(CGRectMake(95, 0, self.view.frame.width, self.view.frame.height), recognizer.locationInView(self.view)) {
+                // Gesture started inside the pannable view. Do your thing.
+   
+                if self.filterView.frame.origin.x >= 95 && recognizer.view!.frame.origin.x >= 95 {
+                    if recognizer.view!.frame.origin.x >= 95 && recognizer.view!.frame.origin.x + recognizer.translationInView(filterView).x >= 95{
+                            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(filterView).x
+                            recognizer.setTranslation(CGPointZero, inView: filterView)
+                        
+                    }
+                }
+                
+                
+
+            }
+            
+
+        case .Ended:
+            print("ENDED")
+            // animate the side panel open or closed based on whether the view has moved more or less than halfway
+            let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
+            if recognizer.view!.frame.origin.x < 95 {
+                recognizer.view!.frame.origin.x = 95
+            }
+            if hasMovedGreaterThanHalfway {
+                //dismissFilter.
+                print("HAS MOVED MORE THAN HALF, DISMISS")
+                filter(self)
+            }
+            
+
+        default:
+            break
+        }
+    }
+    
+    var gesture = UITapGestureRecognizer()
     var filters = [String: [String]]()
     
     @IBAction func sort(sender: AnyObject) {
@@ -174,14 +241,15 @@ class HomeContainerView: UIViewController, FilterDelegate {
     @IBAction func filter(sender: AnyObject) {
         
         if filterView.alpha == 0.0 {
-            homeView.userInteractionEnabled = false
+            filterView.frame = CGRect(x: 95 , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
+            // TODO: if it was previously slided, make it appear in original position.
             UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                 self.filterView.alpha = 1.0
                 }, completion: nil)
 
         }
         else {
-            homeView.userInteractionEnabled = true
+//            homeView.userInteractionEnabled = true
             UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                 self.filterView.alpha = 0.0
                 }, completion: nil)
@@ -199,10 +267,33 @@ class HomeContainerView: UIViewController, FilterDelegate {
         }
     }
     
+    func dismissFilter(sender: AnyObject) {
+        print("dismissed")
+        if filterView.alpha == 1 {
+            gesture.cancelsTouchesInView = true
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.filterView.alpha = 0.0
+                }, completion: nil)
+        }
+        else {
+            gesture.cancelsTouchesInView = false
+        }
+        
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filterView.alpha = 0.0
+        gesture = UITapGestureRecognizer(target: self, action: #selector(HomeContainerView.dismissFilter(_:)))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(HomeContainerView.handlePanGesture(_:)))
+        self.filterView.addGestureRecognizer(panGestureRecognizer)
+        gesture.cancelsTouchesInView = false
+        homeView.addGestureRecognizer(gesture)
         
+//        let edgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgePanGesture:")
+//        edgePanGestureRecognizer.edges = .Right
+//        self.view.addGestureRecognizer(edgePanGestureRecognizer)
         // Do any additional setup after loading the view.
 //        
 //        if let vc = self.childViewControllers[0] as? Home {
@@ -212,7 +303,8 @@ class HomeContainerView: UIViewController, FilterDelegate {
 //            
 //        }
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -14,6 +14,7 @@ protocol FilterDelegate : class {
 }
 
 class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
     
     weak var delegate: FilterDelegate?
 

@@ -37,7 +37,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="t6j-4r-mWf">
-                                                    <rect key="frame" x="180" y="16" width="56" height="15"/>
+                                                    <rect key="frame" x="170" y="16" width="56" height="15"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -102,7 +102,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text="일본어 닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="6en-se-DNa">
-                                                    <rect key="frame" x="180" y="38" width="66" height="15"/>
+                                                    <rect key="frame" x="170" y="38" width="66" height="15"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -110,7 +110,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="fqu-P6-X9I" secondAttribute="bottom" constant="13" id="0Mz-jx-tPP"/>
-                                                <constraint firstItem="t6j-4r-mWf" firstAttribute="leading" secondItem="mZL-LS-NY5" secondAttribute="trailing" constant="20" id="0NU-yZ-tft"/>
+                                                <constraint firstItem="t6j-4r-mWf" firstAttribute="leading" secondItem="mZL-LS-NY5" secondAttribute="trailing" constant="10" id="0NU-yZ-tft"/>
                                                 <constraint firstItem="2uJ-h6-Fco" firstAttribute="top" secondItem="Kwg-68-Imq" secondAttribute="top" constant="12" id="0mF-JF-y5T"/>
                                                 <constraint firstItem="e6f-mC-mqR" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3e7-LO-pzf"/>
                                                 <constraint firstItem="xwP-ok-Ha4" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3x8-lB-mIz"/>
@@ -656,24 +656,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
-                                <rect key="frame" x="95" y="64" width="505" height="487"/>
-                                <connections>
-                                    <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-bo-R45">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
+                                <rect key="frame" x="95" y="64" width="505" height="487"/>
+                                <connections>
+                                    <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="Xfr-WL-NeS" secondAttribute="bottom" constant="49" id="8Ff-cz-PkK">
-                                <variation key="widthClass=compact" constant="0.0"/>
-                            </constraint>
                             <constraint firstAttribute="trailing" secondItem="Xfr-WL-NeS" secondAttribute="trailing" id="AnN-WG-oVH"/>
                             <constraint firstItem="B2c-bo-R45" firstAttribute="leading" secondItem="NQg-C0-h60" secondAttribute="leading" id="DxC-uP-7YS"/>
                             <constraint firstItem="Xfr-WL-NeS" firstAttribute="top" secondItem="feh-so-k9D" secondAttribute="bottom" id="GzJ-vd-vW1"/>
@@ -681,12 +679,8 @@
                             <constraint firstItem="B2c-bo-R45" firstAttribute="top" secondItem="feh-so-k9D" secondAttribute="bottom" id="psi-qV-yDH"/>
                             <constraint firstItem="Xfr-WL-NeS" firstAttribute="leading" secondItem="NQg-C0-h60" secondAttribute="leading" constant="95" id="uFT-J0-rmx"/>
                             <constraint firstItem="3HJ-7i-xha" firstAttribute="top" secondItem="B2c-bo-R45" secondAttribute="bottom" id="vMX-aY-GQs"/>
+                            <constraint firstItem="3HJ-7i-xha" firstAttribute="top" secondItem="Xfr-WL-NeS" secondAttribute="bottom" id="yt2-fI-VFo"/>
                         </constraints>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="8Ff-cz-PkK"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="EA8-5b-Lns"/>
                     <navigationItem key="navigationItem" id="pt2-ng-HMA">
