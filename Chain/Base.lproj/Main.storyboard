@@ -441,6 +441,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="skillMana" destination="lMb-ku-D2l" id="PIo-gT-u7S"/>
+                                            <outlet property="skillManaCost" destination="pNO-yx-mUq" id="9ob-B3-NLW"/>
                                             <outlet property="skillName" destination="3E5-qB-SfY" id="i99-pa-1cb"/>
                                             <outlet property="skillNumber" destination="5tw-z5-ZFt" id="9DY-Yv-OuT"/>
                                         </connections>

@@ -19,10 +19,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        guard let arcana = arcana else {
+            return 0
+        }
         
         switch (section) {
         case 0: // arcanaImage
@@ -33,7 +37,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Returning 2 * skillCount for description.
             
-            switch arcana!.skillCount {
+            switch arcana.skillCount {
             case "1":
                 return 2
             case "2":
@@ -44,18 +48,20 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return 2
             }
         
-        default:    // Arcana abilities. TODO: Check if only 1 or 2 abilities.
+        case 3:    // Arcana abilities. TODO: Check if only 1 or 2 abilities.
             
-            guard let arcana = arcana else {
-                return 0
-            }
             if let _ = arcana.abilityName2 {    // has 2 abilities
                 return 4
             }
             else {  // has only 1 ability
                 return 2
             }
+            
+        default:    // Kizuna
+            return 2
+        
         }
+  
         
     }
 
@@ -72,6 +78,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             else {
                 return 80
             }
+        case 3:
+            return 80
         default:
             return UITableViewAutomaticDimension
         }
@@ -86,6 +94,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        guard let arcana = arcana else {
+            return UITableViewCell()
+        }
         switch indexPath.section {
             
         case 0: // arcanaImage
@@ -98,9 +109,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.layoutMargins = UIEdgeInsetsZero
             if indexPath.row == 0 {
                 cell.attributeKey.text = "이름"
-                guard let arcana = arcana else {
-                    return cell
-                }
+                
                 if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
                     cell.attributeValue.text = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
                         print("GOT VALUE")
@@ -111,12 +120,10 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             return cell
             
-        case 2:
+        case 2: // Arcana Skill
             //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
             
-            guard let arcana = arcana else {
-                return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-            }
+            
             // Odd rows will be the description
             //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
             //let descCell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
@@ -167,26 +174,24 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 
             }
-        default:
             
-            guard let arcana = arcana else {
-                return tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-            }
+            // Arcana Ability
+        case 3:
             
             switch indexPath.row {
             case 0,2:
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("arcanaAttribute") as! ArcanaAttributeCell
                 
-                if indexPath == 0 {
-                    cell.attributeKey.text = "어빌 1"
-                    cell.attributeValue.text = arcana.abilityName1
-                    
-                }
-                else {
-                    cell.attributeKey.text = "어빌 2"
-                    cell.attributeValue.text = arcana.abilityName2
-                }
+//                if indexPath == 0 {
+//                    cell.attributeKey.text = "어빌 1"
+//                    cell.attributeValue.text = arcana.abilityName1
+//                    
+//                }
+//                else {
+//                    cell.attributeKey.text = "어빌 2"
+//                    cell.attributeValue.text = arcana.abilityName2
+//                }
                 
                 cell.layoutMargins = UIEdgeInsetsZero
                 return cell
@@ -196,17 +201,31 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 
-                if indexPath.row == 1 {
-                    cell.skillAbilityDesc.text = arcana.abilityDesc1
-                }
-                else {
-                    cell.skillAbilityDesc.text = arcana.abilityDesc2
-                }
+//                if indexPath.row == 1 {
+//                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+//                }
+//                else {
+//                    cell.skillAbilityDesc.text = arcana.abilityDesc2
+//                }
 
                 cell.layoutMargins = UIEdgeInsetsZero
                 return cell
             }
+        default:
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
+                cell.skillName.text = arcana.kizunaName
+                cell.skillMana.text = arcana.kizunaCost
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
 
+            }
+            else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+                cell.skillAbilityDesc.text = arcana.kizunaAbility
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
+            }
         }
         
     }
@@ -293,7 +312,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             var attributeKey = ""
             var attributeValue = ""
             
-            switch (indexPath.row) {
+            switch indexPath.row {
                 
             case 0:
                 attributeKey = "이름"
@@ -334,7 +353,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // TODO: Calculate # of skills
             
-            switch (indexPath.row) {
+            switch indexPath.row {
                 
             case 0:
                 let headerCell = cell as! ArcanaSkillCell
@@ -369,8 +388,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 break
                 
             }
-        default:
-            switch (indexPath.row) {
+        case 3:
+            switch indexPath.row {
                 
             case 0:
                 let name = cell as! ArcanaAttributeCell
@@ -388,7 +407,19 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 desc.skillAbilityDesc.text = arcana.abilityDesc2
                 
             }
-
+        default:
+            switch indexPath.row {
+            case 0:
+                let descCell = cell as! ArcanaSkillCell
+                descCell.skillNumber.text = "인연"
+                descCell.skillManaCost.text = "코스트"
+            default:
+                break
+                
+                
+            }
+            
+            
         }
         
     }

@@ -13,6 +13,7 @@ class ArcanaSkillCell: UITableViewCell {
     @IBOutlet weak var skillNumber: UILabel!
     @IBOutlet weak var skillName: UILabel!
     @IBOutlet weak var skillMana: UILabel!
+    @IBOutlet weak var skillManaCost: UILabel!
     
     
     override func awakeFromNib() {

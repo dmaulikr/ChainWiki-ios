@@ -734,9 +734,9 @@ class ArcanaDatabase: UIViewController {
                             self.translate(kizunaAbility, key: "kizunaAbility")
                         }
                         else {
-                            self.dict.updateValue("업데이트 필요", forKey: "kizunaName")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaName")
                             self.dict.updateValue("-", forKey: "kizunaCost")
-                            self.dict.updateValue("업데이트 필요", forKey: "kizunaAbility")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaAbility")
                         }
 
                     }
@@ -768,9 +768,9 @@ class ArcanaDatabase: UIViewController {
                             self.translate(kizunaAbility, key: "kizunaAbility")
                         }
                         else {
-                            self.dict.updateValue("업데이트 필요", forKey: "kizunaName")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaName")
                             self.dict.updateValue("-", forKey: "kizunaCost")
-                            self.dict.updateValue("업데이트 필요", forKey: "kizunaAbility")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaAbility")
                         }
                         
                     }
