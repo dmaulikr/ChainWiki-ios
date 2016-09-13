@@ -18,6 +18,10 @@
 		042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570731D7EB4A4002F5AD0 /* arcanaData.txt */; };
 		042570761D7EB4CF002F5AD0 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570751D7EB4CF002F5AD0 /* test.txt */; };
 		042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DB3E81D8155970049AC0D /* MySupplementaryView.swift */; };
+		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
+		0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* ManaAbility.swift */; };
+		0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */; };
+		0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1DA1D87D93E00670834 /* DrawCircle.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
@@ -92,6 +96,10 @@
 		042570731D7EB4A4002F5AD0 /* arcanaData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcanaData.txt; sourceTree = "<group>"; };
 		042570751D7EB4CF002F5AD0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		042DB3E81D8155970049AC0D /* MySupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySupplementaryView.swift; sourceTree = "<group>"; };
+		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
+		0447E1D51D87D05200670834 /* ManaAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbility.swift; sourceTree = "<group>"; };
+		0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbilityCell.swift; sourceTree = "<group>"; };
+		0447E1DA1D87D93E00670834 /* DrawCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCircle.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -185,6 +193,17 @@
 				048E6E501D72602400687513 /* ArcanaDetailOld.swift */,
 			);
 			name = "Old ArcanaDetail";
+			sourceTree = "<group>";
+		};
+		0447E1D71D87D09500670834 /* Abilities */ = {
+			isa = PBXGroup;
+			children = (
+				0447E1D31D87BA8200670834 /* Ability.storyboard */,
+				0447E1DA1D87D93E00670834 /* DrawCircle.swift */,
+				0447E1D51D87D05200670834 /* ManaAbility.swift */,
+				0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */,
+			);
+			name = Abilities;
 			sourceTree = "<group>";
 		};
 		046C93351D7582D6000E3FBD /* ARCANA */ = {
@@ -293,6 +312,7 @@
 				04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */,
 				04AA101F1D7D653B00387D22 /* TavernView.swift */,
 				04AA10211D7D667500387D22 /* TavernViewCell.swift */,
+				0447E1D71D87D09500670834 /* Abilities */,
 				046C93351D7582D6000E3FBD /* ARCANA */,
 				0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */,
 				046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */,
@@ -458,6 +478,7 @@
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04941A3B1D6F81F000BAE389 /* Features.rtf in Resources */,
 				042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */,
+				0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
@@ -633,12 +654,15 @@
 				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
+				0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */,
 				048B31261D7642CA0011477D /* AbilityList.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
 				048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */,
 				04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */,
+				0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */,
+				0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */,
 				0401B2841D752D0B00A0A728 /* ArcanaValueCellOld.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,

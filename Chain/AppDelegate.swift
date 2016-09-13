@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        
         FIRApp.configure()
         //FIRDatabase.database().persistenceEnabled = true
         
@@ -38,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UILabel.appearance().font = UIFont(name: "yourFont", size: yourSize)
         //buildNavigationDrawer()
         
+        
+        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
+        
+        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("AbilityNav")
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
         return true
     }
 
