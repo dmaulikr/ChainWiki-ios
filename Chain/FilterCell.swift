@@ -13,7 +13,7 @@ class FilterCell: UICollectionViewCell {
     @IBOutlet weak var filterType: UILabel!
     
     override func awakeFromNib() {
-        filterType.highlightedTextColor = UIColor.whiteColor()
+        filterType.highlightedTextColor = UIColor.white
         let backgroundView = UIView()
         backgroundView.backgroundColor = lightGreenColor
         self.selectedBackgroundView = backgroundView

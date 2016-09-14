@@ -19,13 +19,13 @@ class DrawCircle: UIView {
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
     
         if mana != "" {
             let context = UIGraphicsGetCurrentContext()
             let locations: [CGFloat] = [0.0, 1.0]
             
-            var gradientColor = UIColor.blackColor()
+            var gradientColor = UIColor.black
             
             
             switch mana {
@@ -40,27 +40,27 @@ class DrawCircle: UIView {
             case "승려":
                 gradientColor = HEALERCOLOR
             default:
-                gradientColor = UIColor.blackColor()
+                gradientColor = UIColor.black
                 
             }
             
             
-            let colors = [UIColor.whiteColor().CGColor,
-                          gradientColor.CGColor]
+            let colors = [UIColor.white.cgColor,
+                          gradientColor.cgColor]
             
             let colorspace = CGColorSpaceCreateDeviceRGB()
             
-            let gradient = CGGradientCreateWithColors(colorspace,
-                                                      colors, locations)
+            let gradient = CGGradient(colorsSpace: colorspace,
+                                                      colors: colors as CFArray, locations: locations)
             
             let startPoint = CGPoint(x: self.bounds.width/4, y: self.bounds.height/4)
             let endPoint = CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
             let startRadius: CGFloat = 0
             let endRadius: CGFloat = 15
             
-            CGContextDrawRadialGradient (context, gradient, startPoint,
-                                         startRadius, endPoint, endRadius,
-                                         CGGradientDrawingOptions.DrawsBeforeStartLocation)
+            context?.drawRadialGradient (gradient!, startCenter: startPoint,
+                                         startRadius: startRadius, endCenter: endPoint, endRadius: endRadius,
+                                         options: CGGradientDrawingOptions.drawsBeforeStartLocation)
         }
         
     }

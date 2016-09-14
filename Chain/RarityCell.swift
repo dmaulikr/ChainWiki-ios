@@ -14,7 +14,7 @@ class RarityCell: UICollectionViewCell {
     @IBOutlet weak var rarityIcon: UIImageView!
     
     override func awakeFromNib() {
-        rarity.highlightedTextColor = UIColor.whiteColor()
+        rarity.highlightedTextColor = UIColor.white
         rarityIcon.highlightedImage = UIImage(named: "starWhite.png")
         let backgroundView = UIView()
         backgroundView.backgroundColor = lightGreenColor

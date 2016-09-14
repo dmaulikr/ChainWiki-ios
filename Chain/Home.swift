@@ -9,10 +9,8 @@
 import UIKit
 import Firebase
 import AlamofireImage
-import Polyglot
-import Toucan
-import SideMenu
-import NVActivityIndicatorView
+//import Toucan
+//import NVActivityIndicatorView
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -27,23 +25,23 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
     func downloadArray() {
 
         let ref = FIREBASE_REF.child("arcana")
 
-        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
+        ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
             
             var filter = [Arcana]()
             for item in snapshot.children {
                 let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
                 filter.append(arcana!)
             }
-            self.arcanaArray = filter.reverse()
-            self.originalArray = filter.reverse()
+            self.arcanaArray = filter.reversed()
+            self.originalArray = filter.reversed()
             self.tableView.reloadData()
         })
         
@@ -51,22 +49,22 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arcanaArray.count
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         cell.arcanaImage.image = nil
         //let image = UIImage(named: "main.jpg")!
 //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
@@ -74,11 +72,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ArcanaCell
         // check if arcana has only name, or nickname.
-        if let nnKR = arcanaArray[indexPath.row].nickNameKR, let nnJP = arcanaArray[indexPath.row].nickNameJP {
+        if let nnKR = arcanaArray[(indexPath as NSIndexPath).row].nickNameKR, let nnJP = arcanaArray[(indexPath as NSIndexPath).row].nickNameJP {
             c.arcanaNickJP.text = nnJP
             c.arcanaNickKR.text = nnKR
 
@@ -87,8 +85,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
 //            c.arcanaNameJP.text = combinedNameJP
         }
-            c.arcanaNameKR.text = arcanaArray[indexPath.row].nameKR
-            c.arcanaNameJP.text = arcanaArray[indexPath.row].nameJP
+            c.arcanaNameKR.text = arcanaArray[(indexPath as NSIndexPath).row].nameKR
+            c.arcanaNameJP.text = arcanaArray[(indexPath as NSIndexPath).row].nameJP
         
         
         
@@ -108,10 +106,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //            default:
 //                break
 //        }
-        c.arcanaRarity.text = "#\(arcanaArray[indexPath.row].rarity)★"
-        c.arcanaGroup.text = "#\(arcanaArray[indexPath.row].group)"
-        c.arcanaWeapon.text = "#\(arcanaArray[indexPath.row].weapon)"
-        if let a = arcanaArray[indexPath.row].affiliation {
+        c.arcanaRarity.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].rarity)★"
+        c.arcanaGroup.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].group)"
+        c.arcanaWeapon.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].weapon)"
+        if let a = arcanaArray[(indexPath as NSIndexPath).row].affiliation {
             c.arcanaAffiliation.text = "#\(a)"
         }
        
@@ -140,7 +138,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         
-        
+        /*
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon.jpg") {
             
@@ -153,7 +151,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
          
             //  Not in cache, download from firebase
         else {
-            c.imageSpinner.startAnimation()
+//            c.imageSpinner.startAnimation()
 
             STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
                 if (error != nil) {
@@ -173,7 +171,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                c.imageSpinner.stopAnimation()
+//                                c.imageSpinner.stopAnimation()
 
                                 let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
                                 //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
@@ -193,10 +191,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
     
-
+*/
     }
     
-    func reloadTableData(notification: NSNotification) {
+    func reloadTableData(_ notification: Notification) {
         tableView.reloadData()
     }
     
@@ -223,7 +221,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 
        // tableView.reloadData()
     }
@@ -233,10 +231,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showArcana") {
-            let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
+            let vc = segue.destination as! ArcanaDetail
+            vc.arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
         }
     }
 

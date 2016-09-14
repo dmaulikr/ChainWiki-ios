@@ -14,13 +14,13 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Ability", bundle:nil)
         
-        let vc = storyBoard.instantiateViewControllerWithIdentifier("AbilityNav") as! UINavigationController
+        let vc = storyBoard.instantiateViewController(withIdentifier: "AbilityNav") as! UINavigationController
         
         self.addChildViewController(vc)
         self.tabBar.tintColor = lightGreenColor
     }
     
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
         let fromView: UIView = tabBarController.selectedViewController!.view
         let toView  : UIView = viewController.view
@@ -28,13 +28,13 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             return false
         }
         
-        UIView.transitionFromView(fromView, toView: toView, duration: 0.3, options: UIViewAnimationOptions.TransitionCrossDissolve) { (finished:Bool) in
+        UIView.transition(from: fromView, to: toView, duration: 0.3, options: UIViewAnimationOptions.transitionCrossDissolve) { (finished:Bool) in
             
         }
         return true
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
         
         if viewController == self.viewControllers![0] {

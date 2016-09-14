@@ -10,15 +10,15 @@ import UIKit
 
 class RarityTableView: UITableViewController {
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "listArcana") {
-            let vc = segue.destinationViewController as! RarityList
-            vc.rarityIndex = tableView.indexPathForSelectedRow!.row
+            let vc = segue.destination as! RarityList
+            vc.rarityIndex = (tableView.indexPathForSelectedRow! as NSIndexPath).row
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("listArcana", sender: indexPath.row)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "listArcana", sender: (indexPath as NSIndexPath).row)
     }
     
     override func viewDidLoad() {

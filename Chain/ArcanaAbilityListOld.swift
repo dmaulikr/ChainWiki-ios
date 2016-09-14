@@ -14,16 +14,16 @@ class ArcanaAbilityListOld: UIViewController, UITableViewDelegate, UITableViewDa
     var abilityType = String()
     var arcanaArray = [Arcana]()
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         return cell
     }
     
@@ -40,10 +40,10 @@ class ArcanaAbilityListOld: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showArcana") {
-            let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
+            let vc = segue.destination as! ArcanaDetail
+            vc.arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             
         }
     }

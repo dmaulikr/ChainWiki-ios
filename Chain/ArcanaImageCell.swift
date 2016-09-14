@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
+//import NVActivityIndicatorView
 
 class ArcanaImageCell: UITableViewCell {
 
     @IBOutlet weak var arcanaImage: UIImageView!
-    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
+//    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +20,7 @@ class ArcanaImageCell: UITableViewCell {
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

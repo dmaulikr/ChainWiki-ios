@@ -22,17 +22,17 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = UIColor.whiteColor()
+            segmentedControl.tintColor = UIColor.white
         }
     }
     
     
-    @IBAction func segmentedControl(sender: AnyObject) {
+    @IBAction func segmentedControl(_ sender: AnyObject) {
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            arcanaView.hidden = false
-            filterView.hidden = true
+            arcanaView.isHidden = false
+            filterView.isHidden = true
             if let vc = self.childViewControllers[1] as? Filter {
                 
                 filters = vc.filterTypes
@@ -91,7 +91,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
                         if let a = filters["affiliation"] {
                             
                             for affiliation in a {
-                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.containsString(affiliation)})
+                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
                                 affiliationSet = affiliationSet.union(Set(filteredAffiliation))
                             }
                             
@@ -110,7 +110,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
                                 
                                 // Set already exists, so intersect
                                 else {
-                                    finalFilter = finalFilter.intersect(value)
+                                    finalFilter = finalFilter.intersection(value)
                                 }
                             }
                         }
@@ -147,14 +147,14 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
 //            }
             // TODO: get filters from Filter, and filter array before switching.
         case 1:
-            arcanaView.hidden = true
-            filterView.hidden = false
+            arcanaView.isHidden = true
+            filterView.isHidden = false
         default:
             break;
         }
     }
     
-    func filter(string: String) {
+    func filter(_ string: String) {
 //        switch string {
 //            case "rarity":
 //                for rarity in filters["rarity"]! {
@@ -184,7 +184,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
         
         let ref = FIREBASE_REF.child("arcana")
         
-        ref.queryLimitedToLast(20).observeEventType(.Value, withBlock: { snapshot in
+        ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
             
             var filter = [Arcana]()
             for item in snapshot.children {
@@ -210,8 +210,8 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
         getArray()
         
         segmentedControl.selectedSegmentIndex = 0
-        arcanaView.hidden = false
-        filterView.hidden = true
+        arcanaView.isHidden = false
+        filterView.isHidden = true
         
         
         self.searchController = UISearchController(searchResultsController:  nil)
@@ -233,7 +233,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
         // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 
     }
     override func didReceiveMemoryWarning() {
@@ -242,7 +242,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
     }
     
 
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         
     }
 

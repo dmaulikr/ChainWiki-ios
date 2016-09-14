@@ -13,7 +13,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = UIColor.whiteColor()
+            segmentedControl.tintColor = UIColor.white
         }
     }
     
@@ -24,7 +24,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     let kizunaArray = ["마나의 소양", "상자 획득", "AP 회복", "골드", "경험치", "서브시 증가", "필살기 증가", "공격력 증가", "보스 웨이브시 공격력 증가", "어둠 면역", "슬로우 면역", "독 면역", "마나 슬롯 속도", "마나 획득 확률 증가"]
     
     
-    @IBAction func abilityOrKizuna(sender: AnyObject) {
+    @IBAction func abilityOrKizuna(_ sender: AnyObject) {
         
         if segmentedControl.selectedSegmentIndex == 0 {
             currentArray = abilityArray
@@ -43,31 +43,31 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentArray.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("ability") as! AbilityCell
-        cell.abilityName.text = currentArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ability") as! AbilityCell
+        cell.abilityName.text = currentArray[(indexPath as NSIndexPath).row]
         return cell
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
 //        switch indexPath.row {
 //        case 0:
-            self.performSegueWithIdentifier("showMana", sender: indexPath.row)
+            self.performSegue(withIdentifier: "showMana", sender: (indexPath as NSIndexPath).row)
 //        default:
 //            break
 //        }
@@ -89,11 +89,11 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showMana") {
-            let vc = segue.destinationViewController as! ManaAbility
+            let vc = segue.destination as! ManaAbility
             vc.selectedIndex = segmentedControl.selectedSegmentIndex
-            vc.abilityType = currentArray[tableView.indexPathForSelectedRow!.row]
+            vc.abilityType = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             
         }
         self.title = "이전"

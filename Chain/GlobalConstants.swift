@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import AlamofireImage
-import Polyglot
+//import Polyglot
 
 let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
 
@@ -24,12 +24,12 @@ let STORAGE_REF = FIRStorage.storage().reference()
 //
 //let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
 
-let SCREENWIDTH = UIScreen.mainScreen().bounds.width
-let SCREENHEIGHT = UIScreen.mainScreen().bounds.height
+let SCREENWIDTH = UIScreen.main.bounds.width
+let SCREENHEIGHT = UIScreen.main.bounds.height
 
 let DOWNLOADER = ImageDownloader(
     configuration: ImageDownloader.defaultURLSessionConfiguration(),
-    downloadPrioritization: .FIFO,
+    downloadPrioritization: .fifo,
     maximumActiveDownloads: 4,
     imageCache: AutoPurgingImageCache()
 )
@@ -57,5 +57,5 @@ let textGrayColor = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
 
 
 
-let TRANSLATOR = Polyglot(clientId: "ChainChronicle1126", clientSecret: "hCRxD8K8n4SkJ+m/yQtV1cFxm/JG4JfjzMFptQSBwWE=")
+//let TRANSLATOR = Polyglot(clientId: "ChainChronicle1126", clientSecret: "hCRxD8K8n4SkJ+m/yQtV1cFxm/JG4JfjzMFptQSBwWE=")
 

@@ -29,27 +29,27 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
 //        }
 //    }
     
-    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+    func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
-        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
+        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
         
         switch(recognizer.state) {
-        case .Began:
+        case .began:
 //            if self.filterView.alpha == 0 {
 //                self.filterView.alpha = 1
 //                self.filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
 //            }
 //            
             print("BEGAN")
-        case .Changed:
+        case .changed:
             
-            if CGRectContainsPoint(CGRectMake(95, 0, self.view.frame.width, self.view.frame.height), recognizer.locationInView(self.view)) {
+            if CGRect(x: 95, y: 0, width: self.view.frame.width, height: self.view.frame.height).contains(recognizer.location(in: self.view)) {
                 // Gesture started inside the pannable view. Do your thing.
    
                 if self.filterView.frame.origin.x >= 95 && recognizer.view!.frame.origin.x >= 95 {
-                    if recognizer.view!.frame.origin.x >= 95 && recognizer.view!.frame.origin.x + recognizer.translationInView(filterView).x >= 95{
-                            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(filterView).x
-                            recognizer.setTranslation(CGPointZero, inView: filterView)
+                    if recognizer.view!.frame.origin.x >= 95 && recognizer.view!.frame.origin.x + recognizer.translation(in: filterView).x >= 95{
+                            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translation(in: filterView).x
+                            recognizer.setTranslation(CGPoint.zero, in: filterView)
                         
                     }
                 }
@@ -59,7 +59,7 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
             }
             
 
-        case .Ended:
+        case .ended:
             print("ENDED")
             // animate the side panel open or closed based on whether the view has moved more or less than halfway
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
@@ -81,20 +81,20 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
     var gesture = UITapGestureRecognizer()
     var filters = [String: [String]]()
     
-    @IBAction func sort(sender: AnyObject) {
-        let alertController = UIAlertController(title: "", message: "", preferredStyle: .ActionSheet)
+    @IBAction func sort(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = salmonColor
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSFontAttributeName : UIFont.systemFontOfSize(17),NSForegroundColorAttributeName : UIColor.blackColor()]), forKey: "attributedTitle")
+            "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
 
-        let alpha = UIAlertAction(title: "이름순", style: .Default, handler: { (action:UIAlertAction) in
+        let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
             if let vc = self.childViewControllers[0] as? Home {
-                vc.arcanaArray = vc.arcanaArray.sort({$0.nameKR < $1.nameKR})
+                vc.arcanaArray = vc.arcanaArray.sorted(by: {$0.nameKR < $1.nameKR})
                 vc.tableView.reloadData()
             }
         })
         alertController.addAction(alpha)
-        let recent = UIAlertAction(title: "최신순", style: .Default, handler: { (action:UIAlertAction) in
+        let recent = UIAlertAction(title: "최신순", style: .default, handler: { (action:UIAlertAction) in
             if let vc = self.childViewControllers[0] as? Home {
                 vc.arcanaArray = vc.originalArray
                 vc.tableView.reloadData()
@@ -102,13 +102,13 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
         })
 
         alertController.addAction(recent)
-        let views = UIAlertAction(title: "조회순", style: .Default, handler: { (action:UIAlertAction) in
+        let views = UIAlertAction(title: "조회순", style: .default, handler: { (action:UIAlertAction) in
             if let vc = self.childViewControllers[0] as? Home {
                 let ref = FIREBASE_REF.child("arcana")
-                ref.queryOrderedByChild("numberOfViews").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                ref.queryOrdered(byChild: "numberOfViews").observeSingleEvent(of: .value, with: { snapshot in
                     
                     var array = [Arcana]()
-                    for item in snapshot.children.reverse() {
+                    for item in snapshot.children.reversed() {
                         
                         let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
                         array.append(arcana!)
@@ -120,19 +120,19 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
         })
 
         alertController.addAction(views)
-        let viewed = UIAlertAction(title: "최근본순", style: .Default, handler: nil)
+        let viewed = UIAlertAction(title: "최근본순", style: .default, handler: nil)
         alertController.addAction(viewed)
-        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.Cancel, handler: {
+        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
             (alertAction: UIAlertAction!) in
-            alertController.dismissViewControllerAnimated(true, completion: nil)
+            alertController.dismiss(animated: true, completion: nil)
         }))
         
-        presentViewController(alertController, animated: true, completion: { () -> () in
+        present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = salmonColor
         })
     }
-    func didUpdate(sender: Filter) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func didUpdate(_ sender: Filter) {
+        DispatchQueue.main.async {
             
             if let vc = self.childViewControllers[1] as? Filter {
                 
@@ -192,7 +192,7 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
                         if let a = self.filters["affiliation"] {
                             
                             for affiliation in a {
-                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.containsString(affiliation)})
+                                let filteredAffiliation = vc.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
                                 affiliationSet = affiliationSet.union(Set(filteredAffiliation))
                             }
                             
@@ -213,7 +213,7 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
                                     
                                     // Set already exists, so intersect
                                 else {
-                                    finalFilter = finalFilter.intersect(value)
+                                    finalFilter = finalFilter.intersection(value)
                                 }
                             }
                         }
@@ -238,19 +238,19 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
     @IBOutlet weak var homeView: UIView!
     @IBOutlet weak var filterView: UIView!
     var array = [Arcana]()
-    @IBAction func filter(sender: AnyObject) {
+    @IBAction func filter(_ sender: AnyObject) {
         
         if filterView.alpha == 0.0 {
             filterView.frame = CGRect(x: 95 , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
             // TODO: if it was previously slided, make it appear in original position.
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.filterView.alpha = 1.0
                 }, completion: nil)
 
         }
         else {
 //            homeView.userInteractionEnabled = true
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.filterView.alpha = 0.0
                 }, completion: nil)
         }
@@ -258,20 +258,20 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
 
     
     
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationViewController = segue.destinationViewController as? Filter {
-            print("SEGUE DONE")
-            destinationViewController.delegate = self
-            destinationViewController.transitioningDelegate = self
-        }
-    }
-    
-    func dismissFilter(sender: AnyObject) {
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destinationViewController = segue.destination as? Filter {
+//            print("SEGUE DONE")
+//            destinationViewController.delegate = self
+//            destinationViewController.transitioningDelegate = self
+//        }
+//    }
+//    
+    func dismissFilter(_ sender: AnyObject) {
         print("dismissed")
         if filterView.alpha == 1 {
             gesture.cancelsTouchesInView = true
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.filterView.alpha = 0.0
                 }, completion: nil)
         }
@@ -322,9 +322,9 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
     */
 
 }
-
-extension HomeContainerView: UIViewControllerTransitioningDelegate {
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator()
-    }
-}
+//
+//extension HomeContainerView: UIViewControllerTransitioningDelegate {
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return PresentMenuAnimator()
+//    }
+//}

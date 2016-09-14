@@ -10,25 +10,25 @@ import UIKit
 
 class MyCollectionViewLayout: UICollectionViewFlowLayout {
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
         print("OWEFO")
-        if indexPath.section == 1 {
+        if (indexPath as NSIndexPath).section == 1 {
             print("HOWEFHOEW")
-            let layoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-            layoutAttributes.frame = CGRectMake(0, 0, 100, 100)
+            let layoutAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+            layoutAttributes.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
             // or whatever...
             return layoutAttributes
             
         }
-        if indexPath.section == 2 {
-            let layoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-            layoutAttributes.frame = CGRectMake(0, 0, 100, 100)
+        if (indexPath as NSIndexPath).section == 2 {
+            let layoutAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+            layoutAttributes.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
             // or whatever...
             return layoutAttributes
         }
         else {
-            return super.layoutAttributesForItemAtIndexPath(indexPath)
+            return super.layoutAttributesForItem(at: indexPath)
         }
     }
     

@@ -23,15 +23,15 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //let ref = FIREBASE_REF.child("")
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showArcana") {
-            let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcana = filteredArray[tableView.indexPathForSelectedRow!.row]
+            let vc = segue.destination as! ArcanaDetail
+            vc.arcana = filteredArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
     func filterArray() {
@@ -57,10 +57,10 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
             print("RARITYREF = \(rarity)")
             let rarityRef = FIREBASE_REF.child("\(rarity)")
-            rarityRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            rarityRef.observeSingleEvent(of: .value, with: { snapshot in
                 //print(snapshot)
                 for item in snapshot.children {
-                    self.rarityArray.append(item.key)
+                    self.rarityArray.append((item as AnyObject).key)
                 }
                 
                 
@@ -68,7 +68,7 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 
                 for item in self.rarityArray {
                     //print(item)
-                    ref.child("\(item)").observeEventType(.Value, withBlock: { snapshot in
+                    ref.child("\(item)").observe(.value, with: { snapshot in
                         print("snap \(snapshot)")
                         var filter = [Arcana]()
                         
@@ -96,28 +96,28 @@ class RarityList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("arcanaCell") as! ArcanaCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ArcanaCell
 //        guard let n = filteredArray[indexPath.row].name
 //            else {
 //                return
 //            }
-        c.arcanaNameKR.text = filteredArray[indexPath.row].nameKR
+        c.arcanaNameKR.text = filteredArray[(indexPath as NSIndexPath).row].nameKR
 
     }
     

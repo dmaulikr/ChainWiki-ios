@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Toucan
+//import Toucan
 
 class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -15,24 +15,24 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     let images = [UIImage(named: "budo.jpg")!, UIImage(named: "sungdo.jpg")!, UIImage(named: "hyunja.jpg")!, UIImage(named: "migoong.jpg")!, UIImage(named: "hodo.jpg")!, UIImage(named: "jungryeong.jpg")!, UIImage(named: "guryeong.jpg")!, UIImage(named: "hangu.jpg")!, UIImage(named: "dahae.jpg")!, UIImage(named: "sooin.jpg")!, UIImage(named: "jwe.jpg")!, UIImage(named: "bakmyung.jpg")!, UIImage(named: "chulryeon.jpg")!, UIImage(named: "yeondaegi.jpg")!, UIImage(named: "seoga.jpg")!, UIImage(named: "remures.jpg")!]
     @IBOutlet weak var collectionView: UICollectionView!
-    private let sectionInsets = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 16
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("tavernCell", forIndexPath: indexPath) as! TavernViewCell
-        cell.tavernName.text = taverns[indexPath.row]
-        cell.tavernName.textColor = UIColor.whiteColor()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tavernCell", for: indexPath) as! TavernViewCell
+        cell.tavernName.text = taverns[(indexPath as NSIndexPath).row]
+        cell.tavernName.textColor = UIColor.white
         cell.backgroundColor = darkNavyColor
-        let crop = Toucan(image: images[indexPath.row]).resize(cell.tavernImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-        
-        cell.tavernImage.image = crop
+//        let crop = Toucan(image: images[indexPath.row]).resize(cell.tavernImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+//        
+//        cell.tavernImage.image = crop
         return cell
     }
     
@@ -65,9 +65,9 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
 
 extension TavernView : UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         default:
             return CGSize(width: (SCREENWIDTH-70)/4, height: (SCREENWIDTH-20)/3)
             
@@ -75,9 +75,9 @@ extension TavernView : UICollectionViewDelegateFlowLayout {
     }
 
     
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                               insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+                               insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
     

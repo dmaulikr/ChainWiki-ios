@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
+//import NVActivityIndicatorView
 import Firebase
-import Toucan
+//import Toucan
 
 class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -21,13 +21,13 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var tableView: UITableView!
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]()
-    var group = dispatch_group_create()
+    var group = DispatchGroup()
     let manaTypes = ["전사", "기사", "궁수", "법사", "승려"]
     var selectedIndex = 0
     var abilityType = ""
     var manaArray = [String]()
     
-    @IBAction func changeTabs(sender: AnyObject) {
+    @IBAction func changeTabs(_ sender: AnyObject) {
         // split this array into the different groups.
         // upon selecting tab in segmented control, switch the tableview's array, and reloaddata.
         // arcanaArray. currentViewArray. 5 group arrays. switch currentviewarray to group array based on the tab selection.
@@ -108,12 +108,12 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         let ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
         
-        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             
             var uid = [String]()
             
             for child in snapshot.children {
-                let arcanaID = child.key as String
+                let arcanaID = (child as AnyObject).key as String
                 uid.append(arcanaID)
             }
             
@@ -121,21 +121,21 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
             for id in uid {
                 print(id)
-                dispatch_group_enter(self.group)
+                self.group.enter()
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
-                ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                ref.observeSingleEvent(of: .value, with: { snapshot in
                     print(snapshot)
                     let arcana = Arcana(snapshot: snapshot)
                     array.append(arcana!)
-                    dispatch_group_leave(self.group)
+                    self.group.leave()
                     
                 })
                 
             }
             
-            dispatch_group_notify(self.group, dispatch_get_main_queue(), {
+            self.group.notify(queue: DispatchQueue.main, execute: {
                 print("Finished all requests.")
                 self.arcanaArray = array
                 self.currentArray = self.arcanaArray.filter({$0.group == "전사"})
@@ -147,37 +147,37 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("manaAbility") as! ManaAbilityCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "manaAbility") as! ManaAbilityCell
         cell.arcanaImage.image = nil
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ManaAbilityCell
 
-        c.arcanaNameKR.text = currentArray[indexPath.row].nameKR
-        c.arcanaNameJP.text = currentArray[indexPath.row].nameJP
-        c.arcanaRarity.text = "#\(currentArray[indexPath.row].rarity)★"
+        c.arcanaNameKR.text = currentArray[(indexPath as NSIndexPath).row].nameKR
+        c.arcanaNameJP.text = currentArray[(indexPath as NSIndexPath).row].nameJP
+        c.arcanaRarity.text = "#\(currentArray[(indexPath as NSIndexPath).row].rarity)★"
         
         
         // Get abilities, kizuna, group
-        let aD1 = currentArray[indexPath.row].abilityDesc1
-        let g = currentArray[indexPath.row].group
+        let aD1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1
+        let g = currentArray[(indexPath as NSIndexPath).row].group
         var aD2 = ""
-        if let a = currentArray[indexPath.row].abilityDesc2 {
+        if let a = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
             aD2 = a
         }
-        let k = currentArray[indexPath.row].kizunaAbility
+        let k = currentArray[(indexPath as NSIndexPath).row].kizunaAbility
         
         // check for the abilityType, then perform operation.
         switch abilityType {
@@ -201,7 +201,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
       //  c.manaSub.mana = manaArray[2]
 
         // Download picture
-        
+        /*
         // Check cache first
         if let i = IMAGECACHE.imageWithIdentifier("\(currentArray[indexPath.row].uid)/icon.jpg") {
             
@@ -254,16 +254,16 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
         }
         
-        
+        */
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
 
-        let vc = storyBoard.instantiateViewControllerWithIdentifier("ArcanaDetail") as! ArcanaDetail
-        vc.arcana = currentArray[tableView.indexPathForSelectedRow!.row]
+        let vc = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
+        vc.arcana = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
 
         // If you want to push to new ViewController then use this
         self.navigationController?.pushViewController(vc, animated: true)
@@ -272,20 +272,20 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     
-    func getMana(aD1: String, aD2: String, k: String, g: String) -> Bool {
+    func getMana(_ aD1: String, aD2: String, k: String, g: String) -> Bool {
         
-        if aD1 != "" && aD1.containsString("마나를") {
+        if aD1 != "" && aD1.contains("마나를") {
             print("ability 1")
-            if aD1.containsString("2") {
+            if aD1.contains("2") {
                 manaArray.append(g)
                 manaArray.append(g)
             }
             else {
                 manaArray.append(g)
                 // also check if it gives different class mana
-                if aD1.containsString("추가된다") {
+                if aD1.contains("추가된다") {
                     for mana in manaTypes {
-                        if aD1.containsString(mana) && mana != g {
+                        if aD1.contains(mana) && mana != g {
                             manaArray.append(mana)
                         }
                         
@@ -297,8 +297,8 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         if aD2 != "" {
             print("ability 2")
-            if aD2.containsString("마나를") {
-                if aD2.containsString("2") {
+            if aD2.contains("마나를") {
+                if aD2.contains("2") {
                     print("FOUND 2")
                     manaArray.append(g)
                     manaArray.append(g)
@@ -306,9 +306,9 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
                 else {
                     manaArray.append(g)
                     // also check if it gives different class mana
-                    if aD2.containsString("추가된다") {
+                    if aD2.contains("추가된다") {
                         for mana in manaTypes {
-                            if aD2.containsString(mana) && mana != g {
+                            if aD2.contains(mana) && mana != g {
                                 manaArray.append(mana)
                             }
                             
