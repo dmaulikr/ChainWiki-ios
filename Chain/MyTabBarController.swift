@@ -11,6 +11,12 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         self.delegate = self
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Ability", bundle:nil)
+        
+        let vc = storyBoard.instantiateViewControllerWithIdentifier("AbilityNav") as! UINavigationController
+        
+        self.addChildViewController(vc)
         self.tabBar.tintColor = lightGreenColor
     }
     

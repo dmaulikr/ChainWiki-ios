@@ -259,7 +259,7 @@
         <!--ArcanaName-->
         <scene sceneID="Gq4-M3-XGI">
             <objects>
-                <viewController id="Byw-71-fc4" customClass="ArcanaDetail" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ArcanaDetail" id="Byw-71-fc4" customClass="ArcanaDetail" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NAM-l6-Qgm"/>
                         <viewControllerLayoutGuide type="bottom" id="Uug-MF-ckX"/>
@@ -504,7 +504,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="7rg-wy-GHd" kind="relationship" relationship="viewControllers" id="rgr-iG-clU"/>
-                        <segue destination="AH4-1o-wjq" kind="relationship" relationship="viewControllers" id="dU6-Jp-uCg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXv-l5-2uM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -725,97 +724,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPE-PY-w1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1040" y="500"/>
-        </scene>
-        <!--Ability List-->
-        <scene sceneID="z8B-Wp-Icd">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="zYE-tI-Hjz" customClass="AbilityList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BJx-F9-s7g"/>
-                        <viewControllerLayoutGuide type="bottom" id="bFm-yq-puA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="suG-8e-uYZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="6vw-ta-UOU">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ability" rowHeight="80" id="o1U-OX-b91" customClass="AbilityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="600" height="80"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o1U-OX-b91" id="PZq-xj-ezo">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마나의 소양" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQ6-aq-uHP">
-                                                    <rect key="frame" x="10" y="10" width="580" height="59"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="QQ6-aq-uHP" firstAttribute="leading" secondItem="PZq-xj-ezo" secondAttribute="leading" constant="10" id="WMP-yF-vco"/>
-                                                <constraint firstAttribute="trailing" secondItem="QQ6-aq-uHP" secondAttribute="trailing" constant="10" id="mAY-gW-681"/>
-                                                <constraint firstAttribute="bottom" secondItem="QQ6-aq-uHP" secondAttribute="bottom" constant="10" id="rzJ-Jw-cPC"/>
-                                                <constraint firstItem="QQ6-aq-uHP" firstAttribute="top" secondItem="PZq-xj-ezo" secondAttribute="top" constant="10" id="s0m-sw-FjC"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="abilityName" destination="QQ6-aq-uHP" id="3jg-XT-qlO"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="bFm-yq-puA" firstAttribute="top" secondItem="6vw-ta-UOU" secondAttribute="bottom" id="EIE-Fl-TJn"/>
-                            <constraint firstAttribute="trailing" secondItem="6vw-ta-UOU" secondAttribute="trailing" id="U8O-qb-zyI"/>
-                            <constraint firstItem="6vw-ta-UOU" firstAttribute="leading" secondItem="suG-8e-uYZ" secondAttribute="leading" id="moZ-dq-CKr"/>
-                            <constraint firstItem="6vw-ta-UOU" firstAttribute="top" secondItem="BJx-F9-s7g" secondAttribute="bottom" id="p0x-xH-kRV"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="dYG-s2-uPR">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="IPh-uQ-my1">
-                            <rect key="frame" x="20" y="7" width="560" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="기본"/>
-                                <segment title="인연"/>
-                            </segments>
-                        </segmentedControl>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="segmentedControl" destination="IPh-uQ-my1" id="765-5V-RFf"/>
-                        <outlet property="tableView" destination="6vw-ta-UOU" id="rO9-h9-NWf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6fO-d8-iOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2569" y="-379"/>
-        </scene>
-        <!--어빌리티-->
-        <scene sceneID="bKa-Wt-CTY">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AH4-1o-wjq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="어빌리티" image="abilityTab" id="7GV-GI-Us0"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9b5-M5-DX2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zYE-tI-Hjz" kind="relationship" relationship="rootViewController" id="r1d-92-saG"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iXK-fm-eEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1757" y="-379"/>
         </scene>
     </scenes>
     <resources>

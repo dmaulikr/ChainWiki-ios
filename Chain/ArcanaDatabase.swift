@@ -841,7 +841,7 @@ class ArcanaDatabase: UIViewController {
         dispatch_group_enter(download)
         // TODO: Check if the page has #ui_wikidb. If it does, it is the new page, if it doesn't, it is the old page.
  
-            let encodedString = "千河の風読みアイレ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let encodedString = "言葉無き吟遊詩人ロクサーナ".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             let encodedURL = NSURL(string: "\(self.baseURL)\(encodedString!)")
         
             // first check if this exists in firebase

@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)
         
-        //database()
+       // database()
         
 
         // Navigation Bar Setup
@@ -40,12 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //buildNavigationDrawer()
         
         
-        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
-        
-        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("AbilityNav")
-        
-        self.window?.rootViewController = initialViewController
-        self.window?.makeKeyAndVisible()
+//        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
+//        
+//        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("AbilityNav")
+//        
+//        self.window?.rootViewController = initialViewController
+//        self.window?.makeKeyAndVisible()
         return true
     }
 

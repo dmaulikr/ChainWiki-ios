@@ -25,12 +25,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var rarityArray = [String]()
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "showArcana") {
-            let vc = segue.destinationViewController as! ArcanaDetail
-            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
-        }
-    }
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
@@ -238,7 +233,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showArcana") {
+            let vc = segue.destinationViewController as! ArcanaDetail
+            vc.arcana = arcanaArray[tableView.indexPathForSelectedRow!.row]
+        }
+    }
 
     
 }

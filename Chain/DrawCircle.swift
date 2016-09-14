@@ -7,9 +7,11 @@
 //
 
 import UIKit
-@IBDesignable
+//@IBDesignable
 class DrawCircle: UIView {
 
+    var mana = ""
+    
     override func layoutSubviews()
     {
         layer.cornerRadius = bounds.size.width/2
@@ -19,29 +21,48 @@ class DrawCircle: UIView {
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
     
-        let context = UIGraphicsGetCurrentContext()
-        let locations: [CGFloat] = [0.0, 1.0]
+        if mana != "" {
+            let context = UIGraphicsGetCurrentContext()
+            let locations: [CGFloat] = [0.0, 1.0]
+            
+            var gradientColor = UIColor.blackColor()
+            
+            
+            switch mana {
+            case "전사":
+                gradientColor = WARRIORCOLOR
+            case "기사":
+                gradientColor = KNIGHTCOLOR
+            case "궁수":
+                gradientColor = ARCHERCOLOR
+            case "법사":
+                gradientColor = MAGICIANCOLOR
+            case "승려":
+                gradientColor = HEALERCOLOR
+            default:
+                gradientColor = UIColor.blackColor()
+                
+            }
+            
+            
+            let colors = [UIColor.whiteColor().CGColor,
+                          gradientColor.CGColor]
+            
+            let colorspace = CGColorSpaceCreateDeviceRGB()
+            
+            let gradient = CGGradientCreateWithColors(colorspace,
+                                                      colors, locations)
+            
+            let startPoint = CGPoint(x: self.bounds.width/4, y: self.bounds.height/4)
+            let endPoint = CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
+            let startRadius: CGFloat = 0
+            let endRadius: CGFloat = 15
+            
+            CGContextDrawRadialGradient (context, gradient, startPoint,
+                                         startRadius, endPoint, endRadius,
+                                         CGGradientDrawingOptions.DrawsBeforeStartLocation)
+        }
         
-        let colors = [UIColor.whiteColor().CGColor,
-                      UIColor.blueColor().CGColor]
-        
-        let colorspace = CGColorSpaceCreateDeviceRGB()
-        
-        let gradient = CGGradientCreateWithColors(colorspace,
-                                                  colors, locations)
-        
-        var startPoint = CGPoint()
-        var endPoint = CGPoint()
-        startPoint.x = self.bounds.width/4
-        startPoint.y = self.bounds.height/4
-        endPoint.x = self.bounds.width/2
-        endPoint.y = self.bounds.height/2
-        let startRadius: CGFloat = 0
-        let endRadius: CGFloat = 30
-        
-        CGContextDrawRadialGradient (context, gradient, startPoint,
-                                     startRadius, endPoint, endRadius,
-                                     CGGradientDrawingOptions.DrawsBeforeStartLocation)
     }
     
     

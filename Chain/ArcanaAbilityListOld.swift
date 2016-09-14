@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaAbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ArcanaAbilityListOld: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     var abilityType = String()

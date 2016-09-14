@@ -19,7 +19,8 @@ class ManaAbilityCell: UITableViewCell {
     @IBOutlet weak var mana1: DrawCircle!
     @IBOutlet weak var mana2: DrawCircle!
     @IBOutlet weak var manaSub: DrawCircle!
-
+    @IBOutlet weak var value: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

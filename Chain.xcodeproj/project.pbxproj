@@ -53,7 +53,7 @@
 		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
-		04DD91121D8656540023CDA4 /* ArcanaAbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD91111D8656540023CDA4 /* ArcanaAbilityList.swift */; };
+		04DD91121D8656540023CDA4 /* ArcanaAbilityListOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */; };
 		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
 		04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */; };
 		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
@@ -137,7 +137,7 @@
 		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
-		04DD91111D8656540023CDA4 /* ArcanaAbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityList.swift; sourceTree = "<group>"; };
+		04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityListOld.swift; sourceTree = "<group>"; };
 		04DD91131D8669B50023CDA4 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		04E00C861D7EB1B500BB771F /* ArcanaDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDictionary.swift; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				04AE0E271D7A2E70008902A8 /* FilterCell.swift */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
 				048B31251D7642CA0011477D /* AbilityList.swift */,
-				04DD91111D8656540023CDA4 /* ArcanaAbilityList.swift */,
+				04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */,
 				04DD910F1D864FA70023CDA4 /* AbilityCell.swift */,
 				04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */,
 				04AA101F1D7D653B00387D22 /* TavernView.swift */,
@@ -644,7 +644,7 @@
 				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				0401B4011D79DFF200AF1BF1 /* SegmentedContainerView.swift in Sources */,
-				04DD91121D8656540023CDA4 /* ArcanaAbilityList.swift in Sources */,
+				04DD91121D8656540023CDA4 /* ArcanaAbilityListOld.swift in Sources */,
 				04FABD201D83DB2F005D9EEC /* Interactor.swift in Sources */,
 				04FABD211D83DB2F005D9EEC /* MenuHelper.swift in Sources */,
 				04AA10201D7D653B00387D22 /* TavernView.swift in Sources */,
