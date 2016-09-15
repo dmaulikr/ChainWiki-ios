@@ -63,9 +63,12 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
             print("ENDED")
             // animate the side panel open or closed based on whether the view has moved more or less than halfway
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
+            
             if recognizer.view!.frame.origin.x < 95 {
                 recognizer.view!.frame.origin.x = 95
             }
+            
+            
             if hasMovedGreaterThanHalfway {
                 //dismissFilter.
                 print("HAS MOVED MORE THAN HALF, DISMISS")

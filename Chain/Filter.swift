@@ -31,13 +31,11 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     var filterTypes = [String : [String]]()
     
-    let cellSize = CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
-    let affCellSize = CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
- 
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
  
         switch section {
@@ -61,11 +59,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "rarityCell", for: indexPath) as! RarityCell
             cell.rarity.text = rarity[(indexPath as NSIndexPath).row]
             
-//            cell.layer.shadowColor = UIColor.grayColor().CGColor;
-//            cell.layer.shadowOffset = CGSizeMake(0, 0.5);
-//            cell.layer.shadowRadius = 1.0;
-//            cell.layer.shadowOpacity = 1.0;
-//            cell.layer.masksToBounds = false;
             return cell
             
         case 1:    // Class
@@ -85,14 +78,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
     }
     
-//    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-//        
-//        let backgroundView = UIView()
-//        backgroundView.backgroundColor = lightGreenColor
-//        cell.selectedBackgroundView = backgroundView
-//
-//    }
-//    
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -100,7 +85,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         // TODO: Add to filterTypes based on section
         // Hold an array to be updated after selection
-        var filteredArray = [Arcana]()
+//        var filteredArray = [Arcana]()
         
         switch (indexPath as NSIndexPath).section {
             
@@ -255,15 +240,10 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true
-        //self.collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: "border", withReuseIdentifier: "border")
         
         // Do any additional setup after loading the view.
     }
-    
-//    override func viewDidAppear(animated: Bool) {
-//        //panGesture!.isLeft(view) // returns true or false
-//        print("OPENED FILTER")
-//    }
+
     override func viewWillDisappear(_ animated: Bool) {
         print("CHANGED VIEW")
         
@@ -273,7 +253,9 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
 }
 
 
@@ -281,41 +263,41 @@ extension Filter : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 414
+       let inset = CGFloat(127)
         switch (indexPath as NSIndexPath).section {
         case 0,1,2:
-//            return CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
-            return CGSize(width: 50, height: 50)
+            return CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
             
         default:
-//            return CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
-            return CGSize(width: 50, height: 50)
+            return CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
         }
         
     }
+
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        var count = 0
-        var totalCellWidth = 0
-        var totalSpacingWidth = 0
+        let inset = CGFloat(127)
+        let cellSize = CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
+        let affCellSize = CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
+
+        var count = CGFloat(0)
+        var totalCellWidth = CGFloat(0)
+        var totalSpacingWidth = CGFloat(0)
         switch section {
         case 0,1,2:
-            count = 5
-            totalCellWidth = Int(cellSize.width) * count
-            totalSpacingWidth = 1 * (count - 1)
+            count = CGFloat(5)
+            totalCellWidth = cellSize.width * count
+            totalSpacingWidth = (count - 1)
         default:
-            count = 4
-            totalCellWidth = Int(affCellSize.width) * count
-            totalSpacingWidth = 1 * (count - 1)
+            count = CGFloat(4)
+            totalCellWidth = affCellSize.width * count
+            totalSpacingWidth = (count - 1)
             
         }
         
-        
-        
-        let leftInset = (SCREENWIDTH - 95 - CGFloat(totalCellWidth + totalSpacingWidth)) / 2;
-        let rightInset = leftInset
         
         switch section {
         case 0: // This one needs higher top inset
@@ -328,31 +310,9 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         
     }
     
-    
-//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        let border = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "border", forIndexPath: indexPath) as! MySupplementaryView
-//        if kind == "border" {
-//            print("HEY")
-//        }
-//        border.frame.size = CGSize(width: 100,height: 100)
-//        border.backgroundColor = UIColor.blackColor()
-//        
-//        return border
-//        
-//    }
-    
-//     func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject] {
-//    }
+
     
 
 }
 
-//extension Filter: UIGestureRecognizerDelegate {
-//    // MARK: Gesture recognizer
-//    
-//    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-//        
-//        
-//    }
-//    
-//}
+
