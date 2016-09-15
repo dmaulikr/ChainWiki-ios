@@ -11,7 +11,7 @@ import Firebase
 import AlamofireImage
 import NVActivityIndicatorView
 
-class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, NVActivityIndicatorViewable {
     
     @IBOutlet weak var tableView: UITableView!
     var arcanaID: Int?

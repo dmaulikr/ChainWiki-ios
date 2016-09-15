@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="1" width="1000" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0t-Q7-wCk" id="Kwg-68-Imq">
-                                            <frame key="frameInset" width="1000" height="90"/>
+                                            <frame key="frameInset" width="1000" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-LS-NY5">
@@ -57,27 +57,6 @@
                                                         <constraint firstAttribute="height" constant="66" id="WlW-M9-B51"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vr-cq-ZhL" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <accessibility key="accessibilityConfiguration">
-                                                        <bool key="isElement" value="YES"/>
-                                                    </accessibility>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="15" id="aTD-Hx-2gq"/>
-                                                        <constraint firstAttribute="height" constant="15" id="cN9-4X-CIm"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallPulseSync"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
-                                                            <real key="value" value="0.0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" text="#전사" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ty-2W-Lw5">
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="12"/>
                                                     <color key="textColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -98,6 +77,18 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2D-es-3Wu" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="GWU-a9-7OL"/>
+                                                        <constraint firstAttribute="width" constant="15" id="JBc-wD-qFC"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="fqu-P6-X9I" secondAttribute="bottom" constant="13" id="0Mz-jx-tPP"/>
@@ -105,11 +96,10 @@
                                                 <constraint firstItem="2uJ-h6-Fco" firstAttribute="top" secondItem="Kwg-68-Imq" secondAttribute="top" constant="12" id="0mF-JF-y5T"/>
                                                 <constraint firstItem="e6f-mC-mqR" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3e7-LO-pzf"/>
                                                 <constraint firstItem="xwP-ok-Ha4" firstAttribute="leading" secondItem="2uJ-h6-Fco" secondAttribute="trailing" constant="18" id="3x8-lB-mIz"/>
-                                                <constraint firstItem="9vr-cq-ZhL" firstAttribute="centerY" secondItem="2uJ-h6-Fco" secondAttribute="centerY" id="4Qa-WG-CpG"/>
                                                 <constraint firstAttribute="bottom" secondItem="5Ty-2W-Lw5" secondAttribute="bottom" constant="13" id="4y1-d0-bF2"/>
                                                 <constraint firstItem="5Ty-2W-Lw5" firstAttribute="top" secondItem="xwP-ok-Ha4" secondAttribute="bottom" constant="14" id="5o5-12-3PM"/>
                                                 <constraint firstAttribute="bottom" secondItem="e6f-mC-mqR" secondAttribute="bottom" constant="13" id="6V3-kO-koT"/>
-                                                <constraint firstItem="9vr-cq-ZhL" firstAttribute="centerX" secondItem="2uJ-h6-Fco" secondAttribute="centerX" id="N2s-zD-WRw"/>
+                                                <constraint firstItem="m2D-es-3Wu" firstAttribute="centerY" secondItem="2uJ-h6-Fco" secondAttribute="centerY" id="F3c-aZ-v4T"/>
                                                 <constraint firstItem="xwP-ok-Ha4" firstAttribute="top" secondItem="mZL-LS-NY5" secondAttribute="bottom" constant="5" id="ONk-uP-JqA"/>
                                                 <constraint firstAttribute="bottom" secondItem="2uJ-h6-Fco" secondAttribute="bottom" constant="12" id="Oar-Zr-ZB2"/>
                                                 <constraint firstItem="6en-se-DNa" firstAttribute="baseline" secondItem="xwP-ok-Ha4" secondAttribute="baseline" id="UVz-zt-kj5"/>
@@ -120,6 +110,7 @@
                                                 <constraint firstItem="5Ty-2W-Lw5" firstAttribute="leading" secondItem="e6f-mC-mqR" secondAttribute="trailing" constant="5" id="cCe-tu-k3B"/>
                                                 <constraint firstItem="fqu-P6-X9I" firstAttribute="leading" secondItem="5Ty-2W-Lw5" secondAttribute="trailing" constant="5" id="e1E-Bv-KY9"/>
                                                 <constraint firstItem="6en-se-DNa" firstAttribute="leading" secondItem="t6j-4r-mWf" secondAttribute="leading" id="gG1-dL-pn5"/>
+                                                <constraint firstItem="m2D-es-3Wu" firstAttribute="centerX" secondItem="2uJ-h6-Fco" secondAttribute="centerX" id="gam-Zi-cCq"/>
                                                 <constraint firstItem="t6j-4r-mWf" firstAttribute="baseline" secondItem="mZL-LS-NY5" secondAttribute="baseline" id="kkv-uq-67j"/>
                                                 <constraint firstItem="2uJ-h6-Fco" firstAttribute="leading" secondItem="Kwg-68-Imq" secondAttribute="leading" constant="16" id="rCV-W7-xty"/>
                                                 <constraint firstItem="e6f-mC-mqR" firstAttribute="top" secondItem="xwP-ok-Ha4" secondAttribute="bottom" constant="14" id="sLg-wR-eYM"/>
@@ -137,7 +128,7 @@
                                             <outlet property="arcanaNickKR" destination="t6j-4r-mWf" id="fOg-OD-ebB"/>
                                             <outlet property="arcanaRarity" destination="e6f-mC-mqR" id="0ay-8j-3Np"/>
                                             <outlet property="arcanaWeapon" destination="fqu-P6-X9I" id="CQJ-Mg-jpR"/>
-                                            <outlet property="imageSpinner" destination="9vr-cq-ZhL" id="vXw-yZ-o3Y"/>
+                                            <outlet property="imageSpinner" destination="m2D-es-3Wu" id="CBy-y0-gZl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -259,11 +250,11 @@
                                 <color key="separatorColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="400" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="400"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="400" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
-                                            <frame key="frameInset" width="375" height="400"/>
+                                            <frame key="frameInset" width="1000" height="400"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
@@ -308,11 +299,11 @@
                                             <outlet property="imageSpinner" destination="eRh-CM-9fb" id="iC4-RZ-juk"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="472" width="375" height="40"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="428" width="1000" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQV-i6-ups" id="Wp4-Kh-E70">
-                                            <frame key="frameInset" width="375" height="40"/>
+                                            <frame key="frameInset" width="1000" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMd-aB-Ele">
@@ -352,11 +343,11 @@
                                             <outlet property="attributeValue" destination="AMd-aB-Ele" id="20g-o8-CYZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="512" width="375" height="40"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="468" width="1000" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuO-ry-Tec" id="m4X-aj-7v4">
-                                            <frame key="frameInset" width="375" height="40"/>
+                                            <frame key="frameInset" width="1000" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="스킬" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tw-z5-ZFt">
@@ -422,11 +413,11 @@
                                             <outlet property="skillNumber" destination="5tw-z5-ZFt" id="9DY-Yv-OuT"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="552" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="508" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMM-l5-U6h" id="kM3-g4-1jI">
-                                            <frame key="frameInset" width="375" height="44"/>
+                                            <frame key="frameInset" width="1000" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill/Ability Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72q-N3-Nhm">
@@ -507,7 +498,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rarityCell" id="PlB-gN-nBM" customClass="RarityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="67" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -543,7 +534,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="67" y="93" width="146" height="92"/>
+                                        <rect key="frame" x="171" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
