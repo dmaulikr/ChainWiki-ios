@@ -7,12 +7,12 @@
 //
 
 import UIKit
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 
 class ArcanaImageCell: UITableViewCell {
 
     @IBOutlet weak var arcanaImage: UIImageView!
-//    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
+    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

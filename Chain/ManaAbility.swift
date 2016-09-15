@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 import Firebase
 //import Toucan
 

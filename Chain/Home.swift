@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import AlamofireImage
 //import Toucan
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 

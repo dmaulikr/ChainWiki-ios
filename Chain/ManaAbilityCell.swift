@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 
 class ManaAbilityCell: UITableViewCell {
 
@@ -15,7 +15,7 @@ class ManaAbilityCell: UITableViewCell {
     @IBOutlet weak var arcanaNameJP: UILabel!
     @IBOutlet weak var arcanaRarity: UILabel!
     @IBOutlet weak var arcanaImage: UIImageView!
-//    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
+    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     @IBOutlet weak var mana1: DrawCircle!
     @IBOutlet weak var mana2: DrawCircle!
     @IBOutlet weak var manaSub: DrawCircle!

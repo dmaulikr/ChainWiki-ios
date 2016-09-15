@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import AlamofireImage
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 
 class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     

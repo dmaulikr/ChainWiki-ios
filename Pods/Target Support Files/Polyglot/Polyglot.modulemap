@@ -1,6 +1,0 @@
-framework module Polyglot {
-  umbrella header "Polyglot-umbrella.h"
-
-  export *
-  module * { export * }
-}
