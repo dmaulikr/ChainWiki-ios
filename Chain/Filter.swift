@@ -243,7 +243,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 let home = vc.childViewControllers[0] as! Home
                 home.arcanaArray = home.originalArray
                 hasFilter = false
-                
             }
         }
 
@@ -277,17 +276,19 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
 }
 
-extension Filter : UICollectionViewDelegateFlowLayout {
 
+extension Filter : UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 414
         switch (indexPath as NSIndexPath).section {
         case 0,1,2:
-            return CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
-            //return CGSize(width: 50, height: 50)
-        default:
-            return CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
+//            return CGSize(width: (SCREENWIDTH-95-4-28)/5, height: (SCREENWIDTH-95-4-28)/5)
+            return CGSize(width: 50, height: 50)
             
+        default:
+//            return CGSize(width: (SCREENWIDTH-95-3-28)/4, height: (SCREENWIDTH-95-4-28)/5)
+            return CGSize(width: 50, height: 50)
         }
         
     }

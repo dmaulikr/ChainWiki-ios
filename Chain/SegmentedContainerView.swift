@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import Foundation
-
+/*
 class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
     var arcanaArray = [Arcana]()
@@ -100,7 +100,7 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
                         let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
                         
                         var finalFilter: Set = Set<Arcana>()
-                        for (key,value) in sets {
+                        for (_,value) in sets {
                             if value.count != 0 {
                                 
                                 // if set is empty, create a new one
@@ -246,4 +246,4 @@ class SegmentedContainerView: UIViewController, UISearchControllerDelegate, UISe
         
     }
 
-}
+}*/

@@ -114,8 +114,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
        
         c.arcanaImage.image = nil
-        
-        
+//        c.imageSpinner.startAnimation()
+        print("animated")
         // Check Cache, or download from Firebase
        // c.arcanaImage.image = UIImage(named: "main.jpg")
         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
@@ -138,29 +138,30 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         
-        /*
+        
         // Check cache first
-        if let i = IMAGECACHE.imageWithIdentifier("\(arcanaArray[indexPath.row].uid)/icon.jpg") {
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcanaArray[indexPath.row].uid)/icon.jpg") {
             
             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+//            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
             
 //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-            c.arcanaImage.image = crop
+//            c.arcanaImage.image = crop
         }
          
             //  Not in cache, download from firebase
         else {
-//            c.imageSpinner.startAnimation()
+            c.imageSpinner.startAnimation()
 
-            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
                     // Handle any errors
                 } else {
                     // Get the download URL
                     print("DOWNLOAD URL = \(URL!)")
-                    DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
                         
                         if let image = response.result.value {
                             // Set the Image
@@ -171,16 +172,16 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-//                                c.imageSpinner.stopAnimation()
+                                c.imageSpinner.stopAnimation()
 
-                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-                                c.arcanaImage.image = crop
+//                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+//                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+//                                c.arcanaImage.image = crop
                                 
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
-                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon.jpg")
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon.jpg")
                             }
 
                             
@@ -191,7 +192,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
     
-*/
+
     }
     
     func reloadTableData(_ notification: Notification) {

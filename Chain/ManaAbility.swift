@@ -183,7 +183,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         switch abilityType {
             
         case "마나의 소양":
-            getMana(aD1, aD2: aD2, k: k, g: g)
+//            getMana(aD1, aD2: aD2, k: k, g: g)
             c.mana1.mana = manaArray[0]
             if manaArray.count > 1 {
                 c.mana2.mana = manaArray[1]
@@ -196,7 +196,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             break
         }
         
-        
+        c.imageSpinner.startAnimation()
       //  c.mana2.mana = manaArray[1]
       //  c.manaSub.mana = manaArray[2]
 

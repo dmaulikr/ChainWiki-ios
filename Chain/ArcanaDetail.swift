@@ -245,7 +245,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
 
             let c = cell as! ArcanaImageCell
-            
+            c.imageSpinner.startAnimation()
+
             // Check Cache, or download from Firebase
             
 //            let size = CGSize(width: SCREENWIDTH - 20, height: 400)

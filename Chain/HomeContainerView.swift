@@ -31,7 +31,7 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
     
     func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
-        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
+//        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
         
         switch(recognizer.state) {
         case .began:
@@ -201,7 +201,7 @@ class HomeContainerView: UIViewController, FilterDelegate, UIGestureRecognizerDe
                         let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
                         
                         var finalFilter: Set = Set<Arcana>()
-                        for (key,value) in sets {
+                        for (_,value) in sets {
                             
                             // TODO: clicking 권 then 철연 gives 철연.
                             if value.count != 0 {
