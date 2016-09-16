@@ -11,23 +11,23 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="Home" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="Home" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GAE-o0-dWx">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="arcanaCell" rowHeight="90" id="o0t-Q7-wCk" customClass="ArcanaCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="1000" height="90"/>
+                                        <rect key="frame" x="0.0" y="1" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0t-Q7-wCk" id="Kwg-68-Imq">
-                                            <frame key="frameInset" width="1000" height="89"/>
+                                            <frame key="frameInset" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-LS-NY5">
@@ -133,19 +133,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydh-ZN-R17">
+                                <connections>
+                                    <segue destination="bWs-Rw-KUT" kind="embed" id="2tB-Bh-gFi"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ydh-ZN-R17" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BrD-zv-jiQ"/>
                             <constraint firstAttribute="bottomMargin" secondItem="GAE-o0-dWx" secondAttribute="bottom" id="Bre-AG-3vK"/>
+                            <constraint firstItem="ydh-ZN-R17" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="95" id="HnG-wR-E8P"/>
                             <constraint firstAttribute="trailing" secondItem="GAE-o0-dWx" secondAttribute="trailing" id="Pa0-WR-tDJ"/>
                             <constraint firstItem="GAE-o0-dWx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="VGS-dn-9nl"/>
                             <constraint firstItem="GAE-o0-dWx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eHJ-UD-b34"/>
+                            <constraint firstAttribute="trailing" secondItem="ydh-ZN-R17" secondAttribute="trailing" id="fQS-vV-4kG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ydh-ZN-R17" secondAttribute="bottom" id="l7B-ZC-yDH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="필터" id="YRD-p5-pAT">
+                                <connections>
+                                    <action selector="filter:" destination="BYZ-38-t0r" id="hIY-mc-imm"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="정렬" id="pid-b4-2nZ">
+                                <connections>
+                                    <action selector="sort:" destination="BYZ-38-t0r" id="m1q-yU-9rw"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterView" destination="ydh-ZN-R17" id="FzA-MQ-5Ju"/>
                         <outlet property="searchDisplayController" destination="GRP-ev-0Rs" id="awy-MW-NmG"/>
                         <outlet property="tableView" destination="GAE-o0-dWx" id="pd9-Zf-9ZD"/>
                         <segue destination="Byw-71-fc4" kind="show" identifier="showArcana" id="vf6-Qv-Qwi"/>
@@ -161,7 +183,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2972" y="501"/>
+            <point key="canvasLocation" x="1039" y="1442"/>
         </scene>
         <!--Tavern View-->
         <scene sceneID="Axr-pG-zdl">
@@ -242,7 +264,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Uug-MF-ckX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qqc-kQ-hmU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-xh-sGK">
@@ -251,10 +273,10 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="400" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="400"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
-                                            <frame key="frameInset" width="1000" height="400"/>
+                                            <frame key="frameInset" width="375" height="399"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
@@ -300,10 +322,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="428" width="1000" height="40"/>
+                                        <rect key="frame" x="0.0" y="492" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQV-i6-ups" id="Wp4-Kh-E70">
-                                            <frame key="frameInset" width="1000" height="40"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMd-aB-Ele">
@@ -344,10 +366,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="468" width="1000" height="40"/>
+                                        <rect key="frame" x="0.0" y="532" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuO-ry-Tec" id="m4X-aj-7v4">
-                                            <frame key="frameInset" width="1000" height="40"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="스킬" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tw-z5-ZFt">
@@ -414,10 +436,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="508" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="572" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMM-l5-U6h" id="kM3-g4-1jI">
-                                            <frame key="frameInset" width="1000" height="44"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill/Ability Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72q-N3-Nhm">
@@ -498,7 +520,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rarityCell" id="PlB-gN-nBM" customClass="RarityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="67" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -534,7 +556,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="171" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="67" y="93" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -579,7 +601,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MH4-Sk-koW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="1487"/>
+            <point key="canvasLocation" x="1802" y="1512"/>
         </scene>
         <!--어빌리티-->
         <scene sceneID="5BN-Ay-y1R">
@@ -612,16 +634,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-bo-R45">
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="embed" id="k5h-Ph-OHl"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS">
-                                <connections>
-                                    <segue destination="bWs-Rw-KUT" kind="embed" id="tpP-i0-UhI"/>
-                                </connections>
-                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-bo-R45"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfr-WL-NeS"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -672,12 +686,25 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="C5Q-VP-8cH" kind="relationship" relationship="rootViewController" id="ZeS-7l-UwY"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="eYy-ZE-xSr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPE-PY-w1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1040" y="500"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8BJ-yS-vgS">
+            <objects>
+                <viewController id="P2R-JE-d1h" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hz1-R1-DFW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AVp-h9-EQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

@@ -224,9 +224,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         // Check if deselected last cell, meaning no filters selected
         print("DESELECTED COUNT \(collectionView.indexPathsForSelectedItems)")
         if collectionView.indexPathsForSelectedItems!.count == 0 {
-            if let vc = parent as? HomeContainerView {
-                let home = vc.childViewControllers[0] as! Home
-                home.arcanaArray = home.originalArray
+            if let vc = parent as? Home {
+                vc.arcanaArray = vc.originalArray
                 hasFilter = false
             }
         }
