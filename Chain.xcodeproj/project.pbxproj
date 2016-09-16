@@ -24,7 +24,6 @@
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
 		046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046FDD411D73AD83001E955B /* GoogleService-Info.plist */; };
-		04734C521D837A2C00FA1CDE /* HomeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04734C511D837A2C00FA1CDE /* HomeContainerView.swift */; };
 		048B31261D7642CA0011477D /* AbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31251D7642CA0011477D /* AbilityList.swift */; };
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E501D72602400687513 /* ArcanaDetailOld.swift */; };
@@ -99,6 +98,10 @@
 		0401B4001D79DFF200AF1BF1 /* SegmentedContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedContainerView.swift; sourceTree = "<group>"; };
 		0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		0404DD9F1D8292D000FF390F /* Chain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chain-Bridging-Header.h"; sourceTree = "<group>"; };
+		0406BDDD1D8BE3060085F4D8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		0406BDDE1D8BE3060085F4D8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0406BDDF1D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		042570731D7EB4A4002F5AD0 /* arcanaData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcanaData.txt; sourceTree = "<group>"; };
 		042570751D7EB4CF002F5AD0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
@@ -658,7 +661,6 @@
 				04DD91121D8656540023CDA4 /* ArcanaAbilityListOld.swift in Sources */,
 				04AA10201D7D653B00387D22 /* TavernView.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
-				04734C521D837A2C00FA1CDE /* HomeContainerView.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
@@ -719,6 +721,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				04A2EC991D6F7FA300189142 /* Base */,
+				0406BDDD1D8BE3060085F4D8 /* ja */,
+				0406BDDF1D8BE3270085F4D8 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -727,6 +731,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				04A2ECA11D6F7FA300189142 /* Base */,
+				0406BDDE1D8BE3060085F4D8 /* ja */,
+				0406BDE01D8BE3270085F4D8 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -786,6 +793,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

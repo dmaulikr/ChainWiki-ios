@@ -73,22 +73,22 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNs-io-Wkc" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="CU9-r6-jx5"/>
-                                                        <constraint firstAttribute="height" constant="25" id="lgE-dv-DKh"/>
+                                                        <constraint firstAttribute="width" constant="15" id="CU9-r6-jx5"/>
+                                                        <constraint firstAttribute="height" constant="15" id="lgE-dv-DKh"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tqv-p3-sUK" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="VFn-yU-iJq"/>
-                                                        <constraint firstAttribute="width" constant="25" id="sli-h1-awD"/>
+                                                        <constraint firstAttribute="height" constant="15" id="VFn-yU-iJq"/>
+                                                        <constraint firstAttribute="width" constant="15" id="sli-h1-awD"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3U5-Oc-dDH" customClass="DrawCircle" customModule="Chain" customModuleProvider="target">
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="kL8-tM-iUD"/>
-                                                        <constraint firstAttribute="height" constant="25" id="spM-wK-hXC"/>
+                                                        <constraint firstAttribute="width" constant="15" id="kL8-tM-iUD"/>
+                                                        <constraint firstAttribute="height" constant="15" id="spM-wK-hXC"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuT-vf-hNN">
@@ -195,7 +195,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마나의 소양" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoO-L4-Khy">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

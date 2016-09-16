@@ -156,6 +156,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         cell.arcanaImage.image = nil
+        
         //let image = UIImage(named: "main.jpg")!
 //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
 //        cell.arcanaImage.image = image
@@ -165,6 +166,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ArcanaCell
+        
+        c.imageSpinner.startAnimating()
         
         let arcana: Arcana
         
@@ -200,7 +203,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
        
         c.arcanaImage.image = nil
-//        c.imageSpinner.startAnimation()
+        
         print("animated")
         
         // Check Cache, or download from Firebase
@@ -211,10 +214,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
 
         
-        
+        /*
         
         // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcanaArray[indexPath.row].uid)/icon.jpg") {
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
 //            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
@@ -225,9 +228,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
          
             //  Not in cache, download from firebase
         else {
-            c.imageSpinner.startAnimation()
+            c.imageSpinner.startAnimating()
 
-            STORAGE_REF.child("image/arcana/\(arcanaArray[indexPath.row].uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
                     // Handle any errors
@@ -246,7 +249,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                c.imageSpinner.stopAnimation()
+                                c.imageSpinner.stopAnimating()
 
 //                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
 //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
@@ -255,7 +258,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                                 print("DOWNLOADED")
                                 
                                 // Cache the Image
-                                IMAGECACHE.add(thumbnail, withIdentifier: "\(self.arcanaArray[indexPath.row].uid)/icon.jpg")
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
                             }
 
                             
@@ -265,7 +268,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             
         }
-    
+    */
 
     }
     
@@ -281,18 +284,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             a.delegate = self
         }
         downloadArray()
-        //dict.updateValue(testArc!, forKey: "OI")
-        //filterArray()
-//        self.navigationController?.navigationController?.title = "아르카나"
-        
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-//        if let scv = self.parentViewController as? SegmentedContainerView {
-//            print("LOADED CONTAINER VIEW")
-//            arcanaArray = scv.arcanaArray
-//        }
         
         filterView.alpha = 0.0
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
@@ -306,7 +302,20 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        
+
+        searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
+        if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
+            
+            searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            searchIcon.tintColor = UIColor.white
+            
+            searchTextField.placeholder = "이름 검색"
+            searchTextField.tintColor = UIColor.white
+            searchTextField.setPlaceholderColor(UIColor.white)
+            searchTextField.textColor = UIColor.white
+            
+        }
+
         // Include the search bar within the navigation bar.
         navigationItem.titleView = searchController.searchBar
         
@@ -334,6 +343,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             let vc = segue.destination as! ArcanaDetail
             vc.arcana = arcana
+            self.title = "이전"
         }
     }
 
@@ -492,9 +502,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
     }
 
+
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         searchArray = originalArray.filter { arcana in
-            return arcana.nameKR.contains(searchText.lowercased())
+            return arcana.nameKR.contains(searchText) || arcana.nameJP.contains(searchText)
         }
         
         tableView.reloadData()

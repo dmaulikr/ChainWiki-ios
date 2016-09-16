@@ -180,10 +180,14 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         let k = currentArray[(indexPath as NSIndexPath).row].kizunaAbility
         
         // check for the abilityType, then perform operation.
+        
+        // also check if it needs the label for percent
+        
         switch abilityType {
             
         case "마나의 소양":
-//            getMana(aD1, aD2: aD2, k: k, g: g)
+            c.value.isHidden = true
+            getMana(aD1, aD2: aD2, k: k, g: g)
             c.mana1.mana = manaArray[0]
             if manaArray.count > 1 {
                 c.mana2.mana = manaArray[1]
@@ -196,7 +200,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             break
         }
         
-        c.imageSpinner.startAnimation()
+        c.imageSpinner.startAnimating()
       //  c.mana2.mana = manaArray[1]
       //  c.manaSub.mana = manaArray[2]
 
@@ -275,7 +279,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     func getMana(_ aD1: String, aD2: String, k: String, g: String) -> Bool {
         
         if aD1 != "" && aD1.contains("마나를") {
-            print("ability 1")
+//            print("ability 1")
             if aD1.contains("2") {
                 manaArray.append(g)
                 manaArray.append(g)
@@ -296,7 +300,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
         
         if aD2 != "" {
-            print("ability 2")
+//            print("ability 2")
             if aD2.contains("마나를") {
                 if aD2.contains("2") {
                     print("FOUND 2")

@@ -1,27 +1,28 @@
 {
   "name": "NVActivityIndicatorView",
-  "version": "2.9",
-  "summary": "A collection of nice loading animations",
+  "version": "2.12",
+  "summary": "A collection of awesome loading animations",
   "homepage": "https://github.com/ninjaprox/NVActivityIndicatorView",
   "screenshots": "https://raw.githubusercontent.com/ninjaprox/NVActivityIndicatorView/master/Demo.gif",
   "license": {
-    "type": "MIT"
+    "type": "MIT",
+    "file": "LICENSE"
   },
   "authors": {
     "Nguyen Vinh": "ninjaprox@gmail.com"
   },
   "social_media_url": "http://twitter.com/ninjaprox",
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "tvos": "9.0"
   },
   "source": {
     "git": "https://github.com/ninjaprox/NVActivityIndicatorView.git",
-    "tag": "v2.9"
+    "tag": "v2.12"
   },
   "source_files": "NVActivityIndicatorView/**/*.swift",
   "frameworks": [
     "UIKit",
     "QuartzCore"
-  ],
-  "requires_arc": true
+  ]
 }

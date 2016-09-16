@@ -33,7 +33,7 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - NVActivityIndicatorView (2.9)
+  - NVActivityIndicatorView (2.12)
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.0)
@@ -50,7 +50,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   NVActivityIndicatorView:
-    :commit: d5c53333d5bc3331e15936eacec5a99a990d9390
+    :commit: 1d882721c1d434b53b41ebe35484bf83417dde18
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 SPEC CHECKSUMS:
@@ -66,8 +66,8 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  NVActivityIndicatorView: 0084f6be71bdf4735b5424ebfb530b1e3db3276c
+  NVActivityIndicatorView: de8be03826726ad99cdfacf7fe09e88cbfeef911
 
-PODFILE CHECKSUM: 898caf360fd98d2627c2afe99b328c4661f44078
+PODFILE CHECKSUM: c5cc92f2a9a5fde61b24321e5f87a549770035e0
 
 COCOAPODS: 1.1.0.rc.2

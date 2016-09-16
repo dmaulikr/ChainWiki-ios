@@ -6,7 +6,7 @@ target 'Chain' do
   use_frameworks!
 
 	pod 'AlamofireImage',  '~> 3.0'
-  #  pod 'Kanna'
+ #   pod 'Kanna', '~> 2.0.0'
     pod 'Firebase'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'

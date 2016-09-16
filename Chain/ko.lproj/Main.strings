@@ -1,0 +1,66 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2Lb-ta-ERV"; */
+"2Lb-ta-ERV.text" = "Label";
+
+/* Class = "UILabel"; text = "Value"; ObjectID = "3E5-qB-SfY"; */
+"3E5-qB-SfY.text" = "Value";
+
+/* Class = "UILabel"; text = "#전사"; ObjectID = "5Ty-2W-Lw5"; */
+"5Ty-2W-Lw5.text" = "#전사";
+
+/* Class = "UILabel"; text = "스킬"; ObjectID = "5tw-z5-ZFt"; */
+"5tw-z5-ZFt.text" = "스킬";
+
+/* Class = "UILabel"; text = "일본어 닉네임"; ObjectID = "6en-se-DNa"; */
+"6en-se-DNa.text" = "일본어 닉네임";
+
+/* Class = "UILabel"; text = "Skill/Ability Description"; ObjectID = "72q-N3-Nhm"; */
+"72q-N3-Nhm.text" = "Skill/Ability Description";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7jw-kF-DZs"; */
+"7jw-kF-DZs.text" = "Label";
+
+/* Class = "UILabel"; text = "이름"; ObjectID = "8RE-gg-FGk"; */
+"8RE-gg-FGk.text" = "이름";
+
+/* Class = "UITabBarItem"; title = "아르카나"; ObjectID = "Hxd-EW-Y1O"; */
+"Hxd-EW-Y1O.title" = "아르카나";
+
+/* Class = "UIBarButtonItem"; title = "필터"; ObjectID = "YRD-p5-pAT"; */
+"YRD-p5-pAT.title" = "필터";
+
+/* Class = "UILabel"; text = "#5★"; ObjectID = "e6f-mC-mqR"; */
+"e6f-mC-mqR.text" = "#5★";
+
+/* Class = "UINavigationItem"; title = "ArcanaName"; ObjectID = "ex5-cK-s4K"; */
+"ex5-cK-s4K.title" = "ArcanaName";
+
+/* Class = "UILabel"; text = "#참 / 斬"; ObjectID = "fqu-P6-X9I"; */
+"fqu-P6-X9I.text" = "#참 / 斬";
+
+/* Class = "UILabel"; text = "#구령"; ObjectID = "geW-Dh-SAs"; */
+"geW-Dh-SAs.text" = "#구령";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "lMb-ku-D2l"; */
+"lMb-ku-D2l.text" = "3";
+
+/* Class = "UILabel"; text = "한글 이름"; ObjectID = "mZL-LS-NY5"; */
+"mZL-LS-NY5.text" = "한글 이름";
+
+/* Class = "UILabel"; text = "마나"; ObjectID = "pNO-yx-mUq"; */
+"pNO-yx-mUq.text" = "마나";
+
+/* Class = "UIBarButtonItem"; title = "정렬"; ObjectID = "pid-b4-2nZ"; */
+"pid-b4-2nZ.title" = "정렬";
+
+/* Class = "UILabel"; text = "한글 닉네임"; ObjectID = "t6j-4r-mWf"; */
+"t6j-4r-mWf.text" = "한글 닉네임";
+
+/* Class = "UILabel"; text = "필터 유형"; ObjectID = "tfR-sm-hae"; */
+"tfR-sm-hae.text" = "필터 유형";
+
+/* Class = "UITabBarItem"; title = "어빌리티"; ObjectID = "wxO-gF-32V"; */
+"wxO-gF-32V.title" = "어빌리티";
+
+/* Class = "UILabel"; text = "일본어 이름"; ObjectID = "xwP-ok-Ha4"; */
+"xwP-ok-Ha4.text" = "일본어 이름";
