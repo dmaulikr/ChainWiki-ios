@@ -19,11 +19,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
+    var searchArray = [Arcana]()
     let filterUpdate = Filter()
     var rarityArray = [String]()
     var gesture = UITapGestureRecognizer()
     var filters = [String: [String]]()
-    
+    let searchController = UISearchController(searchResultsController: nil)
+
     @IBOutlet weak var filterView: UIView!
     
     @IBAction func sort(_ sender: AnyObject) {
@@ -137,6 +139,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return searchArray.count
+        }
+        
         return arcanaArray.count
     }
     
@@ -158,8 +165,22 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ArcanaCell
+        
+        let arcana: Arcana
+        
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            arcana = searchArray[indexPath.row]
+        } else {
+            arcana = arcanaArray[indexPath.row]
+        }
+        
+        
+        
         // check if arcana has only name, or nickname.
-        if let nnKR = arcanaArray[(indexPath as NSIndexPath).row].nickNameKR, let nnJP = arcanaArray[(indexPath as NSIndexPath).row].nickNameJP {
+        if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
+            
+            
             c.arcanaNickJP.text = nnJP
             c.arcanaNickKR.text = nnKR
 
@@ -168,57 +189,27 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
 //            c.arcanaNameJP.text = combinedNameJP
         }
-            c.arcanaNameKR.text = arcanaArray[(indexPath as NSIndexPath).row].nameKR
-            c.arcanaNameJP.text = arcanaArray[(indexPath as NSIndexPath).row].nameJP
+            c.arcanaNameKR.text = arcana.nameKR
+            c.arcanaNameJP.text = arcana.nameJP
         
-        
-        
-        
-//        var rarityPreview = ""
-//        switch(arcanaArray[indexPath.row].rarity) {
-//            case "★★★★★SSR":
-//                rarityPreview = "5★"
-//            case "★★★★SR":
-//                rarityPreview = "4★"
-//            case "★★★R":
-//                rarityPreview = "3★"
-//            case "★★HN":
-//                rarityPreview = "2★"
-//            case "★N":
-//                rarityPreview = "1★"
-//            default:
-//                break
-//        }
-        c.arcanaRarity.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].rarity)★"
-        c.arcanaGroup.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].group)"
-        c.arcanaWeapon.text = "#\(arcanaArray[(indexPath as NSIndexPath).row].weapon)"
-        if let a = arcanaArray[(indexPath as NSIndexPath).row].affiliation {
+        c.arcanaRarity.text = "#\(arcana.rarity)★"
+        c.arcanaGroup.text = "#\(arcana.group)"
+        c.arcanaWeapon.text = "#\(arcana.weapon)"
+        if let a = arcana.affiliation {
             c.arcanaAffiliation.text = "#\(a)"
         }
        
         c.arcanaImage.image = nil
 //        c.imageSpinner.startAnimation()
         print("animated")
+        
         // Check Cache, or download from Firebase
        // c.arcanaImage.image = UIImage(named: "main.jpg")
         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
 //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
 //        cell.arcanaImage.image = image
         
-//        var borderColor = UIColor()
-//        switch arcanaArray[indexPath.row].group {
-//            case "전사":
-//            borderColor = WARRIORCOLOR
-//            case "기사":
-//            borderColor = KNIGHTCOLOR
-//            case "궁수":
-//            borderColor = ARCHERCOLOR
-//            case "법사":
-//            borderColor = MAGICIANCOLOR
-//        default:
-//            borderColor = HEALERCOLOR
-//        }
-        
+
         
         
         
@@ -310,8 +301,16 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         gesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(gesture)
         
+        // UISearchController methods
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
         
-        // Do any additional setup after loading the view.
+        // Include the search bar within the navigation bar.
+        navigationItem.titleView = searchController.searchBar
+        
+        definesPresentationContext = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -325,9 +324,16 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if (segue.identifier == "showArcana") {
+            let arcana: Arcana
+            if searchController.isActive && searchController.searchBar.text != "" {
+                arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            } else {
+                arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            }
             let vc = segue.destination as! ArcanaDetail
-            vc.arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            vc.arcana = arcana
         }
     }
 
@@ -486,7 +492,21 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
     }
 
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        searchArray = originalArray.filter { arcana in
+            return arcana.nameKR.contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
     
 }
 
+extension Home: UISearchResultsUpdating {
+    @available(iOS 8.0, *)
+    public func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+
+}
 

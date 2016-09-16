@@ -91,11 +91,17 @@
                                                         <constraint firstAttribute="height" constant="25" id="spM-wK-hXC"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuT-vf-hNN">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="GNs-io-Wkc" firstAttribute="top" secondItem="bbX-dM-Zkm" secondAttribute="top" constant="10" id="1mP-zH-Tjp"/>
                                                 <constraint firstItem="M3S-1c-NyK" firstAttribute="top" secondItem="PSk-Qf-1fV" secondAttribute="bottom" constant="5" id="8tW-UL-awV"/>
                                                 <constraint firstAttribute="bottom" secondItem="5ll-eb-9RM" secondAttribute="bottom" constant="13" id="DH4-k0-Nj1"/>
+                                                <constraint firstItem="wuT-vf-hNN" firstAttribute="top" secondItem="bbX-dM-Zkm" secondAttribute="top" constant="10" id="Ehb-4A-CJp"/>
                                                 <constraint firstItem="PSk-Qf-1fV" firstAttribute="leading" secondItem="gtD-4R-gce" secondAttribute="trailing" constant="18" id="Jnd-5Y-8ig"/>
                                                 <constraint firstItem="M3S-1c-NyK" firstAttribute="leading" secondItem="gtD-4R-gce" secondAttribute="trailing" constant="18" id="Kfr-Mp-g0H"/>
                                                 <constraint firstItem="3U5-Oc-dDH" firstAttribute="leading" secondItem="Tqv-p3-sUK" secondAttribute="leading" id="M1X-Nk-Ttg"/>
@@ -111,6 +117,7 @@
                                                 <constraint firstItem="gtD-4R-gce" firstAttribute="leading" secondItem="bbX-dM-Zkm" secondAttribute="leading" constant="16" id="pmE-7D-Dp2"/>
                                                 <constraint firstItem="Yv4-Xy-IaG" firstAttribute="centerX" secondItem="gtD-4R-gce" secondAttribute="centerX" id="rjA-2e-U5u"/>
                                                 <constraint firstItem="5ll-eb-9RM" firstAttribute="top" secondItem="M3S-1c-NyK" secondAttribute="bottom" constant="14" id="uC7-L5-nY7"/>
+                                                <constraint firstAttribute="trailing" secondItem="wuT-vf-hNN" secondAttribute="trailing" constant="10" id="wzK-Qw-Dnu"/>
                                                 <constraint firstItem="5ll-eb-9RM" firstAttribute="leading" secondItem="gtD-4R-gce" secondAttribute="trailing" constant="18" id="zRe-Ql-73j"/>
                                                 <constraint firstAttribute="trailing" secondItem="3U5-Oc-dDH" secondAttribute="trailing" constant="5" id="zxa-xb-Qf4"/>
                                             </constraints>
@@ -124,6 +131,7 @@
                                             <outlet property="mana1" destination="Tqv-p3-sUK" id="X89-I4-p2d"/>
                                             <outlet property="mana2" destination="GNs-io-Wkc" id="8oR-em-quN"/>
                                             <outlet property="manaSub" destination="3U5-Oc-dDH" id="a2L-U4-rKm"/>
+                                            <outlet property="value" destination="wuT-vf-hNN" id="bM4-lK-zvo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
