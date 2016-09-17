@@ -94,8 +94,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
 
     func dismissFilter(_ sender: AnyObject) {
-        print("dismissed")
+        
         if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
+            print("dismissed")
             gesture.cancelsTouchesInView = true
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.filterView.alpha = 0.0
@@ -461,6 +462,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             //                self.filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
             //            }
             //
+            
             print("BEGAN")
         case .changed:
             

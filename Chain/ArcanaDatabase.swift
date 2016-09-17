@@ -6,13 +6,14 @@
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
-/*
+
 import UIKit
 //import Kanna
 //import SwiftyJSON
 import Firebase
 import Foundation
 
+/*
 class ArcanaDatabase: UIViewController {
 
     // let google = "https://www.google.com/searchbyimage?&image_url="
@@ -707,19 +708,20 @@ class ArcanaDatabase: UIViewController {
                     self.dict.updateValue(self.getWeapon(attribute), forKey: "weapon")
                     
                 case 5:
+                    
                     let skillName1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                     self.translate(skillName1, key: "skillName1")
                     if let _ = attribute.indexOf(")*") {
-                        let skillMana1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")*")!, offsetBy: 2)..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")*")!, offsetBy: 3)))))
+                        let skillMana1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")*")!, offsetBy: 2)..<attribute.index(attribute.indexOf(")*")!, offsetBy: 3)))))
                         self.translate(skillMana1, key: "skillMana1")
-                        let skillDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")*")!, offsetBy: 3)..<attribute.endIndex))))
+                        let skillDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")*")!, offsetBy: 3)..<attribute.endIndex))))
                         self.translate(skillDesc1, key: "skillDesc1")
                     }
                     
                     else {
-                        let skillMana1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("(")!, offsetBy: 1)..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("(")!, offsetBy: 2)))))
+                        let skillMana1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("(")!, offsetBy: 1)..<attribute.index(attribute.indexOf("(")!, offsetBy: 2)))))
                         self.translate(skillMana1, key: "skillMana1")
-                        let skillDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("(")!, offsetBy: 2)..<attribute.endIndex))))
+                        let skillDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("(")!, offsetBy: 2)..<attribute.endIndex))))
                         self.translate(skillDesc1, key: "skillDesc1")
                     }
                     
@@ -729,9 +731,9 @@ class ArcanaDatabase: UIViewController {
                         if foundKizuna {
                             let kizunaName = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                             self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 1)..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 2)))))
+                            let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                             self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
                             self.translate(kizunaAbility, key: "kizunaAbility")
                         }
                         else {
@@ -742,15 +744,15 @@ class ArcanaDatabase: UIViewController {
 
                     }
                     else if let _ = attribute.indexOf("　") {
-                        let abilityName1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(before: attribute.indexOf("　")!)))))
+                        let abilityName1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.index(before: attribute.indexOf("　")!)))))
                         self.translate(abilityName1, key: "abilityName1")
                         let abilityDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("　")!, offsetBy: 1)..<attribute.endIndex))))
                         self.translate(abilityDesc1, key: "abilityDesc1")
                     }
                     else {
-                        let abilityName1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(before: attribute.indexOf("：")!)))))
+                        let abilityName1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.index(before: attribute.indexOf("：")!)))))
                         self.translate(abilityName1, key: "abilityName1")
-                        let abilityDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("：")!, offsetBy: 1)..<attribute.endIndex))))
+                        let abilityDesc1 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("：")!, offsetBy: 1)..<attribute.endIndex))))
                         self.translate(abilityDesc1, key: "abilityDesc1")
                     }
                     
@@ -763,9 +765,9 @@ class ArcanaDatabase: UIViewController {
                         if foundKizuna {
                             let kizunaName = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                             self.translate(kizunaName, key: "kizunaName")
-                            let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 1)..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 2)))))
+                            let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                             self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
                             self.translate(kizunaAbility, key: "kizunaAbility")
                         }
                         else {
@@ -777,16 +779,16 @@ class ArcanaDatabase: UIViewController {
                     }
                     else {
                         if let _ = attribute.indexOf("　") {
-                            let abilityName2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(before: attribute.indexOf("　")!)))))
+                            let abilityName2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.index(before: attribute.indexOf("　")!)))))
                             self.translate(abilityName2, key: "abilityName2")
-                            let abilityDesc2 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("　")!, offsetBy: 1)..<attribute.endIndex))))
+                            let abilityDesc2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("　")!, offsetBy: 1)..<attribute.endIndex))))
                             self.translate(abilityDesc2, key: "abilityDesc2")
                         }
                         else if let _ = attribute.indexOf("：") {
                             
-                            let abilityName2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(before: attribute.indexOf("：")!)))))
+                            let abilityName2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.index(before: attribute.indexOf("：")!)))))
                             self.translate(abilityName2, key: "abilityName2")
-                            let abilityDesc2 = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("：")!, offsetBy: 1)..<attribute.endIndex))))
+                            let abilityDesc2 = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("：")!, offsetBy: 1)..<attribute.endIndex))))
                             self.translate(abilityDesc2, key: "abilityDesc2")
                         }
                         else {
@@ -803,9 +805,9 @@ class ArcanaDatabase: UIViewController {
                     else {
                         let kizunaName = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.startIndex..<attribute.indexOf("(")!))))
                         self.translate(kizunaName, key: "kizunaName")
-                        let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 1)..<<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf("+")!, offsetBy: 2)))))
+                        let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                         self.translate(kizunaCost, key: "kizunaCost")
-                        let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(<#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                        let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
                         self.translate(kizunaAbility, key: "kizunaAbility")
                     }
                     
@@ -1603,4 +1605,5 @@ extension String {
     
     
 }
+
 */
