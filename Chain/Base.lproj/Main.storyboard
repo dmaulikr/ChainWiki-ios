@@ -185,77 +185,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1039" y="1442"/>
-        </scene>
-        <!--Tavern View-->
-        <scene sceneID="Axr-pG-zdl">
-            <objects>
-                <viewController id="mTc-q0-NzC" customClass="TavernView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="00f-jX-h9H"/>
-                        <viewControllerLayoutGuide type="bottom" id="O8m-ud-B6Z"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="njB-na-sRE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="K5i-EC-e3z">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yQk-Er-V6a">
-                                    <size key="itemSize" width="148" height="158"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tavernCell" id="dC8-oG-Nu4" customClass="TavernViewCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="148" height="158"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="148" height="158"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qsI-sa-7fE"/>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Lb-ta-ERV">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </view>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="2Lb-ta-ERV" secondAttribute="bottom" constant="10" id="9k9-bK-59k"/>
-                                            <constraint firstItem="2Lb-ta-ERV" firstAttribute="top" secondItem="qsI-sa-7fE" secondAttribute="bottom" constant="10" id="NFs-hl-F7w"/>
-                                            <constraint firstItem="qsI-sa-7fE" firstAttribute="leading" secondItem="dC8-oG-Nu4" secondAttribute="leading" constant="10" id="TmS-d1-6l2"/>
-                                            <constraint firstAttribute="trailing" secondItem="qsI-sa-7fE" secondAttribute="trailing" constant="10" id="a1R-XK-Rom"/>
-                                            <constraint firstItem="2Lb-ta-ERV" firstAttribute="centerX" secondItem="dC8-oG-Nu4" secondAttribute="centerX" id="nOR-hp-Wn6"/>
-                                            <constraint firstItem="qsI-sa-7fE" firstAttribute="top" secondItem="dC8-oG-Nu4" secondAttribute="top" constant="10" id="ufa-jE-Bru"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="tavernImage" destination="qsI-sa-7fE" id="aLJ-mB-w6I"/>
-                                            <outlet property="tavernName" destination="2Lb-ta-ERV" id="Aru-bn-j4i"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="K5i-EC-e3z" firstAttribute="leading" secondItem="njB-na-sRE" secondAttribute="leading" id="Fde-Fh-nko"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="K5i-EC-e3z" secondAttribute="bottom" id="WMi-zK-cwF"/>
-                            <constraint firstItem="K5i-EC-e3z" firstAttribute="top" secondItem="njB-na-sRE" secondAttribute="topMargin" id="ff2-an-rs4"/>
-                            <constraint firstAttribute="trailing" secondItem="K5i-EC-e3z" secondAttribute="trailing" id="hcW-PG-JTN"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="sHA-P3-BuL"/>
-                    <connections>
-                        <outlet property="collectionView" destination="K5i-EC-e3z" id="yjT-sj-Z12"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rfI-HX-Tmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1620" y="2305"/>
+            <point key="canvasLocation" x="1802" y="1264"/>
         </scene>
         <!--ArcanaName-->
         <scene sceneID="Gq4-M3-XGI">
@@ -483,7 +413,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5Q-SD-je4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4299" y="504"/>
+            <point key="canvasLocation" x="3018" y="1263"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="wub-9E-Ucz">
@@ -605,26 +535,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MH4-Sk-koW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1802" y="1512"/>
-        </scene>
-        <!--어빌리티-->
-        <scene sceneID="5BN-Ay-y1R">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Kfd-kw-ljW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="어빌리티" image="abilityTab" id="wxO-gF-32V"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jam-8P-FA6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mTc-q0-NzC" kind="relationship" relationship="rootViewController" id="Qzu-Mv-v15"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sRF-1R-PYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="886" y="2305"/>
+            <point key="canvasLocation" x="1800" y="2018"/>
         </scene>
         <!--아르카나-->
         <scene sceneID="3Qo-ge-H97">
@@ -645,26 +556,8 @@
             </objects>
             <point key="canvasLocation" x="1040" y="500"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="8BJ-yS-vgS">
-            <objects>
-                <viewController id="P2R-JE-d1h" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nTE-m4-YKP"/>
-                        <viewControllerLayoutGuide type="bottom" id="vz7-PU-sOo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hz1-R1-DFW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AVp-h9-EQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
-        <image name="abilityTab" width="25" height="25"/>
         <image name="arcanaTab" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>

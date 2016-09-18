@@ -278,25 +278,25 @@ extension Filter : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        let inset = CGFloat(127)
-        let cellSize = CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
-        let affCellSize = CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
+//        let inset = CGFloat(127)
+//        let cellSize = CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
+//        let affCellSize = CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
 
-        var count = CGFloat(0)
-        var totalCellWidth = CGFloat(0)
-        var totalSpacingWidth = CGFloat(0)
-        switch section {
-        case 0,1,2:
-            count = CGFloat(5)
-            totalCellWidth = cellSize.width * count
-            totalSpacingWidth = (count - 1)
-        default:
-            count = CGFloat(4)
-            totalCellWidth = affCellSize.width * count
-            totalSpacingWidth = (count - 1)
-            
-        }
-        
+//        var count = CGFloat(0)
+//        var totalCellWidth = CGFloat(0)
+//        var totalSpacingWidth = CGFloat(0)
+//        switch section {
+//        case 0,1,2:
+//            count = CGFloat(5)
+//            totalCellWidth = cellSize.width * count
+//            totalSpacingWidth = (count - 1)
+//        default:
+//            count = CGFloat(4)
+//            totalCellWidth = affCellSize.width * count
+//            totalSpacingWidth = (count - 1)
+//            
+//        }
+//        
         
         switch section {
         case 0: // This one needs higher top inset

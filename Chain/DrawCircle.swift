@@ -56,7 +56,7 @@ class DrawCircle: UIView {
             let startPoint = CGPoint(x: self.bounds.width/4, y: self.bounds.height/4)
             let endPoint = CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
             let startRadius: CGFloat = 0
-            let endRadius: CGFloat = 7
+            let endRadius: CGFloat = 5
             
             context?.drawRadialGradient (gradient!, startCenter: startPoint,
                                          startRadius: startRadius, endCenter: endPoint, endRadius: endRadius,

@@ -12,11 +12,15 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         self.delegate = self
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Ability", bundle:nil)
+        let abilityStoryboard : UIStoryboard = UIStoryboard(name: "Ability", bundle:nil)
+        let tavernStoryboard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
         
-        let vc = storyBoard.instantiateViewController(withIdentifier: "AbilityNav") as! UINavigationController
+        let ability = abilityStoryboard.instantiateViewController(withIdentifier: "AbilityNav") as! UINavigationController
+        let tavern = tavernStoryboard.instantiateViewController(withIdentifier: "TavernNav") as! UINavigationController
         
-        self.addChildViewController(vc)
+        self.addChildViewController(ability)
+        self.addChildViewController(tavern)
+        
         self.tabBar.tintColor = lightGreenColor
     }
     

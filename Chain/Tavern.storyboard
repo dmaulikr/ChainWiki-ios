@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tavern View-->
+        <scene sceneID="oCp-e3-43a">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="YHY-gq-q0d" customClass="TavernView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JDs-DZ-dvu"/>
+                        <viewControllerLayoutGuide type="bottom" id="XVE-FH-Zqh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Nie-Iy-KcY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7xx-AM-hhw">
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="VOi-bu-Lt0">
+                                    <size key="itemSize" width="161" height="126"/>
+                                    <size key="headerReferenceSize" width="0.0" height="25"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tavern" id="qc1-C7-gia" customClass="TavernCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="25" width="161" height="126"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="161" height="126"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drv-Fl-75K">
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
+                                                    <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Drv-Fl-75K" firstAttribute="centerY" secondItem="qc1-C7-gia" secondAttribute="centerY" id="54f-UQ-Fra"/>
+                                            <constraint firstItem="Drv-Fl-75K" firstAttribute="centerX" secondItem="qc1-C7-gia" secondAttribute="centerX" id="cx5-Oa-Gzq"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="tavernName" destination="Drv-Fl-75K" id="Wzg-VJ-hiM"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="Opo-hP-nA3" userLabel="header" customClass="TavernHeader" customModule="Chain" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-IB-gyj">
+                                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fLj-IB-gyj" firstAttribute="centerY" secondItem="Opo-hP-nA3" secondAttribute="centerY" id="iKs-5P-k9T"/>
+                                        <constraint firstItem="fLj-IB-gyj" firstAttribute="leading" secondItem="Opo-hP-nA3" secondAttribute="leading" constant="10" id="ouH-In-dto"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="sectionTitle" destination="fLj-IB-gyj" id="8c8-hd-Yr9"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7xx-AM-hhw" firstAttribute="leading" secondItem="Nie-Iy-KcY" secondAttribute="leading" id="T8z-TN-9TO"/>
+                            <constraint firstItem="7xx-AM-hhw" firstAttribute="top" secondItem="JDs-DZ-dvu" secondAttribute="bottom" id="TOg-TV-aRh"/>
+                            <constraint firstItem="XVE-FH-Zqh" firstAttribute="top" secondItem="7xx-AM-hhw" secondAttribute="bottom" id="UM8-D5-VKw"/>
+                            <constraint firstAttribute="trailing" secondItem="7xx-AM-hhw" secondAttribute="trailing" id="arJ-9B-kt3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ETG-hy-bf4"/>
+                    <connections>
+                        <outlet property="collectionView" destination="7xx-AM-hhw" id="4UK-w3-LBI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AeT-kO-pEu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="652" y="32.833583208395808"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ewh-HS-EDZ">
+            <objects>
+                <navigationController storyboardIdentifier="TavernNav" automaticallyAdjustsScrollViewInsets="NO" id="iMB-hA-YK1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="YHY-gq-q0d" kind="relationship" relationship="rootViewController" id="V5d-by-xwa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iHB-i2-zd5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-287.19999999999999" y="32.833583208395808"/>
+        </scene>
+    </scenes>
+</document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TavernViewCell: UICollectionViewCell {
+class TavernViewCellOld: UICollectionViewCell {
     
     @IBOutlet weak var tavernImage: UIImageView!
     @IBOutlet weak var tavernName: UILabel!

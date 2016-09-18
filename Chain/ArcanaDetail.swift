@@ -48,7 +48,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return 2
             }
         
-        case 3:    // Arcana abilities. TODO: Check if only 1 or 2 abilities.
+        case 3:    // Arcana abilities. TODO: Check for 0, 1, 2 abilities.
             
             if let _ = arcana.abilityName2 {    // has 2 abilities
                 return 4
@@ -283,7 +283,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                             if let image = response.result.value {
                                 // Set the Image
                                 
-                                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+                                let size = CGSize(width: (SCREENWIDTH - CGFloat(20)), height: 400)
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
                                     c.imageSpinner.stopAnimating()
