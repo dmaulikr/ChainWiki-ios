@@ -291,7 +291,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         if let a = childViewControllers[0] as? Filter {
             a.delegate = self
         }
@@ -359,7 +360,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             let vc = segue.destination as! ArcanaDetail
             vc.arcana = arcana
-            self.title = "이전"
         }
     }
 
