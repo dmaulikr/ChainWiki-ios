@@ -164,7 +164,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let c = cell as! ManaAbilityCell
-
+        
         c.arcanaNameKR.text = currentArray[(indexPath as NSIndexPath).row].nameKR
         c.arcanaNameJP.text = currentArray[(indexPath as NSIndexPath).row].nameJP
         c.arcanaRarity.text = "#\(currentArray[(indexPath as NSIndexPath).row].rarity)★"

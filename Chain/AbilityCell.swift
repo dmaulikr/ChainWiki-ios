@@ -10,6 +10,7 @@ import UIKit
 
 class AbilityCell: UITableViewCell {
 
+    @IBOutlet weak var abilityIcon: UIImageView!
     @IBOutlet weak var abilityName: UILabel!
     
     override func awakeFromNib() {

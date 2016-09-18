@@ -24,10 +24,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="arcanaCell" rowHeight="90" id="o0t-Q7-wCk" customClass="ArcanaCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="1000" height="90"/>
+                                        <rect key="frame" x="0.0" y="1" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0t-Q7-wCk" id="Kwg-68-Imq">
-                                            <frame key="frameInset" width="1000" height="90"/>
+                                            <frame key="frameInset" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-LS-NY5">
@@ -156,12 +156,12 @@
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
                         <rightBarButtonItems>
-                            <barButtonItem title="필터" id="YRD-p5-pAT">
+                            <barButtonItem image="filter" id="YRD-p5-pAT">
                                 <connections>
                                     <action selector="filter:" destination="BYZ-38-t0r" id="hIY-mc-imm"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="정렬" id="pid-b4-2nZ">
+                            <barButtonItem image="sort" id="pid-b4-2nZ">
                                 <connections>
                                     <action selector="sort:" destination="BYZ-38-t0r" id="m1q-yU-9rw"/>
                                 </connections>
@@ -205,10 +205,10 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="400" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="1000" height="400"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
-                                            <frame key="frameInset" width="1000" height="400"/>
+                                            <frame key="frameInset" width="375" height="399"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
@@ -254,10 +254,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="492" width="1000" height="40"/>
+                                        <rect key="frame" x="0.0" y="492" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQV-i6-ups" id="Wp4-Kh-E70">
-                                            <frame key="frameInset" width="1000" height="40"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMd-aB-Ele">
@@ -298,10 +298,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="532" width="1000" height="40"/>
+                                        <rect key="frame" x="0.0" y="532" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuO-ry-Tec" id="m4X-aj-7v4">
-                                            <frame key="frameInset" width="1000" height="40"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="스킬" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tw-z5-ZFt">
@@ -368,10 +368,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="572" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="572" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMM-l5-U6h" id="kM3-g4-1jI">
-                                            <frame key="frameInset" width="1000" height="44"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill/Ability Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72q-N3-Nhm">
@@ -559,6 +559,8 @@
     </scenes>
     <resources>
         <image name="arcanaTab" width="25" height="25"/>
+        <image name="filter" width="25" height="25"/>
+        <image name="sort" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>
 </document>
