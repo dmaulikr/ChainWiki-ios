@@ -183,15 +183,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
                 
-//                if indexPath == 0 {
-//                    cell.attributeKey.text = "어빌 1"
-//                    cell.attributeValue.text = arcana.abilityName1
-//                    
-//                }
-//                else {
-//                    cell.attributeKey.text = "어빌 2"
-//                    cell.attributeValue.text = arcana.abilityName2
-//                }
+                if (indexPath as NSIndexPath).row == 0 {
+                    cell.attributeKey.text = "어빌 1"
+                    cell.attributeValue.text = arcana.abilityName1
+                    
+                }
+                else {
+                    cell.attributeKey.text = "어빌 2"
+                    cell.attributeValue.text = arcana.abilityName2
+                }
                 
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
@@ -201,12 +201,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 
-//                if indexPath.row == 1 {
-//                    cell.skillAbilityDesc.text = arcana.abilityDesc1
-//                }
-//                else {
-//                    cell.skillAbilityDesc.text = arcana.abilityDesc2
-//                }
+                if indexPath.row == 1 {
+                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+                }
+                else {
+                    cell.skillAbilityDesc.text = arcana.abilityDesc2
+                }
 
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
@@ -264,6 +264,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
                 
                 c.arcanaImage.image = aspectScaledToFitImage
+                c.imageSpinner.stopAnimating()
             }
                 
                 //  Not in cache, download from firebase
@@ -285,7 +286,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                 let size = CGSize(width: SCREENWIDTH - 20, height: 400)
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-//                                    c.imageSpinner.stopAnimation()
+                                    c.imageSpinner.stopAnimating()
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
                                     
                                     c.arcanaImage.image = aspectScaledToFitImage

@@ -260,6 +260,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 //                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
 //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
 //                                c.arcanaImage.image = crop
+//                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
+//                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
+//                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
+//                                c.arcanaImage.image = image
                                 c.arcanaImage.image = thumbnail
                                 print("DOWNLOADED")
                                 

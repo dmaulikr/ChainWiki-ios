@@ -140,7 +140,7 @@ struct Arcana: Equatable, Hashable {
             nickNameJP = nnJP
         }
         
-        if let aN2 = (snapshot.value as? NSDictionary)?["xabilityName2"] as? String, let aD2 = (snapshot.value as? NSDictionary)?["abilityDesc2"] as? String {
+        if let aN2 = (snapshot.value as? NSDictionary)?["abilityName2"] as? String, let aD2 = (snapshot.value as? NSDictionary)?["abilityDesc2"] as? String {
             abilityName2 = aN2
             abilityDesc2 = aD2
         }
