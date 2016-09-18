@@ -23,11 +23,11 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var arcanaAffiliation: UILabel!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

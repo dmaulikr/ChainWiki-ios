@@ -128,7 +128,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             self.arcanaArray = filter.reversed()
             self.originalArray = filter.reversed()
-            self.tableView.reloadData()
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.tableView.reloadData()
+            })
+            
         })
         
     }
@@ -205,7 +208,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
        
         c.arcanaImage.image = nil
         
-        print("animated")
         
         // Check Cache, or download from Firebase
        // c.arcanaImage.image = UIImage(named: "main.jpg")
@@ -215,7 +217,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
 
         
-        /*
+        
         
         // Check cache first
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
@@ -225,11 +227,14 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
 //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
 //            c.arcanaImage.image = crop
+            c.arcanaImage.image = i
+            c.imageSpinner.stopAnimating()
+            
         }
          
             //  Not in cache, download from firebase
         else {
-            c.imageSpinner.startAnimating()
+//            c.imageSpinner.startAnimating()
 
             STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
@@ -250,13 +255,15 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                c.imageSpinner.stopAnimating()
+                                
 
 //                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
 //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
 //                                c.arcanaImage.image = crop
-                                
+                                c.arcanaImage.image = thumbnail
                                 print("DOWNLOADED")
+                                
+                                    c.imageSpinner.stopAnimating()
                                 
                                 // Cache the Image
                                 IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
@@ -269,7 +276,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             
         }
-    */
+        
 
     }
     
@@ -284,26 +291,30 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         if let a = childViewControllers[0] as? Filter {
             a.delegate = self
         }
-        downloadArray()
-
         tableView.dataSource = self
         tableView.delegate = self
+        
+        downloadArray()
+
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
         filterView.alpha = 0.0
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-        self.filterView.addGestureRecognizer(panGestureRecognizer)
+//        self.filterView.addGestureRecognizer(panGestureRecognizer)
+        panGestureRecognizer.delegate = self
+//        self.view.addGestureRecognizer(panGestureRecognizer)
         gesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(gesture)
-        
+        self.view.addGestureRecognizer(panGestureRecognizer)
         // UISearchController methods
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-
+        
         searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
         if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
@@ -323,10 +334,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         definesPresentationContext = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-
-       // tableView.reloadData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//        tableView.reloadData()
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -451,12 +462,40 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
     }
     
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        print("in shouldReceiveTouch")
+//        gestureRecognizer.delegate = self
+//        if filterView.alpha == 1 {
+//            print("touching filterview")
+//            return true
+//        }
+//        else if CGRect(x: self.view.frame.width - 50, y: 0, width: self.view.frame.width, height: self.view.frame.height).contains(touch.location(in: self.view)) {
+//            print("should open filterview")
+//            return true
+//        }
+//        else {
+//            
+//            return false
+//        }
+//    }
+    
     func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
         //        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
-        
+//        if filterView.alpha == 1 && recognizer.view == self.filterView {
+//            print("touching filterview")
+//            
+////            recognizer.isEnabled = false
+//        }
+//        else {
+//            recognizer.isEnabled = false
+//        }
         switch(recognizer.state) {
         case .began:
+//            if filterView.alpha == 0 && recognizer.view == self.view {
+//                recognizer.isEnabled = false
+//            }
+        
             //            if self.filterView.alpha == 0 {
             //                self.filterView.alpha = 1
             //                self.filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
@@ -466,12 +505,16 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             print("BEGAN")
         case .changed:
             
+//            if filterView.alpha == 0 && recognizer.view == self.view {
+//                print("should open filter")
+//                recognizer.isEnabled = false
+//            } else
             if CGRect(x: 95, y: 0, width: self.view.frame.width, height: self.view.frame.height).contains(recognizer.location(in: self.view)) {
                 // Gesture started inside the pannable view. Do your thing.
-                
+                print("Filter is opened, move it")
                 if self.filterView.frame.origin.x >= 95 && recognizer.view!.frame.origin.x >= 95 {
                     if recognizer.view!.frame.origin.x >= 95 && recognizer.view!.frame.origin.x + recognizer.translation(in: filterView).x >= 95{
-                        recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translation(in: filterView).x
+                        recognizer.view!.subviews[0].center.x = recognizer.view!.subviews[0].center.x + recognizer.translation(in: filterView).x
                         recognizer.setTranslation(CGPoint.zero, in: filterView)
                         
                     }
@@ -497,11 +540,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 print("HAS MOVED MORE THAN HALF, DISMISS")
                 filter(self)
             }
-            
+            recognizer.isEnabled = true
             
         default:
             break
         }
+        recognizer.isEnabled = true
     }
 
 

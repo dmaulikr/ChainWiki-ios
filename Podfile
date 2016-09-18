@@ -14,7 +14,7 @@ target 'Chain' do
   #  pod 'SwiftyJSON'
   #  pod 'Toucan', '~> 0.5'
     pod 'Canvas', '~> 0.1.2'
-    pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'swift3'
+    pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
 
   # Pods for Chain
 

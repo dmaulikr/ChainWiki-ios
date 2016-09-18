@@ -41,16 +41,16 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Database
   - Firebase/Storage
-  - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `swift3`)
+  - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `master`)
 
 EXTERNAL SOURCES:
   NVActivityIndicatorView:
-    :branch: swift3
+    :branch: master
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 CHECKOUT OPTIONS:
   NVActivityIndicatorView:
-    :commit: 1d882721c1d434b53b41ebe35484bf83417dde18
+    :commit: 27e517e0d01fdb42aa953217e5bb83fa89121098
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 SPEC CHECKSUMS:
@@ -68,6 +68,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   NVActivityIndicatorView: de8be03826726ad99cdfacf7fe09e88cbfeef911
 
-PODFILE CHECKSUM: d334680a4ae1cdc67a63290f4513aa2382c11c8b
+PODFILE CHECKSUM: 0c49c235568c06c2ed0965deb758ae1b9623dd2f
 
 COCOAPODS: 1.1.0.rc.2
