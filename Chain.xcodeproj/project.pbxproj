@@ -15,6 +15,7 @@
 		0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */; };
 		042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570731D7EB4A4002F5AD0 /* arcanaData.txt */; };
 		042570761D7EB4CF002F5AD0 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570751D7EB4CF002F5AD0 /* test.txt */; };
+		042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */; };
 		042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DB3E81D8155970049AC0D /* MySupplementaryView.swift */; };
 		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
 		0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* ManaAbility.swift */; };
@@ -105,6 +106,8 @@
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		042570731D7EB4A4002F5AD0 /* arcanaData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcanaData.txt; sourceTree = "<group>"; };
 		042570751D7EB4CF002F5AD0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		042834F81D91AF680043BE6E /* Chain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chain.entitlements; sourceTree = "<group>"; };
+		042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStory.swift; sourceTree = "<group>"; };
 		042DB3E81D8155970049AC0D /* MySupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySupplementaryView.swift; sourceTree = "<group>"; };
 		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
 		0447E1D51D87D05200670834 /* ManaAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbility.swift; sourceTree = "<group>"; };
@@ -208,6 +211,14 @@
 			name = "Old ArcanaDetail";
 			sourceTree = "<group>";
 		};
+		042834FC1D91EA1E0043BE6E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				04DD91131D8669B50023CDA4 /* Login.storyboard */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		0447E1D71D87D09500670834 /* Abilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				0401B2871D75386C00A0A728 /* ArcanaDetail.swift */,
+				042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
 				046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */,
@@ -256,6 +268,7 @@
 		04A2EC931D6F7FA300189142 /* Chain */ = {
 			isa = PBXGroup;
 			children = (
+				042834F81D91AF680043BE6E /* Chain.entitlements */,
 				042570731D7EB4A4002F5AD0 /* arcanaData.txt */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				042570751D7EB4CF002F5AD0 /* test.txt */,
@@ -298,7 +311,6 @@
 			isa = PBXGroup;
 			children = (
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
-				04DD91131D8669B50023CDA4 /* Login.storyboard */,
 				0404DD9F1D8292D000FF390F /* Chain-Bridging-Header.h */,
 			);
 			name = View;
@@ -320,9 +332,10 @@
 				04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */,
 				04DD910F1D864FA70023CDA4 /* AbilityCell.swift */,
 				04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */,
+				046C93351D7582D6000E3FBD /* ARCANA */,
 				04A3B1761D8E7B7500BBF297 /* Tavern */,
 				0447E1D71D87D09500670834 /* Abilities */,
-				046C93351D7582D6000E3FBD /* ARCANA */,
+				042834FC1D91EA1E0043BE6E /* Login */,
 				0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */,
 				046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */,
 				0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */,
@@ -452,7 +465,13 @@
 				TargetAttributes = {
 					04A2EC901D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					04A2ECA71D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -690,6 +709,7 @@
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */,
 				0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */,
+				042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */,
 				0401B2841D752D0B00A0A728 /* ArcanaValueCellOld.swift in Sources */,
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
@@ -857,6 +877,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -880,6 +902,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

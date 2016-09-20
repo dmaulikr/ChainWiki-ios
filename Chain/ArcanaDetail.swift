@@ -57,8 +57,19 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return 2
             }
             
-        default:    // Kizuna
+        case 4:    // Kizuna
             return 2
+            
+        default:    // chainstory, chainstone
+            var count = 0
+            if let _ = arcana.chainStory {
+                count += 1
+            }
+            if let _ = arcana.chainStone {
+                count += 1
+            }
+            
+            return count
         
         }
   
@@ -211,7 +222,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
-        default:
+        case 4:
             if (indexPath as NSIndexPath).row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaSkill") as! ArcanaSkillCell
                 cell.skillName.text = arcana.kizunaName
@@ -226,8 +237,28 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
+            
+        default:
+            if let cStory = arcana.chainStory {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
+                cell.storyKey.text = "체인스토리"
+                cell.storyAttribute.text = cStory
+                cell.layoutMargins = UIEdgeInsets.zero
+                return cell
+            } else if let cStone = arcana.chainStone {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
+                cell.storyKey.text = "인연이야기"
+                cell.storyAttribute.text = cStone
+                cell.layoutMargins = UIEdgeInsets.zero
+                return cell
+            }
+            else {
+                assert(false, "unexpected element kind")
+            }
         }
         
+        
+            
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -411,7 +442,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 desc.skillAbilityDesc.text = arcana.abilityDesc2
                 
             }
-        default:
+        case 4:
             switch (indexPath as NSIndexPath).row {
             case 0:
                 let descCell = cell as! ArcanaSkillCell
@@ -422,6 +453,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 
             }
+            
+        default:
+            break
             
             
         }
@@ -441,28 +475,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         self.title = "\(arcana!.nameKR)"
         self.tableView.backgroundColor = UIColor.white
-        
-        // Change Navigation Bar Color based on arcana class
-        
-//        var color = UIColor()
-//        
-//        switch(arcana!.group) {
-//        case "전사":
-//            color = WARRIORCOLOR
-//        case "기사":
-//            color = KNIGHTCOLOR
-//        case "궁수":
-//            color = ARCHERCOLOR
-//        case "법사":
-//            color = MAGICIANCOLOR
-//        case "승려":
-//            color = HEALERCOLOR
-//        default:
-//            break
-//            
-//        }
-//        
-//        self.navigationController!.navigationBar.barTintColor = color
     }
     
     
@@ -488,7 +500,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let spinner = NVActivityIndicatorView(frame: CGRect(x: 100, y: 100, width: 50, height: 50), type: .BallPulseSync, color: UIColor.blueColor(), padding: NVActivityIndicatorView.DEFAULT_PADDING)
         
         tableView.delegate = self
         tableView.dataSource = self
