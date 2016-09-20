@@ -177,7 +177,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         if let a = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
             aD2 = a
         }
-        let k = currentArray[(indexPath as NSIndexPath).row].kizunaAbility
+        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
         
         // check for the abilityType, then perform operation.
         

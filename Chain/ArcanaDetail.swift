@@ -222,7 +222,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-                cell.skillAbilityDesc.text = arcana.kizunaAbility
+                cell.skillAbilityDesc.text = arcana.kizunaDesc
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }

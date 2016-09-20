@@ -264,7 +264,7 @@ class ArcanaDatabase: UIViewController {
                                 case 2:
                                     self.dict.updateValue(attribute, forKey: "kizunaCost")
                                 case 3:
-                                    self.translate(attribute, key: "kizunaAbility")
+                                    self.translate(attribute, key: "kizunaDesc")
                                 default:
                                     break
                                 }
@@ -733,13 +733,13 @@ class ArcanaDatabase: UIViewController {
                             self.translate(kizunaName, key: "kizunaName")
                             let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                             self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
+                            let kizunaDesc = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                            self.translate(kizunaDesc, key: "kizunaDesc")
                         }
                         else {
                             self.dict.updateValue("정보 없음", forKey: "kizunaName")
                             self.dict.updateValue("-", forKey: "kizunaCost")
-                            self.dict.updateValue("정보 없음", forKey: "kizunaAbility")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaDesc")
                         }
 
                     }
@@ -767,13 +767,13 @@ class ArcanaDatabase: UIViewController {
                             self.translate(kizunaName, key: "kizunaName")
                             let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                             self.translate(kizunaCost, key: "kizunaCost")
-                            let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
-                            self.translate(kizunaAbility, key: "kizunaAbility")
+                            let kizunaDesc = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                            self.translate(kizunaDesc, key: "kizunaDesc")
                         }
                         else {
                             self.dict.updateValue("정보 없음", forKey: "kizunaName")
                             self.dict.updateValue("-", forKey: "kizunaCost")
-                            self.dict.updateValue("정보 없음", forKey: "kizunaAbility")
+                            self.dict.updateValue("정보 없음", forKey: "kizunaDesc")
                         }
                         
                     }
@@ -807,8 +807,8 @@ class ArcanaDatabase: UIViewController {
                         self.translate(kizunaName, key: "kizunaName")
                         let kizunaCost = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf("+")!, offsetBy: 1)..<attribute.index(attribute.indexOf("+")!, offsetBy: 2)))))
                         self.translate(kizunaCost, key: "kizunaCost")
-                        let kizunaAbility = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
-                        self.translate(kizunaAbility, key: "kizunaAbility")
+                        let kizunaDesc = String(NSString(string: attribute.substring(with: Range<String.Index>(attribute.index(attribute.indexOf(")　")!, offsetBy: 2)..<attribute.endIndex))))
+                        self.translate(kizunaDesc, key: "kizunaDesc")
                     }
                     
                 case 9:
@@ -1001,7 +1001,7 @@ class ArcanaDatabase: UIViewController {
                 
                 // Base Case: only 1 skill, 1 ability. Does not have nickname.
                 // TODO: Change base case to 1 skill 0 ability...
-                guard let nKR = self.dict["nameKR"], let nJP = self.dict["nameJP"], let r = self.dict["rarity"], let g = self.dict["group"], let t = self.dict["tavern"], let a = self.dict["affiliation"], let c = self.dict["cost"], let w = self.dict["weapon"], let kN = self.dict["kizunaName"], let kC = self.dict["kizunaCost"], let kA = self.dict["kizunaAbility"], let sC = self.dict["skillCount"], let sN1 = self.dict["skillName1"], let sM1 = self.dict["skillMana1"], let sD1 = self.dict["skillDesc1"], let aN1 = self.dict["abilityName1"], let aD1 = self.dict["abilityDesc1"] else {
+                guard let nKR = self.dict["nameKR"], let nJP = self.dict["nameJP"], let r = self.dict["rarity"], let g = self.dict["group"], let t = self.dict["tavern"], let a = self.dict["affiliation"], let c = self.dict["cost"], let w = self.dict["weapon"], let kN = self.dict["kizunaName"], let kC = self.dict["kizunaCost"], let kD = self.dict["kizunaDesc"], let sC = self.dict["skillCount"], let sN1 = self.dict["skillName1"], let sM1 = self.dict["skillMana1"], let sD1 = self.dict["skillDesc1"], let aN1 = self.dict["abilityName1"], let aD1 = self.dict["abilityDesc1"] else {
                     
                     print("ARCANA DICIONARY VALUE IS NIL")
                     return
@@ -1016,7 +1016,7 @@ class ArcanaDatabase: UIViewController {
                 
                 
                 
-                let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "\(t)", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaAbility" : "\(kA)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"] as [String : Any]
+                let arcanaOneSkill = ["uid" : "\(id)", "nameKR" : "\(nKR)", "nameJP" : "\(nJP)", "rarity" : "\(r)", "class" : "\(g)", "tavern" : "\(t)", "affiliation" : "\(a)", "cost" : "\(c)", "weapon" : "\(w)", "kizunaName" : "\(kN)", "kizunaCost" : "\(kC)", "kizunaDesc" : "\(kD)", "skillCount" : "\(sC)", "skillName1" : "\(sN1)", "skillMana1" : "\(sM1)", "skillDesc1" : "\(sD1)", "abilityName1" : "\(aN1)", "abilityDesc1" : "\(aD1)", "numberOfViews" : 0, "imageURL" : "\(imageURL)"] as [String : Any]
                 
                 let arcanaRef = ["\(id)" : arcanaOneSkill]
                 
@@ -1205,7 +1205,7 @@ class ArcanaDatabase: UIViewController {
                     abilityRef.setValue(true)
                 }
             }
-            if let k = self.dict["kizunaAbility"] {
+            if let k = self.dict["kizunaDesc"] {
                 if k.contains("서브") && !k.contains("마나를") {
                     let kizunaRef = FIREBASE_REF.child("subKizuna/\(id)")
                     kizunaRef.setValue(true)
