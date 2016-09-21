@@ -27,6 +27,7 @@
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
 		046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046FDD411D73AD83001E955B /* GoogleService-Info.plist */; };
 		047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */; };
+		04885B881D926EB800A69992 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04885B871D926EA800A69992 /* FontAwesome.otf */; };
 		048B31261D7642CA0011477D /* AbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31251D7642CA0011477D /* AbilityList.swift */; };
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E501D72602400687513 /* ArcanaDetailOld.swift */; };
@@ -121,6 +122,7 @@
 		046FDD411D73AD83001E955B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04734C511D837A2C00FA1CDE /* HomeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeContainerView.swift; sourceTree = "<group>"; };
 		047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHeader.swift; sourceTree = "<group>"; };
+		04885B871D926EA800A69992 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		048B31251D7642CA0011477D /* AbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityList.swift; sourceTree = "<group>"; };
 		048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillAbilityDescCell.swift; sourceTree = "<group>"; };
 		048E6E501D72602400687513 /* ArcanaDetailOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailOld.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 		775C9A4348BE0849F66B6F00 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04885B871D926EA800A69992 /* FontAwesome.otf */,
 				041B691C1D8A4933008B5771 /* Kanna.framework */,
 				B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */,
 				4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */,
@@ -515,6 +518,7 @@
 			files = (
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04A3B1781D8E7B9000BBF297 /* Tavern.storyboard in Resources */,
+				04885B881D926EB800A69992 /* FontAwesome.otf in Resources */,
 				04941A3B1D6F81F000BAE389 /* Features.rtf in Resources */,
 				042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */,
 				0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */,

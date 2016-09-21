@@ -12,24 +12,25 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import FBSDKShareKit
 
-class LoginHome: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
-    
-    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if (error == nil) {
+class LoginHome: UIViewController, GIDSignInUIDelegate, UITextFieldDelegate, GIDSignInDelegate {
+
+    @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon! {
+        didSet {
             
-            // Perform any operations on signed in user here.
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-        } else {
-            print("\(error.localizedDescription)")
+            email.iconFont = UIFont(name: "FontAwesome", size: 15)
+            email.iconText = "\u{f0e0}"
+            email.iconColor = lightGrayColor
+
         }
     }
-
-
+    @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon! {
+        didSet {
+            password.iconFont = UIFont(name: "FontAwesome", size: 15)
+            password.iconText = "\u{f023}"
+            password.iconColor = lightGrayColor
+            password.isSecureTextEntry = true
+        }
+    }
     @IBAction func googleLogin(_ sender: AnyObject) {
         // Initialize sign-in
         var configureError: NSError?
@@ -62,12 +63,27 @@ class LoginHome: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         }
     }
     
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if (error == nil) {
+            
+            // Perform any operations on signed in user here.
+//            let userId = user.userID                  // For client-side use only!
+//            let idToken = user.authentication.idToken // Safe to send to the server
+//            let fullName = user.profile.name
+//            let givenName = user.profile.givenName
+//            let familyName = user.profile.familyName
+//            let email = user.profile.email
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
     
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user: GIDGoogleUser!, withError error: NSError!) {
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         //Perform if user gets disconnected
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         // Do any additional setup after loading the view.
@@ -77,16 +93,33 @@ class LoginHome: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+}
+
+extension UIImage {
+    func maskWithColor(color: UIColor) -> UIImage? {
+        
+        let maskImage = self.cgImage
+        let width = self.size.width
+        let height = self.size.height
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let bitmapContext = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) //needs rawValue of bitmapInfo
+        
+        bitmapContext!.clip(to: bounds, mask: maskImage!)
+        bitmapContext!.setFillColor(color.cgColor)
+        bitmapContext!.fill(bounds)
+        
+        //is it nil?
+        if let cImage = bitmapContext!.makeImage() {
+            let coloredImage = UIImage(cgImage: cImage)
+            return coloredImage
+            
+        } else {
+            return nil
+        } 
     }
-    */
-
 }

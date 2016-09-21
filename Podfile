@@ -4,6 +4,8 @@
 target 'Chain' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+
+  # pod 'FontAwesome.swift', :git => 'https://github.com/thii/FontAwesome.swift', :commit => 'fd641b95728e566e5b4f2d37ed94486162ea5a65'
   pod 'Bolts'
   pod 'FBSDKCoreKit'
   pod 'FBSDKShareKit'

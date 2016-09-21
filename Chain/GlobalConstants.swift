@@ -9,20 +9,11 @@
 import UIKit
 import Firebase
 import AlamofireImage
-//import Polyglot
 
 let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
 
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
-
-//let example = "https://xn--eckfza0gxcvmna6c.gamerch.com/年代記の剣士リヴェラ"
-//let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-//let arcanaURL = "強欲な花タチアナ"
-//
-//let encodedString = arcanaURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-//
-//let encodedURL = NSURL(string: "\(baseURL)\(encodedString!)")
 
 let SCREENWIDTH = UIScreen.main.bounds.width
 let SCREENHEIGHT = UIScreen.main.bounds.height
@@ -59,3 +50,13 @@ let textGrayColor = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
 
 //let TRANSLATOR = Polyglot(clientId: "ChainChronicle1126", clientSecret: "hCRxD8K8n4SkJ+m/yQtV1cFxm/JG4JfjzMFptQSBwWE=")
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
