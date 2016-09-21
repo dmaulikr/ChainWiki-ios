@@ -14,17 +14,28 @@ import FBSDKShareKit
 
 class LoginHome: UIViewController, GIDSignInUIDelegate, UITextFieldDelegate, GIDSignInDelegate {
 
+    @IBOutlet var containerViews: [UIView]! {
+        didSet {
+            for cv in containerViews {
+                cv.layer.borderWidth = 5
+                cv.layer.borderColor = UIColor.clear.cgColor
+                cv.layer.cornerRadius = 5
+            }
+        }
+    }
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon! {
         didSet {
-            
+            email.clearButtonMode = .whileEditing
+            email.tintColor = darkSalmonColor
             email.iconFont = UIFont(name: "FontAwesome", size: 15)
             email.iconText = "\u{f0e0}"
             email.iconColor = lightGrayColor
-
         }
     }
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon! {
         didSet {
+            password.clearButtonMode = .whileEditing
+            password.tintColor = darkSalmonColor
             password.iconFont = UIFont(name: "FontAwesome", size: 15)
             password.iconText = "\u{f023}"
             password.iconColor = lightGrayColor

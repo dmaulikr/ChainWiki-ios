@@ -223,116 +223,137 @@
                                     <action selector="googleLogin:" destination="owE-FD-asH" eventType="valueChanged" id="LLd-kn-mbp"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-WX-S8o" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="erA-bB-Ubc" userLabel="PWView">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwU-ZB-0tS" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="YKb-Yw-q1y"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="lFW-SE-GRq"/>
+                                    <constraint firstItem="dwU-ZB-0tS" firstAttribute="centerY" secondItem="erA-bB-Ubc" secondAttribute="centerY" id="8qi-o4-EQm"/>
+                                    <constraint firstItem="dwU-ZB-0tS" firstAttribute="centerX" secondItem="erA-bB-Ubc" secondAttribute="centerX" id="Gry-Lb-Sz2"/>
+                                    <constraint firstItem="dwU-ZB-0tS" firstAttribute="leading" secondItem="erA-bB-Ubc" secondAttribute="leading" constant="10" id="VYK-zW-bQr"/>
+                                    <constraint firstAttribute="trailing" secondItem="dwU-ZB-0tS" secondAttribute="trailing" constant="10" id="W67-46-spD"/>
+                                    <constraint firstAttribute="height" constant="60" id="wNW-5p-fim"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="이메일"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwU-ZB-0tS" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lb-KC-oB2" userLabel="EmailView">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-WX-S8o" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="lFW-SE-GRq"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="이메일"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="YKb-Yw-q1y"/>
+                                    <constraint firstItem="Bu3-WX-S8o" firstAttribute="centerY" secondItem="8Lb-KC-oB2" secondAttribute="centerY" id="4c4-vc-WMI"/>
+                                    <constraint firstAttribute="height" constant="60" id="FKV-97-iaf"/>
+                                    <constraint firstItem="Bu3-WX-S8o" firstAttribute="centerX" secondItem="8Lb-KC-oB2" secondAttribute="centerX" id="JBZ-9Q-Xot"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bu3-WX-S8o" secondAttribute="trailing" constant="10" id="XQa-XY-wCr"/>
+                                    <constraint firstItem="Bu3-WX-S8o" firstAttribute="leading" secondItem="8Lb-KC-oB2" secondAttribute="leading" constant="10" id="kyY-aw-y5n"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NtZ-RD-Oha">
-                                <frame key="frameInset" height="128" maxX="135" maxY="475"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="gxW-wO-RdH" kind="embed" id="IaH-oB-agO"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="gVx-7c-GTm" secondAttribute="trailing" constant="10" id="231-tV-BbS"/>
                             <constraint firstAttribute="trailing" secondItem="Yj4-Vl-Ulv" secondAttribute="trailing" constant="10" id="41i-sP-VeD"/>
+                            <constraint firstAttribute="trailing" secondItem="8Lb-KC-oB2" secondAttribute="trailing" constant="20" id="5AT-cO-Y2u"/>
+                            <constraint firstItem="8Lb-KC-oB2" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="6Ee-WF-d9w"/>
                             <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="10" id="7IP-Yh-eq5"/>
-                            <constraint firstAttribute="trailing" secondItem="dwU-ZB-0tS" secondAttribute="trailing" constant="20" id="EeX-xU-cQ7"/>
-                            <constraint firstItem="Bu3-WX-S8o" firstAttribute="top" secondItem="0lQ-sV-l81" secondAttribute="bottom" constant="90" id="F4Z-X5-SUZ"/>
+                            <constraint firstItem="8Lb-KC-oB2" firstAttribute="top" secondItem="0lQ-sV-l81" secondAttribute="bottom" constant="90" id="Iie-Ph-ZKw"/>
+                            <constraint firstAttribute="trailing" secondItem="erA-bB-Ubc" secondAttribute="trailing" constant="20" id="KwY-Ft-yC2"/>
+                            <constraint firstItem="erA-bB-Ubc" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="N3d-lF-tuo"/>
+                            <constraint firstItem="erA-bB-Ubc" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="Nmk-Y4-E5R"/>
                             <constraint firstItem="xF7-j3-TJw" firstAttribute="top" secondItem="Yj4-Vl-Ulv" secondAttribute="bottom" constant="100" id="QO8-xI-5rz"/>
+                            <constraint firstItem="erA-bB-Ubc" firstAttribute="top" secondItem="8Lb-KC-oB2" secondAttribute="bottom" constant="40" id="SlO-5U-zla"/>
                             <constraint firstItem="gVx-7c-GTm" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="Wif-dd-avz"/>
+                            <constraint firstItem="8Lb-KC-oB2" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="Ybe-WM-Te9"/>
                             <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="a0a-VB-1kP"/>
-                            <constraint firstItem="dwU-ZB-0tS" firstAttribute="top" secondItem="Bu3-WX-S8o" secondAttribute="bottom" constant="20" id="c0P-nA-yzp"/>
                             <constraint firstItem="gVx-7c-GTm" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="10" id="cbI-WV-8Vd"/>
-                            <constraint firstAttribute="trailing" secondItem="Bu3-WX-S8o" secondAttribute="trailing" constant="20" id="iwx-2S-Jc8"/>
-                            <constraint firstItem="Bu3-WX-S8o" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="oQg-0m-7P1"/>
                             <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="top" secondItem="gVx-7c-GTm" secondAttribute="bottom" constant="20" id="oU7-Xo-bts"/>
-                            <constraint firstItem="dwU-ZB-0tS" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="x9U-0o-06c"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JOL-cS-Gjw"/>
                     <connections>
                         <outlet property="email" destination="Bu3-WX-S8o" id="qvV-QW-PEu"/>
                         <outlet property="password" destination="dwU-ZB-0tS" id="hpz-E6-bIA"/>
+                        <outletCollection property="containerViews" destination="8Lb-KC-oB2" collectionClass="NSMutableArray" id="5sS-r9-hWF"/>
+                        <outletCollection property="containerViews" destination="erA-bB-Ubc" collectionClass="NSMutableArray" id="EvR-AF-I8E"/>
                         <segue destination="Sfy-DY-SVz" kind="show" id="wu1-UL-b09"/>
                     </connections>
                 </viewController>
@@ -357,19 +378,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U7q-UF-mIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="101.59999999999999" y="169.56521739130437"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Q7e-3E-5yU">
-            <objects>
-                <viewController id="gxW-wO-RdH" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="is6-Pt-9Nf">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8nC-MZ-5XI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
 </document>
