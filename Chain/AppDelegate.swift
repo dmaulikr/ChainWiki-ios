@@ -22,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         FIRApp.configure()
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         //FIRDatabase.database().persistenceEnabled = true
         
         let scoresRef = FIRDatabase.database().reference()
@@ -39,15 +44,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //buildNavigationDrawer()
         
         
-//        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
-//        
-//        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("AbilityNav")
-//        
-//        self.window?.rootViewController = initialViewController
-//        self.window?.makeKeyAndVisible()
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
         return true
     }
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(
+            url,
+            sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+            annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -136,18 +148,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-//    func database() {
-//        // Load Arcana Database
-//        let frame = UIScreen.main.bounds
-//        window = UIWindow(frame: frame)
-//        
-//        let itemsViewControler: UIViewController = ArcanaDatabase()
-//        if let window = self.window{
-//            window.rootViewController = itemsViewControler
-//            window.makeKeyAndVisible()
-//        }
-//        
-//    }
-
 }
+
+
 

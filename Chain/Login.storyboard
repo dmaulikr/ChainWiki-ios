@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TzR-MG-d7b">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login Home-->
         <scene sceneID="N6r-nn-ZzJ">
             <objects>
-                <viewController id="Sfy-DY-SVz" sceneMemberID="viewController">
+                <viewController id="Sfy-DY-SVz" customClass="LoginHome" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LDG-fL-TKw"/>
                         <viewControllerLayoutGuide type="bottom" id="Duz-aX-kXW"/>
@@ -17,12 +17,251 @@
                     <view key="view" contentMode="scaleToFill" id="lGs-sG-I37">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="xXG-f9-YJF"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="이메일"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dwA-V5-V2Y"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="6자 이상"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="xte-MO-KcM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="6자 이상"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호 확인"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hgm-Mx-EA3"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="아르카나 수정시 공개"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedIconColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="나중에 변경 가능"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="36t-3j-f8C"/>
+                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="3RG-D7-F6z"/>
+                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="top" secondItem="LDG-fL-TKw" secondAttribute="bottom" constant="90" id="6qt-ST-fHS"/>
+                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="B8m-za-Puo"/>
+                            <constraint firstItem="2yA-ng-bIe" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="CJ3-OP-Icm"/>
+                            <constraint firstAttribute="trailing" secondItem="2yA-ng-bIe" secondAttribute="trailing" constant="50" id="NIO-4c-pyq"/>
+                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="QGx-eY-OmD"/>
+                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="WrP-U8-pFP"/>
+                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="XXl-7P-EYE"/>
+                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="top" secondItem="Kyn-lM-c0F" secondAttribute="bottom" constant="20" id="aF1-4T-C7O"/>
+                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="top" secondItem="2yA-ng-bIe" secondAttribute="bottom" constant="20" id="goA-Lm-B2n"/>
+                            <constraint firstItem="2yA-ng-bIe" firstAttribute="top" secondItem="0v7-c8-Tzr" secondAttribute="bottom" constant="20" id="jME-j9-DXC"/>
+                            <constraint firstAttribute="trailing" secondItem="0v7-c8-Tzr" secondAttribute="trailing" constant="50" id="m1H-gQ-cNf"/>
+                            <constraint firstItem="2yA-ng-bIe" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="t1p-oe-Qlh"/>
+                            <constraint firstAttribute="trailing" secondItem="Kyn-lM-c0F" secondAttribute="trailing" constant="50" id="umk-6O-Ecy"/>
+                            <constraint firstAttribute="trailing" secondItem="Wia-oD-Pcz" secondAttribute="trailing" constant="50" id="uv4-Ug-cxt"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="oGb-J9-7fv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knB-3e-OHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="103" y="170"/>
+            <point key="canvasLocation" x="2202" y="170"/>
+        </scene>
+        <!--Login Home-->
+        <scene sceneID="Ai7-3r-h7n">
+            <objects>
+                <viewController id="owE-FD-asH" customClass="LoginHome" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0lQ-sV-l81"/>
+                        <viewControllerLayoutGuide type="bottom" id="xF7-j3-TJw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hyH-ns-g0s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yj4-Vl-Ulv" userLabel="Facebook Login" customClass="FBSDKLoginButton">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="K3H-yX-H2y"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVx-7c-GTm" userLabel="Google Login" customClass="GIDSignInButton">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3cu-Ey-rfW"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="googleLogin:" destination="owE-FD-asH" eventType="valueChanged" id="LLd-kn-mbp"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gVx-7c-GTm" secondAttribute="trailing" constant="10" id="231-tV-BbS"/>
+                            <constraint firstAttribute="trailing" secondItem="Yj4-Vl-Ulv" secondAttribute="trailing" constant="10" id="41i-sP-VeD"/>
+                            <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="10" id="7IP-Yh-eq5"/>
+                            <constraint firstItem="xF7-j3-TJw" firstAttribute="top" secondItem="Yj4-Vl-Ulv" secondAttribute="bottom" constant="100" id="QO8-xI-5rz"/>
+                            <constraint firstItem="gVx-7c-GTm" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="Wif-dd-avz"/>
+                            <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="a0a-VB-1kP"/>
+                            <constraint firstItem="gVx-7c-GTm" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="10" id="cbI-WV-8Vd"/>
+                            <constraint firstItem="Yj4-Vl-Ulv" firstAttribute="top" secondItem="gVx-7c-GTm" secondAttribute="bottom" constant="20" id="oU7-Xo-bts"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="JOL-cS-Gjw"/>
+                    <connections>
+                        <segue destination="Sfy-DY-SVz" kind="show" id="wu1-UL-b09"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IMD-kT-hpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1178" y="170"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Xg-Qw-COC">
+            <objects>
+                <navigationController storyboardIdentifier="LoginNav" automaticallyAdjustsScrollViewInsets="NO" id="TzR-MG-d7b" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SSN-Gy-Jc4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="owE-FD-asH" kind="relationship" relationship="rootViewController" id="T3I-EN-4D8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U7q-UF-mIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.59999999999999" y="169.56521739130437"/>
         </scene>
     </scenes>
 </document>

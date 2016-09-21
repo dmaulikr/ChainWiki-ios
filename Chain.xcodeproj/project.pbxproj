@@ -16,6 +16,7 @@
 		042570741D7EB4A4002F5AD0 /* arcanaData.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570731D7EB4A4002F5AD0 /* arcanaData.txt */; };
 		042570761D7EB4CF002F5AD0 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042570751D7EB4CF002F5AD0 /* test.txt */; };
 		042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */; };
+		042835021D91EE250043BE6E /* LoginHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042835011D91EE250043BE6E /* LoginHome.swift */; };
 		042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DB3E81D8155970049AC0D /* MySupplementaryView.swift */; };
 		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
 		0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* ManaAbility.swift */; };
@@ -108,6 +109,7 @@
 		042570751D7EB4CF002F5AD0 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		042834F81D91AF680043BE6E /* Chain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chain.entitlements; sourceTree = "<group>"; };
 		042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStory.swift; sourceTree = "<group>"; };
+		042835011D91EE250043BE6E /* LoginHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHome.swift; sourceTree = "<group>"; };
 		042DB3E81D8155970049AC0D /* MySupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySupplementaryView.swift; sourceTree = "<group>"; };
 		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
 		0447E1D51D87D05200670834 /* ManaAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbility.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				04DD91131D8669B50023CDA4 /* Login.storyboard */,
+				042835011D91EE250043BE6E /* LoginHome.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				04941A3A1D6F81F000BAE389 /* Features.rtf */,
 				04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */,
 				046FDD411D73AD83001E955B /* GoogleService-Info.plist */,
+				0404DD9F1D8292D000FF390F /* Chain-Bridging-Header.h */,
 				0401B2891D75390E00A0A728 /* Old ArcanaDetail */,
 			);
 			path = Chain;
@@ -311,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
-				0404DD9F1D8292D000FF390F /* Chain-Bridging-Header.h */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				042835021D91EE250043BE6E /* LoginHome.swift in Sources */,
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
 				04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */,
 				04AA13CE1D73D47E004AC3A7 /* ArcanaDatabase.swift in Sources */,
