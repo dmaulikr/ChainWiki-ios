@@ -59,6 +59,10 @@
 		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F21D9377CA005731B9 /* LoginHome.swift */; };
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
+		04EDE6F71D93805D005731B9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F61D93805D005731B9 /* Settings.swift */; };
+		04EDE6FA1D938075005731B9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04EDE6F91D938075005731B9 /* Settings.storyboard */; };
+		04EDE6FC1D9386DC005731B9 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FB1D9386DC005731B9 /* MyTextField.swift */; };
+		04EDE6FE1D938BE5005731B9 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FD1D938BE5005731B9 /* SettingsCell.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
 		C5E22DEC04C0CDB19F2CCB51 /* Pods_Chain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */; };
@@ -166,6 +170,10 @@
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04EDE6F21D9377CA005731B9 /* LoginHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHome.swift; sourceTree = "<group>"; };
 		04EDE6F41D937AF2005731B9 /* CreateEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEmail.swift; sourceTree = "<group>"; };
+		04EDE6F61D93805D005731B9 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		04EDE6F91D938075005731B9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		04EDE6FB1D9386DC005731B9 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
+		04EDE6FD1D938BE5005731B9 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
+				04EDE6FB1D9386DC005731B9 /* MyTextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -347,6 +356,7 @@
 				04A3B1761D8E7B7500BBF297 /* Tavern */,
 				0447E1D71D87D09500670834 /* Abilities */,
 				042834FC1D91EA1E0043BE6E /* Login */,
+				04EDE6F81D938064005731B9 /* Settings */,
 				0401B2851D7530A000A0A728 /* MyCollectionViewHeader.swift */,
 				046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */,
 				0401B4021D79E99A00AF1BF1 /* MyNavigationController.swift */,
@@ -372,6 +382,16 @@
 				047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */,
 			);
 			name = Tavern;
+			sourceTree = "<group>";
+		};
+		04EDE6F81D938064005731B9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				04EDE6F91D938075005731B9 /* Settings.storyboard */,
+				04EDE6F61D93805D005731B9 /* Settings.swift */,
+				04EDE6FD1D938BE5005731B9 /* SettingsCell.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		775C9A4348BE0849F66B6F00 /* Frameworks */ = {
@@ -533,6 +553,7 @@
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
 				042570761D7EB4CF002F5AD0 /* test.txt in Resources */,
 				046FDD421D73AD83001E955B /* GoogleService-Info.plist in Resources */,
+				04EDE6FA1D938075005731B9 /* Settings.storyboard in Resources */,
 				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,6 +724,7 @@
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
 				04E00C871D7EB1B600BB771F /* ArcanaDictionary.swift in Sources */,
+				04EDE6FE1D938BE5005731B9 /* SettingsCell.swift in Sources */,
 				04AA13CE1D73D47E004AC3A7 /* ArcanaDatabase.swift in Sources */,
 				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
@@ -711,6 +733,7 @@
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */,
 				04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */,
+				04EDE6F71D93805D005731B9 /* Settings.swift in Sources */,
 				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
@@ -730,6 +753,7 @@
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,
+				04EDE6FC1D9386DC005731B9 /* MyTextField.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,
 				0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */,
 				046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */,

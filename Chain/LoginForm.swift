@@ -138,7 +138,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 
             let storyBoard : UIStoryboard = UIStoryboard(name: "Login", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "createEmail") as! CreateEmail
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "CreateEmail") as! CreateEmail
             self.present(nextViewController, animated:true, completion:nil)
             
         }

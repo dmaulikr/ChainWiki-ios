@@ -95,7 +95,7 @@
                     <tabBarItem key="tabBarItem" title="주점" image="tavern" id="1CI-0S-RZ9"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VSn-eN-1jt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
