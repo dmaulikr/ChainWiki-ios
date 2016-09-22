@@ -187,7 +187,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
         case "마나의 소양":
             c.value.isHidden = true
-            getMana(aD1, aD2: aD2, k: k, g: g)
+//            getMana(aD1, aD2: aD2, k: k, g: g)
             c.mana1.mana = manaArray[0]
             if manaArray.count > 1 {
                 c.mana2.mana = manaArray[1]
