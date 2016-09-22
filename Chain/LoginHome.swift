@@ -11,6 +11,15 @@ import FirebaseAuth
 
 class LoginHome: UIViewController {
 
+    @IBOutlet weak var accountIntro: UnderlinedLabel!
+    @IBOutlet weak var accountDesc: UILabel!
+    @IBOutlet weak var containerView: UIView! {
+        didSet {
+            containerView.layer.cornerRadius = 5
+            containerView.layer.borderWidth = 5
+            containerView.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
     @IBAction func guestLogin(_ sender: AnyObject) {
         
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
@@ -33,9 +42,23 @@ class LoginHome: UIViewController {
         }
     }
     
+    func setupViews() {
+        let text = "계정을 만들면 아르카나 정보 수정 권한이 주어지고\n여러 기기를 사용할 경우 데이터가 유지됩니다."
+        let highlightText = "아르카나 정보 수정 권한"
+        let range = (text as NSString).range(of: highlightText)
+        
+        let attributedString = NSMutableAttributedString(string:text)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: darkSalmonColor , range: range)
+        
+        self.accountDesc.attributedText = attributedString
+        
+        accountIntro.text = "사용자 계정에 대해"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupViews()
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }
 

@@ -10,8 +10,10 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseAuth
 
-class CreateEmail: UIViewController {
+class CreateEmail: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
+    
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var passwordConfirm: SkyFloatingLabelTextFieldWithIcon!
@@ -39,9 +41,25 @@ class CreateEmail: UIViewController {
         
     }
     
+    func setupViews() {
+        
+        for textField in floatingTextFields {
+            
+            textField.clearButtonMode = .whileEditing
+            textField.tintColor = lightGreenColor
+            textField.selectedIconColor = lightGreenColor
+            textField.selectedLineColor = lightGreenColor
+            textField.selectedTitleColor = lightGreenColor
+            textField.iconFont = UIFont(name: "FontAwesome", size: 15)
+            textField.iconColor = lightGrayColor
+            textField.errorColor = darkSalmonColor
+            textField.delegate = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupViews()
         // Do any additional setup after loading the view.
     }
 

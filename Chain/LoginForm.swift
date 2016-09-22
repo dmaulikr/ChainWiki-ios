@@ -16,14 +16,8 @@ import FirebaseAuth
 
 class LoginForm: UIViewController,  UITextFieldDelegate {
 
-    @IBOutlet weak var loginButton: UIButton! {
-        didSet {
-            loginButton.backgroundColor = lightGreenColor
-            loginButton.setTitleColor(UIColor.white, for: .normal)
-            loginButton.setTitleColor(lightGreenColor, for: .selected)
-            
-        }
-    }
+    @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
+
     @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
     @IBOutlet var containerViews: [UIView]! {
         didSet {
@@ -36,31 +30,15 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     }
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon! {
         didSet {
-            email.clearButtonMode = .whileEditing
-            email.tintColor = lightGreenColor
-            email.selectedIconColor = lightGreenColor
-            email.selectedLineColor = lightGreenColor
-            email.selectedTitleColor = lightGreenColor
-            email.iconFont = UIFont(name: "FontAwesome", size: 15)
             email.iconText = "\u{f0e0}"
-            email.iconColor = lightGrayColor
-            email.errorColor = darkSalmonColor
-            
-            email.delegate = self
+
         }
     }
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon! {
         didSet {
-            password.clearButtonMode = .whileEditing
-            password.tintColor = lightGreenColor
-            password.selectedIconColor = lightGreenColor
-            password.selectedLineColor = lightGreenColor
-            password.selectedTitleColor = lightGreenColor
-            password.iconFont = UIFont(name: "FontAwesome", size: 15)
             password.iconText = "\u{f023}"
-            password.iconColor = lightGrayColor
             password.isSecureTextEntry = true
-            password.delegate = self
+
         }
     }
     
@@ -96,11 +74,25 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         self.performSegue(withIdentifier: "createEmail", sender: self)
     }
     
+    func setupViews() {
+        for textField in floatingTextFields {
+            
+            textField.clearButtonMode = .whileEditing
+            textField.tintColor = lightGreenColor
+            textField.selectedIconColor = lightGreenColor
+            textField.selectedLineColor = lightGreenColor
+            textField.selectedTitleColor = lightGreenColor
+            textField.iconFont = UIFont(name: "FontAwesome", size: 15)
+            textField.iconColor = lightGrayColor
+            textField.errorColor = darkSalmonColor
+            textField.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        
+        setupViews()
         // Do any additional setup after loading the view.
     }
 
@@ -132,17 +124,6 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         self.view.window?.makeKeyAndVisible()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if (segue.identifier == "createEmail") {
-
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Login", bundle:nil)
-            
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "CreateEmail") as! CreateEmail
-            self.present(nextViewController, animated:true, completion:nil)
-            
-        }
-    }
 }
 
 extension UIImage {

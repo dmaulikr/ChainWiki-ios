@@ -143,15 +143,23 @@
                                     <action selector="createEmail:" destination="Sfy-DY-SVz" eventType="touchUpInside" id="hMx-To-KRF"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="flS-di-HAd">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Kt0-qS-cFE"/>
+                                    <constraint firstAttribute="width" constant="25" id="blF-aP-eHe"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="flS-di-HAd" firstAttribute="centerY" secondItem="lGs-sG-I37" secondAttribute="centerY" id="1qb-zJ-KXB"/>
                             <constraint firstItem="Kyn-lM-c0F" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="36t-3j-f8C"/>
                             <constraint firstItem="0v7-c8-Tzr" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="3RG-D7-F6z"/>
                             <constraint firstItem="0v7-c8-Tzr" firstAttribute="top" secondItem="LDG-fL-TKw" secondAttribute="bottom" constant="90" id="6qt-ST-fHS"/>
                             <constraint firstItem="Wia-oD-Pcz" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="B8m-za-Puo"/>
                             <constraint firstItem="2yA-ng-bIe" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="CJ3-OP-Icm"/>
                             <constraint firstItem="1zh-dH-lCX" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="FwN-TU-9vI"/>
+                            <constraint firstItem="flS-di-HAd" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="GaL-mV-shO"/>
                             <constraint firstAttribute="trailing" secondItem="2yA-ng-bIe" secondAttribute="trailing" constant="50" id="NIO-4c-pyq"/>
                             <constraint firstItem="Wia-oD-Pcz" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="QGx-eY-OmD"/>
                             <constraint firstItem="1zh-dH-lCX" firstAttribute="top" secondItem="Wia-oD-Pcz" secondAttribute="bottom" constant="50" id="QcY-vw-2QE"/>
@@ -173,6 +181,10 @@
                         <outlet property="nickname" destination="Wia-oD-Pcz" id="Iwf-ui-Q98"/>
                         <outlet property="password" destination="2yA-ng-bIe" id="gzO-0d-m9G"/>
                         <outlet property="passwordConfirm" destination="Kyn-lM-c0F" id="Y0B-7z-5HX"/>
+                        <outletCollection property="floatingTextFields" destination="0v7-c8-Tzr" collectionClass="NSMutableArray" id="2fh-f7-DJ1"/>
+                        <outletCollection property="floatingTextFields" destination="2yA-ng-bIe" collectionClass="NSMutableArray" id="kmH-Oe-PPk"/>
+                        <outletCollection property="floatingTextFields" destination="Kyn-lM-c0F" collectionClass="NSMutableArray" id="Wtj-3y-Xo3"/>
+                        <outletCollection property="floatingTextFields" destination="Wia-oD-Pcz" collectionClass="NSMutableArray" id="86t-Ge-xgN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knB-3e-OHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -268,8 +280,14 @@
                                     <constraint firstAttribute="bottom" secondItem="dwU-ZB-0tS" secondAttribute="bottom" constant="10" id="u3s-8x-jgP"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3UA-mn-QLI">
-                                <state key="normal" title="로그인"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3UA-mn-QLI" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bwA-SV-2Fy"/>
+                                </constraints>
+                                <state key="normal" title="로그인">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="emailLogin:" destination="owE-FD-asH" eventType="touchUpInside" id="Dyh-HS-ChV"/>
                                 </connections>
@@ -284,8 +302,14 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-EG-kTa">
-                                <state key="normal" title="이메일 계정 생성하기"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-EG-kTa" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="l49-b1-hzq"/>
+                                </constraints>
+                                <state key="normal" title="이메일 계정 생성하기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="createEmail:" destination="owE-FD-asH" eventType="touchUpInside" id="YW8-rD-Sch"/>
                                 </connections>
@@ -322,10 +346,11 @@
                     <navigationItem key="navigationItem" id="JOL-cS-Gjw"/>
                     <connections>
                         <outlet property="email" destination="Bu3-WX-S8o" id="qvV-QW-PEu"/>
-                        <outlet property="loginButton" destination="3UA-mn-QLI" id="10e-Hi-aAY"/>
                         <outlet property="loginSpinner" destination="7xc-Ul-SOT" id="igk-HA-0RR"/>
                         <outlet property="password" destination="dwU-ZB-0tS" id="hpz-E6-bIA"/>
                         <outletCollection property="containerViews" destination="8Lb-KC-oB2" collectionClass="NSMutableArray" id="5sS-r9-hWF"/>
+                        <outletCollection property="floatingTextFields" destination="Bu3-WX-S8o" collectionClass="NSMutableArray" id="ye2-Xt-KlK"/>
+                        <outletCollection property="floatingTextFields" destination="dwU-ZB-0tS" collectionClass="NSMutableArray" id="jdN-47-VTR"/>
                         <segue destination="Sfy-DY-SVz" kind="show" identifier="createEmail" id="wu1-UL-b09"/>
                     </connections>
                 </viewController>
@@ -345,97 +370,107 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yw-vR-blL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yw-vR-blL" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Wyt-NT-L24"/>
                                 </constraints>
-                                <state key="normal" title="게스트로 로그인하기"/>
+                                <state key="normal" title="게스트로 로그인하기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="guestLogin:" destination="1if-Kd-DAk" eventType="touchUpInside" id="Cgg-Q2-Sef"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자 계정에 대해" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yD6-yV-mUH">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUM-0s-ba9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUM-0s-ba9" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nuB-cv-b04"/>
                                 </constraints>
-                                <state key="normal" title="계정 로그인하기"/>
+                                <state key="normal" title="계정 로그인하기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="owE-FD-asH" kind="show" id="DtN-w0-w9u"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정은 무엇에 쓰이나?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-Rf-ITe">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZA-0g-z46">
-                                <string key="text">1. 계정을 만들면 아르카나 정보 수정 권한이 주어진다!
-2. 여러 기기를 사용할 경우 데이터가 유지된다.</string>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게스트 로그인을 해도:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWU-49-6to">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur6-un-kHI" userLabel="아르카나 검색.">
-                                <string key="text">아르카나 검색 기록, 즐겨찾기 등
-맞춤화 기능을 쓸 수 있습니다.
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-Wx-o1n">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게스트 로그인을 해도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWU-49-6to">
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur6-un-kHI" userLabel="아르카나 검색.">
+                                        <string key="text">아르카나 검색 기록, 즐겨찾기 등 맞춤화 기능을 쓸 수 있고,
 나중에 계정 생성해도 정보를 이전할 수 있습니다.</string>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-Wx-o1n">
-                                <frame key="frameInset" minX="36" minY="84" width="303" height="563"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자 계정에 대해" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yD6-yV-mUH" customClass="UnderlinedLabel" customModule="Chain" customModuleProvider="target">
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정은 무엇에 쓰이나?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-Rf-ITe">
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZA-0g-z46">
+                                        <string key="text">계정을 만들면 아르카나 정보 수정 권한이 주어지고
+여러 기기를 사용할 경우 데이터가 유지됩니다.</string>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UWU-49-6to" secondAttribute="trailing" constant="10" id="201-sy-bJR"/>
+                                    <constraint firstItem="UWU-49-6to" firstAttribute="top" secondItem="7ZA-0g-z46" secondAttribute="bottom" constant="30" id="6nn-b8-71J"/>
+                                    <constraint firstAttribute="trailing" secondItem="jiq-Rf-ITe" secondAttribute="trailing" constant="10" id="7PS-Om-fNY"/>
+                                    <constraint firstAttribute="trailing" secondItem="yD6-yV-mUH" secondAttribute="trailing" constant="10" id="7d5-TD-sUN"/>
+                                    <constraint firstAttribute="trailing" secondItem="ur6-un-kHI" secondAttribute="trailing" constant="10" id="84k-cb-R94"/>
+                                    <constraint firstAttribute="trailing" secondItem="7ZA-0g-z46" secondAttribute="trailing" constant="10" id="8GC-Bw-bBs"/>
+                                    <constraint firstItem="ur6-un-kHI" firstAttribute="top" secondItem="UWU-49-6to" secondAttribute="bottom" constant="5" id="8gG-z0-ra1"/>
+                                    <constraint firstAttribute="height" constant="236" id="CYC-ko-7W2"/>
+                                    <constraint firstItem="jiq-Rf-ITe" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" id="MdP-Tu-j2D"/>
+                                    <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" id="WkJ-U1-EzP"/>
+                                    <constraint firstItem="ur6-un-kHI" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="X6B-uh-7Db"/>
+                                    <constraint firstItem="yD6-yV-mUH" firstAttribute="top" secondItem="1PF-Wx-o1n" secondAttribute="top" constant="10" id="X9f-Qy-MrF"/>
+                                    <constraint firstItem="jiq-Rf-ITe" firstAttribute="top" secondItem="yD6-yV-mUH" secondAttribute="bottom" constant="20" id="czx-we-cnz"/>
+                                    <constraint firstItem="7ZA-0g-z46" firstAttribute="top" secondItem="jiq-Rf-ITe" secondAttribute="bottom" constant="5" id="eCy-M4-M2I"/>
+                                    <constraint firstItem="7ZA-0g-z46" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="fb7-Tp-snh"/>
+                                    <constraint firstItem="yD6-yV-mUH" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="iXb-6c-vDn"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1PF-Wx-o1n" firstAttribute="top" secondItem="QiS-z4-cxK" secondAttribute="bottom" constant="20" id="0Zh-a7-7OQ"/>
-                            <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="0pl-26-keJ"/>
-                            <constraint firstItem="yD6-yV-mUH" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="1JH-5U-Hkj"/>
-                            <constraint firstAttribute="trailing" secondItem="yD6-yV-mUH" secondAttribute="trailing" constant="20" id="2Jb-vV-jYW"/>
                             <constraint firstAttribute="trailing" secondItem="xUM-0s-ba9" secondAttribute="trailing" constant="20" id="6F1-4t-UU3"/>
-                            <constraint firstItem="7ZA-0g-z46" firstAttribute="top" secondItem="jiq-Rf-ITe" secondAttribute="bottom" constant="10" id="9a6-qt-o1X"/>
                             <constraint firstItem="xUM-0s-ba9" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="B2x-MG-bU4"/>
-                            <constraint firstItem="jiq-Rf-ITe" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="FRV-gc-JXW"/>
-                            <constraint firstItem="ur6-un-kHI" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="FTj-GM-AbK"/>
                             <constraint firstAttribute="trailing" secondItem="2Yw-vR-blL" secondAttribute="trailing" constant="20" id="GYA-U5-f7C"/>
-                            <constraint firstItem="7ZA-0g-z46" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="NOC-SX-Tja"/>
-                            <constraint firstItem="UWU-49-6to" firstAttribute="top" secondItem="7ZA-0g-z46" secondAttribute="bottom" constant="20" id="PFo-dX-5fc"/>
-                            <constraint firstAttribute="trailing" secondItem="ur6-un-kHI" secondAttribute="trailing" constant="20" id="Pby-LF-mtv"/>
-                            <constraint firstAttribute="trailing" secondItem="jiq-Rf-ITe" secondAttribute="trailing" constant="20" id="T6Y-tF-EFk"/>
-                            <constraint firstItem="yD6-yV-mUH" firstAttribute="top" secondItem="QiS-z4-cxK" secondAttribute="bottom" constant="50" id="b3r-Gp-ahy"/>
-                            <constraint firstAttribute="trailing" secondItem="UWU-49-6to" secondAttribute="trailing" constant="20" id="g0k-tE-Efe"/>
-                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leadingMargin" constant="20" id="gwK-3d-pd6"/>
-                            <constraint firstAttribute="trailing" secondItem="7ZA-0g-z46" secondAttribute="trailing" constant="20" id="h2l-JH-5yR"/>
-                            <constraint firstItem="jiq-Rf-ITe" firstAttribute="top" secondItem="yD6-yV-mUH" secondAttribute="bottom" constant="20" id="iUK-lE-ZC0"/>
-                            <constraint firstItem="ur6-un-kHI" firstAttribute="top" secondItem="UWU-49-6to" secondAttribute="bottom" constant="10" id="jEp-DJ-XaO"/>
-                            <constraint firstAttribute="trailing" secondItem="UWU-49-6to" secondAttribute="trailing" constant="20" id="k2N-ky-dl3"/>
+                            <constraint firstItem="xUM-0s-ba9" firstAttribute="top" secondItem="1PF-Wx-o1n" secondAttribute="bottom" constant="20" id="dhs-aT-KSh"/>
+                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leadingMargin" constant="10" id="gwK-3d-pd6"/>
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="top" secondItem="xUM-0s-ba9" secondAttribute="bottom" constant="20" id="lCe-1d-qWr"/>
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="qc3-Cb-N8K"/>
-                            <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="vZh-1e-ieg"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1PF-Wx-o1n" secondAttribute="trailing" constant="20" id="x9i-gl-ZVW"/>
-                            <constraint firstItem="xUM-0s-ba9" firstAttribute="top" secondItem="ur6-un-kHI" secondAttribute="bottom" constant="50" id="y3T-1o-oWv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1PF-Wx-o1n" secondAttribute="trailing" constant="10" id="x9i-gl-ZVW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bzC-al-h35"/>
                     <connections>
+                        <outlet property="accountDesc" destination="7ZA-0g-z46" id="uVr-Dm-9NW"/>
+                        <outlet property="accountIntro" destination="yD6-yV-mUH" id="uD4-JO-l8E"/>
+                        <outlet property="containerView" destination="1PF-Wx-o1n" id="S4D-T1-XOm"/>
                         <segue destination="owE-FD-asH" kind="show" identifier="toLoginForm" id="shn-TT-3ud"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2T-Ka-vSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="255" y="170"/>
+            <point key="canvasLocation" x="253.59999999999999" y="169.56521739130437"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Xg-Qw-COC">
@@ -457,6 +492,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="shn-TT-3ud"/>
+        <segue reference="DtN-w0-w9u"/>
     </inferredMetricsTieBreakers>
 </document>

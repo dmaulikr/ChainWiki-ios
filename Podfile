@@ -6,11 +6,11 @@ target 'Chain' do
   use_frameworks!
 
   # pod 'FontAwesome.swift', :git => 'https://github.com/thii/FontAwesome.swift', :commit => 'fd641b95728e566e5b4f2d37ed94486162ea5a65'
-  pod 'Bolts'
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
-  pod 'Google/SignIn'
+  # pod 'Bolts'
+  # pod 'FBSDKCoreKit'
+  # pod 'FBSDKShareKit'
+  # pod 'FBSDKLoginKit'
+  # pod 'Google/SignIn'
  	pod 'AlamofireImage',  '~> 3.0'
     pod 'Firebase'
     pod 'Firebase/Auth'
