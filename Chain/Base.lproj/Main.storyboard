@@ -437,16 +437,88 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="ArcanaName" id="ex5-cK-s4K">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="yVS-fe-hu4"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="yVS-fe-hu4">
+                            <connections>
+                                <action selector="edit:" destination="Byw-71-fc4" id="yqe-Vf-EXF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="GSc-xh-sGK" id="adY-iQ-Kd8"/>
+                        <segue destination="scq-Sr-Dal" kind="show" identifier="editArcana" id="XNn-fR-FSW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5Q-SD-je4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3016.8000000000002" y="1262.5187406296852"/>
+        </scene>
+        <!--Arcana Detail Edit-->
+        <scene sceneID="fT1-xG-cFS">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="scq-Sr-Dal" customClass="ArcanaDetailEdit" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yny-a2-Lkj"/>
+                        <viewControllerLayoutGuide type="bottom" id="fnr-GF-FBV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4I8-Lx-pZQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-XS-gdh">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editCell" id="ky0-hK-CPH" customClass="ArcanaDetailEditCell" customModule="Chain" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ky0-hK-CPH" id="5ob-r4-bvc">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuQ-gq-NJd">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inu-a3-dIK">
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SuQ-gq-NJd" firstAttribute="top" secondItem="5ob-r4-bvc" secondAttribute="top" constant="10" id="9Vc-DG-bNc"/>
+                                                <constraint firstAttribute="bottom" secondItem="SuQ-gq-NJd" secondAttribute="bottom" constant="10" id="Eju-sV-gJq"/>
+                                                <constraint firstItem="SuQ-gq-NJd" firstAttribute="leading" secondItem="5ob-r4-bvc" secondAttribute="leading" constant="10" id="RT8-vW-Irz"/>
+                                                <constraint firstAttribute="trailing" secondItem="Inu-a3-dIK" secondAttribute="trailing" constant="10" id="W53-ac-6CE"/>
+                                                <constraint firstItem="Inu-a3-dIK" firstAttribute="top" secondItem="5ob-r4-bvc" secondAttribute="top" constant="10" id="iOi-UX-PZg"/>
+                                                <constraint firstItem="Inu-a3-dIK" firstAttribute="leading" secondItem="SuQ-gq-NJd" secondAttribute="trailing" constant="10" id="ihF-05-R56"/>
+                                                <constraint firstAttribute="bottom" secondItem="Inu-a3-dIK" secondAttribute="bottom" constant="10" id="xOu-Jw-Cdj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="attribute" destination="SuQ-gq-NJd" id="vMB-oH-CfT"/>
+                                            <outlet property="key" destination="SuQ-gq-NJd" id="hXJ-Vx-G0L"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fnr-GF-FBV" firstAttribute="top" secondItem="gCM-XS-gdh" secondAttribute="bottom" id="74v-a3-iVs"/>
+                            <constraint firstItem="gCM-XS-gdh" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" id="gNO-Ar-W6x"/>
+                            <constraint firstAttribute="trailing" secondItem="gCM-XS-gdh" secondAttribute="trailing" id="hr0-1W-on2"/>
+                            <constraint firstItem="gCM-XS-gdh" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" id="ikP-uL-EJ3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="gCM-XS-gdh" id="FXK-nz-PmH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="53R-Ny-Zii" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3929" y="1263"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="wub-9E-Ucz">

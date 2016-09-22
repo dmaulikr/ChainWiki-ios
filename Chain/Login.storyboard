@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -363,6 +364,9 @@
                                     <constraint firstAttribute="height" constant="50" id="nuB-cv-b04"/>
                                 </constraints>
                                 <state key="normal" title="계정 로그인하기"/>
+                                <connections>
+                                    <segue destination="owE-FD-asH" kind="show" id="DtN-w0-w9u"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정은 무엇에 쓰이나?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-Rf-ITe">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -389,9 +393,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-Wx-o1n">
+                                <frame key="frameInset" minX="36" minY="84" width="303" height="563"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="top" secondItem="QiS-z4-cxK" secondAttribute="bottom" constant="20" id="0Zh-a7-7OQ"/>
                             <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="0pl-26-keJ"/>
                             <constraint firstItem="yD6-yV-mUH" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="1JH-5U-Hkj"/>
                             <constraint firstAttribute="trailing" secondItem="yD6-yV-mUH" secondAttribute="trailing" constant="20" id="2Jb-vV-jYW"/>
@@ -407,6 +416,7 @@
                             <constraint firstAttribute="trailing" secondItem="jiq-Rf-ITe" secondAttribute="trailing" constant="20" id="T6Y-tF-EFk"/>
                             <constraint firstItem="yD6-yV-mUH" firstAttribute="top" secondItem="QiS-z4-cxK" secondAttribute="bottom" constant="50" id="b3r-Gp-ahy"/>
                             <constraint firstAttribute="trailing" secondItem="UWU-49-6to" secondAttribute="trailing" constant="20" id="g0k-tE-Efe"/>
+                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leadingMargin" constant="20" id="gwK-3d-pd6"/>
                             <constraint firstAttribute="trailing" secondItem="7ZA-0g-z46" secondAttribute="trailing" constant="20" id="h2l-JH-5yR"/>
                             <constraint firstItem="jiq-Rf-ITe" firstAttribute="top" secondItem="yD6-yV-mUH" secondAttribute="bottom" constant="20" id="iUK-lE-ZC0"/>
                             <constraint firstItem="ur6-un-kHI" firstAttribute="top" secondItem="UWU-49-6to" secondAttribute="bottom" constant="10" id="jEp-DJ-XaO"/>
@@ -414,12 +424,13 @@
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="top" secondItem="xUM-0s-ba9" secondAttribute="bottom" constant="20" id="lCe-1d-qWr"/>
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="qc3-Cb-N8K"/>
                             <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="vZh-1e-ieg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1PF-Wx-o1n" secondAttribute="trailing" constant="20" id="x9i-gl-ZVW"/>
                             <constraint firstItem="xUM-0s-ba9" firstAttribute="top" secondItem="ur6-un-kHI" secondAttribute="bottom" constant="50" id="y3T-1o-oWv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bzC-al-h35"/>
                     <connections>
-                        <segue destination="owE-FD-asH" kind="show" id="shn-TT-3ud"/>
+                        <segue destination="owE-FD-asH" kind="show" identifier="toLoginForm" id="shn-TT-3ud"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2T-Ka-vSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -445,4 +456,7 @@
             <point key="canvasLocation" x="-671" y="170"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="shn-TT-3ud"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -22,11 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         FIRApp.configure()
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        
-        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+
         //FIRDatabase.database().persistenceEnabled = true
         
         let scoresRef = FIRDatabase.database().reference()

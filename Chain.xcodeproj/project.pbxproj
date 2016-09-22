@@ -63,6 +63,8 @@
 		04EDE6FA1D938075005731B9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04EDE6F91D938075005731B9 /* Settings.storyboard */; };
 		04EDE6FC1D9386DC005731B9 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FB1D9386DC005731B9 /* MyTextField.swift */; };
 		04EDE6FE1D938BE5005731B9 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FD1D938BE5005731B9 /* SettingsCell.swift */; };
+		04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */; };
+		04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
 		C5E22DEC04C0CDB19F2CCB51 /* Pods_Chain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E088AC701B4123C508DFB6 /* Pods_Chain.framework */; };
@@ -174,6 +176,8 @@
 		04EDE6F91D938075005731B9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		04EDE6FB1D9386DC005731B9 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		04EDE6FD1D938BE5005731B9 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEdit.swift; sourceTree = "<group>"; };
+		04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEditCell.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				0401B2871D75386C00A0A728 /* ArcanaDetail.swift */,
+				04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */,
+				04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */,
 				042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
@@ -745,6 +751,7 @@
 				04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */,
 				0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
+				04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */,
 				04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */,
 				0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */,
 				042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */,
@@ -753,6 +760,7 @@
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,
+				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				04EDE6FC1D9386DC005731B9 /* MyTextField.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,
 				0401B2861D7530A000A0A728 /* MyCollectionViewHeader.swift in Sources */,

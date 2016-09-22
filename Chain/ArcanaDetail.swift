@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import AlamofireImage
 import NVActivityIndicatorView
 
@@ -17,6 +18,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var arcanaID: Int?
     var arcana: Arcana?
 
+    
+    @IBAction func edit(_ sender: AnyObject) {
+        
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if let user = user {
+                print("ALLOWED TO EDIT, push view")
+                self.performSegue(withIdentifier: "editArcana", sender: self)
+                
+            }
+            else {
+                let alertController = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
@@ -557,15 +578,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
 
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "editArcana") {
+            
+            let vc = segue.destination as! ArcanaDetailEdit
+            vc.arcana = arcana
+            
+            
+        }
     }
-    */
 
 }
