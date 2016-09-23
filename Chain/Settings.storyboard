@@ -56,7 +56,13 @@
                             <constraint firstAttribute="trailing" secondItem="dxB-aL-5cg" secondAttribute="trailing" id="st9-Zz-IHh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="lUI-uM-PJE"/>
+                    <navigationItem key="navigationItem" id="lUI-uM-PJE">
+                        <barButtonItem key="rightBarButtonItem" title="로그아웃" id="GZn-Gk-duV">
+                            <connections>
+                                <action selector="logout:" destination="q2D-Vd-jmq" id="b2w-Jd-3qU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dxB-aL-5cg" id="lof-WC-oUA"/>
                     </connections>

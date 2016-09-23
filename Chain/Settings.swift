@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     let array = ["즐겨찾기", "최근 기록", "기타 설정"]
     
+    @IBAction func logout(_ sender: AnyObject) {
+        try! FIRAuth.auth()!.signOut()
+        UserDefaults.standard.setValue(nil, forKey: "uid")
+        print("Logged Out")
+        
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+
+        UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight, animations: {
+            self.view.window?.rootViewController = initialViewController
+            }, completion: nil)
+
+        
+
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

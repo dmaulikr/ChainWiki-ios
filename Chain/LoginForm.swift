@@ -80,6 +80,11 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         email.iconText = "\u{f0e0}"
         password.iconText = "\u{f023}"
         password.isSecureTextEntry = true
+        
+        
+        self.title = "로그인"
+//        let backButton = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
+//        navigationItem.backBarButtonItem = backButton
     }
     
     override func viewDidLoad() {
@@ -125,6 +130,19 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         }
         
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Try to find next responder
+        if textField == email {
+            password.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+        }
+        // Not found, so remove keyboard.
+        return false
+    }
+    
     func changeRootView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")

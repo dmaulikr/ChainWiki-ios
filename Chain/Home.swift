@@ -144,6 +144,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if arcanaArray.count == 0 {
+            tableView.alpha = 0
+        }
+        else {
+            tableView.alpha = 1
+        }
         if searchController.isActive && searchController.searchBar.text != "" {
             return searchArray.count
         }

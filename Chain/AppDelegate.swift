@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         FIRApp.configure()
 
         //FIRDatabase.database().persistenceEnabled = true
@@ -36,13 +36,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UILabel.appearance().font = UIFont(name: "yourFont", size: yourSize)
         
         
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
-        
-        self.window?.rootViewController = initialViewController
-        self.window?.makeKeyAndVisible()
+        if UserDefaults.standard.value(forKey: "uid") == nil {
+            print("no user signed in")
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+
+        else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+
         return true
+        
     }
     
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {

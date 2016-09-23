@@ -53,12 +53,14 @@ class LoginHome: UIViewController {
         self.accountDesc.attributedText = attributedString
         
         accountIntro.text = "사용자 계정에 대해"
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
+        
         // Do any additional setup after loading the view.
     }
 
