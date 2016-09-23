@@ -9,6 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 import FirebaseAuth
+import Firebase
 
 class CreateEmail: UIViewController, UITextFieldDelegate {
 
@@ -21,20 +22,46 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     
     @IBAction func createEmail(_ sender: AnyObject) {
 
-        if let email = self.email.text, let password = self.password.text {
+        
+        if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text {
             
-            FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
-                if error != nil {
-                    print("COULD NOT CREATE EMAIL")
-                }
-                else {
-                    print("EMAIL ACCOUNT CREATED, LOGGING IN...")
-                    let uid = user!.uid
-                    UserDefaults.standard.setValue(uid, forKey: "uid")
+            if password != passwordConfirm {
+                print("passwords do not match")
+            }
+            else {
+                FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                     
-                    self.changeRootView()
+                    
+                    if error != nil {
+                        
+                        
+                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                            switch (errorCode) {
+                                
+                            case .errorCodeEmailAlreadyInUse:
+                                print("Email already in use")
+                                
+                            case .errorCodeInvalidEmail:
+                                print("invalid email")
+                                
+                            case .errorCodeWeakPassword:
+                                print("weak password")
+                                
+                            default:
+                                print("Some other error")
+                            }
+                        }
+                    }
+                    else {
+                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+                        let uid = user!.uid
+                        UserDefaults.standard.setValue(uid, forKey: "uid")
+                        
+                        self.changeRootView()
+                    }
                 }
             }
+            
             
         }
         
@@ -55,6 +82,14 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
             textField.errorColor = darkSalmonColor
             textField.delegate = self
         }
+        
+        email.iconText = "\u{f0e0}"
+        password.iconText = "\u{f023}"
+        passwordConfirm.iconText = "\u{f023}"
+        nickname.iconText = "\u{f007}"
+        password.isSecureTextEntry = true
+        passwordConfirm.isSecureTextEntry = true
+        
     }
     
     override func viewDidLoad() {
@@ -67,6 +102,68 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @available(iOS 10.0, *)
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        
+        if let text = textField.text {
+            
+            switch textField {
+                
+            case email:
+                if let floatingLabelTextField = email {
+                    if(!text.isEmail) {
+                        floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
+                    }
+                    else {
+                        // The error message will only disappear when we reset it to nil or empty string
+                        floatingLabelTextField.errorMessage = ""
+                    }
+                }
+           
+            case password:
+                if let floatingLabelTextField = password {
+                    if(text.characters.count < 6) {
+                        floatingLabelTextField.errorMessage = "6자 이상 입력하세요."
+                    }
+                    else {
+                        // The error message will only disappear when we reset it to nil or empty string
+                        floatingLabelTextField.errorMessage = ""
+                    }
+                }
+                
+            case passwordConfirm:
+                if let floatingLabelTextField = passwordConfirm {
+                    if(text != password.text) {
+                        floatingLabelTextField.errorMessage = "비밀번호가 맞지 않습니다."
+                    }
+                    else {
+                        // The error message will only disappear when we reset it to nil or empty string
+                        floatingLabelTextField.errorMessage = ""
+                    }
+                }
+                
+            default:
+                
+                if let floatingLabelTextField = nickname {
+                    let ref = FIREBASE_REF.child("nickname/\(text)")
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
+                        
+                        if snapshot.exists() {
+                            floatingLabelTextField.errorMessage = "닉네임이 이미 존재합니다."
+                        }
+                            
+                        else {
+                            floatingLabelTextField.errorMessage = ""
+                        }
+                        
+                    })
+                }
+            }
+
+        }
+    }
+
     
     func changeRootView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

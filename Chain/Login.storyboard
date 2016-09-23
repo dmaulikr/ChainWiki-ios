@@ -19,126 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="xXG-f9-YJF"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="이메일"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="dwA-V5-V2Y"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="6자 이상"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="xte-MO-KcM"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="6자 이상"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호 확인"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="hgm-Mx-EA3"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="아르카나 수정시 공개"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="나중에 변경 가능"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-dH-lCX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-dH-lCX" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="viL-vP-Fsm"/>
                                 </constraints>
-                                <state key="normal" title="완료"/>
+                                <state key="normal" title="완료">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="createEmail:" destination="Sfy-DY-SVz" eventType="touchUpInside" id="hMx-To-KRF"/>
                                 </connections>
@@ -149,30 +37,137 @@
                                     <constraint firstAttribute="width" constant="25" id="blF-aP-eHe"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmU-yg-DCU">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호 확인"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="닉네임"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="이메일"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="0v7-c8-Tzr" secondAttribute="trailing" constant="20" id="3gn-az-6ov"/>
+                                    <constraint firstItem="2yA-ng-bIe" firstAttribute="leading" secondItem="KmU-yg-DCU" secondAttribute="leading" constant="20" id="3ze-2W-ifW"/>
+                                    <constraint firstItem="2yA-ng-bIe" firstAttribute="top" secondItem="0v7-c8-Tzr" secondAttribute="bottom" constant="10" id="FpR-dE-vgS"/>
+                                    <constraint firstItem="Kyn-lM-c0F" firstAttribute="leading" secondItem="KmU-yg-DCU" secondAttribute="leading" constant="20" id="G6a-qa-XxQ"/>
+                                    <constraint firstItem="Kyn-lM-c0F" firstAttribute="top" secondItem="2yA-ng-bIe" secondAttribute="bottom" constant="10" id="LxX-7Q-XIs"/>
+                                    <constraint firstItem="Wia-oD-Pcz" firstAttribute="leading" secondItem="KmU-yg-DCU" secondAttribute="leading" constant="20" id="NxE-Se-AbV"/>
+                                    <constraint firstItem="0v7-c8-Tzr" firstAttribute="leading" secondItem="KmU-yg-DCU" secondAttribute="leading" constant="20" id="P6N-5M-9Hw"/>
+                                    <constraint firstAttribute="trailing" secondItem="2yA-ng-bIe" secondAttribute="trailing" constant="20" id="ZLA-ho-omb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kyn-lM-c0F" secondAttribute="trailing" constant="20" id="bAI-46-5Py"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wia-oD-Pcz" secondAttribute="trailing" constant="20" id="gO0-bg-oBV"/>
+                                    <constraint firstItem="Wia-oD-Pcz" firstAttribute="top" secondItem="Kyn-lM-c0F" secondAttribute="bottom" constant="10" id="iBT-RN-nUy"/>
+                                    <constraint firstAttribute="height" constant="220" id="mFe-Yt-46D"/>
+                                    <constraint firstItem="0v7-c8-Tzr" firstAttribute="top" secondItem="KmU-yg-DCU" secondAttribute="top" constant="10" id="uRD-GC-vcP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="flS-di-HAd" firstAttribute="centerY" secondItem="lGs-sG-I37" secondAttribute="centerY" id="1qb-zJ-KXB"/>
-                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="36t-3j-f8C"/>
-                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="3RG-D7-F6z"/>
-                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="top" secondItem="LDG-fL-TKw" secondAttribute="bottom" constant="90" id="6qt-ST-fHS"/>
-                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="B8m-za-Puo"/>
-                            <constraint firstItem="2yA-ng-bIe" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="CJ3-OP-Icm"/>
+                            <constraint firstItem="1zh-dH-lCX" firstAttribute="top" secondItem="KmU-yg-DCU" secondAttribute="bottom" constant="20" id="A0I-pz-8f3"/>
+                            <constraint firstItem="KmU-yg-DCU" firstAttribute="top" secondItem="LDG-fL-TKw" secondAttribute="bottom" constant="90" id="DYp-AZ-VKY"/>
                             <constraint firstItem="1zh-dH-lCX" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="FwN-TU-9vI"/>
                             <constraint firstItem="flS-di-HAd" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="GaL-mV-shO"/>
-                            <constraint firstAttribute="trailing" secondItem="2yA-ng-bIe" secondAttribute="trailing" constant="50" id="NIO-4c-pyq"/>
-                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="QGx-eY-OmD"/>
-                            <constraint firstItem="1zh-dH-lCX" firstAttribute="top" secondItem="Wia-oD-Pcz" secondAttribute="bottom" constant="50" id="QcY-vw-2QE"/>
+                            <constraint firstItem="KmU-yg-DCU" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="LsJ-Wi-zWC"/>
                             <constraint firstAttribute="trailing" secondItem="1zh-dH-lCX" secondAttribute="trailing" constant="20" id="V3O-Zy-gts"/>
-                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="WrP-U8-pFP"/>
-                            <constraint firstItem="0v7-c8-Tzr" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="50" id="XXl-7P-EYE"/>
-                            <constraint firstItem="Wia-oD-Pcz" firstAttribute="top" secondItem="Kyn-lM-c0F" secondAttribute="bottom" constant="20" id="aF1-4T-C7O"/>
-                            <constraint firstItem="Kyn-lM-c0F" firstAttribute="top" secondItem="2yA-ng-bIe" secondAttribute="bottom" constant="20" id="goA-Lm-B2n"/>
-                            <constraint firstItem="2yA-ng-bIe" firstAttribute="top" secondItem="0v7-c8-Tzr" secondAttribute="bottom" constant="20" id="jME-j9-DXC"/>
-                            <constraint firstAttribute="trailing" secondItem="0v7-c8-Tzr" secondAttribute="trailing" constant="50" id="m1H-gQ-cNf"/>
-                            <constraint firstItem="2yA-ng-bIe" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="t1p-oe-Qlh"/>
-                            <constraint firstAttribute="trailing" secondItem="Kyn-lM-c0F" secondAttribute="trailing" constant="50" id="umk-6O-Ecy"/>
-                            <constraint firstAttribute="trailing" secondItem="Wia-oD-Pcz" secondAttribute="trailing" constant="50" id="uv4-Ug-cxt"/>
+                            <constraint firstAttribute="trailing" secondItem="KmU-yg-DCU" secondAttribute="trailing" constant="20" id="tD7-J5-NWl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oGb-J9-7fv"/>

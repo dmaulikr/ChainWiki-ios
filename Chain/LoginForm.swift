@@ -28,19 +28,8 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             }
         }
     }
-    @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon! {
-        didSet {
-            email.iconText = "\u{f0e0}"
-
-        }
-    }
-    @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon! {
-        didSet {
-            password.iconText = "\u{f023}"
-            password.isSecureTextEntry = true
-
-        }
-    }
+    @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
+    @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     
     @IBAction func emailLogin(_ sender: AnyObject) {
         
@@ -87,6 +76,10 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             textField.errorColor = darkSalmonColor
             textField.delegate = self
         }
+        
+        email.iconText = "\u{f0e0}"
+        password.iconText = "\u{f023}"
+        password.isSecureTextEntry = true
     }
     
     override func viewDidLoad() {
@@ -100,11 +93,27 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if let text = email.text {
+//            if let floatingLabelTextField = email {
+//                if(text.characters.count < 3 || !text.contains("@")) {
+//                    floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
+//                }
+//                else {
+//                    // The error message will only disappear when we reset it to nil or empty string
+//                    floatingLabelTextField.errorMessage = ""
+//                }
+//            }
+//        }
+//        return true
+//    }
+    @available(iOS 10.0, *)
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        
         if let text = email.text {
             if let floatingLabelTextField = email {
-                if(text.characters.count < 3 || !text.contains("@")) {
+                if(!text.isEmail) {
                     floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
                 }
                 else {
@@ -112,10 +121,10 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                     floatingLabelTextField.errorMessage = ""
                 }
             }
-        }
-        return true
-    }
 
+        }
+        
+    }
     func changeRootView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
@@ -151,4 +160,16 @@ extension UIImage {
             return nil
         } 
     }
+}
+
+extension String {
+    var isEmail: Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
+            return regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
+        } catch {
+            return false
+        }
+    }
+    
 }
