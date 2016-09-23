@@ -75,7 +75,7 @@
         <scene sceneID="S0S-vR-tgv">
             <objects>
                 <navigationController storyboardIdentifier="SettingsNav" automaticallyAdjustsScrollViewInsets="NO" id="jgT-hH-BgC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="설정" id="Ahd-4u-RyJ"/>
+                    <tabBarItem key="tabBarItem" title="설정" image="settings" id="Ahd-4u-RyJ"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="llZ-B0-beX">
@@ -92,4 +92,7 @@
             <point key="canvasLocation" x="101.59999999999999" y="91.304347826086968"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="settings" width="25" height="25"/>
+    </resources>
 </document>
