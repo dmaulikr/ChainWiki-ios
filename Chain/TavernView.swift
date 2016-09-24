@@ -58,6 +58,8 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                 
                 
             }
+            headerView.sectionTitle.textColor = UIColor.black
+            
             return headerView
         }
         
@@ -79,11 +81,25 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             cell.tavernName.text = juhpyun[indexPath.row]
             
         }
-        cell.contentView.layer.borderWidth = 1
-        cell.contentView.layer.borderColor = darkNavyColor.cgColor
-        cell.contentView.layer.cornerRadius = 5
-        cell.contentView.layer.masksToBounds = true
+//        cell.contentView.layer.borderWidth = 1
+//        cell.contentView.layer.borderColor = darkNavyColor.cgColor
+//        cell.contentView.layer.cornerRadius = 5
+//        cell.contentView.layer.masksToBounds = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        if let home = storyBoard.instantiateViewController(withIdentifier: "Home") as? Home {
+            
+            home.navigationItem.rightBarButtonItem?.customView?.isHidden = true
+            self.navigationController?.pushViewController(home, animated: true)
+        }
+        
+        
+        
     }
     
     override func viewDidLoad() {
@@ -115,16 +131,17 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
 extension TavernView : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let inset = CGFloat(37)
+        // inset = sectionInset(28)+cellspacing
+        let inset = CGFloat(31)
 //        let cellSpace = CGFloat(1)
 //        let separatorCount = CGFloat(3)
         
         switch (indexPath as NSIndexPath).section {
         case 0,1,2:
-            return CGSize(width: (SCREENWIDTH-inset)/4, height: 60)
+            return CGSize(width: (SCREENWIDTH-inset)/4, height: 40)
             
         default:
-            return CGSize(width: (SCREENWIDTH-inset)/4, height: 60)
+            return CGSize(width: (SCREENWIDTH-inset)/4, height: 40)
         }
         
     }

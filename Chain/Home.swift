@@ -16,6 +16,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filter: UIBarButtonItem!
+    @IBOutlet weak var sort: UIBarButtonItem!
 
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
@@ -304,7 +305,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
         tableView.dataSource = self
         tableView.delegate = self
-        
         downloadArray()
 
         
