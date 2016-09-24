@@ -261,7 +261,7 @@
                 <navigationController storyboardIdentifier="AbilityNav" automaticallyAdjustsScrollViewInsets="NO" id="cJ9-pA-xyb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="어빌리티" image="abilityTab" id="vYJ-BK-8OB"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JKo-S2-d9P">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JKo-S2-d9P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
