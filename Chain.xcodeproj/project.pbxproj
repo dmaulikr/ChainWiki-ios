@@ -20,6 +20,8 @@
 		0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* ManaAbility.swift */; };
 		0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */; };
 		0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1DA1D87D93E00670834 /* DrawCircle.swift */; };
+		04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E8C1D979D2800E15C5F /* TavernHomeView.swift */; };
+		04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04691E8E1D97A87300E15C5F /* ArcanaCell.xib */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
@@ -117,6 +119,8 @@
 		0447E1D51D87D05200670834 /* ManaAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbility.swift; sourceTree = "<group>"; };
 		0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbilityCell.swift; sourceTree = "<group>"; };
 		0447E1DA1D87D93E00670834 /* DrawCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCircle.swift; sourceTree = "<group>"; };
+		04691E8C1D979D2800E15C5F /* TavernHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHomeView.swift; sourceTree = "<group>"; };
+		04691E8E1D97A87300E15C5F /* ArcanaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaCell.xib; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
 				04A2EC961D6F7FA300189142 /* Home.swift */,
+				04691E8E1D97A87300E15C5F /* ArcanaCell.xib */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
 				04AE0E251D7A2C23008902A8 /* Filter.swift */,
 				04ED6FD41D813F4800C87B17 /* RarityCell.swift */,
@@ -379,6 +384,7 @@
 			children = (
 				04A3B1771D8E7B9000BBF297 /* Tavern.storyboard */,
 				04A3B1741D8E7B6C00BBF297 /* TavernView.swift */,
+				04691E8C1D979D2800E15C5F /* TavernHomeView.swift */,
 				04A3B1791D8E7C0D00BBF297 /* TavernCell.swift */,
 				047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */,
 			);
@@ -543,6 +549,7 @@
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
 				049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */,
 				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,
+				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +725,7 @@
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */,
+				04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */,
 				047561571D946BB1004886BF /* RoundedButton.swift in Sources */,
 				04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */,
 				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,

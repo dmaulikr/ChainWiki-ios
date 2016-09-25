@@ -81,11 +81,44 @@
                     <navigationItem key="navigationItem" id="ETG-hy-bf4"/>
                     <connections>
                         <outlet property="collectionView" destination="7xx-AM-hhw" id="4UK-w3-LBI"/>
+                        <segue destination="yid-Mq-lFN" kind="show" identifier="toTavern" id="IUz-GP-8dH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AeT-kO-pEu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="652" y="32.833583208395808"/>
+        </scene>
+        <!--Tavern Home View-->
+        <scene sceneID="Cgz-Ny-JHD">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yid-Mq-lFN" customClass="TavernHomeView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nqG-Ox-Pq0"/>
+                        <viewControllerLayoutGuide type="bottom" id="f4H-JO-0tC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oI6-ma-Rju">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I8f-WX-94l">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="I8f-WX-94l" firstAttribute="leading" secondItem="oI6-ma-Rju" secondAttribute="leading" id="BOS-m5-DlA"/>
+                            <constraint firstItem="I8f-WX-94l" firstAttribute="top" secondItem="nqG-Ox-Pq0" secondAttribute="bottom" id="WFn-xu-HkI"/>
+                            <constraint firstItem="f4H-JO-0tC" firstAttribute="top" secondItem="I8f-WX-94l" secondAttribute="bottom" id="iSQ-Gv-6vr"/>
+                            <constraint firstAttribute="trailing" secondItem="I8f-WX-94l" secondAttribute="trailing" id="zNq-mf-ylp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="I8f-WX-94l" id="eDu-sx-hKI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q5r-DI-jf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1746" y="25"/>
         </scene>
         <!--주점-->
         <scene sceneID="ewh-HS-EDZ">

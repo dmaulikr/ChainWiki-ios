@@ -121,41 +121,21 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func downloadArray() {
 
+        let ref = FIREBASE_REF.child("arcana")
         
-        if downloadTavern {
-            let ref = FIREBASE_REF.child("tavern/\(tavern)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                var tavern = [Arcana]()
-                for item in snapshot.children {
-                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                    tavern.append(arcana!)
-                }
-                self.arcanaArray = tavern
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.tableView.reloadData()
-                })
-                
-            })
-        }
-        
-        else {
-            let ref = FIREBASE_REF.child("arcana")
+        ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
             
-            ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
-                
-                var filter = [Arcana]()
-                for item in snapshot.children {
-                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                    filter.append(arcana!)
-                }
-                self.arcanaArray = filter.reversed()
-                self.originalArray = filter.reversed()
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.tableView.reloadData()
-                })
+            var filter = [Arcana]()
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                filter.append(arcana!)
+            }
+            self.arcanaArray = filter.reversed()
+            self.originalArray = filter.reversed()
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.tableView.reloadData()
             })
-        }
+        })
         
     }
     

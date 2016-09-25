@@ -111,17 +111,19 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             
         }
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        performSegue(withIdentifier: "toTavern", sender: self)
         
-        if let home = storyBoard.instantiateViewController(withIdentifier: "Home") as? Home {
-            
-            home.showNavBar = false
-            home.navTitle = navTitle
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
+//        
+//        if let home = storyBoard.instantiateViewController(withIdentifier: "test") as? TavernHomeView {
+//            
+//            home.showNavBar = false
+//            home.navTitle = navTitle
 //            self.delegate = home
 //            self.delegate!.didUpdate(self, tavern: navTitle)
-            
-            self.navigationController?.pushViewController(home, animated: true)
-        }
+//
+//            self.navigationController?.pushViewController(home, animated: true)
+//        }
         
         
         
@@ -152,15 +154,16 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "toTavern") {
+
+            let vc = segue.destination as! TavernHomeView
+            vc.tavern = "capital"
+        }
+        
     }
-    */
+
 
 }
 
