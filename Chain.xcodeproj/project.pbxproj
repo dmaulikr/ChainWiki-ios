@@ -22,6 +22,7 @@
 		0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1DA1D87D93E00670834 /* DrawCircle.swift */; };
 		04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E8C1D979D2800E15C5F /* TavernHomeView.swift */; };
 		04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04691E8E1D97A87300E15C5F /* ArcanaCell.xib */; };
+		04691E911D97AE0E00E15C5F /* KoreanTextConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
@@ -121,6 +122,7 @@
 		0447E1DA1D87D93E00670834 /* DrawCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCircle.swift; sourceTree = "<group>"; };
 		04691E8C1D979D2800E15C5F /* TavernHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHomeView.swift; sourceTree = "<group>"; };
 		04691E8E1D97A87300E15C5F /* ArcanaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaCell.xib; sourceTree = "<group>"; };
+		04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreanTextConvert.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				042834F81D91AF680043BE6E /* Chain.entitlements */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
+				04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */,
 				042834FC1D91EA1E0043BE6E /* Login */,
 				047561581D946E1C004886BF /* Main */,
 				046C93351D7582D6000E3FBD /* Arcana */,
@@ -747,6 +750,7 @@
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
+				04691E911D97AE0E00E15C5F /* KoreanTextConvert.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,

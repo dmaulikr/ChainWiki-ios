@@ -17,12 +17,12 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     weak var delegate: TavernViewDelegate?
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "바닷항구", "대해", "수인", "죄의대륙", "박명의대륙", "철연의대륙", "연대기", "서가", "레무레스"]
+    let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구", "새벽대해", "수인의대륙", "죄의대륙", "박명의대륙", "철연의대륙", "연대기대륙", "서가", "레무레스섬"]
     
-    let yugudo = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "바닷항구"]
-    let gyosae = ["대해", "수인", "죄의대륙", "박명의대륙"]
-    let giwon = ["철연의대륙", "연대기", "서가"]
-    let juhpyun = ["레무레스"]
+    let yugudo = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구"]
+    let gyosae = ["새벽대해", "수인의대륙", "죄의대륙", "박명의대륙"]
+    let giwon = ["철연의대륙", "연대기대륙", "서가"]
+    let juhpyun = ["레무레스섬"]
     
     let continents = ["유그도대륙", "교쇄의해역", "기원의해역", "저편의해역"]
     
@@ -111,7 +111,9 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             
         }
         
-        performSegue(withIdentifier: "toTavern", sender: self)
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        performSegue(withIdentifier: "toTavern", sender: cell)
         
 //        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
 //        
@@ -155,11 +157,34 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if (segue.identifier == "toTavern") {
 
+            var tavernRef = ""
+            let cell = sender as! TavernCell
+            let indexPath = collectionView.indexPath(for: cell)!
+            
+                switch indexPath.section {
+                    
+                case 0:
+                    tavernRef = yugudo[indexPath.row]
+                    
+                case 1:
+                    tavernRef = gyosae[indexPath.row]
+                    
+                case 2:
+                    tavernRef = giwon[indexPath.row]
+                    
+                default:
+                    tavernRef = juhpyun[indexPath.row]
+                    
+                    
+                }
+            
+            
             let vc = segue.destination as! TavernHomeView
-            vc.tavern = "capital"
+            print("CONVERT \(tavernRef)")
+            vc.tavern = convertTavern(tavern: tavernRef)
         }
         
     }

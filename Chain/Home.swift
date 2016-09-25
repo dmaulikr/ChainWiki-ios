@@ -185,19 +185,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        cell.arcanaImage.image = nil
         
-        //let image = UIImage(named: "main.jpg")!
-//        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-//        cell.arcanaImage.image = image
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        let c = cell as! ArcanaCell
-        
-        c.imageSpinner.startAnimating()
+        cell.imageSpinner.startAnimating()
         
         let arcana: Arcana
         
@@ -208,42 +197,41 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             arcana = arcanaArray[indexPath.row]
         }
         
-        
-        
+
         // check if arcana has only name, or nickname.
         if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
             
             
-            c.arcanaNickJP.text = nnJP
-            c.arcanaNickKR.text = nnKR
-
-//            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
-//            c.arcanaNameKR.text = combinedNameKR
-//            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
-//            c.arcanaNameJP.text = combinedNameJP
+            cell.arcanaNickJP.text = nnJP
+            cell.arcanaNickKR.text = nnKR
+            
+            //            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
+            //            cell.arcanaNameKR.text = combinedNameKR
+            //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
+            //            cell.arcanaNameJP.text = combinedNameJP
         }
-            c.arcanaNameKR.text = arcana.nameKR
-            c.arcanaNameJP.text = arcana.nameJP
+        cell.arcanaNameKR.text = arcana.nameKR
+        cell.arcanaNameJP.text = arcana.nameJP
         
-        c.arcanaRarity.text = "#\(arcana.rarity)★"
-        c.arcanaGroup.text = "#\(arcana.group)"
-        c.arcanaWeapon.text = "#\(arcana.weapon)"
+        cell.arcanaRarity.text = "#\(arcana.rarity)★"
+        cell.arcanaGroup.text = "#\(arcana.group)"
+        cell.arcanaWeapon.text = "#\(arcana.weapon)"
         if let a = arcana.affiliation {
-            c.arcanaAffiliation.text = "#\(a)"
+            cell.arcanaAffiliation.text = "#\(a)"
         }
         
-        c.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
         
-        c.arcanaImage.image = nil
+        cell.arcanaImage.image = nil
         
         
         // Check Cache, or download from Firebase
-       // c.arcanaImage.image = UIImage(named: "main.jpg")
+        // cell.arcanaImage.image = UIImage(named: "main.jpg")
         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-//        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-//        cell.arcanaImage.image = image
+        //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+        //        cell.arcanaImage.image = image
         
-
+        
         
         
         
@@ -251,19 +239,19 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-//            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+            //            let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
             
-//            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-//            c.arcanaImage.image = crop
-            c.arcanaImage.image = i
-            c.imageSpinner.stopAnimating()
+            //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+            //            cell.arcanaImage.image = crop
+            cell.arcanaImage.image = i
+            cell.imageSpinner.stopAnimating()
             
         }
-         
+            
             //  Not in cache, download from firebase
         else {
-//            c.imageSpinner.startAnimating()
-
+            //            cell.imageSpinner.startAnimating()
+            
             STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
@@ -280,27 +268,27 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                             // TODO: MAKE SMALL THUMBNAIL
                             
                             //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-
+                            
                             
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
                                 
-
-//                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-//                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-//                                c.arcanaImage.image = crop
-//                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
-//                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
-//                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
-//                                c.arcanaImage.image = image
-                                c.arcanaImage.image = thumbnail
+                                
+                                //                                let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+                                //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+                                //                                cell.arcanaImage.image = crop
+                                //                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
+                                //                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
+                                //                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
+                                //                                cell.arcanaImage.image = image
+                                cell.arcanaImage.image = thumbnail
                                 print("DOWNLOADED")
                                 
-                                    c.imageSpinner.stopAnimating()
+                                cell.imageSpinner.stopAnimating()
                                 
                                 // Cache the Image
                                 IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
                             }
-
+                            
                             
                         }
                     }
@@ -308,9 +296,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             
         }
-        
 
+        
+        
+        return cell
     }
+
     
     func reloadTableData(_ notification: Notification) {
         tableView.reloadData()
@@ -319,6 +310,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         if let a = childViewControllers[0] as? Filter {

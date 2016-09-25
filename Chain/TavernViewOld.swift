@@ -11,7 +11,7 @@ import UIKit
 
 class TavernViewOld: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "바닷항구", "대해", "수인", "죄의대륙", "박명의대륙", "철연의대륙", "연대기", "서가", "레무레스"]
+    let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "해풍의항구", "대해", "수인", "죄의대륙", "박명의대륙", "철연의대륙", "연대기", "서가", "레무레스"]
     
     let images = [UIImage(named: "budo.jpg")!, UIImage(named: "sungdo.jpg")!, UIImage(named: "hyunja.jpg")!, UIImage(named: "migoong.jpg")!, UIImage(named: "hodo.jpg")!, UIImage(named: "jungryeong.jpg")!, UIImage(named: "guryeong.jpg")!, UIImage(named: "hangu.jpg")!, UIImage(named: "dahae.jpg")!, UIImage(named: "sooin.jpg")!, UIImage(named: "jwe.jpg")!, UIImage(named: "bakmyung.jpg")!, UIImage(named: "chulryeon.jpg")!, UIImage(named: "yeondaegi.jpg")!, UIImage(named: "seoga.jpg")!, UIImage(named: "remures.jpg")!]
     @IBOutlet weak var collectionView: UICollectionView!
