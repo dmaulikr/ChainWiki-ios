@@ -12,7 +12,7 @@ import AlamofireImage
 //import Toucan
 import NVActivityIndicatorView
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate {
+class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filter: UIBarButtonItem!
@@ -28,6 +28,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     let searchController = UISearchController(searchResultsController: nil)
     var showNavBar = true
     var navTitle = ""
+    var downloadTavern = false
     
     @IBOutlet weak var filterView: UIView!
     
@@ -120,21 +121,42 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func downloadArray() {
 
-        let ref = FIREBASE_REF.child("arcana")
-
-        ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
-            
-            var filter = [Arcana]()
-            for item in snapshot.children {
-                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                filter.append(arcana!)
-            }
-            self.arcanaArray = filter.reversed()
-            self.originalArray = filter.reversed()
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.tableView.reloadData()
+        
+        if downloadTavern {
+            let ref = FIREBASE_REF.child("tavern/\(tavern)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var tavern = [Arcana]()
+                for item in snapshot.children {
+                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                    tavern.append(arcana!)
+                }
+                self.arcanaArray = tavern
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.tableView.reloadData()
+                })
+                
             })
-        })
+        }
+        
+        else {
+            let ref = FIREBASE_REF.child("arcana")
+            
+            ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
+                
+                var filter = [Arcana]()
+                for item in snapshot.children {
+                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                    filter.append(arcana!)
+                }
+                self.arcanaArray = filter.reversed()
+                self.originalArray = filter.reversed()
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.tableView.reloadData()
+                })
+            })
+        }
+        
     }
     
     func getFavorites() {
@@ -322,6 +344,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         if let a = childViewControllers[0] as? Filter {
             a.delegate = self
         }
+       
         tableView.dataSource = self
         tableView.delegate = self
         downloadArray()
@@ -500,6 +523,31 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             //                vc.tableView.reloadData()
             //            }
         }
+    }
+    
+    func didUpdate(_ sender: TavernView, tavern: String) {
+        
+        
+        DispatchQueue.main.async {
+            
+            let ref = FIREBASE_REF.child("tavern/\(tavern)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var tavern = [Arcana]()
+                for item in snapshot.children {
+                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                    tavern.append(arcana!)
+                }
+                self.arcanaArray = tavern
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.tableView.reloadData()
+                })
+                
+            })
+            
+        }
+        
+        
     }
     
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

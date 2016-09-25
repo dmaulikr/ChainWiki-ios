@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol TavernViewDelegate : class {
+    func didUpdate(_ sender: TavernView, tavern: String)
+}
+
 class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    
+    weak var delegate: TavernViewDelegate?
     @IBOutlet weak var collectionView: UICollectionView!
     
     let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "바닷항구", "대해", "수인", "죄의대륙", "박명의대륙", "철연의대륙", "연대기", "서가", "레무레스"]
@@ -113,7 +117,8 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             
             home.showNavBar = false
             home.navTitle = navTitle
-            
+//            self.delegate = home
+//            self.delegate!.didUpdate(self, tavern: navTitle)
             
             self.navigationController?.pushViewController(home, animated: true)
         }
