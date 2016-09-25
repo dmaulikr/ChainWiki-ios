@@ -26,7 +26,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     var gesture = UITapGestureRecognizer()
     var filters = [String: [String]]()
     let searchController = UISearchController(searchResultsController: nil)
-
+    var showNavBar = true
+    var navTitle = ""
+    
     @IBOutlet weak var filterView: UIView!
     
     @IBAction func sort(_ sender: AnyObject) {
@@ -132,12 +134,27 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             DispatchQueue.main.async(execute: { () -> Void in
                 self.tableView.reloadData()
             })
+        })
+    }
+    
+    func getFavorites() {
+        
+        let userFavorites = FIREBASE_REF.child("user/\(USERID!)/favorites")
+        
+        userFavorites.observeSingleEvent(of: .value, with: { snapshot in
             
+            var favorites = [Arcana]()
+            for item in snapshot.children {
+                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                favorites.append(arcana!)
+            }
+            self.arcanaArray = favorites
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.tableView.reloadData()
+            })
         })
         
     }
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -212,7 +229,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         if let a = arcana.affiliation {
             c.arcanaAffiliation.text = "#\(a)"
         }
-       
+        
+        c.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        
         c.arcanaImage.image = nil
         
         
@@ -321,28 +340,39 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         self.view.addGestureRecognizer(gesture)
         self.view.addGestureRecognizer(panGestureRecognizer)
         // UISearchController methods
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
         
-        searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
-        if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
+        if showNavBar {
+            print("TRUE")
             
-            searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-            searchIcon.tintColor = UIColor.white
+            searchController.hidesNavigationBarDuringPresentation = false
+            searchController.searchBar.searchBarStyle = .minimal
+            searchController.searchResultsUpdater = self
+            searchController.dimsBackgroundDuringPresentation = false
             
-            searchTextField.placeholder = "이름 검색"
-            searchTextField.tintColor = UIColor.white
-            searchTextField.setPlaceholderColor(UIColor.white)
-            searchTextField.textColor = UIColor.white
+            searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
+            if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
+                
+                searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+                searchIcon.tintColor = UIColor.white
+                
+                searchTextField.placeholder = "이름 검색"
+                searchTextField.tintColor = UIColor.white
+                searchTextField.setPlaceholderColor(UIColor.white)
+                searchTextField.textColor = UIColor.white
+                
+            }
             
+            // Include the search bar within the navigation bar.
+            navigationItem.titleView = searchController.searchBar
+            
+            definesPresentationContext = true
         }
-
-        // Include the search bar within the navigation bar.
-        navigationItem.titleView = searchController.searchBar
         
-        definesPresentationContext = true
+        else {
+            self.navigationItem.title = navTitle
+            self.navigationItem.rightBarButtonItems = nil
+        }
+        
     }
     
 //    override func viewDidAppear(_ animated: Bool) {

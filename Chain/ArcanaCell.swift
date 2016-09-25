@@ -21,7 +21,9 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var arcanaWeapon: UILabel!
     @IBOutlet weak var arcanaGroup: UILabel!
     @IBOutlet weak var arcanaAffiliation: UILabel!
+    @IBOutlet weak var numberOfViews: UILabel!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

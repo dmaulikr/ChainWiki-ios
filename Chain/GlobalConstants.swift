@@ -10,6 +10,18 @@ import UIKit
 import Firebase
 import AlamofireImage
 
+var USERID: String? {
+    if let USERID = UserDefaults.standard.value(forKey: "uid") as? String {
+        //print("USERID IS \(USERID!)")
+        return (USERID)
+        
+    }
+    else {
+        return nil
+    }
+}
+
+
 let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
 
 let FIREBASE_REF = FIRDatabase.database().reference()

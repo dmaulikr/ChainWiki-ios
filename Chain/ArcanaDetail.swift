@@ -17,12 +17,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     var arcanaID: Int?
     var arcana: Arcana?
+    var heart = false
+    var favorite = false
 
     
     @IBAction func edit(_ sender: AnyObject) {
         
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if let user = user {
+            if let _ = user {
                 print("ALLOWED TO EDIT, push view")
                 self.performSegue(withIdentifier: "editArcana", sender: self)
                 
@@ -36,6 +38,35 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+    }
+    
+    func checkFavorites() {
+        // TODO: when favoriting, automatically like. when cancelling, only cancel one.
+        if let arcana = arcana {
+            
+            let favRef = FIREBASE_REF.child("user/\(UserDefaults.standard.value(forKey: "uid"))/favorites/\(arcana.uid)")
+            let heartRef = FIREBASE_REF.child("user/\(UserDefaults.standard.value(forKey: "uid"))/likes/\(arcana.uid)")
+            favRef.observeSingleEvent(of: .value, with: { snapshot in
+                if snapshot.exists() {
+                    print("favorited already")
+                    self.favorite = true
+                }
+                else {
+                    print("not favorited")
+                }
+            })
+            
+            heartRef.observeSingleEvent(of: .value, with: { snapshot in
+                if snapshot.exists() {
+                    print("liked already")
+                    self.heart = true
+                }
+                else {
+                    print("not liked")
+                }
+            })
+        }
+        
     }
     
     
@@ -134,6 +165,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 0: // arcanaImage
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaImage") as! ArcanaImageCell
             cell.layoutMargins = UIEdgeInsets.zero
+            cell.favorite.tag = indexPath.row
+            cell.heart.tag = indexPath.row
+            
             return cell
             
         case 1:    // arcanaAttribute
@@ -143,8 +177,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.attributeKey.text = "이름"
                 
                 if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-                    cell.attributeValue.text = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
-                        print("GOT VALUE")
+
+                    let fullName = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
+                    cell.attributeValue.text = fullName
+
+                    
                 }
                 else {
                     cell.attributeValue.text = "\(arcana.nameKR)\n\(arcana.nameJP)"
@@ -190,6 +227,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             case 1,3,5:
                 let descCell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
 
+    
                 switch (indexPath as NSIndexPath).row {
                 case 1:
                     descCell.skillAbilityDesc.text = arcana.skillDesc1
@@ -232,9 +270,18 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             default:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+
                 
                 if indexPath.row == 1 {
-                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+                    
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    //line height size
+                    paragraphStyle.lineSpacing = 5
+                    let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
+                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                    cell.skillAbilityDesc.attributedText = attrString
+//                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+
                 }
                 else {
                     cell.skillAbilityDesc.text = arcana.abilityDesc2
@@ -293,10 +340,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch ((indexPath as NSIndexPath).section) {
             
         case 0: // arcanaImage
-            
-            
 
             let c = cell as! ArcanaImageCell
+            
+            if favorite {
+                c.favorite.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+            }
+            if heart {
+                c.heart.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+            }
+            
             c.imageSpinner.startAnimating()
 
             // Check Cache, or download from Firebase
@@ -453,7 +506,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 name.attributeValue.text = arcana.abilityName1
             case 1:
                 let desc = cell as! ArcanaSkillAbilityDescCell
-                desc.skillAbilityDesc.text = arcana.abilityDesc1
+                
+                let paragraphStyle = NSMutableParagraphStyle()
+                //line height size
+                paragraphStyle.lineSpacing = 5
+                let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
+                attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                desc.skillAbilityDesc.attributedText = attrString
+                
+//                desc.skillAbilityDesc.text = arcana.abilityDesc1
             case 2:
                 let name = cell as! ArcanaAttributeCell
                 name.attributeKey.text = "어빌 2"
@@ -482,6 +543,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
     }
+    
     
 //    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -534,7 +596,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         scrollViewDidEndDragging(tableView, willDecelerate: true)
         
-        
+        checkFavorites()
         // Do any additional setup after loading the view.
     }
 

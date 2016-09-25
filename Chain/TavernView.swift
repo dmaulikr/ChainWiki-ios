@@ -58,8 +58,6 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                 
                 
             }
-            headerView.sectionTitle.textColor = UIColor.black
-            
             return headerView
         }
         
@@ -90,11 +88,33 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        var navTitle = ""
+        
+        switch indexPath.section {
+            
+        case 0:
+            navTitle = yugudo[indexPath.row]
+            
+        case 1:
+            navTitle = gyosae[indexPath.row]
+            
+        case 2:
+            navTitle = giwon[indexPath.row]
+            
+        default:
+            navTitle = juhpyun[indexPath.row]
+            
+            
+        }
+        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
         if let home = storyBoard.instantiateViewController(withIdentifier: "Home") as? Home {
             
-            home.navigationItem.rightBarButtonItem?.customView?.isHidden = true
+            home.showNavBar = false
+            home.navTitle = navTitle
+            
+            
             self.navigationController?.pushViewController(home, animated: true)
         }
         
@@ -106,10 +126,21 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+
         
+        self.title = "주점"
         // Do any additional setup after loading the view.
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            collectionView.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
