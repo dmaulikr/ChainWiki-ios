@@ -20,24 +20,56 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var heart = false
     var favorite = false
 
-    func add(sender:AnyObject){
-        var recents = NSOrderedSet()
-        if (UserDefaults.standard.string(forKey: "recent") != nil) {
-            recents  =  UserDefaults.standard.object(forKey: "recent")! as! NSOrderedSet
+    func add(){
+        var recents = [String]()
+        
+        let defaults = UserDefaults.standard
+        
+        recents = defaults.object(forKey: "recent") as? [String] ?? [String]()
+        
+        if recents.count == 0 {
+            print("empty array")
+            recents.append(arcana!.uid)
         }
         
-        if !recents.contains(arcana!.uid) {
-            
-            if recents.count < 5 {
-                recents.setValue(true, forKey: "\(arcana!.uid)")
+        else {
+            var found = false
+            for (index, search) in recents.enumerated() {
+                if arcana!.uid == search {
+                    recents.remove(at: index)
+                    recents.append(arcana!.uid)
+                    found = true
+                    print("FOUND IN DEFAULTS")
+                    break
+                }
             }
             
-            else {
+            if found == false {
+                
+                if recents.count >= 5 {
+                    print("array count is 5, remove and then insert")
+                    recents.remove(at: 0)
+                    recents.append(arcana!.uid)
+                }
+                
+                else {
+                    print("array is small, just append")
+                    recents.append(arcana!.uid)
+                }
+               
             }
         }
-        UserDefaults.standard.set(recents, forKey: "recent")
-        UserDefaults.standard.synchronize()
+
+        defaults.set(recents, forKey: "recent")
+        defaults.synchronize()
+
     }
+
+
+        
+        
+    
+    
     
     @IBAction func edit(_ sender: AnyObject) {
         
@@ -734,7 +766,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        add()
         tableView.delegate = self
         tableView.dataSource = self
         setupViews()

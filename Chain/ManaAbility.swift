@@ -171,13 +171,13 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         
         // Get abilities, kizuna, group
-        let aD1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1
-        let g = currentArray[(indexPath as NSIndexPath).row].group
-        var aD2 = ""
-        if let a = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
-            aD2 = a
-        }
-        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
+//        let aD1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1
+//        let g = currentArray[(indexPath as NSIndexPath).row].group
+//        var aD2 = ""
+//        if let a = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
+//            aD2 = a
+//        }
+//        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
         
         // check for the abilityType, then perform operation.
         

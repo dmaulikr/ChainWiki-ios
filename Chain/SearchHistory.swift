@@ -28,6 +28,7 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         
         
+        
         return cell
     }
     

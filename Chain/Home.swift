@@ -654,11 +654,18 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchView.alpha = 1
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.searchView.alpha = 1.0
+                }, completion: nil)
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        searchView.alpha = 0
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.searchView.alpha = 0.0
+            }, completion: nil)
+        
     }
     
     
