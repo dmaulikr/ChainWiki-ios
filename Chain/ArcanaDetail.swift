@@ -168,25 +168,112 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.favorite.tag = indexPath.row
             cell.heart.tag = indexPath.row
             
+            if favorite {
+                cell.favorite.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+            }
+            if heart {
+                cell.heart.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+            }
+            
+            cell.imageSpinner.startAnimating()
+            
+            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
+                print("LOADED CACHE IMAGE")
+                
+                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+                let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
+                
+                cell.arcanaImage.image = aspectScaledToFitImage
+                cell.imageSpinner.stopAnimating()
+            }
+                
+                //  Not in cache, download from firebase
+            else {
+                //                c.imageSpinner.startAnimation()
+                STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURL { (URL, error) -> Void in
+                    if (error != nil) {
+                        print("image download error")
+                        // Handle any errors
+                    } else {
+                        // Get the download URL
+                        let urlRequest = URLRequest(url: URL!)
+                        
+                        DOWNLOADER.download(urlRequest) { response in
+                            
+                            if let image = response.result.value {
+                                // Set the Image
+                                
+                                let size = CGSize(width: (SCREENWIDTH - CGFloat(20)), height: 400)
+                                
+                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
+                                    cell.imageSpinner.stopAnimating()
+                                    let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
+                                    
+                                    cell.arcanaImage.image = aspectScaledToFitImage
+                                    
+                                    print("DOWNLOADED")
+                                    
+                                    // Cache the Image
+                                    print(arcana.uid)
+                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
+                                }
+                                
+                                
+                                
+                                
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
             return cell
             
         case 1:    // arcanaAttribute
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
-            if (indexPath as NSIndexPath).row == 0 {
-                cell.attributeKey.text = "이름"
+            
+            var attributeKey = ""
+            var attributeValue = ""
+            
+            switch (indexPath as NSIndexPath).row {
                 
+            case 0:
+                attributeKey = "이름"
                 if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-
-                    let fullName = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
-                    cell.attributeValue.text = fullName
-
+                    attributeValue = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
                     
                 }
                 else {
-                    cell.attributeValue.text = "\(arcana.nameKR)\n\(arcana.nameJP)"
+                    attributeValue = "\(arcana.nameKR)\n\(arcana.nameJP)"
                 }
+            case 1:
+                attributeKey = "레어"
+                attributeValue = getRarityLong(arcana.rarity)
+            case 2:
+                attributeKey = "직업"
+                attributeValue = arcana.group
+            case 3:
+                attributeKey = "소속"
+                if let a = arcana.affiliation {
+                    attributeValue = a
+                }
+            case 4:
+                attributeKey = "코스트"
+                attributeValue = arcana.cost
+            case 5:
+                attributeKey = "무기"
+                attributeValue = arcana.weapon
+                
+            default:
+                break
+                
             }
+            
+            cell.attributeKey.text = attributeKey
+            cell.attributeValue.text = attributeValue
+            
             return cell
             
         case 2: // Arcana Skill
@@ -237,6 +324,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     descCell.skillAbilityDesc.text = arcana.skillDesc3
                     
                 }
+                descCell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
                 descCell.layoutMargins = UIEdgeInsets.zero
                 return descCell
                 
@@ -274,19 +362,22 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 if indexPath.row == 1 {
                     
-                    let paragraphStyle = NSMutableParagraphStyle()
-                    //line height size
-                    paragraphStyle.lineSpacing = 5
-                    let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
-                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-                    cell.skillAbilityDesc.attributedText = attrString
-//                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+//                    let paragraphStyle = NSMutableParagraphStyle()
+//                    //line height size
+//                    paragraphStyle.lineSpacing = 10
+//                    let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
+//                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+//                    cell.skillAbilityDesc.attributedText = attrString
+                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+                    
 
                 }
                 else {
                     cell.skillAbilityDesc.text = arcana.abilityDesc2
                 }
-
+                
+                cell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
+                
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
@@ -329,6 +420,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
     }
     
+    
+    /*
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard let arcana = arcana
@@ -343,14 +437,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
             let c = cell as! ArcanaImageCell
             
-            if favorite {
-                c.favorite.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
-            }
-            if heart {
-                c.heart.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
-            }
             
-            c.imageSpinner.startAnimating()
 
             // Check Cache, or download from Firebase
             
@@ -544,7 +631,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    
+    */
 //    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
 //        cell?.backgroundColor = UIColor.redColor()
