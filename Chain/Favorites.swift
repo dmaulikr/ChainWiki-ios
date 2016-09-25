@@ -9,13 +9,11 @@
 import UIKit
 import Firebase
 
-class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var tableView: UITableView!
-    var tavern = ""
-    var navTitle = ""
     var group = DispatchGroup()
-
+    
     var array = [Arcana]()
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,6 +28,7 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
         else {
             tableView.alpha = 1
         }
+        
         
         return array.count
     }
@@ -88,56 +87,58 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-
-        self.title = navTitle
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        let ref = FIREBASE_REF.child("tavern/\(tavern)")
         
-        ref.observeSingleEvent(of: .value, with: { snapshot in
+        if let uid = USERID {
+            let ref = FIREBASE_REF.child("user/\(uid)/favorites")
             
-            var uid = [String]()
-            
-            for child in snapshot.children {
-                let arcanaID = (child as AnyObject).key as String
-                uid.append(arcanaID)
-            }
-            
-            
-            var array = [Arcana]()
-            
-            for id in uid {
-                self.group.enter()
+            ref.observeSingleEvent(of: .value, with: { snapshot in
                 
-                let ref = FIREBASE_REF.child("arcana/\(id)")
+                var uid = [String]()
                 
-                ref.observeSingleEvent(of: .value, with: { snapshot in
-                    let arcana = Arcana(snapshot: snapshot)
-                    array.append(arcana!)
-                    self.group.leave()
+                for child in snapshot.children {
+                    let arcanaID = (child as AnyObject).key as String
+                    uid.append(arcanaID)
+                }
+                
+                
+                var array = [Arcana]()
+                
+                for id in uid {
+                    self.group.enter()
                     
+                    let ref = FIREBASE_REF.child("arcana/\(id)")
+                    
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
+                        let arcana = Arcana(snapshot: snapshot)
+                        array.append(arcana!)
+                        self.group.leave()
+                        
+                    })
+                }
+                
+                self.group.notify(queue: DispatchQueue.main, execute: {
+                    self.array = array
+                    self.tableView.reloadData()
                 })
-            }
-            
-            self.group.notify(queue: DispatchQueue.main, execute: {
-                print("Finished all requests.")
-                self.array = array
-                self.tableView.reloadData()
+                
+                
             })
-            
-            
-        })
+
+        }
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-
+    
+    
 }

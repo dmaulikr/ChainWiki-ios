@@ -13,7 +13,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = UIColor.white
+            segmentedControl.tintColor = salmonColor
         }
     }
     

@@ -92,42 +92,8 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var navTitle = ""
-        
-        switch indexPath.section {
-            
-        case 0:
-            navTitle = yugudo[indexPath.row]
-            
-        case 1:
-            navTitle = gyosae[indexPath.row]
-            
-        case 2:
-            navTitle = giwon[indexPath.row]
-            
-        default:
-            navTitle = juhpyun[indexPath.row]
-            
-            
-        }
-        
         let cell = collectionView.cellForItem(at: indexPath)
-        
         performSegue(withIdentifier: "toTavern", sender: cell)
-        
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
-//        
-//        if let home = storyBoard.instantiateViewController(withIdentifier: "test") as? TavernHomeView {
-//            
-//            home.showNavBar = false
-//            home.navTitle = navTitle
-//            self.delegate = home
-//            self.delegate!.didUpdate(self, tavern: navTitle)
-//
-//            self.navigationController?.pushViewController(home, animated: true)
-//        }
-        
-        
         
     }
     
@@ -184,6 +150,7 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             
             let vc = segue.destination as! TavernHomeView
             print("CONVERT \(tavernRef)")
+            vc.navTitle = tavernRef
             vc.tavern = convertTavern(tavern: tavernRef)
         }
         

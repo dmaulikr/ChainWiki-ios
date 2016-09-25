@@ -172,7 +172,7 @@
             </objects>
             <point key="canvasLocation" x="1933" y="235"/>
         </scene>
-        <!--Ability List-->
+        <!--어빌리티-->
         <scene sceneID="ZkI-XG-3aI">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="g4F-7p-kz9" customClass="AbilityList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
@@ -184,6 +184,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1Wk-Gw-XsC">
+                                <segments>
+                                    <segment title="기본"/>
+                                    <segment title="인연"/>
+                                </segments>
+                                <connections>
+                                    <action selector="abilityOrKizuna:" destination="g4F-7p-kz9" eventType="valueChanged" id="AiF-gK-k5l"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="l5l-xc-iYf">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -227,24 +236,14 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="l5l-xc-iYf" secondAttribute="trailing" id="2Vp-8A-Mf8"/>
                             <constraint firstItem="l5l-xc-iYf" firstAttribute="leading" secondItem="Hmc-u1-Fgi" secondAttribute="leading" id="7ak-SQ-Frn"/>
+                            <constraint firstItem="l5l-xc-iYf" firstAttribute="top" secondItem="1Wk-Gw-XsC" secondAttribute="bottom" constant="5" id="8u3-5W-pa7"/>
                             <constraint firstItem="sCM-BV-d9e" firstAttribute="top" secondItem="l5l-xc-iYf" secondAttribute="bottom" id="SqE-89-hw8"/>
-                            <constraint firstItem="l5l-xc-iYf" firstAttribute="top" secondItem="oeV-pY-Urr" secondAttribute="bottom" id="kob-B2-sl7"/>
+                            <constraint firstAttribute="trailing" secondItem="1Wk-Gw-XsC" secondAttribute="trailing" constant="10" id="ZzU-lZ-hwX"/>
+                            <constraint firstItem="1Wk-Gw-XsC" firstAttribute="leading" secondItem="Hmc-u1-Fgi" secondAttribute="leading" constant="10" id="gCc-7d-Xtf"/>
+                            <constraint firstItem="1Wk-Gw-XsC" firstAttribute="top" secondItem="oeV-pY-Urr" secondAttribute="bottom" constant="5" id="pB7-U6-U9I"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="fwV-ah-EfO">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="1Wk-Gw-XsC">
-                            <rect key="frame" x="8" y="7" width="359" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="기본"/>
-                                <segment title="인연"/>
-                            </segments>
-                            <connections>
-                                <action selector="abilityOrKizuna:" destination="g4F-7p-kz9" eventType="valueChanged" id="AiF-gK-k5l"/>
-                            </connections>
-                        </segmentedControl>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="어빌리티" id="fwV-ah-EfO"/>
                     <connections>
                         <outlet property="segmentedControl" destination="1Wk-Gw-XsC" id="pzv-Zx-JQ0"/>
                         <outlet property="tableView" destination="l5l-xc-iYf" id="Hju-pX-c8M"/>
@@ -263,7 +262,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JKo-S2-d9P">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JKo-S2-d9P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

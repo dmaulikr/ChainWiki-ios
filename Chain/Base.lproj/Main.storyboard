@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,39 +27,37 @@
                                     <segue destination="bWs-Rw-KUT" kind="embed" id="2tB-Bh-gFi"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ta-nR-jzS" userLabel="Search View">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="hKY-qD-t9d"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="is1-Fp-bbO" kind="embed" id="Vdz-DV-KhZ"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="1ta-nR-jzS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5oC-sf-Uor"/>
                             <constraint firstItem="ydh-ZN-R17" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BrD-zv-jiQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GAE-o0-dWx" secondAttribute="bottom" id="FhC-vz-LSF"/>
                             <constraint firstItem="ydh-ZN-R17" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="95" id="HnG-wR-E8P"/>
+                            <constraint firstAttribute="trailing" secondItem="1ta-nR-jzS" secondAttribute="trailing" id="KsS-uj-AZM"/>
                             <constraint firstAttribute="trailing" secondItem="GAE-o0-dWx" secondAttribute="trailing" id="Pa0-WR-tDJ"/>
                             <constraint firstItem="GAE-o0-dWx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="VGS-dn-9nl"/>
                             <constraint firstItem="GAE-o0-dWx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eHJ-UD-b34"/>
                             <constraint firstAttribute="trailing" secondItem="ydh-ZN-R17" secondAttribute="trailing" id="fQS-vV-4kG"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ydh-ZN-R17" secondAttribute="bottom" id="l7B-ZC-yDH"/>
+                            <constraint firstItem="1ta-nR-jzS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="t7W-Wm-u0o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cta-4H-B5j">
                         <nil key="title"/>
-                        <rightBarButtonItems>
-                            <barButtonItem image="filter" id="YRD-p5-pAT">
-                                <connections>
-                                    <action selector="filter:" destination="BYZ-38-t0r" id="hIY-mc-imm"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="sort" id="pid-b4-2nZ">
-                                <connections>
-                                    <action selector="sort:" destination="BYZ-38-t0r" id="m1q-yU-9rw"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="filter" destination="YRD-p5-pAT" id="OIc-An-Wq7"/>
                         <outlet property="filterView" destination="ydh-ZN-R17" id="FzA-MQ-5Ju"/>
                         <outlet property="searchDisplayController" destination="GRP-ev-0Rs" id="awy-MW-NmG"/>
-                        <outlet property="sort" destination="pid-b4-2nZ" id="Urx-0B-cjT"/>
+                        <outlet property="searchView" destination="1ta-nR-jzS" id="YTv-Bo-y6C"/>
                         <outlet property="tableView" destination="GAE-o0-dWx" id="pd9-Zf-9ZD"/>
                         <segue destination="Byw-71-fc4" kind="show" identifier="showArcana" id="vf6-Qv-Qwi"/>
                     </connections>
@@ -419,6 +416,39 @@
             </objects>
             <point key="canvasLocation" x="3929" y="1263"/>
         </scene>
+        <!--즐겨찾기-->
+        <scene sceneID="GJS-oX-53G">
+            <objects>
+                <viewController storyboardIdentifier="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="hGw-00-vgs" customClass="Favorites" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qfu-l6-p3y"/>
+                        <viewControllerLayoutGuide type="bottom" id="3wC-ZD-qgc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ViH-yL-Ff4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-VU-Ocb">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3Sr-VU-Ocb" firstAttribute="leading" secondItem="ViH-yL-Ff4" secondAttribute="leading" id="06e-1e-36P"/>
+                            <constraint firstItem="3wC-ZD-qgc" firstAttribute="top" secondItem="3Sr-VU-Ocb" secondAttribute="bottom" id="PzM-BY-Zoj"/>
+                            <constraint firstAttribute="trailing" secondItem="3Sr-VU-Ocb" secondAttribute="trailing" id="kOz-Oe-Zva"/>
+                            <constraint firstItem="3Sr-VU-Ocb" firstAttribute="top" secondItem="Qfu-l6-p3y" secondAttribute="bottom" id="qgc-zV-Ii0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="즐겨찾기" id="WEB-nJ-IL4"/>
+                    <connections>
+                        <outlet property="tableView" destination="3Sr-VU-Ocb" id="w7o-Kt-sxT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fej-ey-ukr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6160.8000000000002" y="1013.3433283358322"/>
+        </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="wub-9E-Ucz">
             <objects>
@@ -547,7 +577,7 @@
                 <navigationController storyboardIdentifier="HomeNav" id="7rg-wy-GHd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MN9-au-8Yj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -560,12 +590,58 @@
             </objects>
             <point key="canvasLocation" x="1040" y="500"/>
         </scene>
+        <!--즐겨찾기-->
+        <scene sceneID="ye1-Ab-R5S">
+            <objects>
+                <navigationController storyboardIdentifier="FavoritesNav" automaticallyAdjustsScrollViewInsets="NO" id="fAs-SO-TU7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="즐겨찾기" image="favorites" id="57X-Rk-Nrt"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dUg-eH-RdH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hGw-00-vgs" kind="relationship" relationship="rootViewController" id="RJQ-Cq-N41"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UKj-TA-aLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5221.6000000000004" y="1012.4437781109445"/>
+        </scene>
+        <!--Search History-->
+        <scene sceneID="i0B-kv-Om4">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="is1-Fp-bbO" customClass="SearchHistory" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mYP-1s-pFR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sAD-0H-Ou3">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="sAD-0H-Ou3" secondAttribute="bottom" id="2aU-xD-cqi"/>
+                            <constraint firstItem="sAD-0H-Ou3" firstAttribute="leading" secondItem="mYP-1s-pFR" secondAttribute="leading" id="A4L-uX-9Uo"/>
+                            <constraint firstAttribute="trailing" secondItem="sAD-0H-Ou3" secondAttribute="trailing" id="Di5-3e-z82"/>
+                            <constraint firstItem="sAD-0H-Ou3" firstAttribute="top" secondItem="mYP-1s-pFR" secondAttribute="top" id="Fda-1P-hu1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="sAD-0H-Ou3" id="DST-Mi-oD0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5mp-D2-zv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="780" y="1948"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arcanaTab" width="25" height="25"/>
         <image name="favorites" width="25" height="25"/>
-        <image name="filter" width="25" height="25"/>
-        <image name="sort" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>
 </document>

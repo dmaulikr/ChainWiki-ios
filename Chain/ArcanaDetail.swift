@@ -20,6 +20,24 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var heart = false
     var favorite = false
 
+    func add(sender:AnyObject){
+        var recents = NSOrderedSet()
+        if (UserDefaults.standard.string(forKey: "recent") != nil) {
+            recents  =  UserDefaults.standard.object(forKey: "recent")! as! NSOrderedSet
+        }
+        
+        if !recents.contains(arcana!.uid) {
+            
+            if recents.count < 5 {
+                recents.setValue(true, forKey: "\(arcana!.uid)")
+            }
+            
+            else {
+            }
+        }
+        UserDefaults.standard.set(recents, forKey: "recent")
+        UserDefaults.standard.synchronize()
+    }
     
     @IBAction func edit(_ sender: AnyObject) {
         
@@ -166,13 +184,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaImage") as! ArcanaImageCell
             cell.layoutMargins = UIEdgeInsets.zero
             cell.favorite.tag = indexPath.row
+            cell.favorite.addTarget(self, action: #selector(ArcanaDetail.addFavorite), for: .touchUpInside)
             cell.heart.tag = indexPath.row
+            cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
             
             if favorite {
-                cell.favorite.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+                cell.favorite.setImage(_: UIImage(named: "emailSalmon"), for: .normal)
             }
             if heart {
-                cell.heart.setBackgroundImage(_: UIImage(named: "emailSalmon"), for: .normal)
+                cell.heart.setImage(_: UIImage(named: "emailSalmon"), for: .normal)
             }
             
             cell.imageSpinner.startAnimating()
@@ -243,11 +263,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 attributeKey = "이름"
                 if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
                     attributeValue = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
-                    
                 }
                 else {
                     attributeValue = "\(arcana.nameKR)\n\(arcana.nameJP)"
                 }
+                
+                
             case 1:
                 attributeKey = "레어"
                 attributeValue = getRarityLong(arcana.rarity)
@@ -273,6 +294,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             cell.attributeKey.text = attributeKey
             cell.attributeValue.text = attributeValue
+            cell.attributeValue.setLineHeight(lineHeight: 1.2)
             
             return cell
             
@@ -667,6 +689,48 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
     }
+    
+    func addFavorite() {
+        
+        
+        if let arcana = arcana, let uid = USERID  {
+            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                if snapshot.exists() {
+                    ref.removeValue()
+                }
+                
+                else {
+                    ref.setValue(true)
+                }
+                
+            })
+            
+        }
+       
+    }
+    
+    
+    func addHeart() {
+        
+        if let arcana = arcana, let uid = USERID  {
+            let ref = FIREBASE_REF.child("user/\(uid)/hearts/\(arcana.uid)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                if snapshot.exists() {
+                    ref.removeValue()
+                }
+                    
+                else {
+                    ref.setValue(true)
+                }
+                
+            })
+            
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

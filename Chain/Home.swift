@@ -12,11 +12,9 @@ import AlamofireImage
 //import Toucan
 import NVActivityIndicatorView
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
+class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var filter: UIBarButtonItem!
-    @IBOutlet weak var sort: UIBarButtonItem!
 
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
@@ -31,6 +29,26 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     var downloadTavern = false
     
     @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var searchView: UIView!
+    
+    func setupBarButtons() {
+        
+        let filter = UIButton()
+        filter.setImage(UIImage(named: "filter.png"), for: .normal)
+        filter.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        filter.addTarget(self, action: #selector(Home.filter(_:)), for: .touchUpInside)
+        let filterButton = UIBarButtonItem()
+        filterButton.customView = filter
+        
+        let sort = UIButton()
+        sort.setImage(UIImage(named: "sort.png"), for: .normal)
+        sort.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        sort.addTarget(self, action: #selector(Home.sort(_:)), for: .touchUpInside)
+        let sortButton = UIBarButtonItem()
+        sortButton.customView = sort
+ 
+        self.navigationItem.rightBarButtonItems = [filterButton,sortButton]
+    }
     
     @IBAction func sort(_ sender: AnyObject) {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
@@ -116,6 +134,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        
         self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
@@ -171,6 +191,14 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             tableView.alpha = 1
         }
         if searchController.isActive && searchController.searchBar.text != "" {
+
+            if searchArray.count == 0 {
+                tableView.alpha = 0
+            }
+            else {
+                tableView.alpha = 1
+            }
+            
             return searchArray.count
         }
         
@@ -310,14 +338,14 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupBarButtons()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         if let a = childViewControllers[0] as? Filter {
             a.delegate = self
         }
-       
+        
         tableView.dataSource = self
         tableView.delegate = self
         downloadArray()
@@ -325,7 +353,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        searchView.alpha = 0
         filterView.alpha = 0.0
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
@@ -344,7 +372,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             searchController.searchBar.searchBarStyle = .minimal
             searchController.searchResultsUpdater = self
             searchController.dimsBackgroundDuringPresentation = false
-            
+            searchController.delegate = self
             searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
             if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
                 
@@ -611,12 +639,28 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
 
     func filterContentForSearchText(searchText: String, scope: String = "All") {
+        
+        // dismiss history if user starts typing.
+        if searchText != "" {
+            searchView.alpha = 0
+        }
+        
         searchArray = originalArray.filter { arcana in
             return arcana.nameKR.contains(searchText) || arcana.nameJP.contains(searchText)
         }
         
         tableView.reloadData()
     }
+    
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchView.alpha = 1
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        searchView.alpha = 0
+    }
+    
     
 }
 
@@ -625,6 +669,8 @@ extension Home: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-
+    
+    
+    
 }
 

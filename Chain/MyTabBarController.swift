@@ -12,14 +12,18 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         self.delegate = self
         
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let abilityStoryboard : UIStoryboard = UIStoryboard(name: "Ability", bundle:nil)
         let tavernStoryboard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
         
         let ability = abilityStoryboard.instantiateViewController(withIdentifier: "AbilityNav") as! UINavigationController
         let tavern = tavernStoryboard.instantiateViewController(withIdentifier: "TavernNav") as! UINavigationController
-        
+        let favorites = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesNav") as! UINavigationController
+
+    
         self.addChildViewController(ability)
         self.addChildViewController(tavern)
+        self.addChildViewController(favorites)
         
         self.tabBar.tintColor = lightGreenColor
     }

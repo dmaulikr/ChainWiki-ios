@@ -243,10 +243,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        print("CHANGED VIEW")
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
