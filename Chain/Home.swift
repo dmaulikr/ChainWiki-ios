@@ -117,7 +117,18 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
     func dismissFilter(_ sender: AnyObject) {
         
-        if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
+        if searchView.alpha == 1 && gesture.location(in: self.view).y > 220 {
+            print("alpha is 1 and gesture != searchview")
+            gesture.cancelsTouchesInView = true
+            searchController.dismiss(animated: true, completion: nil)
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.searchView.alpha = 0.0
+                }, completion: nil)
+            
+            
+        }
+        
+        else if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
             print("dismissed")
             gesture.cancelsTouchesInView = true
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -130,8 +141,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -373,6 +382,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             searchController.searchResultsUpdater = self
             searchController.dimsBackgroundDuringPresentation = false
             searchController.delegate = self
+//            searchController.searchBar.endEditing(true)
             searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
             if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
                 
@@ -660,6 +670,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 }, completion: nil)
     }
     
+
     func didDismissSearchController(_ searchController: UISearchController) {
         
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -667,8 +678,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }, completion: nil)
         
     }
-    
-    
+
+
 }
 
 extension Home: UISearchResultsUpdating {

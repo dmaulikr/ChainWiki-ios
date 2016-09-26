@@ -20,57 +20,51 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var heart = false
     var favorite = false
 
-    func add(){
+    func updateHistory(){
         var recents = [String]()
         
         let defaults = UserDefaults.standard
-        
-        recents = defaults.object(forKey: "recent") as? [String] ?? [String]()
-        
-        if recents.count == 0 {
-            print("empty array")
-            recents.append(arcana!.uid)
-        }
-        
-        else {
-            var found = false
-            for (index, search) in recents.enumerated() {
-                if arcana!.uid == search {
-                    recents.remove(at: index)
-                    recents.append(arcana!.uid)
-                    found = true
-                    print("FOUND IN DEFAULTS")
-                    break
-                }
-            }
+        if let arcana = arcana {
+//            let nKR = arcana.nameKR
+            let uid = arcana.uid
+            recents = defaults.object(forKey: "recent") as? [String] ?? [String]()
             
-            if found == false {
-                
-                if recents.count >= 5 {
-                    print("array count is 5, remove and then insert")
-                    recents.remove(at: 0)
-                    recents.append(arcana!.uid)
-                }
-                
-                else {
-                    print("array is small, just append")
-                    recents.append(arcana!.uid)
-                }
-               
+            if recents.count == 0 {
+                print("empty array")
+                recents.append(uid)
             }
+                
+            else {
+                var found = false
+                for (index, search) in recents.enumerated() {
+                    if uid == search {
+                        recents.remove(at: index)
+                        recents.append(uid)
+                        found = true
+                        print("FOUND IN DEFAULTS")
+                        break
+                    }
+                }
+                
+                if found == false {
+                    
+                    if recents.count >= 5 {
+                        print("array count is 5, remove and then insert")
+                        recents.remove(at: 0)
+                        recents.append(uid)
+                    }
+                        
+                    else {
+                        print("array is small, just append")
+                        recents.append(uid)
+                    }
+                }
+            }
+            defaults.set(recents, forKey: "recent")
+            defaults.synchronize()
         }
-
-        defaults.set(recents, forKey: "recent")
-        defaults.synchronize()
-
     }
 
-
-        
-        
-    
-    
-    
     @IBAction func edit(_ sender: AnyObject) {
         
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
@@ -766,7 +760,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        add()
+        updateHistory()
         tableView.delegate = self
         tableView.dataSource = self
         setupViews()

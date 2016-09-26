@@ -12,49 +12,90 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     @IBOutlet weak var tableView: UITableView!
     var history = [String]()
-    
+    var arcanaArray = [Arcana]()
+    var group = DispatchGroup()
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return history.count
+        return arcanaArray.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaTextCell") as! ArcanaTextCell
         
-        
-        
+        cell.nameKR.text = arcanaArray[indexPath.row].nameKR
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "searchToArcana", sender: (indexPath as NSIndexPath).row)
+    }
+    
+    
+    func updateSearches() {
+        let defaults = UserDefaults.standard
+        let uids = defaults.object(forKey: "recent") as? [String] ?? [String]().reversed()
+
+        if uids.count > 0 {
+            var array = [Arcana]()
+            
+            for id in uids {
+                print(id)
+                self.group.enter()
+                
+                let ref = FIREBASE_REF.child("arcana/\(id)")
+                
+                ref.observeSingleEvent(of: .value, with: { snapshot in
+                    let arcana = Arcana(snapshot: snapshot)
+                    array.append(arcana!)
+                    self.group.leave()
+                    
+                    
+                })
+            }
+            
+            self.group.notify(queue: DispatchQueue.main, execute: {
+                print("FINISHED")
+                self.arcanaArray = array.reversed()
+                self.tableView.reloadData()
+            })
+            
+        }
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaTextCell", bundle: nil), forCellReuseIdentifier: "arcanaTextCell")
-        
-        // Do any additional setup after loading the view.
+
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        updateSearches()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "searchToArcana") {
+            let arcana: Arcana
+
+            arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+
+            let vc = segue.destination as! ArcanaDetail
+            vc.arcana = arcana
+        }
     }
-    */
 
 }

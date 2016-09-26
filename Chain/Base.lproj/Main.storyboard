@@ -29,7 +29,7 @@
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ta-nR-jzS" userLabel="Search View">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="hKY-qD-t9d"/>
+                                    <constraint firstAttribute="height" constant="200" id="cBk-8N-djP"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="is1-Fp-bbO" kind="embed" id="Vdz-DV-KhZ"/>
@@ -614,11 +614,15 @@
         <scene sceneID="i0B-kv-Om4">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="is1-Fp-bbO" customClass="SearchHistory" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ns2-8v-8k9"/>
+                        <viewControllerLayoutGuide type="bottom" id="g8T-lP-6jK"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mYP-1s-pFR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sAD-0H-Ou3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sAD-0H-Ou3">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -632,6 +636,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="sAD-0H-Ou3" id="DST-Mi-oD0"/>
+                        <segue destination="Byw-71-fc4" kind="show" identifier="searchToArcana" id="yib-dA-nmg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5mp-D2-zv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -644,4 +649,7 @@
         <image name="favorites" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="vf6-Qv-Qwi"/>
+    </inferredMetricsTieBreakers>
 </document>
