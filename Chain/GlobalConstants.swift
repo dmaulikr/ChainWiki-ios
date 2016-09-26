@@ -13,8 +13,17 @@ import AlamofireImage
 
 var USERID: String? {
     if let USERID = UserDefaults.standard.value(forKey: "uid") as? String {
-        //print("USERID IS \(USERID!)")
         return (USERID)
+        
+    }
+    else {
+        return nil
+    }
+}
+
+var NICKNAME: String? {
+    if let NICKNAME = UserDefaults.standard.value(forKey: "nickName") as? String {
+        return (NICKNAME)
         
     }
     else {

@@ -23,43 +23,69 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     @IBAction func createEmail(_ sender: AnyObject) {
 
         
-        if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text {
+        if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text, let nickname = self.nickname.text {
             
             if password != passwordConfirm {
                 print("passwords do not match")
             }
             else {
-                FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+                
+                let nickNameRef = FIREBASE_REF.child("nickName/\(nickname)")
+                nickNameRef.observeSingleEvent(of: .value, with: { snapshot in
                     
-                    
-                    if error != nil {
-                        
-                        
-                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
-                            switch (errorCode) {
+                    if snapshot.exists() {
+                        print("nickname already in use")
+                    }
+                    else {
+                        FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+
+                            if error != nil {
                                 
-                            case .errorCodeEmailAlreadyInUse:
-                                print("Email already in use")
                                 
-                            case .errorCodeInvalidEmail:
-                                print("invalid email")
+                                if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                                    switch (errorCode) {
+                                        
+                                    case .errorCodeEmailAlreadyInUse:
+                                        print("Email already in use")
+                                        
+                                    case .errorCodeInvalidEmail:
+                                        print("invalid email")
+                                        
+                                    case .errorCodeWeakPassword:
+                                        print("weak password")
+                                        
+                                    default:
+                                        print("Some other error")
+                                    }
+                                }
+                            }
+                            else {
+                                print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+                                let uid = user!.uid
+                                UserDefaults.standard.setValue(uid, forKey: "uid")
                                 
-                            case .errorCodeWeakPassword:
-                                print("weak password")
                                 
-                            default:
-                                print("Some other error")
+                                let changeRequest = user!.profileChangeRequest()
+                                changeRequest.displayName = nickname
+                                changeRequest.commitChanges { error in
+                                    if let _ = error {
+                                        print("could not set user's nickname")
+                                    } else {
+                                        print("user's nickname updated")
+                                    }
+                                }
+                                
+                                UserDefaults.standard.setValue(nickname, forKey: "nickName")
+                                
+                                nickNameRef.setValue(true)
+                                
+                                self.changeRootView()
                             }
                         }
                     }
-                    else {
-                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
-                        let uid = user!.uid
-                        UserDefaults.standard.setValue(uid, forKey: "uid")
-                        
-                        self.changeRootView()
-                    }
-                }
+                    
+                })
+                
             }
             
             

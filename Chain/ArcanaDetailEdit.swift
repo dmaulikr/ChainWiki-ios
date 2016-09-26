@@ -79,6 +79,8 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                     
                     let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
                     let editsRef = FIREBASE_REF.child("edits/\(uid)/\(date)/\(key)")
+                    let editsRefUID = FIREBASE_REF.child("edits/\(uid)/\(date)/editorUID")
+                    let editsRefName = FIREBASE_REF.child("edits/\(uid)/\(date)/nickName")
                     
                     // move old values to edit ref
                     originalRef.observeSingleEvent(of: .value, with: { snapshot in
@@ -87,8 +89,8 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                         // Moved old data, now replace old data with user's edit
                         
                         originalRef.setValue(value)
-                        
-                        
+                        editsRefUID.setValue(USERID!)
+                        editsRefName.setValue(NICKNAME!)
                     })
                 }
             }
