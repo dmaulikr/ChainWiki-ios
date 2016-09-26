@@ -217,9 +217,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
@@ -228,7 +230,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         let arcana: Arcana
         
         
-        if searchController.isActive && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
             arcana = searchArray[indexPath.row]
         } else {
             arcana = arcanaArray[indexPath.row]

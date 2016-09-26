@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="arcanaDetailEditCell" id="WvG-3s-YhW" customClass="ArcanaDetailEditCell" customModule="Chain" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WvG-3s-YhW" id="9us-9f-HaC">
+                <frame key="frameInset" width="375" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-3n-0Vb">
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="afY-SX-ffl">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Jdp-3n-0Vb" secondAttribute="bottom" constant="5" id="MMj-k5-clN"/>
+                    <constraint firstItem="Jdp-3n-0Vb" firstAttribute="top" secondItem="9us-9f-HaC" secondAttribute="top" constant="5" id="SgZ-BM-PUf"/>
+                    <constraint firstAttribute="trailing" secondItem="afY-SX-ffl" secondAttribute="trailing" constant="10" id="WLS-1b-J1X"/>
+                    <constraint firstItem="afY-SX-ffl" firstAttribute="top" secondItem="9us-9f-HaC" secondAttribute="top" constant="5" id="WMp-KK-WJi"/>
+                    <constraint firstAttribute="bottom" secondItem="afY-SX-ffl" secondAttribute="bottom" constant="5" id="Z5s-ci-1b1"/>
+                    <constraint firstItem="Jdp-3n-0Vb" firstAttribute="leading" secondItem="9us-9f-HaC" secondAttribute="leading" constant="10" id="caI-jD-Zvw"/>
+                    <constraint firstItem="afY-SX-ffl" firstAttribute="leading" secondItem="Jdp-3n-0Vb" secondAttribute="trailing" constant="10" id="jFk-Zg-J0r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="attribute" destination="afY-SX-ffl" id="ve6-4N-dDs"/>
+                <outlet property="key" destination="Jdp-3n-0Vb" id="cpM-AA-6uB"/>
+            </connections>
+            <point key="canvasLocation" x="-116" y="-64"/>
+        </tableViewCell>
+    </objects>
+</document>

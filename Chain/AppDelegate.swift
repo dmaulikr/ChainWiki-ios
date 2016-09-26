@@ -33,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().barTintColor = lightGreenColor
         
-        //UILabel.appearance().font = UIFont(name: "yourFont", size: yourSize)
-        
         
         if UserDefaults.standard.value(forKey: "uid") == nil {
             print("no user signed in")

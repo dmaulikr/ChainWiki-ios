@@ -432,6 +432,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 4:
             if (indexPath as NSIndexPath).row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaSkill") as! ArcanaSkillCell
+                cell.skillNumber.text = "인연"
+                cell.skillManaCost.text = "코스트"
                 cell.skillName.text = arcana.kizunaName
                 cell.skillMana.text = arcana.kizunaCost
                 cell.layoutMargins = UIEdgeInsets.zero
@@ -441,6 +443,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 cell.skillAbilityDesc.text = arcana.kizunaDesc
+                cell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
@@ -689,6 +692,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
 //        cell?.backgroundColor = UIColor.greenColor()
 //    }
+    
+    
     func setupViews() {
         
         self.title = "\(arcana!.nameKR)"
@@ -790,21 +795,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         //navigationController?.hidesBarsOnSwipe = true
     
-    }
-
-//    override func viewDidAppear(animated: Bool) {
-//        
-//        tableView.reloadData()
-//        
-//    }
-    
-
-
-    override func viewDidDisappear(_ animated: Bool) {
-        
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
-        }
     }
 
     override func didReceiveMemoryWarning() {

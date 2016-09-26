@@ -8,13 +8,28 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     var group = DispatchGroup()
-    
     var array = [Arcana]()
+    
+    @IBAction func logout(_ sender: AnyObject) {
+        
+        // Remove the user's uid from storage.
+        UserDefaults.standard.setValue(nil, forKey: "uid")
+        
+        try! FIRAuth.auth()!.signOut()
+
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+        
+        self.view.window?.rootViewController = initialViewController
+        self.view.window?.makeKeyAndVisible()
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -82,17 +97,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
+    func downloadFavorites() {
         if let uid = USERID {
             let ref = FIREBASE_REF.child("user/\(uid)/favorites")
             
@@ -128,12 +133,27 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 
             })
-
+            
         }
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        downloadFavorites()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -40,7 +40,8 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func updateSearches() {
         let defaults = UserDefaults.standard
         let uids = defaults.object(forKey: "recent") as? [String] ?? [String]().reversed()
-
+        // todo. if i crash here, set some bool to true to check at next open and clear defaults.
+//        defaults.removeObject(forKey: "recent")
         if uids.count > 0 {
             var array = [Arcana]()
             

@@ -138,6 +138,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         } else {
             // Not found, so remove keyboard.
             textField.resignFirstResponder()
+            self.emailLogin(self)
         }
         // Not found, so remove keyboard.
         return false

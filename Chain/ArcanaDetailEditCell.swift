@@ -11,7 +11,7 @@ import UIKit
 class ArcanaDetailEditCell: UITableViewCell {
 
     @IBOutlet weak var key: UILabel!
-    @IBOutlet weak var attribute: UILabel!
+    @IBOutlet weak var attribute: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
