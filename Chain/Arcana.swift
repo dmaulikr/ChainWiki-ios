@@ -41,8 +41,8 @@ struct Arcana: Equatable, Hashable {
     var skillDesc3 : String?
     
     
-    var abilityName1: String
-    var abilityDesc1: String
+    var abilityName1: String?
+    var abilityDesc1: String?
     
     var abilityName2: String?
     var abilityDesc2: String?
@@ -110,7 +110,7 @@ struct Arcana: Equatable, Hashable {
 //        if let a = snapshot.value as? NSDictionary {
 //            let b = a["uid"] as? String
 //        }
-        guard let u = (snapshot.value as? NSDictionary)?["uid"] as? String, let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String, let nJP = (snapshot.value as? NSDictionary)?["nameJP"] as? String, let r = (snapshot.value as? NSDictionary)?["rarity"] as? String, let g = (snapshot.value as? NSDictionary)?["class"] as? String, let t = (snapshot.value as? NSDictionary)?["tavern"] as? String, let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String, let c = (snapshot.value as? NSDictionary)?["cost"] as? String, let w = (snapshot.value as? NSDictionary)?["weapon"] as? String, let kN = (snapshot.value as? NSDictionary)?["kizunaName"] as? String, let kC = (snapshot.value as? NSDictionary)?["kizunaCost"] as? String, let kD = (snapshot.value as? NSDictionary)?["kizunaDesc"] as? String, let sC = (snapshot.value as? NSDictionary)?["skillCount"] as? String, let sN1 = (snapshot.value as? NSDictionary)?["skillName1"] as? String, let sM1 = (snapshot.value as? NSDictionary)?["skillMana1"] as? String, let sD1 = (snapshot.value as? NSDictionary)?["skillDesc1"] as? String, let aN1 = (snapshot.value as? NSDictionary)?["abilityName1"] as? String, let aD1 = (snapshot.value as? NSDictionary)?["abilityDesc1"] as? String, let v = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int else {
+        guard let u = (snapshot.value as? NSDictionary)?["uid"] as? String, let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String, let nJP = (snapshot.value as? NSDictionary)?["nameJP"] as? String, let r = (snapshot.value as? NSDictionary)?["rarity"] as? String, let g = (snapshot.value as? NSDictionary)?["class"] as? String, let t = (snapshot.value as? NSDictionary)?["tavern"] as? String, let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String, let c = (snapshot.value as? NSDictionary)?["cost"] as? String, let w = (snapshot.value as? NSDictionary)?["weapon"] as? String, let kN = (snapshot.value as? NSDictionary)?["kizunaName"] as? String, let kC = (snapshot.value as? NSDictionary)?["kizunaCost"] as? String, let kD = (snapshot.value as? NSDictionary)?["kizunaDesc"] as? String, let sC = (snapshot.value as? NSDictionary)?["skillCount"] as? String, let sN1 = (snapshot.value as? NSDictionary)?["skillName1"] as? String, let sM1 = (snapshot.value as? NSDictionary)?["skillMana1"] as? String, let sD1 = (snapshot.value as? NSDictionary)?["skillDesc1"] as? String, let v = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int else {
                 print("COULD NOT GET SNAPSHOT OF 1 SKILL ARCANA")
                 return nil
             }
@@ -134,15 +134,17 @@ struct Arcana: Equatable, Hashable {
             skillName1 = sN1
             skillMana1 = sM1
             skillDesc1 = sD1
-        
-            abilityName1 = aN1
-            abilityDesc1 = aD1
             
             numberOfViews = v
         
         if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String, let nnJP = (snapshot.value as? NSDictionary)?["nickNameJP"] as? String {
             nickNameKR = nnKR
             nickNameJP = nnJP
+        }
+        
+        if let aN1 = (snapshot.value as? NSDictionary)?["abilityName1"] as? String, let aD1 = (snapshot.value as? NSDictionary)?["abilityDesc1"] as? String {
+            abilityName1 = aN1
+            abilityDesc1 = aD1
         }
         
         if let aN2 = (snapshot.value as? NSDictionary)?["abilityName2"] as? String, let aD2 = (snapshot.value as? NSDictionary)?["abilityDesc2"] as? String {
@@ -169,7 +171,7 @@ struct Arcana: Equatable, Hashable {
             chainStory = cStory
         }
         
-        if let cStone = (snapshot.value as? NSDictionary)?["chainStory"] as? String {
+        if let cStone = (snapshot.value as? NSDictionary)?["chainStone"] as? String {
             chainStone = cStone
         }
 

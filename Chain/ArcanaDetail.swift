@@ -115,7 +115,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,7 +156,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 4:    // Kizuna
             return 2
             
-        default:    // chainstory, chainstone
+        case 5:    // chainstory, chainstone
             var count = 0
             if let _ = arcana.chainStory {
                 count += 1
@@ -165,7 +165,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 count += 1
             }
             
+            
             return count
+            
+        default:    // edit history
+            return 1
         
         }
   
@@ -448,7 +452,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return cell
             }
             
-        default:
+        case 5:
             if let cStory = arcana.chainStory {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                 cell.storyKey.text = "체인스토리"
@@ -458,240 +462,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             } else if let cStone = arcana.chainStone {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                 cell.storyKey.text = "인연이야기"
-                cell.storyAttribute.text = cStone
+                cell.storyAttribute.text = "레벨 \(cStone)"
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
             else {
                 assert(false, "unexpected element kind")
             }
-        }
-        
-        
-            
-    }
-    
-    
-    /*
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        guard let arcana = arcana
-            else {
-                print("ARCANA IS NOT INITIALIZED!")
-                return
-            }
-        
-        switch ((indexPath as NSIndexPath).section) {
-            
-        case 0: // arcanaImage
-
-            let c = cell as! ArcanaImageCell
-            
-            
-
-            // Check Cache, or download from Firebase
-            
-//            let size = CGSize(width: SCREENWIDTH - 20, height: 400)
-//            let aspectScaledToFitImage = UIImage(named: "main.jpg")!.af_imageAspectScaledToFitSize(size)
-//            c.arcanaImage.image = aspectScaledToFitImage
-            
-            
-            // Check cache first
-            
-            
-            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
-                print("LOADED CACHE IMAGE")
-                
-                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
-                let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
-                
-                c.arcanaImage.image = aspectScaledToFitImage
-                c.imageSpinner.stopAnimating()
-            }
-                
-                //  Not in cache, download from firebase
-            else {
-//                c.imageSpinner.startAnimation()
-                STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURL { (URL, error) -> Void in
-                    if (error != nil) {
-                        print("image download error")
-                        // Handle any errors
-                    } else {
-                        // Get the download URL
-                        let urlRequest = URLRequest(url: URL!)
-
-                        DOWNLOADER.download(urlRequest) { response in
-                            
-                            if let image = response.result.value {
-                                // Set the Image
-                                
-                                let size = CGSize(width: (SCREENWIDTH - CGFloat(20)), height: 400)
-                                
-                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-                                    c.imageSpinner.stopAnimating()
-                                    let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
-                                    
-                                    c.arcanaImage.image = aspectScaledToFitImage
-                                    
-                                    print("DOWNLOADED")
-                                    
-                                    // Cache the Image
-                                    print(arcana.uid)
-                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
-                                }
-                                
-
-                                
-                                
-                            }
-                        }
-                    }
-                }
- 
-            }
- 
- 
-            
-        case 1:    // arcanaAttribute
-            let c = cell as! ArcanaAttributeCell
-            
-            var attributeKey = ""
-            var attributeValue = ""
-            
-            switch (indexPath as NSIndexPath).row {
-                
-            case 0:
-                attributeKey = "이름"
-                if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-                    attributeValue = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
-
-                }
-                else {
-                    attributeValue = "\(arcana.nameKR)\n\(arcana.nameJP)"
-                }
-            case 1:
-                attributeKey = "레어"
-                attributeValue = getRarityLong(arcana.rarity)
-            case 2:
-                attributeKey = "직업"
-                attributeValue = arcana.group
-            case 3:
-                attributeKey = "소속"
-                if let a = arcana.affiliation {
-                    attributeValue = a
-                }
-            case 4:
-                attributeKey = "코스트"
-                attributeValue = arcana.cost
-            case 5:
-                attributeKey = "무기"
-                attributeValue = arcana.weapon
-                
-            default:
-                break
-                
-            }
-            
-            c.attributeKey.text = attributeKey
-            c.attributeValue.text = attributeValue
-            
-        case 2:
-            
-            // TODO: Calculate # of skills
-            
-            switch (indexPath as NSIndexPath).row {
-                
-            case 0:
-                let headerCell = cell as! ArcanaSkillCell
-                headerCell.skillNumber.text = "스킬 1"
-                headerCell.skillName.text = arcana.skillName1
-                headerCell.skillMana.text = arcana.skillMana1
-        
-            case 1:
-                let descCell = cell as! ArcanaSkillAbilityDescCell
-                descCell.skillAbilityDesc.text = arcana.skillDesc1
-                
-            case 2:
-                let headerCell = cell as! ArcanaSkillCell
-                headerCell.skillNumber.text = "스킬 2"
-                headerCell.skillName.text = arcana.skillName2
-                headerCell.skillMana.text = arcana.skillMana2
-                
-            case 3:
-                let descCell = cell as! ArcanaSkillAbilityDescCell
-                descCell.skillAbilityDesc.text = arcana.skillDesc2
-            case 4:
-                let headerCell = cell as! ArcanaSkillCell
-                headerCell.skillNumber.text = "스킬 3"
-                headerCell.skillName.text = arcana.skillName3
-                headerCell.skillMana.text = arcana.skillMana3
-            
-            case 5:
-                let descCell = cell as! ArcanaSkillAbilityDescCell
-                descCell.skillAbilityDesc.text = arcana.skillDesc3
-                
-            default:
-                break
-                
-            }
-        case 3:
-            switch (indexPath as NSIndexPath).row {
-                
-            case 0:
-                let name = cell as! ArcanaAttributeCell
-                name.attributeKey.text = "어빌 1"
-                name.attributeValue.text = arcana.abilityName1
-            case 1:
-                let desc = cell as! ArcanaSkillAbilityDescCell
-                
-                let paragraphStyle = NSMutableParagraphStyle()
-                //line height size
-                paragraphStyle.lineSpacing = 5
-                let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
-                attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-                desc.skillAbilityDesc.attributedText = attrString
-                
-//                desc.skillAbilityDesc.text = arcana.abilityDesc1
-            case 2:
-                let name = cell as! ArcanaAttributeCell
-                name.attributeKey.text = "어빌 2"
-                name.attributeValue.text = arcana.abilityName2
-            default:
-                let desc = cell as! ArcanaSkillAbilityDescCell
-                desc.skillAbilityDesc.text = arcana.abilityDesc2
-                
-            }
-        case 4:
-            switch (indexPath as NSIndexPath).row {
-            case 0:
-                let descCell = cell as! ArcanaSkillCell
-                descCell.skillNumber.text = "인연"
-                descCell.skillManaCost.text = "코스트"
-            default:
-                break
-                
-                
-            }
             
         default:
-            break
-            
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
+            cell.skillAbilityDesc.text = "편집 기록"
+            cell.layoutMargins = UIEdgeInsets.zero
+            return cell
+
         }
+        
         
     }
     
-    */
-//    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        cell?.backgroundColor = UIColor.redColor()
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        cell?.backgroundColor = UIColor.greenColor()
-//    }
+
     
     
     func setupViews() {
@@ -817,6 +607,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             let vc = segue.destination as! ArcanaDetailEdit
             vc.arcana = arcana
             
+            
+        }
+        else {  // EDIT HISTORY
+            
+            let vc = segue.destination as! ArcanaDetailEdit
+            vc.arcana = arcana
             
         }
     }

@@ -133,7 +133,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Try to find next responder
-        if textField == email {
+        if let _ = email {
             password.becomeFirstResponder()
         } else {
             // Not found, so remove keyboard.

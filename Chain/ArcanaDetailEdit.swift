@@ -74,23 +74,21 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             
             if let arcana = arcana {
                 let uid = arcana.uid
-                
+                let editsRef = FIREBASE_REF.child("edits/\(uid)/\(date)")
+                // childchanged to update single arcana values
                 for (key, value) in edits {
                     
                     let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
-                    let editsRef = FIREBASE_REF.child("edits/\(uid)/\(date)/\(key)")
-                    let editsRefUID = FIREBASE_REF.child("edits/\(uid)/\(date)/editorUID")
-                    let editsRefName = FIREBASE_REF.child("edits/\(uid)/\(date)/nickName")
+                    let editsPreviousRef = FIREBASE_REF.child("edits/\(uid)/\(date)/previous/\(key)")
                     
                     // move old values to edit ref
                     originalRef.observeSingleEvent(of: .value, with: { snapshot in
                         
-                        editsRef.setValue(snapshot.value)
+                        editsPreviousRef.setValue(snapshot.value)
                         // Moved old data, now replace old data with user's edit
-                        
+                        editsRef.child("editorUID").setValue(USERID!)
                         originalRef.setValue(value)
-                        editsRefUID.setValue(USERID!)
-                        editsRefName.setValue(NICKNAME!)
+                        editsRef.child("nickName").setValue(NICKNAME!)
                     })
                 }
             }
