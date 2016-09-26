@@ -349,7 +349,7 @@
             </objects>
             <point key="canvasLocation" x="3016.8000000000002" y="1262.5187406296852"/>
         </scene>
-        <!--Arcana Detail Edit-->
+        <!--Title-->
         <scene sceneID="fT1-xG-cFS">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="scq-Sr-Dal" customClass="ArcanaDetailEdit" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
@@ -361,7 +361,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-XS-gdh">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-XS-gdh">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -373,6 +373,13 @@
                             <constraint firstItem="gCM-XS-gdh" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" id="ikP-uL-EJ3"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="xiW-kf-jMt">
+                        <barButtonItem key="rightBarButtonItem" title="완료" id="hYv-fm-6bi">
+                            <connections>
+                                <action selector="complete:" destination="scq-Sr-Dal" id="JB7-lv-0tT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="gCM-XS-gdh" id="FXK-nz-PmH"/>
                     </connections>

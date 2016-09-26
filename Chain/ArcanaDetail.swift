@@ -779,6 +779,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         scrollViewDidEndDragging(tableView, willDecelerate: true)
         
         checkFavorites()
+        
+        let backButton = UIBarButtonItem(title: "취소", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }
 

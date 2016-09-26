@@ -11,6 +11,30 @@ import UIKit
 class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func complete(_ sender: AnyObject) {
+
+        var text = [String]()
+        var cells = [UITableViewCell]()
+        // assuming tableView is your self.tableView defined somewhere
+        for i in 0...tableView.numberOfSections-1
+        {
+            for j in 0...tableView.numberOfRows(inSection: i)-1
+            {
+                if let cell = tableView.cellForRow(at: NSIndexPath(row: j, section: i) as IndexPath) as? ArcanaDetailEditCell {
+                    
+                    text.append(cell.attribute.text)
+                }
+                
+            }
+        }
+        
+        for i in text {
+            print(i)
+        }
+
+        
+    }
+    
     var arcana: Arcana?
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,6 +61,12 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             // kizuna
             return 3
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return 100
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,7 +176,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             }
             
         }
-        
+        cell.attribute.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         return cell
     }
 
@@ -163,9 +193,12 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        self.hideKeyboardWhenTappedAround()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "ArcanaDetailEditCell", bundle: nil), forCellReuseIdentifier: "arcanaDetailEditCell")
         
+        self.title = arcana?.nameKR
+        self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has
     }
 
