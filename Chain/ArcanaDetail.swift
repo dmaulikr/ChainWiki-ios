@@ -75,7 +75,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             else {
                 let alertController = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
-                
+                alertController.view.tintColor = salmonColor
                 let defaultAction = UIAlertAction(title: "확인", style: .default, handler: nil)
                 alertController.addAction(defaultAction)
                 
@@ -780,7 +780,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         checkFavorites()
         
-        let backButton = UIBarButtonItem(title: "취소", style:.plain, target: nil, action: nil)
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }

@@ -10,57 +10,100 @@ import UIKit
 
 class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
 
+    let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "인연 이름", "인연 코스트", "인연 설명"]
+    
+    let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName1", "skillMana2", "skillDesc2", "skillName1", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
+    var arcana: Arcana?
+    var edits = [String : String]()
     @IBOutlet weak var tableView: UITableView!
+    var rowBeingEdited : Int? = nil
+    @IBOutlet weak var alert: UILabel!
+    
     @IBAction func complete(_ sender: AnyObject) {
 
-        var text = [String]()
-        var cells = [UITableViewCell]()
-        // assuming tableView is your self.tableView defined somewhere
-        for i in 0...tableView.numberOfSections-1
-        {
-            for j in 0...tableView.numberOfRows(inSection: i)-1
-            {
-                if let cell = tableView.cellForRow(at: NSIndexPath(row: j, section: i) as IndexPath) as? ArcanaDetailEditCell {
-                    
-                    text.append(cell.attribute.text)
-                }
-                
-            }
+        if let row = rowBeingEdited {
+            let indexPath = NSIndexPath(row: row, section: 0)
+            
+            let cell : ArcanaDetailEditCell? = self.tableView.cellForRow(at: indexPath as IndexPath) as! ArcanaDetailEditCell?
+            
+            cell?.attribute.resignFirstResponder()
         }
         
-        for i in text {
-            print(i)
+        // TODO: Confirm
+        
+        let alertController = UIAlertController(title: "수정 확인", message: "수정하시겠습니까?", preferredStyle: .alert)
+        alertController.view.tintColor = salmonColor
+        let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
+            self.displayBanner()
+            self.uploadArcana()
+        })
+        alertController.addAction(defaultAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        for (key, value) in edits {
+            print(key, value)
         }
-
+        
         
     }
     
-    var arcana: Arcana?
+    func displayBanner() {
+        if edits.count == 0 {
+            alert.backgroundColor = UIColor.yellow
+            alert.textColor = UIColor.darkGray
+            alert.text = "수정된 정보가 없었습니다."
+        }
+        else {
+            alert.backgroundColor = salmonColor
+            alert.textColor = UIColor.white
+            alert.text = "아르카나 수정 완료!"
+        }
+        
+        alert.fadeViewInThenOut(delay: 2)
+    }
+    
+    func uploadArcana() {
+        // TODO: Check if there were any edits
+        if edits.count != 0 {
+            
+            let date = NSDate()
+            
+            if let arcana = arcana {
+                let uid = arcana.uid
+                
+                for (key, value) in edits {
+                    
+                    let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
+                    let editsRef = FIREBASE_REF.child("edits/\(uid)/\(date)/\(key)")
+                    
+                    // move old values to edit ref
+                    originalRef.observeSingleEvent(of: .value, with: { snapshot in
+                        
+                        editsRef.setValue(snapshot.value)
+                        // Moved old data, now replace old data with user's edit
+                        
+                        originalRef.setValue(value)
+                        
+                        
+                    })
+                }
+            }
+            
+        }
+
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-            
-        case 0:
-            return 4
-//            return 8
-            
-        case 1:
-            // check for # of skills, * 3 for name, mana, desc
-            return 8
-            
-        case 2:
-            // either 0 1 2 abilities, * 3
-            return 4
-            
-        default:
-            // kizuna
-            return 3
-        }
+        return 19
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,108 +121,78 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             return UITableViewCell()
         }
         
-        switch indexPath.section {
+
+        cell.key.text = keys[indexPath.row]
+        
+        switch indexPath.row {
             
         case 0:
-            switch indexPath.row {
-                
-            case 0:
-                cell.key.text = "한글 이름"
-                cell.attribute.text = arcana.nameKR
-            case 1:
-                cell.key.text = "한글 호칭"
-                cell.attribute.text = arcana.nickNameKR
-            case 2:
-                cell.key.text = "일어 호칭"
-                cell.attribute.text = arcana.nameJP
-            default:
-                cell.key.text = "일어 호칭"
-                cell.attribute.text = arcana.nickNameJP
-//            case 4:
-//                cell.key.text = "레어"
-//                cell.attribute.text = arcana.rarity
-//            case 5:
-//                cell.key.text = "직업"
-//            case 6:
-//                cell.key.text = "소속"
-//            case 7:
-//                cell.key.text = "코스트"
-//            default:
-//                cell.key.text = "무기"
-        
-            }
-            
+            cell.attribute.text = arcana.nameKR
         case 1:
-            switch indexPath.row {
-                
-            case 0:
-                cell.key.text = "스킬 1 이름"
-                cell.attribute.text = arcana.skillName1
-            case 1:
-                cell.key.text = "스킬 1 마나"
-                cell.attribute.text = arcana.skillMana1
-            case 2:
-                cell.key.text = "스킬 1 설명"
-                cell.attribute.text = arcana.skillDesc1
-            case 3:
-                cell.key.text = "스킬 2 이름"
-                cell.attribute.text = arcana.skillName2
-            case 4:
-                cell.key.text = "스킬 2 마나"
-                cell.attribute.text = arcana.skillMana2
-            case 5:
-                cell.key.text = "스킬 2 설명"
-                cell.attribute.text = arcana.skillDesc2
-            case 6:
-                cell.key.text = "스킬 3 이름"
-                cell.attribute.text = arcana.skillName3
-            case 7:
-                cell.key.text = "스킬 3 마나"
-                cell.attribute.text = arcana.skillMana3
-            default:
-                cell.key.text = "스킬 3 설명"
-                cell.attribute.text = arcana.skillDesc3
-
-            }
-            
+            cell.attribute.text = arcana.nickNameKR
         case 2:
-            switch indexPath.row {
-                
-            case 0:
-                cell.key.text = "어빌 1 이름"
-                cell.attribute.text = arcana.abilityName1
-            case 1:
-                cell.key.text = "어빌 1 설명"
-                cell.attribute.text = arcana.abilityDesc1
-            case 2:
-                cell.key.text = "어빌 2 이름"
-                cell.attribute.text = arcana.abilityName2
-            default:
-                cell.key.text = "어빌 2 설명"
-                cell.attribute.text = arcana.abilityDesc2
-                
-            }
-            
+            cell.attribute.text = arcana.nameJP
+        case 3:
+            cell.attribute.text = arcana.nickNameJP
+        case 4:
+            cell.attribute.text = arcana.skillName1
+        case 5:
+            cell.attribute.text = arcana.skillMana1
+        case 6:
+            cell.attribute.text = arcana.skillDesc1
+        case 7:
+            cell.attribute.text = arcana.skillName2
+        case 8:
+            cell.attribute.text = arcana.skillMana2
+        case 9:
+            cell.attribute.text = arcana.skillDesc2
+        case 10:
+            cell.attribute.text = arcana.skillName3
+        case 11:
+            cell.attribute.text = arcana.skillMana3
+        case 12:
+            cell.attribute.text = arcana.skillDesc3
+        case 13:
+            cell.attribute.text = arcana.abilityName1
+        case 14:
+            cell.attribute.text = arcana.abilityDesc1
+        case 15:
+            cell.attribute.text = arcana.abilityName2
+        case 16:
+            cell.attribute.text = arcana.abilityDesc2
+        case 17:
+            cell.attribute.text = arcana.kizunaName
+        case 18:
+            cell.attribute.text = arcana.kizunaCost
         default:
-            switch indexPath.row {
-                
-            case 0:
-                cell.key.text = "인연 이름"
-                cell.attribute.text = arcana.kizunaName
-            case 1:
-                cell.key.text = "인연 코스트"
-                cell.attribute.text = arcana.kizunaCost
-            default:
-                cell.key.text = "인연 설명"
-                cell.attribute.text = arcana.kizunaDesc
-                
-            }
+            cell.attribute.text = arcana.kizunaDesc
             
         }
+        
+        cell.attribute.tag = indexPath.row
+        cell.attribute.delegate = self
         cell.attribute.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         return cell
     }
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        rowBeingEdited = textView.tag
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        // Update dictionary with key+attribute
+        let row = textView.tag
+        if textView.text != "" {
+            edits.updateValue(textView.text, forKey: "\(firebaseKeys[row])")
+        }
+        
+        rowBeingEdited = nil
+        
+    }
+    
+    
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
@@ -188,9 +201,16 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         return true
     }
     
+    func setupViews() {
+        alert.layer.masksToBounds = true
+        alert.layer.cornerRadius = 5
+        alert.layer.borderWidth = 1
+        alert.layer.borderColor = UIColor.clear.cgColor
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension

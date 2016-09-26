@@ -364,13 +364,24 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-XS-gdh">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아르카나 수정이 되었습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6q-Ua-kNg">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="PKQ-yp-44Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Y6q-Ua-kNg" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" constant="10" id="5Dz-lF-q1N"/>
                             <constraint firstItem="fnr-GF-FBV" firstAttribute="top" secondItem="gCM-XS-gdh" secondAttribute="bottom" id="74v-a3-iVs"/>
+                            <constraint firstAttribute="trailing" secondItem="Y6q-Ua-kNg" secondAttribute="trailing" constant="10" id="MWS-Q5-fvF"/>
                             <constraint firstItem="gCM-XS-gdh" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" id="gNO-Ar-W6x"/>
                             <constraint firstAttribute="trailing" secondItem="gCM-XS-gdh" secondAttribute="trailing" id="hr0-1W-on2"/>
                             <constraint firstItem="gCM-XS-gdh" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" id="ikP-uL-EJ3"/>
+                            <constraint firstItem="Y6q-Ua-kNg" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" constant="10" id="x7X-2c-oUd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="xiW-kf-jMt">
@@ -381,6 +392,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alert" destination="Y6q-Ua-kNg" id="xx8-xG-4yc"/>
                         <outlet property="tableView" destination="gCM-XS-gdh" id="FXK-nz-PmH"/>
                     </connections>
                 </viewController>
@@ -555,7 +567,7 @@
                 <navigationController storyboardIdentifier="HomeNav" id="7rg-wy-GHd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MN9-au-8Yj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -575,7 +587,7 @@
                     <tabBarItem key="tabBarItem" title="즐겨찾기" image="favorites" id="57X-Rk-Nrt"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dUg-eH-RdH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUg-eH-RdH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
