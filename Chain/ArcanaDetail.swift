@@ -584,9 +584,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Increment number of views
         let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
         viewRef.observeSingleEvent(of: .value, with: { snapshot in
-            let views = snapshot.value as! Int
-            print("numberOfViews is \(views)")
-            viewRef.setValue(views+1)            
+            if let views = snapshot.value as? Int {
+                print("numberOfViews is \(views)")
+                viewRef.setValue(views+1)
+            }
+            
         })
 
         //navigationController?.hidesBarsOnSwipe = true

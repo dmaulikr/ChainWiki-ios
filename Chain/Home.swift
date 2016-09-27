@@ -148,30 +148,79 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
-    func downloadArray() {
+    func syncArcana() {
 
         let ref = FIREBASE_REF.child("arcana")
         
-        ref.queryLimited(toLast: 20).observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
 
-
-            let arcana = Arcana(snapshot: snapshot)
-            
-            self.arcanaArray.append(arcana!)
-            self.originalArray.append(arcana!)
-            
-            if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                self.tableView.reloadData()
+            if let arcana = Arcana(snapshot: snapshot) {
+                self.arcanaArray.append(arcana)
+                self.originalArray.append(arcana)
+                
+                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
+                    self.tableView.reloadData()
+                }
             }
+            
+            
         })
         
-        ref.queryLimited(toLast: 20).observeSingleEvent(of: .value, with: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             print("inital data loaded so reload tableView!  \(snapshot.childrenCount)")
             self.tableView.reloadData()
             self.initialLoad = false
         })
         
+        ref.observe(.childRemoved, with: { snapshot in
+            print(snapshot.key)
+            let uidToRemove = snapshot.key
+            
+            for (index, arcana) in self.originalArray.enumerated() {
+                if arcana.uid == uidToRemove {
+                    self.originalArray.remove(at: index)
+                    
+                }
+                
+            }
+            
+            for (index, arcana) in self.arcanaArray.enumerated() {
+                if arcana.uid == uidToRemove {
+                    self.arcanaArray.remove(at: index)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+                
+            }
+        })
         
+        ref.observe(.childChanged, with: { snapshot in
+            
+            let uidToChange = snapshot.key
+        
+            print("THE ATTRIBUTE THAT WAS CHANGED IS \(snapshot.value)")
+            
+            if let index = self.originalArray.index(where: {$0.uid == uidToChange}) {
+                
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    self.originalArray[index] = arcana
+                }
+                
+            }
+            
+            
+            if let index = self.arcanaArray.index(where: {$0.uid == uidToChange}) {
+                
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    self.arcanaArray[index] = arcana
+                    self.tableView.reloadData()
+                }
+                
+            }
+
+        })
     }
     
     func getFavorites() {
@@ -365,7 +414,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         tableView.dataSource = self
         tableView.delegate = self
-        downloadArray()
+        syncArcana()
 
         
         tableView.estimatedRowHeight = 100
