@@ -149,8 +149,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             if let _ = arcana.abilityName2 {    // has 2 abilities
                 return 4
             }
-            else {  // has only 1 ability
+            else if let _ = arcana.abilityName1 {  // has only 1 ability
                 return 2
+            }
+            else {
+                return 0
             }
             
         case 4:    // Kizuna
@@ -462,7 +465,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             } else if let cStone = arcana.chainStone {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                 cell.storyKey.text = "인연이야기"
-                cell.storyAttribute.text = "레벨 \(cStone)"
+                cell.storyAttribute.text = "레벨 \(cStone) 정령석 보상"
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }

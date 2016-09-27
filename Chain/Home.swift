@@ -15,7 +15,7 @@ import NVActivityIndicatorView
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-
+    var initialLoad = true
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
@@ -152,19 +152,25 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
         let ref = FIREBASE_REF.child("arcana")
         
-        ref.queryLimited(toLast: 20).observe(.value, with: { snapshot in
+        ref.queryLimited(toLast: 20).observe(.childAdded, with: { snapshot in
+
+
+            let arcana = Arcana(snapshot: snapshot)
             
-            var filter = [Arcana]()
-            for item in snapshot.children {
-                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                filter.append(arcana!)
-            }
-            self.arcanaArray = filter.reversed()
-            self.originalArray = filter.reversed()
-            DispatchQueue.main.async(execute: { () -> Void in
+            self.arcanaArray.append(arcana!)
+            self.originalArray.append(arcana!)
+            
+            if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
                 self.tableView.reloadData()
-            })
+            }
         })
+        
+        ref.queryLimited(toLast: 20).observeSingleEvent(of: .value, with: { snapshot in
+            print("inital data loaded so reload tableView!  \(snapshot.childrenCount)")
+            self.tableView.reloadData()
+            self.initialLoad = false
+        })
+        
         
     }
     
