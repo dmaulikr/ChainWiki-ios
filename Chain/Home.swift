@@ -63,9 +63,19 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         })
         alertController.addAction(alpha)
         let recent = UIAlertAction(title: "최신순", style: .default, handler: { (action:UIAlertAction) in
-            self.arcanaArray = self.originalArray
-            self.tableView.reloadData()
             
+            let ref = FIREBASE_REF.child("arcana")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                var array = [Arcana]()
+                for item in snapshot.children.reversed() {
+                    
+                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
+                    array.append(arcana!)
+                }
+                self.arcanaArray = array
+                self.tableView.reloadData()
+            })
+
         })
         
         alertController.addAction(recent)
