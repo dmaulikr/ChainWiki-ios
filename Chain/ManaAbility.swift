@@ -127,8 +127,10 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
                 
                 ref.observeSingleEvent(of: .value, with: { snapshot in
                     print(snapshot)
-                    let arcana = Arcana(snapshot: snapshot)
-                    array.append(arcana!)
+                    if let arcana = Arcana(snapshot: snapshot) {
+                        array.append(arcana)
+                    }
+                    
                     self.group.leave()
                     
                 })

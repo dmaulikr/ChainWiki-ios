@@ -69,8 +69,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 var array = [Arcana]()
                 for item in snapshot.children.reversed() {
                     
-                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                    array.append(arcana!)
+                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                        array.append(arcana)
+                    }
+                    
                 }
                 self.arcanaArray = array
                 self.tableView.reloadData()
@@ -86,8 +88,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 var array = [Arcana]()
                 for item in snapshot.children.reversed() {
                     
-                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                    array.append(arcana!)
+                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                        array.append(arcana)
+                    }
                 }
                 self.arcanaArray = array
                 self.tableView.reloadData()
@@ -96,12 +99,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         })
         
         alertController.addAction(views)
-        let viewed = UIAlertAction(title: "최근본순", style: .default, handler: nil)
-        alertController.addAction(viewed)
-        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
-            (alertAction: UIAlertAction!) in
-            alertController.dismiss(animated: true, completion: nil)
-        }))
+        
+//        let viewed = UIAlertAction(title: "최근본순", style: .default, handler: nil)
+//        alertController.addAction(viewed)
+//        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
+//            (alertAction: UIAlertAction!) in
+//            alertController.dismiss(animated: true, completion: nil)
+//        }))
         
         present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = salmonColor
@@ -165,12 +169,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
-                self.arcanaArray.append(arcana)
+//                self.arcanaArray.append(arcana)
                 self.originalArray.append(arcana)
                 
                 if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
                     self.tableView.reloadData()
                 }
+                print("child added")
             }
             
             
@@ -178,6 +183,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             print("inital data loaded so reload tableView!  \(snapshot.childrenCount)")
+            self.arcanaArray = self.originalArray.reversed()
             self.tableView.reloadData()
             self.initialLoad = false
         })
@@ -241,8 +247,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
             var favorites = [Arcana]()
             for item in snapshot.children {
-                let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                favorites.append(arcana!)
+                if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                    favorites.append(arcana)
+                }
             }
             self.arcanaArray = favorites
             DispatchQueue.main.async(execute: { () -> Void in
@@ -613,8 +620,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 
                 var tavern = [Arcana]()
                 for item in snapshot.children {
-                    let arcana = Arcana(snapshot: item as! FIRDataSnapshot)
-                    tavern.append(arcana!)
+                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                        tavern.append(arcana)
+                    }
                 }
                 self.arcanaArray = tavern
                 DispatchQueue.main.async(execute: { () -> Void in
