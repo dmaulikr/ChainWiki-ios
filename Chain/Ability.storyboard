@@ -172,6 +172,26 @@
             </objects>
             <point key="canvasLocation" x="1933" y="235"/>
         </scene>
+        <!--Ability Chart-->
+        <scene sceneID="IV6-O4-Jjv">
+            <objects>
+                <viewController id="cvJ-jB-FjE" customClass="AbilityChart" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BDz-FN-BUi"/>
+                        <viewControllerLayoutGuide type="bottom" id="HHJ-bL-hth"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KXK-Rl-AmI">
+                        <rect key="frame" x="0.0" y="0.0" width="2000" height="2000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="2000" height="2000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iha-QI-Y3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4066" y="155"/>
+        </scene>
         <!--어빌리티-->
         <scene sceneID="ZkI-XG-3aI">
             <objects>
@@ -248,6 +268,7 @@
                         <outlet property="segmentedControl" destination="1Wk-Gw-XsC" id="pzv-Zx-JQ0"/>
                         <outlet property="tableView" destination="l5l-xc-iYf" id="Hju-pX-c8M"/>
                         <segue destination="tyn-2e-1a8" kind="show" identifier="showMana" id="cZF-JQ-qgE"/>
+                        <segue destination="cvJ-jB-FjE" kind="show" identifier="showGrid" id="kGL-go-OvX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hdy-hf-y1L" userLabel="First Responder" sceneMemberID="firstResponder"/>

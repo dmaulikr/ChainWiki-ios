@@ -114,8 +114,10 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
                 ref.observeSingleEvent(of: .value, with: { snapshot in
-                    let arcana = Arcana(snapshot: snapshot)
-                    array.append(arcana!)
+                    if let arcana = Arcana(snapshot: snapshot) {
+                        array.append(arcana)
+                    }
+                    
                     self.group.leave()
                     
                 })

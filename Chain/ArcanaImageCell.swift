@@ -18,6 +18,7 @@ class ArcanaImageCell: UITableViewCell {
     @IBOutlet weak var favorite: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
+        layoutIfNeeded()
         // Initialization code
         
     }

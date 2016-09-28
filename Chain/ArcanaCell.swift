@@ -27,6 +27,7 @@ class ArcanaCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        layoutIfNeeded()
         // Initialization code
     }
     

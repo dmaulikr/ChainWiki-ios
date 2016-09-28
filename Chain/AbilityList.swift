@@ -68,13 +68,13 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        switch indexPath.row {
-//        case 0:
+        switch indexPath.row {
+        case 3:
+            self.performSegue(withIdentifier: "showGrid", sender: (indexPath as NSIndexPath).row)
+        default:
             self.performSegue(withIdentifier: "showMana", sender: (indexPath as NSIndexPath).row)
-//        default:
-//            break
-//        }
-        
+        }
+    
     }
     
     override func viewDidLoad() {

@@ -92,7 +92,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             case "공격력 증가":
                 refPrefix = "attackUp"
             case "보스 웨이브시 공격력 증가":
-                refPrefix = "bossWaveUp"
+                refPrefix = "bossWave"
             case "어둠 면역":
                 refPrefix = "darkImmune"
             case "슬로우 면역":
@@ -159,27 +159,24 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "manaAbility") as! ManaAbilityCell
-        cell.arcanaImage.image = nil
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
         
-        let c = cell as! ManaAbilityCell
-        
-        c.arcanaNameKR.text = currentArray[(indexPath as NSIndexPath).row].nameKR
-        c.arcanaNameJP.text = currentArray[(indexPath as NSIndexPath).row].nameJP
-        c.arcanaRarity.text = "#\(currentArray[(indexPath as NSIndexPath).row].rarity)★"
+        cell.arcanaNameKR.text = currentArray[(indexPath as NSIndexPath).row].nameKR
+        cell.arcanaNameJP.text = currentArray[(indexPath as NSIndexPath).row].nameJP
+        cell.arcanaRarity.text = "#\(currentArray[(indexPath as NSIndexPath).row].rarity)★"
         
         
         // Get abilities, kizuna, group
-//        let aD1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1
-//        let g = currentArray[(indexPath as NSIndexPath).row].group
-//        var aD2 = ""
-//        if let a = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
-//            aD2 = a
-//        }
-//        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
+        var aD1 = ""
+        if let a1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1 {
+            aD1 = a1
+        }
+        let g = currentArray[(indexPath as NSIndexPath).row].group
+        var aD2 = ""
+        if let a2 = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
+            aD2 = a2
+        }
+        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
         
         // check for the abilityType, then perform operation.
         
@@ -188,80 +185,84 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         switch abilityType {
             
         case "마나의 소양":
-            c.value.isHidden = true
-//            getMana(aD1, aD2: aD2, k: k, g: g)
-            c.mana1.mana = manaArray[0]
+            cell.value.isHidden = true
+            getMana(aD1, aD2: aD2, k: k, g: g)
+            cell.mana1.mana = manaArray[0]
             if manaArray.count > 1 {
-                c.mana2.mana = manaArray[1]
+                cell.mana2.mana = manaArray[1]
             }
             
         case "AP 회복":
-            c.value.text = "30%"
-            //do ap stuff
+            cell.value.text = "30%"
+        //do ap stuff
         default:
             break
         }
         
-        c.imageSpinner.startAnimating()
-      //  c.mana2.mana = manaArray[1]
-      //  c.manaSub.mana = manaArray[2]
-
+        cell.imageSpinner.startAnimating()
+        //  cell.mana2.mana = manaArray[1]
+        //  cell.manaSub.mana = manaArray[2]
+        
         // Download picture
         /*
-        // Check cache first
-        if let i = IMAGECACHE.imageWithIdentifier("\(currentArray[indexPath.row].uid)/icon.jpg") {
-            
-            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-            let crop = Toucan(image: i).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-            
-            //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-            c.arcanaImage.image = crop
-        }
-            
-            //  Not in cache, download from firebase
-        else {
-            c.imageSpinner.startAnimation()
-            
-            STORAGE_REF.child("image/arcana/\(currentArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
-                if (error != nil) {
-                    print("image download error")
-                    // Handle any errors
-                } else {
-                    // Get the download URL
-                    print("DOWNLOAD URL = \(URL!)")
-                    DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
-                        
-                        if let image = response.result.value {
-                            // Set the Image
-                            
-                            // TODO: MAKE SMALL THUMBNAIL
-                            
-                            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-                            
-                            
-                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                c.imageSpinner.stopAnimation()
-                                
-                                let crop = Toucan(image: thumbnail).resize(c.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-                                c.arcanaImage.image = crop
-                                
-                                print("DOWNLOADED")
-                                
-                                // Cache the Image
-                                IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.currentArray[indexPath.row].uid)/icon.jpg")
-                            }
-                            
-                            
-                        }
-                    }
-                }
-            }
-            
-        }
+         // Check cache first
+         if let i = IMAGECACHE.imageWithIdentifier("\(currentArray[indexPath.row].uid)/icon.jpg") {
+         
+         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+         let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+         
+         //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+         cell.arcanaImage.image = crop
+         }
+         
+         //  Not in cache, download from firebase
+         else {
+         cell.imageSpinner.startAnimation()
+         
+         STORAGE_REF.child("image/arcana/\(currentArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
+         if (error != nil) {
+         print("image download error")
+         // Handle any errors
+         } else {
+         // Get the download URL
+         print("DOWNLOAD URL = \(URL!)")
+         DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
+         
+         if let image = response.result.value {
+         // Set the Image
+         
+         // TODO: MAKE SMALL THUMBNAIL
+         
+         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+         
+         
+         if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+         cell.imageSpinner.stopAnimation()
+         
+         let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+         //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+         cell.arcanaImage.image = crop
+         
+         print("DOWNLOADED")
+         
+         // Cache the Image
+         IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.currentArray[indexPath.row].uid)/icon.jpg")
+         }
+         
+         
+         }
+         }
+         }
+         }
+         
+         }
+         
+         */
         
-        */
+        
+        return cell
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
@@ -278,7 +279,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     
-    func getMana(_ aD1: String, aD2: String, k: String, g: String) -> Bool {
+    func getMana(_ aD1: String, aD2: String, k: String, g: String) {
         
         if aD1 != "" && aD1.contains("마나를") {
 //            print("ability 1")
@@ -325,7 +326,6 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
         }
         
-        return false
     }
     
     override func viewDidLoad() {

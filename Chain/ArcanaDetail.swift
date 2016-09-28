@@ -465,7 +465,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             } else if let cStone = arcana.chainStone {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                 cell.storyKey.text = "인연이야기"
-                cell.storyAttribute.text = "레벨 \(cStone) 정령석 보상"
+                cell.storyAttribute.text = cStone
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }

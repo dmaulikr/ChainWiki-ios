@@ -32,6 +32,11 @@
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		046FDD401D739735001E955B /* MyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */; };
 		047561571D946BB1004886BF /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047561561D946BB1004886BF /* RoundedButton.swift */; };
+		047950181D9A35D300205A3C /* AbilityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047950171D9A35D300205A3C /* AbilityChart.swift */; };
+		0479501A1D9A4A1B00205A3C /* ArcanaProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047950191D9A4A1B00205A3C /* ArcanaProfileCell.xib */; };
+		0479501C1D9A4BDB00205A3C /* ArcanaProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479501B1D9A4BDB00205A3C /* ArcanaProfileCell.swift */; };
+		0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479501D1D9A4C9900205A3C /* LabelCell.swift */; };
+		047950201D9A4CB100205A3C /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0479501F1D9A4CB100205A3C /* LabelCell.xib */; };
 		047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */; };
 		04885B881D926EB800A69992 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04885B871D926EA800A69992 /* FontAwesome.otf */; };
 		048B31261D7642CA0011477D /* AbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31251D7642CA0011477D /* AbilityList.swift */; };
@@ -138,6 +143,11 @@
 		046FDD3F1D739735001E955B /* MyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewLayout.swift; sourceTree = "<group>"; };
 		04734C511D837A2C00FA1CDE /* HomeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeContainerView.swift; sourceTree = "<group>"; };
 		047561561D946BB1004886BF /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		047950171D9A35D300205A3C /* AbilityChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityChart.swift; sourceTree = "<group>"; };
+		047950191D9A4A1B00205A3C /* ArcanaProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaProfileCell.xib; sourceTree = "<group>"; };
+		0479501B1D9A4BDB00205A3C /* ArcanaProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaProfileCell.swift; sourceTree = "<group>"; };
+		0479501D1D9A4C9900205A3C /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		0479501F1D9A4CB100205A3C /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHeader.swift; sourceTree = "<group>"; };
 		04885B871D926EA800A69992 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		048B31251D7642CA0011477D /* AbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityList.swift; sourceTree = "<group>"; };
@@ -252,11 +262,16 @@
 			isa = PBXGroup;
 			children = (
 				0447E1D31D87BA8200670834 /* Ability.storyboard */,
+				047950191D9A4A1B00205A3C /* ArcanaProfileCell.xib */,
+				0479501B1D9A4BDB00205A3C /* ArcanaProfileCell.swift */,
+				0479501F1D9A4CB100205A3C /* LabelCell.xib */,
+				0479501D1D9A4C9900205A3C /* LabelCell.swift */,
 				048B31251D7642CA0011477D /* AbilityList.swift */,
 				04DD910F1D864FA70023CDA4 /* AbilityCell.swift */,
 				0447E1DA1D87D93E00670834 /* DrawCircle.swift */,
 				0447E1D51D87D05200670834 /* ManaAbility.swift */,
 				0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */,
+				047950171D9A35D300205A3C /* AbilityChart.swift */,
 			);
 			name = Abilities;
 			sourceTree = "<group>";
@@ -558,7 +573,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
+				0479501A1D9A4A1B00205A3C /* ArcanaProfileCell.xib in Resources */,
 				04A3B1781D8E7B9000BBF297 /* Tavern.storyboard in Resources */,
+				047950201D9A4CB100205A3C /* LabelCell.xib in Resources */,
 				046710C41D97D070000CF487 /* ArcanaTextCell.xib in Resources */,
 				04885B881D926EB800A69992 /* FontAwesome.otf in Resources */,
 				04941A3B1D6F81F000BAE389 /* Features.rtf in Resources */,
@@ -734,6 +751,7 @@
 			files = (
 				0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */,
 				04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */,
+				0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
@@ -751,6 +769,7 @@
 				04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */,
 				042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
+				047950181D9A35D300205A3C /* AbilityChart.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				04A3B1751D8E7B6C00BBF297 /* TavernView.swift in Sources */,
 				0447E1D61D87D05200670834 /* ManaAbility.swift in Sources */,
@@ -772,6 +791,7 @@
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,
+				0479501C1D9A4BDB00205A3C /* ArcanaProfileCell.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="arcanaProfileCell" id="dNY-2G-6zE" customClass="ArcanaProfileCell" customModule="Chain" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="81" height="115"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="81" height="115"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k9V-kO-nPG">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="RpQ-2E-34y"/>
+                            <constraint firstAttribute="width" constant="70" id="SXN-IM-was"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="캐릭터 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-s1-eIX">
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="KVO-s1-eIX" firstAttribute="centerX" secondItem="k9V-kO-nPG" secondAttribute="centerX" id="2ER-Yx-7W3"/>
+                <constraint firstAttribute="bottom" secondItem="KVO-s1-eIX" secondAttribute="bottom" constant="5" id="Gzg-Y7-m8M"/>
+                <constraint firstItem="KVO-s1-eIX" firstAttribute="top" secondItem="k9V-kO-nPG" secondAttribute="bottom" constant="5" id="U5b-SI-XfD"/>
+                <constraint firstItem="k9V-kO-nPG" firstAttribute="top" secondItem="dNY-2G-6zE" secondAttribute="top" constant="5" id="YnK-f2-BUd"/>
+                <constraint firstItem="k9V-kO-nPG" firstAttribute="centerX" secondItem="dNY-2G-6zE" secondAttribute="centerX" id="zCX-BJ-way"/>
+            </constraints>
+            <size key="customSize" width="91" height="115"/>
+            <connections>
+                <outlet property="arcanaImage" destination="k9V-kO-nPG" id="3u1-iQ-76S"/>
+                <outlet property="arcanaNameKR" destination="KVO-s1-eIX" id="rsX-Yh-Wfs"/>
+            </connections>
+            <point key="canvasLocation" x="125" y="-206"/>
+        </collectionViewCell>
+    </objects>
+</document>
