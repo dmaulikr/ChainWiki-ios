@@ -213,9 +213,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         ref.observe(.childChanged, with: { snapshot in
             
             let uidToChange = snapshot.key
-        
-            print("THE ATTRIBUTE THAT WAS CHANGED IS \(snapshot.value)")
-            
+                    
             if let index = self.originalArray.index(where: {$0.uid == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {

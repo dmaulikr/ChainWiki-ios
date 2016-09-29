@@ -9,25 +9,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="arcanaProfileCell" id="dNY-2G-6zE" customClass="ArcanaProfileCell" customModule="Chain" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="81" height="115"/>
+            <rect key="frame" x="0.0" y="0.0" width="70" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="81" height="115"/>
+                <rect key="frame" x="0.0" y="0.0" width="70" height="90"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k9V-kO-nPG">
                         <constraints>
-                            <constraint firstAttribute="height" constant="70" id="RpQ-2E-34y"/>
-                            <constraint firstAttribute="width" constant="70" id="SXN-IM-was"/>
+                            <constraint firstAttribute="height" constant="60" id="RpQ-2E-34y"/>
+                            <constraint firstAttribute="width" constant="60" id="SXN-IM-was"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="캐릭터 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-s1-eIX">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-s1-eIX">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="yNv-ad-qs4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="KVO-s1-eIX" firstAttribute="centerX" secondItem="k9V-kO-nPG" secondAttribute="centerX" id="2ER-Yx-7W3"/>
                 <constraint firstAttribute="bottom" secondItem="KVO-s1-eIX" secondAttribute="bottom" constant="5" id="Gzg-Y7-m8M"/>
