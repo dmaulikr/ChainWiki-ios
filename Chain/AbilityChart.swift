@@ -123,7 +123,7 @@ class AbilityChart: UIViewController, UICollectionViewDelegate, UICollectionView
 //        layout.itemSize = CGSize(width: 70, height: 70)
 //        layout.minimumInteritemSpacing = 0
         
-        warriorView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000), collectionViewLayout: layout)
+        warriorView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 425, height: 1000), collectionViewLayout: layout)
         warriorView.register(UINib(nibName: "LabelCell", bundle: nil), forCellWithReuseIdentifier: "labelCell")
         warriorView.register(UINib(nibName: "ArcanaProfileCell", bundle: nil), forCellWithReuseIdentifier: "arcanaProfileCell")
         warriorView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
@@ -213,7 +213,7 @@ extension AbilityChart : UICollectionViewDelegateFlowLayout {
             }
             
         default:    //6
-            return CGSize(width: 69.0, height: arcanaHeight)
+            return CGSize(width: 70.0, height: arcanaHeight)
         }
         
         
