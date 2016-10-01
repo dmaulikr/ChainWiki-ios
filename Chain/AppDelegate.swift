@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         FIRApp.configure()
         
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "recent")
+//        let defaults = UserDefaults.standard
+//        defaults.removeObject(forKey: "recent")
         //FIRDatabase.database().persistenceEnabled = true
         
         let scoresRef = FIRDatabase.database().reference()

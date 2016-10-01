@@ -62,8 +62,13 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                             else {
                                 print("EMAIL ACCOUNT CREATED, LOGGING IN...")
                                 let uid = user!.uid
-                                UserDefaults.standard.setValue(uid, forKey: "uid")
                                 
+                                let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
+                                editPermissionsRef.setValue("true")
+                                
+                                
+                                UserDefaults.standard.setValue(uid, forKey: "uid")
+                                UserDefaults.standard.setValue("true", forKey: "edit")
                                 
                                 let changeRequest = user!.profileChangeRequest()
                                 changeRequest.displayName = nickname

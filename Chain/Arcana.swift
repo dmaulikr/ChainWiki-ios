@@ -141,20 +141,37 @@ struct Arcana: Equatable, Hashable {
             nickNameKR = nnKR
             nickNameJP = nnJP
         }
+        else {
+            nickNameKR = nil
+            nickNameJP = nil
+        }
         
         if let aN1 = (snapshot.value as? NSDictionary)?["abilityName1"] as? String, let aD1 = (snapshot.value as? NSDictionary)?["abilityDesc1"] as? String {
             abilityName1 = aN1
             abilityDesc1 = aD1
+        }
+        else {
+            abilityName1 = nil
+            abilityDesc1 = nil
         }
         
         if let aN2 = (snapshot.value as? NSDictionary)?["abilityName2"] as? String, let aD2 = (snapshot.value as? NSDictionary)?["abilityDesc2"] as? String {
             abilityName2 = aN2
             abilityDesc2 = aD2
         }
+        else {
+            abilityName2 = nil
+            abilityDesc2 = nil
+        }
         if let sN2 = (snapshot.value as? NSDictionary)?["skillName2"] as? String, let sM2 = (snapshot.value as? NSDictionary)?["skillMana2"] as? String, let sD2 = (snapshot.value as? NSDictionary)?["skillDesc2"] as? String {
             skillName2 = sN2
             skillMana2 = sM2
             skillDesc2 = sD2
+        }
+        else {
+            skillName2 = nil
+            skillMana2 = nil
+            skillDesc2 = nil
         }
         
         if let sN3 = (snapshot.value as? NSDictionary)?["skillName3"] as? String, let sM3 = (snapshot.value as? NSDictionary)?["skillMana3"] as? String, let sD3 = (snapshot.value as? NSDictionary)?["skillDesc3"] as? String {
@@ -162,17 +179,29 @@ struct Arcana: Equatable, Hashable {
             skillMana3 = sM3
             skillDesc3 = sD3
         }
-        
+        else {
+            skillName3 = nil
+            skillMana3 = nil
+            skillDesc3 = nil
+        }
         if let d = (snapshot.value as? NSDictionary)?["dateAdded"] as? String {
             dateAdded = d
+        }
+        else {
+            dateAdded = nil
         }
         
         if let cStory = (snapshot.value as? NSDictionary)?["chainStory"] as? String {
             chainStory = cStory
         }
-        
+        else {
+            chainStory = nil
+        }
         if let cStone = (snapshot.value as? NSDictionary)?["chainStone"] as? String {
             chainStone = cStone
+        }
+        else {
+            chainStone = nil
         }
 
         

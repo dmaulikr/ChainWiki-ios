@@ -154,6 +154,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(currentArray.count)
         return currentArray.count
     }
     
@@ -200,64 +201,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
         
         cell.imageSpinner.startAnimating()
-        //  cell.mana2.mana = manaArray[1]
-        //  cell.manaSub.mana = manaArray[2]
-        
-        // Download picture
-        /*
-         // Check cache first
-         if let i = IMAGECACHE.imageWithIdentifier("\(currentArray[indexPath.row].uid)/icon.jpg") {
-         
-         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-         let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-         
-         //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-         cell.arcanaImage.image = crop
-         }
-         
-         //  Not in cache, download from firebase
-         else {
-         cell.imageSpinner.startAnimation()
-         
-         STORAGE_REF.child("image/arcana/\(currentArray[indexPath.row].uid)/icon.jpg").downloadURLWithCompletion { (URL, error) -> Void in
-         if (error != nil) {
-         print("image download error")
-         // Handle any errors
-         } else {
-         // Get the download URL
-         print("DOWNLOAD URL = \(URL!)")
-         DOWNLOADER.downloadImage(URLRequest: NSURLRequest(URL: URL!)) { response in
-         
-         if let image = response.result.value {
-         // Set the Image
-         
-         // TODO: MAKE SMALL THUMBNAIL
-         
-         //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-         
-         
-         if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-         cell.imageSpinner.stopAnimation()
-         
-         let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-         //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-         cell.arcanaImage.image = crop
-         
-         print("DOWNLOADED")
-         
-         // Cache the Image
-         IMAGECACHE.addImage(thumbnail, withIdentifier: "\(self.currentArray[indexPath.row].uid)/icon.jpg")
-         }
-         
-         
-         }
-         }
-         }
-         }
-         
-         }
-         
-         */
+    
         
         
         return cell

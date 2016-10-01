@@ -88,33 +88,123 @@ class AbilityChart: UIViewController, UICollectionViewDelegate, UICollectionView
             case 2:
                 let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
                 arcanaCell.arcanaNameKR.text = "멜리사"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "melissa")
                 return arcanaCell
             case 3:
                 let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
                 arcanaCell.arcanaNameKR.text = "드림캐스트"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "dreamcast")
                 return arcanaCell
             case 4:
                 let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
                 arcanaCell.arcanaNameKR.text = "무스타파"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "mustafa")
                 return arcanaCell
             default:
                 let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
                 arcanaCell.arcanaNameKR.text = "멜리오다스"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "meliodas")
                 return arcanaCell
             }
             
-        default:
+        case 3:
+            switch indexPath.row {
+            case 0:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "10%"
+                return labelCell
+            case 1:
                 let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
-                arcanaCell.arcanaNameKR.text = "이름"
+                arcanaCell.arcanaNameKR.text = "멜리사"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "melissa")
+                return arcanaCell
+            case 2:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "-"
+                return labelCell
+            case 3:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "20%"
+                return labelCell
+            case 4:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "25%"
+                return labelCell
+            default:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "30%"
+                return labelCell
+                
+            }
+            
+        case 4:
+            switch indexPath.row {
+            case 0:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "35%"
+                return labelCell
+            case 1:
+                let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
+                arcanaCell.arcanaNameKR.text = "드림캐스트"
+                arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "dreamcast")
+                return arcanaCell
+            case 2:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "45%"
+                return labelCell
+            case 3:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "-"
+                return labelCell
+            case 4:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "50%"
+                return labelCell
+            default:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "55%"
+                return labelCell
+                
+            }
+            
+        default:    // Last row
+            switch indexPath.row {
+            case 0:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "40%"
+                return labelCell
+            case 1:
+                let arcanaCell = collectionView.dequeueReusableCell(withReuseIdentifier: "arcanaProfileCell", for: indexPath) as! ArcanaProfileCell
+                arcanaCell.arcanaNameKR.text = "무스타파"
                 arcanaCell.arcanaImage.image = #imageLiteral(resourceName: "iris")
                 arcanaCell.layer.borderWidth = 0
                 return arcanaCell
-
+            case 2:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "50%"
+                return labelCell
+            case 3:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "50%"
+                return labelCell
+            case 4:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "-"
+                return labelCell
+            default:
+                let labelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "labelCell", for: indexPath) as! LabelCell
+                labelCell.tableTitle.text = "60%"
+                return labelCell
+                
+            }
         }
         
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("SELECTED")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,14 +213,16 @@ class AbilityChart: UIViewController, UICollectionViewDelegate, UICollectionView
 //        layout.itemSize = CGSize(width: 70, height: 70)
 //        layout.minimumInteritemSpacing = 0
         
-        warriorView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 425, height: 1000), collectionViewLayout: layout)
+        warriorView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 445, height: 1000), collectionViewLayout: layout)
         warriorView.register(UINib(nibName: "LabelCell", bundle: nil), forCellWithReuseIdentifier: "labelCell")
         warriorView.register(UINib(nibName: "ArcanaProfileCell", bundle: nil), forCellWithReuseIdentifier: "arcanaProfileCell")
         warriorView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
         warriorView.delegate = self
         warriorView.dataSource = self
+        warriorView.isUserInteractionEnabled = true
+        warriorView.allowsSelection = true
         
-        contentView = UIView(frame: CGRect(x: 0, y: 0, width: 2000, height: 2000))
+        contentView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 2000))
         contentView.backgroundColor = UIColor.white
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.backgroundColor = UIColor.lightGray
@@ -189,7 +281,7 @@ extension AbilityChart : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let labelHeight = CGFloat(25)
-        let arcanaHeight = CGFloat(80)
+        let arcanaHeight = CGFloat(90)
         // 425 width
         switch indexPath.section {
             
@@ -228,11 +320,22 @@ extension AbilityChart : UICollectionViewDelegateFlowLayout {
         
     }
     
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        return UIEdgeInsetsMake(0, 0, 1, 0)
+        // different inset for first and last rows
+        
+        switch section {
+        case 0:
+            return UIEdgeInsetsMake(10, 10, 1, 10)
+        case 5:
+            return UIEdgeInsetsMake(0, 10, 10, 10)
+        default:
+            return UIEdgeInsetsMake(0, 10, 1, 10)
+        }
+        
 
         
     }

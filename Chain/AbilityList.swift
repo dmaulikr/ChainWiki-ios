@@ -84,6 +84,9 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         segmentedControl.selectedSegmentIndex = 0
         currentArray = abilityArray
         tableView.reloadData()
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }
 
@@ -99,7 +102,6 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
             vc.abilityType = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             
         }
-        self.title = "이전"
     }
     
     

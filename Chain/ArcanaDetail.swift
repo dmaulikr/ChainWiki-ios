@@ -19,11 +19,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var arcana: Arcana?
     var heart = false
     var favorite = false
-
+    let defaults = UserDefaults.standard
+    
     func updateHistory(){
         var recents = [String]()
         
-        let defaults = UserDefaults.standard
+        
         if let arcana = arcana {
 //            let nKR = arcana.nameKR
             let uid = arcana.uid
@@ -67,20 +68,19 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     @IBAction func edit(_ sender: AnyObject) {
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if let _ = user {
-                print("ALLOWED TO EDIT, push view")
-                self.performSegue(withIdentifier: "editArcana", sender: self)
-                
-            }
-            else {
-                let alertController = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
-                alertController.view.tintColor = salmonColor
-                let defaultAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                alertController.addAction(defaultAction)
-                
-                self.present(alertController, animated: true, completion: nil)
-            }
+        let canEdit = defaults.object(forKey: "edit") as? String ?? String()
+        if canEdit == "true" {
+            print("ALLOWED TO EDIT, push view")
+            self.performSegue(withIdentifier: "editArcana", sender: self)
+            
+        }
+        else {
+            let alertController = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
+            alertController.view.tintColor = salmonColor
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -117,6 +117,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -200,7 +202,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
+        if section == 0 || section == 1 {
             return 0
         }
         return 20
@@ -222,10 +224,10 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
             
             if favorite {
-                cell.favorite.setImage(_: UIImage(named: "emailSalmon"), for: .normal)
+                cell.favorite.setImage(_: UIImage(named: "favoritesRed"), for: .normal)
             }
             if heart {
-                cell.heart.setImage(_: UIImage(named: "emailSalmon"), for: .normal)
+                cell.heart.setImage(_: UIImage(named: "heartRed"), for: .normal)
             }
             
             cell.imageSpinner.startAnimating()
@@ -361,6 +363,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     headerCell.skillMana.text = arcana.skillMana3
     
                 }
+                
+                headerCell.skillManaCost.text = "마나"
                 
                 headerCell.layoutMargins = UIEdgeInsets.zero
                 return headerCell

@@ -22,6 +22,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     let filterUpdate = Filter()
     var rarityArray = [String]()
     var gesture = UITapGestureRecognizer()
+    var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     let searchController = UISearchController(searchResultsController: nil)
     var showNavBar = true
@@ -54,7 +55,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = salmonColor
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
+            "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
             self.arcanaArray = self.arcanaArray.sorted(by: {$0.nameKR < $1.nameKR})
@@ -102,10 +103,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
 //        let viewed = UIAlertAction(title: "최근본순", style: .default, handler: nil)
 //        alertController.addAction(viewed)
-//        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
-//            (alertAction: UIAlertAction!) in
-//            alertController.dismiss(animated: true, completion: nil)
-//        }))
+        alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
+            (alertAction: UIAlertAction!) in
+            alertController.dismiss(animated: true, completion: nil)
+        }))
         
         present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = salmonColor
@@ -299,7 +300,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         let arcana: Arcana
         
-        
         if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
             arcana = searchArray[indexPath.row]
         } else {
@@ -431,12 +431,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         tableView.delegate = self
         syncArcana()
 
-        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         searchView.alpha = 0
         filterView.alpha = 0.0
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+        longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
 //        self.filterView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self

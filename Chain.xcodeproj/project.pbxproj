@@ -63,6 +63,7 @@
 		04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A3B1791D8E7C0D00BBF297 /* TavernCell.swift */; };
 		04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E251D7A2C23008902A8 /* Filter.swift */; };
 		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
+		04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
 		04DD91121D8656540023CDA4 /* ArcanaAbilityListOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */; };
@@ -184,6 +185,7 @@
 		04AA10211D7D667500387D22 /* TavernViewCellOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernViewCellOld.swift; sourceTree = "<group>"; };
 		04AE0E251D7A2C23008902A8 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
 		04DD91111D8656540023CDA4 /* ArcanaAbilityListOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityListOld.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
 				04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */,
+				04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */,
 				042834FC1D91EA1E0043BE6E /* Login */,
 				047561581D946E1C004886BF /* Main */,
 				046C93351D7582D6000E3FBD /* Arcana */,
@@ -754,6 +757,7 @@
 				0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
 				04691E961D97BF8C00E15C5F /* Favorites.swift in Sources */,
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
