@@ -62,16 +62,12 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let arcana: Arcana
         arcana = array[indexPath.row]
         
-        if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-            
-            
-            cell.arcanaNickJP.text = nnJP
+        if let nnKR = arcana.nickNameKR {
             cell.arcanaNickKR.text = nnKR
-            
-            //            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
-            //            c.arcanaNameKR.text = combinedNameKR
-            //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
-            //            c.arcanaNameJP.text = combinedNameJP
+        }
+        if let nnJP = arcana.nickNameJP {            
+            cell.arcanaNickJP.text = nnJP
+
         }
         cell.arcanaNameKR.text = arcana.nameKR
         cell.arcanaNameJP.text = arcana.nameJP

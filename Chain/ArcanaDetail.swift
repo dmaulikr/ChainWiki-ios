@@ -115,7 +115,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 7
     }
     
     
@@ -172,6 +172,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             
             return count
+        
+        case 6: // tavern, (date added)
+            if arcana.tavern == "" {
+                return 0
+            }
+            else {
+                return 1
+            }
+            
             
         default:    // edit history
             return 1
@@ -304,6 +313,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
                 
                 
+                
             case 1:
                 attributeKey = "레어"
                 attributeValue = getRarityLong(arcana.rarity)
@@ -313,7 +323,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             case 3:
                 attributeKey = "소속"
                 if let a = arcana.affiliation {
-                    attributeValue = a
+                    if a == "" {
+                        attributeValue = "정보 없음"
+                    }
+                    else {
+                        attributeValue = a
+                    }
+                }
+                else {
+                    attributeValue = "정보 없음"
                 }
             case 4:
                 attributeKey = "코스트"
@@ -468,7 +486,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return cell
             } else if let cStone = arcana.chainStone {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
-                cell.storyKey.text = "인연이야기"
+                cell.storyKey.text = "정령석 보상"
                 cell.storyAttribute.text = cStone
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
@@ -476,6 +494,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             else {
                 assert(false, "unexpected element kind")
             }
+            
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.attributeKey.text = "주점"
+            cell.attributeValue.text = arcana.tavern
+            return cell
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell

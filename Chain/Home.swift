@@ -174,6 +174,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 self.originalArray.append(arcana)
                 
                 if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
+                    
                     self.tableView.reloadData()
                 }
                 print("child added")
@@ -308,16 +309,13 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
 
         // check if arcana has only name, or nickname.
-        if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
+        if let nnKR = arcana.nickNameKR {
+            cell.arcanaNickJP.text = nnKR
+        }
+        if let nnJP = arcana.nickNameJP {
             
-            
-            cell.arcanaNickJP.text = nnJP
-            cell.arcanaNickKR.text = nnKR
-            
-            //            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
-            //            cell.arcanaNameKR.text = combinedNameKR
-            //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
-            //            cell.arcanaNameJP.text = combinedNameJP
+            cell.arcanaNickKR.text = nnJP
+
         }
         cell.arcanaNameKR.text = arcana.nameKR
         cell.arcanaNameJP.text = arcana.nameJP
@@ -354,6 +352,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             //            cell.arcanaImage.image = crop
             cell.arcanaImage.image = i
             cell.imageSpinner.stopAnimating()
+            print("LOADED FROM CACHE")
             
         }
             
@@ -481,10 +480,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//
-//        tableView.reloadData()
-//    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

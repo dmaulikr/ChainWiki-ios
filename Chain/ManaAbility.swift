@@ -105,7 +105,7 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
         }
         
-        
+        print("REF IS \(refPrefix)\(refSuffix)")
         let ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -154,7 +154,6 @@ class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(currentArray.count)
         return currentArray.count
     }
     
