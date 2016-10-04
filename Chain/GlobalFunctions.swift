@@ -1,5 +1,5 @@
 //
-//  KoreanTextConvert.swift
+//  GlobalFunctions.swift
 //  Chain
 //
 //  Created by Jitae Kim on 9/25/16.
@@ -48,6 +48,24 @@ func convertTavern(tavern: String) -> String {
     default:
         return ""
     }
+}
 
+//let affiliation = ["여행자", "마신", "부도", "성도", "현탑", "미궁", "호도", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무", "의용군", "화격단"]
+func fullAffiliationName(affiliation: String) -> String {
+    
+    switch affiliation {
+
+    case "현탑":
+        return "현자의탑"
+    case "미궁":
+        return "미궁"
+    case "호도":
+        return "호수도시"
+    case "레무":
+        return "레무레스섬"
+        
+    default:
+        return affiliation
+    }
     
 }

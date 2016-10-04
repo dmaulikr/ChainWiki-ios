@@ -478,22 +478,40 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
         case 5:
-            if let cStory = arcana.chainStory {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
-                cell.storyKey.text = "체인스토리"
-                cell.storyAttribute.text = cStory
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
-            } else if let cStone = arcana.chainStone {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
-                cell.storyKey.text = "정령석 보상"
-                cell.storyAttribute.text = cStone
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
+            
+            switch indexPath.row {
+            case 0:
+                if let cStory = arcana.chainStory {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
+                    cell.storyKey.text = "체인스토리"
+                    cell.storyAttribute.text = cStory
+                    cell.layoutMargins = UIEdgeInsets.zero
+                    return cell
+                } else if let cStone = arcana.chainStone {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
+                    cell.storyKey.text = "정령석 보상"
+                    cell.storyAttribute.text = cStone
+                    cell.layoutMargins = UIEdgeInsets.zero
+                    return cell
+                }
+                else {
+                    assert(false, "unexpected element kind")
+                }
+                
+            default:
+                if let cStone = arcana.chainStone {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
+                    cell.storyKey.text = "정령석 보상"
+                    cell.storyAttribute.text = cStone
+                    cell.layoutMargins = UIEdgeInsets.zero
+                    return cell
+                }
+                
+                else {
+                    assert(false, "unexpected element kind")
+                }
             }
-            else {
-                assert(false, "unexpected element kind")
-            }
+            
             
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell

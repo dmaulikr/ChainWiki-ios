@@ -171,10 +171,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
             if let arcana = Arcana(snapshot: snapshot) {
 //                self.arcanaArray.append(arcana)
+//                self.originalArray.append(arcana)
+                self.arcanaArray.insert(arcana, at: 0)
                 self.originalArray.append(arcana)
-                
                 if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    
+                    print("INITIAL LOAD == false")
                     self.tableView.reloadData()
                 }
                 print("child added")
@@ -184,8 +185,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         })
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            print("inital data loaded so reload tableView!  \(snapshot.childrenCount)")
-            self.arcanaArray = self.originalArray.reversed()
+            print("initial data loaded so reload tableView!  \(snapshot.childrenCount)")
+//            self.arcanaArray = self.originalArray.reversed()
             self.tableView.reloadData()
             self.initialLoad = false
         })
@@ -310,11 +311,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
         // check if arcana has only name, or nickname.
         if let nnKR = arcana.nickNameKR {
-            cell.arcanaNickJP.text = nnKR
+            cell.arcanaNickKR.text = nnKR
         }
         if let nnJP = arcana.nickNameJP {
             
-            cell.arcanaNickKR.text = nnJP
+            cell.arcanaNickJP.text = nnJP
 
         }
         cell.arcanaNameKR.text = arcana.nameKR
@@ -324,7 +325,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         cell.arcanaGroup.text = "#\(arcana.group)"
         cell.arcanaWeapon.text = "#\(arcana.weapon)"
         if let a = arcana.affiliation {
-            cell.arcanaAffiliation.text = "#\(a)"
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+    
         }
         
         cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"

@@ -27,7 +27,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     let rarity = ["5", "4", "3", "2", "1"]
     let group = ["전사", "기사","궁수","법사","승려"]
     let weapon = ["검", "봉", "창", "마", "궁", "성", "권", "총", "저"]
-    let affiliation = ["여행자", "마신", "부도", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무레스", "의용군", "화격단"]
+    let affiliation = ["여행자", "마신", "부도", "성도", "현탑", "미궁", "호도", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무", "의용군", "화격단"]
     
     var filterTypes = [String : [String]]()
     

@@ -26,7 +26,7 @@
 		046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C51D97D18F000CF487 /* ArcanaTextCell.swift */; };
 		04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E8C1D979D2800E15C5F /* TavernHomeView.swift */; };
 		04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04691E8E1D97A87300E15C5F /* ArcanaCell.xib */; };
-		04691E911D97AE0E00E15C5F /* KoreanTextConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */; };
+		04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */; };
 		04691E961D97BF8C00E15C5F /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E951D97BF8C00E15C5F /* Favorites.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
@@ -138,7 +138,7 @@
 		046710C51D97D18F000CF487 /* ArcanaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaTextCell.swift; sourceTree = "<group>"; };
 		04691E8C1D979D2800E15C5F /* TavernHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHomeView.swift; sourceTree = "<group>"; };
 		04691E8E1D97A87300E15C5F /* ArcanaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaCell.xib; sourceTree = "<group>"; };
-		04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreanTextConvert.swift; sourceTree = "<group>"; };
+		04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		04691E951D97BF8C00E15C5F /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 				042834F81D91AF680043BE6E /* Chain.entitlements */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
-				04691E901D97AE0E00E15C5F /* KoreanTextConvert.swift */,
+				04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */,
 				04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */,
 				042834FC1D91EA1E0043BE6E /* Login */,
 				047561581D946E1C004886BF /* Main */,
@@ -794,7 +794,7 @@
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				048E6E531D727CD400687513 /* ArcanaDetailCellOld.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
-				04691E911D97AE0E00E15C5F /* KoreanTextConvert.swift in Sources */,
+				04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0401B4031D79E99A00AF1BF1 /* MyNavigationController.swift in Sources */,

@@ -121,7 +121,14 @@ struct Arcana: Equatable, Hashable {
             rarity = r
             group = g
             tavern = t
+        
+        if let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String {
             affiliation = a
+        }
+        else {
+            affiliation = nil
+        }
+        
             cost = c
             weapon = w
             
