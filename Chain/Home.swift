@@ -298,6 +298,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
+        for i in cell.labelCollection {
+            i.text = nil
+        }
+        cell.arcanaImage.image = nil
+        
         cell.imageSpinner.startAnimating()
         
         let arcana: Arcana
@@ -333,7 +338,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
         
-        cell.arcanaImage.image = nil
+        
         
         
         // Check Cache, or download from Firebase
@@ -344,7 +349,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         
         
-        
+        /*
         
         // Check cache first
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
@@ -409,7 +414,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
         }
 
-        
+        */
         
         return cell
     }

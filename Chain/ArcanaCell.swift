@@ -25,6 +25,7 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     
     
+    @IBOutlet var labelCollection: [UILabel]!
     override func awakeFromNib() {
         super.awakeFromNib()
         layoutIfNeeded()

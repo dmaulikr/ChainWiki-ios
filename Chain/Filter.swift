@@ -225,7 +225,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         print("DESELECTED COUNT \(collectionView.indexPathsForSelectedItems)")
         if collectionView.indexPathsForSelectedItems!.count == 0 {
             if let vc = parent as? Home {
-                vc.arcanaArray = vc.originalArray
+                vc.arcanaArray = vc.originalArray.reversed()
                 hasFilter = false
             }
         }

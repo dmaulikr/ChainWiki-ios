@@ -124,6 +124,15 @@
                 <outlet property="arcanaWeapon" destination="mht-aC-BbG" id="aTY-JY-rXO"/>
                 <outlet property="imageSpinner" destination="QfP-X7-GhL" id="nEL-Al-0tx"/>
                 <outlet property="numberOfViews" destination="slv-tU-yOc" id="HxD-ju-kLP"/>
+                <outletCollection property="labelCollection" destination="wP6-uQ-GDn" id="ADi-mh-W0x"/>
+                <outletCollection property="labelCollection" destination="hyp-Yd-Tt1" id="wub-t0-aLW"/>
+                <outletCollection property="labelCollection" destination="PvU-O2-ScF" id="esA-Gr-sIu"/>
+                <outletCollection property="labelCollection" destination="Oo4-NA-n4P" id="c52-Bj-yTF"/>
+                <outletCollection property="labelCollection" destination="Rb6-zw-MRg" id="i6I-0B-V66"/>
+                <outletCollection property="labelCollection" destination="mht-aC-BbG" id="Q9K-fB-zkZ"/>
+                <outletCollection property="labelCollection" destination="qeL-m8-GQV" id="wD4-QM-l7L"/>
+                <outletCollection property="labelCollection" destination="slv-tU-yOc" id="wZL-Lz-Q8E"/>
+                <outletCollection property="labelCollection" destination="eDv-6r-nZq" id="xxQ-RR-xnx"/>
             </connections>
             <point key="canvasLocation" x="-284" y="-120"/>
         </tableViewCell>
