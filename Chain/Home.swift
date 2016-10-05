@@ -349,7 +349,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         
         
-        /*
+        
         
         // Check cache first
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
@@ -414,8 +414,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
         }
 
-        */
         
+    
         return cell
     }
 
