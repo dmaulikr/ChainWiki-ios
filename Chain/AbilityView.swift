@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import Firebase
 //import Toucan
 
-class ManaAbility: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {

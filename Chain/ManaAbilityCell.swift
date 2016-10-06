@@ -24,6 +24,7 @@ class ManaAbilityCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        layoutIfNeeded()
         // Initialization code
 //        let circle = DrawCircle()
 //        circle.drawRect(CGRect(x: 0, y: 0, width: 30, height: 30))

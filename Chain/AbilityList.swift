@@ -96,8 +96,8 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "showMana") {
-            let vc = segue.destination as! ManaAbility
+        if (segue.identifier == "abilityArcana") {
+            let vc = segue.destination as! AbilityView
             vc.selectedIndex = segmentedControl.selectedSegmentIndex
             vc.abilityType = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             

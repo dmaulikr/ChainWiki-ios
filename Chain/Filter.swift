@@ -107,7 +107,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             rarityArray.append(cell.rarity.text!)
             filterTypes.updateValue(rarityArray, forKey: "rarity")
-            print(filterTypes["rarity"]!)
             
 //            if let vc = parentViewController as? HomeContainerView {
 //                print("SELECT ACCESSED HOME")
@@ -159,7 +158,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             else {
                 affiliationArray = [String]()
             }
-            affiliationArray.append(cell.filterType.text!)
+            
+            affiliationArray.append(fullAffiliationName(affiliation: cell.filterType.text!))
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
 
         }
@@ -179,9 +179,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
             let deleteRarity = cell.rarity.text!
             var rarityArray = filterTypes["rarity"]!
-            for (index, rarity) in rarityArray.enumerated().reversed() {
-                if rarity == deleteRarity {
-                    print("DELETED \(deleteRarity)")
+            for (index, filter) in rarityArray.enumerated().reversed() {
+                if filter == deleteRarity {
                     rarityArray.remove(at: index)
                 }
             }
@@ -190,9 +189,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteGroup = cell.filterType.text!
             var groupArray = filterTypes["group"]!
-            for (index, rarity) in groupArray.enumerated().reversed() {
-                if rarity == deleteGroup {
-                    print("DELETED \(deleteGroup)")
+            for (index, filter) in groupArray.enumerated().reversed() {
+                if filter == deleteGroup {
                     groupArray.remove(at: index)
                 }
             }
@@ -201,9 +199,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteWeapon = cell.filterType.text!
             var weaponArray = filterTypes["weapon"]!
-            for (index, rarity) in weaponArray.enumerated().reversed() {
-                if rarity == deleteWeapon {
-                    print("DELETED \(deleteWeapon)")
+            for (index, filter) in weaponArray.enumerated().reversed() {
+                if filter == deleteWeapon {
                     weaponArray.remove(at: index)
                 }
             }
@@ -212,9 +209,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteAffiliation = cell.filterType.text!
             var affiliationArray = filterTypes["affiliation"]!
-            for (index, rarity) in affiliationArray.enumerated().reversed() {
-                if rarity == deleteAffiliation {
-                    print("DELETED \(deleteAffiliation)")
+            for (index, filter) in affiliationArray.enumerated().reversed() {
+                if filter == fullAffiliationName(affiliation: deleteAffiliation) {
                     affiliationArray.remove(at: index)
                 }
             }
@@ -222,10 +218,8 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         // Check if deselected last cell, meaning no filters selected
-        print("DESELECTED COUNT \(collectionView.indexPathsForSelectedItems)")
         if collectionView.indexPathsForSelectedItems!.count == 0 {
             if let vc = parent as? Home {
-                vc.arcanaArray = vc.originalArray.reversed()
                 hasFilter = false
             }
         }

@@ -133,15 +133,16 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Try to find next responder
-        if let _ = email {
-            password.becomeFirstResponder()
+        if let textField = email {
+            _ = textField.resignFirstResponder()
+            _ = password.becomeFirstResponder()
         } else {
             // Not found, so remove keyboard.
             textField.resignFirstResponder()
             self.emailLogin(self)
         }
         // Not found, so remove keyboard.
-        return false
+        return true
     }
     
     func changeRootView() {
