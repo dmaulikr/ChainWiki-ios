@@ -50,7 +50,6 @@ func convertTavern(tavern: String) -> String {
     }
 }
 
-//let affiliation = ["여행자", "마신", "부도", "성도", "현탑", "미궁", "호도", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "서가", "레무", "의용군", "화격단"]
 func fullAffiliationName(affiliation: String) -> String {
     
     switch affiliation {

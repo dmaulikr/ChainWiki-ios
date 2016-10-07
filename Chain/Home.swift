@@ -407,7 +407,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                                 cell.imageSpinner.stopAnimating()
                                 
                                 cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
-                    
+                                cell.arcanaImage.alpha = 0
+                                cell.arcanaImage.fadeIn()
+                                
                                 print("DOWNLOADED")
 
                                 
@@ -613,9 +615,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                                 }
                             }
                         }
-                        //                        for i in finalFilter {
-                        //                            print(i)
-                        //                        }
+
                         self.arcanaArray = Array(finalFilter)
                         self.tableView.reloadData()
                         

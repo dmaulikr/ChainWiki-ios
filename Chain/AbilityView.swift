@@ -46,6 +46,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             currentArray = arcanaArray.filter({$0.group == "승려"})
             
         }
+        
         tableView.reloadData()
     
     }
@@ -120,13 +121,11 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             var array = [Arcana]()
             
             for id in uid {
-                print(id)
                 self.group.enter()
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
                 ref.observeSingleEvent(of: .value, with: { snapshot in
-                    print(snapshot)
                     if let arcana = Arcana(snapshot: snapshot) {
                         array.append(arcana)
                     }
@@ -158,49 +157,123 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "manaAbility") as! ManaAbilityCell
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
-        cell.arcanaNameKR.text = currentArray[(indexPath as NSIndexPath).row].nameKR
-        cell.arcanaNameJP.text = currentArray[(indexPath as NSIndexPath).row].nameJP
-        cell.arcanaRarity.text = "#\(currentArray[(indexPath as NSIndexPath).row].rarity)★"
-        
-        
-        // Get abilities, kizuna, group
-        var aD1 = ""
-        if let a1 = currentArray[(indexPath as NSIndexPath).row].abilityDesc1 {
-            aD1 = a1
+        for i in cell.labelCollection {
+            i.text = nil
         }
-        let g = currentArray[(indexPath as NSIndexPath).row].group
-        var aD2 = ""
-        if let a2 = currentArray[(indexPath as NSIndexPath).row].abilityDesc2 {
-            aD2 = a2
-        }
-        let k = currentArray[(indexPath as NSIndexPath).row].kizunaDesc
-        
-        // check for the abilityType, then perform operation.
-        
-        // also check if it needs the label for percent
-        
-        switch abilityType {
-            
-        case "마나의 소양":
-            cell.value.isHidden = true
-            getMana(aD1, aD2: aD2, k: k, g: g)
-            cell.mana1.mana = manaArray[0]
-            if manaArray.count > 1 {
-                cell.mana2.mana = manaArray[1]
-            }
-            
-        case "AP 회복":
-            cell.value.text = "30%"
-        //do ap stuff
-        default:
-            break
-        }
+        cell.arcanaImage.image = nil
         
         cell.imageSpinner.startAnimating()
-    
+        
+        let arcana = currentArray[indexPath.row]
+        
+        // check if arcana has only name, or nickname.
+        if let nnKR = arcana.nickNameKR {
+            cell.arcanaNickKR.text = nnKR
+        }
+        if let nnJP = arcana.nickNameJP {
+            
+            cell.arcanaNickJP.text = nnJP
+            
+        }
+        cell.arcanaNameKR.text = arcana.nameKR
+        cell.arcanaNameJP.text = arcana.nameJP
+        
+        cell.arcanaRarity.text = "#\(arcana.rarity)★"
+        cell.arcanaGroup.text = "#\(arcana.group)"
+        cell.arcanaWeapon.text = "#\(arcana.weapon)"
+        if let a = arcana.affiliation {
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+            
+        }
+        
+        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        
+        
+        
+        
+        // Check Cache, or download from Firebase
+        // cell.arcanaImage.image = UIImage(named: "main.jpg")
+        //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+        //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+        //        cell.arcanaImage.image = image
+        
+        
+        
+        
+        
+        // Check cache first
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+            
+            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+            //            let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+            
+            //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+            //            cell.arcanaImage.image = crop
+            cell.arcanaImage.image = i
+            cell.imageSpinner.stopAnimating()
+            print("LOADED FROM CACHE")
+            
+        }
+            
+            //  Not in cache, download from firebase
+        else {
+            //            cell.imageSpinner.startAnimating()
+            
+            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                if (error != nil) {
+                    print("image download error")
+                    print(error)
+                    // Handle any errors
+                } else {
+                    // Get the download URL
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
+                        
+                        if let image = response.result.value {
+                            // Set the Image
+                            
+                            // TODO: MAKE SMALL THUMBNAIL
+                            
+                            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
+                            
+                            
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                                
+                                
+                                //                                let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
+                                //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
+                                //                                cell.arcanaImage.image = crop
+                                //                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
+                                //                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
+                                //                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
+                                //                                cell.arcanaImage.image = image
+                                // Cache the Image
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
+                                cell.imageSpinner.fadeOut()
+                                cell.imageSpinner.stopAnimating()
+                                
+                                cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                
+                                print("DOWNLOADED")
+                                
+                                
+                            }
+                            else {
+                                print("COULD NOT UNWRAP IMAGE")
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
+        
         
         
         return cell
@@ -221,62 +294,14 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
 
     }
     
-    
-    func getMana(_ aD1: String, aD2: String, k: String, g: String) {
-        
-        if aD1 != "" && aD1.contains("마나를") {
-//            print("ability 1")
-            if aD1.contains("2") {
-                manaArray.append(g)
-                manaArray.append(g)
-            }
-            else {
-                manaArray.append(g)
-                // also check if it gives different class mana
-                if aD1.contains("추가된다") {
-                    for mana in manaTypes {
-                        if aD1.contains(mana) && mana != g {
-                            manaArray.append(mana)
-                        }
-                        
-                    }
-                }
-            }
-            
-        }
-        
-        if aD2 != "" {
-//            print("ability 2")
-            if aD2.contains("마나를") {
-                if aD2.contains("2") {
-                    print("FOUND 2")
-                    manaArray.append(g)
-                    manaArray.append(g)
-                }
-                else {
-                    manaArray.append(g)
-                    // also check if it gives different class mana
-                    if aD2.contains("추가된다") {
-                        for mana in manaTypes {
-                            if aD2.contains(mana) && mana != g {
-                                manaArray.append(mana)
-                            }
-                            
-                        }
-                    }
-                }
-            }
-            
-        }
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "마나"
+        title = abilityType
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        
         downloadArray()
         segmentedControl.selectedSegmentIndex = 0
         // Do any additional setup after loading the view.

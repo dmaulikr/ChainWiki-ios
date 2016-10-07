@@ -516,7 +516,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
-            cell.attributeKey.text = "주점"
+            cell.attributeKey.text = "출현 장소"
             cell.attributeValue.text = arcana.tavern
             return cell
             
