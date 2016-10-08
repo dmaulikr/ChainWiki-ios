@@ -1,3 +1,4 @@
+
 //
 //  TavernHomeView.swift
 //  Chain
@@ -18,16 +19,36 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func logout(_ sender: AnyObject) {
         
-        // Remove the user's uid from storage.
-        UserDefaults.standard.setValue(nil, forKey: "uid")
+        let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+        alert.view.tintColor = salmonColor
         
-        try! FIRAuth.auth()!.signOut()
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { (action) in
+            // Remove the user's uid from storage.
+            UserDefaults.standard.setValue(nil, forKey: "uid")
+            
+            try! FIRAuth.auth()!.signOut()
+            
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                    self.view.window!.rootViewController = initialViewController
+                }, completion: nil)
 
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+//            self.view.window?.rootViewController = initialViewController
+//            self.view.window?.makeKeyAndVisible()
+        }
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
         
-        self.view.window?.rootViewController = initialViewController
-        self.view.window?.makeKeyAndVisible()
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        
+        self.present(alert, animated: true) {
+            alert.view.tintColor = salmonColor
+        }
         
     }
     
@@ -59,15 +80,23 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
-        let arcana: Arcana
-        arcana = array[indexPath.row]
+        for i in cell.labelCollection {
+            i.text = nil
+        }
+        cell.arcanaImage.image = nil
         
+        cell.imageSpinner.startAnimating()
+        
+        let arcana = array[indexPath.row]
+        
+        // check if arcana has only name, or nickname.
         if let nnKR = arcana.nickNameKR {
             cell.arcanaNickKR.text = nnKR
         }
-        if let nnJP = arcana.nickNameJP {            
+        if let nnJP = arcana.nickNameJP {
+            
             cell.arcanaNickJP.text = nnJP
-
+            
         }
         cell.arcanaNameKR.text = arcana.nameKR
         cell.arcanaNameJP.text = arcana.nameJP
@@ -76,10 +105,66 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.arcanaGroup.text = "#\(arcana.group)"
         cell.arcanaWeapon.text = "#\(arcana.weapon)"
         if let a = arcana.affiliation {
-            cell.arcanaAffiliation.text = "#\(a)"
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+            
         }
         
         cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        cell.arcanaUID = arcana.uid
+        // Check cache first
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+            
+            cell.arcanaImage.image = i
+            cell.imageSpinner.stopAnimating()
+            print("LOADED FROM CACHE")
+            
+        }
+            
+        else {
+            
+            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                if (error != nil) {
+                    print("image download error")
+                    
+                    // Handle any errors
+                } else {
+                    // Get the download URL
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
+                        
+                        if let image = response.result.value {
+                            // Set the Image
+                            
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                                
+                                // Cache the Image
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
+                                cell.imageSpinner.stopAnimating()
+                                
+                                if cell.arcanaUID == arcana.uid {
+                                    cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                    cell.arcanaImage.alpha = 0
+                                    cell.arcanaImage.fadeIn()
+                                }
+                                
+                                
+                                print("DOWNLOADED")
+                                
+                                
+                            }
+                            else {
+                                print("COULD NOT UNWRAP IMAGE")
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
         
         return cell
     }

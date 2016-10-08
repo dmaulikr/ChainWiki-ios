@@ -23,7 +23,7 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var arcanaAffiliation: UILabel!
     @IBOutlet weak var numberOfViews: UILabel!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
-    
+    var arcanaUID: String!
     
     @IBOutlet var labelCollection: [UILabel]!
     override func awakeFromNib() {

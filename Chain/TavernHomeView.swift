@@ -45,19 +45,23 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
-        let arcana: Arcana
-        arcana = array[indexPath.row]
+        for i in cell.labelCollection {
+            i.text = nil
+        }
+        cell.arcanaImage.image = nil
         
-        if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-            
+        cell.imageSpinner.startAnimating()
+        
+        let arcana = array[indexPath.row]
+        
+        // check if arcana has only name, or nickname.
+        if let nnKR = arcana.nickNameKR {
+            cell.arcanaNickKR.text = nnKR
+        }
+        if let nnJP = arcana.nickNameJP {
             
             cell.arcanaNickJP.text = nnJP
-            cell.arcanaNickKR.text = nnKR
             
-            //            let combinedNameKR = "\(nnKR) \(arcanaArray[indexPath.row].nameKR)"
-            //            c.arcanaNameKR.text = combinedNameKR
-            //            let combinedNameJP = "\(nnJP) \(arcanaArray[indexPath.row].nameJP)"
-            //            c.arcanaNameJP.text = combinedNameJP
         }
         cell.arcanaNameKR.text = arcana.nameKR
         cell.arcanaNameJP.text = arcana.nameJP
@@ -66,10 +70,66 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.arcanaGroup.text = "#\(arcana.group)"
         cell.arcanaWeapon.text = "#\(arcana.weapon)"
         if let a = arcana.affiliation {
-            cell.arcanaAffiliation.text = "#\(a)"
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+            
         }
         
         cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        cell.arcanaUID = arcana.uid
+        // Check cache first
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+            
+            cell.arcanaImage.image = i
+            cell.imageSpinner.stopAnimating()
+            print("LOADED FROM CACHE")
+            
+        }
+            
+        else {
+            
+            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                if (error != nil) {
+                    print("image download error")
+                    
+                    // Handle any errors
+                } else {
+                    // Get the download URL
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
+                        
+                        if let image = response.result.value {
+                            // Set the Image
+                            
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                                
+                                // Cache the Image
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
+                                cell.imageSpinner.stopAnimating()
+                                
+                                if cell.arcanaUID == arcana.uid {
+                                    cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                    cell.arcanaImage.alpha = 0
+                                    cell.arcanaImage.fadeIn()
+                                }
+                                
+                                
+                                print("DOWNLOADED")
+                                
+                                
+                            }
+                            else {
+                                print("COULD NOT UNWRAP IMAGE")
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
         
         return cell
     }

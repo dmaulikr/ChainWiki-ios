@@ -83,10 +83,7 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             cell.tavernName.text = juhpyun[indexPath.row]
             
         }
-//        cell.contentView.layer.borderWidth = 1
-//        cell.contentView.layer.borderColor = darkNavyColor.cgColor
-//        cell.contentView.layer.cornerRadius = 5
-//        cell.contentView.layer.masksToBounds = true
+
         return cell
     }
     

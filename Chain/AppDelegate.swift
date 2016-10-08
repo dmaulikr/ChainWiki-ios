@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        let defaults = UserDefaults.standard
 //        defaults.removeObject(forKey: "recent")
-        //FIRDatabase.database().persistenceEnabled = true
+        FIRDatabase.database().persistenceEnabled = true
         
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)

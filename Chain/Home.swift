@@ -272,7 +272,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if arcanaArray.count == 0 {
-            tableView.alpha = 0
+            return 10
         }
         else {
             tableView.alpha = 1
@@ -303,131 +303,129 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
-        for i in cell.labelCollection {
-            i.text = nil
-        }
-        cell.arcanaImage.image = nil
-        
-        cell.imageSpinner.startAnimating()
-        
-        let arcana: Arcana
-        
-        if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
-            arcana = searchArray[indexPath.row]
-        } else {
-            arcana = arcanaArray[indexPath.row]
-        }
-        
-
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.nickNameKR {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.nickNameJP {
+        if arcanaArray.count == 0 {
+            cell.arcanaImage.image = #imageLiteral(resourceName: "placeholder")
             
-            cell.arcanaNickJP.text = nnJP
-
-        }
-        cell.arcanaNameKR.text = arcana.nameKR
-        cell.arcanaNameJP.text = arcana.nameJP
-        
-        cell.arcanaRarity.text = "#\(arcana.rarity)★"
-        cell.arcanaGroup.text = "#\(arcana.group)"
-        cell.arcanaWeapon.text = "#\(arcana.weapon)"
-        if let a = arcana.affiliation {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
+            for i in cell.labelCollection {
+                i.alpha = 0
             }
-    
-        }
-        
-        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-        
-        
-        
-        
-        // Check Cache, or download from Firebase
-        // cell.arcanaImage.image = UIImage(named: "main.jpg")
-        //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-        //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-        //        cell.arcanaImage.image = image
-        
-        
-        
-        
-        
-        // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
-            
-            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-            //            let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-            
-            //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-            //            cell.arcanaImage.image = crop
-            cell.arcanaImage.image = i
-            cell.imageSpinner.stopAnimating()
-            print("LOADED FROM CACHE")
+            cell.arcanaNameKR.alpha = 1
+            cell.arcanaNameKR.textColor = placeholderColor
+            cell.arcanaNameKR.backgroundColor = placeholderColor
+            cell.arcanaNameJP.alpha = 1
+            cell.arcanaNameJP.textColor = placeholderColor
+            cell.arcanaNameJP.backgroundColor = placeholderColor
             
         }
-            
-            //  Not in cache, download from firebase
         else {
-            //            cell.imageSpinner.startAnimating()
+            for i in cell.labelCollection {
+                i.text = nil
+                i.backgroundColor = UIColor.white
+                i.fadeIn()
+            }
+            cell.arcanaImage.image = nil
+            cell.imageSpinner.startAnimating()
             
-            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
-                if (error != nil) {
-                    print("image download error")
-                    print(error)
-                    // Handle any errors
-                } else {
-                    // Get the download URL
-                    let urlRequest = URLRequest(url: URL!)
-                    DOWNLOADER.download(urlRequest) { response in
+            let arcana: Arcana
+            
+            if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
+                arcana = searchArray[indexPath.row]
+            } else {
+                arcana = arcanaArray[indexPath.row]
+            }
+            
+            
+            // check if arcana has only name, or nickname.
+            if let nnKR = arcana.nickNameKR {
+                cell.arcanaNickKR.text = nnKR
+                cell.arcanaNickKR.textColor = UIColor.black
+            }
+            if let nnJP = arcana.nickNameJP {
+                
+                cell.arcanaNickJP.text = nnJP
+                cell.arcanaNickJP.textColor = textGrayColor
+            }
+            cell.arcanaNameKR.text = arcana.nameKR
+            cell.arcanaNameKR.textColor = UIColor.black
+            cell.arcanaNameJP.text = arcana.nameJP
+            cell.arcanaNameJP.textColor = textGrayColor
+            
+            cell.arcanaRarity.text = "#\(arcana.rarity)★"
+            cell.arcanaRarity.textColor = lightGreenColor
+            cell.arcanaGroup.text = "#\(arcana.group)"
+            cell.arcanaGroup.textColor = lightGreenColor
+            cell.arcanaWeapon.text = "#\(arcana.weapon)"
+            cell.arcanaWeapon.textColor = lightGreenColor
+            
+            if let a = arcana.affiliation {
+                if a != "" {
+                    cell.arcanaAffiliation.text = "#\(a)"
+                    cell.arcanaAffiliation.textColor = lightGreenColor
+                }
+                
+            }
+            
+            cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+            cell.numberOfViews.textColor = lightGreenColor
+            
+            cell.arcanaUID = arcana.uid
+            
+            // Check cache first
+            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+                
+                cell.arcanaImage.image = i
+                cell.imageSpinner.stopAnimating()
+                print("LOADED FROM CACHE")
+                
+            }
+                
+            else {
+                
+                STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                    if (error != nil) {
+                        print("image download error")
                         
-                        if let image = response.result.value {
-                            // Set the Image
+                        // Handle any errors
+                    } else {
+                        // Get the download URL
+                        let urlRequest = URLRequest(url: URL!)
+                        DOWNLOADER.download(urlRequest) { response in
                             
-                            // TODO: MAKE SMALL THUMBNAIL
-                            
-                            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-                            
-                            
-                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                            if let image = response.result.value {
+                                // Set the Image
                                 
+                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                                    
+                                    // Cache the Image
+                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
+                                    cell.imageSpinner.stopAnimating()
+                                    
+                                    if cell.arcanaUID == arcana.uid {
+                                        cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                        cell.arcanaImage.alpha = 0
+                                        cell.arcanaImage.fadeIn()
+                                    }
+                                    
+                                    
+                                    
+                                    print("DOWNLOADED")
+                                    
+                                    
+                                }
+                                else {
+                                    print("COULD NOT UNWRAP IMAGE")
+                                }
                                 
-                                //                                let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-                                //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-                                //                                cell.arcanaImage.image = crop
-                                //                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
-                                //                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
-                                //                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
-                                //                                cell.arcanaImage.image = image
-                                // Cache the Image
-                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-                                cell.imageSpinner.stopAnimating()
-                                
-                                cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
-                                cell.arcanaImage.alpha = 0
-                                cell.arcanaImage.fadeIn()
-                                
-                                print("DOWNLOADED")
-
                                 
                             }
-                            else {
-                                print("COULD NOT UNWRAP IMAGE")
-                            }
-                            
-                            
                         }
                     }
                 }
+                
             }
-            
-        }
 
-        
-    
+        }
+ 
         return cell
     }
 
@@ -618,6 +616,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
                         self.arcanaArray = Array(finalFilter)
                         self.tableView.reloadData()
+                        self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
                         
                     
                     

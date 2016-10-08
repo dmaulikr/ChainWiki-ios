@@ -219,7 +219,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         // Check if deselected last cell, meaning no filters selected
         if collectionView.indexPathsForSelectedItems!.count == 0 {
-            if let vc = parent as? Home {
+            if let _ = parent as? Home {
                 hasFilter = false
             }
         }

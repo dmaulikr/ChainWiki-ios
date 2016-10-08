@@ -191,42 +191,22 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
         
         cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-        
-        
-        
-        
-        // Check Cache, or download from Firebase
-        // cell.arcanaImage.image = UIImage(named: "main.jpg")
-        //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-        //        let image = Toucan(image: UIImage(named: "main.jpg")!).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-        //        cell.arcanaImage.image = image
-        
-        
-        
-        
-        
+        cell.arcanaUID = arcana.uid
         // Check cache first
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
-            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-            //            let crop = Toucan(image: i).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-            
-            //            let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-            //            cell.arcanaImage.image = crop
             cell.arcanaImage.image = i
             cell.imageSpinner.stopAnimating()
             print("LOADED FROM CACHE")
             
         }
             
-            //  Not in cache, download from firebase
         else {
-            //            cell.imageSpinner.startAnimating()
             
             STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     print("image download error")
-                    print(error)
+                    
                     // Handle any errors
                 } else {
                     // Get the download URL
@@ -236,27 +216,18 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
                         if let image = response.result.value {
                             // Set the Image
                             
-                            // TODO: MAKE SMALL THUMBNAIL
-                            
-                            //let size = CGSize(width: SCREENHEIGHT/8, height: SCREENHEIGHT/8)
-                            
-                            
                             if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
                                 
-                                
-                                //                                let crop = Toucan(image: thumbnail).resize(cell.arcanaImage.frame.size, fitMode: Toucan.Resize.FitMode.Crop).image
-                                //                                //let maskedCrop = Toucan(image: crop).maskWithRoundedRect(cornerRadius: 5, borderWidth: 3, borderColor: borderColor).image
-                                //                                cell.arcanaImage.image = crop
-                                //                                let rect = CGRect(x: 0, y: 0, width: thumbnail.size.width, height: thumbnail.size.width)
-                                //                                let imageRef = thumbnail.cgImage?.cropping(to: rect)
-                                //                                let image = UIImage(cgImage: imageRef!, scale: 1.0, orientation: .up)
-                                //                                cell.arcanaImage.image = image
                                 // Cache the Image
                                 IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-                                cell.imageSpinner.fadeOut()
                                 cell.imageSpinner.stopAnimating()
                                 
-                                cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                if cell.arcanaUID == arcana.uid {
+                                    cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                    cell.arcanaImage.alpha = 0
+                                    cell.arcanaImage.fadeIn()
+                                }
+                                
                                 
                                 print("DOWNLOADED")
                                 
@@ -273,7 +244,6 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             }
             
         }
-        
         
         
         return cell
