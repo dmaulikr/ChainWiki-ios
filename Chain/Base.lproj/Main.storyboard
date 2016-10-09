@@ -597,7 +597,7 @@
                 <navigationController storyboardIdentifier="HomeNav" id="7rg-wy-GHd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MN9-au-8Yj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -617,7 +617,7 @@
                     <tabBarItem key="tabBarItem" title="즐겨찾기" image="favoritesGray" id="57X-Rk-Nrt"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUg-eH-RdH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dUg-eH-RdH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

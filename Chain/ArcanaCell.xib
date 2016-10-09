@@ -21,7 +21,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="800" text="한국어 호칭" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hyp-Yd-Tt1">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="800" text="한국어 호칭" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="hyp-Yd-Tt1">
                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -110,7 +110,7 @@
                     <constraint firstItem="mht-aC-BbG" firstAttribute="top" secondItem="PvU-O2-ScF" secondAttribute="bottom" constant="14" id="oAG-li-ifF"/>
                     <constraint firstItem="hyp-Yd-Tt1" firstAttribute="baseline" secondItem="wP6-uQ-GDn" secondAttribute="baseline" id="rb5-bc-9lC"/>
                     <constraint firstItem="PvU-O2-ScF" firstAttribute="leading" secondItem="UrK-1F-vGc" secondAttribute="trailing" constant="16" id="tJh-09-AiI"/>
-                    <constraint firstAttribute="trailing" secondItem="hyp-Yd-Tt1" secondAttribute="trailing" id="uTe-Kd-RHH"/>
+                    <constraint firstAttribute="trailing" secondItem="hyp-Yd-Tt1" secondAttribute="trailing" constant="10" id="uTe-Kd-RHH"/>
                     <constraint firstAttribute="bottom" secondItem="Oo4-NA-n4P" secondAttribute="bottom" constant="13" id="wYq-gN-Le5"/>
                 </constraints>
             </tableViewCellContentView>

@@ -324,7 +324,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             for i in cell.labelCollection {
                 i.text = nil
                 i.backgroundColor = UIColor.white
-                i.fadeIn(withDuration: 0.5)
+                i.alpha = 1
             }
             cell.arcanaImage.image = nil
             
