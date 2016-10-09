@@ -17,6 +17,7 @@
 		042835021D91EE250043BE6E /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042835011D91EE250043BE6E /* LoginForm.swift */; };
 		042DB3E91D8155970049AC0D /* MySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DB3E81D8155970049AC0D /* MySupplementaryView.swift */; };
 		042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042FE9CD1D98A82C002ACE74 /* ArcanaDetailEditCell.xib */; };
+		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
 		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
 		0447E1D61D87D05200670834 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* AbilityView.swift */; };
 		0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */; };
@@ -129,6 +130,7 @@
 		042835011D91EE250043BE6E /* LoginForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		042DB3E81D8155970049AC0D /* MySupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySupplementaryView.swift; sourceTree = "<group>"; };
 		042FE9CD1D98A82C002ACE74 /* ArcanaDetailEditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaDetailEditCell.xib; sourceTree = "<group>"; };
+		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
 		0447E1D51D87D05200670834 /* AbilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbilityCell.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				04A2ECC61D6F80C800189142 /* etc */,
 				04A2EC9E1D6F7FA300189142 /* Assets.xcassets */,
 				04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */,
+				044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */,
 				04A2ECA31D6F7FA300189142 /* Info.plist */,
 				04941A3A1D6F81F000BAE389 /* Features.rtf */,
 				04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */,
@@ -535,6 +538,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -544,11 +548,13 @@
 					04A2ECA71D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 						TestTargetID = 04A2EC901D6F7FA300189142;
 					};
 					04A2ECB21D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 						TestTargetID = 04A2EC901D6F7FA300189142;
 					};
 				};
@@ -782,6 +788,7 @@
 				0447E1D61D87D05200670834 /* AbilityView.swift in Sources */,
 				048B31261D7642CA0011477D /* AbilityList.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
+				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
 				048E6E511D72602400687513 /* ArcanaDetailOld.swift in Sources */,
 				04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */,
 				0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */,
@@ -966,6 +973,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -991,6 +999,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1011,6 +1020,7 @@
 			baseConfigurationReference = 46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainTests;
@@ -1025,6 +1035,7 @@
 			baseConfigurationReference = 9F24342BA979ECF14F6FFE66 /* Pods-ChainTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainTests;
@@ -1038,6 +1049,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainUITests;
@@ -1051,6 +1063,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7B05ACE02E45F09E2A44AE1 /* Pods-ChainUITests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainUITests;

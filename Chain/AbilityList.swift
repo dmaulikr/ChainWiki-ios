@@ -1,3 +1,5 @@
+
+
 //
 //  ArcanaAbilityDB.swift
 //  Chain
@@ -94,6 +96,14 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if tableView.indexPathForSelectedRow != nil {
+            let indexPath: NSIndexPath = tableView.indexPathForSelectedRow! as NSIndexPath
+            tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {

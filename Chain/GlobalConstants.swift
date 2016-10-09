@@ -36,9 +36,29 @@ let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
 
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
+//
+//let SCREENWIDTH = UIScreen.main.bounds.width
+//let SCREENHEIGHT = UIScreen.main.bounds.height
 
-let SCREENWIDTH = UIScreen.main.bounds.width
-let SCREENHEIGHT = UIScreen.main.bounds.height
+
+var SCREENWIDTH: CGFloat {
+    if UIInterfaceOrientationIsPortrait(SCREENORIENTATION) {
+        return UIScreen.main.bounds.size.width
+    } else {
+        return UIScreen.main.bounds.size.height
+    }
+}
+var SCREENHEIGHT: CGFloat {
+    if UIInterfaceOrientationIsPortrait(SCREENORIENTATION) {
+        return UIScreen.main.bounds.size.height
+    } else {
+        return UIScreen.main.bounds.size.width
+    }
+}
+var SCREENORIENTATION: UIInterfaceOrientation {
+    return UIApplication.shared.statusBarOrientation
+}
+
 
 let DOWNLOADER = ImageDownloader(
     configuration: ImageDownloader.defaultURLSessionConfiguration(),

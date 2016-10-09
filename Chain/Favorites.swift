@@ -14,6 +14,8 @@ import FirebaseAuth
 class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tip: UILabel!
+    
     var group = DispatchGroup()
     var array = [Arcana]()
     
@@ -21,6 +23,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         alert.view.tintColor = salmonColor
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
         
         let confirmAction = UIAlertAction(title: "확인", style: .default) { (action) in
             // Remove the user's uid from storage.
@@ -34,8 +38,6 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.view.window!.rootViewController = initialViewController
                 }, completion: nil)
 
-//            self.view.window?.rootViewController = initialViewController
-//            self.view.window?.makeKeyAndVisible()
         }
 
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
@@ -60,8 +62,11 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if array.count == 0 {
             tableView.alpha = 0
+            tip.alpha = 1
+            
         }
         else {
+            tip.alpha = 0
             tableView.alpha = 1
         }
         

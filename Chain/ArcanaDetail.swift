@@ -75,12 +75,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
         }
         else {
-            let alertController = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
-            alertController.view.tintColor = salmonColor
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-            alertController.addAction(defaultAction)
+            let alert = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
+            alert.view.tintColor = salmonColor
+            alert.view.backgroundColor = .white
+            alert.view.layer.cornerRadius = 10
+            let defaultAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+            alert.addAction(defaultAction)
             
-            self.present(alertController, animated: true, completion: nil)
+            self.present(alert, animated: true) {
+                alert.view.tintColor = salmonColor
+            }
         }
     }
     
@@ -112,7 +116,23 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
     }
+       
     
+//    @IBAction func imageTapped(sender: UITapGestureRecognizer) {
+//        let imageView = sender.view as! UIImageView
+//        let newImageView = UIImageView(image: imageView.image)
+//        newImageView.frame = self.frame
+//        newImageView.backgroundColor = .black
+//        newImageView.contentMode = .scaleAspectFit
+//        newImageView.isUserInteractionEnabled = true
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage(_:)))
+//        newImageView.addGestureRecognizer(tap)
+//        self.addSubview(newImageView)
+//    }
+//    
+//    func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+//        sender.view?.removeFromSuperview()
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
@@ -194,7 +214,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         switch (indexPath as NSIndexPath).section {
         case 0:
-            return SCREENHEIGHT * 3/5
+            return 400
             
         case 1:
             if (indexPath as NSIndexPath).row == 0 {
@@ -241,10 +261,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             cell.imageSpinner.startAnimating()
             
+            let size = CGSize(width: SCREENWIDTH, height: 400)
+            
             if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
                 print("LOADED CACHE IMAGE")
                 
-                let size = CGSize(width: SCREENWIDTH - 20, height: 400)
+                
                 let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
                 
                 cell.arcanaImage.image = aspectScaledToFitImage
@@ -267,7 +289,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                             if let image = response.result.value {
                                 // Set the Image
                                 
-                                let size = CGSize(width: (SCREENWIDTH - CGFloat(20)), height: 400)
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
                                     cell.imageSpinner.stopAnimating()
@@ -537,7 +558,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func setupViews() {
         
         self.title = "\(arcana!.nameKR)"
-        self.tableView.backgroundColor = UIColor.white
+//        self.tableView.backgroundColor = UIColor.white
     }
     
     

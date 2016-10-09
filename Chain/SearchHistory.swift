@@ -46,7 +46,6 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
             var array = [Arcana]()
             
             for id in uids {
-                print(id)
                 self.group.enter()
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
@@ -62,7 +61,6 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             
             self.group.notify(queue: DispatchQueue.main, execute: {
-                print("FINISHED")
                 self.arcanaArray = array.reversed()
                 self.tableView.reloadData()
             })

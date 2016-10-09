@@ -33,7 +33,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -46,8 +46,10 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             return 5
         case 2: // Weapon
             return 9
-        default:    // Affiliation?
+        case 3:    // Affiliation?
             return affiliation.count
+        default:    // Clear button
+            return 1
         }
     }
 
@@ -70,9 +72,14 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             cell.filterType.text = weapon[(indexPath as NSIndexPath).row]
             return cell
             
-        default:    // Affiliation
+        case 3:    // Affiliation
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
             cell.filterType.text = affiliation[(indexPath as NSIndexPath).row]
+            return cell
+            
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
+            cell.filterType.text = "필터 지우기"
             return cell
         }
         
@@ -145,7 +152,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             weaponArray.append(cell.filterType.text!)
             filterTypes.updateValue(weaponArray, forKey: "weapon")
-        default:
+        case 3:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.isHighlighted = true
             print("SELECTED AFFILIATION \(cell.filterType.text!)")
@@ -161,6 +168,14 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             affiliationArray.append(fullAffiliationName(affiliation: cell.filterType.text!))
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
+            
+        default:
+            
+            if let selectedFilters = collectionView.indexPathsForSelectedItems {
+                for i in selectedFilters {
+                    collectionView.deselectItem(at: i, animated: true)
+                }
+            }
 
         }
         self.delegate!.didUpdate(self)
@@ -257,8 +272,11 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         case 0,1,2:
             return CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
             
-        default:
+        case 3:
             return CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
+            
+        default:
+            return CGSize(width: (SCREENWIDTH-inset), height: (SCREENWIDTH-inset)/5)
         }
         
     }

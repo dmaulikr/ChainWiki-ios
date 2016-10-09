@@ -12,7 +12,7 @@ import AlamofireImage
 //import Toucan
 import NVActivityIndicatorView
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate {
+class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var initialLoad = true
@@ -25,6 +25,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     let searchController = UISearchController(searchResultsController: nil)
+    
     var showNavBar = true
     var navTitle = ""
     var downloadTavern = false
@@ -318,13 +319,15 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
         }
         else {
+            cell.arcanaNameKR.alpha = 0
+            cell.arcanaNameJP.alpha = 0
             for i in cell.labelCollection {
                 i.text = nil
                 i.backgroundColor = UIColor.white
-                i.fadeIn()
+                i.fadeIn(withDuration: 0.5)
             }
             cell.arcanaImage.image = nil
-            cell.imageSpinner.startAnimating()
+            
             
             let arcana: Arcana
             
@@ -374,12 +377,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
                 
                 cell.arcanaImage.image = i
-                cell.imageSpinner.stopAnimating()
                 print("LOADED FROM CACHE")
                 
             }
                 
             else {
+//                cell.imageSpinner.startAnimating()
                 
                 STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                     if (error != nil) {
@@ -398,7 +401,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                                     
                                     // Cache the Image
                                     IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-                                    cell.imageSpinner.stopAnimating()
+//                                    cell.imageSpinner.stopAnimating()
                                     
                                     if cell.arcanaUID == arcana.uid {
                                         cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
@@ -478,17 +481,24 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             searchController.searchResultsUpdater = self
             searchController.dimsBackgroundDuringPresentation = false
             searchController.delegate = self
+            searchController.searchBar.delegate = self
 //            searchController.searchBar.endEditing(true)
+            
+            // KVO. potential future problems here.
             searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
             if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
                 
                 searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
                 searchIcon.tintColor = UIColor.white
-                
                 searchTextField.placeholder = "이름 검색"
                 searchTextField.tintColor = UIColor.white
                 searchTextField.setPlaceholderColor(UIColor.white)
                 searchTextField.textColor = UIColor.white
+//                searchTextField.dele = self
+                if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
+                    clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                    clearButton.tintColor! = UIColor.white
+                }
                 
             }
             
@@ -496,6 +506,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             navigationItem.titleView = searchController.searchBar
             
             definesPresentationContext = true
+
         }
         
         else {
@@ -504,10 +515,10 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        searchController.isActive = false
-    }
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        searchController.isActive = false
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -518,7 +529,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
         if (segue.identifier == "showArcana") {
             let arcana: Arcana
-            if searchController.isActive && searchController.searchBar.text != "" {
+            if  searchController.searchBar.text != "" {
                 arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             } else {
                 arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
@@ -725,7 +736,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
     }
 
-
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
         // dismiss history if user starts typing.
@@ -741,32 +751,36 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     
 
+    func searchBarSearchButtonPressed() {
+        
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchController.searchBar.resignFirstResponder()
+    }
+    
     func didPresentSearchController(_ searchController: UISearchController) {
         
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.searchView.alpha = 1.0
+                self.filterView.alpha = 0
                 }, completion: nil)
     }
     
 
     func didDismissSearchController(_ searchController: UISearchController) {
-        
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.searchView.alpha = 0.0
             }, completion: nil)
         
     }
-
-
-}
-
-extension Home: UISearchResultsUpdating {
+    
     @available(iOS 8.0, *)
     public func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-    
-    
+
     
 }
+
 
