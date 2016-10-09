@@ -248,21 +248,25 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func getFavorites() {
         
-        let userFavorites = FIREBASE_REF.child("user/\(USERID!)/favorites")
-        
-        userFavorites.observeSingleEvent(of: .value, with: { snapshot in
-            
-            var favorites = [Arcana]()
-            for item in snapshot.children {
-                if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                    favorites.append(arcana)
+        if let id = USERID {
+            let userFavorites = FIREBASE_REF.child("user/\(id)/favorites")
+            userFavorites.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var favorites = [Arcana]()
+                for item in snapshot.children {
+                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                        favorites.append(arcana)
+                    }
                 }
-            }
-            self.arcanaArray = favorites
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.tableView.reloadData()
+                self.arcanaArray = favorites
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.tableView.reloadData()
+                })
             })
-        })
+        }
+        
+        
+        
         
     }
     
@@ -294,7 +298,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 90
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -452,7 +456,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         tableView.delegate = self
         syncArcana()
 
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
         searchView.alpha = 0
         filterView.alpha = 0.0
@@ -497,7 +501,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 //                searchTextField.dele = self
                 if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                     clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                    clearButton.tintColor! = UIColor.white
+                    clearButton.tintColor = UIColor.white
                 }
                 
             }

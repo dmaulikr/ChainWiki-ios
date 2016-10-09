@@ -114,13 +114,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             rarityArray.append(cell.rarity.text!)
             filterTypes.updateValue(rarityArray, forKey: "rarity")
-            
-//            if let vc = parentViewController as? HomeContainerView {
-//                print("SELECT ACCESSED HOME")
-//                let home = vc.childViewControllers[0] as! Home
-//                home.arcanaArray = home.arcanaArray.filter({$0.rarity == cell.rarity.text})
-//            }
-
+            hasFilter = true
 
         case 1:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
@@ -137,6 +131,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             groupArray.append(cell.filterType.text!)
             filterTypes.updateValue(groupArray, forKey: "group")
+            hasFilter = true
         case 2:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.isHighlighted = true
@@ -152,6 +147,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
             weaponArray.append(cell.filterType.text!)
             filterTypes.updateValue(weaponArray, forKey: "weapon")
+            hasFilter = true
         case 3:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.isHighlighted = true
@@ -168,19 +164,27 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             affiliationArray.append(fullAffiliationName(affiliation: cell.filterType.text!))
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
+            hasFilter = true
             
         default:
             
             if let selectedFilters = collectionView.indexPathsForSelectedItems {
                 for i in selectedFilters {
                     collectionView.deselectItem(at: i, animated: true)
+                    collectionView.cellForItem(at: i)?.isHighlighted = false
                 }
+                
+                let clearArray = [String]()
+                for (key, _) in filterTypes {
+                    filterTypes.updateValue(clearArray, forKey: key)
+                }
+                hasFilter = false
             }
 
         }
         self.delegate!.didUpdate(self)
 
-        hasFilter = true
+        
 
         
     }

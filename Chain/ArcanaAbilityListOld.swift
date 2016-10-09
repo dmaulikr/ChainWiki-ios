@@ -43,7 +43,10 @@ class ArcanaAbilityListOld: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showArcana") {
             let vc = segue.destination as! ArcanaDetail
-            vc.arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            if let path = tableView.indexPathForSelectedRow {
+                vc.arcana = arcanaArray[(path as NSIndexPath).row]
+            }
+            
             
         }
     }

@@ -86,9 +86,16 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                         
                         editsPreviousRef.setValue(snapshot.value)
                         // Moved old data, now replace old data with user's edit
-                        editsRef.child("editorUID").setValue(USERID!)
+                        if let id = USERID {
+                            editsRef.child("editorUID").setValue(id)
+                        }
+                        
                         originalRef.setValue(value)
-                        editsRef.child("nickName").setValue(NICKNAME!)
+                        
+                        if let nick = NICKNAME {
+                            editsRef.child("nickName").setValue(nick)
+                        }
+                        
                     })
                 }
             }
