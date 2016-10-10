@@ -570,21 +570,37 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func addFavorite() {
         
-        
         if let arcana = arcana, let uid = USERID  {
-            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                if snapshot.exists() {
-                    ref.removeValue()
-                }
-                
-                else {
-                    ref.setValue(true)
-                }
-                
-            })
             
+            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
+            
+            var userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+            
+            var found = false
+            
+            for (index, id) in userFavorites.enumerated().reversed() {
+                if id == arcana.uid {
+                    userFavorites.remove(at: index)
+                    print("REMOVED \(id)")
+                    ref.removeValue()
+                    found = true
+                    break
+                }
+            }
+            
+            if found == false {
+                // add to array
+                userFavorites.append(arcana.uid)
+                print("ADDED \(arcana.uid)")
+                ref.setValue(true)
+            }
+
+            for i in userFavorites {
+                print("FINAL")
+                print(i)
+            }
+            defaults.setValue(userFavorites, forKey: "favorites")
+            defaults.synchronize()
         }
        
     }

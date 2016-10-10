@@ -18,42 +18,42 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let defaults = UserDefaults.standard
     var group = DispatchGroup()
     var array = [Arcana]()
-    let userFavorites = UserDefaults.standard.object(forKey: "favorites") as? [String] ?? [String]()
     
-    @IBAction func logout(_ sender: AnyObject) {
+    
+    @IBAction func startEditing(_ sender: AnyObject) {
         
-        let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
-        alert.view.tintColor = salmonColor
-        alert.view.backgroundColor = .white
-        alert.view.layer.cornerRadius = 10
-        
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { (action) in
-            // Remove the user's uid from storage.
-            UserDefaults.standard.setValue(nil, forKey: "uid")
+        if !tableView.isEditing {
+            tableView.setEditing(true, animated: true)
+        }
+        else {
+            tableView.setEditing(false, animated: true)
+            // set userDefaults to new array.
+            var favoritesDict = [String: Int]()
+            var uids = [String]()
+            for (index, arcana) in array.enumerated() {
+                favoritesDict.updateValue(index, forKey: arcana.uid)
+                uids.append(arcana.uid)
+                
+            }
             
-            try! FIRAuth.auth()!.signOut()
+            let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
             
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
-            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                    self.view.window!.rootViewController = initialViewController
-                }, completion: nil)
-
+            if uids != userFavorites {
+                // made changes, upload to firebase
+                if let id = USERID {
+                    let ref = FIREBASE_REF.child("user/\(id)/favorites")
+                    ref.setValue(favoritesDict)
+                    defaults.setValue(uids, forKey: "favorites")
+                    defaults.synchronize()
+                }
+            }
+            
+            
         }
 
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-        
-        
-        self.present(alert, animated: true) {
-            alert.view.tintColor = salmonColor
-        }
         
     }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -85,13 +85,11 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        
-        for i in cell.labelCollection {
-            i.text = nil
-        }
+
+    
         cell.arcanaImage.image = nil
         
-//        cell.imageSpinner.startAnimating()
+        //        cell.imageSpinner.startAnimating()
         
         let arcana = array[indexPath.row]
         
@@ -123,7 +121,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
             cell.arcanaImage.image = i
-//            cell.imageSpinner.stopAnimating()
+            //            cell.imageSpinner.stopAnimating()
             print("LOADED FROM CACHE")
             
         }
@@ -147,7 +145,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 
                                 // Cache the Image
                                 IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-//                                cell.imageSpinner.stopAnimating()
+                                //                                cell.imageSpinner.stopAnimating()
                                 
                                 if cell.arcanaUID == arcana.uid {
                                     cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
@@ -172,6 +170,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
         
+        
+        
         return cell
     }
     
@@ -183,48 +183,86 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.pushViewController(arcanaDetail, animated: true)
         
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        tableView.reloadData()
+//        super.setEditing(editing, animated: animated)
+        self.tableView.beginUpdates()
+        self.tableView.setEditing(editing, animated: animated)
+        self.tableView.endUpdates()
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        let itemToMove = array[sourceIndexPath.row]
+        array.remove(at: sourceIndexPath.row)
+        array.insert(itemToMove, at: destinationIndexPath.row)
+        
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete
+//        {
+//            array.remove(at: indexPath.row)
+//            self.tableView.reloadData()
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
+            // delete item at indexPath
+            self.array.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }
+        return [delete]
+    }
     
     func downloadFavorites() {
-        if let uid = USERID {
-            print("OI")
-            let ref = FIREBASE_REF.child("user/\(uid)/favorites")
+        
+        let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+        
+        var uids = [String]()
+        
+        for id in userFavorites {
+            let arcanaID = id
+            print("FOUND \(id)")
+            uids.append(arcanaID)
+        }
+        print(userFavorites.count)
+        
+        var array = [Arcana]()
+        
+        for id in uids {
+            self.group.enter()
+            
+            let ref = FIREBASE_REF.child("arcana/\(id)")
             
             ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                var uids = [String]()
-                
-                for child in snapshot.children {
-                    let arcanaID = (child as AnyObject).key as String
-                    uids.append(arcanaID)
-                }
-                
-                
-                var array = [Arcana]()
-                
-                for id in uids {
-                    self.group.enter()
-                    
-                    let ref = FIREBASE_REF.child("arcana/\(id)")
-                    
-                    ref.observeSingleEvent(of: .value, with: { snapshot in
-                        let arcana = Arcana(snapshot: snapshot)
-                        array.append(arcana!)
-                        self.group.leave()
-                        
-                    })
-                }
-                
-                self.group.notify(queue: DispatchQueue.main, execute: {
-                    
-                    self.defaults.set(uids, forKey: "favorites")
-                    self.array = array
-                    self.tableView.reloadData()
-                })
-                
+                let arcana = Arcana(snapshot: snapshot)
+                array.append(arcana!)
+                self.group.leave()
                 
             })
-            
         }
+        
+        self.group.notify(queue: DispatchQueue.main, execute: {
+            
+            self.array = array
+            self.tableView.reloadData()
+        })
 
     }
     
@@ -237,11 +275,6 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        
-        
-        for i in userFavorites {
-            print(i)
-        }
         // Do any additional setup after loading the view.
     }
     

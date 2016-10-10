@@ -19,6 +19,8 @@
 		0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */; };
 		0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1DA1D87D93E00670834 /* DrawCircle.swift */; };
 		045EF6A51DAB4F7F002148DD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A41DAB4F7F002148DD /* User.swift */; };
+		045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045EF6A61DAB5DC4002148DD /* Settings.storyboard */; };
+		045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A91DAB5DEE002148DD /* Settings.swift */; };
 		046710C21D97D011000CF487 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C11D97D011000CF487 /* SearchHistory.swift */; };
 		046710C41D97D070000CF487 /* ArcanaTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046710C31D97D070000CF487 /* ArcanaTextCell.xib */; };
 		046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C51D97D18F000CF487 /* ArcanaTextCell.swift */; };
@@ -123,6 +125,8 @@
 		0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbilityCell.swift; sourceTree = "<group>"; };
 		0447E1DA1D87D93E00670834 /* DrawCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCircle.swift; sourceTree = "<group>"; };
 		045EF6A41DAB4F7F002148DD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		045EF6A61DAB5DC4002148DD /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		045EF6A91DAB5DEE002148DD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		046710C11D97D011000CF487 /* SearchHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		046710C31D97D070000CF487 /* ArcanaTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaTextCell.xib; sourceTree = "<group>"; };
 		046710C51D97D18F000CF487 /* ArcanaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaTextCell.swift; sourceTree = "<group>"; };
@@ -246,6 +250,15 @@
 			name = Abilities;
 			sourceTree = "<group>";
 		};
+		045EF6A81DAB5DCA002148DD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				045EF6A61DAB5DC4002148DD /* Settings.storyboard */,
+				045EF6A91DAB5DEE002148DD /* Settings.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		046C93351D7582D6000E3FBD /* Arcana */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +330,7 @@
 				04A3B1761D8E7B7500BBF297 /* Tavern */,
 				0447E1D71D87D09500670834 /* Abilities */,
 				04A2ECC51D6F80BF00189142 /* Custom Views */,
+				045EF6A81DAB5DCA002148DD /* Settings */,
 				04A2ECC71D6F80D300189142 /* Model */,
 				04A2ECC61D6F80C800189142 /* etc */,
 				04A2EC9E1D6F7FA300189142 /* Assets.xcassets */,
@@ -549,6 +563,7 @@
 				042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */,
 				0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
+				045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
 				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
 				049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */,
@@ -724,6 +739,7 @@
 				04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
 				04691E961D97BF8C00E15C5F /* Favorites.swift in Sources */,
+				045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */,
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
 				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,

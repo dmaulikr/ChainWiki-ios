@@ -25,7 +25,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     let searchController = UISearchController(searchResultsController: nil)
-    
+    let defaults = UserDefaults.standard
     var showNavBar = true
     var navTitle = ""
     var downloadTavern = false
@@ -241,28 +241,40 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         })
     }
     
+    
     func getFavorites() {
         
-        if let id = USERID {
-            let userFavorites = FIREBASE_REF.child("user/\(id)/favorites")
-            userFavorites.observeSingleEvent(of: .value, with: { snapshot in
-                
-                var favorites = [Arcana]()
-                for item in snapshot.children {
-                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                        favorites.append(arcana)
-                    }
-                }
-                self.arcanaArray = favorites
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.tableView.reloadData()
-                })
-            })
+        if (defaults.bool(forKey: "initialLaunch")) {
+            // app already launched
         }
-        
-        
-        
-        
+        else {
+            // This is the first launch ever
+            defaults.set(true, forKey: "initialLaunch")
+            defaults.synchronize()
+     
+            if let id = USERID {
+                
+                let ref = FIREBASE_REF.child("user/\(id)/favorites")
+                
+                ref.observeSingleEvent(of: .value, with: { snapshot in
+                    
+                    var uids = [String]()
+                    
+                    for child in snapshot.children {
+                        let arcanaID = (child as AnyObject).key as String
+                        uids.append(arcanaID)
+                    }
+                    
+                    self.defaults.set(uids, forKey: "favorites")
+                    self.defaults.synchronize()
+                   
+                })
+                
+                
+            }
+            
+        }
+       
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
