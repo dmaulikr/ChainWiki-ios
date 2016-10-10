@@ -236,8 +236,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.favorite.addTarget(self, action: #selector(ArcanaDetail.addFavorite), for: .touchUpInside)
             cell.heart.tag = indexPath.row
             cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
-            cell.arcanaImage.addTarget(self, action: #selector(ArcanaDetail.imageTapped(_:)), for: .touchUpInside)
-            
+//            cell.arcanaImage.addTarget(self, action: #selector(ArcanaDetail.imageTapped(_:)), for: .touchUpInside)
+            cell.arcanaImage.addGestureRecognizer(tap)
             if favorite {
                 cell.favorite.setImage(_: UIImage(named: "favoritesRed"), for: .normal)
             }
@@ -253,7 +253,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
                 
-                cell.arcanaImage.setImage(aspectScaledToFitImage, for: .normal)
+                cell.arcanaImage.image = aspectScaledToFitImage
                 cell.imageSpinner.stopAnimating()
             }
                 
@@ -278,7 +278,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                     cell.imageSpinner.stopAnimating()
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
                                     
-                                    cell.arcanaImage.setImage(aspectScaledToFitImage, for: .normal)
+                                    cell.arcanaImage.image = aspectScaledToFitImage
                                     cell.arcanaImage.alpha = 0
                                     cell.arcanaImage.fadeIn(withDuration: 0.2)
                                     
@@ -625,7 +625,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         scrollViewDidEndDragging(tableView, willDecelerate: true)
         
-//        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
+        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
         checkFavorites()
         
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
@@ -704,8 +704,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         swipeLeft.direction = .left
         sender.addGestureRecognizer(swipeLeft)
         
-//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(saveImage(_:)))
-//        sender.addGestureRecognizer(longPress)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(saveImage(_:)))
+        sender.addGestureRecognizer(longPress)
     }
     
     func dismissImage(_ sender: AnyObject) {
@@ -732,8 +732,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         alertController.addAction(save)
         alertController.addAction(cancel)
-        
-        
+    
+//        present(alertController, animated: true, completion: nil)
         
         
     }
@@ -742,7 +742,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-            let ac = UIAlertController(title: "저장 실패", message: error.localizedDescription, preferredStyle: .alert)
+            let ac = UIAlertController(title: "저장 실패.", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "확인", style: .default))
             present(ac, animated: true)
             

@@ -18,6 +18,7 @@
 		0447E1D61D87D05200670834 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* AbilityView.swift */; };
 		0447E1D91D87D0BC00670834 /* ManaAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */; };
 		0447E1DB1D87D93E00670834 /* DrawCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1DA1D87D93E00670834 /* DrawCircle.swift */; };
+		045EF6A51DAB4F7F002148DD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A41DAB4F7F002148DD /* User.swift */; };
 		046710C21D97D011000CF487 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C11D97D011000CF487 /* SearchHistory.swift */; };
 		046710C41D97D070000CF487 /* ArcanaTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046710C31D97D070000CF487 /* ArcanaTextCell.xib */; };
 		046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C51D97D18F000CF487 /* ArcanaTextCell.swift */; };
@@ -121,6 +122,7 @@
 		0447E1D51D87D05200670834 /* AbilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		0447E1D81D87D0BC00670834 /* ManaAbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManaAbilityCell.swift; sourceTree = "<group>"; };
 		0447E1DA1D87D93E00670834 /* DrawCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCircle.swift; sourceTree = "<group>"; };
+		045EF6A41DAB4F7F002148DD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		046710C11D97D011000CF487 /* SearchHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		046710C31D97D070000CF487 /* ArcanaTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaTextCell.xib; sourceTree = "<group>"; };
 		046710C51D97D18F000CF487 /* ArcanaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaTextCell.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				04A2ECC81D6F80EB00189142 /* Arcana.swift */,
+				045EF6A41DAB4F7F002148DD /* User.swift */,
 				04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */,
 			);
 			name = Model;
@@ -736,6 +739,7 @@
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				04A3B1751D8E7B6C00BBF297 /* TavernView.swift in Sources */,
 				0447E1D61D87D05200670834 /* AbilityView.swift in Sources */,
+				045EF6A51DAB4F7F002148DD /* User.swift in Sources */,
 				048B31261D7642CA0011477D /* AbilityList.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,

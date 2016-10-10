@@ -15,9 +15,10 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tip: UILabel!
-    
+    let defaults = UserDefaults.standard
     var group = DispatchGroup()
     var array = [Arcana]()
+    let userFavorites = UserDefaults.standard.object(forKey: "favorites") as? [String] ?? [String]()
     
     @IBAction func logout(_ sender: AnyObject) {
         
@@ -185,21 +186,22 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func downloadFavorites() {
         if let uid = USERID {
+            print("OI")
             let ref = FIREBASE_REF.child("user/\(uid)/favorites")
             
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 
-                var uid = [String]()
+                var uids = [String]()
                 
                 for child in snapshot.children {
                     let arcanaID = (child as AnyObject).key as String
-                    uid.append(arcanaID)
+                    uids.append(arcanaID)
                 }
                 
                 
                 var array = [Arcana]()
                 
-                for id in uid {
+                for id in uids {
                     self.group.enter()
                     
                     let ref = FIREBASE_REF.child("arcana/\(id)")
@@ -213,6 +215,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 self.group.notify(queue: DispatchQueue.main, execute: {
+                    
+                    self.defaults.set(uids, forKey: "favorites")
                     self.array = array
                     self.tableView.reloadData()
                 })
@@ -234,6 +238,10 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         
+        
+        for i in userFavorites {
+            print(i)
+        }
         // Do any additional setup after loading the view.
     }
     
