@@ -19,6 +19,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var heart = false
     var favorite = false
     let defaults = UserDefaults.standard
+    var imageTapped = false
+    var tap = UITapGestureRecognizer()
     
     func updateHistory(){
         var recents = [String]()
@@ -234,7 +236,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.favorite.addTarget(self, action: #selector(ArcanaDetail.addFavorite), for: .touchUpInside)
             cell.heart.tag = indexPath.row
             cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
-            cell.arcanaUID = arcana.uid
+            cell.arcanaImage.addTarget(self, action: #selector(ArcanaDetail.imageTapped(_:)), for: .touchUpInside)
             
             if favorite {
                 cell.favorite.setImage(_: UIImage(named: "favoritesRed"), for: .normal)
@@ -248,12 +250,10 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             let size = CGSize(width: SCREENWIDTH, height: 400)
             
             if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
-                print("LOADED ARCANA MAIN IMAGE")
-                
                 
                 let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
                 
-                cell.arcanaImage.image = aspectScaledToFitImage
+                cell.arcanaImage.setImage(aspectScaledToFitImage, for: .normal)
                 cell.imageSpinner.stopAnimating()
             }
                 
@@ -278,7 +278,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                     cell.imageSpinner.stopAnimating()
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
                                     
-                                    cell.arcanaImage.image = aspectScaledToFitImage
+                                    cell.arcanaImage.setImage(aspectScaledToFitImage, for: .normal)
                                     cell.arcanaImage.alpha = 0
                                     cell.arcanaImage.fadeIn(withDuration: 0.2)
                                     
@@ -625,6 +625,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         scrollViewDidEndDragging(tableView, willDecelerate: true)
         
+//        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
         checkFavorites()
         
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
@@ -658,6 +659,101 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
+    
+    func imageTapped(_ sender: AnyObject) {
+        if imageTapped == false {
+            // enlarge image
+            if let arcana = arcana {
+                if let imageView = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
+                    let newImageView = UIImageView(image: imageView)
+                    newImageView.frame = UIScreen.main.bounds
+                    newImageView.backgroundColor = .black
+                    newImageView.contentMode = .scaleAspectFit
+                    newImageView.isUserInteractionEnabled = true
+                    self.view.window!.addSubview(newImageView)
+                    
+                    addGestures(newImageView)
+                    imageTapped = true
+                }
+            }
+            
+            
+            
+        }
+        
+    }
+    //    (target: self, action: #selector(Home.dismissFilter(_:)))
+    func addGestures(_ sender: AnyObject) {
+        
+        let closeImage = UITapGestureRecognizer(target: self, action: #selector(self.dismissImage(_:)))
+        sender.addGestureRecognizer(closeImage)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
+        swipeDown.direction = .down
+        sender.addGestureRecognizer(swipeDown)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
+        swipeUp.direction = .up
+        sender.addGestureRecognizer(swipeUp)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
+        swipeRight.direction = .right
+        sender.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
+        swipeLeft.direction = .left
+        sender.addGestureRecognizer(swipeLeft)
+        
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(saveImage(_:)))
+//        sender.addGestureRecognizer(longPress)
+    }
+    
+    func dismissImage(_ sender: AnyObject) {
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            sender.view?.alpha = 0
+        }) { _ in
+            sender.view?.removeFromSuperview()
+        }
+        imageTapped = false
+    }
+    
+    func saveImage(_ sender: AnyObject) {
+        
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        alertController.view.tintColor = salmonColor
+        
+        let save = UIAlertAction(title: "이미지 저장", style: .default, handler: { (action:UIAlertAction) in
+            UIImageWriteToSavedPhotosAlbum(sender as! UIImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+        })
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction) in
+        })
+        
+        alertController.addAction(save)
+        alertController.addAction(cancel)
+        
+        
+        
+        
+    }
+    
+    
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "저장 실패", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "확인", style: .default))
+            present(ac, animated: true)
+            
+            
+        } else {
+            let ac = UIAlertController(title: "저장 완료!", message: "", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "확인", style: .default))
+            present(ac, animated: true)
+            
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

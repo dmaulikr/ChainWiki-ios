@@ -12,11 +12,14 @@ import AlamofireImage
 
 class ArcanaImageCell: UITableViewCell {
 
-    @IBOutlet weak var arcanaImage: UIImageView!
+    @IBOutlet weak var arcanaImage: UIButton!
+//    @IBOutlet weak var arcanaImage: UIImageView!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
     
     @IBOutlet weak var heart: UIButton!
     @IBOutlet weak var favorite: UIButton!
+    
+    /*
     var arcanaUID: String?
     
     var imageTapped = false
@@ -116,12 +119,12 @@ class ArcanaImageCell: UITableViewCell {
             
         }
     }
-    
+    */
     override func awakeFromNib() {
         super.awakeFromNib()
         layoutIfNeeded()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
-        arcanaImage.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
+//        arcanaImage.addGestureRecognizer(tap)
         // Initialization code
         
     }

@@ -98,11 +98,13 @@
                                             <frame key="frameInset" width="375" height="455"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-xI-RI2">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3Y-hE-Oyl">
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="400" id="E9g-Fo-2gz"/>
+                                                        <constraint firstAttribute="height" constant="400" id="DMw-iW-rmP"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-CM-9fb" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <accessibility key="accessibilityConfiguration">
@@ -139,22 +141,22 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="5b2-xI-RI2" secondAttribute="trailing" id="6ac-kt-2L3"/>
-                                                <constraint firstItem="bUf-71-K8U" firstAttribute="top" secondItem="5b2-xI-RI2" secondAttribute="bottom" constant="5" id="8Di-pg-2gf"/>
+                                                <constraint firstItem="l3c-kK-Trl" firstAttribute="top" secondItem="O3Y-hE-Oyl" secondAttribute="bottom" constant="5" id="69Z-68-zNU"/>
                                                 <constraint firstItem="l3c-kK-Trl" firstAttribute="leading" secondItem="bUf-71-K8U" secondAttribute="trailing" constant="10" id="8dF-j2-2hm"/>
-                                                <constraint firstItem="l3c-kK-Trl" firstAttribute="top" secondItem="5b2-xI-RI2" secondAttribute="bottom" constant="5" id="93B-f7-pNY"/>
                                                 <constraint firstItem="eRh-CM-9fb" firstAttribute="centerX" secondItem="vNw-Vp-hmX" secondAttribute="centerX" id="QNs-p8-eoP"/>
+                                                <constraint firstItem="O3Y-hE-Oyl" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" constant="10" id="dVN-k0-7Sg"/>
+                                                <constraint firstItem="bUf-71-K8U" firstAttribute="top" secondItem="O3Y-hE-Oyl" secondAttribute="bottom" constant="5" id="eIw-9d-f0X"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="l3c-kK-Trl" secondAttribute="trailing" constant="5" id="eyN-68-Lfs"/>
                                                 <constraint firstItem="eRh-CM-9fb" firstAttribute="centerY" secondItem="vNw-Vp-hmX" secondAttribute="centerY" id="iCe-4z-ENr"/>
-                                                <constraint firstItem="5b2-xI-RI2" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" constant="10" id="jy8-wF-L8x"/>
                                                 <constraint firstAttribute="bottom" secondItem="l3c-kK-Trl" secondAttribute="bottom" constant="5" id="l0e-PE-iVn"/>
-                                                <constraint firstItem="5b2-xI-RI2" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="wZH-TI-Po2"/>
+                                                <constraint firstItem="O3Y-hE-Oyl" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="nlP-5u-rWQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="O3Y-hE-Oyl" secondAttribute="trailing" id="uIk-qM-0RS"/>
                                                 <constraint firstAttribute="bottom" secondItem="bUf-71-K8U" secondAttribute="bottom" constant="5" id="wdJ-Nx-G8m"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="arcanaImage" destination="5b2-xI-RI2" id="AhJ-p5-7ts"/>
+                                            <outlet property="arcanaImage" destination="O3Y-hE-Oyl" id="MhC-oa-fJQ"/>
                                             <outlet property="favorite" destination="l3c-kK-Trl" id="vvp-VY-Ng6"/>
                                             <outlet property="heart" destination="bUf-71-K8U" id="4nj-3U-b9U"/>
                                             <outlet property="imageSpinner" destination="eRh-CM-9fb" id="iC4-RZ-juk"/>
