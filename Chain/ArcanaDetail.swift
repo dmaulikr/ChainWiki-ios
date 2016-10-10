@@ -15,7 +15,6 @@ import NVActivityIndicatorView
 class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, NVActivityIndicatorViewable {
     
     @IBOutlet weak var tableView: UITableView!
-    var arcanaID: Int?
     var arcana: Arcana?
     var heart = false
     var favorite = false
@@ -117,23 +116,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
        
-    
-//    @IBAction func imageTapped(sender: UITapGestureRecognizer) {
-//        let imageView = sender.view as! UIImageView
-//        let newImageView = UIImageView(image: imageView.image)
-//        newImageView.frame = self.frame
-//        newImageView.backgroundColor = .black
-//        newImageView.contentMode = .scaleAspectFit
-//        newImageView.isUserInteractionEnabled = true
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage(_:)))
-//        newImageView.addGestureRecognizer(tap)
-//        self.addSubview(newImageView)
-//    }
-//    
-//    func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-//        sender.view?.removeFromSuperview()
-//    }
-    
+        
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
     }
@@ -251,6 +234,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.favorite.addTarget(self, action: #selector(ArcanaDetail.addFavorite), for: .touchUpInside)
             cell.heart.tag = indexPath.row
             cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
+            cell.arcanaUID = arcana.uid
             
             if favorite {
                 cell.favorite.setImage(_: UIImage(named: "favoritesRed"), for: .normal)
@@ -264,7 +248,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             let size = CGSize(width: SCREENWIDTH, height: 400)
             
             if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
-                print("LOADED CACHE IMAGE")
+                print("LOADED ARCANA MAIN IMAGE")
                 
                 
                 let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
@@ -295,11 +279,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
                                     
                                     cell.arcanaImage.image = aspectScaledToFitImage
+                                    cell.arcanaImage.alpha = 0
+                                    cell.arcanaImage.fadeIn(withDuration: 0.2)
                                     
                                     print("DOWNLOADED")
                                     
                                     // Cache the Image
-                                    print(arcana.uid)
+                                    
                                     IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
                                 }
                                 

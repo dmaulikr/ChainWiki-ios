@@ -135,7 +135,7 @@
                                                         <constraint firstAttribute="width" constant="25" id="1sG-XZ-4EM"/>
                                                         <constraint firstAttribute="height" constant="25" id="Ow0-XN-t1v"/>
                                                     </constraints>
-                                                    <state key="normal" image="heartRed"/>
+                                                    <state key="normal" image="heartGray"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -667,7 +667,7 @@
     <resources>
         <image name="arcanaTab" width="25" height="25"/>
         <image name="favoritesGray" width="25" height="25"/>
-        <image name="heartRed" width="50" height="50"/>
+        <image name="heartGray" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
     </resources>
     <inferredMetricsTieBreakers>

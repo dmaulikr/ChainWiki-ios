@@ -165,7 +165,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        
         self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
@@ -176,23 +175,19 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
-//                self.arcanaArray.append(arcana)
-//                self.originalArray.append(arcana)
+
                 self.arcanaArray.insert(arcana, at: 0)
                 self.originalArray.append(arcana)
                 if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    print("INITIAL LOAD == false")
                     self.tableView.reloadData()
                 }
-                print("child added")
             }
             
             
         })
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            print("initial data loaded so reload tableView!  \(snapshot.childrenCount)")
-//            self.arcanaArray = self.originalArray.reversed()
+
             self.tableView.reloadData()
             self.initialLoad = false
         })
@@ -314,12 +309,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             for i in cell.labelCollection {
                 i.alpha = 0
             }
-            cell.arcanaNameKR.alpha = 1
-            cell.arcanaNameKR.textColor = placeholderColor
-            cell.arcanaNameKR.backgroundColor = placeholderColor
-            cell.arcanaNameJP.alpha = 1
-            cell.arcanaNameJP.textColor = placeholderColor
-            cell.arcanaNameJP.backgroundColor = placeholderColor
+//            cell.arcanaNameKR.alpha = 1
+//            cell.arcanaNameKR.textColor = placeholderColor
+//            cell.arcanaNameKR.backgroundColor = placeholderColor
+//            cell.arcanaNameJP.alpha = 1
+//            cell.arcanaNameJP.textColor = placeholderColor
+//            cell.arcanaNameJP.backgroundColor = placeholderColor
             
         }
         else {
@@ -410,7 +405,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                                     if cell.arcanaUID == arcana.uid {
                                         cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
                                         cell.arcanaImage.alpha = 0
-                                        cell.arcanaImage.fadeIn()
+                                        cell.arcanaImage.fadeIn(withDuration: 0.2)
                                     }
                                     
                                     

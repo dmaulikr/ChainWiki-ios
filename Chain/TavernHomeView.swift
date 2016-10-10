@@ -50,7 +50,7 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         cell.arcanaImage.image = nil
         
-        cell.imageSpinner.startAnimating()
+//        cell.imageSpinner.startAnimating()
         
         let arcana = array[indexPath.row]
         
@@ -82,7 +82,7 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
             cell.arcanaImage.image = i
-            cell.imageSpinner.stopAnimating()
+//            cell.imageSpinner.stopAnimating()
             print("LOADED FROM CACHE")
             
         }
@@ -106,12 +106,12 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 
                                 // Cache the Image
                                 IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-                                cell.imageSpinner.stopAnimating()
+//                                cell.imageSpinner.stopAnimating()
                                 
                                 if cell.arcanaUID == arcana.uid {
                                     cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
                                     cell.arcanaImage.alpha = 0
-                                    cell.arcanaImage.fadeIn()
+                                    cell.arcanaImage.fadeIn(withDuration: 0.2)
                                 }
                                 
                                 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 func convertTavern(tavern: String) -> String {
     
@@ -67,4 +68,17 @@ func fullAffiliationName(affiliation: String) -> String {
         return affiliation
     }
     
+}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if parentResponder is UIViewController {
+                return parentResponder as! UIViewController!
+            }
+        }
+        return nil
+    }
 }

@@ -80,8 +80,8 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
-        case 3:
-            self.performSegue(withIdentifier: "showGrid", sender: (indexPath as NSIndexPath).row)
+//        case 3:
+//            self.performSegue(withIdentifier: "showGrid", sender: (indexPath as NSIndexPath).row)
         default:
             self.performSegue(withIdentifier: "abilityArcana", sender: (indexPath as NSIndexPath).row)
         }

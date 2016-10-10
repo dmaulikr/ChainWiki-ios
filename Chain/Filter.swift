@@ -312,9 +312,9 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         
         switch section {
         case 0: // This one needs higher top inset
-            return UIEdgeInsetsMake(14, 14, 7, 14)
+            return UIEdgeInsetsMake(10, 14, 5, 14)
         default:
-            return UIEdgeInsetsMake(7, 14, 7, 14)
+            return UIEdgeInsetsMake(5, 14, 5, 14)
         }
         
 
