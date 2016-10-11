@@ -18,40 +18,52 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let defaults = UserDefaults.standard
     var group = DispatchGroup()
     var array = [Arcana]()
+    @IBOutlet weak var edit: UIBarButtonItem!
     
     
     @IBAction func startEditing(_ sender: AnyObject) {
         
-        if !tableView.isEditing {
-            tableView.setEditing(true, animated: true)
-        }
-        else {
-            tableView.setEditing(false, animated: true)
-            // set userDefaults to new array.
-            var favoritesDict = [String: Int]()
-            var uids = [String]()
-            for (index, arcana) in array.enumerated() {
-                favoritesDict.updateValue(index, forKey: arcana.uid)
-                uids.append(arcana.uid)
+        if array.count != 0 {
+            if !tableView.isEditing {
+                tableView.setEditing(true, animated: true)
+                edit.title = "완료"
+            }
+            else {
+                tableView.setEditing(false, animated: true)
+                // set userDefaults to new array.
+                var favoritesDict = [String: Int]()
+                var uids = [String]()
+                for (index, arcana) in array.enumerated() {
+                    favoritesDict.updateValue(index, forKey: arcana.uid)
+                    uids.append(arcana.uid)
+                    
+                }
+                
+                let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+                
+                if uids != userFavorites {
+                    // made changes, upload to firebase
+                    if let id = USERID {
+                        let ref = FIREBASE_REF.child("user/\(id)/favorites")
+                        ref.setValue(favoritesDict)
+                        defaults.setValue(uids, forKey: "favorites")
+                        defaults.synchronize()
+                    }
+                }
+                edit.title = "수정"
+                
                 
             }
-            
-            let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
-            
-            if uids != userFavorites {
-                // made changes, upload to firebase
-                if let id = USERID {
-                    let ref = FIREBASE_REF.child("user/\(id)/favorites")
-                    ref.setValue(favoritesDict)
-                    defaults.setValue(uids, forKey: "favorites")
-                    defaults.synchronize()
-                }
-            }
-            
-            
-        }
 
+        }
         
+        else {
+            // user deleted last row.
+            if tableView.isEditing {
+                tableView.setEditing(false, animated: true)
+                edit.title = "수정"
+            }
+        }
     }
     
     
@@ -63,11 +75,11 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if array.count == 0 {
             tableView.alpha = 0
-            tip.alpha = 1
+            tip.fadeIn(withDuration: 0.5)
             
         }
         else {
-            tip.alpha = 0
+            tip.fadeOut(withDuration: 0.2)
             tableView.alpha = 1
         }
         
@@ -211,22 +223,48 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete
-//        {
-//            array.remove(at: indexPath.row)
-//            self.tableView.reloadData()
-//        }
-//    }
-    
+
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
+            let idToRemove = self.array[indexPath.row].uid
+            print(idToRemove)
             self.array.remove(at: indexPath.row)
+
+            var userFavorites = self.defaults.object(forKey: "favorites") as? [String] ?? [String]()
+            
+            print("USERDEFAULTS HAS:")
+            for i in userFavorites {
+                print(i)
+            }
+            for (index, i) in userFavorites.enumerated() {
+                print("INDEX is \(index)")
+                // not even checking here 2nd time.
+                if i == idToRemove {
+                    print("REMOVING FROM DEVICE")
+                    userFavorites.remove(at: index)
+                    if let id = USERID {
+                        let ref = FIREBASE_REF.child("user/\(id)/favorites/\(i)")
+                        ref.removeValue()
+                        print("REMOVING FROM FIREBASE")
+                        self.defaults.setValue(userFavorites, forKey: "favorites")
+                        self.defaults.synchronize()
+                    }
+                    
+                    break
+                }
+                
+            }
+ print("USERDEFAULTS NOW HAS")
+            for i in userFavorites {
+                print(i)
+            }
             self.tableView.reloadData()
+//            self.startEditing(self)
         }
+       
+        
         return [delete]
     }
     
@@ -238,10 +276,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         for id in userFavorites {
             let arcanaID = id
-            print("FOUND \(id)")
             uids.append(arcanaID)
         }
-        print(userFavorites.count)
         
         var array = [Arcana]()
         

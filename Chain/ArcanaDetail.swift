@@ -132,8 +132,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         switch (section) {
-        case 0: // arcanaImage
-            return 1
+        case 0: // arcanaImage, buttons
+            return 2
         case 1: // arcanaAttribute
             return 6
         case 2: // arcanaSkill
@@ -199,7 +199,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         switch (indexPath as NSIndexPath).section {
         case 0:
-            return 400
+            if indexPath.row == 0 {
+                return 405
+            }
+            else {
+                return 50
+            }
+            
             
         case 1:
             if (indexPath as NSIndexPath).row == 0 {
@@ -229,77 +235,103 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         switch (indexPath as NSIndexPath).section {
             
-        case 0: // arcanaImage
-            let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaImage") as! ArcanaImageCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            cell.favorite.tag = indexPath.row
-            cell.favorite.addTarget(self, action: #selector(ArcanaDetail.addFavorite), for: .touchUpInside)
-            cell.heart.tag = indexPath.row
-            cell.heart.addTarget(self, action: #selector(ArcanaDetail.addHeart), for: .touchUpInside)
-//            cell.arcanaImage.addTarget(self, action: #selector(ArcanaDetail.imageTapped(_:)), for: .touchUpInside)
-            cell.arcanaImage.addGestureRecognizer(tap)
-            if favorite {
-                cell.favorite.setImage(_: UIImage(named: "favoritesRed"), for: .normal)
-            }
-            if heart {
-                cell.heart.setImage(_: UIImage(named: "heartRed"), for: .normal)
-            }
+        case 0: // arcanaImage, buttons
             
-            cell.imageSpinner.startAnimating()
-            
-            let size = CGSize(width: SCREENWIDTH, height: 400)
-            
-            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaImage") as! ArcanaImageCell
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.arcanaImage.addGestureRecognizer(tap)
+
                 
-                let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
+                cell.imageSpinner.startAnimating()
                 
-                cell.arcanaImage.image = aspectScaledToFitImage
-                cell.imageSpinner.stopAnimating()
-            }
+                let size = CGSize(width: SCREENWIDTH, height: 400)
                 
-                //  Not in cache, download from firebase
-            else {
-                //                c.imageSpinner.startAnimation()
-                STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURL { (URL, error) -> Void in
-                    if (error != nil) {
-                        print("image download error")
-                        // Handle any errors
-                    } else {
-                        // Get the download URL
-                        let urlRequest = URLRequest(url: URL!)
-                        
-                        DOWNLOADER.download(urlRequest) { response in
+                if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
+                    
+                    let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
+                    
+                    cell.arcanaImage.image = aspectScaledToFitImage
+                    cell.imageSpinner.stopAnimating()
+                }
+                    
+                    //  Not in cache, download from firebase
+                else {
+                    //                c.imageSpinner.startAnimation()
+                    STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURL { (URL, error) -> Void in
+                        if (error != nil) {
+                            print("image download error")
+                            // Handle any errors
+                        } else {
+                            // Get the download URL
+                            let urlRequest = URLRequest(url: URL!)
                             
-                            if let image = response.result.value {
-                                // Set the Image
+                            DOWNLOADER.download(urlRequest) { response in
                                 
-                                
-                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-                                    cell.imageSpinner.stopAnimating()
-                                    let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
+                                if let image = response.result.value {
+                                    // Set the Image
                                     
-                                    cell.arcanaImage.image = aspectScaledToFitImage
-                                    cell.arcanaImage.alpha = 0
-                                    cell.arcanaImage.fadeIn(withDuration: 0.2)
                                     
-                                    print("DOWNLOADED")
+                                    if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
+                                        cell.imageSpinner.stopAnimating()
+                                        let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
+                                        
+                                        cell.arcanaImage.image = aspectScaledToFitImage
+                                        cell.arcanaImage.alpha = 0
+                                        cell.arcanaImage.fadeIn(withDuration: 0.2)
+                                        
+                                        print("DOWNLOADED")
+                                        
+                                        // Cache the Image
+                                        
+                                        IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
+                                    }
                                     
-                                    // Cache the Image
-                                    
-                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
                                 }
-                                
-                                
-                                
-                                
                             }
                         }
                     }
+                    
                 }
-                
+                return cell
             }
             
-            return cell
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaButtons") as! ArcanaButtonsCell
+                cell.heart.tag = 0
+                cell.heart.addTarget(self, action: #selector(ArcanaDetail.toggle), for: .touchUpInside)
+                cell.favorite.tag = 1
+                cell.favorite.addTarget(self, action: #selector(ArcanaDetail.toggle), for: .touchUpInside)
+                
+                cell.heart.setImage(_: UIImage(named: "heartNormal"), for: .normal)
+                cell.heart.setImage(_: UIImage(named: "heartSelected"), for: .selected)
+                cell.favorite.setImage(_: UIImage(named: "starNormal"), for: .normal)
+                cell.favorite.setImage(_: UIImage(named: "starSelected"), for: .selected)
+                
+                
+                let userHearts = defaults.object(forKey: "hearts") as? [String] ?? [String]()
+                if !userHearts.contains(arcana.uid) {
+                    cell.favorite.isSelected = false
+                }
+                else {
+                    cell.favorite.isSelected = true
+                }
+                
+                let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+                print("CHECKING")
+                if !userFavorites.contains(arcana.uid) {
+                    print("FALSE")
+                    cell.favorite.isSelected = false
+                }
+                else {
+                    print("TRUE")
+                    cell.favorite.isSelected = true
+                }
+                
+                return cell
+            }
+            
+            
             
         case 1:    // arcanaAttribute
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
@@ -568,20 +600,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    func addFavorite() {
+    func toggle(_ sender: UIButton) {
         
+        var type = ""
+        if sender.tag == 0 {    // heart
+            type = "hearts"
+        }
+        else {
+            type = "favorites"
+        }
         if let arcana = arcana, let uid = USERID  {
             
-            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
+            let ref = FIREBASE_REF.child("user/\(uid)/\(type)/\(arcana.uid)")
             
-            var userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+            var userInfo = defaults.object(forKey: type) as? [String] ?? [String]()
             
             var found = false
             
-            for (index, id) in userFavorites.enumerated().reversed() {
+            for (index, id) in userInfo.enumerated().reversed() {
                 if id == arcana.uid {
-                    userFavorites.remove(at: index)
-                    print("REMOVED \(id)")
+                    userInfo.remove(at: index)
                     ref.removeValue()
                     found = true
                     break
@@ -590,41 +628,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             if found == false {
                 // add to array
-                userFavorites.append(arcana.uid)
-                print("ADDED \(arcana.uid)")
+                userInfo.append(arcana.uid)
                 ref.setValue(true)
             }
 
-            for i in userFavorites {
-                print("FINAL")
-                print(i)
-            }
-            defaults.setValue(userFavorites, forKey: "favorites")
+
+            defaults.setValue(userInfo, forKey: type)
             defaults.synchronize()
         }
        
     }
-    
-    
-    func addHeart() {
-        
-        if let arcana = arcana, let uid = USERID  {
-            let ref = FIREBASE_REF.child("user/\(uid)/hearts/\(arcana.uid)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                if snapshot.exists() {
-                    ref.removeValue()
-                }
-                    
-                else {
-                    ref.setValue(true)
-                }
-                
-            })
-            
-        }
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -661,7 +674,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
         })
-
+        let indexPath = IndexPath(row: 1, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
         //navigationController?.hidesBarsOnSwipe = true
     
     }

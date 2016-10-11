@@ -185,7 +185,7 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.group.notify(queue: DispatchQueue.main, execute: {
                 print("Finished all requests.")
-                self.array = array
+                self.array = array.sorted { $0.rarity > $1.rarity }
                 self.tableView.reloadData()
             })
             
