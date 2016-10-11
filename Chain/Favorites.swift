@@ -19,6 +19,12 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var group = DispatchGroup()
     var array = [Arcana]()
     @IBOutlet weak var edit: UIBarButtonItem!
+    @IBAction func settings(_ sender: AnyObject) {
+        
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Settings") as! Settings
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     
     @IBAction func startEditing(_ sender: AnyObject) {
@@ -229,25 +235,18 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
             let idToRemove = self.array[indexPath.row].uid
-            print(idToRemove)
             self.array.remove(at: indexPath.row)
 
             var userFavorites = self.defaults.object(forKey: "favorites") as? [String] ?? [String]()
-            
-            print("USERDEFAULTS HAS:")
-            for i in userFavorites {
-                print(i)
-            }
+
             for (index, i) in userFavorites.enumerated() {
                 print("INDEX is \(index)")
                 // not even checking here 2nd time.
                 if i == idToRemove {
-                    print("REMOVING FROM DEVICE")
                     userFavorites.remove(at: index)
                     if let id = USERID {
                         let ref = FIREBASE_REF.child("user/\(id)/favorites/\(i)")
                         ref.removeValue()
-                        print("REMOVING FROM FIREBASE")
                         self.defaults.setValue(userFavorites, forKey: "favorites")
                         self.defaults.synchronize()
                     }
@@ -256,15 +255,10 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 
             }
- print("USERDEFAULTS NOW HAS")
-            for i in userFavorites {
-                print(i)
-            }
+
             self.tableView.reloadData()
-//            self.startEditing(self)
         }
-       
-        
+
         return [delete]
     }
     

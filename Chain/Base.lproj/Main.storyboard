@@ -474,6 +474,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="즐겨찾기" id="WEB-nJ-IL4">
+                        <barButtonItem key="leftBarButtonItem" title="설정" id="DBJ-Uo-Nax">
+                            <connections>
+                                <action selector="settings:" destination="hGw-00-vgs" id="xyg-Dq-RGR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="수정" id="1jg-Zo-FKP">
                             <connections>
                                 <action selector="startEditing:" destination="hGw-00-vgs" id="1Fb-VK-JT1"/>

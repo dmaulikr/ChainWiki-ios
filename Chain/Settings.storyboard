@@ -3,13 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--설정-->
         <scene sceneID="UkC-qS-R2S">
             <objects>
-                <viewController id="1lH-KO-dr2" customClass="Settings" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings" id="1lH-KO-dr2" customClass="Settings" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1m5-ph-Qt3"/>
                         <viewControllerLayoutGuide type="bottom" id="YTR-6q-vRs"/>
@@ -17,7 +18,62 @@
                     <view key="view" contentMode="scaleToFill" id="2pw-Q1-eb3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmm-Su-Ruv">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 변경" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qx7-8F-1lh">
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jao-9E-k5o" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HMA-cN-kIe"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="변경"/>
+                                <connections>
+                                    <action selector="changeNick:" destination="1lH-KO-dr2" eventType="touchUpInside" id="QLr-8f-dgf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTl-20-RHF" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DEg-52-1j2"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="이메일 문의"/>
+                                <connections>
+                                    <action selector="sendEmail:" destination="1lH-KO-dr2" eventType="touchUpInside" id="nqE-dT-cno"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G4f-aK-0ex">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="G4f-aK-0ex" secondAttribute="height" multiplier="1:1" id="qRG-EQ-9FB"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YTR-6q-vRs" firstAttribute="top" secondItem="ZTl-20-RHF" secondAttribute="bottom" constant="20" id="1Lc-kl-bT6"/>
+                            <constraint firstItem="ZTl-20-RHF" firstAttribute="leading" secondItem="2pw-Q1-eb3" secondAttribute="leading" constant="20" id="3j9-6A-MlH"/>
+                            <constraint firstAttribute="trailing" secondItem="jao-9E-k5o" secondAttribute="trailing" constant="20" id="66B-cA-5y3"/>
+                            <constraint firstItem="Qx7-8F-1lh" firstAttribute="centerY" secondItem="lmm-Su-Ruv" secondAttribute="centerY" id="7JJ-K2-hfW"/>
+                            <constraint firstItem="G4f-aK-0ex" firstAttribute="trailing" secondItem="lmm-Su-Ruv" secondAttribute="trailing" id="Gn0-mm-cf5"/>
+                            <constraint firstItem="Qx7-8F-1lh" firstAttribute="top" secondItem="1m5-ph-Qt3" secondAttribute="bottom" constant="20" id="MtQ-LQ-uWo"/>
+                            <constraint firstItem="G4f-aK-0ex" firstAttribute="height" secondItem="lmm-Su-Ruv" secondAttribute="height" id="YwH-mi-RL3"/>
+                            <constraint firstItem="G4f-aK-0ex" firstAttribute="centerY" secondItem="lmm-Su-Ruv" secondAttribute="centerY" id="c19-3j-DOZ"/>
+                            <constraint firstAttribute="trailing" secondItem="lmm-Su-Ruv" secondAttribute="trailing" constant="10" id="lKZ-uc-SHo"/>
+                            <constraint firstItem="jao-9E-k5o" firstAttribute="top" secondItem="lmm-Su-Ruv" secondAttribute="bottom" constant="20" id="n2G-V4-da2"/>
+                            <constraint firstItem="Qx7-8F-1lh" firstAttribute="leading" secondItem="2pw-Q1-eb3" secondAttribute="leading" constant="20" id="nOQ-cY-rFU"/>
+                            <constraint firstItem="jao-9E-k5o" firstAttribute="leading" secondItem="2pw-Q1-eb3" secondAttribute="leading" constant="20" id="rme-jg-48U"/>
+                            <constraint firstItem="lmm-Su-Ruv" firstAttribute="leading" secondItem="Qx7-8F-1lh" secondAttribute="trailing" constant="10" id="wa4-R8-CgV"/>
+                            <constraint firstAttribute="trailing" secondItem="ZTl-20-RHF" secondAttribute="trailing" constant="20" id="wyK-L4-vru"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="설정" id="eGz-HC-5Cc">
                         <barButtonItem key="rightBarButtonItem" title="로그아웃" id="khV-gV-TDO">
@@ -26,6 +82,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="checkImage" destination="G4f-aK-0ex" id="oVm-mY-ZNd"/>
+                        <outlet property="nickName" destination="lmm-Su-Ruv" id="J2c-MB-Vwo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5g3-Z8-DRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

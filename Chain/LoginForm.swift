@@ -8,7 +8,6 @@
 
 import UIKit
 import SkyFloatingLabelTextField
-
 import NVActivityIndicatorView
 import Firebase
 import FirebaseAuth
@@ -16,6 +15,7 @@ import FirebaseAuth
 
 class LoginForm: UIViewController,  UITextFieldDelegate {
 
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
     @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
@@ -41,11 +41,28 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             
             FIRAuth.auth()?.signIn(withEmail: email!, password: pw!) { (user, error) in
                 if error != nil {
-                    print("There was an error logging in to this account")
+                    
+                    if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                        switch (errorCode) {
+                            
+                        case .errorCodeUserNotFound:
+                            self.errorLabel.text = "계정이 틀렸습니다."
+
+                        case .errorCodeInvalidEmail:
+                            self.errorLabel.text = "계정 형식이 맞지 않습니다."
+                            
+                        case .errorCodeWrongPassword:
+                            self.errorLabel.text = "비밀번호가 틀렸습니다."
+                            
+                        default:
+                            self.errorLabel.text = "로그인을 못 하였습니다."
+                        }
+                        self.errorLabel.fadeOut(withDuration: 0.2)
+                        self.errorLabel.fadeIn(withDuration: 0.5)
+                    }
                     
                     
                 } else {
-                    print("EMAIL LOGIN SUCCESSFUL")
                     
                     let uid = user!.uid
                     UserDefaults.standard.setValue(uid, forKey: "uid")
@@ -76,8 +93,9 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             textField.errorColor = darkSalmonColor
             textField.delegate = self
         }
-        
+        errorLabel.textColor = darkSalmonColor
         email.iconText = "\u{f0e0}"
+        email.keyboardType = .emailAddress
         password.iconText = "\u{f023}"
         password.isSecureTextEntry = true
         
@@ -98,24 +116,8 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if let text = email.text {
-//            if let floatingLabelTextField = email {
-//                if(text.characters.count < 3 || !text.contains("@")) {
-//                    floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
-//                }
-//                else {
-//                    // The error message will only disappear when we reset it to nil or empty string
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//            }
-//        }
-//        return true
-//    }
-    @available(iOS 10.0, *)
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = email.text {
             if let floatingLabelTextField = email {
                 if(!text.isEmail) {
@@ -126,22 +128,20 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                     floatingLabelTextField.errorMessage = ""
                 }
             }
-
+            
         }
-        
     }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Try to find next responder
-        if let textField = email {
-            _ = textField.resignFirstResponder()
+        
+        if textField == email {
+            textField.resignFirstResponder()
             _ = password.becomeFirstResponder()
         } else {
-            // Not found, so remove keyboard.
             textField.resignFirstResponder()
             self.emailLogin(self)
         }
-        // Not found, so remove keyboard.
         return true
     }
     

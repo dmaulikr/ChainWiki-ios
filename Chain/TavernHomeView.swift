@@ -91,7 +91,6 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
                 if (error != nil) {
-                    print("image download error")
                     
                     // Handle any errors
                 } else {
@@ -113,17 +112,9 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     cell.arcanaImage.alpha = 0
                                     cell.arcanaImage.fadeIn(withDuration: 0.2)
                                 }
-                                
-                                
-                                print("DOWNLOADED")
-                                
-                                
+
                             }
-                            else {
-                                print("COULD NOT UNWRAP IMAGE")
-                            }
-                            
-                            
+
                         }
                     }
                 }
