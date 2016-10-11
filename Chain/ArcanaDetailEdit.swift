@@ -42,7 +42,9 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: { () -> () in
+            alertController.view.tintColor = salmonColor
+        })
         
         for (key, value) in edits {
             print(key, value)
@@ -80,16 +82,18 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                     
                     let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
                     let editsPreviousRef = FIREBASE_REF.child("edits/\(uid)/\(date)/previous/\(key)")
-                    
+                    let editsUpdateRef = FIREBASE_REF.child("edits/\(uid)/\(date)/update/\(key)")
                     // move old values to edit ref
                     originalRef.observeSingleEvent(of: .value, with: { snapshot in
                         
                         editsPreviousRef.setValue(snapshot.value)
+                        
                         // Moved old data, now replace old data with user's edit
                         if let id = USERID {
                             editsRef.child("editorUID").setValue(id)
                         }
                         
+                        editsUpdateRef.setValue(value)
                         originalRef.setValue(value)
                         
                         if let nick = NICKNAME {

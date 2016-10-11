@@ -120,7 +120,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
        
         
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return 8
     }
     
     
@@ -561,8 +561,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-            cell.skillAbilityDesc.text = "편집 기록"
+            cell.skillAbilityDesc.text = "편집 기록 보기"
             cell.layoutMargins = UIEdgeInsets.zero
+            cell.isUserInteractionEnabled = true
             return cell
 
         }
@@ -570,7 +571,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 7 {
+            self.performSegue(withIdentifier: "editHistory", sender: (indexPath as NSIndexPath).row)
+        }
+    }
     
     
     func setupViews() {
@@ -796,8 +802,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         else {  // EDIT HISTORY
             
-            let vc = segue.destination as! ArcanaDetailEdit
-            vc.arcana = arcana
+            _ = segue.destination as! ArcanaEditList
+            
             
         }
     }

@@ -86,7 +86,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-xh-sGK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-xh-sGK">
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -94,11 +94,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="405" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="375" height="405"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
                                             <frame key="frameInset" width="375" height="404"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
+                                                    <frame key="frameInset" width="1000" height="1000"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="400" id="DmM-nF-s2T"/>
                                                     </constraints>
@@ -373,10 +374,10 @@
             </objects>
             <point key="canvasLocation" x="3016.8000000000002" y="1262.5187406296852"/>
         </scene>
-        <!--View Controller-->
+        <!--Arcana Edit List-->
         <scene sceneID="A2m-Xj-zbT">
             <objects>
-                <viewController id="5K6-T7-1QV" sceneMemberID="viewController">
+                <viewController id="5K6-T7-1QV" customClass="ArcanaEditList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MuL-1h-36v"/>
                         <viewControllerLayoutGuide type="bottom" id="QXl-te-7KZ"/>
@@ -384,12 +385,56 @@
                     <view key="view" contentMode="scaleToFill" id="PXq-rD-FQl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-rg-gPc">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fmV-rg-gPc" secondAttribute="trailing" id="2yu-Uz-yhO"/>
+                            <constraint firstItem="fmV-rg-gPc" firstAttribute="top" secondItem="MuL-1h-36v" secondAttribute="bottom" id="FCD-ts-NVe"/>
+                            <constraint firstItem="fmV-rg-gPc" firstAttribute="leading" secondItem="PXq-rD-FQl" secondAttribute="leading" id="Xeh-wx-qMw"/>
+                            <constraint firstItem="QXl-te-7KZ" firstAttribute="top" secondItem="fmV-rg-gPc" secondAttribute="bottom" id="za5-Bq-25r"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="fmV-rg-gPc" id="WSc-i9-Pfx"/>
+                        <segue destination="i6f-uS-LJF" kind="show" identifier="toEdit" id="tVg-f2-0a8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WP-Py-EfK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3929" y="2060"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="wov-Ai-eua">
+            <objects>
+                <viewController id="i6f-uS-LJF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qd2-3d-Kvc"/>
+                        <viewControllerLayoutGuide type="bottom" id="usd-0G-BDW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ano-wz-7dz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Unb-Ve-jqo">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Unb-Ve-jqo" firstAttribute="top" secondItem="Qd2-3d-Kvc" secondAttribute="bottom" id="52V-ed-t4n"/>
+                            <constraint firstAttribute="trailing" secondItem="Unb-Ve-jqo" secondAttribute="trailing" id="DSq-x2-5me"/>
+                            <constraint firstItem="usd-0G-BDW" firstAttribute="top" secondItem="Unb-Ve-jqo" secondAttribute="bottom" id="Suh-m0-sus"/>
+                            <constraint firstItem="Unb-Ve-jqo" firstAttribute="leading" secondItem="ano-wz-7dz" secondAttribute="leading" id="ugH-wP-3eH"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FEI-v6-qle" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5003" y="2052"/>
         </scene>
         <!--Title-->
         <scene sceneID="fT1-xG-cFS">
@@ -420,7 +465,7 @@
                             <constraint firstItem="Y6q-Ua-kNg" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" constant="10" id="5Dz-lF-q1N"/>
                             <constraint firstItem="fnr-GF-FBV" firstAttribute="top" secondItem="gCM-XS-gdh" secondAttribute="bottom" id="74v-a3-iVs"/>
                             <constraint firstAttribute="trailing" secondItem="Y6q-Ua-kNg" secondAttribute="trailing" constant="10" id="MWS-Q5-fvF"/>
-                            <constraint firstItem="gCM-XS-gdh" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" id="gNO-Ar-W6x"/>
+                            <constraint firstItem="gCM-XS-gdh" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" constant="10" id="gNO-Ar-W6x"/>
                             <constraint firstAttribute="trailing" secondItem="gCM-XS-gdh" secondAttribute="trailing" id="hr0-1W-on2"/>
                             <constraint firstItem="gCM-XS-gdh" firstAttribute="leading" secondItem="4I8-Lx-pZQ" secondAttribute="leading" id="ikP-uL-EJ3"/>
                             <constraint firstItem="Y6q-Ua-kNg" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" constant="10" id="x7X-2c-oUd"/>
@@ -534,7 +579,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rarityCell" id="PlB-gN-nBM" customClass="RarityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="67" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -570,7 +615,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="67" y="93" width="146" height="92"/>
+                                        <rect key="frame" x="171" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -623,7 +668,7 @@
                 <navigationController storyboardIdentifier="HomeNav" id="7rg-wy-GHd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="아르카나" image="arcanaTab" id="Hxd-EW-Y1O"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MN9-au-8Yj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MN9-au-8Yj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -643,7 +688,7 @@
                     <tabBarItem key="tabBarItem" title="즐겨찾기" image="favoritesGray" id="57X-Rk-Nrt"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dUg-eH-RdH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUg-eH-RdH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
