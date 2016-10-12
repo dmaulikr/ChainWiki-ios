@@ -22,6 +22,16 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var imageTapped = false
     var tap = UITapGestureRecognizer()
     
+    @IBAction func exportArcana(_ sender: AnyObject) {
+        
+        
+        if let image = generateImage(tblview: tableView) {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        
+        
+        
+    }
     func updateHistory(){
         var recents = [String]()
         
@@ -221,6 +231,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView.numberOfRows(inSection: section) == 0 {
+            return nil
+        }
+        else {
+            return UIView()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1 {
             return 0
@@ -560,10 +579,10 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             return cell
             
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-            cell.skillAbilityDesc.text = "편집 기록 보기"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "viewEditsCell") as! ArcanaViewEditsCell
+            cell.editLabel.text = "편집 기록 보기"
+            cell.arrow.image = #imageLiteral(resourceName: "go")
             cell.layoutMargins = UIEdgeInsets.zero
-            cell.isUserInteractionEnabled = true
             return cell
 
         }
@@ -791,6 +810,26 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
 
+    func generateImage(tblview:UITableView) -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: tableView.contentSize.width, height: tableView.contentSize.height),false, 0.0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        let previousFrame = tableView.frame
+        tableView.frame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.contentSize.width, height: tableView.contentSize.height)
+
+        
+        tableView.layer.render(in: context!)
+        
+        tableView.frame = previousFrame
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        
+        return image
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "editArcana") {
@@ -802,9 +841,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         else {  // EDIT HISTORY
             
-            _ = segue.destination as! ArcanaEditList
-            
-            
+            let vc = segue.destination as! ArcanaEditList
+            vc.arcanaUID = arcana!.uid
         }
     }
 

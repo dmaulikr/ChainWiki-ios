@@ -12,7 +12,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var tableView: UITableView!
     let edits = [String]()
-    
+    var arcanaUID: String?
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -37,11 +37,39 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    func getEdits() {
+        // TODO: GET STRUCT ARCANAEDITS
+        print("GETTING EDITS")
+        if let uid = arcanaUID {
+            let ref = FIREBASE_REF.child("edits/\(uid)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var editDates = [String]()
+//                snapshot.ke
+                if let snapshotValue = snapshot.value as? [String:AnyObject] {
+                    
+                    for child in snapshotValue as [String:AnyObject]{
+                        
+                        let id = child.key
+                        print(id)
+                        
+                    }
+                }
+                else {
+                    print("ERROR")
+                }
+                
+            })
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaEditListCell", bundle: nil), forCellReuseIdentifier: "arcanaEditListCell")
+        getEdits()
         // Do any additional setup after loading the view.
     }
 
