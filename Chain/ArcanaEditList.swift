@@ -45,13 +45,14 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 
                 var editDates = [String]()
-//                snapshot.ke
-                if let snapshotValue = snapshot.value as? [String:AnyObject] {
-                    
-                    for child in snapshotValue as [String:AnyObject]{
+                if let snapshotValue = snapshot.value as? NSDictionary {
+                    print("snapshotvalue")
+                    for child in (snapshotValue as? [String:AnyObject])! {
+                        print("child") 
+                        let date = child.value["date"] as! String 
+                            print(date)
                         
-                        let id = child.key
-                        print(id)
+                        
                         
                     }
                 }

@@ -72,17 +72,27 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         // TODO: Check if there were any edits
         if edits.count != 0 {
             
-            let date = NSDate()
+            let date = Date()
+            
+            let format = DateFormatter()
+//            format.locale = Locale(identifier: "ko_kr")
+//            format.timeZone = TimeZone(abbreviation: "KST")
+            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            let dateString = format.string(from: date)
             
             if let arcana = arcana {
                 let uid = arcana.uid
-                let editsRef = FIREBASE_REF.child("edits/\(uid)/\(date)")
+                
+                let arcanaRef = FIREBASE_REF.child("edits/\(uid)")
+                let id =  arcanaRef.childByAutoId().key
                 // childchanged to update single arcana values
                 for (key, value) in edits {
                     
                     let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
-                    let editsPreviousRef = FIREBASE_REF.child("edits/\(uid)/\(date)/previous/\(key)")
-                    let editsUpdateRef = FIREBASE_REF.child("edits/\(uid)/\(date)/update/\(key)")
+                    let editsRef = arcanaRef.child("\(id)")
+                    let editsPreviousRef = editsRef.child("previous/\(key)")
+                    let editsUpdateRef = editsRef.child("update/\(key)")
                     // move old values to edit ref
                     originalRef.observeSingleEvent(of: .value, with: { snapshot in
                         
@@ -99,6 +109,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                         if let nick = NICKNAME {
                             editsRef.child("nickName").setValue(nick)
                         }
+                        editsRef.child("date").setValue(dateString)
                         
                     })
                 }

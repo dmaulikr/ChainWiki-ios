@@ -21,6 +21,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     let defaults = UserDefaults.standard
     var imageTapped = false
     var tap = UITapGestureRecognizer()
+    @IBOutlet weak var toolBar: UIToolbar!
     
     @IBAction func exportArcana(_ sender: AnyObject) {
         
@@ -666,6 +667,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        addToolButtons()
         updateHistory()
         tableView.delegate = self
         tableView.dataSource = self
@@ -798,17 +800,44 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         if let error = error {
             // we got back an error!
             let ac = UIAlertController(title: "저장 실패.", message: error.localizedDescription, preferredStyle: .alert)
+            ac.view.tintColor = salmonColor
+            ac.view.backgroundColor = .white
+            ac.view.layer.cornerRadius = 10
             ac.addAction(UIAlertAction(title: "확인", style: .default))
-            present(ac, animated: true)
+            
+            present(ac, animated: true) {
+                ac.view.tintColor = salmonColor
+            }
             
             
         } else {
             let ac = UIAlertController(title: "저장 완료!", message: "", preferredStyle: .alert)
+            ac.view.tintColor = salmonColor
+            ac.view.backgroundColor = .white
+            ac.view.layer.cornerRadius = 10
             ac.addAction(UIAlertAction(title: "확인", style: .default))
-            present(ac, animated: true)
+            
+            present(ac, animated: true) {
+                ac.view.tintColor = salmonColor
+            }
             
         }
     }
+    
+//    func addToolButtons() {
+//        let a = UIBarButtonItem(
+//        let item1 = UIBarButtonItem(title: "저장", style: UIBarButtonItemStyle., target: self, action: nil)
+//        item1.width = SCREENWIDTH/2
+//        item1.customView?.backgroundColor = .black
+//        item1.setTitlePositionAdjustment(.init(horizontal: -50, vertical: 0), for: .default)
+//        let item2 = UIBarButtonItem(title: "편집", style: .plain, target: self, action: nil)
+//        item2.width = SCREENWIDTH/2
+//        item2.setTitlePositionAdjustment(.init(horizontal: -50, vertical: 0), for: .default)
+//        var items = [UIBarButtonItem]()
+//        items.append(item1)
+//        items.append(item2)
+//        toolBar.setItems(items, animated: true)
+//    }
 
     func generateImage(tblview:UITableView) -> UIImage? {
         

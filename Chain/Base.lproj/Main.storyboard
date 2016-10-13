@@ -398,7 +398,7 @@
                                     <action selector="edit:" destination="Byw-71-fc4" id="yqe-Vf-EXF"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="보내기" id="BUx-3r-fOq">
+                            <barButtonItem systemItem="action" id="BUx-3r-fOq">
                                 <connections>
                                     <action selector="exportArcana:" destination="Byw-71-fc4" id="f4l-99-grA"/>
                                 </connections>
