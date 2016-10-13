@@ -14,6 +14,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName1", "skillMana2", "skillDesc2", "skillName1", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     var arcana: Arcana?
+    var arcanaEdit: ArcanaEdit?
     var edits = [String : String]()
     @IBOutlet weak var tableView: UITableView!
     var rowBeingEdited : Int? = nil

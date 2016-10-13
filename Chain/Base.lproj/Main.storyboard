@@ -96,14 +96,13 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="405" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="375" height="405"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
                                             <frame key="frameInset" width="375" height="404"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
-                                                    <frame key="frameInset" width="1000" height="1000"/>
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="400" id="DmM-nF-s2T"/>
+                                                        <constraint firstAttribute="height" constant="400" id="pAZ-c6-EAb"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-CM-9fb" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
@@ -128,12 +127,12 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="pZf-dU-04n" secondAttribute="trailing" id="8VU-qP-TSJ"/>
+                                                <constraint firstItem="pZf-dU-04n" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="6Xj-HD-MIR"/>
+                                                <constraint firstAttribute="trailing" secondItem="pZf-dU-04n" secondAttribute="trailing" id="HcY-26-FaF"/>
                                                 <constraint firstItem="eRh-CM-9fb" firstAttribute="centerX" secondItem="vNw-Vp-hmX" secondAttribute="centerX" id="QNs-p8-eoP"/>
                                                 <constraint firstItem="eRh-CM-9fb" firstAttribute="centerY" secondItem="vNw-Vp-hmX" secondAttribute="centerY" id="iCe-4z-ENr"/>
-                                                <constraint firstItem="pZf-dU-04n" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="mm0-hy-R7l"/>
-                                                <constraint firstItem="pZf-dU-04n" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" constant="5" id="qMO-Mg-hlT"/>
-                                                <constraint firstAttribute="bottom" secondItem="pZf-dU-04n" secondAttribute="bottom" id="vbd-gm-1y6"/>
+                                                <constraint firstAttribute="bottom" secondItem="pZf-dU-04n" secondAttribute="bottom" id="nCn-he-uBD"/>
+                                                <constraint firstItem="pZf-dU-04n" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" constant="5" id="qQr-w3-5zt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -418,7 +417,7 @@
         <!--Arcana Edit List-->
         <scene sceneID="A2m-Xj-zbT">
             <objects>
-                <viewController id="5K6-T7-1QV" customClass="ArcanaEditList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="5K6-T7-1QV" customClass="ArcanaEditList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MuL-1h-36v"/>
                         <viewControllerLayoutGuide type="bottom" id="QXl-te-7KZ"/>
@@ -430,18 +429,28 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-rg-gPc">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수정 기록 없음!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOv-Te-OV9">
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fmV-rg-gPc" secondAttribute="trailing" id="2yu-Uz-yhO"/>
                             <constraint firstItem="fmV-rg-gPc" firstAttribute="top" secondItem="MuL-1h-36v" secondAttribute="bottom" id="FCD-ts-NVe"/>
+                            <constraint firstItem="IOv-Te-OV9" firstAttribute="centerY" secondItem="PXq-rD-FQl" secondAttribute="centerY" id="HBF-HE-nXd"/>
+                            <constraint firstAttribute="trailing" secondItem="IOv-Te-OV9" secondAttribute="trailing" constant="20" id="Iah-w6-nUA"/>
+                            <constraint firstItem="IOv-Te-OV9" firstAttribute="leading" secondItem="PXq-rD-FQl" secondAttribute="leading" constant="20" id="Ws3-Px-5vL"/>
                             <constraint firstItem="fmV-rg-gPc" firstAttribute="leading" secondItem="PXq-rD-FQl" secondAttribute="leading" id="Xeh-wx-qMw"/>
                             <constraint firstItem="QXl-te-7KZ" firstAttribute="top" secondItem="fmV-rg-gPc" secondAttribute="bottom" id="za5-Bq-25r"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="fmV-rg-gPc" id="WSc-i9-Pfx"/>
+                        <outlet property="tip" destination="IOv-Te-OV9" id="p1k-1C-cQp"/>
                         <segue destination="i6f-uS-LJF" kind="show" identifier="toEdit" id="tVg-f2-0a8"/>
+                        <segue destination="scq-Sr-Dal" kind="show" identifier="showEdits" id="X8k-gu-M3B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WP-Py-EfK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -451,7 +460,7 @@
         <!--View Controller-->
         <scene sceneID="wov-Ai-eua">
             <objects>
-                <viewController id="i6f-uS-LJF" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="i6f-uS-LJF" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qd2-3d-Kvc"/>
                         <viewControllerLayoutGuide type="bottom" id="usd-0G-BDW"/>
@@ -472,12 +481,15 @@
                             <constraint firstItem="Unb-Ve-jqo" firstAttribute="leading" secondItem="ano-wz-7dz" secondAttribute="leading" id="ugH-wP-3eH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="scq-Sr-Dal" kind="show" identifier="showEdits" id="l6C-6K-8QJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEI-v6-qle" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5003" y="2052"/>
         </scene>
-        <!--Title-->
+        <!--Arcana Detail Edit-->
         <scene sceneID="fT1-xG-cFS">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="scq-Sr-Dal" customClass="ArcanaDetailEdit" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
@@ -512,7 +524,7 @@
                             <constraint firstItem="Y6q-Ua-kNg" firstAttribute="top" secondItem="yny-a2-Lkj" secondAttribute="bottom" constant="10" id="x7X-2c-oUd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="xiW-kf-jMt">
+                    <navigationItem key="navigationItem" id="xiW-kf-jMt">
                         <barButtonItem key="rightBarButtonItem" title="완료" id="hYv-fm-6bi">
                             <connections>
                                 <action selector="complete:" destination="scq-Sr-Dal" id="JB7-lv-0tT"/>
@@ -786,5 +798,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vf6-Qv-Qwi"/>
+        <segue reference="X8k-gu-M3B"/>
     </inferredMetricsTieBreakers>
 </document>
