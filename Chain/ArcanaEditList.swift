@@ -14,6 +14,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tip: UILabel!
     var edits = [String]()
+    var names = [String]()
     var arcanaUID: String?
     var arcana: ArcanaEdit?
     
@@ -37,6 +38,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaEditListCell") as! ArcanaEditListCell
         cell.date.text = edits[indexPath.row]
+        cell.name.text = names[indexPath.row]
         return cell
     }
     
@@ -51,12 +53,15 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 
                 var editDates = [String]()
+                var editNames = [String]()
                 if let snapshotValue = snapshot.value as? NSDictionary {
                     
                     for child in (snapshotValue as? [String:AnyObject])!.reversed() {
                         
                         let date = child.value["date"] as! String
                         editDates.append(date)
+                        let name = child.value["nickName"] as! String
+                        editNames.append(name)
                         let editUID = child.value["uid"] as! String
                         
                         let updateRef = ref.child("\(editUID)/update")
@@ -66,6 +71,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                     }
                     self.edits = editDates
+                    self.names = editNames
                     self.tableView.reloadData()
                 }
                 
@@ -83,6 +89,8 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaEditListCell", bundle: nil), forCellReuseIdentifier: "arcanaEditListCell")
         getEdits()
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }
 
@@ -99,8 +107,8 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showEdits" {
-            if let vc = segue.destination as? ArcanaDetailEdit {
-                vc.arcanaEdit = arcana
+            if let vc = segue.destination as? ArcanaEditHistory {
+                vc.arcana = arcana
             }
             print("going to showEdits")
         }

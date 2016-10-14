@@ -185,7 +185,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             if let _ = arcana.chainStone {
                 count += 1
             }
-            
+            print(count)
             
             return count
         
@@ -243,9 +243,12 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1 {
-            return 0
+            return 1
         }
-        return 20
+        else {
+            return 20
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -811,7 +814,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             
         } else {
-            let ac = UIAlertController(title: "저장 완료!", message: "", preferredStyle: .alert)
+            let ac = UIAlertController(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.", preferredStyle: .alert)
             ac.view.tintColor = salmonColor
             ac.view.backgroundColor = .white
             ac.view.layer.cornerRadius = 10

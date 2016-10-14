@@ -89,7 +89,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5g3-Z8-DRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828" y="78.710644677661179"/>
+            <point key="canvasLocation" x="-529" y="62"/>
         </scene>
         <!--설정-->
         <scene sceneID="AE2-hJ-irC">
@@ -104,12 +104,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1lH-KO-dr2" kind="relationship" relationship="rootViewController" id="vUx-4F-3hY"/>
+                        <segue destination="1lH-KO-dr2" kind="relationship" relationship="rootViewController" id="cij-dS-BX2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9n-kR-trV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-111.2" y="78.710644677661179"/>
+            <point key="canvasLocation" x="-1409" y="62"/>
         </scene>
     </scenes>
     <resources>

@@ -88,13 +88,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-xh-sGK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-xh-sGK">
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="405" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="405"/>
+                                        <rect key="frame" x="0.0" y="65" width="375" height="405"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
                                             <frame key="frameInset" width="375" height="404"/>
@@ -142,7 +142,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="arcanaButtons" rowHeight="44" id="RCv-Rb-4Ru" userLabel="arcanaButtons" customClass="ArcanaButtonsCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="497" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="470" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RCv-Rb-4Ru" id="JGm-fh-z50">
                                             <frame key="frameInset" width="375" height="43"/>
@@ -183,7 +183,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaAttribute" rowHeight="40" id="yQV-i6-ups" customClass="ArcanaAttributeCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="541" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="514" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQV-i6-ups" id="Wp4-Kh-E70">
                                             <frame key="frameInset" width="375" height="39"/>
@@ -220,7 +220,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaSkill" rowHeight="40" id="tuO-ry-Tec" customClass="ArcanaSkillCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="581" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="554" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuO-ry-Tec" id="m4X-aj-7v4">
                                             <frame key="frameInset" width="375" height="39"/>
@@ -284,7 +284,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="skillAbilityDesc" id="LMM-l5-U6h" customClass="ArcanaSkillAbilityDescCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="621" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="594" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMM-l5-U6h" id="kM3-g4-1jI">
                                             <frame key="frameInset" width="375" height="43"/>
@@ -308,7 +308,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="chainStory" rowHeight="40" id="ABn-xF-M7a" userLabel="chainStory" customClass="ArcanaChainStory" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="665" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="638" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ABn-xF-M7a" id="4ke-6R-B5O">
                                             <frame key="frameInset" width="375" height="39"/>
@@ -347,7 +347,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="viewEditsCell" id="PJG-aw-jKM" userLabel="editHistory" customClass="ArcanaViewEditsCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="705" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="678" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PJG-aw-jKM" id="ieF-Tm-dog">
                                             <frame key="frameInset" width="375" height="43"/>
@@ -414,7 +414,7 @@
             </objects>
             <point key="canvasLocation" x="3016.8000000000002" y="1262.5187406296852"/>
         </scene>
-        <!--Arcana Edit List-->
+        <!--수정 기록-->
         <scene sceneID="A2m-Xj-zbT">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="5K6-T7-1QV" customClass="ArcanaEditList" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
@@ -446,16 +446,56 @@
                             <constraint firstItem="QXl-te-7KZ" firstAttribute="top" secondItem="fmV-rg-gPc" secondAttribute="bottom" id="za5-Bq-25r"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="수정 기록" id="8EM-ZE-NME"/>
                     <connections>
                         <outlet property="tableView" destination="fmV-rg-gPc" id="WSc-i9-Pfx"/>
                         <outlet property="tip" destination="IOv-Te-OV9" id="p1k-1C-cQp"/>
                         <segue destination="i6f-uS-LJF" kind="show" identifier="toEdit" id="tVg-f2-0a8"/>
-                        <segue destination="scq-Sr-Dal" kind="show" identifier="showEdits" id="X8k-gu-M3B"/>
+                        <segue destination="jfu-XT-tDU" kind="show" identifier="showEdits" id="I7h-5E-TTA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WP-Py-EfK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3929" y="2060"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="Elh-BD-WXx">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="jfu-XT-tDU" customClass="ArcanaEditHistory" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eKc-kR-jXT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ohg-fh-W5f"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lAT-gQ-oT7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="dnU-v5-zu1">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dnU-v5-zu1" secondAttribute="trailing" id="IWP-mE-sKj"/>
+                            <constraint firstItem="dnU-v5-zu1" firstAttribute="leading" secondItem="lAT-gQ-oT7" secondAttribute="leading" id="aip-fD-pf2"/>
+                            <constraint firstItem="dnU-v5-zu1" firstAttribute="top" secondItem="eKc-kR-jXT" secondAttribute="bottom" id="e0Z-bs-iPc"/>
+                            <constraint firstItem="Ohg-fh-W5f" firstAttribute="top" secondItem="dnU-v5-zu1" secondAttribute="bottom" id="rk7-of-Uma"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="cdN-Wy-0wP">
+                        <barButtonItem key="rightBarButtonItem" image="report" id="J6d-70-cuD">
+                            <connections>
+                                <action selector="report:" destination="jfu-XT-tDU" id="rMG-fw-rM2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="dnU-v5-zu1" id="rDe-D6-I7t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U2d-GO-Ct5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3929" y="2923"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="wov-Ai-eua">
@@ -481,9 +521,6 @@
                             <constraint firstItem="Unb-Ve-jqo" firstAttribute="leading" secondItem="ano-wz-7dz" secondAttribute="leading" id="ugH-wP-3eH"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <segue destination="scq-Sr-Dal" kind="show" identifier="showEdits" id="l6C-6K-8QJ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEI-v6-qle" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -793,11 +830,11 @@
         <image name="favoritesGray" width="25" height="25"/>
         <image name="go" width="25" height="25"/>
         <image name="heartNormal" width="25" height="25"/>
+        <image name="report" width="25" height="25"/>
         <image name="starGray" width="13" height="13"/>
         <image name="starNormal" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vf6-Qv-Qwi"/>
-        <segue reference="X8k-gu-M3B"/>
     </inferredMetricsTieBreakers>
 </document>

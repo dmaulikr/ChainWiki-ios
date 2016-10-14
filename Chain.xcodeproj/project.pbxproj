@@ -49,6 +49,7 @@
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
 		04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */; };
+		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 049CF7451D95DC4800B283EC /* GoogleService-Info.plist */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
@@ -161,6 +162,7 @@
 		048E6E541D729A7D00687513 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
 		04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Database Lookup.rtf"; sourceTree = "<group>"; };
+		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7451D95DC4800B283EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
 		04A2EC911D6F7FA300189142 /* Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chain.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +283,7 @@
 				04349D101DACD79600216141 /* ArcanaEditList.swift */,
 				04349D121DACD9FF00216141 /* ArcanaEditListCell.xib */,
 				04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */,
+				049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */,
 				042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
@@ -794,6 +797,7 @@
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
 				04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
+				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0479501C1D9A4BDB00205A3C /* ArcanaProfileCell.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,

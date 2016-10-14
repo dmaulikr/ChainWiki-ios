@@ -15,21 +15,30 @@
                 <frame key="frameInset" width="461" height="113"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiu-XP-oA2">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiu-XP-oA2">
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-wG-jKA">
                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="baQ-wG-jKA" secondAttribute="trailing" constant="10" id="Gbw-w2-nAc"/>
+                    <constraint firstItem="baQ-wG-jKA" firstAttribute="top" secondItem="Jv5-uI-Dq2" secondAttribute="top" constant="10" id="Gnk-is-AWL"/>
                     <constraint firstItem="qiu-XP-oA2" firstAttribute="top" secondItem="Jv5-uI-Dq2" secondAttribute="top" constant="10" id="H77-J6-3Hh"/>
+                    <constraint firstAttribute="bottom" secondItem="baQ-wG-jKA" secondAttribute="bottom" constant="10" id="NVm-eU-hWL"/>
                     <constraint firstItem="qiu-XP-oA2" firstAttribute="leading" secondItem="Jv5-uI-Dq2" secondAttribute="leading" constant="10" id="RO2-7g-rxY"/>
                     <constraint firstAttribute="bottom" secondItem="qiu-XP-oA2" secondAttribute="bottom" constant="10" id="XtY-zT-bWW"/>
-                    <constraint firstAttribute="trailing" secondItem="qiu-XP-oA2" secondAttribute="trailing" constant="10" id="zoT-K3-5Pk"/>
+                    <constraint firstItem="baQ-wG-jKA" firstAttribute="leading" secondItem="qiu-XP-oA2" secondAttribute="trailing" constant="5" id="ibw-tx-9tl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="date" destination="qiu-XP-oA2" id="7OV-mY-tQ4"/>
+                <outlet property="name" destination="baQ-wG-jKA" id="14N-kg-pA0"/>
             </connections>
             <point key="canvasLocation" x="-147.5" y="-34"/>
         </tableViewCell>

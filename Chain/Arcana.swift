@@ -201,6 +201,3 @@ struct Arcana: Equatable, Hashable {
 func ==(lhs: Arcana, rhs: Arcana) -> Bool {
     return lhs.uid == rhs.uid
 }
-struct ArcanaDictionary {
-    var arcanaDictionary: [Arcana]?
-}

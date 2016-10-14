@@ -106,7 +106,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         currentArray = abilityArray
         tableView.reloadData()
         
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }

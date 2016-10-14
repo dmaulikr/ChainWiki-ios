@@ -11,6 +11,7 @@ import UIKit
 class ArcanaEditListCell: UITableViewCell {
 
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var name: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
