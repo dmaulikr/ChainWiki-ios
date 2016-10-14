@@ -743,7 +743,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     //    (target: self, action: #selector(Home.dismissFilter(_:)))
-    func addGestures(_ sender: AnyObject) {
+    func addGestures(_ sender: UIImageView) {
         
         let closeImage = UITapGestureRecognizer(target: self, action: #selector(self.dismissImage(_:)))
         sender.addGestureRecognizer(closeImage)
@@ -768,13 +768,53 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         sender.addGestureRecognizer(longPress)
     }
     
-    func dismissImage(_ sender: AnyObject) {
+    func dismissImage(_ gesture: UIGestureRecognizer) {
         
-        UIView.animate(withDuration: 0.2, animations: {
-            sender.view?.alpha = 0
-        }) { _ in
-            sender.view?.removeFromSuperview()
+        guard let gestureView = gesture.view else {
+            return
         }
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                
+                gestureView.fadeOut(withDuration: 0.2)
+                switch swipeGesture.direction {
+                    
+                case UISwipeGestureRecognizerDirection.up:
+                    gestureView.frame = CGRect(x: gestureView.frame.origin.x, y: -(gestureView.frame.size.height), width: gestureView.frame.size.width, height: gestureView.frame.size.height)
+                    
+                case UISwipeGestureRecognizerDirection.left:
+                    gestureView.frame = CGRect(x: -(gestureView.frame.size.width), y: 0, width: gestureView.frame.size.width, height: 0)
+                    
+                case UISwipeGestureRecognizerDirection.right:
+                    gestureView.frame = CGRect(x: gestureView.frame.size.width, y: 0, width: gestureView.frame.size.width, height: 0)
+                    
+                case UISwipeGestureRecognizerDirection.down:
+                    gestureView.frame = CGRect(x: gestureView.frame.origin.x, y: self.view.frame.height, width: gestureView.frame.size.width, height: gestureView.frame.size.height)
+                default:
+                    break
+                }
+                
+                
+                }) {_ in
+                    gestureView.removeFromSuperview()
+            }
+            
+            
+            
+            
+        }
+        
+        else {
+            UIView.animate(withDuration: 0.2, animations: {
+                gestureView.alpha = 0
+            }) { _ in
+                gestureView.removeFromSuperview()
+            }
+
+        }
+        
         imageTapped = false
     }
     
