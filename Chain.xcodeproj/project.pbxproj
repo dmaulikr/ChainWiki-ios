@@ -48,7 +48,6 @@
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
-		04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */; };
 		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 049CF7451D95DC4800B283EC /* GoogleService-Info.plist */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
@@ -71,6 +70,7 @@
 		04CDAF221DB1AD6C00F659BA /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
 		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
+		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F21D9377CA005731B9 /* LoginHome.swift */; };
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
 		04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */; };
@@ -594,7 +594,6 @@
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
-				04941A451D6FC9FE00BAE389 /* Database Lookup.rtf in Resources */,
 				049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */,
 				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
@@ -761,6 +760,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */,
 				0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */,
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
 				0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */,

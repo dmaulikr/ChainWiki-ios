@@ -509,7 +509,6 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 
 //                searchTextField.setPlaceholderColor(UIColor.white)
                 searchTextField.textColor = UIColor.white
-//                searchTextField.dele = self
                 if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                     clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
                     clearButton.tintColor = UIColor.white

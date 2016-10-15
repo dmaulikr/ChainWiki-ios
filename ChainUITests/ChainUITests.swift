@@ -32,11 +32,40 @@ class ChainUITests: XCTestCase {
     
     func testScreenshots() {
         let app = XCUIApplication()
-        setupSnapshot(app)
+//        setupSnapshot(app)
+//
+//        let tablesQuery = app.tables
+        let cellText = app.staticTexts["제파르"]
+        self.waitForElementToAppear(element: cellText, timeout: 30)
         snapshot("ArcanaHome")
 //        app.tables.staticTexts["運命流転ノ天魔"].tap()
         app.navigationBars["Chain.Home"].buttons["filter"].tap()
         snapshot("ArcanaFilter")
+        
+        let tabBarsQuery = app.tabBars
+        tabBarsQuery.buttons["어빌리티"].tap()
+        app.tables.staticTexts["마나의 소양"].tap()
+        app.buttons["법사"].tap()
+        snapshot("ArcanaAbility")
+        tabBarsQuery.buttons["주점"].tap()
+        snapshot("TavernView")
+        tabBarsQuery.buttons["아르카나"].tap()
+        app.navigationBars["Chain.Home"].buttons["filter"].tap()
+        
+        let element = app.staticTexts["제파르"]
+        self.waitForElementToAppear(element: element, timeout: 30)
+        element.tap()
+        let tablesQuery = app.tables
+        let image = tablesQuery.children(matching: .cell).element(boundBy: 0).children(matching: .staticText).element
+        self.waitForElementToAppear(element: image)
+        image.tap()
+        snapshot("ArcanaImage")
+        image.swipeUp()
+        
+        tablesQuery.cells.containing(.staticText, identifier:"40").children(matching: .staticText).matching(identifier: "40").element(boundBy: 0).swipeUp()
+        snapshot("ArcanaDetail")
+        tablesQuery.cells.containing(.staticText, identifier:"스킬 1").element.tap()
+//        tablesQuery.staticTexts["범위 내에있는 모든 적에게 일정 시간마다 작은 타격을주고, 또한 다운한다."].tap()
         
         /*
         let tabBarsQuery = app.tabBars
@@ -49,6 +78,20 @@ class ChainUITests: XCTestCase {
         tabBarsQuery.buttons["아르카나"].tap()
 
  */
+    }
+    
+    func waitForElementToAppear(element: XCUIElement, timeout: TimeInterval = 10,  file: String = #file, line: UInt = #line) {
+        let existsPredicate = NSPredicate(format: "exists == true")
+        
+        expectation(for: existsPredicate,
+                    evaluatedWith: element, handler: nil)
+        
+        waitForExpectations(timeout: timeout) { (error) -> Void in
+            if (error != nil) {
+                let message = "Failed to find \(element) after \(timeout) seconds."
+                self.recordFailure(withDescription: message, inFile: file, atLine: line, expected: true)
+            }
+        }
     }
     
     func testExample() {
