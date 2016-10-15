@@ -33,30 +33,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = lightGreenColor
         
         
-        
-        
-        if UserDefaults.standard.value(forKey: "uid") == nil {
-            print("no user signed in")
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
-
-        else {
+//        if UserDefaults.standard.value(forKey: "uid") == nil {
+//            print("no user signed in")
+//            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+//            
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+//            
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//        }
+//            
+//        else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
             
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
-        }
-
+//        }
         return true
         
     }
+    
     
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 //        return GIDSignIn.sharedInstance().handle(

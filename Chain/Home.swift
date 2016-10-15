@@ -150,7 +150,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
         
         else if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
-            print("dismissed")
+//            print("dismissed")
             gesture.cancelsTouchesInView = true
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.filterView.alpha = 0.0
@@ -165,6 +165,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        self.view.isUserInteractionEnabled = false
         self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
@@ -472,7 +473,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-//        self.filterView.addGestureRecognizer(panGestureRecognizer)
+        self.filterView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
 //        self.view.addGestureRecognizer(panGestureRecognizer)
         gesture.cancelsTouchesInView = false
@@ -505,7 +506,8 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 searchIcon.tintColor = UIColor.white
                 searchTextField.placeholder = "이름 검색"
                 searchTextField.tintColor = UIColor.white
-                searchTextField.setPlaceholderColor(UIColor.white)
+                
+//                searchTextField.setPlaceholderColor(UIColor.white)
                 searchTextField.textColor = UIColor.white
 //                searchTextField.dele = self
                 if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
@@ -549,6 +551,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
             let vc = segue.destination as! ArcanaDetail
             vc.arcana = arcana
+            self.view.isUserInteractionEnabled = true
         }
     }
 
@@ -728,7 +731,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
             
         case .ended:
-            print("ENDED")
+//            print("ENDED")
             // animate the side panel open or closed based on whether the view has moved more or less than halfway
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
             
@@ -739,7 +742,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             
             if hasMovedGreaterThanHalfway {
                 //dismissFilter.
-                print("HAS MOVED MORE THAN HALF, DISMISS")
+//                print("HAS MOVED MORE THAN HALF, DISMISS")
                 filter(self)
             }
             

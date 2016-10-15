@@ -68,6 +68,7 @@
 		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
 		04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
+		04CDAF221DB1AD6C00F659BA /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
 		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
 		04ED6FD51D813F4800C87B17 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
@@ -187,6 +188,7 @@
 		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
+		04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
 		04DD91131D8669B50023CDA4 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				045EF6A81DAB5DCA002148DD /* Settings */,
 				04A2ECC71D6F80D300189142 /* Model */,
 				04A2ECC61D6F80C800189142 /* etc */,
+				04CDAF201DB1AD3900F659BA /* Fastlane */,
 				04A2EC9E1D6F7FA300189142 /* Assets.xcassets */,
 				04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */,
 				044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */,
@@ -422,6 +425,14 @@
 				047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */,
 			);
 			name = Tavern;
+			sourceTree = "<group>";
+		};
+		04CDAF201DB1AD3900F659BA /* Fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */,
+			);
+			name = Fastlane;
 			sourceTree = "<group>";
 		};
 		775C9A4348BE0849F66B6F00 /* Frameworks */ = {
@@ -539,13 +550,13 @@
 					04A2ECA71D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 04A2EC901D6F7FA300189142;
 					};
 					04A2ECB21D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 04A2EC901D6F7FA300189142;
 					};
 				};
@@ -821,6 +832,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04A2ECB81D6F7FA300189142 /* ChainUITests.swift in Sources */,
+				04CDAF221DB1AD6C00F659BA /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,15 +979,11 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Chain/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jk.Chain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1000,10 +1008,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Chain/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jk.Chain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -1016,6 +1024,7 @@
 			baseConfigurationReference = 46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1031,6 +1040,7 @@
 			baseConfigurationReference = 9F24342BA979ECF14F6FFE66 /* Pods-ChainTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1045,6 +1055,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1059,6 +1070,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7B05ACE02E45F09E2A44AE1 /* Pods-ChainUITests.release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

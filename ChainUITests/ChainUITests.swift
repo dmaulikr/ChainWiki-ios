@@ -18,7 +18,9 @@ class ChainUITests: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
+        let app = XCUIApplication()
+        setupSnapshot(app)
+        app.launch()
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
@@ -26,6 +28,27 @@ class ChainUITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+    
+    func testScreenshots() {
+        let app = XCUIApplication()
+        setupSnapshot(app)
+        snapshot("ArcanaHome")
+//        app.tables.staticTexts["運命流転ノ天魔"].tap()
+        app.navigationBars["Chain.Home"].buttons["filter"].tap()
+        snapshot("ArcanaFilter")
+        
+        /*
+        let tabBarsQuery = app.tabBars
+        tabBarsQuery.buttons["어빌리티"].tap()
+        app.buttons["전사"].tap()
+        tabBarsQuery.buttons["주점"].tap()
+        app.collectionViews.staticTexts["연대기대륙"].tap()
+        app.navigationBars["연대기대륙"].buttons["주점"].tap()
+        tabBarsQuery.buttons["즐겨찾기"].tap()
+        tabBarsQuery.buttons["아르카나"].tap()
+
+ */
     }
     
     func testExample() {

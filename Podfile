@@ -17,7 +17,7 @@ target 'Chain' do
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
   #  pod 'Toucan', '~> 0.5'
-    pod 'Canvas', '~> 0.1.2'
+    # pod 'Canvas', '~> 0.1.2'
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
     pod 'SkyFloatingLabelTextField', :git => 'https://github.com/MLSDev/SkyFloatingLabelTextField', :branch => 'swift3'
   # Pods for Chain

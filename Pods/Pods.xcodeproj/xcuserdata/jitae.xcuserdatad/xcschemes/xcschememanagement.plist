@@ -8,57 +8,36 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 		<key>AlamofireImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>Canvas.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-Chain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Pods-ChainTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>Pods-ChainUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>SkyFloatingLabelTextField.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -68,17 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F5209A14F556E464BD56131075B5D50</key>
+		<key>25A94F15D657591C32A3659B9243EA0C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>333E47F1004946B94926B19979768D18</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>35FACE7FC2509E807BE68646888962E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -93,12 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80CBCC225074FD190F9BEA2940592423</key>
+		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
+		<key>F6B7E98F34045CC168058D1623BE4413</key>
 		<dict>
 			<key>primary</key>
 			<true/>

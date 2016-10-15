@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Canvas
+//import Canvas
 
 protocol FilterDelegate : class {
     func didUpdate(_ sender: Filter)

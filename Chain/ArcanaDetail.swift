@@ -801,9 +801,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     gestureView.removeFromSuperview()
             }
             
-            
-            
-            
         }
         
         else {
