@@ -15,6 +15,7 @@ import FirebaseAuth
 
 class LoginForm: UIViewController,  UITextFieldDelegate {
 
+    let defaults = UserDefaults.standard
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
@@ -65,7 +66,17 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                 } else {
                     
                     let uid = user!.uid
-                    UserDefaults.standard.setValue(uid, forKey: "uid")
+                    var nickName = ""
+                    for profile in user!.providerData {
+                        if let nick = profile.displayName {
+                            nickName = nick
+                        }
+
+                    }
+                    self.defaults.setValue(uid, forKey: "uid")
+                    self.defaults.setValue(true, forKey: "edit")
+                    self.defaults.setValue(nickName, forKey: "nickName")
+
                     
                     self.changeRootView()
                 

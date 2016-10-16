@@ -15,13 +15,15 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
-    
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var passwordConfirm: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var nickname: SkyFloatingLabelTextFieldWithIcon!
+    var signedIn = false
+    
     @IBAction func createEmail(_ sender: AnyObject) {
 
+        self.view.endEditing(true)
         if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text, let nickname = self.nickname.text {
         
             if password == "" || passwordConfirm == "" {
@@ -51,62 +53,104 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                             self.errorLabel.text = "닉네임이 이미 사용 중입니다."
                         }
                         else {
-                            FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+                            
+                            if self.signedIn == true {
+                                //link account to new email
+                                print("linking to email...")
                                 
-                                if error != nil {
-                                    
-                                    
-                                    if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
-                                        switch (errorCode) {
-                                            
-                                        case .errorCodeEmailAlreadyInUse:
-                                            self.errorLabel.fadeOut(withDuration: 0.2)
-                                            self.errorLabel.fadeIn(withDuration: 0.5)
-                                            self.errorLabel.text = "이메일이 이미 사용 중입니다."
-                                            
-                                        case .errorCodeInvalidEmail:
-                                            self.errorLabel.fadeOut(withDuration: 0.2)
-                                            self.errorLabel.fadeIn(withDuration: 0.5)
-                                            self.errorLabel.text = "이메일이 올바르지 않습니다."
-                                            
-                                        case .errorCodeWeakPassword:
-                                            self.errorLabel.fadeOut(withDuration: 0.2)
-                                            self.errorLabel.fadeIn(withDuration: 0.5)
-                                            self.errorLabel.text = "비밀번호가 약합니다."
-                                            
-                                        default:
-                                            print("some other error")
+                                let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: password)
+                                
+                                FIRAuth.auth()?.currentUser?.link(with: credential) { (user, error) in
+                                    if error != nil {
+                                        print("ERROR LINKING TO EMAIL")
+                                    }
+                                    else {
+                                        print("successfully linked email!")
+                                        let uid = user!.uid
+                                        
+                                        let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
+                                        editPermissionsRef.setValue("true")
+                                        let changeRequest = user!.profileChangeRequest()
+                                        changeRequest.displayName = nickname
+                                        changeRequest.commitChanges { error in
+                                            if let _ = error {
+                                                print("could not set user's nickname")
+                                            } else {
+                                                print("user's nickname updated")
+                                            }
                                         }
+                                        
+                                        UserDefaults.standard.setValue(uid, forKey: "uid")
+                                        UserDefaults.standard.setValue(true, forKey: "edit")
+                                        UserDefaults.standard.setValue(nickname, forKey: "nickName")
+                                        
+                                        nickNameRef.setValue(true)
+                                        
+                                        self.changeRootView()
                                     }
                                 }
-                                else {
-                                    print("EMAIL ACCOUNT CREATED, LOGGING IN...")
-                                    let uid = user!.uid
+                                
+                            }
+                            
+                            else {
+                                FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                                     
-                                    let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
-                                    editPermissionsRef.setValue("true")
-                                    
-                                    
-                                    UserDefaults.standard.setValue(uid, forKey: "uid")
-                                    UserDefaults.standard.setValue("true", forKey: "edit")
-                                    
-                                    let changeRequest = user!.profileChangeRequest()
-                                    changeRequest.displayName = nickname
-                                    changeRequest.commitChanges { error in
-                                        if let _ = error {
-                                            print("could not set user's nickname")
-                                        } else {
-                                            print("user's nickname updated")
+                                    if error != nil {
+                                        
+                                        
+                                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                                            switch (errorCode) {
+                                                
+                                            case .errorCodeEmailAlreadyInUse:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "이메일이 이미 사용 중입니다."
+                                                
+                                            case .errorCodeInvalidEmail:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "이메일이 올바르지 않습니다."
+                                                
+                                            case .errorCodeWeakPassword:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "비밀번호가 약합니다."
+                                                
+                                            default:
+                                                print("some other error")
+                                            }
                                         }
                                     }
-                                    
-                                    UserDefaults.standard.setValue(nickname, forKey: "nickName")
-                                    
-                                    nickNameRef.setValue(true)
-                                    
-                                    self.changeRootView()
+                                    else {
+                                        
+                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+                                        let uid = user!.uid
+                                        
+                                        let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
+                                        editPermissionsRef.setValue("true")
+                                        let changeRequest = user!.profileChangeRequest()
+                                        changeRequest.displayName = nickname
+                                        changeRequest.commitChanges { error in
+                                            if let _ = error {
+                                                print("could not set user's nickname")
+                                            } else {
+                                                print("user's nickname updated")
+                                            }
+                                        }
+                                        
+                                        UserDefaults.standard.setValue(uid, forKey: "uid")
+                                        UserDefaults.standard.setValue(true, forKey: "edit")
+                                        UserDefaults.standard.setValue(nickname, forKey: "nickName")
+                                        
+                                        nickNameRef.setValue(true)
+                                        
+                                        self.changeRootView()
+                                        
+                                        
+                                    }
                                 }
                             }
+                            
                         }
                         
                     })

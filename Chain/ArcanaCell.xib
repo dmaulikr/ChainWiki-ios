@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,29 +67,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QfP-X7-GhL" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="8BH-WS-T9e"/>
-                            <constraint firstAttribute="height" constant="15" id="EoM-8m-Zcx"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                <color key="value" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallPulseSync"/>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="eDv-6r-nZq" firstAttribute="baseline" secondItem="PvU-O2-ScF" secondAttribute="baseline" id="1O3-dO-opK"/>
                     <constraint firstItem="UrK-1F-vGc" firstAttribute="top" secondItem="y3g-td-aby" secondAttribute="top" constant="12" id="3lC-uP-tWV"/>
                     <constraint firstAttribute="bottom" secondItem="Rb6-zw-MRg" secondAttribute="bottom" constant="13" id="4ja-Yd-7EM"/>
-                    <constraint firstItem="QfP-X7-GhL" firstAttribute="centerX" secondItem="UrK-1F-vGc" secondAttribute="centerX" id="6mJ-4Q-l0i"/>
                     <constraint firstItem="qeL-m8-GQV" firstAttribute="top" secondItem="PvU-O2-ScF" secondAttribute="bottom" constant="14" id="7ab-mZ-vcH"/>
                     <constraint firstItem="qeL-m8-GQV" firstAttribute="leading" secondItem="mht-aC-BbG" secondAttribute="trailing" constant="5" id="DKQ-wO-caQ"/>
-                    <constraint firstItem="QfP-X7-GhL" firstAttribute="centerY" secondItem="UrK-1F-vGc" secondAttribute="centerY" id="DZT-LO-FHM"/>
                     <constraint firstItem="Rb6-zw-MRg" firstAttribute="leading" secondItem="Oo4-NA-n4P" secondAttribute="trailing" constant="5" id="Ehn-o3-55v"/>
                     <constraint firstItem="UrK-1F-vGc" firstAttribute="leading" secondItem="y3g-td-aby" secondAttribute="leading" constant="16" id="Grp-th-5Iq"/>
                     <constraint firstItem="eDv-6r-nZq" firstAttribute="leading" secondItem="hyp-Yd-Tt1" secondAttribute="leading" id="Ikn-ro-YGa"/>
@@ -126,7 +109,6 @@
                 <outlet property="arcanaNickKR" destination="hyp-Yd-Tt1" id="aXY-Yn-ChW"/>
                 <outlet property="arcanaRarity" destination="Oo4-NA-n4P" id="eg5-rr-Esf"/>
                 <outlet property="arcanaWeapon" destination="mht-aC-BbG" id="aTY-JY-rXO"/>
-                <outlet property="imageSpinner" destination="QfP-X7-GhL" id="nEL-Al-0tx"/>
                 <outlet property="numberOfViews" destination="slv-tU-yOc" id="HxD-ju-kLP"/>
                 <outletCollection property="labelCollection" destination="wP6-uQ-GDn" collectionClass="NSMutableArray" id="ADi-mh-W0x"/>
                 <outletCollection property="labelCollection" destination="hyp-Yd-Tt1" collectionClass="NSMutableArray" id="wub-t0-aLW"/>

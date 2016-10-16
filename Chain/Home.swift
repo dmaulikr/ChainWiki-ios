@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import AlamofireImage
 //import Toucan
-import NVActivityIndicatorView
+//import NVActivityIndicatorView
 
 class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
@@ -304,7 +304,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             return searchArray.count
         }
         
-        return arcanaArray.count
+        return 10
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -504,10 +504,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 
                 searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
                 searchIcon.tintColor = UIColor.white
-                searchTextField.placeholder = "이름 검색"
                 searchTextField.tintColor = UIColor.white
-                
-//                searchTextField.setPlaceholderColor(UIColor.white)
+                let attributeColor = [NSForegroundColorAttributeName: UIColor.white]
+                searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
                 searchTextField.textColor = UIColor.white
                 if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                     clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)

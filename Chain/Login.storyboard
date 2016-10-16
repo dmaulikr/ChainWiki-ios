@@ -39,8 +39,7 @@
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmU-yg-DCU">
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
@@ -65,8 +64,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
@@ -91,8 +89,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호 확인"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
@@ -117,8 +114,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="닉네임"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
@@ -305,20 +301,6 @@
                                     <action selector="emailLogin:" destination="owE-FD-asH" eventType="touchUpInside" id="Dyh-HS-ChV"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xc-Ul-SOT" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="5bb-q5-RRG"/>
-                                    <constraint firstAttribute="width" constant="25" id="WSR-AX-kOu"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallClipRotate"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="1" green="0.24104946369999999" blue="0.1474422219" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-EG-kTa" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -341,6 +323,20 @@
                                 <color key="textColor" red="1" green="0.24104946369999999" blue="0.1474422219" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xc-Ul-SOT" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="5bb-q5-RRG"/>
+                                    <constraint firstAttribute="width" constant="25" id="WSR-AX-kOu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallClipRotate"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="1" green="0.24104946369999999" blue="0.1474422219" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -417,13 +413,13 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-Wx-o1n">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게스트 로그인을 해도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWU-49-6to">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정을 만들지 않아도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWU-49-6to">
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur6-un-kHI" userLabel="아르카나 검색.">
-                                        <string key="text">아르카나 검색 기록, 즐겨찾기 등 맞춤화 기능을 쓸 수 있고,
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ur6-un-kHI" userLabel="아르카나 검색.">
+                                        <string key="text">아르카나 검색 기록, 즐겨찾기 사용할 수 있고
 나중에 계정 생성해도 정보를 이전할 수 있습니다.</string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                                         <nil key="textColor"/>
@@ -439,7 +435,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZA-0g-z46">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="7ZA-0g-z46">
                                         <string key="text">계정을 만들면 아르카나 정보 수정 권한이 주어지고
 여러 기기를 사용할 경우 데이터가 유지됩니다.</string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
@@ -453,16 +449,16 @@
                                     <constraint firstItem="UWU-49-6to" firstAttribute="top" secondItem="7ZA-0g-z46" secondAttribute="bottom" constant="30" id="6nn-b8-71J"/>
                                     <constraint firstAttribute="trailing" secondItem="jiq-Rf-ITe" secondAttribute="trailing" constant="10" id="7PS-Om-fNY"/>
                                     <constraint firstAttribute="trailing" secondItem="yD6-yV-mUH" secondAttribute="trailing" constant="10" id="7d5-TD-sUN"/>
-                                    <constraint firstAttribute="trailing" secondItem="ur6-un-kHI" secondAttribute="trailing" constant="10" id="84k-cb-R94"/>
-                                    <constraint firstAttribute="trailing" secondItem="7ZA-0g-z46" secondAttribute="trailing" constant="10" id="8GC-Bw-bBs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ur6-un-kHI" secondAttribute="trailing" constant="5" id="84k-cb-R94"/>
+                                    <constraint firstAttribute="trailing" secondItem="7ZA-0g-z46" secondAttribute="trailing" constant="5" id="8GC-Bw-bBs"/>
                                     <constraint firstItem="ur6-un-kHI" firstAttribute="top" secondItem="UWU-49-6to" secondAttribute="bottom" constant="5" id="8gG-z0-ra1"/>
                                     <constraint firstItem="jiq-Rf-ITe" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" id="MdP-Tu-j2D"/>
                                     <constraint firstItem="UWU-49-6to" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" id="WkJ-U1-EzP"/>
-                                    <constraint firstItem="ur6-un-kHI" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="X6B-uh-7Db"/>
+                                    <constraint firstItem="ur6-un-kHI" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="5" id="X6B-uh-7Db"/>
                                     <constraint firstItem="yD6-yV-mUH" firstAttribute="top" secondItem="1PF-Wx-o1n" secondAttribute="top" constant="10" id="X9f-Qy-MrF"/>
                                     <constraint firstItem="jiq-Rf-ITe" firstAttribute="top" secondItem="yD6-yV-mUH" secondAttribute="bottom" constant="20" id="czx-we-cnz"/>
                                     <constraint firstItem="7ZA-0g-z46" firstAttribute="top" secondItem="jiq-Rf-ITe" secondAttribute="bottom" constant="5" id="eCy-M4-M2I"/>
-                                    <constraint firstItem="7ZA-0g-z46" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="fb7-Tp-snh"/>
+                                    <constraint firstItem="7ZA-0g-z46" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="5" id="fb7-Tp-snh"/>
                                     <constraint firstItem="yD6-yV-mUH" firstAttribute="leading" secondItem="1PF-Wx-o1n" secondAttribute="leading" constant="10" id="iXb-6c-vDn"/>
                                     <constraint firstAttribute="bottom" secondItem="ur6-un-kHI" secondAttribute="bottom" constant="10" id="zp4-6m-AjH"/>
                                 </constraints>
@@ -475,10 +471,10 @@
                             <constraint firstItem="xUM-0s-ba9" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="B2x-MG-bU4"/>
                             <constraint firstAttribute="trailing" secondItem="2Yw-vR-blL" secondAttribute="trailing" constant="20" id="GYA-U5-f7C"/>
                             <constraint firstItem="xUM-0s-ba9" firstAttribute="top" secondItem="1PF-Wx-o1n" secondAttribute="bottom" constant="20" id="dhs-aT-KSh"/>
-                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leadingMargin" constant="10" id="gwK-3d-pd6"/>
+                            <constraint firstItem="1PF-Wx-o1n" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leadingMargin" constant="5" id="gwK-3d-pd6"/>
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="top" secondItem="xUM-0s-ba9" secondAttribute="bottom" constant="20" id="lCe-1d-qWr"/>
                             <constraint firstItem="2Yw-vR-blL" firstAttribute="leading" secondItem="WoB-X7-tuc" secondAttribute="leading" constant="20" id="qc3-Cb-N8K"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1PF-Wx-o1n" secondAttribute="trailing" constant="10" id="x9i-gl-ZVW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1PF-Wx-o1n" secondAttribute="trailing" constant="5" id="x9i-gl-ZVW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bzC-al-h35"/>
@@ -498,7 +494,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginNav" automaticallyAdjustsScrollViewInsets="NO" id="TzR-MG-d7b" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SSN-Gy-Jc4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SSN-Gy-Jc4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
