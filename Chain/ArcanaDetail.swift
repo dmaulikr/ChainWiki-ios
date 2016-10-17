@@ -206,9 +206,25 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 0 {
+                return 405
+            }
+            else {
+                return 50
+            }
+
+        default:
+            return UITableViewAutomaticDimension
+        }
+
+    }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch (indexPath as NSIndexPath).section {
+        switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
                 return 405
@@ -603,8 +619,10 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     
     func setupViews() {
-        
-        self.title = "\(arcana!.nameKR)"
+        guard let arcana = arcana else {
+            return
+        }
+        self.title = "\(arcana.nameKR)"
 //        self.tableView.backgroundColor = UIColor.white
     }
     

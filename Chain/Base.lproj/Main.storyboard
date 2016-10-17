@@ -113,28 +113,26 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="arcanaImage" rowHeight="406" id="f7O-Nb-RId" customClass="ArcanaImageCell" customModule="Chain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="65" width="375" height="406"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7O-Nb-RId" id="vNw-Vp-hmX">
                                             <frame key="frameInset" width="375" height="405.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
-                                                    <frame key="frameInset" width="1000" height="1000"/>
+                                                <imageView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-dU-04n">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="400" id="j4n-dh-8bS"/>
+                                                        <constraint firstAttribute="height" constant="400" id="77f-PE-hj8"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-CM-9fb" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                    <frame key="frameInset" width="1000" height="1000"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-CM-9fb" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <bool key="isElement" value="YES"/>
                                                     </accessibility>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="aWr-nH-aiE"/>
-                                                        <constraint firstAttribute="width" constant="25" id="fLI-jB-ssp"/>
+                                                        <constraint firstAttribute="height" constant="25" id="62Z-bS-Xo8"/>
+                                                        <constraint firstAttribute="width" constant="25" id="bvm-np-vhM"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallPulseSync"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallClipRotate"/>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                             <color key="value" red="0.82352941176470584" green="0.23921568627450981" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
@@ -146,12 +144,12 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="pZf-dU-04n" secondAttribute="trailing" id="6xD-xf-olN"/>
-                                                <constraint firstItem="pZf-dU-04n" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="CgG-bb-rAe"/>
-                                                <constraint firstItem="eRh-CM-9fb" firstAttribute="centerX" secondItem="pZf-dU-04n" secondAttribute="centerX" id="JSm-Qv-9Sb"/>
-                                                <constraint firstItem="eRh-CM-9fb" firstAttribute="centerY" secondItem="pZf-dU-04n" secondAttribute="centerY" id="Oh8-Fq-mbe"/>
-                                                <constraint firstAttribute="bottom" secondItem="pZf-dU-04n" secondAttribute="bottom" constant="5" id="wpq-hS-mX3"/>
-                                                <constraint firstItem="pZf-dU-04n" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" id="zHk-wh-5CR"/>
+                                                <constraint firstItem="pZf-dU-04n" firstAttribute="top" secondItem="vNw-Vp-hmX" secondAttribute="top" priority="999" constant="5" id="920-3Z-7YZ"/>
+                                                <constraint firstItem="pZf-dU-04n" firstAttribute="leading" secondItem="vNw-Vp-hmX" secondAttribute="leading" id="Jru-9j-YvT"/>
+                                                <constraint firstItem="eRh-CM-9fb" firstAttribute="centerY" secondItem="vNw-Vp-hmX" secondAttribute="centerY" id="LdM-pu-7KN"/>
+                                                <constraint firstItem="eRh-CM-9fb" firstAttribute="centerX" secondItem="vNw-Vp-hmX" secondAttribute="centerX" id="MgH-zz-ZN7"/>
+                                                <constraint firstAttribute="trailing" secondItem="pZf-dU-04n" secondAttribute="trailing" id="MqD-VM-IzX"/>
+                                                <constraint firstAttribute="bottom" secondItem="pZf-dU-04n" secondAttribute="bottom" id="dMU-WX-oUT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
