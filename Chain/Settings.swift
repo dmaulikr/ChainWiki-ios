@@ -14,9 +14,11 @@ import NVActivityIndicatorView
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
 
     var hasEmail = false
+    @IBOutlet weak var confirmation: UILabel!
     let defaults = UserDefaults.standard
     @IBOutlet weak var checkImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     @IBAction func logout(_ sender: AnyObject) {
         
@@ -285,16 +287,49 @@ extension Settings: UITextFieldDelegate {
             if let nick = textField.text {
                 if nick.characters.count >= 2 {
                     // check firebase for duplicate
+                    self.spinner.startAnimating()
                     let ref = FIREBASE_REF.child("nickName/\(nick)")
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         if snapshot.exists() {
-                            // user cannot change
-                            print("NICK ALREADY EXISTS")
+                            self.confirmation.backgroundColor = UIColor.yellow
+                            self.confirmation.textColor = UIColor.darkGray
+                            self.confirmation.text = "닉네임이 이미 존재합니다."
+                            
                         }
                         else {
-                            // change the nick
-                            print("CHANGED NICK")
+                            self.confirmation.backgroundColor = salmonColor
+                            self.confirmation.textColor = UIColor.white
+                            self.confirmation.text = "닉네임 변경 완료!"
+                            // upload to firebase
+                            
+                            let user = FIRAuth.auth()?.currentUser
+                            if let user = user {
+                                let changeRequest = user.profileChangeRequest()
+                                print("DISPLAYNAME WILL CHANGE TO \(nick)")
+                                changeRequest.displayName = nick
+                                changeRequest.commitChanges { error in
+                                    
+                                    if let _ = error {
+                                        // An error happened.
+                                    } else {
+                                        // Profile updated.
+                                        print("PROFILE UPDATED")
+                                        let nickRef = FIREBASE_REF.child("nickName/\(nick)")
+                                        nickRef.setValue(nick)
+                                        print("USERNICK USED TO BE \(userNick)")
+                                        if userNick != "" {
+                                            let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
+                                            oldNickRef.removeValue()
+                                        }
+                                        
+                                        self.defaults.setValue(nick, forKey: "nickName")
+                                        self.defaults.synchronize()
+                                    }
+                                }
+                            }
                         }
+                        self.spinner.stopAnimating()
+                        self.confirmation.fadeViewInThenOut(delay: 2)
                     })
                 }
                 else {

@@ -66,20 +66,18 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                 } else {
                     
                     let uid = user!.uid
-                    var nickName = ""
-                    for profile in user!.providerData {
-                        if let nick = profile.displayName {
-                            nickName = nick
-                        }
-
+                    print("ABOUT TO GET NICK FROM PROFILE")
+                    if let user = FIRAuth.auth()?.currentUser {
+                        let nickName = user.displayName
+                        self.defaults.setValue(uid, forKey: "uid")
+                        self.defaults.setValue(true, forKey: "edit")
+                        print(nickName)
+                        self.defaults.setValue(nickName, forKey: "nickName")
+                        
+                        // get favorites list
+                        self.changeRootView()
                     }
-                    self.defaults.setValue(uid, forKey: "uid")
-                    self.defaults.setValue(true, forKey: "edit")
-                    self.defaults.setValue(nickName, forKey: "nickName")
 
-                    
-                    self.changeRootView()
-                
                 }
                 self.loginSpinner.stopAnimating()
             }

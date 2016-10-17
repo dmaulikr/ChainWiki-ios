@@ -80,8 +80,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     @IBAction func edit(_ sender: AnyObject) {
         
-        let canEdit = defaults.object(forKey: "edit") as? String ?? String()
-        if canEdit == "true" {
+        let canEdit = defaults.bool(forKey: "edit")
+        if canEdit {
             print("ALLOWED TO EDIT, push view")
             self.performSegue(withIdentifier: "editArcana", sender: self)
             

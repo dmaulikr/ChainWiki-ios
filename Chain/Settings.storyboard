@@ -40,12 +40,32 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-LV-PmK">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UoD-2S-VJx">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="JyH-c9-5hX"/>
+                                    <constraint firstAttribute="height" constant="20" id="iwG-gm-JUw"/>
+                                </constraints>
+                                <color key="color" red="0.82352941180000006" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndb-So-LOl">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9c7-PT-nHr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ndb-So-LOl" firstAttribute="centerY" secondItem="D5F-ht-CUd" secondAttribute="centerY" id="4cR-eX-hn5"/>
                             <constraint firstItem="eTa-LV-PmK" firstAttribute="top" secondItem="qZE-7Y-Lg7" secondAttribute="bottom" constant="10" id="5uo-WS-MvS"/>
+                            <constraint firstAttribute="trailing" secondItem="ndb-So-LOl" secondAttribute="trailing" constant="20" id="Egi-8C-YqS"/>
                             <constraint firstAttribute="trailing" secondItem="eTa-LV-PmK" secondAttribute="trailing" id="H4T-KX-4xf"/>
+                            <constraint firstItem="UoD-2S-VJx" firstAttribute="centerX" secondItem="D5F-ht-CUd" secondAttribute="centerX" id="NLM-ss-TWu"/>
                             <constraint firstItem="IcB-ma-lEp" firstAttribute="top" secondItem="eTa-LV-PmK" secondAttribute="bottom" id="O4o-bH-pqh"/>
+                            <constraint firstItem="UoD-2S-VJx" firstAttribute="centerY" secondItem="D5F-ht-CUd" secondAttribute="centerY" id="ebs-Iy-QDx"/>
+                            <constraint firstItem="ndb-So-LOl" firstAttribute="leading" secondItem="D5F-ht-CUd" secondAttribute="leading" constant="20" id="ukO-w1-oST"/>
                             <constraint firstItem="eTa-LV-PmK" firstAttribute="leading" secondItem="D5F-ht-CUd" secondAttribute="leading" id="vXY-fQ-0rV"/>
                         </constraints>
                     </view>
@@ -57,6 +77,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="confirmation" destination="ndb-So-LOl" id="SLT-jC-AQ7"/>
+                        <outlet property="spinner" destination="UoD-2S-VJx" id="1fv-hV-wNF"/>
                         <outlet property="tableView" destination="eTa-LV-PmK" id="IP8-5G-JHG"/>
                     </connections>
                 </viewController>
