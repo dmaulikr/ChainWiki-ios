@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LicensesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,11 +52,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>25A94F15D657591C32A3659B9243EA0C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>333E47F1004946B94926B19979768D18</key>
 		<dict>
 			<key>primary</key>
@@ -67,12 +67,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
+		<key>8C3638A9A20DF7F2564348DD0D9462B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F6B7E98F34045CC168058D1623BE4413</key>
+		<key>9F77563B23536D311F468E587DAF2793</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A01B6714D9A692B8B65F15912AB3CB31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

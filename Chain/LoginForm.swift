@@ -66,15 +66,14 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                 } else {
                     
                     let uid = user!.uid
-                    print("ABOUT TO GET NICK FROM PROFILE")
                     if let user = FIRAuth.auth()?.currentUser {
                         let nickName = user.displayName
                         self.defaults.setValue(uid, forKey: "uid")
                         self.defaults.setValue(true, forKey: "edit")
-                        print(nickName)
                         self.defaults.setValue(nickName, forKey: "nickName")
                         
-                        // get favorites list
+                        getFavorites()
+                        
                         self.changeRootView()
                     }
 
@@ -199,6 +198,42 @@ extension String {
         } catch {
             return false
         }
+    }
+    
+}
+
+func getFavorites() {
+    
+    let defaults = UserDefaults.standard
+    if (defaults.bool(forKey: "initialLaunch")) {
+        // app already launched
+    }
+    else {
+        // This is the first launch ever
+        defaults.set(true, forKey: "initialLaunch")
+        defaults.synchronize()
+        
+        if let id = USERID {
+            
+            let ref = FIREBASE_REF.child("user/\(id)/favorites")
+            
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var uids = [String]()
+                
+                for child in snapshot.children {
+                    let arcanaID = (child as AnyObject).key as String
+                    uids.append(arcanaID)
+                }
+                
+                defaults.set(uids, forKey: "favorites")
+                defaults.synchronize()
+                
+            })
+            
+            
+        }
+        
     }
     
 }

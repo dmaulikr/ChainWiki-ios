@@ -10,13 +10,13 @@ import UIKit
 import Firebase
 import MessageUI
 import NVActivityIndicatorView
+import SafariServices
 
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
 
+    let defaults = UserDefaults.standard
     var hasEmail = false
     @IBOutlet weak var confirmation: UILabel!
-    let defaults = UserDefaults.standard
-    @IBOutlet weak var checkImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 
@@ -58,63 +58,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         }
         
     }
-    
-//    @IBAction func changeNick(_ sender: AnyObject) {
-//        
-//        self.checkImage.fadeOut(withDuration: 0.2)
-//        
-//        if let nick = nickName.text {
-//            if nick.characters.count < 2 {
-//                print("DISPLAY > 2")
-//                self.checkImage.image = #imageLiteral(resourceName: "fail")
-//                self.checkImage.fadeIn()
-//            }
-//            else {
-////                self.spinner.startAnimating()
-//                let checkNickRef = FIREBASE_REF.child("nickName/\(nick)")
-//                checkNickRef.observeSingleEvent(of: .value, with: { snapshot in
-//                    
-//                    if snapshot.exists() {
-//                        print("nick already exists")
-//                        self.checkImage.image = #imageLiteral(resourceName: "fail")
-////                        self.spinner.stopAnimating()
-//                        self.checkImage.fadeIn()
-//                    }
-//                    else {
-//                        // set new nickname
-//                        let user = FIRAuth.auth()?.currentUser
-//                        if let user = user {
-//                            let changeRequest = user.profileChangeRequest()
-//                            
-//                            changeRequest.displayName = nick
-//                            changeRequest.commitChanges { error in
-//                                if let _ = error {
-//                                    // An error happened.
-//                                    print("update nick error")
-//                                    self.checkImage.image = #imageLiteral(resourceName: "fail")
-//                                    self.checkImage.fadeIn()
-//                                } else {
-//                                    // Profile updated.
-//                                    self.checkImage.image = #imageLiteral(resourceName: "check")
-//                                    
-//                                    
-//                                }
-////                                self.spinner.stopAnimating()
-//                                self.checkImage.fadeIn()
-//                            }
-//                        }
-//                        
-//                        UserDefaults.standard.setValue(nick, forKey: "nickName")
-//                        
-//                        checkNickRef.setValue(true)
-//                    }
-//                })
-//            }
-//        }
-//        
-//        
-//        
-//    }
+
     
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -130,6 +74,8 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         case 0:
             header.sectionTitle.text = "계정"
         case 1:
+            header.sectionTitle.text = "소개"
+        case 2:
             header.sectionTitle.text = "지원"
         default:
             break
@@ -145,11 +91,19 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        
+        switch section {
+            
+        case 1:
+            return 2
+        default:
+            return 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,8 +123,19 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
                 cell.title.text = "이메일 전환"
             }
             
-            
         case 1:
+            switch indexPath.row {
+            case 0:
+                cell.icon.image = #imageLiteral(resourceName: "emailGray")
+                cell.title.text = "사이트 가기"
+            case 1:
+                cell.icon.image = #imageLiteral(resourceName: "emailGray")
+                cell.title.text = "출처"
+            default:
+                break
+            }
+            
+        case 2:
             cell.icon.image = #imageLiteral(resourceName: "emailGray")
             cell.title.text = "이메일 문의"
             
@@ -196,7 +161,18 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
                 goEmail()
                 
             }
+            
         case 1:
+            switch indexPath.row {
+            case 0:
+                print("OPEN SITE")
+                showTutorial()
+            case 1:
+                print("segue to credits")
+            default:
+                break
+            }
+        case 2:
             sendEmail(self)
             
         default:
@@ -313,10 +289,8 @@ extension Settings: UITextFieldDelegate {
                                         // An error happened.
                                     } else {
                                         // Profile updated.
-                                        print("PROFILE UPDATED")
                                         let nickRef = FIREBASE_REF.child("nickName/\(nick)")
                                         nickRef.setValue(nick)
-                                        print("USERNICK USED TO BE \(userNick)")
                                         if userNick != "" {
                                             let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
                                             oldNickRef.removeValue()
@@ -368,4 +342,13 @@ extension Settings: UITextFieldDelegate {
         
     }
     
+    func showTutorial() {
+        if let url = URL(string: "https://jitaek.github.io/ChainChronicleKoreaWiki/") {
+            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+            present(vc, animated: true)
+        }
+    }
+    
 }
+
+

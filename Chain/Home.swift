@@ -241,42 +241,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
         })
     }
-    
-    
-    func getFavorites() {
-        
-        if (defaults.bool(forKey: "initialLaunch")) {
-            // app already launched
-        }
-        else {
-            // This is the first launch ever
-            defaults.set(true, forKey: "initialLaunch")
-            defaults.synchronize()
-     
-            if let id = USERID {
-                
-                let ref = FIREBASE_REF.child("user/\(id)/favorites")
-                
-                ref.observeSingleEvent(of: .value, with: { snapshot in
-                    
-                    var uids = [String]()
-                    
-                    for child in snapshot.children {
-                        let arcanaID = (child as AnyObject).key as String
-                        uids.append(arcanaID)
-                    }
-                    
-                    self.defaults.set(uids, forKey: "favorites")
-                    self.defaults.synchronize()
-                   
-                })
-                
-                
-            }
-            
-        }
-       
-    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -298,7 +263,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
                 tableView.alpha = 0
             }
             else {
-                tableView.alpha = 1
+                tableView.fadeIn(withDuration: 0.2)
             }
             
             return searchArray.count

@@ -41,6 +41,7 @@ PODS:
   - GoogleSymbolUtilities (1.1.2)
   - GoogleUtilities (1.3.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - LicensesViewController (0.6.0)
   - NVActivityIndicatorView (3.0)
   - SkyFloatingLabelTextField (1.2.1)
 
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - LicensesViewController (~> 0.6.0)
   - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `master`)
   - SkyFloatingLabelTextField (from `https://github.com/MLSDev/SkyFloatingLabelTextField`, branch `swift3`)
 
@@ -83,9 +85,10 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
   NVActivityIndicatorView: 19c0c7549ffe4f830f65d00b2f0d9a144e4c5105
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
 
-PODFILE CHECKSUM: 85119803c6d3d86977bdbe0570442c43e00a77ac
+PODFILE CHECKSUM: d38425db17229b5c8c5cfe3903f13b8e126654d5
 
 COCOAPODS: 1.1.0.rc.3

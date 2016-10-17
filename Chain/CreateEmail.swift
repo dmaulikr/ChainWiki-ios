@@ -63,6 +63,29 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                 FIRAuth.auth()?.currentUser?.link(with: credential) { (user, error) in
                                     if error != nil {
                                         print("ERROR LINKING TO EMAIL")
+                                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                                            switch (errorCode) {
+                                                
+                                            case .errorCodeEmailAlreadyInUse:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "이메일이 이미 사용 중입니다."
+                                                
+                                            case .errorCodeInvalidEmail:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "이메일이 올바르지 않습니다."
+                                                
+                                            case .errorCodeWeakPassword:
+                                                self.errorLabel.fadeOut(withDuration: 0.2)
+                                                self.errorLabel.fadeIn(withDuration: 0.5)
+                                                self.errorLabel.text = "비밀번호가 약합니다."
+                                                
+                                            default:
+                                                print("some other error")
+                                            }
+                                        }
+                                        
                                     }
                                     else {
                                         print("successfully linked email!")

@@ -20,6 +20,7 @@ target 'Chain' do
     # pod 'Canvas', '~> 0.1.2'
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
     pod 'SkyFloatingLabelTextField', :git => 'https://github.com/MLSDev/SkyFloatingLabelTextField', :branch => 'swift3'
+    pod 'LicensesViewController', '~> 0.6.0'
   # Pods for Chain
 
   target 'ChainTests' do

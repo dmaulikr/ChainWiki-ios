@@ -17,6 +17,7 @@
 		04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04349D101DACD79600216141 /* ArcanaEditList.swift */; };
 		04349D131DACD9FF00216141 /* ArcanaEditListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04349D121DACD9FF00216141 /* ArcanaEditListCell.xib */; };
 		04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */; };
+		043523921DB45937004D96A3 /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 043523911DB45937004D96A3 /* credits.py */; };
 		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
 		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
 		0447E1D61D87D05200670834 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* AbilityView.swift */; };
@@ -133,6 +134,7 @@
 		04349D101DACD79600216141 /* ArcanaEditList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditList.swift; sourceTree = "<group>"; };
 		04349D121DACD9FF00216141 /* ArcanaEditListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaEditListCell.xib; sourceTree = "<group>"; };
 		04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditListCell.swift; sourceTree = "<group>"; };
+		043523911DB45937004D96A3 /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = credits.py; path = "../../../Downloads/LicenseGenerator-iOS-master/credits.py"; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
 		0447E1D51D87D05200670834 /* AbilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 		04A2ECC61D6F80C800189142 /* etc */ = {
 			isa = PBXGroup;
 			children = (
+				043523911DB45937004D96A3 /* credits.py */,
 				04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */,
 			);
 			name = etc;
@@ -610,6 +613,7 @@
 				04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */,
 				049CF7461D95DC4800B283EC /* GoogleService-Info.plist in Resources */,
 				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,
+				043523921DB45937004D96A3 /* credits.py in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
 				04349D131DACD9FF00216141 /* ArcanaEditListCell.xib in Resources */,
 			);
