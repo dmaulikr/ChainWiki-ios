@@ -29,9 +29,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     var showNavBar = true
     var navTitle = ""
     var downloadTavern = false
-    
+//    var filterViewFrame = CGRect()
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var filterViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var filterViewLeading: NSLayoutConstraint!
     
     func setupBarButtons() {
         
@@ -122,8 +124,14 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             searchController.isActive = false
         }
         if filterView.alpha == 0.0 {
-            filterView.frame = CGRect(x: 95 , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
-            // TODO: if it was previously slided, make it appear in original position.
+            
+//            // Different frame based on device
+//            switch SCREENWIDTH {
+//                
+//            }
+//            filterView.frame = CGRect(x: 95 , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
+
+            
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.filterView.alpha = 1.0
                 }, completion: nil)
@@ -419,6 +427,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        filterViewFrame = filterView.frame
         setupBarButtons()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
@@ -438,7 +447,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-        self.filterView.addGestureRecognizer(panGestureRecognizer)
+//        self.filterView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
 //        self.view.addGestureRecognizer(panGestureRecognizer)
         gesture.cancelsTouchesInView = false

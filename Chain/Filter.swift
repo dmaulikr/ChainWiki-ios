@@ -19,8 +19,15 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     weak var delegate: FilterDelegate?
 
     @IBOutlet weak var collectionView: UICollectionView!
-    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+    
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
     fileprivate let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
+    let cellSpacingInsets = CGFloat(4)
+    let numberOfCells = CGFloat(5)
+    var cellSize = CGFloat()
+    var cellSizeTavern = CGFloat()
+    var clearFilterSize = CGFloat()
+    
     var hasFilter = false
     var array = [Arcana]()
 
@@ -256,7 +263,6 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         // Do any additional setup after loading the view.
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -271,16 +277,23 @@ extension Filter : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 414
-       let inset = CGFloat(127)
-        switch (indexPath as NSIndexPath).section {
+//        let inset = CGFloat(95) // cell spacing inset is 1 * number of cells(4) = 4
+        
+//        let totalInset = CGFloat(127)   // cell spacing, plus two side section insets
+        
+        
+        cellSize = (self.view.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/numberOfCells
+        cellSizeTavern = (self.view.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/4
+        clearFilterSize = self.view.frame.width - sectionInsets.left * 2
+        switch indexPath.section {
         case 0,1,2:
-            return CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
+            return CGSize(width: cellSize, height: cellSize)
             
         case 3:
-            return CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
+            return CGSize(width: cellSizeTavern, height: cellSize)
             
         default:
-            return CGSize(width: (SCREENWIDTH-inset), height: (SCREENWIDTH-inset)/5)
+            return CGSize(width: clearFilterSize, height: cellSize)
         }
         
     }
@@ -290,29 +303,9 @@ extension Filter : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAt section: Int) -> UIEdgeInsets {
         
-//        let inset = CGFloat(127)
-//        let cellSize = CGSize(width: (SCREENWIDTH-inset)/5, height: (SCREENWIDTH-inset)/5)
-//        let affCellSize = CGSize(width: (SCREENWIDTH-inset)/4, height: (SCREENWIDTH-inset)/5)
-
-//        var count = CGFloat(0)
-//        var totalCellWidth = CGFloat(0)
-//        var totalSpacingWidth = CGFloat(0)
-//        switch section {
-//        case 0,1,2:
-//            count = CGFloat(5)
-//            totalCellWidth = cellSize.width * count
-//            totalSpacingWidth = (count - 1)
-//        default:
-//            count = CGFloat(4)
-//            totalCellWidth = affCellSize.width * count
-//            totalSpacingWidth = (count - 1)
-//            
-//        }
-//        
-        
         switch section {
         case 0: // This one needs higher top inset
-            return UIEdgeInsetsMake(10, 14, 5, 14)
+            return sectionInsets
         default:
             return UIEdgeInsetsMake(5, 14, 5, 14)
         }
