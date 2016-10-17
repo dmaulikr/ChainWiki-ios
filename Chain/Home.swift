@@ -55,6 +55,11 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     
     @IBAction func sort(_ sender: AnyObject) {
+        
+        guard let button = sender as? UIView else {
+            return
+        }
+        
         if searchController.isActive {
             searchController.isActive = false
         }
@@ -107,12 +112,18 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
         alertController.addAction(views)
         
-//        let viewed = UIAlertAction(title: "최근본순", style: .default, handler: nil)
-//        alertController.addAction(viewed)
+
         alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
             (alertAction: UIAlertAction!) in
             alertController.dismiss(animated: true, completion: nil)
         }))
+        
+        if let presenter = alertController.popoverPresentationController {
+            presenter.sourceView = button
+            presenter.sourceRect = button.bounds
+        }
+        
+
         
         present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = salmonColor
@@ -285,7 +296,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return 90
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -441,17 +452,22 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         syncArcana()
 
         tableView.estimatedRowHeight = 90
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.rowHeight = UITableViewAutomaticDimension
         searchView.alpha = 0
         filterView.alpha = 0.0
-        gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+            self.view.addGestureRecognizer(gesture)
+        }
+        
         longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
 //        self.filterView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
 //        self.view.addGestureRecognizer(panGestureRecognizer)
         gesture.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(gesture)
+        
 //        self.view.addGestureRecognizer(panGestureRecognizer)
         // UISearchController methods
         /*
