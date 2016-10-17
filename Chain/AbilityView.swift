@@ -106,7 +106,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             
         }
         
-        print("REF IS \(refPrefix)\(refSuffix)")
+//        print("REF IS \(refPrefix)\(refSuffix)")
         let ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -137,7 +137,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             }
             
             self.group.notify(queue: DispatchQueue.main, execute: {
-                print("Finished all requests.")
+//                print("Finished all requests.")
                 self.arcanaArray = array
                 self.currentArray = self.arcanaArray.filter({$0.group == "전사"})
                 self.tableView.reloadData()

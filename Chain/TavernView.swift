@@ -146,7 +146,6 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             
             
             let vc = segue.destination as! TavernHomeView
-            print("CONVERT \(tavernRef)")
             vc.navTitle = tavernRef
             vc.tavern = convertTavern(tavern: tavernRef)
         }
