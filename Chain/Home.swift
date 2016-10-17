@@ -519,9 +519,9 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
     }
 //    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        searchController.isActive = false
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        searchController.isActive = false
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
