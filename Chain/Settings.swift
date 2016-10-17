@@ -11,6 +11,7 @@ import Firebase
 import MessageUI
 import NVActivityIndicatorView
 import SafariServices
+import LicensesViewController
 
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
 
@@ -168,7 +169,8 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
                 print("OPEN SITE")
                 showTutorial()
             case 1:
-                print("segue to credits")
+                print("segue to licenses")
+                self.performSegue(withIdentifier: "toLicenses", sender: self)
             default:
                 break
             }
@@ -241,6 +243,14 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toLicenses" {
+            if let destinationVC = segue.destination as? LicensesViewController {
+                destinationVC.loadPlist(Bundle.main, resourceName: "Credits")
+            }
+        }
     }
 
 }
