@@ -288,7 +288,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             return searchArray.count
         }
         
-        return 10
+        return arcanaArray.count
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

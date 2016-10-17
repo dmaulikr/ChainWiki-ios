@@ -48,7 +48,7 @@ class ChainUITests: XCTestCase {
         tabBarsQuery.buttons["아르카나"].tap()
         tablesQuery.cells.containing(.staticText, identifier:"제파르").staticTexts["#마신"].tap()
         
-        let arcanaDetailQuery = XCUIApplication().tables
+        let arcanaDetailQuery = app.tables
         let staticText = arcanaDetailQuery.children(matching: .cell).element(boundBy: 0).children(matching: .staticText).element
         staticText.tap()
         snapshot("ArcanaImage")
