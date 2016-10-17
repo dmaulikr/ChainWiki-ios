@@ -271,7 +271,8 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        
+        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         downloadArray()
         segmentedControl.selectedSegmentIndex = 0
         // Do any additional setup after loading the view.

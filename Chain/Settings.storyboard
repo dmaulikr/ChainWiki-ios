@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="-492" y="62"/>
         </scene>
-        <!--출처-->
+        <!--허가서-->
         <scene sceneID="OFk-G0-gSc">
             <objects>
                 <viewController id="qtk-5A-q05" customClass="LicensesViewController" customModule="LicensesViewController" sceneMemberID="viewController">
@@ -100,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="출처" id="oja-Nv-7Hq"/>
+                    <navigationItem key="navigationItem" title="허가서" id="oja-Nv-7Hq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nee-sL-UhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -304,7 +304,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
         // Do any additional setup after loading the view.
     }
     
