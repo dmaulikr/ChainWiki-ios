@@ -65,7 +65,7 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             return headerView
         }
         
-        assert(false, "unexpected element kind")
+        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

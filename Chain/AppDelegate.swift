@@ -33,11 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = lightGreenColor
         
         
+        
         if UserDefaults.standard.value(forKey: "uid") == nil {
             print("no user signed in")
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
             
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()

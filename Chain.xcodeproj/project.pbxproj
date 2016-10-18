@@ -70,6 +70,8 @@
 		04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04CDAF221DB1AD6C00F659BA /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */; };
+		04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594C1DB60A1200D30C21 /* PageViewController.swift */; };
+		04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
 		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
 		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
@@ -122,8 +124,6 @@
 		0401B2871D75386C00A0A728 /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
 		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
-		0406BDDD1D8BE3060085F4D8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		0406BDDE1D8BE3060085F4D8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0406BDDF1D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
@@ -195,6 +195,8 @@
 		04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		04D6594C1DB60A1200D30C21 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
 		04DD91131D8669B50023CDA4 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
@@ -251,6 +253,8 @@
 			isa = PBXGroup;
 			children = (
 				04DD91131D8669B50023CDA4 /* Login.storyboard */,
+				04D6594C1DB60A1200D30C21 /* PageViewController.swift */,
+				04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */,
 				04EDE6F21D9377CA005731B9 /* LoginHome.swift */,
 				042835011D91EE250043BE6E /* LoginForm.swift */,
 				04EDE6F41D937AF2005731B9 /* CreateEmail.swift */,
@@ -565,12 +569,14 @@
 					};
 					04A2ECA71D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 04A2EC901D6F7FA300189142;
 					};
 					04A2ECB21D6F7FA300189142 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 04A2EC901D6F7FA300189142;
@@ -582,7 +588,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = 04A2EC881D6F7FA300189142;
@@ -842,9 +847,11 @@
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
 				04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
+				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				0479501C1D9A4BDB00205A3C /* ArcanaProfileCell.swift in Sources */,
+				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,
@@ -890,7 +897,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				04A2EC991D6F7FA300189142 /* Base */,
-				0406BDDD1D8BE3060085F4D8 /* ja */,
 				0406BDDF1D8BE3270085F4D8 /* ko */,
 			);
 			name = Main.storyboard;
@@ -900,7 +906,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				04A2ECA11D6F7FA300189142 /* Base */,
-				0406BDDE1D8BE3060085F4D8 /* ja */,
 				0406BDE01D8BE3270085F4D8 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
@@ -930,9 +935,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -980,9 +987,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1013,6 +1022,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = Chain/Info.plist;
@@ -1021,6 +1031,8 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1036,6 +1048,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1045,6 +1058,8 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1057,7 +1072,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainTests;
@@ -1074,7 +1089,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ChainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainTests;
@@ -1090,7 +1105,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainUITests;
@@ -1106,7 +1121,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ChainUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.ChainUITests;

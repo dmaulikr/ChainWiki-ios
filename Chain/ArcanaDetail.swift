@@ -573,7 +573,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     return cell
                 }
                 else {
-                    assert(false, "unexpected element kind")
+                    return UITableViewCell()
                 }
                 
             default:
@@ -586,7 +586,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
                 
                 else {
-                    assert(false, "unexpected element kind")
+                    return UITableViewCell()
                 }
             }
             

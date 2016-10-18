@@ -39,7 +39,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
 
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
             UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
                 self.view.window!.rootViewController = initialViewController
                 }, completion: nil)
