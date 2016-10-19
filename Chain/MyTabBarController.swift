@@ -6,10 +6,10 @@
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 import UIKit
-
 class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
+//        super.viewDidLoad()
         self.delegate = self
         
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
