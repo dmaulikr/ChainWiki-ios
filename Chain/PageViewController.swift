@@ -9,20 +9,19 @@
 import UIKit
 
 class PageViewController: UIPageViewController {
-    let photos = [#imageLiteral(resourceName: "HomeView"), #imageLiteral(resourceName: "TavernView"), #imageLiteral(resourceName: "AbilityView")]
-    let descs = ["종류별로 아르카나를 검색", "주점 가챠 목록도 볼 수 있습니다.", "어빌리티별로 아르카나 검색도 가능합니다.", "아르카나 정보를 수정할 수 있습니다."]
+    let photos = [#imageLiteral(resourceName: "PreviewFilter"), #imageLiteral(resourceName: "PreviewAbility"), #imageLiteral(resourceName: "PreviewEdit")]
+    let descs = ["종류별로 아르카나 검색.", "어빌리티별로 아르카나 검색.", "아르카나 정보 수정."]
     var currentIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = gray247Color
         dataSource = self
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-//        setupPageController()
-        // 1
+
         if let viewController = viewTutorialController(index: currentIndex ?? 0) {
             let viewControllers = [viewController]
-            // 2
+
             setViewControllers(
                 viewControllers,
                 direction: .forward,
@@ -85,12 +84,5 @@ extension PageViewController: UIPageViewControllerDataSource {
         }
         return nil
     }
-    
-//    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-//        return photos.count
-//    }
-//    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-//        return currentIndex ?? 0
-//    }
 
 }

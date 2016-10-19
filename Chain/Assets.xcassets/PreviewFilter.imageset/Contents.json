@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iPhone6-Tavern.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "PreviewFilter.png",
       "scale" : "2x"
     },
     {

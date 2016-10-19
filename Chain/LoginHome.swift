@@ -43,8 +43,8 @@ class LoginHome: UIViewController {
     }
     
     func setupViews() {
-        let text = "이메일 계정을 생성할 경우에만 아르카나 정보 수정 권한이 주어집니다."
-        let highlightText = "아르카나 정보 수정 권한"
+        let text = "계정이 필요한 유일한 이유는 아르카나 수정입니다. 수정할 생각이 없으면 게스트 로그인을 이용하세요."
+        let highlightText = "유일한 이유"
         let range = (text as NSString).range(of: highlightText)
         
         let attributedString = NSMutableAttributedString(string:text)
@@ -52,7 +52,7 @@ class LoginHome: UIViewController {
         
         self.accountDesc.attributedText = attributedString
         
-        accountIntro.text = "계정 선택"
+        accountIntro.text = "계정 유형 선택"
         
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
