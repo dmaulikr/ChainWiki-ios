@@ -11,26 +11,26 @@ import Firebase
 struct Arcana: Equatable, Hashable {
     
     var uid: String
-    var nameKR: String?
+    var nameKR: String
     var nickNameKR: String?
-    var nameJP: String?
+    var nameJP: String
     var nickNameJP: String?
-    var rarity: String?
-    var group: String?  // Class, 직업
-    var tavern: String?  // 주점
+    var rarity: String
+    var group: String  // Class, 직업
+    var tavern: String  // 주점
     var affiliation: String? // 소속
-    var cost: String?
-    var weapon: String?
+    var cost: String
+    var weapon: String
 
-    var kizunaName: String?
-    var kizunaCost: String?
-    var kizunaDesc: String?
+    var kizunaName: String
+    var kizunaCost: String
+    var kizunaDesc: String
     
-    var skillCount : String?
+    var skillCount : String
     
-    var skillName1 : String?
-    var skillMana1 : String?
-    var skillDesc1 : String?
+    var skillName1 : String
+    var skillMana1 : String
+    var skillDesc1 : String
     
     var skillName2 : String?
     var skillMana2 : String?
@@ -219,7 +219,7 @@ struct Arcana: Equatable, Hashable {
         let editKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc"]
         var arcanaDict = [String]()
         
-        var arcana = self
+        let arcana = self
         
         let mirrored_object = Mirror(reflecting: arcana)
         

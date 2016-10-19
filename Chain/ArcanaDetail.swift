@@ -151,7 +151,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             // Returning 2 * skillCount for description.
         
-            switch arcana.skillCount ?? "" {
+            switch arcana.skillCount {
             case "1":
                 return 2
             case "2":

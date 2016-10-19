@@ -15,7 +15,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
     
     let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName1", "skillMana2", "skillDesc2", "skillName1", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
 
-    var arcana: ArcanaEdit?
+    var arcana: ArcanaEditModel?
     var editor: String?
     var edits = [String : String]()
     @IBOutlet weak var tableView: UITableView!
@@ -30,7 +30,8 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
                 return
             }
             print("reporting user...")
-            let editRef = arcana.ref
+
+            let editRef = arcana.arcanaRef!
             
             editRef.observeSingleEvent(of: .value, with: { snapshot in
                 
@@ -83,45 +84,45 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         switch indexPath.row {
             
         case 0:
-            cell.attribute.text = arcana.nameKR
+            cell.attribute.text = arcana.arcana.nameKR
         case 1:
-            cell.attribute.text = arcana.nickNameKR
+            cell.attribute.text = arcana.arcana.nickNameKR
         case 2:
-            cell.attribute.text = arcana.nameJP
+            cell.attribute.text = arcana.arcana.nameJP
         case 3:
-            cell.attribute.text = arcana.nickNameJP
+            cell.attribute.text = arcana.arcana.nickNameJP
         case 4:
-            cell.attribute.text = arcana.skillName1
+            cell.attribute.text = arcana.arcana.skillName1
         case 5:
-            cell.attribute.text = arcana.skillMana1
+            cell.attribute.text = arcana.arcana.skillMana1
         case 6:
-            cell.attribute.text = arcana.skillDesc1
+            cell.attribute.text = arcana.arcana.skillDesc1
         case 7:
-            cell.attribute.text = arcana.skillName2
+            cell.attribute.text = arcana.arcana.skillName2
         case 8:
-            cell.attribute.text = arcana.skillMana2
+            cell.attribute.text = arcana.arcana.skillMana2
         case 9:
-            cell.attribute.text = arcana.skillDesc2
+            cell.attribute.text = arcana.arcana.skillDesc2
         case 10:
-            cell.attribute.text = arcana.skillName3
+            cell.attribute.text = arcana.arcana.skillName3
         case 11:
-            cell.attribute.text = arcana.skillMana3
+            cell.attribute.text = arcana.arcana.skillMana3
         case 12:
-            cell.attribute.text = arcana.skillDesc3
+            cell.attribute.text = arcana.arcana.skillDesc3
         case 13:
-            cell.attribute.text = arcana.abilityName1
+            cell.attribute.text = arcana.arcana.abilityName1
         case 14:
-            cell.attribute.text = arcana.abilityDesc1
+            cell.attribute.text = arcana.arcana.abilityDesc1
         case 15:
-            cell.attribute.text = arcana.abilityName2
+            cell.attribute.text = arcana.arcana.abilityName2
         case 16:
-            cell.attribute.text = arcana.abilityDesc2
+            cell.attribute.text = arcana.arcana.abilityDesc2
         case 17:
-            cell.attribute.text = arcana.kizunaName
+            cell.attribute.text = arcana.arcana.kizunaName
         case 18:
-            cell.attribute.text = arcana.kizunaCost
+            cell.attribute.text = arcana.arcana.kizunaCost
         default:
-            cell.attribute.text = arcana.kizunaDesc
+            cell.attribute.text = arcana.arcana.kizunaDesc
             
         }
         
@@ -148,7 +149,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "ArcanaDetailEditCell", bundle: nil), forCellReuseIdentifier: "arcanaDetailEditCell")
         
-        self.title = arcana?.nameKR
+        self.title = arcana?.arcana.nameKR
         self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has
     }

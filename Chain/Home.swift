@@ -69,7 +69,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
-            self.arcanaArray = self.arcanaArray.sorted(by: {($0.nameKR ?? "") < ($1.nameKR ?? "")})
+            self.arcanaArray = self.arcanaArray.sorted(by: {($0.nameKR) < ($1.nameKR)})
             self.tableView.reloadData()
             
         })

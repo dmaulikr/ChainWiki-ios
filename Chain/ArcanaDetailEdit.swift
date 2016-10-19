@@ -230,7 +230,16 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         print(textView.tag)
         print(originalAttributes[textView.tag])
         if textView.text != originalAttributes[textView.tag] {
-            edits.updateValue(textView.text, forKey: "\(firebaseKeys[row])")
+            // ERROR. used to have value, but user deleted completely.
+            if originalAttributes[textView.tag] != "" && textView.text == "" {
+                //replace empty with original
+                textView.text = originalAttributes[textView.tag]
+                showAlert(title: "잠깐!", message: "정보를 삭제할 수 없습니다.")
+            }
+            else {
+                edits.updateValue(textView.text, forKey: "\(firebaseKeys[row])")
+            }
+            
         }
         else {
             edits.removeValue(forKey: "\(firebaseKeys[row])")

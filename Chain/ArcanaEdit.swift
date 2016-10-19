@@ -176,7 +176,7 @@ struct ArcanaEdit {
         
         var arcanaDict = [String]()
         
-        var arcana = self
+        let arcana = self
         
         let mirrored_object = Mirror(reflecting: arcana)
         

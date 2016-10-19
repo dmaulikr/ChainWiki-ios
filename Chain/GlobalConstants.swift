@@ -100,6 +100,21 @@ extension UIViewController {
     func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.view.tintColor = salmonColor
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { (action) in }
+        
+        alert.addAction(confirmAction)        
+        
+        self.present(alert, animated: true) {
+            alert.view.tintColor = salmonColor
+        }
+    }
 }
 
 public extension UIView {
