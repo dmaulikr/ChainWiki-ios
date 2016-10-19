@@ -33,7 +33,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     
     @IBAction func emailLogin(_ sender: AnyObject) {
-        
+        self.view.endEditing(true)
         let email = self.email.text
         let pw = password.text
         

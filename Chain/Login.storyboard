@@ -30,16 +30,9 @@
                                     <action selector="createEmail:" destination="Sfy-DY-SVz" eventType="touchUpInside" id="hMx-To-KRF"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="flS-di-HAd">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="Kt0-qS-cFE"/>
-                                    <constraint firstAttribute="width" constant="25" id="blF-aP-eHe"/>
-                                </constraints>
-                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmU-yg-DCU">
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
@@ -64,8 +57,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
@@ -90,8 +82,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호 확인"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
@@ -116,8 +107,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="닉네임"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <frame key="frameInset" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0v7-c8-Tzr" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="이메일"/>
@@ -169,17 +159,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZT-H4-fmM" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="jCg-22-2Ch"/>
+                                    <constraint firstAttribute="width" constant="25" id="kuZ-mM-Wo5"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="BallClipRotate"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="1" green="0.24104946369999999" blue="0.1474422219" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="flS-di-HAd" firstAttribute="centerY" secondItem="lGs-sG-I37" secondAttribute="centerY" id="1qb-zJ-KXB"/>
+                            <constraint firstItem="PZT-H4-fmM" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="1d6-Cc-XJD"/>
                             <constraint firstItem="1zh-dH-lCX" firstAttribute="top" secondItem="KmU-yg-DCU" secondAttribute="bottom" constant="20" id="A0I-pz-8f3"/>
                             <constraint firstItem="KmU-yg-DCU" firstAttribute="top" secondItem="LDG-fL-TKw" secondAttribute="bottom" constant="20" id="DYp-AZ-VKY"/>
                             <constraint firstItem="1zh-dH-lCX" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="FwN-TU-9vI"/>
-                            <constraint firstItem="flS-di-HAd" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="GaL-mV-shO"/>
                             <constraint firstItem="KmU-yg-DCU" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="LsJ-Wi-zWC"/>
                             <constraint firstItem="Duz-aX-kXW" firstAttribute="top" secondItem="Hap-B0-ufd" secondAttribute="bottom" constant="20" id="N3m-Eq-ahu"/>
                             <constraint firstAttribute="trailing" secondItem="1zh-dH-lCX" secondAttribute="trailing" constant="20" id="V3O-Zy-gts"/>
+                            <constraint firstItem="PZT-H4-fmM" firstAttribute="centerY" secondItem="lGs-sG-I37" secondAttribute="centerY" id="fGJ-8u-nF7"/>
                             <constraint firstAttribute="trailing" secondItem="Hap-B0-ufd" secondAttribute="trailing" constant="20" id="fLJ-sg-Hdf"/>
                             <constraint firstItem="Hap-B0-ufd" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="20" id="iLu-hE-yLB"/>
                             <constraint firstAttribute="trailing" secondItem="KmU-yg-DCU" secondAttribute="trailing" constant="20" id="tD7-J5-NWl"/>
@@ -192,6 +196,7 @@
                         <outlet property="nickname" destination="Wia-oD-Pcz" id="Iwf-ui-Q98"/>
                         <outlet property="password" destination="2yA-ng-bIe" id="gzO-0d-m9G"/>
                         <outlet property="passwordConfirm" destination="Kyn-lM-c0F" id="Y0B-7z-5HX"/>
+                        <outlet property="spinner" destination="PZT-H4-fmM" id="2C3-UK-yDF"/>
                         <outletCollection property="floatingTextFields" destination="0v7-c8-Tzr" collectionClass="NSMutableArray" id="2fh-f7-DJ1"/>
                         <outletCollection property="floatingTextFields" destination="2yA-ng-bIe" collectionClass="NSMutableArray" id="kmH-Oe-PPk"/>
                         <outletCollection property="floatingTextFields" destination="Kyn-lM-c0F" collectionClass="NSMutableArray" id="Wtj-3y-Xo3"/>

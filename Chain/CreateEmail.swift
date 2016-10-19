@@ -10,6 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseAuth
 import Firebase
+import NVActivityIndicatorView
 
 class CreateEmail: UIViewController, UITextFieldDelegate {
 
@@ -20,10 +21,12 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordConfirm: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var nickname: SkyFloatingLabelTextFieldWithIcon!
     var signedIn = false
+    @IBOutlet weak var spinner: NVActivityIndicatorView!
     
     @IBAction func createEmail(_ sender: AnyObject) {
 
         self.view.endEditing(true)
+        
         if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text, let nickname = self.nickname.text {
         
             if password == "" || passwordConfirm == "" {
@@ -36,14 +39,16 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                 errorLabel.fadeOut(withDuration: 0.2)
                 errorLabel.fadeIn(withDuration: 0.5)
                 errorLabel.text = "닉네임은 2자 이상이 필요합니다."
+                spinner.stopAnimating()
             }
             else if password != passwordConfirm {
                 errorLabel.fadeOut(withDuration: 0.2)
                 errorLabel.fadeIn(withDuration: 0.5)
-                    errorLabel.text = "비밀번호가 맞지 않습니다."
+                errorLabel.text = "비밀번호가 맞지 않습니다."
+                spinner.stopAnimating()
                 }
                 else {
-                    
+                    spinner.startAnimating()
                     let nickNameRef = FIREBASE_REF.child("nickName/\(nickname)")
                     nickNameRef.observeSingleEvent(of: .value, with: { snapshot in
                         
@@ -51,12 +56,13 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                             self.errorLabel.fadeOut(withDuration: 0.2)
                             self.errorLabel.fadeIn(withDuration: 0.5)
                             self.errorLabel.text = "닉네임이 이미 사용 중입니다."
+                            self.spinner.stopAnimating()
                         }
                         else {
                             
                             if self.signedIn == true {
                                 //link account to new email
-                                print("linking to email...")
+//                                print("linking to email...")
                                 
                                 let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: password)
                                 
@@ -84,11 +90,13 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                             default:
                                                 print("some other error")
                                             }
+                                            self.spinner.stopAnimating()
                                         }
                                         
                                     }
                                     else {
-                                        print("successfully linked email!")
+//                                        print("successfully linked email!")
+                                        self.spinner.stopAnimating()
                                         let uid = user!.uid
                                         
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
@@ -142,11 +150,13 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                             default:
                                                 print("some other error")
                                             }
+                                            self.spinner.stopAnimating()
                                         }
                                     }
                                     else {
                                         
-                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+//                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+                                        self.spinner.stopAnimating()
                                         let uid = user!.uid
                                         
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
