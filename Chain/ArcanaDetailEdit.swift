@@ -16,6 +16,8 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
     var arcana: Arcana?
 //    var arcanaEdit: ArcanaEdit?
     var edits = [String : String]()
+    var originalAttributes = [String]()
+    
     @IBOutlet weak var tableView: UITableView!
     var rowBeingEdited : Int? = nil
     @IBOutlet weak var alert: UILabel!
@@ -57,9 +59,10 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             alert.text = "수정된 정보가 없었습니다."
         }
         else {
-            alert.backgroundColor = salmonColor
-            alert.textColor = UIColor.white
-            alert.text = "아르카나 수정 완료!"
+//            alert.backgroundColor = salmonColor
+//            alert.textColor = UIColor.white
+//            alert.text = "아르카나 수정 완료!"
+            backTwo()
         }
         
         alert.fadeViewInThenOut(delay: 2)
@@ -136,7 +139,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaDetailEditCell") as! ArcanaDetailEditCell
         cell.attribute.delegate = self
-        
+        cell.isUserInteractionEnabled = true
         guard let arcana = arcana else {
             return UITableViewCell()
         }
@@ -160,18 +163,38 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             cell.attribute.text = arcana.skillMana1
         case 6:
             cell.attribute.text = arcana.skillDesc1
-        case 7:
-            cell.attribute.text = arcana.skillName2
-        case 8:
-            cell.attribute.text = arcana.skillMana2
-        case 9:
-            cell.attribute.text = arcana.skillDesc2
-        case 10:
-            cell.attribute.text = arcana.skillName3
-        case 11:
-            cell.attribute.text = arcana.skillMana3
-        case 12:
-            cell.attribute.text = arcana.skillDesc3
+        case 7,8,9:
+            if arcana.skillCount == "1" {
+                cell.isUserInteractionEnabled = false
+                cell.attribute.text = nil
+            }
+            else {
+                switch indexPath.row {
+                case 7:
+                    cell.attribute.text = arcana.skillName2
+                case 8:
+                    cell.attribute.text = arcana.skillMana2
+                default:
+                    cell.attribute.text = arcana.skillDesc2
+                }
+                
+            }
+        case 10,11,12:
+            if arcana.skillCount != "3" {
+                cell.isUserInteractionEnabled = false
+                cell.attribute.text = nil
+            }
+            else {
+                switch indexPath.row {
+                case 10:
+                    cell.attribute.text = arcana.skillName3
+                case 11:
+                    cell.attribute.text = arcana.skillMana3
+                default:
+                    cell.attribute.text = arcana.skillDesc3
+                }
+            }
+            
         case 13:
             cell.attribute.text = arcana.abilityName1
         case 14:
@@ -203,9 +226,16 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         // Update dictionary with key+attribute
         let row = textView.tag
-        if textView.text != "" {
+        print(textView.text)
+        print(textView.tag)
+        print(originalAttributes[textView.tag])
+        if textView.text != originalAttributes[textView.tag] {
             edits.updateValue(textView.text, forKey: "\(firebaseKeys[row])")
         }
+        else {
+            edits.removeValue(forKey: "\(firebaseKeys[row])")
+        }
+        print(edits["\(firebaseKeys[row])"])
         
         rowBeingEdited = nil
         
@@ -236,10 +266,11 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "ArcanaDetailEditCell", bundle: nil), forCellReuseIdentifier: "arcanaDetailEditCell")
-        let dict = arcanaEdit!.populateArray()
-        for i in dict {
-            print(i)
+        if let arcana = arcana {
+            originalAttributes = arcana.populateArray()
+
         }
+
         self.title = arcana?.nameKR
         self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has
@@ -249,5 +280,13 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func backTwo() {
+        
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
+        
+    }
 
 }
+
