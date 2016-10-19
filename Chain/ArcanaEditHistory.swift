@@ -16,6 +16,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
     let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName1", "skillMana2", "skillDesc2", "skillName1", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
 
     var arcana: ArcanaEdit?
+    var editor: String?
     var edits = [String : String]()
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,7 +25,23 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         let alertController = UIAlertController(title: "악용 신고", message: "유저를 신고하시겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = salmonColor
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
-            // upload to firebase
+            // upload to firebase. copy the whole directory to /report
+            guard let arcana = self.arcana else {
+                return
+            }
+            print("reporting user...")
+            let editRef = arcana.ref
+            
+            editRef.observeSingleEvent(of: .value, with: { snapshot in
+                
+                print(snapshot)
+                let dict = snapshot.value as! [String : AnyObject]
+                let reportRef = FIREBASE_REF.child("report")
+                let id = reportRef.childByAutoId().key
+                reportRef.child(id).setValue(dict)
+                
+                
+            })
         })
         alertController.addAction(defaultAction)
         

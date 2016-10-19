@@ -168,7 +168,6 @@
 		048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillAbilityDescCell.swift; sourceTree = "<group>"; };
 		048E6E541D729A7D00687513 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
-		04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Database Lookup.rtf"; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7451D95DC4800B283EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
@@ -429,7 +428,6 @@
 				04A2ECC81D6F80EB00189142 /* Arcana.swift */,
 				0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */,
 				045EF6A41DAB4F7F002148DD /* User.swift */,
-				04941A441D6FC9FE00BAE389 /* Database Lookup.rtf */,
 			);
 			name = Model;
 			sourceTree = "<group>";

@@ -17,6 +17,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
     var names = [String]()
     var arcanaUID: String?
     var arcana: ArcanaEdit?
+    var editor: String?
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -49,7 +50,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getEdits() {
         // TODO: GET STRUCT ARCANAEDITS
         if let uid = arcanaUID {
-            let ref = FIREBASE_REF.child("edits/\(uid)")
+            let ref = FIREBASE_REF.child("arcanaEdit/\(uid)")
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 
                 var editDates = [String]()
@@ -63,7 +64,7 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let name = child.value["nickName"] as! String
                         editNames.append(name)
                         let editUID = child.value["uid"] as! String
-                        
+                        self.editor = editUID
                         let updateRef = ref.child("\(editUID)/update")
                         updateRef.observeSingleEvent(of: .value, with: { snapshot in
                             self.arcana = ArcanaEdit(snapshot: snapshot)
@@ -109,6 +110,8 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "showEdits" {
             if let vc = segue.destination as? ArcanaEditHistory {
                 vc.arcana = arcana
+                vc.editor = editor
+                
             }
             print("going to showEdits")
         }

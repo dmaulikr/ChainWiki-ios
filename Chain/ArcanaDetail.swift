@@ -710,8 +710,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         
         // Increment number of views
         let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")

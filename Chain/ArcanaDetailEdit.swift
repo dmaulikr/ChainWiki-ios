@@ -12,9 +12,9 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "인연 이름", "인연 코스트", "인연 설명"]
     
-    let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName1", "skillMana2", "skillDesc2", "skillName1", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
+    let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     var arcana: Arcana?
-    var arcanaEdit: ArcanaEdit?
+//    var arcanaEdit: ArcanaEdit?
     var edits = [String : String]()
     @IBOutlet weak var tableView: UITableView!
     var rowBeingEdited : Int? = nil
@@ -81,7 +81,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             if let arcana = arcana {
                 let uid = arcana.uid
                 
-                let arcanaRef = FIREBASE_REF.child("edits/\(uid)")
+                let arcanaRef = FIREBASE_REF.child("arcanaEdit/\(uid)")
                 let id =  arcanaRef.childByAutoId().key
                 // childchanged to update single arcana values
                 for (key, value) in edits {
@@ -236,7 +236,10 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "ArcanaDetailEditCell", bundle: nil), forCellReuseIdentifier: "arcanaDetailEditCell")
-        
+        let dict = arcanaEdit!.populateArray()
+        for i in dict {
+            print(i)
+        }
         self.title = arcana?.nameKR
         self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has

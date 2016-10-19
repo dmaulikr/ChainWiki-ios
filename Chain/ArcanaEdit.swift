@@ -10,6 +10,7 @@ import Firebase
 
 struct ArcanaEdit {
     
+    var ref: FIRDatabaseReference
     var uid: String?
     var nameKR: String?
     var nickNameKR: String?
@@ -52,6 +53,8 @@ struct ArcanaEdit {
     var chainStone: String?
     
     init?(snapshot: FIRDataSnapshot) {
+        
+        ref = snapshot.ref
         
         if let u = (snapshot.value as? NSDictionary)?["uid"] as? String {
             uid = u
@@ -169,6 +172,24 @@ struct ArcanaEdit {
         
     }
     
+    func populateArray() -> [String] {
+        
+        var arcanaDict = [String]()
+        
+        var arcana = self
+        
+        let mirrored_object = Mirror(reflecting: arcana)
+        
+        for att in mirrored_object.children {
+            if let property_name = att.label as String! {
+                print("\(property_name) = \(att.value)")
+                arcanaDict.append(att.value as! String)
+            }
+        }
+        
+        return arcanaDict
+        
+    }
     
     
 }
