@@ -12,7 +12,7 @@ import AlamofireImage
 //import Toucan
 //import NVActivityIndicatorView
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
+class Home: UIViewController, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var initialLoad = true
@@ -182,11 +182,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        self.view.isUserInteractionEnabled = false
-        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
-    }
+    
     
     func syncArcana() {
 
@@ -259,182 +255,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             }
 
         })
-    }
-
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if arcanaArray.count == 0 {
-            tableView.isUserInteractionEnabled = false
-            return 10
-        }
-        else {
-            tableView.isUserInteractionEnabled = true
-            tableView.alpha = 1
-        }
-        if searchController.isActive && searchController.searchBar.text != "" {
-
-            if searchArray.count == 0 {
-                tableView.alpha = 0
-            }
-            else {
-                tableView.fadeIn(withDuration: 0.2)
-            }
-            
-            return searchArray.count
-        }
-        
-        return arcanaArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        
-        if arcanaArray.count == 0 {
-            cell.arcanaImage.image = #imageLiteral(resourceName: "placeholder")
-            
-            for i in cell.labelCollection {
-                i.alpha = 0
-            }
-//            cell.arcanaNameKR.alpha = 1
-//            cell.arcanaNameKR.textColor = placeholderColor
-//            cell.arcanaNameKR.backgroundColor = placeholderColor
-//            cell.arcanaNameJP.alpha = 1
-//            cell.arcanaNameJP.textColor = placeholderColor
-//            cell.arcanaNameJP.backgroundColor = placeholderColor
-            
-        }
-        else {
-            cell.arcanaNameKR.alpha = 0
-            cell.arcanaNameJP.alpha = 0
-            for i in cell.labelCollection {
-                i.text = nil
-                i.backgroundColor = UIColor.white
-                i.alpha = 1
-            }
-            cell.arcanaImage.image = nil
-            
-            
-            let arcana: Arcana
-            
-            if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
-                arcana = searchArray[indexPath.row]
-            } else {
-                arcana = arcanaArray[indexPath.row]
-            }
-            
-            
-            // check if arcana has only name, or nickname.
-            if let nnKR = arcana.nickNameKR {
-                cell.arcanaNickKR.text = nnKR
-                cell.arcanaNickKR.textColor = UIColor.black
-            }
-            if let nnJP = arcana.nickNameJP {
-                
-                cell.arcanaNickJP.text = nnJP
-                cell.arcanaNickJP.textColor = Color.textGray
-            }
-            cell.arcanaNameKR.text = arcana.nameKR
-            cell.arcanaNameKR.textColor = UIColor.black
-            cell.arcanaNameJP.text = arcana.nameJP
-            cell.arcanaNameJP.textColor = Color.textGray
-            
-            cell.arcanaRarity.text = "#\(arcana.rarity)★"
-            cell.arcanaRarity.textColor = Color.lightGreen
-            cell.arcanaGroup.text = "#\(arcana.group)"
-            cell.arcanaGroup.textColor = Color.lightGreen
-            cell.arcanaWeapon.text = "#\(arcana.weapon)"
-            cell.arcanaWeapon.textColor = Color.lightGreen
-            
-            if let a = arcana.affiliation {
-                if a != "" {
-                    cell.arcanaAffiliation.text = "#\(a)"
-                    cell.arcanaAffiliation.textColor = Color.lightGreen
-                }
-                
-            }
-            
-            cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-            cell.numberOfViews.textColor = Color.lightGreen
-            
-            cell.arcanaUID = arcana.uid
-            
-            // Check cache first
-            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
-                
-                cell.arcanaImage.image = i
-                print("LOADED FROM CACHE")
-                
-            }
-                
-            else {
-//                cell.imageSpinner.startAnimating()
-                
-                STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
-                    if (error != nil) {
-                        print("image download error")
-                        
-                        // Handle any errors
-                    } else {
-                        // Get the download URL
-                        let urlRequest = URLRequest(url: URL!)
-                        DOWNLOADER.download(urlRequest) { response in
-                            
-                            if let image = response.result.value {
-                                // Set the Image
-                                
-                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                    
-                                    // Cache the Image
-                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-//                                    cell.imageSpinner.stopAnimating()
-                                    
-                                    if cell.arcanaUID == arcana.uid {
-                                        cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
-                                        cell.arcanaImage.alpha = 0
-                                        cell.arcanaImage.fadeIn(withDuration: 0.2)
-                                    }
-                                    
-                                    
-                                    
-                                    print("DOWNLOADED")
-                                    
-                                    
-                                }
-                                else {
-                                    print("COULD NOT UNWRAP IMAGE")
-                                }
-                                
-                                
-                            }
-                        }
-                    }
-                }
-                
-            }
-
-        }
- 
-        return cell
-    }
-
-    
-    func reloadTableData(_ notification: Notification) {
-        tableView.reloadData()
-    }
-    
+    }    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -751,6 +572,185 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     
 }
 
+// MARK: TableView Extension 
+extension Home: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.view.isUserInteractionEnabled = false
+        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if arcanaArray.count == 0 {
+            tableView.isUserInteractionEnabled = false
+            return 10
+        }
+        else {
+            tableView.isUserInteractionEnabled = true
+            tableView.alpha = 1
+        }
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            if searchArray.count == 0 {
+                tableView.alpha = 0
+            }
+            else {
+                tableView.fadeIn(withDuration: 0.2)
+            }
+            
+            return searchArray.count
+        }
+        
+        return arcanaArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+        
+        if arcanaArray.count == 0 {
+            cell.arcanaImage.image = #imageLiteral(resourceName: "placeholder")
+            
+            for i in cell.labelCollection {
+                i.alpha = 0
+            }
+            //            cell.arcanaNameKR.alpha = 1
+            //            cell.arcanaNameKR.textColor = placeholderColor
+            //            cell.arcanaNameKR.backgroundColor = placeholderColor
+            //            cell.arcanaNameJP.alpha = 1
+            //            cell.arcanaNameJP.textColor = placeholderColor
+            //            cell.arcanaNameJP.backgroundColor = placeholderColor
+            
+        }
+        else {
+            cell.arcanaNameKR.alpha = 0
+            cell.arcanaNameJP.alpha = 0
+            for i in cell.labelCollection {
+                i.text = nil
+                i.backgroundColor = UIColor.white
+                i.alpha = 1
+            }
+            cell.arcanaImage.image = nil
+            
+            
+            let arcana: Arcana
+            
+            if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
+                arcana = searchArray[indexPath.row]
+            } else {
+                arcana = arcanaArray[indexPath.row]
+            }
+            
+            
+            // check if arcana has only name, or nickname.
+            if let nnKR = arcana.nickNameKR {
+                cell.arcanaNickKR.text = nnKR
+                cell.arcanaNickKR.textColor = UIColor.black
+            }
+            if let nnJP = arcana.nickNameJP {
+                
+                cell.arcanaNickJP.text = nnJP
+                cell.arcanaNickJP.textColor = Color.textGray
+            }
+            cell.arcanaNameKR.text = arcana.nameKR
+            cell.arcanaNameKR.textColor = UIColor.black
+            cell.arcanaNameJP.text = arcana.nameJP
+            cell.arcanaNameJP.textColor = Color.textGray
+            
+            cell.arcanaRarity.text = "#\(arcana.rarity)★"
+            cell.arcanaRarity.textColor = Color.lightGreen
+            cell.arcanaGroup.text = "#\(arcana.group)"
+            cell.arcanaGroup.textColor = Color.lightGreen
+            cell.arcanaWeapon.text = "#\(arcana.weapon)"
+            cell.arcanaWeapon.textColor = Color.lightGreen
+            
+            if let a = arcana.affiliation {
+                if a != "" {
+                    cell.arcanaAffiliation.text = "#\(a)"
+                    cell.arcanaAffiliation.textColor = Color.lightGreen
+                }
+                
+            }
+            
+            cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+            cell.numberOfViews.textColor = Color.lightGreen
+            
+            cell.arcanaUID = arcana.uid
+            
+            // Check cache first
+            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+                
+                cell.arcanaImage.image = i
+                print("LOADED FROM CACHE")
+                
+            }
+                
+            else {
+                //                cell.imageSpinner.startAnimating()
+                
+                STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                    if (error != nil) {
+                        print("image download error")
+                        
+                        // Handle any errors
+                    } else {
+                        // Get the download URL
+                        let urlRequest = URLRequest(url: URL!)
+                        DOWNLOADER.download(urlRequest) { response in
+                            
+                            if let image = response.result.value {
+                                // Set the Image
+                                
+                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                                    
+                                    // Cache the Image
+                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
+                                    //                                    cell.imageSpinner.stopAnimating()
+                                    
+                                    if cell.arcanaUID == arcana.uid {
+                                        cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
+                                        cell.arcanaImage.alpha = 0
+                                        cell.arcanaImage.fadeIn(withDuration: 0.2)
+                                    }
+                                    
+                                    
+                                    
+                                    print("DOWNLOADED")
+                                    
+                                    
+                                }
+                                else {
+                                    print("COULD NOT UNWRAP IMAGE")
+                                }
+                                
+                                
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+        
+        return cell
+    }
+}
+
+// MARK: Search Bar
 extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
     
     @available(iOS 8.0, *)
