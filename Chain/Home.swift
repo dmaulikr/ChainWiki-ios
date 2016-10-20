@@ -12,7 +12,7 @@ import AlamofireImage
 //import Toucan
 //import NVActivityIndicatorView
 
-class Home: UIViewController, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
+class Home: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var initialLoad = true
@@ -255,7 +255,7 @@ class Home: UIViewController, FilterDelegate, UIGestureRecognizerDelegate, Taver
             }
 
         })
-    }    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -369,133 +369,6 @@ class Home: UIViewController, FilterDelegate, UIGestureRecognizerDelegate, Taver
         }
     }
 
-    func didUpdate(_ sender: Filter) {
-        DispatchQueue.main.async {
-            
-            if let vc = self.childViewControllers[0] as? Filter {
-                
-                self.filters = vc.filterTypes
-                
-                // No filters, bring back original array
-                if vc.hasFilter == false {
-                    // TODO: replace arcanaArray with original arcanaArray.
-                        print("NO FILTERS, PREPARING ORIGINAL ARRAY")
-                        self.arcanaArray = self.originalArray.reversed()
-                        self.tableView.reloadData()
-                    
-                    print("NO FILTERS")
-                }
-                    
-                    
-                else {  // hasFilter == true
-                        // create set that combines all filters
-                        //flatmap
-                        
-                        var raritySet = Set<Arcana>()
-                        if let r = self.filters["rarity"] {
-                            
-                            for rarity in r {
-                                print("FOR RARITY \(rarity)")
-                                let filteredRarity = self.originalArray.filter({$0.rarity == rarity})
-                                
-                                raritySet = raritySet.union(Set(filteredRarity))
-                            }
-                            
-                        }
-                        
-                        
-                        var groupSet = Set<Arcana>()
-                        if let g = self.filters["group"] {
-                            
-                            for group in g {
-                                print(group)
-                                let filteredGroup = self.originalArray.filter({$0.group == group})
-                                groupSet = groupSet.union(Set(filteredGroup))
-                            }
-                            
-                        }
-                        
-                        var weaponSet = Set<Arcana>()
-                        if let w = self.filters["weapon"] {
-                            
-                            for weapon in w {
-                                let filteredWeapon = self.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
-                                weaponSet = weaponSet.union(Set(filteredWeapon))
-                            }
-                            
-                        }
-                        
-                        var affiliationSet = Set<Arcana>()
-                        if let a = self.filters["affiliation"] {
-                            
-                            for affiliation in a {
-                                let filteredAffiliation = self.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
-                                affiliationSet = affiliationSet.union(Set(filteredAffiliation))
-                            }
-                            
-                        }
-                        
-                        let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
-                        
-                        var finalFilter: Set = Set<Arcana>()
-                        for (_,value) in sets {
-                            
-                            // TODO: clicking 권 then 철연 gives 철연.
-                            if value.count != 0 {
-                                
-                                // if set is empty, create a new one
-                                if finalFilter.count == 0 {
-                                    finalFilter = finalFilter.union(value)
-                                }
-                                    
-                                    // Set already exists, so intersect
-                                else {
-                                    finalFilter = finalFilter.intersection(value)
-                                }
-                            }
-                        }
-
-                        self.arcanaArray = Array(finalFilter)
-                        self.tableView.reloadData()
-                        self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-                        
-                    
-                    
-                }
-            }
-            
-            
-            //            if let vc = self.childViewControllers[0] as? Home {
-            //                vc.tableView.reloadData()
-            //            }
-        }
-    }
-    
-    func didUpdate(_ sender: TavernView, tavern: String) {
-        
-        
-        DispatchQueue.main.async {
-            
-            let ref = FIREBASE_REF.child("tavern/\(tavern)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                var tavern = [Arcana]()
-                for item in snapshot.children {
-                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                        tavern.append(arcana)
-                    }
-                }
-                self.arcanaArray = tavern
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.tableView.reloadData()
-                })
-                
-            })
-            
-        }
-        
-        
-    }
     
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 //        print("in shouldReceiveTouch")
@@ -574,12 +447,7 @@ class Home: UIViewController, FilterDelegate, UIGestureRecognizerDelegate, Taver
 
 // MARK: TableView Extension 
 extension Home: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.view.isUserInteractionEnabled = false
-        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
-    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -627,12 +495,6 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             for i in cell.labelCollection {
                 i.alpha = 0
             }
-            //            cell.arcanaNameKR.alpha = 1
-            //            cell.arcanaNameKR.textColor = placeholderColor
-            //            cell.arcanaNameKR.backgroundColor = placeholderColor
-            //            cell.arcanaNameJP.alpha = 1
-            //            cell.arcanaNameJP.textColor = placeholderColor
-            //            cell.arcanaNameJP.backgroundColor = placeholderColor
             
         }
         else {
@@ -748,6 +610,14 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.view.isUserInteractionEnabled = false
+        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
+    }
+    
 }
 
 // MARK: Search Bar
@@ -797,3 +667,133 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
 }
 
+extension Home: FilterDelegate, TavernViewDelegate {
+    func didUpdate(_ sender: Filter) {
+        DispatchQueue.main.async {
+            
+            if let vc = self.childViewControllers[0] as? Filter {
+                
+                self.filters = vc.filterTypes
+                
+                // No filters, bring back original array
+                if vc.hasFilter == false {
+                    // TODO: replace arcanaArray with original arcanaArray.
+                    print("NO FILTERS, PREPARING ORIGINAL ARRAY")
+                    self.arcanaArray = self.originalArray.reversed()
+                    self.tableView.reloadData()
+                    
+                    print("NO FILTERS")
+                }
+                    
+                    
+                else {  // hasFilter == true
+                    // create set that combines all filters
+                    //flatmap
+                    
+                    var raritySet = Set<Arcana>()
+                    if let r = self.filters["rarity"] {
+                        
+                        for rarity in r {
+                            print("FOR RARITY \(rarity)")
+                            let filteredRarity = self.originalArray.filter({$0.rarity == rarity})
+                            
+                            raritySet = raritySet.union(Set(filteredRarity))
+                        }
+                        
+                    }
+                    
+                    
+                    var groupSet = Set<Arcana>()
+                    if let g = self.filters["group"] {
+                        
+                        for group in g {
+                            print(group)
+                            let filteredGroup = self.originalArray.filter({$0.group == group})
+                            groupSet = groupSet.union(Set(filteredGroup))
+                        }
+                        
+                    }
+                    
+                    var weaponSet = Set<Arcana>()
+                    if let w = self.filters["weapon"] {
+                        
+                        for weapon in w {
+                            let filteredWeapon = self.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
+                            weaponSet = weaponSet.union(Set(filteredWeapon))
+                        }
+                        
+                    }
+                    
+                    var affiliationSet = Set<Arcana>()
+                    if let a = self.filters["affiliation"] {
+                        
+                        for affiliation in a {
+                            let filteredAffiliation = self.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
+                            affiliationSet = affiliationSet.union(Set(filteredAffiliation))
+                        }
+                        
+                    }
+                    
+                    let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
+                    
+                    var finalFilter: Set = Set<Arcana>()
+                    for (_,value) in sets {
+                        
+                        // TODO: clicking 권 then 철연 gives 철연.
+                        if value.count != 0 {
+                            
+                            // if set is empty, create a new one
+                            if finalFilter.count == 0 {
+                                finalFilter = finalFilter.union(value)
+                            }
+                                
+                                // Set already exists, so intersect
+                            else {
+                                finalFilter = finalFilter.intersection(value)
+                            }
+                        }
+                    }
+                    
+                    self.arcanaArray = Array(finalFilter)
+                    self.tableView.reloadData()
+                    self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
+                    
+                    
+                    
+                }
+            }
+            
+            
+            //            if let vc = self.childViewControllers[0] as? Home {
+            //                vc.tableView.reloadData()
+            //            }
+        }
+    }
+    
+    func didUpdate(_ sender: TavernView, tavern: String) {
+        
+        
+        DispatchQueue.main.async {
+            
+            let ref = FIREBASE_REF.child("tavern/\(tavern)")
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                
+                var tavern = [Arcana]()
+                for item in snapshot.children {
+                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                        tavern.append(arcana)
+                    }
+                }
+                self.arcanaArray = tavern
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.tableView.reloadData()
+                })
+                
+            })
+            
+        }
+        
+        
+    }
+
+}
