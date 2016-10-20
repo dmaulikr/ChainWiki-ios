@@ -119,9 +119,8 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                         
                                         nickNameRef.setValue(true)
                                         
-                                        if let app = UIApplication.shared.delegate as? AppDelegate {
-                                            app.changeRootVC(vc: .login)
-                                        }
+                                        self.changeRootVC(vc: .login)
+                                        
                                     }
                                 }
                                 
@@ -183,9 +182,7 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                         defaults.setName(value: nickname)
                                         
                                         nickNameRef.setValue(true)
-                                        if let app = UIApplication.shared.delegate as? AppDelegate {
-                                            app.changeRootVC(vc: .login)
-                                        }
+                                        self.changeRootVC(vc: .login)
                                         
                                         
                                     }

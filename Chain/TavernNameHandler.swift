@@ -1,13 +1,12 @@
 //
-//  GlobalFunctions.swift
+//  TavernNameHandler.swift
 //  Chain
 //
-//  Created by Jitae Kim on 9/25/16.
+//  Created by Jitae Kim on 10/19/16.
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
 func convertTavern(tavern: String) -> String {
     
@@ -45,7 +44,7 @@ func convertTavern(tavern: String) -> String {
         return "book"
     case "레무레스섬":
         return "lemures"
-
+        
     default:
         return ""
     }
@@ -54,7 +53,7 @@ func convertTavern(tavern: String) -> String {
 func fullAffiliationName(affiliation: String) -> String {
     
     switch affiliation {
-
+        
     case "현탑":
         return "현자의탑"
     case "미궁":
@@ -67,22 +66,5 @@ func fullAffiliationName(affiliation: String) -> String {
     default:
         return affiliation
     }
-    
-}
-
-extension UIView {
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder!.next
-            if parentResponder is UIViewController {
-                return parentResponder as! UIViewController!
-            }
-        }
-        return nil
-    }
-}
-
-extension UIViewController {
     
 }

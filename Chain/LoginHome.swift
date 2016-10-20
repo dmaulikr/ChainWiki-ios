@@ -36,7 +36,7 @@ class LoginHome: UIViewController {
                 
                 UserDefaults.standard.setLogin(value: true)
                 UserDefaults.standard.setUID(value: user.uid)
-                self.changeRootView()
+                self.changeRootVC(vc: .login)
             }
         }
     }

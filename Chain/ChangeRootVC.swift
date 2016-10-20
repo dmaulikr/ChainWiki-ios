@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension AppDelegate {
+extension UIViewController {
     
     enum RootVC {
         case login
@@ -22,16 +22,16 @@ extension AppDelegate {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.window!.rootViewController = initialViewController
+            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                self.view.window!.rootViewController = initialViewController
                 }, completion: nil)
         }
         else {
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
-            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.window!.rootViewController = initialViewController
+            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                self.view.window!.rootViewController = initialViewController
                 }, completion: nil)
 
         }

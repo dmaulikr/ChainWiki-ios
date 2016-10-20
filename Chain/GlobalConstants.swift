@@ -84,14 +84,7 @@ enum Color {
 let defaults = UserDefaults.standard
 
 extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
     
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -109,36 +102,5 @@ extension UIViewController {
     }
 }
 
-public extension UIView {
-    
-    func fadeIn(withDuration duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 1.0
-        })
-    }
 
-    func fadeOut(withDuration duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 0.0
-        })
-    }
-    
-    func fadeViewInThenOut(delay: TimeInterval) {
-        
-        let animationDuration = 1.0
-        
-        // Fade in the view
-        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
-            self.alpha = 1
-        }) { (Bool) -> Void in
-            
-            // After the animation completes, fade out the view after a delay
-            
-            UIView.animate(withDuration: animationDuration, delay: delay, options: .curveEaseInOut, animations: { () -> Void in
-                self.alpha = 0
-                },
-                completion: nil)
-        }
-    }
-}
 

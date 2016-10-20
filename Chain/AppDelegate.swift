@@ -35,23 +35,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         if UserDefaults.standard.isLoggedIn() {
-            changeRootVC(vc: RootVC.login)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
+            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                self.window!.rootViewController = initialViewController
+                }, completion: nil)
         }
             
         else {
-            changeRootVC(vc: RootVC.logout)
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                self.window!.rootViewController = initialViewController
+                }, completion: nil)
         }
         return true
         
     }
-    
-    
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        return GIDSignIn.sharedInstance().handle(
-//            url,
-//            sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
-//            annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-//    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

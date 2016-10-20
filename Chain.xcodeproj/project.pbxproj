@@ -12,6 +12,9 @@
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
 		040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */; };
 		040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1751DB87A5E00193363 /* ChangeRootVC.swift */; };
+		040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1771DB8940E00193363 /* FadeAnimation.swift */; };
+		040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1791DB8951F00193363 /* TavernNameHandler.swift */; };
+		040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA17B1DB8955200193363 /* DismissKeyboard.swift */; };
 		042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */; };
 		042835021D91EE250043BE6E /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042835011D91EE250043BE6E /* LoginForm.swift */; };
 		042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042FE9CD1D98A82C002ACE74 /* ArcanaDetailEditCell.xib */; };
@@ -32,7 +35,6 @@
 		046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C51D97D18F000CF487 /* ArcanaTextCell.swift */; };
 		04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E8C1D979D2800E15C5F /* TavernHomeView.swift */; };
 		04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04691E8E1D97A87300E15C5F /* ArcanaCell.xib */; };
-		04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */; };
 		04691E961D97BF8C00E15C5F /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04691E951D97BF8C00E15C5F /* Favorites.swift */; };
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
@@ -129,6 +131,9 @@
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		040EA1751DB87A5E00193363 /* ChangeRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeRootVC.swift; sourceTree = "<group>"; };
+		040EA1771DB8940E00193363 /* FadeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeAnimation.swift; sourceTree = "<group>"; };
+		040EA1791DB8951F00193363 /* TavernNameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernNameHandler.swift; sourceTree = "<group>"; };
+		040EA17B1DB8955200193363 /* DismissKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyboard.swift; sourceTree = "<group>"; };
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		042834F81D91AF680043BE6E /* Chain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chain.entitlements; sourceTree = "<group>"; };
 		042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStory.swift; sourceTree = "<group>"; };
@@ -151,7 +156,6 @@
 		046710C51D97D18F000CF487 /* ArcanaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaTextCell.swift; sourceTree = "<group>"; };
 		04691E8C1D979D2800E15C5F /* TavernHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernHomeView.swift; sourceTree = "<group>"; };
 		04691E8E1D97A87300E15C5F /* ArcanaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaCell.xib; sourceTree = "<group>"; };
-		04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		04691E951D97BF8C00E15C5F /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
@@ -255,6 +259,9 @@
 			children = (
 				040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */,
 				040EA1751DB87A5E00193363 /* ChangeRootVC.swift */,
+				040EA1771DB8940E00193363 /* FadeAnimation.swift */,
+				040EA1791DB8951F00193363 /* TavernNameHandler.swift */,
+				040EA17B1DB8955200193363 /* DismissKeyboard.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -371,7 +378,6 @@
 				042834F81D91AF680043BE6E /* Chain.entitlements */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
-				04691E901D97AE0E00E15C5F /* GlobalFunctions.swift */,
 				04BDA9B81D9F55B70070FE87 /* FirebaseHandler.swift */,
 				040EA1721DB8787E00193363 /* Helpers */,
 				042834FC1D91EA1E0043BE6E /* Login */,
@@ -816,6 +822,7 @@
 				0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
 				04BDA9B91D9F55B70070FE87 /* FirebaseHandler.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
@@ -832,11 +839,13 @@
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,
+				040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */,
 				047561571D946BB1004886BF /* RoundedButton.swift in Sources */,
 				04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */,
 				04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */,
 				0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
+				040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */,
 				047950181D9A35D300205A3C /* AbilityChart.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				04A3B1751D8E7B6C00BBF297 /* TavernView.swift in Sources */,
@@ -854,7 +863,6 @@
 				042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */,
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
-				04691E911D97AE0E00E15C5F /* GlobalFunctions.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,

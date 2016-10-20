@@ -78,7 +78,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                     
                     getFavorites()
                     
-                    self.changeRootView()
+                    self.changeRootVC(vc: .login)
                     
 
                 }
@@ -157,13 +157,6 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         return true
     }
     
-    func changeRootView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-        
-        self.view.window?.rootViewController = initialViewController
-        self.view.window?.makeKeyAndVisible()
-    }
     
 }
 

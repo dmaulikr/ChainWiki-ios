@@ -855,29 +855,9 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            // we got back an error!
-            let ac = UIAlertController(title: "저장 실패.", message: error.localizedDescription, preferredStyle: .alert)
-            ac.view.tintColor = Color.salmon
-            ac.view.backgroundColor = .white
-            ac.view.layer.cornerRadius = 10
-            ac.addAction(UIAlertAction(title: "확인", style: .default))
-            
-            present(ac, animated: true) {
-                ac.view.tintColor = Color.salmon
-            }
-            
-            
+            showAlert(title: "저장 실패.", message: error.localizedDescription)
         } else {
-            let ac = UIAlertController(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.", preferredStyle: .alert)
-            ac.view.tintColor = Color.salmon
-            ac.view.backgroundColor = .white
-            ac.view.layer.cornerRadius = 10
-            ac.addAction(UIAlertAction(title: "확인", style: .default))
-            
-            present(ac, animated: true) {
-                ac.view.tintColor = Color.salmon
-            }
-            
+            showAlert(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.")
         }
     }
     
