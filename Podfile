@@ -16,7 +16,7 @@ target 'Chain' do
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
-    pod 'RAMAnimatedTabBarController', "~> 2.0.2"
+    # pod 'RAMAnimatedTabBarController', "~> 2.0.2"
   #  pod 'Toucan', '~> 0.5'
     # pod 'Canvas', '~> 0.1.2'
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
