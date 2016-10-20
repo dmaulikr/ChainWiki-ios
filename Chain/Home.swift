@@ -15,25 +15,22 @@ import AlamofireImage
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var searchView: UIView!
+
     var initialLoad = true
+    var navTitle = ""
+    
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
-    let filterUpdate = Filter()
+    
     var rarityArray = [String]()
     var gesture = UITapGestureRecognizer()
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     let searchController = UISearchController(searchResultsController: nil)
-    let defaults = UserDefaults.standard
-    var showNavBar = true
-    var navTitle = ""
-    var downloadTavern = false
-//    var filterViewFrame = CGRect()
-    @IBOutlet weak var filterView: UIView!
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var filterViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var filterViewLeading: NSLayoutConstraint!
+    
     
     func setupBarButtons() {
         
@@ -136,13 +133,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
         if filterView.alpha == 0.0 {
             
-//            // Different frame based on device
-//            switch SCREENWIDTH {
-//                
-//            }
-//            filterView.frame = CGRect(x: 95 , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
-
-            
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.filterView.alpha = 1.0
                 }, completion: nil)
@@ -164,12 +154,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.searchView.alpha = 0.0
                 }, completion: nil)
-            
-            
+
         }
         
         else if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
-//            print("dismissed")
             gesture.cancelsTouchesInView = true
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.filterView.alpha = 0.0
@@ -298,46 +286,36 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
  gesture.cancelsTouchesInView = false
  homeView.addGestureRecognizer(gesture)
          */
-        if showNavBar {
-            print("TRUE")
-            
-            searchController.hidesNavigationBarDuringPresentation = false
-            searchController.searchBar.searchBarStyle = .minimal
-            searchController.searchResultsUpdater = self
-            searchController.dimsBackgroundDuringPresentation = false
-            searchController.delegate = self
-            searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
 //            searchController.searchBar.endEditing(true)
+        
+        // KVO. potential future problems here.
+        searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
+        if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
-            // KVO. potential future problems here.
-            searchController.searchBar.setValue("취소", forKey:"_cancelButtonText")
-            if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
-                
-                searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-                searchIcon.tintColor = UIColor.white
-                searchTextField.tintColor = UIColor.white
-                let attributeColor = [NSForegroundColorAttributeName: UIColor.white]
-                searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
-                searchTextField.textColor = UIColor.white
-                if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
-                    clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                    clearButton.tintColor = UIColor.white
-                }
-                
+            searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            searchIcon.tintColor = UIColor.white
+            searchTextField.tintColor = UIColor.white
+            let attributeColor = [NSForegroundColorAttributeName: UIColor.white]
+            searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
+            searchTextField.textColor = UIColor.white
+            if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
+                clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                clearButton.tintColor = UIColor.white
             }
             
-            // Include the search bar within the navigation bar.
-            navigationItem.titleView = searchController.searchBar
-            
-            definesPresentationContext = true
+        }
+        
+        // Include the search bar within the navigation bar.
+        navigationItem.titleView = searchController.searchBar
+        
+        definesPresentationContext = true
 
-        }
-        
-        else {
-            self.navigationItem.title = navTitle
-            self.navigationItem.rightBarButtonItems = nil
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -445,7 +423,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-// MARK: TableView Extension 
+// MARK: TableView 
 extension Home: UITableViewDelegate, UITableViewDataSource {
 
     
