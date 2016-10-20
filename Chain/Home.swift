@@ -12,7 +12,7 @@ import AlamofireImage
 //import Toucan
 //import NVActivityIndicatorView
 
-class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDelegate, UIGestureRecognizerDelegate, TavernViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var initialLoad = true
@@ -745,6 +745,20 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         }
     }
 
+    
+    
+    
+    
+}
+
+extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
+    
+    @available(iOS 8.0, *)
+    public func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+
+    
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
         // dismiss history if user starts typing.
@@ -759,10 +773,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         tableView.reloadData()
     }
     
-
-    func searchBarSearchButtonPressed() {
-        
-    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchController.searchBar.resignFirstResponder()
@@ -771,12 +782,12 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
     func didPresentSearchController(_ searchController: UISearchController) {
         
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.searchView.alpha = 1.0
-                self.filterView.alpha = 0
-                }, completion: nil)
+            self.searchView.alpha = 1.0
+            self.filterView.alpha = 0
+            }, completion: nil)
     }
     
-
+    
     func didDismissSearchController(_ searchController: UISearchController) {
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.searchView.alpha = 0.0
@@ -784,12 +795,5 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
         
     }
     
-    @available(iOS 8.0, *)
-    public func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchText: searchController.searchBar.text!)
-    }
-
-    
 }
-
 
