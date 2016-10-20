@@ -31,9 +31,6 @@ var NICKNAME: String? {
     }
 }
 
-
-let API_KEY = "AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U"
-
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
 //
@@ -74,22 +71,17 @@ let IMAGECACHE = AutoPurgingImageCache(
 
 
 // Colors
-let WARRIORCOLOR = UIColor(red:1.0, green:0.23, blue:0.19, alpha:1.0)
-let KNIGHTCOLOR = UIColor(red:0.0, green:0.48, blue:1.0, alpha:1.0)
-let ARCHERCOLOR = UIColor(red:1.0, green:0.8, blue:0.0, alpha:1.0)
-let MAGICIANCOLOR = UIColor(red:0.35, green:0.34, blue:0.84, alpha:1.0)
-let HEALERCOLOR = UIColor(red:0.3, green:0.85, blue:0.39, alpha:1.0)
-let salmonColor = UIColor(red:0.92, green:0.65, blue:0.63, alpha:1.0)
-let darkSalmonColor = UIColor(red:0.82, green:0.24, blue:0.32, alpha:1.0)
-let darkNavyColor = UIColor(red:0.18, green:0.22, blue:0.29, alpha:1.0)
-let lightNavyColor = UIColor(red:0.23, green:0.29, blue:0.37, alpha:1.0)
-let darkGrayColor = UIColor(red:0.53, green:0.59, blue:0.65, alpha:1.0)
-let lightGrayColor = UIColor(red:0.86, green:0.88, blue:0.9, alpha:1.0)
-let greenColor = UIColor(red:0.3, green:0.85, blue:0.39, alpha:1.0)
-let lightGreenColor = UIColor(red:0.41, green:0.64, blue:0.51, alpha:1.0)
-let textGrayColor = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
-let placeholderColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
-let gray247Color = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+enum Color {
+    
+    static let salmon = UIColor(red:0.92, green:0.65, blue:0.63, alpha:1.0) // #EBA5A0
+    static let darkSalmon = UIColor(red:0.82, green:0.24, blue:0.32, alpha:1.0)
+    static let lightGray = UIColor(red:0.86, green:0.88, blue:0.9, alpha:1.0)
+    static let lightGreen = UIColor(red:0.41, green:0.64, blue:0.51, alpha:1.0) // #68a283
+    static let textGray = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
+    static let gray247 = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)    // #f7f7f7
+}
+
+let defaults = UserDefaults.standard
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -103,7 +95,7 @@ extension UIViewController {
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.view.tintColor = salmonColor
+        alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white
         alert.view.layer.cornerRadius = 10
         
@@ -112,7 +104,7 @@ extension UIViewController {
         alert.addAction(confirmAction)        
         
         self.present(alert, animated: true) {
-            alert.view.tintColor = salmonColor
+            alert.view.tintColor = Color.salmon
         }
     }
 }

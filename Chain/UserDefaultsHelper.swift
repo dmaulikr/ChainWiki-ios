@@ -1,0 +1,84 @@
+//
+//  UserDefaults.swift
+//  Chain
+//
+//  Created by Jitae Kim on 10/19/16.
+//  Copyright © 2016 Jitae Kim. All rights reserved.
+//
+
+import Foundation
+
+extension UserDefaults {
+    
+    func setLogin(value: Bool) {
+        set(value, forKey: "loggedIn")
+        synchronize()
+    }
+    
+    func isLoggedIn() -> Bool {
+        return bool(forKey: "loggedIn")
+    }
+    
+    func setUID(value: String) {
+        set(value, forKey: "uid")
+        synchronize()
+    }
+    
+    func getUID() -> String? {
+        return string(forKey: "uid")
+    }
+    
+    func setName(value: String) {
+        set(value, forKey: "name")
+        synchronize()
+    }
+    
+    func getName() -> String? {
+        return string(forKey: "name")
+    }
+    func setEditPermissions(value: Bool) {
+        set(value, forKey: "edit")
+        synchronize()
+    }
+    
+    func canEdit() -> Bool {
+        return bool(forKey: "edit")
+    }
+    
+    func setAbilityIndex(value: Int) {
+        set(value, forKey: "abilityIndex")
+        synchronize()
+    }
+    
+    func abilityIndex() -> Int {
+        return integer(forKey: "abilityIndex")
+    }
+    
+    func setRecent(value: [String]) {
+        set(value, forKey: "recent")
+        synchronize()
+    }
+    
+    func getRecent() -> [String] {
+        return object(forKey: "recent") as? [String] ?? [String]()
+    }
+    
+    func setHearts(value: [String]) {
+        set(value, forKey: "hearts")
+        synchronize()
+    }
+    
+    func getHearts() -> [String]{
+        return object(forKey: "hearts") as? [String] ?? [String]()
+    }
+    
+    
+    func setFavorites(value: [String]) {
+        set(value, forKey: "favorites")
+        synchronize()
+    }
+    
+    func getFavorites() -> [String] {
+        return object(forKey: "favorites") as? [String] ?? [String]()
+    }
+}

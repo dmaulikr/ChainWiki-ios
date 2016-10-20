@@ -22,7 +22,6 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nickname: SkyFloatingLabelTextFieldWithIcon!
     var signedIn = false
     @IBOutlet weak var spinner: NVActivityIndicatorView!
-    
     @IBAction func createEmail(_ sender: AnyObject) {
 
         self.view.endEditing(true)
@@ -97,11 +96,13 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                     else {
 //                                        print("successfully linked email!")
                                         self.spinner.stopAnimating()
-                                        let uid = user!.uid
+                                        guard let user = user else {
+                                            return
+                                        }
                                         
-                                        let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
+                                        let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue("true")
-                                        let changeRequest = user!.profileChangeRequest()
+                                        let changeRequest = user.profileChangeRequest()
                                         changeRequest.displayName = nickname
                                         changeRequest.commitChanges { error in
                                             if let _ = error {
@@ -111,13 +112,16 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                             }
                                         }
                                         
-                                        UserDefaults.standard.setValue(uid, forKey: "uid")
-                                        UserDefaults.standard.setValue(true, forKey: "edit")
-                                        UserDefaults.standard.setValue(nickname, forKey: "nickName")
+                                        
+                                        defaults.setUID(value: user.uid)
+                                        defaults.setEditPermissions(value: true)
+                                        defaults.setName(value: nickname)
                                         
                                         nickNameRef.setValue(true)
                                         
-                                        self.changeRootView()
+                                        if let app = UIApplication.shared.delegate as? AppDelegate {
+                                            app.changeRootVC(vc: .login)
+                                        }
                                     }
                                 }
                                 
@@ -157,11 +161,14 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                         
 //                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
                                         self.spinner.stopAnimating()
-                                        let uid = user!.uid
+                                        guard let user = user else {
+                                            return
+                                        }
                                         
-                                        let editPermissionsRef = FIREBASE_REF.child("user/\(uid)/edit")
+                                        
+                                        let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue("true")
-                                        let changeRequest = user!.profileChangeRequest()
+                                        let changeRequest = user.profileChangeRequest()
                                         changeRequest.displayName = nickname
                                         changeRequest.commitChanges { error in
                                             if let _ = error {
@@ -171,13 +178,14 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                             }
                                         }
                                         
-                                        UserDefaults.standard.setValue(uid, forKey: "uid")
-                                        UserDefaults.standard.setValue(true, forKey: "edit")
-                                        UserDefaults.standard.setValue(nickname, forKey: "nickName")
+                                        defaults.setUID(value: user.uid)
+                                        defaults.setEditPermissions(value: true)
+                                        defaults.setName(value: nickname)
                                         
                                         nickNameRef.setValue(true)
-                                        
-                                        self.changeRootView()
+                                        if let app = UIApplication.shared.delegate as? AppDelegate {
+                                            app.changeRootVC(vc: .login)
+                                        }
                                         
                                         
                                     }
@@ -198,17 +206,17 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
         for textField in floatingTextFields {
             
             textField.clearButtonMode = .whileEditing
-            textField.tintColor = lightGreenColor
-            textField.titleColor = lightGreenColor
-            textField.selectedIconColor = lightGreenColor
-            textField.selectedLineColor = lightGreenColor
-            textField.selectedTitleColor = lightGreenColor
+            textField.tintColor = Color.lightGreen
+            textField.titleColor = Color.lightGreen
+            textField.selectedIconColor = Color.lightGreen
+            textField.selectedLineColor = Color.lightGreen
+            textField.selectedTitleColor = Color.lightGreen
             textField.iconFont = UIFont(name: "FontAwesome", size: 15)
-            textField.iconColor = lightGrayColor
-            textField.errorColor = darkSalmonColor
+            textField.iconColor = Color.lightGray
+            textField.errorColor = Color.darkSalmon
             textField.delegate = self
         }
-        errorLabel.textColor = darkSalmonColor
+        errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"
         email.keyboardType = .emailAddress
         email.tag = 0

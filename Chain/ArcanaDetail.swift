@@ -18,7 +18,6 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     var arcana: Arcana?
     var heart = false
     var favorite = false
-    let defaults = UserDefaults.standard
     var imageTapped = false
     var tap = UITapGestureRecognizer()
     @IBOutlet weak var toolBar: UIToolbar!
@@ -40,7 +39,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         if let arcana = arcana {
 //            let nKR = arcana.nameKR
             let uid = arcana.uid
-            recents = defaults.object(forKey: "recent") as? [String] ?? [String]()
+            recents = defaults.getRecent()
             
             if recents.count == 0 {
                 print("empty array")
@@ -73,30 +72,19 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     }
                 }
             }
+            defaults.setRecent(value: recents)
             defaults.set(recents, forKey: "recent")
-            defaults.synchronize()
         }
     }
 
     @IBAction func edit(_ sender: AnyObject) {
         
-        let canEdit = defaults.bool(forKey: "edit")
-        if canEdit {
-            print("ALLOWED TO EDIT, push view")
+        if defaults.canEdit() {
             self.performSegue(withIdentifier: "editArcana", sender: self)
             
         }
         else {
-            let alert = UIAlertController(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.", preferredStyle: .alert)
-            alert.view.tintColor = salmonColor
-            alert.view.backgroundColor = .white
-            alert.view.layer.cornerRadius = 10
-            let defaultAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
-            alert.addAction(defaultAction)
-            
-            self.present(alert, animated: true) {
-                alert.view.tintColor = salmonColor
-            }
+            showAlert(title: "권한 없음", message: "로그인하면 수정할 수 있습니다.")
         }
     }
     
@@ -104,8 +92,11 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         // TODO: when favoriting, automatically like. when cancelling, only cancel one.
         if let arcana = arcana {
             
-            let favRef = FIREBASE_REF.child("user/\(UserDefaults.standard.value(forKey: "uid"))/favorites/\(arcana.uid)")
-            let heartRef = FIREBASE_REF.child("user/\(UserDefaults.standard.value(forKey: "uid"))/likes/\(arcana.uid)")
+            guard let uid = defaults.getUID() else {
+                return
+            }
+            let favRef = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
+            let heartRef = FIREBASE_REF.child("user/\(uid)/likes/\(arcana.uid)")
             favRef.observeSingleEvent(of: .value, with: { snapshot in
                 if snapshot.exists() {
                     print("favorited already")
@@ -348,7 +339,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.favorite.setImage(_: UIImage(named: "starSelected"), for: .selected)
                 
                 
-                let userHearts = defaults.object(forKey: "hearts") as? [String] ?? [String]()
+                let userHearts = defaults.getHearts()
                 if !userHearts.contains(arcana.uid) {
                     cell.favorite.isSelected = false
                 }
@@ -356,7 +347,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     cell.favorite.isSelected = true
                 }
                 
-                let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+                let userFavorites = defaults.getFavorites()
                 print("CHECKING")
                 if !userFavorites.contains(arcana.uid) {
                     print("FALSE")
@@ -650,6 +641,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func toggle(_ sender: UIButton) {
         
         var type = ""
+        var userInfo = [String]()
         if sender.tag == 0 {    // heart
             type = "hearts"
         }
@@ -660,7 +652,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             let ref = FIREBASE_REF.child("user/\(uid)/\(type)/\(arcana.uid)")
             
-            var userInfo = defaults.object(forKey: type) as? [String] ?? [String]()
+            
             
             var found = false
             
@@ -679,7 +671,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 ref.setValue(true)
             }
 
-
+            
             defaults.setValue(userInfo, forKey: type)
             defaults.synchronize()
         }
@@ -843,7 +835,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     func saveImage(_ sender: AnyObject) {
         
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        alertController.view.tintColor = salmonColor
+        alertController.view.tintColor = Color.salmon
         
         let save = UIAlertAction(title: "이미지 저장", style: .default, handler: { (action:UIAlertAction) in
             UIImageWriteToSavedPhotosAlbum(sender as! UIImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
@@ -865,25 +857,25 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         if let error = error {
             // we got back an error!
             let ac = UIAlertController(title: "저장 실패.", message: error.localizedDescription, preferredStyle: .alert)
-            ac.view.tintColor = salmonColor
+            ac.view.tintColor = Color.salmon
             ac.view.backgroundColor = .white
             ac.view.layer.cornerRadius = 10
             ac.addAction(UIAlertAction(title: "확인", style: .default))
             
             present(ac, animated: true) {
-                ac.view.tintColor = salmonColor
+                ac.view.tintColor = Color.salmon
             }
             
             
         } else {
             let ac = UIAlertController(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.", preferredStyle: .alert)
-            ac.view.tintColor = salmonColor
+            ac.view.tintColor = Color.salmon
             ac.view.backgroundColor = .white
             ac.view.layer.cornerRadius = 10
             ac.addAction(UIAlertAction(title: "확인", style: .default))
             
             present(ac, animated: true) {
-                ac.view.tintColor = salmonColor
+                ac.view.tintColor = Color.salmon
             }
             
         }

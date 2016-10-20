@@ -15,7 +15,6 @@ import LicensesViewController
 
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
 
-    let defaults = UserDefaults.standard
     var hasEmail = false
     @IBOutlet weak var confirmation: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -24,7 +23,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
     @IBAction func logout(_ sender: AnyObject) {
         
         let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
-        alert.view.tintColor = salmonColor
+        alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white
         alert.view.layer.cornerRadius = 10
         
@@ -34,8 +33,8 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             
             try! FIRAuth.auth()!.signOut()
             
-            self.defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            self.defaults.synchronize()
+            defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            defaults.synchronize()
 
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
@@ -55,7 +54,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         
         
         self.present(alert, animated: true) {
-            alert.view.tintColor = salmonColor
+            alert.view.tintColor = Color.salmon
         }
         
     }
@@ -263,7 +262,7 @@ extension Settings: UITextFieldDelegate {
             return
         }
         let alert = UIAlertController(title: "새로운 닉네임 입력", message: "현재: \(userNick)", preferredStyle: .alert)
-        alert.view.tintColor = salmonColor
+        alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white
         alert.view.layer.cornerRadius = 10
         
@@ -283,7 +282,7 @@ extension Settings: UITextFieldDelegate {
                             
                         }
                         else {
-                            self.confirmation.backgroundColor = salmonColor
+                            self.confirmation.backgroundColor = Color.salmon
                             self.confirmation.textColor = UIColor.white
                             self.confirmation.text = "닉네임 변경 완료!"
                             // upload to firebase
@@ -306,8 +305,7 @@ extension Settings: UITextFieldDelegate {
                                             oldNickRef.removeValue()
                                         }
                                         
-                                        self.defaults.setValue(nick, forKey: "nickName")
-                                        self.defaults.synchronize()
+                                        defaults.setName(value: nick)
                                     }
                                 }
                             }
@@ -338,7 +336,7 @@ extension Settings: UITextFieldDelegate {
         
         
         self.present(alert, animated: true) {
-            alert.view.tintColor = salmonColor
+            alert.view.tintColor = Color.salmon
         }
     }
     

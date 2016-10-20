@@ -15,7 +15,6 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tip: UILabel!
-    let defaults = UserDefaults.standard
     var group = DispatchGroup()
     var array = [Arcana]()
     @IBOutlet weak var edit: UIBarButtonItem!
@@ -45,15 +44,15 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                 }
                 
-                let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
+                let userFavorites = defaults.getFavorites()
                 
                 if uids != userFavorites {
                     // made changes, upload to firebase
                     if let id = USERID {
                         let ref = FIREBASE_REF.child("user/\(id)/favorites")
                         ref.setValue(favoritesDict)
-                        defaults.setValue(uids, forKey: "favorites")
-                        defaults.synchronize()
+                        
+                        defaults.setFavorites(value: uids)
                     }
                 }
                 edit.title = "수정"
@@ -237,7 +236,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let idToRemove = self.array[indexPath.row].uid
             self.array.remove(at: indexPath.row)
 
-            var userFavorites = self.defaults.object(forKey: "favorites") as? [String] ?? [String]()
+            var userFavorites = defaults.getFavorites()
 
             for (index, i) in userFavorites.enumerated() {
                 print("INDEX is \(index)")
@@ -247,8 +246,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     if let id = USERID {
                         let ref = FIREBASE_REF.child("user/\(id)/favorites/\(i)")
                         ref.removeValue()
-                        self.defaults.setValue(userFavorites, forKey: "favorites")
-                        self.defaults.synchronize()
+                        defaults.setFavorites(value: userFavorites)
                     }
                     
                     break

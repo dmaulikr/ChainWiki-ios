@@ -64,7 +64,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             searchController.isActive = false
         }
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        alertController.view.tintColor = salmonColor
+        alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
             "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
@@ -126,7 +126,7 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
 
         
         present(alertController, animated: true, completion: { () -> () in
-            alertController.view.tintColor = salmonColor
+            alertController.view.tintColor = Color.salmon
         })
     }
 
@@ -344,30 +344,30 @@ class Home: UIViewController, UITableViewDelegate, UITableViewDataSource, Filter
             if let nnJP = arcana.nickNameJP {
                 
                 cell.arcanaNickJP.text = nnJP
-                cell.arcanaNickJP.textColor = textGrayColor
+                cell.arcanaNickJP.textColor = Color.textGray
             }
             cell.arcanaNameKR.text = arcana.nameKR
             cell.arcanaNameKR.textColor = UIColor.black
             cell.arcanaNameJP.text = arcana.nameJP
-            cell.arcanaNameJP.textColor = textGrayColor
+            cell.arcanaNameJP.textColor = Color.textGray
             
             cell.arcanaRarity.text = "#\(arcana.rarity)★"
-            cell.arcanaRarity.textColor = lightGreenColor
+            cell.arcanaRarity.textColor = Color.lightGreen
             cell.arcanaGroup.text = "#\(arcana.group)"
-            cell.arcanaGroup.textColor = lightGreenColor
+            cell.arcanaGroup.textColor = Color.lightGreen
             cell.arcanaWeapon.text = "#\(arcana.weapon)"
-            cell.arcanaWeapon.textColor = lightGreenColor
+            cell.arcanaWeapon.textColor = Color.lightGreen
             
             if let a = arcana.affiliation {
                 if a != "" {
                     cell.arcanaAffiliation.text = "#\(a)"
-                    cell.arcanaAffiliation.textColor = lightGreenColor
+                    cell.arcanaAffiliation.textColor = Color.lightGreen
                 }
                 
             }
             
             cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-            cell.numberOfViews.textColor = lightGreenColor
+            cell.numberOfViews.textColor = Color.lightGreen
             
             cell.arcanaUID = arcana.uid
             

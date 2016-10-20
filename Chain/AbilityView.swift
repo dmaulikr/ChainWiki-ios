@@ -15,7 +15,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = salmonColor
+            segmentedControl.tintColor = Color.salmon
         }
     }
     @IBOutlet weak var tableView: UITableView!

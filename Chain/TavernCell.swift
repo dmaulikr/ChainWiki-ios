@@ -15,7 +15,7 @@ class TavernCell: UICollectionViewCell {
     override func awakeFromNib() {
         tavernName.highlightedTextColor = UIColor.white
         let backgroundView = UIView()
-        backgroundView.backgroundColor = lightGreenColor
+        backgroundView.backgroundColor = Color.lightGreen
         self.selectedBackgroundView = backgroundView
         
     }

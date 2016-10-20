@@ -30,27 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().barTintColor = lightGreenColor
+        UINavigationBar.appearance().barTintColor = Color.lightGreen
         
         
         
-        if UserDefaults.standard.value(forKey: "uid") == nil {
-            print("no user signed in")
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
-//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginNav")
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
+        if UserDefaults.standard.isLoggedIn() {
+            changeRootVC(vc: RootVC.login)
         }
             
         else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
+            changeRootVC(vc: RootVC.logout)
         }
         return true
         

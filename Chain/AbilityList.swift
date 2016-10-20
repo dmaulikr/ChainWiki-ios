@@ -16,7 +16,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
     let defaults = UserDefaults.standard
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.tintColor = salmonColor
+            segmentedControl.tintColor = Color.salmon
         }
     }
     
@@ -37,8 +37,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         else {
             currentArray = kizunaArray
         }
-        defaults.setValue(segmentedControl.selectedSegmentIndex, forKeyPath: "abilityIndex")
-        
+        defaults.setAbilityIndex(value: segmentedControl.selectedSegmentIndex)
         tableView.reloadData()
     }
     
@@ -93,15 +92,7 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.delegate = self
         tableView.dataSource = self
         
-        if let index = defaults.value(forKey: "abilityIndex") as? Int {
-            if index == 0 {
-                segmentedControl.selectedSegmentIndex = 0
-            }
-            else {
-                segmentedControl.selectedSegmentIndex = 1
-            }
-        }
-        
+        segmentedControl.selectedSegmentIndex = defaults.abilityIndex()
         
         currentArray = abilityArray
         tableView.reloadData()

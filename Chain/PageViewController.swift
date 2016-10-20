@@ -15,7 +15,7 @@ class PageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = gray247Color
+        self.view.backgroundColor = Color.gray247
         dataSource = self
         self.navigationController?.setNavigationBarHidden(true, animated: false)
 

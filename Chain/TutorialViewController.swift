@@ -33,7 +33,7 @@ class TutorialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = gray247Color
+        self.view.backgroundColor = Color.gray247
         setupButton()
         imageView.image = photo
         descLabel.text = desc

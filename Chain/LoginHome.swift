@@ -30,14 +30,13 @@ class LoginHome: UIViewController {
                 
             else {
                 print("GUEST LOGIN SUCCESSFUL")
-                let isAnonymous = user!.isAnonymous  // true
-                let uid = user!.uid
+                guard let user = user else {
+                    return
+                }
                 
-                UserDefaults.standard.setValue(isAnonymous, forKey: "isAnonymous")
-                UserDefaults.standard.setValue(uid, forKey: "uid")
-                
+                UserDefaults.standard.setLogin(value: true)
+                UserDefaults.standard.setUID(value: user.uid)
                 self.changeRootView()
-                
             }
         }
     }
@@ -48,7 +47,7 @@ class LoginHome: UIViewController {
         let range = (text as NSString).range(of: highlightText)
         
         let attributedString = NSMutableAttributedString(string:text)
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: darkSalmonColor , range: range)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: Color.darkSalmon , range: range)
         
         self.accountDesc.attributedText = attributedString
         

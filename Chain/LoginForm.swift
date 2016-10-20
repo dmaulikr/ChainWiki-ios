@@ -15,7 +15,6 @@ import FirebaseAuth
 
 class LoginForm: UIViewController,  UITextFieldDelegate {
 
-    let defaults = UserDefaults.standard
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
@@ -65,17 +64,22 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                     
                 } else {
                     
-                    let uid = user!.uid
-                    if let user = FIRAuth.auth()?.currentUser {
-                        let nickName = user.displayName
-                        self.defaults.setValue(uid, forKey: "uid")
-                        self.defaults.setValue(true, forKey: "edit")
-                        self.defaults.setValue(nickName, forKey: "nickName")
-                        
-                        getFavorites()
-                        
-                        self.changeRootView()
+                    guard let user = user else {
+                        return
                     }
+                    
+                    if let nickName = user.displayName {
+                        defaults.setName(value: nickName)
+                    }
+                    defaults.setLogin(value: true)
+                    defaults.setUID(value: user.uid)
+                    defaults.setEditPermissions(value: true)
+                    
+                    
+                    getFavorites()
+                    
+                    self.changeRootView()
+                    
 
                 }
                 self.loginSpinner.stopAnimating()
@@ -92,16 +96,16 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         for textField in floatingTextFields {
             
             textField.clearButtonMode = .whileEditing
-            textField.tintColor = lightGreenColor
-            textField.selectedIconColor = lightGreenColor
-            textField.selectedLineColor = lightGreenColor
-            textField.selectedTitleColor = lightGreenColor
+            textField.tintColor = Color.lightGreen
+            textField.selectedIconColor = Color.lightGreen
+            textField.selectedLineColor = Color.lightGreen
+            textField.selectedTitleColor = Color.lightGreen
             textField.iconFont = UIFont(name: "FontAwesome", size: 15)
-            textField.iconColor = lightGrayColor
-            textField.errorColor = darkSalmonColor
+            textField.iconColor = Color.lightGray
+            textField.errorColor = Color.darkSalmon
             textField.delegate = self
         }
-        errorLabel.textColor = darkSalmonColor
+        errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"
         email.keyboardType = .emailAddress
         password.iconText = "\u{f023}"

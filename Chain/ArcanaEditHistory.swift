@@ -23,7 +23,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func report(_ sender: AnyObject) {
         
         let alertController = UIAlertController(title: "악용 신고", message: "유저를 신고하시겠습니까?", preferredStyle: .alert)
-        alertController.view.tintColor = salmonColor
+        alertController.view.tintColor = Color.salmon
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
             // upload to firebase. copy the whole directory to /report
             guard let arcana = self.arcana else {
@@ -50,7 +50,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: { () -> () in
-            alertController.view.tintColor = salmonColor
+            alertController.view.tintColor = Color.salmon
         })
         
     }

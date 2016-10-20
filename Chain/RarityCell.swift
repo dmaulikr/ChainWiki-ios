@@ -17,7 +17,7 @@ class RarityCell: UICollectionViewCell {
         rarity.highlightedTextColor = UIColor.white
         rarityIcon.highlightedImage = UIImage(named: "starWhite.png")
         let backgroundView = UIView()
-        backgroundView.backgroundColor = lightGreenColor
+        backgroundView.backgroundColor = Color.lightGreen
         self.selectedBackgroundView = backgroundView
     }
 
@@ -28,13 +28,13 @@ class RarityCell: UICollectionViewCell {
 //        }
 //        set {
 //            if newValue {
-//                self.contentView.backgroundColor = lightGreenColor
+//                self.contentView.backgroundColor = Color.lightGreen
 //                rarity.textColor = UIColor.whiteColor()
 //                rarityIcon.image = UIImage(named: "starWhite.png")
 //            }
 //            else {
 //                self.contentView.backgroundColor = UIColor.whiteColor()
-//                rarity.textColor = lightGreenColor
+//                rarity.textColor = Color.lightGreen
 //                rarityIcon.image = UIImage(named: "starGray.png")
 //            }
 //            super.highlighted = newValue

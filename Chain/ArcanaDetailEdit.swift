@@ -35,7 +35,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         // TODO: Confirm
         
         let alertController = UIAlertController(title: "수정 확인", message: "수정하시겠습니까?", preferredStyle: .alert)
-        alertController.view.tintColor = salmonColor
+        alertController.view.tintColor = Color.salmon
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
             self.displayBanner()
             self.uploadArcana()
@@ -46,7 +46,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: { () -> () in
-            alertController.view.tintColor = salmonColor
+            alertController.view.tintColor = Color.salmon
         })
         
         
@@ -59,7 +59,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
             alert.text = "수정된 정보가 없었습니다."
         }
         else {
-//            alert.backgroundColor = salmonColor
+//            alert.backgroundColor = Color.salmon
 //            alert.textColor = UIColor.white
 //            alert.text = "아르카나 수정 완료!"
             backTwo()

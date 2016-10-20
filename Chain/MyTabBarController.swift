@@ -28,7 +28,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.addChildViewController(favorites)
 //        self.addChildViewController(settings)
         
-        self.tabBar.tintColor = lightGreenColor
+        self.tabBar.tintColor = Color.lightGreen
     }
 
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

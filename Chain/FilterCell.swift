@@ -15,7 +15,7 @@ class FilterCell: UICollectionViewCell {
     override func awakeFromNib() {
         filterType.highlightedTextColor = UIColor.white
         let backgroundView = UIView()
-        backgroundView.backgroundColor = lightGreenColor
+        backgroundView.backgroundColor = Color.lightGreen
         self.selectedBackgroundView = backgroundView
 
     }
@@ -26,12 +26,12 @@ class FilterCell: UICollectionViewCell {
 //        }
 //        set {
 //            if newValue {
-//                self.contentView.backgroundColor = lightGreenColor
+//                self.contentView.backgroundColor = Color.lightGreen
 //                filterType.textColor = UIColor.whiteColor()
 //            }
 //            else {
 //                self.contentView.backgroundColor = UIColor.whiteColor()
-//                filterType.textColor = lightGreenColor
+//                filterType.textColor = Color.lightGreen
 //
 //            }
 //            super.highlighted = newValue
