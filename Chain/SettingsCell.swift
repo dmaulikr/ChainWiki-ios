@@ -12,10 +12,24 @@ class SettingsCell: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var imageToggle: UISwitch!
     
+    @IBAction func toggleImage(_ sender: AnyObject) {
+
+        if defaults.getImagePermissions() {
+            defaults.setImagePermissions(value: false)
+            print("setting to false")
+        }
+        else {
+            defaults.setImagePermissions(value: true)
+            print("setting to true")
+        }
+        
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

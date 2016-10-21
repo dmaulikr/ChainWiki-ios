@@ -15,6 +15,12 @@ import LicensesViewController
 
 class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
 
+    let sectionTitles = ["앱 설정", "계정", "소개", "지원"]
+    let appSection = ["이미지 다운로드 허용"]
+    let accountSection = ["닉네임 변경"]
+    let aboutSection = ["사이트 가기", "출처"]
+    let supportSection = ["이메일 문의"]
+    
     var hasEmail = false
     @IBOutlet weak var confirmation: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -66,18 +72,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         
         // Dequeue with the reuse identifier
         let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! SettingsSectionHeader
-        switch section {
-        case 0:
-            header.sectionTitle.text = "계정"
-        case 1:
-            header.sectionTitle.text = "소개"
-        case 2:
-            header.sectionTitle.text = "지원"
-        default:
-            break
-            
-            
-        }
+        header.sectionTitle.text = sectionTitles[section]
         
         return header
     }
@@ -87,17 +82,20 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sectionTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
-            
+        case 0:
+            return appSection.count
         case 1:
-            return 2
+            return accountSection.count
+        case 2:
+            return aboutSection.count
         default:
-            return 1
+            return supportSection.count
         }
         
     }
@@ -108,31 +106,46 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         
         switch indexPath.section {
             
-            // either changeNick or linkEmail
         case 0:
+            // have a toggle for image downloads. should be a different cell
+            cell.selectionStyle = .none
+            if defaults.getImagePermissions() {
+                cell.imageToggle.isOn = true
+            }
+            else {
+                cell.imageToggle.isOn = false
+            }
+            cell.imageToggle.alpha = 1
+            cell.title.text = appSection[indexPath.row]
+            cell.icon.image = #imageLiteral(resourceName: "imageDownload")
+            // either changeNick or linkEmail
+        case 1:
             if hasEmail {
-                cell.icon.image = #imageLiteral(resourceName: "apRecovery")
+                cell.icon.image = #imageLiteral(resourceName: "goEmail")
                 cell.title.text = "닉네임 변경"
             }
             else {
-                cell.icon.image = #imageLiteral(resourceName: "emailGray")
+                cell.icon.image = #imageLiteral(resourceName: "emailSettings")
                 cell.title.text = "이메일 전환"
             }
             
-        case 1:
+            
+        case 2:
+            cell.title.text = aboutSection[indexPath.row]
+            
             switch indexPath.row {
             case 0:
-                cell.icon.image = #imageLiteral(resourceName: "emailGray")
-                cell.title.text = "사이트 가기"
+                cell.icon.image = #imageLiteral(resourceName: "openSite")
+                
             case 1:
-                cell.icon.image = #imageLiteral(resourceName: "emailGray")
-                cell.title.text = "출처"
+                cell.icon.image = #imageLiteral(resourceName: "licenses")
+                
             default:
                 break
             }
             
-        case 2:
-            cell.icon.image = #imageLiteral(resourceName: "emailGray")
+        case 3:
+            cell.icon.image = #imageLiteral(resourceName: "emailSettings")
             cell.title.text = "이메일 문의"
             
         default:
@@ -146,7 +159,8 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         
         switch indexPath.section {
             
-        case 0:
+        case 1:
+            
             if hasEmail {
                 // changeNick
                 changeNick()
@@ -158,18 +172,16 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
                 
             }
             
-        case 1:
+        case 2:
             switch indexPath.row {
             case 0:
-                print("OPEN SITE")
-                showTutorial()
+                openSite()
             case 1:
-                print("segue to licenses")
                 self.performSegue(withIdentifier: "toLicenses", sender: self)
             default:
                 break
             }
-        case 2:
+        case 3:
             sendEmail(self)
             
         default:
@@ -193,6 +205,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         }
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -213,6 +226,12 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             hasEmail = false
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -254,7 +273,7 @@ extension Settings: UITextFieldDelegate {
     
     func changeNick() {
         print("called alert")
-        guard let userNick = UserDefaults.standard.string(forKey: "nickName") else {
+        guard let userNick = defaults.getName() else {
             return
         }
         let alert = UIAlertController(title: "새로운 닉네임 입력", message: "현재: \(userNick)", preferredStyle: .alert)
@@ -346,7 +365,7 @@ extension Settings: UITextFieldDelegate {
         
     }
     
-    func showTutorial() {
+    func openSite() {
         if let url = URL(string: "https://jitaek.github.io/ChainChronicleKoreaWiki/") {
             let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
             present(vc, animated: true)

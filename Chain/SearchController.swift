@@ -11,6 +11,7 @@ import UIKit
 class SearchController: UISearchController {
     
     var searchController = UISearchController(searchResultsController: nil)
+    
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
         customInit()
@@ -29,10 +30,7 @@ class SearchController: UISearchController {
     func customInit() {
         self.hidesNavigationBarDuringPresentation = false
         self.searchBar.searchBarStyle = .minimal
-        
         self.dimsBackgroundDuringPresentation = false
-        
-        //            self.searchBar.endEditing(true)
         
         // KVO. potential future problems here.
         self.searchBar.setValue("취소", forKey:"_cancelButtonText")

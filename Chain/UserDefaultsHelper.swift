@@ -81,4 +81,13 @@ extension UserDefaults {
     func getFavorites() -> [String] {
         return object(forKey: "favorites") as? [String] ?? [String]()
     }
+    
+    func setImagePermissions(value: Bool) {
+        set(value, forKey: "image")
+        synchronize()
+    }
+    
+    func getImagePermissions() -> Bool {
+        return bool(forKey: "image")
+    }
 }

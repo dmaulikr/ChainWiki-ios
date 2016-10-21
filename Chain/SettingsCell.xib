@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0cI-Jc-Gyq" id="xsg-gE-ep7">
-                <frame key="frameInset" width="375" height="43.5"/>
+                <frame key="frameInset" width="375" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="00s-09-OBJ">
@@ -25,20 +25,28 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uV0-PE-zlQ">
+                        <connections>
+                            <action selector="toggleImage:" destination="0cI-Jc-Gyq" eventType="valueChanged" id="Ba0-ly-K9G"/>
+                        </connections>
+                    </switch>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="GRb-c5-9WZ" secondAttribute="trailing" constant="10" id="3Bw-AB-qNz"/>
                     <constraint firstItem="GRb-c5-9WZ" firstAttribute="top" secondItem="xsg-gE-ep7" secondAttribute="top" constant="10" id="3aY-eK-p6U"/>
                     <constraint firstItem="GRb-c5-9WZ" firstAttribute="leading" secondItem="00s-09-OBJ" secondAttribute="trailing" constant="10" id="EfP-Vg-Rnq"/>
+                    <constraint firstItem="uV0-PE-zlQ" firstAttribute="centerY" secondItem="xsg-gE-ep7" secondAttribute="centerY" id="Im9-Dz-jY6"/>
                     <constraint firstItem="GRb-c5-9WZ" firstAttribute="centerY" secondItem="xsg-gE-ep7" secondAttribute="centerY" id="Pb4-YI-oKe"/>
                     <constraint firstItem="00s-09-OBJ" firstAttribute="top" secondItem="xsg-gE-ep7" secondAttribute="top" constant="10" id="TGv-uC-Hwg"/>
                     <constraint firstAttribute="bottom" secondItem="GRb-c5-9WZ" secondAttribute="bottom" constant="10" id="bWF-Oj-CXi"/>
                     <constraint firstItem="00s-09-OBJ" firstAttribute="leading" secondItem="xsg-gE-ep7" secondAttribute="leading" constant="15" id="eLA-DS-oNZ"/>
                     <constraint firstAttribute="bottom" secondItem="00s-09-OBJ" secondAttribute="bottom" constant="10" id="gdO-fW-SMC"/>
+                    <constraint firstAttribute="trailing" secondItem="uV0-PE-zlQ" secondAttribute="trailing" constant="10" id="zK4-d3-JHa"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="icon" destination="00s-09-OBJ" id="5V6-rb-8D6"/>
+                <outlet property="imageToggle" destination="uV0-PE-zlQ" id="LBD-re-NPq"/>
                 <outlet property="title" destination="GRb-c5-9WZ" id="rjx-sH-dyd"/>
             </connections>
             <point key="canvasLocation" x="-314.5" y="26"/>
