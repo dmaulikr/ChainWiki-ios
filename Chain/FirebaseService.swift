@@ -90,6 +90,9 @@ class FirebaseService {
             }
 
         }
+        else if let sender = sender as? ArcanaImageCell {
+            sender.imageSpinner.stopAnimating()
+        }
         
     }
     

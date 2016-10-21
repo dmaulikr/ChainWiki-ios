@@ -20,19 +20,45 @@ extension UIViewController {
         
         if vc == RootVC.login {
             
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.view.window!.rootViewController = initialViewController
-                }, completion: nil)
+            
+            let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
+            initialViewController.view.addSubview(snapshot)
+            
+            self.view.window?.rootViewController = initialViewController
+            
+            UIView.animate(withDuration: 0.2, animations: {()  in
+                
+                snapshot.layer.opacity = 0
+                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+                }, completion: {
+                    (value: Bool) in
+                    snapshot.removeFromSuperview()
+                
+            })
+
         }
         else {
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
-            UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.view.window!.rootViewController = initialViewController
-                }, completion: nil)
+            
+            let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
+            initialViewController.view.addSubview(snapshot)
+            
+            self.view.window?.rootViewController = initialViewController
+            
+            UIView.animate(withDuration: 0.2, animations: {()  in
+                
+                snapshot.layer.opacity = 0
+                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+                }, completion: {
+                    (value: Bool) in
+                    snapshot.removeFromSuperview()
+                    
+            })
 
         }
         

@@ -192,6 +192,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
 
+            
             self.tableView.reloadData()
             self.initialLoad = false
         })
