@@ -13,42 +13,79 @@ import AlamofireImage
 class FirebaseService {
     
     static let dataRequest = FirebaseService()
+
+    private var FIREBASE_REF = FIRDatabase.database().reference()
+    private var ARCANA_REF = FIRDatabase.database().reference().child("arcana")
+
+    private var STORAGE_REF = FIRStorage.storage().reference()
     
     func authenticateUser() {
         
     }
     
-    func downloadImage(uid: String, sender: UIImageView ) {
+    func downloadImage(uid: String, sender: AnyObject) {
         
-        STORAGE_REF.child("image/arcana/\(uid)/icon.jpg").downloadURL { (URL, error) -> Void in
-            if (error != nil) {
-                
-                // Handle any errors
-            } else {
-                // Get the download URL
-                let urlRequest = URLRequest(url: URL!)
-                DOWNLOADER.download(urlRequest) { response in
+        if let sender = sender as? ArcanaCell {
+            
+            STORAGE_REF.child("image/arcana/\(uid)/icon.jpg").downloadURL { (URL, error) -> Void in
+                if (error != nil) {
                     
-                    if let image = response.result.value {
-                        // Set the Image
+                    // Handle any errors
+                } else {
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
                         
-                        if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
+                        if let image = response.result.value {
                             
-                            // Cache the Image
-                            IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/icon.jpg")
-                            //                                cell.imageSpinner.stopAnimating()
-                            
-//                            if sender.arcanaUID == arcana.uid {
-                                sender.image = IMAGECACHE.image(withIdentifier: "\(uid)/icon.jpg")
-                                sender.alpha = 0
-                                sender.fadeIn(withDuration: 0.2)
-//                            }
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.5)!) {
+                                
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/icon.jpg")
+                                
+                                if sender.arcanaUID == uid {
+                                    sender.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(uid)/icon.jpg")
+                                    sender.arcanaImage.alpha = 0
+                                    sender.arcanaImage.fadeIn(withDuration: 0.2)
+                                }
+                                
+                            }
                             
                         }
-                        
                     }
                 }
             }
+
+            
+        }
+        
+        else if let sender = sender as? ArcanaImageCell {
+            STORAGE_REF.child("image/arcana/\(uid)/main.jpg").downloadURL { (URL, error) -> Void in
+                if (error != nil) {
+                    // Handle any errors
+                } else {
+                    
+                    let urlRequest = URLRequest(url: URL!)
+                    DOWNLOADER.download(urlRequest) { response in
+                        
+                        if let image = response.result.value {
+                            
+                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
+                                
+                                sender.imageSpinner.stopAnimating()
+                                let size = CGSize(width: SCREENWIDTH, height: 400)
+                                let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
+                                
+                                sender.arcanaImage.image = aspectScaledToFitImage
+                                sender.arcanaImage.alpha = 0
+                                sender.arcanaImage.fadeIn(withDuration: 0.2)
+                                
+                                IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/main.jpg")
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
         }
         
     }

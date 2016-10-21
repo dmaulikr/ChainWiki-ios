@@ -681,7 +681,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rarityCell" id="PlB-gN-nBM" customClass="RarityCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="39.5" y="0.0" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -717,7 +717,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="filter" id="M22-Lo-WgC" customClass="FilterCell" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="171" y="0.0" width="146" height="92"/>
+                                        <rect key="frame" x="39.5" y="93" width="146" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="92"/>
@@ -790,7 +790,7 @@
                     <tabBarItem key="tabBarItem" title="즐겨찾기" image="favoritesGray" id="57X-Rk-Nrt"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUg-eH-RdH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dUg-eH-RdH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
