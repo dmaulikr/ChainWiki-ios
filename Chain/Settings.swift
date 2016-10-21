@@ -314,7 +314,7 @@ extension Settings: UITextFieldDelegate {
                                     } else {
                                         // Profile updated.
                                         let nickRef = FIREBASE_REF.child("nickName/\(nick)")
-                                        nickRef.setValue(nick)
+                                        nickRef.setValue(true)
                                         if userNick != "" {
                                             let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
                                             oldNickRef.removeValue()
@@ -352,6 +352,9 @@ extension Settings: UITextFieldDelegate {
         
         self.present(alert, animated: true) {
             alert.view.tintColor = Color.salmon
+            if let selectedRow = self.tableView.indexPathForSelectedRow {
+                self.tableView.deselectRow(at: selectedRow, animated: true)
+            }
         }
     }
     

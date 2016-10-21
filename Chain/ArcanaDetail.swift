@@ -623,7 +623,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         else {
             type = "favorites"
         }
-        if let arcana = arcana, let uid = USERID  {
+        if let arcana = arcana, let uid = defaults.getUID()  {
             
             let ref = FIREBASE_REF.child("user/\(uid)/\(type)/\(arcana.uid)")
             

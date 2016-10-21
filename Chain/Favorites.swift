@@ -48,7 +48,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 if uids != userFavorites {
                     // made changes, upload to firebase
-                    if let id = USERID {
+                    if let id = defaults.getUID() {
                         let ref = FIREBASE_REF.child("user/\(id)/favorites")
                         ref.setValue(favoritesDict)
                         
@@ -203,7 +203,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 // not even checking here 2nd time.
                 if i == idToRemove {
                     userFavorites.remove(at: index)
-                    if let id = USERID {
+                    if let id = defaults.getUID() {
                         let ref = FIREBASE_REF.child("user/\(id)/favorites/\(i)")
                         ref.removeValue()
                         defaults.setFavorites(value: userFavorites)

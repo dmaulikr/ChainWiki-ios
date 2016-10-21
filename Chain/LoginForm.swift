@@ -210,7 +210,7 @@ func getFavorites() {
         defaults.set(true, forKey: "initialLaunch")
         defaults.synchronize()
         
-        if let id = USERID {
+        if let id = defaults.getUID() {
             
             let ref = FIREBASE_REF.child("user/\(id)/favorites")
             

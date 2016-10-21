@@ -11,16 +11,6 @@ import UIKit
 import Firebase
 import AlamofireImage
 
-var USERID: String? {
-    if let USERID = UserDefaults.standard.value(forKey: "uid") as? String {
-        return (USERID)
-        
-    }
-    else {
-        return nil
-    }
-}
-
 var NICKNAME: String? {
     if let NICKNAME = UserDefaults.standard.value(forKey: "nickName") as? String {
         return (NICKNAME)

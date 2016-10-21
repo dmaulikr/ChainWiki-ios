@@ -99,14 +99,14 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                         editsPreviousRef.setValue(snapshot.value)
                         
                         // Moved old data, now replace old data with user's edit
-                        if let id = USERID {
+                        if let id = defaults.getUID() {
                             editsRef.child("editorUID").setValue(id)
                         }
                         
                         editsUpdateRef.setValue(value)
                         originalRef.setValue(value)
                         
-                        if let nick = NICKNAME {
+                        if let nick = defaults.getName() {
                             editsRef.child("nickName").setValue(nick)
                         }
                         editsRef.child("date").setValue(dateString)
