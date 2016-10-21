@@ -283,7 +283,7 @@ extension Filter : UICollectionViewDelegateFlowLayout {
         
         
         cellSize = (self.view.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/numberOfCells
-        cellSizeTavern = (self.view.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/4
+        cellSizeTavern = (self.view.frame.width - (sectionInsets.left * 2 + CGFloat(3)))/4
         clearFilterSize = self.view.frame.width - sectionInsets.left * 2
         switch indexPath.section {
         case 0,1,2:
