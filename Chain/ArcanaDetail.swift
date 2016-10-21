@@ -293,32 +293,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                             print("image download error")
                             // Handle any errors
                         } else {
-                            // Get the download URL
-                            let urlRequest = URLRequest(url: URL!)
-                            
-                            DOWNLOADER.download(urlRequest) { response in
-                                
-                                if let image = response.result.value {
-                                    // Set the Image
-                                    
-                                    
-                                    if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
-                                        cell.imageSpinner.stopAnimating()
-                                        let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
-                                        
-                                        cell.arcanaImage.image = aspectScaledToFitImage
-                                        cell.arcanaImage.alpha = 0
-                                        cell.arcanaImage.fadeIn(withDuration: 0.2)
-                                        
-                                        print("DOWNLOADED")
-                                        
-                                        // Cache the Image
-                                        
-                                        IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/main.jpg")
-                                    }
-                                    
-                                }
-                            }
+                            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
                         }
                     }
                     

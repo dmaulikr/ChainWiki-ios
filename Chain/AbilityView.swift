@@ -202,47 +202,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
             
         else {
-            
-            STORAGE_REF.child("image/arcana/\(arcana.uid)/icon.jpg").downloadURL { (URL, error) -> Void in
-                if (error != nil) {
-                    print("image download error")
-                    
-                    // Handle any errors
-                } else {
-                    // Get the download URL
-                    let urlRequest = URLRequest(url: URL!)
-                    DOWNLOADER.download(urlRequest) { response in
-                        
-                        if let image = response.result.value {
-                            // Set the Image
-                            
-                            if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 1.0)!) {
-                                
-                                // Cache the Image
-                                IMAGECACHE.add(thumbnail, withIdentifier: "\(arcana.uid)/icon.jpg")
-//                                cell.imageSpinner.stopAnimating()
-                                
-                                if cell.arcanaUID == arcana.uid {
-                                    cell.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg")
-                                    cell.arcanaImage.alpha = 0
-                                    cell.arcanaImage.fadeIn(withDuration: 0.2)
-                                }
-                                
-                                
-                                print("DOWNLOADED")
-                                
-                                
-                            }
-                            else {
-                                print("COULD NOT UNWRAP IMAGE")
-                            }
-                            
-                            
-                        }
-                    }
-                }
-            }
-            
+            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
         }
         
         
