@@ -423,7 +423,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-// MARK: TableView 
+// MARK: TableView
 extension Home: UITableViewDelegate, UITableViewDataSource {
 
     
