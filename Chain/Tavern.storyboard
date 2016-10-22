@@ -118,11 +118,10 @@
             </objects>
             <point key="canvasLocation" x="1746" y="25"/>
         </scene>
-        <!--주점-->
+        <!--Navigation Controller-->
         <scene sceneID="ewh-HS-EDZ">
             <objects>
                 <navigationController storyboardIdentifier="TavernNav" automaticallyAdjustsScrollViewInsets="NO" id="iMB-hA-YK1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="주점" image="tavern" id="1CI-0S-RZ9"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
@@ -139,7 +138,4 @@
             <point key="canvasLocation" x="-287.19999999999999" y="32.833583208395808"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="tavern" width="25" height="25"/>
-    </resources>
 </document>

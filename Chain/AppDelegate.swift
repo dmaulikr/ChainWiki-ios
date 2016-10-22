@@ -40,10 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if UserDefaults.standard.isLoggedIn() {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.window!.rootViewController = initialViewController
-                }, completion: nil)
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
+//            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
+                self.window!.rootViewController = MyTabBarController()
+//                }, completion: nil)
         }
             
         else {

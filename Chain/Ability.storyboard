@@ -274,14 +274,13 @@
             </objects>
             <point key="canvasLocation" x="1220" y="234.33283358320841"/>
         </scene>
-        <!--어빌리티-->
+        <!--Navigation Controller-->
         <scene sceneID="p8f-ro-e2b">
             <objects>
                 <navigationController storyboardIdentifier="AbilityNav" automaticallyAdjustsScrollViewInsets="NO" id="cJ9-pA-xyb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="어빌리티" image="abilityTab" id="vYJ-BK-8OB"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JKo-S2-d9P">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JKo-S2-d9P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -299,7 +298,4 @@
             <point key="canvasLocation" x="467" y="235"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="abilityTab" width="25" height="25"/>
-    </resources>
 </document>
