@@ -11,7 +11,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     let tabTitles = ["아르카나", "어빌리티", "주점", "즐겨찾기"]
     let tabIcons = [#imageLiteral(resourceName: "arcanaTab"), #imageLiteral(resourceName: "abilityTab"), #imageLiteral(resourceName: "tavern"), #imageLiteral(resourceName: "favorites")]
-    let storyboards = ["Main", "Ability", "Tavern", "Main"]
+    let storyboards = ["Main", "Ability", "Tavern", "Settings"]
     let childVCs = ["HomeNav", "AbilityNav", "TavernNav", "FavoritesNav"]
     
     var tabBarImageView: UIImageView!

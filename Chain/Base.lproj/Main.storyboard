@@ -597,59 +597,6 @@
             </objects>
             <point key="canvasLocation" x="3929" y="1263"/>
         </scene>
-        <!--즐겨찾기-->
-        <scene sceneID="GJS-oX-53G">
-            <objects>
-                <viewController storyboardIdentifier="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="hGw-00-vgs" customClass="Favorites" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Qfu-l6-p3y"/>
-                        <viewControllerLayoutGuide type="bottom" id="3wC-ZD-qgc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ViH-yL-Ff4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아르카나를 추가하세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaH-Jq-2Kj">
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-VU-Ocb">
-                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="3Sr-VU-Ocb" firstAttribute="leading" secondItem="ViH-yL-Ff4" secondAttribute="leading" id="06e-1e-36P"/>
-                            <constraint firstItem="gaH-Jq-2Kj" firstAttribute="centerY" secondItem="ViH-yL-Ff4" secondAttribute="centerY" id="Fqb-AN-J7l"/>
-                            <constraint firstItem="3wC-ZD-qgc" firstAttribute="top" secondItem="3Sr-VU-Ocb" secondAttribute="bottom" id="PzM-BY-Zoj"/>
-                            <constraint firstItem="gaH-Jq-2Kj" firstAttribute="centerX" secondItem="ViH-yL-Ff4" secondAttribute="centerX" id="Ske-ir-PzL"/>
-                            <constraint firstAttribute="trailing" secondItem="3Sr-VU-Ocb" secondAttribute="trailing" id="kOz-Oe-Zva"/>
-                            <constraint firstItem="3Sr-VU-Ocb" firstAttribute="top" secondItem="Qfu-l6-p3y" secondAttribute="bottom" id="qgc-zV-Ii0"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="즐겨찾기" id="WEB-nJ-IL4">
-                        <barButtonItem key="leftBarButtonItem" title="설정" id="DBJ-Uo-Nax">
-                            <connections>
-                                <action selector="settings:" destination="hGw-00-vgs" id="xyg-Dq-RGR"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="수정" id="1jg-Zo-FKP">
-                            <connections>
-                                <action selector="startEditing:" destination="hGw-00-vgs" id="1Fb-VK-JT1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="edit" destination="1jg-Zo-FKP" id="aLL-lz-DXK"/>
-                        <outlet property="tableView" destination="3Sr-VU-Ocb" id="w7o-Kt-sxT"/>
-                        <outlet property="tip" destination="gaH-Jq-2Kj" id="wur-rk-dJK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fej-ey-ukr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6160.8000000000002" y="1013.3433283358322"/>
-        </scene>
         <!--Filter-->
         <scene sceneID="163-PP-N2i">
             <objects>
@@ -776,6 +723,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ye1-Ab-R5S">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UKj-TA-aLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="FavoritesNav" automaticallyAdjustsScrollViewInsets="NO" id="fAs-SO-TU7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -784,17 +732,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hGw-00-vgs" kind="relationship" relationship="rootViewController" id="RJQ-Cq-N41"/>
-                    </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UKj-TA-aLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5221.6000000000004" y="1012.4437781109445"/>
         </scene>
         <!--Search History-->
         <scene sceneID="i0B-kv-Om4">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5mp-D2-zv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="is1-Fp-bbO" customClass="SearchHistory" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ns2-8v-8k9"/>
@@ -821,7 +766,6 @@
                         <segue destination="Byw-71-fc4" kind="show" identifier="searchToArcana" id="yib-dA-nmg"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5mp-D2-zv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="780" y="1948"/>
         </scene>

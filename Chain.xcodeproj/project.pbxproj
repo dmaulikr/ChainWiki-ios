@@ -302,6 +302,7 @@
 		045EF6A81DAB5DCA002148DD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				04691E951D97BF8C00E15C5F /* Favorites.swift */,
 				045EF6A61DAB5DC4002148DD /* Settings.storyboard */,
 				04EF66AA1DB363D000E13370 /* SettingsCell.swift */,
 				04EF66AC1DB3640200E13370 /* SettingsCell.xib */,
@@ -349,7 +350,6 @@
 				04ED6FD41D813F4800C87B17 /* RarityCell.swift */,
 				04AE0E271D7A2E70008902A8 /* FilterCell.swift */,
 				046710C11D97D011000CF487 /* SearchHistory.swift */,
-				04691E951D97BF8C00E15C5F /* Favorites.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";

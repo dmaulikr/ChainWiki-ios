@@ -5,26 +5,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--설정-->
-        <scene sceneID="AE2-hJ-irC">
-            <objects>
-                <navigationController storyboardIdentifier="SettingsNav" automaticallyAdjustsScrollViewInsets="NO" id="Kdt-49-pfj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="설정" image="settings" id="t9F-Kv-WKg"/>
-                    <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6fa-MB-GeS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="xls-Zd-fCn" kind="relationship" relationship="rootViewController" id="ziW-3Y-tzV"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a9n-kR-trV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1409" y="62"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="9FW-VS-CUD">
             <objects>
@@ -85,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xwO-qZ-06y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-492" y="62"/>
+            <point key="canvasLocation" x="-1591" y="62"/>
         </scene>
         <!--허가서-->
         <scene sceneID="OFk-G0-gSc">
@@ -104,10 +84,78 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nee-sL-UhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393" y="57"/>
+            <point key="canvasLocation" x="-593" y="62"/>
+        </scene>
+        <!--즐겨찾기-->
+        <scene sceneID="2gg-6d-Bpl">
+            <objects>
+                <viewController storyboardIdentifier="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="5IA-zv-T1r" customClass="Favorites" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="teC-Xk-HOz"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rf0-OD-i3h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9QU-Do-cYY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아르카나를 추가하세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yi2-m1-GSc">
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d20-og-saz">
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yi2-m1-GSc" firstAttribute="centerX" secondItem="9QU-Do-cYY" secondAttribute="centerX" id="9Xl-Rb-wqA"/>
+                            <constraint firstItem="Rf0-OD-i3h" firstAttribute="top" secondItem="d20-og-saz" secondAttribute="bottom" id="HQl-7t-L2Z"/>
+                            <constraint firstItem="Yi2-m1-GSc" firstAttribute="centerY" secondItem="9QU-Do-cYY" secondAttribute="centerY" id="Mqk-OK-iRH"/>
+                            <constraint firstItem="d20-og-saz" firstAttribute="leading" secondItem="9QU-Do-cYY" secondAttribute="leading" id="SyJ-S6-MbF"/>
+                            <constraint firstAttribute="trailing" secondItem="d20-og-saz" secondAttribute="trailing" id="ec6-6W-Q4u"/>
+                            <constraint firstItem="d20-og-saz" firstAttribute="top" secondItem="teC-Xk-HOz" secondAttribute="bottom" id="jjo-Ae-Daz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="즐겨찾기" id="s9P-XB-PWZ">
+                        <barButtonItem key="leftBarButtonItem" title="설정" id="YjP-F9-tO8">
+                            <connections>
+                                <action selector="settings:" destination="5IA-zv-T1r" id="gpW-Fk-ur6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="수정" id="Fdg-LL-gxk">
+                            <connections>
+                                <action selector="startEditing:" destination="5IA-zv-T1r" id="mpV-BH-tAq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="edit" destination="Fdg-LL-gxk" id="YST-2f-CDE"/>
+                        <outlet property="tableView" destination="d20-og-saz" id="J3D-SK-wzV"/>
+                        <outlet property="tip" destination="Yi2-m1-GSc" id="cyw-s8-Wkg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pY3-1R-rLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2495" y="62"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KBs-DR-VtC">
+            <objects>
+                <navigationController storyboardIdentifier="FavoritesNav" automaticallyAdjustsScrollViewInsets="NO" id="43B-Ej-XlV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PDQ-ii-p4f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5IA-zv-T1r" kind="relationship" relationship="rootViewController" id="Xbf-Rf-KWI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2CP-bE-e1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3514" y="56"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="settings" width="25" height="25"/>
-    </resources>
 </document>

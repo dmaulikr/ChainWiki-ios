@@ -303,15 +303,7 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                     
                     //  Not in cache, download from firebase
                 else {
-                    //                c.imageSpinner.startAnimation()
-                    STORAGE_REF.child("image/arcana/\(arcana.uid)/main.jpg").downloadURL { (URL, error) -> Void in
-                        if (error != nil) {
-                            print("image download error")
-                            // Handle any errors
-                        } else {
-                            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
-                        }
-                    }
+                    FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
                     
                 }
                 return cell
