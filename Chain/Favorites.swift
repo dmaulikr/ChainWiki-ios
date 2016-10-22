@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Favorites: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tip: UILabel!
@@ -72,6 +72,72 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    
+    
+    
+    
+    func downloadFavorites() {
+        
+        let userFavorites = defaults.getFavorites()
+        
+        var uids = [String]()
+        
+        for id in userFavorites {
+            let arcanaID = id
+            uids.append(arcanaID)
+        }
+        
+        var array = [Arcana]()
+        
+        for id in uids {
+            self.group.enter()
+            
+            let ref = FIREBASE_REF.child("arcana/\(id)")
+            
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                let arcana = Arcana(snapshot: snapshot)
+                array.append(arcana!)
+                self.group.leave()
+                
+            })
+        }
+        
+        self.group.notify(queue: DispatchQueue.main, execute: {
+            
+            self.array = array
+            self.tableView.reloadData()
+        })
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        downloadFavorites()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+}
+
+extension Favorites: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -102,8 +168,8 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-
-    
+        
+        
         cell.arcanaImage.image = nil
         
         //        cell.imageSpinner.startAnimating()
@@ -160,10 +226,9 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.pushViewController(arcanaDetail, animated: true)
         
     }
-
+    
     override func setEditing(_ editing: Bool, animated: Bool) {
         tableView.reloadData()
-//        super.setEditing(editing, animated: animated)
         self.tableView.beginUpdates()
         self.tableView.setEditing(editing, animated: animated)
         self.tableView.endUpdates()
@@ -180,7 +245,7 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
         array.insert(itemToMove, at: destinationIndexPath.row)
         
     }
-
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
     }
@@ -188,16 +253,16 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
             let idToRemove = self.array[indexPath.row].uid
             self.array.remove(at: indexPath.row)
-
+            
             var userFavorites = defaults.getFavorites()
-
+            
             for (index, i) in userFavorites.enumerated() {
                 print("INDEX is \(index)")
                 // not even checking here 2nd time.
@@ -213,69 +278,11 @@ class Favorites: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 
             }
-
+            
             self.tableView.reloadData()
         }
-
+        
         return [delete]
     }
-    
-    func downloadFavorites() {
-        
-        let userFavorites = defaults.object(forKey: "favorites") as? [String] ?? [String]()
-        
-        var uids = [String]()
-        
-        for id in userFavorites {
-            let arcanaID = id
-            uids.append(arcanaID)
-        }
-        
-        var array = [Arcana]()
-        
-        for id in uids {
-            self.group.enter()
-            
-            let ref = FIREBASE_REF.child("arcana/\(id)")
-            
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                let arcana = Arcana(snapshot: snapshot)
-                array.append(arcana!)
-                self.group.leave()
-                
-            })
-        }
-        
-        self.group.notify(queue: DispatchQueue.main, execute: {
-            
-            self.array = array
-            self.tableView.reloadData()
-        })
-
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        downloadFavorites()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     
 }
