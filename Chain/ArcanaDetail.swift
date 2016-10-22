@@ -24,9 +24,23 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBAction func exportArcana(_ sender: AnyObject) {
         
+        let alertController = UIAlertController(title: "앨범에 저장", message: "화면을 캡쳐하겠습니까?", preferredStyle: .alert)
+        alertController.view.tintColor = Color.salmon
         
-        if let image = generateImage(tblview: tableView) {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        let save = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
+            if let image = self.generateImage(tblview: self.tableView) {
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            }
+        })
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction) in
+        })
+        
+        alertController.addAction(save)
+        alertController.addAction(cancel)
+        
+        present(alertController, animated: true) {
+            alertController.view.tintColor = Color.salmon
         }
         
         
