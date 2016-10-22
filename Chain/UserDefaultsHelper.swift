@@ -90,4 +90,20 @@ extension UserDefaults {
     func getImagePermissions() -> Bool {
         return bool(forKey: "image")
     }
+    
+    func updateVersion() {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            set(version, forKey: "version")
+            synchronize()
+        }
+    }
+    
+    func getStoredVersion() -> String? {
+        return object(forKey: "version") as? String
+
+    }
+    
+    func getCurrentVersion() -> String? {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? nil
+    }
 }

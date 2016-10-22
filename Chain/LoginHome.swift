@@ -33,9 +33,9 @@ class LoginHome: UIViewController {
                 guard let user = user else {
                     return
                 }
-                
-                UserDefaults.standard.setLogin(value: true)
-                UserDefaults.standard.setUID(value: user.uid)
+                defaults.setImagePermissions(value: true)
+                defaults.setLogin(value: true)
+                defaults.setUID(value: user.uid)
                 self.changeRootVC(vc: .login)
             }
         }

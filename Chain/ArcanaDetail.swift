@@ -26,6 +26,8 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         let alertController = UIAlertController(title: "앨범에 저장", message: "화면을 캡쳐하겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon
+        alertController.view.backgroundColor = .white
+        alertController.view.layer.cornerRadius = 10
         
         let save = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
             if let image = self.generateImage(tblview: self.tableView) {

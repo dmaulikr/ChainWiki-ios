@@ -74,7 +74,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
                     defaults.setLogin(value: true)
                     defaults.setUID(value: user.uid)
                     defaults.setEditPermissions(value: true)
-                    
+                    defaults.setImagePermissions(value: true)
                     
                     getFavorites()
                     

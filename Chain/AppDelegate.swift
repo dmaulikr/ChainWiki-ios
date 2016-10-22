@@ -20,11 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         FIRApp.configure()
-
         FIRDatabase.database().persistenceEnabled = true
-        
         let scoresRef = FIRDatabase.database().reference()
         scoresRef.keepSynced(true)
+
+        // check for update
+        if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
+            defaults.setImagePermissions(value: true)
+            defaults.updateVersion()
+        }
 
         // Navigation Bar Setup
         
