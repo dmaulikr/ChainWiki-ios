@@ -43,7 +43,6 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
   - LicensesViewController (0.6.0)
   - NVActivityIndicatorView (3.0)
-  - RAMAnimatedTabBarController (2.0.2)
   - SkyFloatingLabelTextField (1.2.1)
 
 DEPENDENCIES:
@@ -54,7 +53,6 @@ DEPENDENCIES:
   - Firebase/Storage
   - LicensesViewController (~> 0.6.0)
   - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `master`)
-  - RAMAnimatedTabBarController (~> 2.0.2)
   - SkyFloatingLabelTextField (from `https://github.com/MLSDev/SkyFloatingLabelTextField`, branch `swift3`)
 
 EXTERNAL SOURCES:
@@ -89,9 +87,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
   NVActivityIndicatorView: 19c0c7549ffe4f830f65d00b2f0d9a144e4c5105
-  RAMAnimatedTabBarController: 8b4b7e41d1d6c76ebf6482233f4bc528231db437
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
 
-PODFILE CHECKSUM: 09ca059dffa329ca4506f8770e39f324e0e0dbec
+PODFILE CHECKSUM: 4bcf1a02a48fce02b47c767c06d03df053dc0952
 
 COCOAPODS: 1.1.1

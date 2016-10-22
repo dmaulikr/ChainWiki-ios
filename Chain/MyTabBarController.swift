@@ -6,9 +6,8 @@
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 import UIKit
-import RAMAnimatedTabBarController
 
-class MyTabBarController: RAMAnimatedTabBarController, UITabBarControllerDelegate {
+class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -32,13 +31,6 @@ class MyTabBarController: RAMAnimatedTabBarController, UITabBarControllerDelegat
         
         self.tabBar.tintColor = Color.lightGreen
         
-        let abilityTabItem = RAMAnimatedTabBarItem(
-            title: "어빌리티",
-            image: #imageLiteral(resourceName: "abilityTab"),
-            selectedImage: #imageLiteral(resourceName: "abilityTab")
-        )
-        abilityTabItem.animation = RAMBounceAnimation()
-        ability.tabBarItem = abilityTabItem
         
 
         

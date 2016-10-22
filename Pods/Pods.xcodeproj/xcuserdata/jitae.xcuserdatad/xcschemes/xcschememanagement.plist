@@ -39,11 +39,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RAMAnimatedTabBarController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SkyFloatingLabelTextField.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,11 +57,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4616CC101BC082592DC9F832D5101896</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
@@ -77,7 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98BBA02CC80DC6E52082449A1FEE2084</key>
+		<key>8C3638A9A20DF7F2564348DD0D9462B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C19FC1C7CFBDC23FE002D771CC0811CA</key>
+		<key>A01B6714D9A692B8B65F15912AB3CB31</key>
 		<dict>
 			<key>primary</key>
 			<true/>
