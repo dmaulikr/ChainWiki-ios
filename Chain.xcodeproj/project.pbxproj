@@ -73,6 +73,7 @@
 		04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */; };
 		04C869C61D7B787900ED70C3 /* ReverseImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */; };
 		04CDAF221DB1AD6C00F659BA /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */; };
+		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
 		04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594C1DB60A1200D30C21 /* PageViewController.swift */; };
 		04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
@@ -200,6 +201,7 @@
 		04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditModel.swift; sourceTree = "<group>"; };
 		04C869C51D7B787900ED70C3 /* ReverseImageSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseImageSearch.swift; sourceTree = "<group>"; };
 		04CDAF211DB1AD6C00F659BA /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04D6594C1DB60A1200D30C21 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */,
 				04A2ECA31D6F7FA300189142 /* Info.plist */,
 				04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */,
+				04D226661DBB29FA00802EFF /* GoogleService-Info.plist */,
 			);
 			path = Chain;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04EF66A51DB319DC00E13370 /* SettingsSectionHeader.xib in Resources */,
 				045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */,
+				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
 				04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */,
 				04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */,

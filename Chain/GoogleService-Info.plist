@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1008757887866-9448aopubgnahsuukvb8rnj36kqt39s5.apps.googleusercontent.com</string>
+	<string>1008757887866-vqn42tjpf05cbl73t77isihseqg583f9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1008757887866-9448aopubgnahsuukvb8rnj36kqt39s5</string>
+	<string>com.googleusercontent.apps.1008757887866-vqn42tjpf05cbl73t77isihseqg583f9</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCYG0yJH_q0KBhYWzSY6gxcoHdAjEqJK3U</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.jk.Chain</string>
+	<string>com.jk.cckorea</string>
 	<key>PROJECT_ID</key>
 	<string>chainchronicle-ea233</string>
 	<key>STORAGE_BUCKET</key>
@@ -27,13 +27,13 @@
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
 	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1008757887866:ios:2b5e437f9a10bc2d</string>
+	<string>1:1008757887866:ios:e713b34761ca7fad</string>
 	<key>DATABASE_URL</key>
 	<string>https://chainchronicle-ea233.firebaseio.com</string>
 </dict>
