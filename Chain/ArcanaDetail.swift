@@ -319,10 +319,14 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaButtons") as! ArcanaButtonsCell
+                if let likes = arcana.numberOfLikes {
+                    cell.numberOfLikes.text = "\(likes)"
+                }
+                
                 cell.heart.tag = 0
-                cell.heart.addTarget(self, action: #selector(ArcanaDetail.toggle), for: .touchUpInside)
+                cell.heart.addTarget(self, action: #selector(ArcanaDetail.toggleHeart), for: .touchUpInside)
                 cell.favorite.tag = 1
-                cell.favorite.addTarget(self, action: #selector(ArcanaDetail.toggle), for: .touchUpInside)
+                cell.favorite.addTarget(self, action: #selector(ArcanaDetail.toggleFavorite), for: .touchUpInside)
                 
                 cell.heart.setImage(_: UIImage(named: "heartNormal"), for: .normal)
                 cell.heart.setImage(_: UIImage(named: "heartSelected"), for: .selected)
@@ -330,16 +334,15 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.favorite.setImage(_: UIImage(named: "starSelected"), for: .selected)
                 
                 
-                let userHearts = defaults.getHearts()
-                if !userHearts.contains(arcana.uid) {
-                    cell.favorite.isSelected = false
+                let userLikes = defaults.getLikes()
+                if !userLikes.contains(arcana.uid) {
+                    cell.heart.isSelected = false
                 }
                 else {
-                    cell.favorite.isSelected = true
+                    cell.heart.isSelected = true
                 }
                 
                 let userFavorites = defaults.getFavorites()
-                print("CHECKING")
                 if !userFavorites.contains(arcana.uid) {
                     print("FALSE")
                     cell.favorite.isSelected = false
@@ -629,21 +632,46 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    func toggle(_ sender: UIButton) {
+    func toggleHeart(_ sender: UIButton) {
         
-        var type = ""
-        var userInfo = [String]()
-        if sender.tag == 0 {    // heart
-            type = "hearts"
-        }
-        else {
-            type = "favorites"
-        }
+        var userInfo = defaults.getLikes()
         if let arcana = arcana, let uid = defaults.getUID()  {
             
-            let ref = FIREBASE_REF.child("user/\(uid)/\(type)/\(arcana.uid)")
+            let ref = FIREBASE_REF.child("user/\(uid)/likes/\(arcana.uid)")
             
+            var found = false
             
+            for (index, id) in userInfo.enumerated().reversed() {
+                if id == arcana.uid {
+                    userInfo.remove(at: index)
+                    ref.removeValue()
+                    found = true
+                    break
+                }
+            }
+            
+            if found == false {
+                // add to array
+                userInfo.append(arcana.uid)
+                ref.setValue(true)
+                FirebaseService.dataRequest.incrementLikes(uid: arcana.uid, increment: true)
+            }
+            else {
+                FirebaseService.dataRequest.incrementLikes(uid: arcana.uid, increment: false)
+            }
+
+            
+            defaults.setLikes(value: userInfo)
+        }
+       
+    }
+    
+    func toggleFavorite(_ sender: UIButton) {
+        
+        var userInfo = defaults.getFavorites()
+        if let arcana = arcana, let uid = defaults.getUID()  {
+            
+            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
             
             var found = false
             
@@ -661,14 +689,13 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
                 userInfo.append(arcana.uid)
                 ref.setValue(true)
             }
-
             
-            defaults.setValue(userInfo, forKey: type)
-            defaults.synchronize()
+            defaults.setFavorites(value: userInfo)
         }
-       
+        
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        addToolButtons()
@@ -704,14 +731,20 @@ class ArcanaDetail: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         
         // Increment number of views
-        let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
-        viewRef.observeSingleEvent(of: .value, with: { snapshot in
-            if let views = snapshot.value as? Int {
-                print("numberOfViews is \(views)")
-                viewRef.setValue(views+1)
+        if let user = FIRAuth.auth()?.currentUser {
+            guard let name = user.displayName , name != "제이k" else {
+                return
             }
-            
-        })
+            let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
+            viewRef.observeSingleEvent(of: .value, with: { snapshot in
+                if let views = snapshot.value as? Int {
+                    print("numberOfViews is \(views)")
+                    viewRef.setValue(views+1)
+                }
+                
+            })
+        }
+        
         let indexPath = IndexPath(row: 1, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
         //navigationController?.hidesBarsOnSwipe = true

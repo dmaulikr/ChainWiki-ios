@@ -63,13 +63,13 @@ extension UserDefaults {
         return object(forKey: "recent") as? [String] ?? [String]()
     }
     
-    func setHearts(value: [String]) {
-        set(value, forKey: "hearts")
+    func setLikes(value: [String]) {
+        set(value, forKey: "likes")
         synchronize()
     }
     
-    func getHearts() -> [String]{
-        return object(forKey: "hearts") as? [String] ?? [String]()
+    func getLikes() -> [String]{
+        return object(forKey: "likes") as? [String] ?? [String]()
     }
     
     

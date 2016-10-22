@@ -96,4 +96,26 @@ class FirebaseService {
         
     }
     
+    
+    func incrementLikes(uid: String, increment: Bool) {
+        let ref = ARCANA_REF.child("\(uid)/numberOfLikes")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let base = snapshot.value as? Int else {
+                return
+            }
+            
+            if increment {
+                ref.setValue(base+1)
+            }
+            else if base > 0 {
+                   ref.setValue(base-1)
+            }
+            
+            
+            
+        })
+    }
+    
+    
 }

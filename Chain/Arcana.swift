@@ -54,6 +54,7 @@ struct Arcana: Equatable, Hashable {
     var dateAdded: String?
     var chainStory: String?
     var chainStone: String?
+    var numberOfLikes: Int?
     
     var hashValue: Int {
         return uid.hashValue
@@ -142,6 +143,9 @@ struct Arcana: Equatable, Hashable {
             
             numberOfViews = v
         
+        if let likes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int {
+            numberOfLikes = likes
+        }
         if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
             nickNameKR = nnKR
         }

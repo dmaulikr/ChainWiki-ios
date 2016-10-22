@@ -99,9 +99,9 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
                                         guard let user = user else {
                                             return
                                         }
-                                        
+                                         
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
-                                        editPermissionsRef.setValue("true")
+                                        editPermissionsRef.setValue(true)
                                         let changeRequest = user.profileChangeRequest()
                                         changeRequest.displayName = nickname
                                         changeRequest.commitChanges { error in

@@ -31,6 +31,8 @@ class ArcanaButtonsCell: UITableViewCell {
         }
     }
 
+    @IBOutlet weak var numberOfLikes: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
