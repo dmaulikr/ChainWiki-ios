@@ -58,7 +58,6 @@
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
 		04A2EC971D6F7FA300189142 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC961D6F7FA300189142 /* Home.swift */; };
 		04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2EC981D6F7FA300189142 /* Main.storyboard */; };
-		04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */; };
 		04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A2EC9E1D6F7FA300189142 /* Assets.xcassets */; };
 		04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */; };
 		04A2ECAD1D6F7FA300189142 /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2ECAC1D6F7FA300189142 /* ChainTests.swift */; };
@@ -178,7 +177,6 @@
 		04A2EC941D6F7FA300189142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A2EC961D6F7FA300189142 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		04A2EC991D6F7FA300189142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		04A2EC9C1D6F7FA300189142 /* Chain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chain.xcdatamodel; sourceTree = "<group>"; };
 		04A2EC9E1D6F7FA300189142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04A2ECA11D6F7FA300189142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04A2ECA31D6F7FA300189142 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = etc/Info.plist; sourceTree = "<group>"; };
@@ -390,7 +388,6 @@
 				04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */,
 				044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */,
 				04A2ECA31D6F7FA300189142 /* Info.plist */,
-				04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */,
 			);
 			path = Chain;
 			sourceTree = "<group>";
@@ -659,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Chain/credits.py -s \"$SRCROOT\" -o \"$SRCROOT/Credits.plist\"";
+			shellScript = "./Chain/etc/credits.py -s \"$SRCROOT\" -o \"$SRCROOT/Credits.plist\"";
 		};
 		1449A3C3D380BEEC9872C010 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -817,7 +814,6 @@
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
 				040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
-				04A2EC9D1D6F7FA300189142 /* Chain.xcdatamodeld in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
@@ -903,6 +899,7 @@
 				0406BDDF1D8BE3270085F4D8 /* ko */,
 			);
 			name = Main.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */ = {
@@ -1025,11 +1022,11 @@
 				APP_DISPLAY_NAME = "체인 베타";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
-				INFOPLIST_FILE = Chain/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Chain/etc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
@@ -1052,12 +1049,12 @@
 				APP_DISPLAY_NAME = "체인 위키";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Chain/Chain.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Chain/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Chain/etc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
@@ -1176,19 +1173,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		04A2EC9B1D6F7FA300189142 /* Chain.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				04A2EC9C1D6F7FA300189142 /* Chain.xcdatamodel */,
-			);
-			currentVersion = 04A2EC9C1D6F7FA300189142 /* Chain.xcdatamodel */;
-			path = Chain.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 04A2EC891D6F7FA300189142 /* Project object */;
 }
