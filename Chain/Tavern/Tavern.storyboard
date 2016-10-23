@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="XVE-FH-Zqh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nie-Iy-KcY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7xx-AM-hhw">
@@ -50,7 +50,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="Opo-hP-nA3" userLabel="header" customClass="TavernHeader" customModule="Chain" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-IB-gyj" customClass="UnderlinedLabel" customModule="Chain" customModuleProvider="target">
@@ -95,7 +95,7 @@
                         <viewControllerLayoutGuide type="bottom" id="f4H-JO-0tC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oI6-ma-Rju">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I8f-WX-94l">
@@ -124,7 +124,7 @@
                 <navigationController storyboardIdentifier="TavernNav" automaticallyAdjustsScrollViewInsets="NO" id="iMB-hA-YK1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VSn-eN-1jt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
