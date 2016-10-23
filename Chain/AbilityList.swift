@@ -10,7 +10,7 @@
 
 import UIKit
 
-class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AbilityList: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let defaults = UserDefaults.standard
@@ -41,51 +41,6 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.reloadData()
     }
     
-    
-    
-    //TODO: Make tab bar controller control the original array, and load this for each view
-    
-    
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ability") as! AbilityCell
-        cell.abilityName.text = currentArray[(indexPath as NSIndexPath).row]
-        if segmentedControl.selectedSegmentIndex == 0 {
-            cell.abilityIcon.image = abilityImages[indexPath.row]
-        }
-        else {
-            cell.abilityIcon.image = kizunaImages[indexPath.row]
-        }
-        
-        
-        return cell
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch indexPath.row {
-//        case 3:
-//            self.performSegue(withIdentifier: "showGrid", sender: (indexPath as NSIndexPath).row)
-        default:
-            self.performSegue(withIdentifier: "abilityArcana", sender: (indexPath as NSIndexPath).row)
-        }
-    
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,5 +89,48 @@ class AbilityList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+// MARK - UITableViewDelegate, UITableViewDataSource
+extension AbilityList: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return currentArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ability") as! AbilityCell
+        cell.abilityName.text = currentArray[(indexPath as NSIndexPath).row]
+        if segmentedControl.selectedSegmentIndex == 0 {
+            cell.abilityIcon.image = abilityImages[indexPath.row]
+        }
+        else {
+            cell.abilityIcon.image = kizunaImages[indexPath.row]
+        }
+        
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch indexPath.row {
+            //        case 3:
+        //            self.performSegue(withIdentifier: "showGrid", sender: (indexPath as NSIndexPath).row)
+        default:
+            self.performSegue(withIdentifier: "abilityArcana", sender: (indexPath as NSIndexPath).row)
+        }
+        
+    }
 
 }

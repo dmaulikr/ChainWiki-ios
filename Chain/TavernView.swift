@@ -12,13 +12,12 @@ protocol TavernViewDelegate : class {
     func didUpdate(_ sender: TavernView, tavern: String)
 }
 
-class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class TavernView: UIViewController {
 
     weak var delegate: TavernViewDelegate?
     @IBOutlet weak var collectionView: UICollectionView!
     
     let taverns = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구", "새벽대해", "수인의대륙", "죄의대륙", "박명의대륙", "철연의대륙", "연대기대륙", "서가", "레무레스섬"]
-    
     let yugudo = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구"]
     let gyosae = ["새벽대해", "수인의대륙", "죄의대륙", "박명의대륙"]
     let giwon = ["철연의대륙", "연대기대륙", "서가"]
@@ -26,73 +25,6 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     let continents = ["유그도대륙", "교쇄의해역", "기원의해역", "저편의해역"]
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        switch section {
-        case 0:
-            return 8
-        case 1:
-            return 4
-        case 2:
-            return 3
-        default:
-            return 1
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        if kind == UICollectionElementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! TavernHeader
-            
-
-            switch indexPath.section {
-            case 0:
-                headerView.sectionTitle.text = "유그도대륙"
-            case 1:
-                headerView.sectionTitle.text = "교쇄의해역"
-            case 2:
-                headerView.sectionTitle.text = "기원의해역"
-            default:
-                headerView.sectionTitle.text = "저편의해역"
-                
-                
-            }
-            return headerView
-        }
-        
-        return UICollectionReusableView()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tavern", for: indexPath) as! TavernCell
-        
-        
-        switch indexPath.section {
-        case 0:
-            cell.tavernName.text = yugudo[indexPath.row]
-        case 1:
-            cell.tavernName.text = gyosae[indexPath.row]
-        case 2:
-            cell.tavernName.text = giwon[indexPath.row]
-        default:
-            cell.tavernName.text = juhpyun[indexPath.row]
-            
-        }
-
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath)
-        performSegue(withIdentifier: "toTavern", sender: cell)
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +87,68 @@ class TavernView: UIViewController, UICollectionViewDelegate, UICollectionViewDa
 
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension TavernView: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        switch section {
+        case 0:
+            return 8
+        case 1:
+            return 4
+        case 2:
+            return 3
+        default:
+            return 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! TavernHeader
+            
+            headerView.sectionTitle.text = continents[indexPath.section]
+            return headerView
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tavern", for: indexPath) as! TavernCell
+        
+        
+        switch indexPath.section {
+        case 0:
+            cell.tavernName.text = yugudo[indexPath.row]
+        case 1:
+            cell.tavernName.text = gyosae[indexPath.row]
+        case 2:
+            cell.tavernName.text = giwon[indexPath.row]
+        default:
+            cell.tavernName.text = juhpyun[indexPath.row]
+            
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        performSegue(withIdentifier: "toTavern", sender: cell)
+        
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
 extension TavernView : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

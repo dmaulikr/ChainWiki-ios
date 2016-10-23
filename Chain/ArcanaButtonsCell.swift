@@ -19,6 +19,7 @@ class ArcanaButtonsCell: UITableViewCell {
         }
         else {
             sender.isSelected = true
+            sender.bounceAnimate()
         }
     }
     
@@ -28,6 +29,7 @@ class ArcanaButtonsCell: UITableViewCell {
         }
         else {
             sender.isSelected = true
+            sender.bounceAnimate()
         }
     }
 

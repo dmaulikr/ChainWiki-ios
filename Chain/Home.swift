@@ -404,7 +404,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-// MARK: TableView
+// MARK: UITableViewDelegate, UITableViewDataSource
 extension Home: UITableViewDelegate, UITableViewDataSource {
 
     
@@ -584,6 +584,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
 }
 
+// MARK: FilterDelegate, TavernViewDelegate
 extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: Filter) {
         DispatchQueue.main.async {

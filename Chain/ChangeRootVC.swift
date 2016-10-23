@@ -21,10 +21,11 @@ extension UIViewController {
         if vc == RootVC.login {
             
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
             
             let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
+            let initialViewController = MyTabBarController()
             initialViewController.view.addSubview(snapshot)
             
             self.view.window?.rootViewController = initialViewController

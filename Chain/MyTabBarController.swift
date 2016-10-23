@@ -54,17 +54,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
 
-        imageViews[item.tag].transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        
-        UIView.animate(withDuration: 0.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.3,
-                       initialSpringVelocity: 6.0,
-                       options: .allowUserInteraction,
-                       animations: { [weak self] in
-                        self?.imageViews[item.tag].transform = .identity
-            },
-                       completion: nil)
+        imageViews[item.tag].bounceAnimate()
+
         
     }
     

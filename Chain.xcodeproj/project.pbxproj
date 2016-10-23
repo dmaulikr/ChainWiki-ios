@@ -381,6 +381,7 @@
 			children = (
 				042834F81D91AF680043BE6E /* Chain.entitlements */,
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
+				04AD618A1DBC31F600F5D336 /* New Group */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
 				040EA1721DB8787E00193363 /* Helpers */,
 				042834FC1D91EA1E0043BE6E /* Login */,
@@ -462,6 +463,13 @@
 				047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */,
 			);
 			name = Tavern;
+			sourceTree = "<group>";
+		};
+		04AD618A1DBC31F600F5D336 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		04CDAF201DB1AD3900F659BA /* Fastlane */ = {

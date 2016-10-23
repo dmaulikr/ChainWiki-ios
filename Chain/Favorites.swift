@@ -72,10 +72,6 @@ class Favorites: UIViewController {
     }
     
     
-    
-    
-    
-    
     func downloadFavorites() {
         
         let userFavorites = defaults.getFavorites()
@@ -136,6 +132,8 @@ class Favorites: UIViewController {
     
 }
 
+
+// MARK - UITableViewDelegate, UITableViewDataSource
 extension Favorites: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -286,3 +284,5 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+

@@ -19,10 +19,6 @@ class FirebaseService {
 
     private var STORAGE_REF = FIRStorage.storage().reference()
     
-    func authenticateUser() {
-        
-    }
-    
     func downloadImage(uid: String, sender: AnyObject) {
         
         if defaults.getImagePermissions() {
@@ -69,7 +65,7 @@ class FirebaseService {
                             
                             if let image = response.result.value {
                                 
-                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0)!) {
+                                if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.7)!) {
                                     
                                     sender.imageSpinner.stopAnimating()
                                     let size = CGSize(width: SCREENWIDTH, height: 400)

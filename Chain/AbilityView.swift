@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import Firebase
 //import Toucan
 
-class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AbilityView: UIViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
@@ -148,6 +148,30 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
     }
     
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = abilityType
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        downloadArray()
+        segmentedControl.selectedSegmentIndex = 0
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+// MARK - UITableViewDelegate, UITableViewDataSource
+extension AbilityView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -164,7 +188,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
         cell.arcanaImage.image = nil
         
-//        cell.imageSpinner.startAnimating()
+        //        cell.imageSpinner.startAnimating()
         
         let arcana = currentArray[indexPath.row]
         
@@ -196,7 +220,7 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             
             cell.arcanaImage.image = i
-//            cell.imageSpinner.stopAnimating()
+            //            cell.imageSpinner.stopAnimating()
             print("LOADED FROM CACHE")
             
         }
@@ -214,50 +238,13 @@ class AbilityView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         //self.performSegueWithIdentifier("showArcana", sender: indexPath.row)
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-
+        
         let vc = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
         vc.arcana = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-
+        
         // If you want to push to new ViewController then use this
         self.navigationController?.pushViewController(vc, animated: true)
-
-
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        title = abilityType
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        downloadArray()
-        segmentedControl.selectedSegmentIndex = 0
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        
-//        let objSomeViewController = storyBoard.instantiateViewControllerWithIdentifier("ArcanaDetail") as! ArcanaDetail
-//        
-//        // If you want to push to new ViewController then use this
-//        self.navigationController?.pushViewController(objSomeViewController, animated: true)
         
-//        if segue.identifier == "showArcana" {
-//            let vc = segue.destinationViewController as! ArcanaDetail
-//            vc.arcana = currentArray[tableView.indexPathForSelectedRow!.row]
-//        }
-//    }
-    
-    
-
+    }
 }

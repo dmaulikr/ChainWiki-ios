@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TavernHomeView: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var tavern = ""
@@ -17,92 +17,6 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
     var group = DispatchGroup()
 
     var array = [Arcana]()
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if array.count == 0 {
-            tableView.alpha = 0
-        }
-        else {
-            tableView.alpha = 1
-        }
-        
-        return array.count
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        
-        for i in cell.labelCollection {
-            i.text = nil
-        }
-        cell.arcanaImage.image = nil
-        
-//        cell.imageSpinner.startAnimating()
-        
-        let arcana = array[indexPath.row]
-        
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.nickNameKR {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.nickNameJP {
-            
-            cell.arcanaNickJP.text = nnJP
-            
-        }
-        cell.arcanaNameKR.text = arcana.nameKR
-        cell.arcanaNameJP.text = arcana.nameJP
-        
-        cell.arcanaRarity.text = "#\(arcana.rarity)★"
-        cell.arcanaGroup.text = "#\(arcana.group)"
-        cell.arcanaWeapon.text = "#\(arcana.weapon)"
-        if let a = arcana.affiliation {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
-            }
-            
-        }
-        
-        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-        cell.arcanaUID = arcana.uid
-        // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
-            
-            cell.arcanaImage.image = i
-//            cell.imageSpinner.stopAnimating()
-            print("LOADED FROM CACHE")
-            
-        }
-            
-        else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let arcanaDetail = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
-        arcanaDetail.arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-        self.navigationController?.pushViewController(arcanaDetail, animated: true)
-        
-    }
-    
     
     
     override func viewDidLoad() {
@@ -154,12 +68,93 @@ class TavernHomeView: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Do any additional setup after loading the view.
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+// MARK - UITableViewDelegate, UITableViewDataSource
+extension TavernHomeView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if array.count == 0 {
+            tableView.alpha = 0
+        }
+        else {
+            tableView.alpha = 1
+        }
+        
+        return array.count
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+        
+        for i in cell.labelCollection {
+            i.text = nil
+        }
+        cell.arcanaImage.image = nil
+        
+        //        cell.imageSpinner.startAnimating()
+        
+        let arcana = array[indexPath.row]
+        
+        // check if arcana has only name, or nickname.
+        if let nnKR = arcana.nickNameKR {
+            cell.arcanaNickKR.text = nnKR
+        }
+        if let nnJP = arcana.nickNameJP {
+            
+            cell.arcanaNickJP.text = nnJP
+            
+        }
+        cell.arcanaNameKR.text = arcana.nameKR
+        cell.arcanaNameJP.text = arcana.nameJP
+        
+        cell.arcanaRarity.text = "#\(arcana.rarity)★"
+        cell.arcanaGroup.text = "#\(arcana.group)"
+        cell.arcanaWeapon.text = "#\(arcana.weapon)"
+        if let a = arcana.affiliation {
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+            
+        }
+        
+        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+        cell.arcanaUID = arcana.uid
+        // Check cache first
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+            
+            cell.arcanaImage.image = i
+            //            cell.imageSpinner.stopAnimating()
+            print("LOADED FROM CACHE")
+            
+        }
+            
+        else {
+            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let arcanaDetail = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
+        arcanaDetail.arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+        self.navigationController?.pushViewController(arcanaDetail, animated: true)
+        
+    }
 
 }

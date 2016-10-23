@@ -40,4 +40,18 @@ public extension UIView {
                            completion: nil)
         }
     }
+    
+    func bounceAnimate() {
+        self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 6.0,
+                       options: .allowUserInteraction,
+                       animations: { [weak self] in
+                        self?.transform = .identity
+            },
+                       completion: nil)
+    }
 }
