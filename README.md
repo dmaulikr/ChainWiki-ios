@@ -19,8 +19,8 @@ Allows users to sort and filter data based on their needs.
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewAbility.png" width="320">
 
 ## Some Tools Used
-Firebase Authentication, Realtime Database, Storage
-Fastlane Delivery https://github.com/fastlane/fastlane
-App Store Screenshot Generator http://www.appstorescreenshot.com/
+Firebase Authentication, Realtime Database, Storage  
+Fastlane Delivery https://github.com/fastlane/fastlane  
+App Store Screenshot Generator http://www.appstorescreenshot.com/  
 Icons8 https://icons8.com/
 
