@@ -3,7 +3,7 @@
 ## Synopsis
 iOS App that uses data translated from Japanese in Korean.  
 Allows users to sort and filter data based on their needs.  
-Developed independently from scratch.
+Developed independently from scratch.  
 Compatible with both iPhone and iPad through Auto Layout.
 
 ## How it Works
