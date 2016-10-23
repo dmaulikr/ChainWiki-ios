@@ -13,4 +13,4 @@ Allows users to sort and filter data based on their needs.
 5. Users edit and improve the data for other users.
 
 ## Screenshots
-![](https://github.com/jitaek/ChainChronicleKoreaWiki/tree/master/Screenshots/PreviewFilter =320x568)
+![](https://github.com/jitaek/ChainChronicleKoreaWiki/tree/master/Screenshots/PreviewFilter.png =320x568)
