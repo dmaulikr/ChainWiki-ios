@@ -11,7 +11,7 @@ Compatible with both iPhone and iPad through Auto Layout.
 2. Korean text is uploaded to Firebase for quick and instant access of Korean text.
 3. Users instantly access understandable data from their iOS device.
 4. Users sort or filter data through Firebase or in-app commands. 
-5. Users edit,improve, or export the data for other users.
+5. Users edit, improve, or export the data for other users.
 
 ## Screenshots
 
