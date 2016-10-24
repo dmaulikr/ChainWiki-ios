@@ -1,5 +1,8 @@
 # ChainChronicleKoreaWiki
 
+## App Store Link  
+https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1165642488&mt=8  
+
 ## Synopsis
 iOS App that uses data translated from Japanese in Korean.  
 Allows users to sort and filter data based on their needs.  
