@@ -19,6 +19,9 @@ Compatible with both iPhone and iPad through Auto Layout.
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewFilter.png" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewAbility.png" width="320">
 
+## App Flow Preview
+https://www.youtube.com/watch?v=-oYQHVHKxTI
+
 ## Some Tools Used
 Firebase Authentication, Realtime Database, Storage  
 Fastlane Delivery https://github.com/fastlane/fastlane  
