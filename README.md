@@ -18,6 +18,7 @@ Compatible with both iPhone and iPad through Auto Layout.
 
 ## Screenshots
 
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/Tutorial.png" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewHome.png" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewFilter.png" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewAbility.png" width="320">
