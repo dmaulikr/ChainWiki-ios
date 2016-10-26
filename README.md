@@ -10,8 +10,8 @@ Developed independently from scratch.
 Compatible with both iPhone and iPad through Auto Layout.
 
 ## How it Works
-1. Japanese web content is parsed and then translated using Google Translate API.
-2. Korean text is uploaded to Firebase for quick and instant access of Korean text.
+1. Japanese web content is retrieved and translated using Google Translate API which returns JSON.
+2. JSON is parsed and the korean text is uploaded to Firebase for quick and instant future access of Korean text.
 3. Users instantly access understandable data from their iOS device.
 4. Users sort or filter data through Firebase or in-app commands. 
 5. Users edit, improve, or export the data for other users.
