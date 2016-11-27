@@ -37,6 +37,22 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    var searchController = UISearchController(searchResultsController: nil)
+    
+    var showSearch: Bool = false {
+        didSet {
+            if showSearch {
+                print("active")
+                self.searchView.alpha = 1
+            }
+            else {
+                print("not active")
+                self.searchView.alpha = 0
+            }
+        }
+    }
+
+    
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
@@ -46,7 +62,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     var gesture = UITapGestureRecognizer()
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
-    var searchController = UISearchController(searchResultsController: nil)
+    
     
     
     func setupBarButtons() {
@@ -155,23 +171,23 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 
     func dismissFilter(_ sender: AnyObject) {
         
-        if searchView.alpha == 1 && gesture.location(in: self.view).y > 220 {
-            print("alpha is 1 and gesture != searchview")
+        // If search is active and user presses bottom half, dismiss search.
+        if searchController.isActive && gesture.location(in: self.view).y > 220 {
+            debugPrint("dismiss search")
             gesture.cancelsTouchesInView = true
             searchController.dismiss(animated: true, completion: nil)
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                self.searchView.alpha = 0.0
-                }, completion: nil)
+            showSearch = false
 
         }
         
-        else if filterView.alpha == 1 && gesture.location(in: self.view).x < 95 {
+        // If filter is open and user presses on left column, dismiss filter.
+        else if showFilter && gesture.location(in: self.view).x < 95 {
+            debugPrint("dismiss filter")
             gesture.cancelsTouchesInView = true
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                self.filterView.alpha = 0.0
-                }, completion: nil)
+            showFilter = false
         }
         else {
+            debugPrint("failed")
             gesture.cancelsTouchesInView = false
         }
         
@@ -273,8 +289,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 
         tableView.estimatedRowHeight = 90
 //        tableView.rowHeight = UITableViewAutomaticDimension
-        searchView.alpha = 0
-        filterView.alpha = 0.0
+        showFilter = false
+        showSearch = false
+//        searchView.alpha = 0
+//        filterView.alpha = 0.0
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
@@ -608,7 +626,8 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
         
         // dismiss history if user starts typing.
         if searchText != "" {
-            searchView.alpha = 0
+//            searchView.alpha = 0
+            showSearch = false
         }
         
         searchArray = originalArray.filter { arcana in
@@ -626,17 +645,14 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
     func didPresentSearchController(_ searchController: UISearchController) {
         
-        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
-            self.searchView.alpha = 1.0
-            self.filterView.alpha = 0
-            }, completion: nil)
+        showSearch = true
+
     }
     
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.searchView.alpha = 0.0
-            }, completion: nil)
+        
+        showSearch = false
         
     }
 
