@@ -105,6 +105,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
         case 0:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
+            cell.cellAnimate()
             print("SELECTED RARITY \(cell.rarity.text!)")
             
             var rarityArray = [String]()
@@ -125,7 +126,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
         case 1:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
-            
+            cell.cellAnimate()
             cell.isHighlighted = true
             print("SELECTED GROUP \(cell.filterType.text!)")
 
@@ -142,6 +143,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             hasFilter = true
         case 2:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
+            cell.cellAnimate()
             cell.isHighlighted = true
             print("SELECTED WEAPON \(cell.filterType.text!)")
             
@@ -158,6 +160,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             hasFilter = true
         case 3:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
+            cell.cellAnimate()
             cell.isHighlighted = true
             print("SELECTED AFFILIATION \(cell.filterType.text!)")
             
