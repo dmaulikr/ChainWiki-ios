@@ -22,18 +22,13 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     var showFilter: Bool = false {
         didSet {
             
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                
-                if self.showFilter == true {
-                    self.filterView.alpha = 1
-                }
-                else {
-                    self.filterView.alpha = 0
-                }
-                
-            }, completion: nil)
-            
-            
+            if self.showFilter == true {
+                self.filterView.filterViewAnimate()
+            }
+            else {
+                self.filterView.alpha = 0
+            }
+
         }
     }
     
@@ -332,7 +327,15 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
 //        tableView.reloadData()
     }
-//    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
+        
+        
+    }
+  
     override func viewWillDisappear(_ animated: Bool) {
         searchController.isActive = false
     }

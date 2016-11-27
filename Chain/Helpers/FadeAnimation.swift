@@ -68,4 +68,19 @@ public extension UIView {
             },
                        completion: nil)
     }
+    
+    func filterViewAnimate() {
+        
+        var t = self.transform
+        t = t.translatedBy(x: self.frame.width, y: -self.frame.height)
+        t = t.scaledBy(x: 0.1, y: 0.1)
+
+        self.transform = t
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            self.alpha = 1
+            self.transform = .identity
+        }, completion: nil)
+
+        
+    }
 }
