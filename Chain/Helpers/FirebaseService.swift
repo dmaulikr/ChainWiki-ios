@@ -40,8 +40,8 @@ class FirebaseService {
                                     
                                     if sender.arcanaUID == uid {
                                         sender.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(uid)/icon.jpg")
-                                        sender.arcanaImage.alpha = 0
-                                        sender.arcanaImage.fadeIn(withDuration: 0.2)
+//                                        sender.arcanaImage.alpha = 0
+//                                        sender.arcanaImage.fadeIn(withDuration: 0.2)
                                     }
                                     
                                 }

@@ -562,12 +562,28 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if initialAnimation == true {
-            // don't do anything, animateTable will be called
+        if showFilter == true {
+            // rotate image over.
+            if let cell = cell as? ArcanaCell {
+                
+                if !preventAnimation.contains(indexPath) {
+                    preventAnimation.insert(indexPath)
+                    
+                    var t = cell.arcanaImage.transform
+                    t = t.translatedBy(x: -90, y: 0)
+                    t = t.rotated(by: CGFloat(M_PI))
+                    cell.arcanaImage.transform = t
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                        cell.arcanaImage.transform = CGAffineTransform.identity
+                    }, completion: nil)
+                    
+                }
+            }
         }
             
         else {
-            let visibleCells = tableView.indexPathsForVisibleRows
+//            let visibleCells = tableView.indexPathsForVisibleRows
             if !preventAnimation.contains(indexPath) {
                 preventAnimation.insert(indexPath)
                 //            cell.alpha = 0
