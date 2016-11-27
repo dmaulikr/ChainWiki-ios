@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
-        let scoresRef = FIRDatabase.database().reference()
-        scoresRef.keepSynced(true)
+        FIRDatabase.database().reference().keepSynced(true)
 
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
@@ -36,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().barTintColor = Color.lightGreen
         
-        
+
+        AppRater.appRater.incrementAppLaunches()
         
         if UserDefaults.standard.isLoggedIn() {
             let initialViewController = MyTabBarController()

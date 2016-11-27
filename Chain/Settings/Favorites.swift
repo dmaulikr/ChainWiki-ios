@@ -168,6 +168,10 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
         
         
+        for i in cell.labelCollection {
+            i.text = nil
+        }
+        
         cell.arcanaImage.image = nil
         
         //        cell.imageSpinner.startAnimating()

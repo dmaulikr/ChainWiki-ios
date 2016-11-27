@@ -26,6 +26,7 @@
 		043523971DB45CAF004D96A3 /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 043523961DB45CAF004D96A3 /* credits.py */; };
 		0435239B1DB461CA004D96A3 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0435239A1DB461CA004D96A3 /* Credits.plist */; };
 		043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 043616011DBC974B00BFFB64 /* FontAwesome.otf */; };
+		043DB68D1DBDDC9900549703 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DB68C1DBDDC9900549703 /* AppRater.swift */; };
 		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
 		0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0447E1D31D87BA8200670834 /* Ability.storyboard */; };
 		0447E1D61D87D05200670834 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0447E1D51D87D05200670834 /* AbilityView.swift */; };
@@ -144,6 +145,7 @@
 		043523961DB45CAF004D96A3 /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		0435239A1DB461CA004D96A3 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
 		043616011DBC974B00BFFB64 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		043DB68C1DBDDC9900549703 /* AppRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		0447E1D31D87BA8200670834 /* Ability.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ability.storyboard; sourceTree = "<group>"; };
 		0447E1D51D87D05200670834 /* AbilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		048B31251D7642CA0011477D /* AbilityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityList.swift; sourceTree = "<group>"; };
 		048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillAbilityDescCell.swift; sourceTree = "<group>"; };
 		048E6E541D729A7D00687513 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = etc/GlobalConstants.swift; sourceTree = "<group>"; };
+		0490426D1DBD670700D5FDF0 /* Chain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chain-Bridging-Header.h"; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */,
+				043DB68C1DBDDC9900549703 /* AppRater.swift */,
 				041FD5681DB9A6F50068657F /* FirebaseService.swift */,
 				040EA1751DB87A5E00193363 /* ChangeRootVC.swift */,
 				040EA1771DB8940E00193363 /* FadeAnimation.swift */,
@@ -389,6 +393,7 @@
 				04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */,
 				044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */,
 				04A2ECA31D6F7FA300189142 /* Info.plist */,
+				0490426D1DBD670700D5FDF0 /* Chain-Bridging-Header.h */,
 			);
 			path = Chain;
 			sourceTree = "<group>";
@@ -561,7 +566,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -804,6 +809,7 @@
 			files = (
 				04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */,
 				0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */,
+				043DB68D1DBDDC9900549703 /* AppRater.swift in Sources */,
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
 				0479501E1D9A4C9900205A3C /* LabelCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
@@ -1019,7 +1025,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 568660B9981E438E1C64B066 /* Pods-Chain.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_DISPLAY_NAME = "체인 베타";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1027,15 +1033,17 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
-				INFOPLIST_FILE = "$(SRCROOT)/Chain/etc/Info.plist";
+				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "fad23e43-5ba7-4110-9bfd-5885d7be4159";
+				PROVISIONING_PROFILE_SPECIFIER = ChainTest;
+				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1046,24 +1054,26 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 623F61408F5822348BA67D97 /* Pods-Chain.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_DISPLAY_NAME = "체인 위키";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Chain/etc/Info.plist";
+				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "bbe1ed8a-4780-43bc-977e-3f7d200b1669";
+				PROVISIONING_PROFILE_SPECIFIER = "com.jk.cckorea AppStore 1476748081";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

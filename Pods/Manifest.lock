@@ -1,46 +1,54 @@
 PODS:
-  - Alamofire (4.0.1)
-  - AlamofireImage (3.1.0):
-    - Alamofire (~> 4.0)
-  - Firebase (3.7.1):
-    - Firebase/Core (= 3.7.1)
-  - Firebase/Auth (3.7.1):
+  - Alamofire (4.2.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - Firebase (3.10.0):
+    - Firebase/Core (= 3.10.0)
+  - Firebase/Auth (3.10.0):
     - Firebase/Core
-    - FirebaseAuth (= 3.0.5)
-  - Firebase/Core (3.7.1):
-    - FirebaseAnalytics (= 3.4.4)
-    - FirebaseCore (= 3.4.3)
-  - Firebase/Database (3.7.1):
+    - FirebaseAuth (= 3.0.6)
+  - Firebase/Core (3.10.0):
+    - FirebaseAnalytics (= 3.6.0)
+    - FirebaseCore (= 3.4.5)
+  - Firebase/Database (3.10.0):
     - Firebase/Core
-    - FirebaseDatabase (= 3.0.3)
-  - Firebase/Storage (3.7.1):
+    - FirebaseDatabase (= 3.1.1)
+  - Firebase/Storage (3.10.0):
     - Firebase/Core
-    - FirebaseStorage (= 1.0.3)
-  - FirebaseAnalytics (3.4.4):
+    - FirebaseStorage (= 1.0.5)
+  - FirebaseAnalytics (3.6.0):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
-  - FirebaseAuth (3.0.5):
-    - FirebaseAnalytics (~> 3.3)
-    - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseCore (3.4.3):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseAuth (3.0.6):
+    - FirebaseAnalytics (~> 3.4)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (3.4.5):
     - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseDatabase (3.0.3):
-    - FirebaseAnalytics (~> 3.3)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (3.1.1):
+    - FirebaseAnalytics (~> 3.5)
   - FirebaseInstanceID (1.0.8)
-  - FirebaseStorage (1.0.3):
-    - FirebaseAnalytics (~> 3.3)
-    - GoogleNetworkingUtilities (~> 1.2)
+  - FirebaseStorage (1.0.5):
+    - FirebaseAnalytics (~> 3.5)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
-  - GoogleNetworkingUtilities (1.2.2):
-    - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
-  - GoogleUtilities (1.3.2):
-    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/NSData+zlib (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.0):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.0)
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
+  - GTMSessionFetcher/Core (1.1.7)
   - LicensesViewController (0.6.0)
   - NVActivityIndicatorView (3.0)
   - SkyFloatingLabelTextField (1.2.1)
@@ -65,30 +73,30 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   NVActivityIndicatorView:
-    :commit: ad1b20572315402e13f13b869157dc794e4bf75a
+    :commit: 4d36ec2e0d9dc5bd21b781666f101c673de47d7b
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
   SkyFloatingLabelTextField:
     :commit: 03177934f990c794060765f33c408268ce8afee0
     :git: https://github.com/MLSDev/SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
-  Firebase: be473484f0d515e72ffd04acf22f981773c23e58
-  FirebaseAnalytics: 0533a00b681e08fd0b2cd0444b7ddf0ef9fd7a1a
-  FirebaseAuth: 75a062bbf2d3c97d1e6e55bbc110e13a6853e25d
-  FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
-  FirebaseDatabase: 750a4a0fe18ef114318876fd654b2d9c671e0992
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
+  FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
+  FirebaseAuth: 96e9674ff31d6e1f826d53e26aa003a57cab0295
+  FirebaseCore: 1e383fdfe37b6b5d6ff88e84204bdee30276af0f
+  FirebaseDatabase: 6de92187481ff0e8e124064f21742e95ee883b02
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  FirebaseStorage: 3992817bf405f5c1a4f8349678d22724cd0ef509
+  FirebaseStorage: 5738284835edb57f0e81d4ae5832bb17c1e4b5fa
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
-  GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
-  GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
   NVActivityIndicatorView: 19c0c7549ffe4f830f65d00b2f0d9a144e4c5105
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
 
-PODFILE CHECKSUM: 4bcf1a02a48fce02b47c767c06d03df053dc0952
+PODFILE CHECKSUM: c8146fee6d248408be7169f620dbe4289eace7e1
 
 COCOAPODS: 1.1.1

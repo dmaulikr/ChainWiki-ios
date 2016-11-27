@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 import AlamofireImage
-//import Toucan
-//import NVActivityIndicatorView
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
@@ -19,11 +17,30 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var searchView: UIView!
 
     var initialLoad = true
+    var initialAnimation = true
     var navTitle = ""
+    var showFilter: Bool = false {
+        didSet {
+            
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                
+                if self.showFilter == true {
+                    self.filterView.alpha = 1
+                }
+                else {
+                    self.filterView.alpha = 0
+                }
+                
+            }, completion: nil)
+            
+            
+        }
+    }
     
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
+    var preventAnimation = Set<IndexPath>()
     
     var rarityArray = [String]()
     var gesture = UITapGestureRecognizer()
@@ -67,7 +84,8 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
             self.arcanaArray = self.arcanaArray.sorted(by: {($0.nameKR) < ($1.nameKR)})
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
+            self.animateTable()
             
         })
         alertController.addAction(alpha)
@@ -84,7 +102,8 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
                     
                 }
                 self.arcanaArray = array
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
+                self.animateTable()
             })
 
         })
@@ -131,18 +150,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         if searchController.isActive {
             searchController.isActive = false
         }
-        if filterView.alpha == 0.0 {
-            
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.filterView.alpha = 1.0
-                }, completion: nil)
-            
-        }
-        else {
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                self.filterView.alpha = 0.0
-                }, completion: nil)
-        }
+        showFilter = !showFilter
     }
 
     func dismissFilter(_ sender: AnyObject) {
@@ -176,28 +184,30 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 
         let ref = FIREBASE_REF.child("arcana")
         
-        ref.observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { [weak self] snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
 
-                self.arcanaArray.insert(arcana, at: 0)
-                self.originalArray.append(arcana)
-                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    self.tableView.reloadData()
+                self?.arcanaArray.insert(arcana, at: 0)
+                self?.originalArray.append(arcana)
+                if self?.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
+                    self?.tableView.reloadData()
+//                    self?.animateTable()
                 }
             }
             
             
         })
         
-        ref.observeSingleEvent(of: .value, with: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { [weak self] snapshot in
 
-            
-            self.tableView.reloadData()
-            self.initialLoad = false
+            self?.animateTable()
+    
+//            self.tableView.reloadData()
+            self?.initialLoad = false
         })
         
-        ref.observe(.childRemoved, with: { snapshot in
+        ref.observe(.childRemoved, with: { [unowned self] snapshot in
             print(snapshot.key)
             let uidToRemove = snapshot.key
             
@@ -219,26 +229,26 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             }
         })
         
-        ref.observe(.childChanged, with: { snapshot in
+        ref.observe(.childChanged, with: { [weak self] snapshot in
             
             let uidToChange = snapshot.key
                     
-            if let index = self.originalArray.index(where: {$0.uid == uidToChange}) {
+            if let index = self?.originalArray.index(where: {$0.uid == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self.originalArray[index] = arcana
+                    self?.originalArray[index] = arcana
                 }
                 
             }
             
             
-            if let index = self.arcanaArray.index(where: {$0.uid == uidToChange}) {
+            if let index = self?.arcanaArray.index(where: {$0.uid == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self.arcanaArray[index] = arcana
-                    self.tableView.reloadData()
+                    self?.arcanaArray[index] = arcana
+                    self?.tableView.reloadData()
                 }
                 
             }
@@ -297,11 +307,12 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         definesPresentationContext = true
 
+        AppRater.appRater.displayAlert()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+//        tableView.reloadData()
     }
 //    
     override func viewWillDisappear(_ animated: Bool) {
@@ -345,7 +356,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 //            return false
 //        }
 //    }
-    
+
     func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
         //        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
@@ -416,11 +427,11 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         
         if arcanaArray.count == 0 {
             tableView.isUserInteractionEnabled = false
-            return 10
+            tableView.alpha = 0
         }
         else {
             tableView.isUserInteractionEnabled = true
-            tableView.alpha = 1
+            tableView.fadeIn(withDuration: 0.2)
         }
         if searchController.isActive && searchController.searchBar.text != "" {
             
@@ -528,13 +539,60 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if initialAnimation == true {
+            // don't do anything, animateTable will be called
+        }
+            
+        else {
+            let visibleCells = tableView.indexPathsForVisibleRows
+            if !preventAnimation.contains(indexPath) {
+                preventAnimation.insert(indexPath)
+                //            cell.alpha = 0
+                cell.transform = CGAffineTransform(translationX: -200, y: 0)
+                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                    cell.transform = CGAffineTransform.identity
+                }, completion: nil)
+                
+            }
+        }
+        
+        
+        
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.view.isUserInteractionEnabled = false
+        
         self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
     }
     
+    
+    func animateTable() {
+        tableView.reloadData()
+        
+        initialAnimation = false
+        
+        let cells = tableView.visibleCells
+        
+        for i in cells {
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransform(translationX: -200, y: 0)
+        }
+        
+        var index = 0
+        
+        for a in cells {
+            let cell: UITableViewCell = a as UITableViewCell
+            
+            UIView.animate(withDuration: 0.3, delay: 0.05 * Double(index), options: .curveEaseOut, animations: {
+                    cell.transform = CGAffineTransform(translationX: 0, y: 0);
+            }, completion: nil)
+            
+            index += 1
+        }
+    }
 }
 
 // MARK: Search Bar
@@ -581,7 +639,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
             }, completion: nil)
         
     }
-    
+
 }
 
 // MARK: FilterDelegate, TavernViewDelegate
@@ -589,6 +647,7 @@ extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: Filter) {
         DispatchQueue.main.async {
             
+            self.preventAnimation.removeAll()
             if let vc = self.childViewControllers[0] as? Filter {
                 
                 self.filters = vc.filterTypes

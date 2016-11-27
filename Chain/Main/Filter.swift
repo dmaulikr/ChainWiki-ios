@@ -125,6 +125,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
         case 1:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
+            
             cell.isHighlighted = true
             print("SELECTED GROUP \(cell.filterType.text!)")
 
@@ -189,6 +190,9 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
 
         }
+        
+        
+        
         self.delegate!.didUpdate(self)
 
         

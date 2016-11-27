@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import NVActivityIndicatorView
 import Firebase
 import FirebaseAuth
+//import pop
 
 
 class LoginForm: UIViewController,  UITextFieldDelegate {
@@ -18,6 +19,7 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
     @IBOutlet var containerViews: [UIView]! {
         didSet {
@@ -124,12 +126,29 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        topConstraint.constant = SCREENHEIGHT
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        animate()
+    }
+    
+    func animate() {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+            
+            self.topConstraint.constant = 20
+            self.view.layoutIfNeeded()
+            
+        }, completion: nil)
+
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
         if let text = email.text {
             if let floatingLabelTextField = email {
                 if(!text.isEmail) {

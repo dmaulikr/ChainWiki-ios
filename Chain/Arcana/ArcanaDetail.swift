@@ -261,24 +261,26 @@ class ArcanaDetail: UIViewController {
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
+    deinit {
+        print("DEINITED")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
         // Increment number of views
-        if let user = FIRAuth.auth()?.currentUser {
-            guard let name = user.displayName , name != "제이k" else {
-                return
-            }
-            let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
-            viewRef.observeSingleEvent(of: .value, with: { snapshot in
-                if let views = snapshot.value as? Int {
-//                    print("numberOfViews is \(views)")
-                    viewRef.setValue(views+1)
-                }
-                
-            })
+        guard defaults.getName() != "제이k" else {
+            return
         }
+        let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
+        viewRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let views = snapshot.value as? Int {
+                viewRef.setValue(views+1)
+            }
+            
+        })
+        
         
         
         //navigationController?.hidesBarsOnSwipe = true

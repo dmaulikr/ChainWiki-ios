@@ -15,6 +15,7 @@ target 'Chain' do
     pod 'Firebase'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
+
     pod 'Firebase/Storage'
     # pod 'RAMAnimatedTabBarController', "~> 2.0.2"
   #  pod 'Toucan', '~> 0.5'

@@ -72,7 +72,6 @@ extension UserDefaults {
         return object(forKey: "likes") as? [String] ?? [String]()
     }
     
-    
     func setFavorites(value: [String]) {
         set(value, forKey: "favorites")
         synchronize()
@@ -106,4 +105,25 @@ extension UserDefaults {
     func getCurrentVersion() -> String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? nil
     }
+    
+    // MARK - App Rating
+    func getAppLaunchCount() -> Int {
+        return integer(forKey: "numberOfLaunches")
+    }
+    
+    func setAppLaunches(value: Int) {
+        set(value, forKey: "numberOfLaunches")
+        synchronize()
+    }
+    
+    func hasShownRating() -> Bool {
+        return bool(forKey: "hasShownRating")
+    }
+    
+    func setShownRating(value: Bool) {
+        set(value, forKey: "hasShownRating")
+        synchronize()
+    }
+    
+    
 }

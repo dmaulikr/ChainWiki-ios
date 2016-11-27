@@ -14,6 +14,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac-Defines-NSData+zlib.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac-f0850809.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>LicensesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,6 +67,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>23BA9083ED0D2392A167A8AFA04427FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>333E47F1004946B94926B19979768D18</key>
 		<dict>
 			<key>primary</key>
@@ -67,7 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C3638A9A20DF7F2564348DD0D9462B6</key>
+		<key>8B58946B16CC5F4C2FEAEA2815B633B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +97,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A01B6714D9A692B8B65F15912AB3CB31</key>
+		<key>B0A83DD8433498D11F7D5460B149864B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAF368D9EEAB3E936A297541FEEEE2F3</key>
+		<key>B563D70820475EC9908A1FEFCFFF8293</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F26BEF94C5A86CB2863597A87CBEF0CC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAD6A90FCFFCC363CFB5E4E7706E50BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

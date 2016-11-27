@@ -152,40 +152,19 @@ extension TavernView: UICollectionViewDelegate, UICollectionViewDataSource {
 extension TavernView : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // inset = sectionInset(28)+cellspacing
         let inset = CGFloat(31)
-//        let cellSpace = CGFloat(1)
-//        let separatorCount = CGFloat(3)
-        
-        switch (indexPath as NSIndexPath).section {
-        case 0,1,2:
-            return CGSize(width: (SCREENWIDTH-inset)/4, height: 40)
-            
-        default:
-            return CGSize(width: (SCREENWIDTH-inset)/4, height: 40)
-        }
+
+        return CGSize(width: (SCREENWIDTH-inset)/4, height: 50)
         
     }
-    
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        
-//        switch section {
-//        case 0: // This one needs higher top inset
-//            return UIEdgeInsetsMake(14, 14, 7, 14)
-//        default:
             return UIEdgeInsetsMake(7, 14, 7, 14)
-//        }
-        
-        
         
     }
-    
-    
-    
     
 }
 

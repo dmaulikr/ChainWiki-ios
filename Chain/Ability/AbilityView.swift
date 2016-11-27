@@ -148,6 +148,26 @@ class AbilityView: UIViewController {
         
     }
     
+    func swipe(_ gesture: UIGestureRecognizer) {
+        
+        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else { return }
+        
+        switch swipeGesture.direction {
+            
+        case UISwipeGestureRecognizerDirection.left:
+            print("Swiped left")
+            guard segmentedControl.selectedSegmentIndex > 0 else { return }
+            segmentedControl.selectedSegmentIndex = segmentedControl.selectedSegmentIndex - 1
+        case UISwipeGestureRecognizerDirection.right:
+            guard segmentedControl.selectedSegmentIndex < 4 else { return }
+            segmentedControl.selectedSegmentIndex = segmentedControl.selectedSegmentIndex + 1
+            print("Swiped right")
+        default:
+            break
+        }
+        
+        
+    }
     
     
     override func viewDidLoad() {
@@ -161,6 +181,14 @@ class AbilityView: UIViewController {
         navigationItem.backBarButtonItem = backButton
         downloadArray()
         segmentedControl.selectedSegmentIndex = 0
+        
+//        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe(_:)))
+//        rightSwipe.direction = .right
+//        self.view.addGestureRecognizer(rightSwipe)
+//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe(_:)))
+//        leftSwipe.direction = .left
+//        self.view.addGestureRecognizer(leftSwipe)
+//        
         // Do any additional setup after loading the view.
     }
 
