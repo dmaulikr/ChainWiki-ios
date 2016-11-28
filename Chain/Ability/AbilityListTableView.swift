@@ -13,8 +13,8 @@ class AbilityListTableView: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var pageIndex: Int!
     
-    var abilityNames = [String]()
-    var abilityImages = [UIImage]()
+    fileprivate var abilityNames = [String]()
+    fileprivate var abilityImages = [UIImage]()
     
     override func viewDidLoad() {
         
@@ -25,7 +25,7 @@ class AbilityListTableView: UIViewController {
         getAbilityList()
     }
 
-    func getAbilityList() {
+    private func getAbilityList() {
         
         let list = AbilityListDataSource().getAbilityList(index: pageIndex)
         abilityNames = list.titles
