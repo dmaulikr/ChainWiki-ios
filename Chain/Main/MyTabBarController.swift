@@ -28,7 +28,9 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         var views = [UIViewController]()
         // Setup Tab Bar Views
+        
         for (index, tab) in tabTitles.enumerated() {
+            
             let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
             let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
             child.tabBarItem.title = tab
