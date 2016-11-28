@@ -13,7 +13,7 @@ import UIKit
 class AbilityList: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    let defaults = UserDefaults.standard
+    var preventAnimation = Set<IndexPath>()
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
             segmentedControl.tintColor = Color.salmon
@@ -121,6 +121,21 @@ extension AbilityList: UITableViewDelegate, UITableViewDataSource {
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        if !preventAnimation.contains(indexPath) {
+            preventAnimation.insert(indexPath)
+            //            cell.alpha = 0
+            cell.transform = CGAffineTransform(translationX: -200, y: 0)
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+
+        }
+        
+    }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

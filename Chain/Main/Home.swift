@@ -167,7 +167,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     func dismissFilter(_ sender: AnyObject) {
         
         // If search is active and user presses bottom half, dismiss search.
-        if searchController.isActive && gesture.location(in: self.view).y > 220 {
+        if searchController.searchBar.text?.characters.count == 0 && searchController.isActive && gesture.location(in: self.view).y > 220 {
             debugPrint("dismiss search")
             gesture.cancelsTouchesInView = true
             searchController.dismiss(animated: true, completion: nil)
@@ -274,6 +274,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
+//        navigationController?.hidesBarsOnSwipe = true
         if let a = childViewControllers[0] as? Filter {
             a.delegate = self
         }
@@ -333,15 +334,11 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             tableView.deselectRow(at: row, animated: true)
         }
         
-        
     }
   
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         searchController.isActive = false
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -377,6 +374,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 //            return false
 //        }
 //    }
+    
 
     func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
@@ -645,7 +643,6 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
         
         // dismiss history if user starts typing.
         if searchText != "" {
-//            searchView.alpha = 0
             showSearch = false
         }
         
@@ -665,12 +662,14 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     func didPresentSearchController(_ searchController: UISearchController) {
         
         showSearch = true
+        showFilter = false
 
     }
     
     
     func didDismissSearchController(_ searchController: UISearchController) {
         
+
         showSearch = false
         
     }
@@ -769,16 +768,10 @@ extension Home: FilterDelegate, TavernViewDelegate {
                     self.arcanaArray = Array(finalFilter)
                     self.tableView.reloadData()
                     self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-                    
-                    
-                    
+
                 }
             }
             
-            
-            //            if let vc = self.childViewControllers[0] as? Home {
-            //                vc.tableView.reloadData()
-            //            }
         }
     }
     

@@ -242,7 +242,7 @@ class ArcanaDetail: UIViewController {
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.contentInset = UIEdgeInsets.zero;
 
-        scrollViewDidEndDragging(tableView, willDecelerate: true)
+//        scrollViewDidEndDragging(tableView, willDecelerate: true)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
         checkFavorites()
@@ -253,7 +253,7 @@ class ArcanaDetail: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
@@ -283,7 +283,7 @@ class ArcanaDetail: UIViewController {
         
         
         
-        //navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnSwipe = true
     
     }
 
@@ -930,10 +930,3 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-extension ArcanaDetail: UIScrollViewDelegate {
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-}
