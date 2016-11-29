@@ -77,6 +77,10 @@
 		04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E271D7A2E70008902A8 /* FilterCell.swift */; };
 		04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */; };
 		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
+		04D28F3D1DEC239A00F55D3F /* AbilityListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F3C1DEC239A00F55D3F /* AbilityListCollectionView.swift */; };
+		04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F401DEC255D00F55D3F /* MenuBar.swift */; };
+		04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */; };
+		04D28F471DEC2AAC00F55D3F /* AbilityListTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D28F451DEC2AAC00F55D3F /* AbilityListTableCell.xib */; };
 		04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594C1DB60A1200D30C21 /* PageViewController.swift */; };
 		04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */; };
 		04DD91101D864FA70023CDA4 /* AbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD910F1D864FA70023CDA4 /* AbilityCell.swift */; };
@@ -210,6 +214,10 @@
 		04AE0E271D7A2E70008902A8 /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditModel.swift; sourceTree = "<group>"; };
 		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04D28F3C1DEC239A00F55D3F /* AbilityListCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListCollectionView.swift; sourceTree = "<group>"; };
+		04D28F401DEC255D00F55D3F /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListTableCell.swift; sourceTree = "<group>"; };
+		04D28F451DEC2AAC00F55D3F /* AbilityListTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbilityListTableCell.xib; sourceTree = "<group>"; };
 		04D6594C1DB60A1200D30C21 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		04DD910F1D864FA70023CDA4 /* AbilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCell.swift; sourceTree = "<group>"; };
@@ -297,6 +305,10 @@
 			isa = PBXGroup;
 			children = (
 				0447E1D31D87BA8200670834 /* Ability.storyboard */,
+				04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */,
+				04D28F451DEC2AAC00F55D3F /* AbilityListTableCell.xib */,
+				04D28F3C1DEC239A00F55D3F /* AbilityListCollectionView.swift */,
+				04D28F401DEC255D00F55D3F /* MenuBar.swift */,
 				047950191D9A4A1B00205A3C /* ArcanaProfileCell.xib */,
 				0479501B1D9A4BDB00205A3C /* ArcanaProfileCell.swift */,
 				04180D1D1DEBE45200E4303D /* AbilityListPageView.swift */,
@@ -642,6 +654,7 @@
 				042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */,
 				0447E1D41D87BA8200670834 /* Ability.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
+				04D28F471DEC2AAC00F55D3F /* AbilityListTableCell.xib in Resources */,
 				04EF66A51DB319DC00E13370 /* SettingsSectionHeader.xib in Resources */,
 				045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
@@ -845,6 +858,7 @@
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
+				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */,
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
@@ -869,6 +883,8 @@
 				048B31261D7642CA0011477D /* AbilityList.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
+				04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */,
+				04D28F3D1DEC239A00F55D3F /* AbilityListCollectionView.swift in Sources */,
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04180D251DEBE51900E4303D /* AbilityListTableView.swift in Sources */,
