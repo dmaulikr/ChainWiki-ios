@@ -8,6 +8,7 @@ iOS App that uses data translated from Japanese in Korean.
 Allows users to sort and filter data based on their needs.  
 Developed independently from scratch.  
 Compatible with both iPhone and iPad through Auto Layout.
+1000 records fetched by script.
 
 ## How it Works
 1. Japanese web content is retrieved and translated using Google Translate API which returns JSON.
