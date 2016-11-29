@@ -1,7 +1,7 @@
 # ChainChronicleKoreaWiki
 
 ## App Store Link  
-https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1165642488&mt=8  
+https://goo.gl/FKMkp2 
 
 ## Synopsis
 iOS App that uses data translated from Japanese in Korean.  
