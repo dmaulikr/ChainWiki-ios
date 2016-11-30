@@ -14,12 +14,16 @@ class AbilityListCollectionView: UIViewController {
     var pages = [0,1]
     fileprivate var abilityNames = [String]()
     fileprivate var abilityImages = [UIImage]()
+    var selectedIndex: Int = 0
     let menuBar = MenuBar()
     var lastContentOffset = CGFloat(0)
+    var index: Int = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "어빌리티"
         setupMenuBar()
         collectionView.register(UINib(nibName: "AbilityListTableCell", bundle: nil), forCellWithReuseIdentifier: "AbilityListTableCell")
         collectionView.delegate = self
@@ -28,6 +32,15 @@ class AbilityListCollectionView: UIViewController {
 //        collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor, constant: 0).isActive = true
 //        collectionView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let selectedCV = IndexPath(item: index, section: 0)
+        let table = collectionView.cellForItem(at: selectedCV) as! AbilityListTableCell
+        guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
+        table.tableView.deselectRow(at: selectedIndexPath, animated: true)
         
     }
     
@@ -48,7 +61,8 @@ class AbilityListCollectionView: UIViewController {
     func scrollToMenuIndex(_ menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
-        
+        self.index = menuIndex
+        print("selected \(index)")
 //        setTitleForIndex(menuIndex)
     }
     
@@ -65,7 +79,8 @@ class AbilityListCollectionView: UIViewController {
         let indexPath = IndexPath(item: Int(index), section: 0)
         
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
-        
+        self.index = indexPath.item
+        print("selected \(index)")
 //        setTitleForIndex(Int(index))
     }
     
@@ -105,7 +120,7 @@ extension AbilityListCollectionView: UICollectionViewDelegate, UICollectionViewD
         let list = AbilityListDataSource().getAbilityList(index: indexPath.row)
         cell.abilityNames = list.titles
         cell.abilityImages = list.images
-
+        cell.tableDelegate = self       
         
         return cell
         

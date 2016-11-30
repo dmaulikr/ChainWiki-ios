@@ -10,10 +10,12 @@ import UIKit
 
 class AbilityListTableCell: UICollectionViewCell {
 
-    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var tableView: UITableView!
+    var tableView = UITableView()
     var pageIndex: Int!
     var abilityNames = [String]()
     var abilityImages = [UIImage]()
+    var tableDelegate: AbilityListCollectionView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,6 +47,21 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         cell.abilityImage.image = abilityImages[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
+        guard let abilityVC = storyboard.instantiateViewController(withIdentifier: "AbilityView") as? AbilityView else { return }
+        
+        guard let selectedAbilityType = tableDelegate?.index else { return }
+        print("SELECTED ABILITY \(selectedAbilityType)")
+        abilityVC.selectedIndex = selectedAbilityType
+        abilityVC.abilityType = abilityNames[tableView.indexPathForSelectedRow!.row]
+
+        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
+        
+    
     }
     
 }

@@ -12,7 +12,7 @@ class MenuBar: UIView {
 
     let menuHeight : CGFloat = 50
     var homeController: AbilityListCollectionView?
-    let sectionTitles = ["어빌리티", "인연"]
+    let sectionTitles = ["메인", "인연"]
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 50), collectionViewLayout: layout)
@@ -23,10 +23,15 @@ class MenuBar: UIView {
         return collectionView
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(collectionView)
+        setupBottomBorder()
         setupHorizontalBar()
+        
+//        setupSectionSeparator()
+        
         
     }
 
@@ -35,6 +40,17 @@ class MenuBar: UIView {
     }
     
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+    
+    func setupBottomBorder() {
+        let bottomBorderView = UIView()
+        bottomBorderView.backgroundColor = Color.lightGray
+        bottomBorderView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(bottomBorderView)
+        bottomBorderView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        bottomBorderView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        bottomBorderView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        bottomBorderView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
@@ -48,8 +64,20 @@ class MenuBar: UIView {
         
         horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5, constant: -20).isActive = true
-        horizontalBarView.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//        self.layoutIfNeeded()
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+
+    }
+    
+    func setupSectionSeparator() {
+        let line = UIView()
+        line.backgroundColor = Color.lightGray
+        line.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(line)
+        line.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        line.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        line.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        line.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
     }
     
 }
@@ -78,6 +106,7 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         homeController?.scrollToMenuIndex(indexPath.item)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -93,18 +122,23 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
 class MenuCell: UICollectionViewCell {
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Setting"
-        label.font = UIFont.systemFont(ofSize: 13)
-        return label
-    }()
+    let nameLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                nameLabel.textColor = .black
+            }
+            else {
+                nameLabel.textColor = Color.textGray
+            }
+        }
+    }
     func setupViews() {
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
