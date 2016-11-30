@@ -18,7 +18,6 @@ class AbilityListTableCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        tableView.backgroundColor = .yellow
         tableView.register(UINib(nibName: "AbilityListCell", bundle: nil), forCellReuseIdentifier: "abilityListCell")
         tableView.delegate = self
         tableView.dataSource = self

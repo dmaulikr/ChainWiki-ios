@@ -28,7 +28,7 @@
                                         <rect key="frame" x="0.0" y="1" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="70D-8T-zmQ" id="bbX-dM-Zkm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="한글 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="PSk-Qf-1fV">
@@ -257,7 +257,7 @@
                                         <rect key="frame" x="0.0" y="1" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6dq-fX-ZKR" id="ZCZ-ah-lk7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PVH-35-KW9">
@@ -380,23 +380,13 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fke-xL-1zT" customClass="MenuBar" customModule="Chain" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="M8O-HS-rLk"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cPA-Xe-H1n" firstAttribute="top" secondItem="Fke-xL-1zT" secondAttribute="bottom" id="3Cm-l4-BFa"/>
-                            <constraint firstItem="Fke-xL-1zT" firstAttribute="top" secondItem="rVC-P3-iU7" secondAttribute="bottom" id="VJ5-ve-CUz"/>
-                            <constraint firstAttribute="trailing" secondItem="Fke-xL-1zT" secondAttribute="trailing" id="hog-WB-qIL"/>
                             <constraint firstItem="cPA-Xe-H1n" firstAttribute="leading" secondItem="xK2-n8-bKf" secondAttribute="leading" id="oz5-b0-LFz"/>
+                            <constraint firstItem="cPA-Xe-H1n" firstAttribute="top" secondItem="rVC-P3-iU7" secondAttribute="bottom" constant="50" id="sRd-m2-hYd"/>
                             <constraint firstAttribute="trailing" secondItem="cPA-Xe-H1n" secondAttribute="trailing" id="wLW-gn-DxP"/>
                             <constraint firstItem="aId-vu-WXU" firstAttribute="top" secondItem="cPA-Xe-H1n" secondAttribute="bottom" id="y56-jk-yoT"/>
-                            <constraint firstItem="Fke-xL-1zT" firstAttribute="leading" secondItem="xK2-n8-bKf" secondAttribute="leading" id="zs9-8e-rDU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ovw-Wj-QtW"/>
