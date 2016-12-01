@@ -20,7 +20,10 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var loginLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var loginTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
+    @IBOutlet weak var loginTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var containerViews: [UIView]! {
         didSet {
             for cv in containerViews {
@@ -30,9 +33,12 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             }
         }
     }
+    @IBOutlet weak var textFieldContainerView: UIView!
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     
+    @IBOutlet weak var loginButton: RoundedButton!
+    @IBOutlet weak var guestButton: RoundedButton!
     @IBAction func emailLogin(_ sender: AnyObject) {
         self.view.endEditing(true)
         let email = self.email.text
@@ -128,7 +134,11 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        topConstraint.constant = SCREENHEIGHT
+        topConstraint.constant = -self.textFieldContainerView.frame.height
+        
+        loginButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
+        guestButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
+
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -138,9 +148,17 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     
     func animate() {
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
             
             self.topConstraint.constant = 20
+            self.view.layoutIfNeeded()
+            
+        }, completion: nil)
+
+        UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
+
+            self.loginButton.transform = .identity
+            self.guestButton.transform = .identity
             self.view.layoutIfNeeded()
             
         }, completion: nil)
@@ -162,7 +180,6 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             
         }
     }
-
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

@@ -31,7 +31,6 @@ class AbilityListCollectionView: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
 //        collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor, constant: 0).isActive = true
-//        collectionView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         
     }
     

@@ -37,8 +37,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmU-yg-DCU">
                                 <rect key="frame" x="20" y="84" width="335" height="220"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-ng-bIe" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="20" y="63" width="295" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호"/>
@@ -63,8 +63,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="비밀번호"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyn-lM-c0F" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="20" y="116" width="295" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="비밀번호 확인"/>
@@ -90,7 +90,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-oD-Pcz" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="20" y="168.5" width="295" height="43"/>
+                                        <rect key="frame" x="20" y="169" width="295" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="닉네임"/>
@@ -230,7 +230,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lb-KC-oB2" userLabel="ContainerView">
+                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Lb-KC-oB2" userLabel="ContainerView">
                                 <rect key="frame" x="20" y="84" width="335" height="110"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-WX-S8o" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
@@ -367,18 +367,18 @@
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="7xc-Ul-SOT" firstAttribute="centerY" secondItem="hyH-ns-g0s" secondAttribute="centerY" id="0T3-d7-HWy"/>
+                            <constraint firstItem="L8f-EG-kTa" firstAttribute="leading" secondItem="3UA-mn-QLI" secondAttribute="leading" id="1HT-LL-gL9"/>
                             <constraint firstItem="L8f-EG-kTa" firstAttribute="top" secondItem="3UA-mn-QLI" secondAttribute="bottom" constant="20" id="31h-ce-3Y0"/>
                             <constraint firstAttribute="trailing" secondItem="8Lb-KC-oB2" secondAttribute="trailing" constant="20" id="5AT-cO-Y2u"/>
                             <constraint firstItem="8Lb-KC-oB2" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="6Ee-WF-d9w"/>
                             <constraint firstItem="7xc-Ul-SOT" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="88c-PX-CUn"/>
                             <constraint firstItem="xF7-j3-TJw" firstAttribute="top" secondItem="F4o-fu-iVT" secondAttribute="bottom" constant="20" id="8OC-KJ-CC4"/>
                             <constraint firstItem="8Lb-KC-oB2" firstAttribute="top" secondItem="0lQ-sV-l81" secondAttribute="bottom" constant="20" id="IYa-pt-60q"/>
+                            <constraint firstItem="L8f-EG-kTa" firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" id="JUp-Bv-KHg"/>
                             <constraint firstItem="3UA-mn-QLI" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="KCq-IM-TrI"/>
-                            <constraint firstAttribute="trailing" secondItem="L8f-EG-kTa" secondAttribute="trailing" constant="20" id="Mfw-Yb-DmY"/>
                             <constraint firstItem="3UA-mn-QLI" firstAttribute="top" secondItem="8Lb-KC-oB2" secondAttribute="bottom" constant="20" id="YRW-ij-fKr"/>
                             <constraint firstItem="8Lb-KC-oB2" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="Ybe-WM-Te9"/>
                             <constraint firstItem="F4o-fu-iVT" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="e8O-rY-YmW"/>
-                            <constraint firstItem="L8f-EG-kTa" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="jHf-gK-zMi"/>
                             <constraint firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" constant="20" id="ll3-Ci-2rj"/>
                             <constraint firstAttribute="trailing" secondItem="F4o-fu-iVT" secondAttribute="trailing" constant="20" id="nF9-NR-Dua"/>
                         </constraints>
@@ -387,8 +387,13 @@
                     <connections>
                         <outlet property="email" destination="Bu3-WX-S8o" id="qvV-QW-PEu"/>
                         <outlet property="errorLabel" destination="F4o-fu-iVT" id="PcM-DY-u0u"/>
+                        <outlet property="guestButton" destination="L8f-EG-kTa" id="UJs-ob-Rdu"/>
+                        <outlet property="loginButton" destination="3UA-mn-QLI" id="cLd-yK-mDe"/>
+                        <outlet property="loginLeadingConstraint" destination="KCq-IM-TrI" id="R82-3H-0Ke"/>
                         <outlet property="loginSpinner" destination="7xc-Ul-SOT" id="igk-HA-0RR"/>
+                        <outlet property="loginTrailingConstraint" destination="ll3-Ci-2rj" id="aDp-32-Jqd"/>
                         <outlet property="password" destination="dwU-ZB-0tS" id="hpz-E6-bIA"/>
+                        <outlet property="textFieldContainerView" destination="8Lb-KC-oB2" id="GQv-Al-Xmc"/>
                         <outlet property="topConstraint" destination="IYa-pt-60q" id="W8J-wf-54l"/>
                         <outletCollection property="containerViews" destination="8Lb-KC-oB2" collectionClass="NSMutableArray" id="5sS-r9-hWF"/>
                         <outletCollection property="floatingTextFields" destination="Bu3-WX-S8o" collectionClass="NSMutableArray" id="ye2-Xt-KlK"/>
@@ -398,7 +403,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMD-kT-hpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1176.8" y="169.56521739130437"/>
+            <point key="canvasLocation" x="1176.5" y="169.5"/>
         </scene>
         <!--Login Home-->
         <scene sceneID="hkl-Dg-uxS">
@@ -586,7 +591,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginNav" automaticallyAdjustsScrollViewInsets="NO" id="TzR-MG-d7b" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SSN-Gy-Jc4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SSN-Gy-Jc4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
