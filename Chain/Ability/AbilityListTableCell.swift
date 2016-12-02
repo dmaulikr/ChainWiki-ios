@@ -51,15 +51,23 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
-        guard let abilityVC = storyboard.instantiateViewController(withIdentifier: "AbilityView") as? AbilityView else { return }
+//        let flowLayout = UICollectionViewFlowLayout()
+        let abilityVC = AbilityCollectionView()//collectionViewLayout: flowLayout)
         
         guard let selectedAbilityType = tableDelegate?.index else { return }
-        print("SELECTED ABILITY \(selectedAbilityType)")
+        print("selectedAbilityType \(selectedAbilityType)")
         abilityVC.selectedIndex = selectedAbilityType
         abilityVC.abilityType = abilityNames[tableView.indexPathForSelectedRow!.row]
-
         tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
+//        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
+//        guard let abilityVC = storyboard.instantiateViewController(withIdentifier: "AbilityView") as? AbilityView else { return }
+//        
+//        guard let selectedAbilityType = tableDelegate?.index else { return }
+//        print("SELECTED ABILITY \(selectedAbilityType)")
+//        abilityVC.selectedIndex = selectedAbilityType
+//        abilityVC.abilityType = abilityNames[tableView.indexPathForSelectedRow!.row]
+//
+//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
         
     
     }

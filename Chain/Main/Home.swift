@@ -560,24 +560,25 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
+        guard let cell = cell as? ArcanaCell else { return }
+        
         if showFilter == true {
             // rotate image over.
-            if let cell = cell as? ArcanaCell {
+
+            if !preventAnimation.contains(indexPath) {
+                preventAnimation.insert(indexPath)
                 
-                if !preventAnimation.contains(indexPath) {
-                    preventAnimation.insert(indexPath)
-                    
-                    var t = cell.arcanaImage.transform
-                    t = t.translatedBy(x: -90, y: 0)
-                    t = t.rotated(by: CGFloat(M_PI))
-                    cell.arcanaImage.transform = t
-                    
-                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                        cell.arcanaImage.transform = CGAffineTransform.identity
-                    }, completion: nil)
-                    
-                }
+                var t = cell.arcanaImage.transform
+                t = t.translatedBy(x: -90, y: 0)
+                t = t.rotated(by: CGFloat(M_PI))
+                cell.arcanaImage.transform = t
+                
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                    cell.arcanaImage.transform = CGAffineTransform.identity
+                }, completion: nil)
+                
             }
+            
         }
             
         else {
@@ -591,6 +592,7 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
                 }, completion: nil)
                 
             }
+
         }
         
         

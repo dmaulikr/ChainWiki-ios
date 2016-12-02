@@ -13,10 +13,17 @@ class MenuBar: UIView {
     let menuHeight : CGFloat = 50
     var homeController: AbilityListCollectionView?
     let sectionTitles = ["메인", "인연"]
+    let classTypes = ["전사", "기사", "궁수", "법사", "승려"]
+    
+    var numberOfSections: Int = 2
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 50), collectionViewLayout: layout)
-        collectionView.backgroundColor = .yellow
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: "menuCell")
@@ -26,12 +33,20 @@ class MenuBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        numberOfSections = 2
         addSubview(collectionView)
         setupBottomBorder()
         setupHorizontalBar()
         
-//        setupSectionSeparator()
         
+    }
+    
+    init(frame: CGRect, sections: Int) {
+        super.init(frame: frame)
+        numberOfSections = sections
+        addSubview(collectionView)
+        setupBottomBorder()
+        setupHorizontalBar()
         
     }
 
@@ -63,7 +78,8 @@ class MenuBar: UIView {
         horizontalBarLeftAnchorConstraint?.isActive = true
         
         horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5, constant: -20).isActive = true
+        print("HORIZONTAL CONSTRAINT IS \(CGFloat(1)/CGFloat(numberOfSections))")
+        horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: CGFloat(1)/CGFloat(numberOfSections), constant: 0).isActive = true
         horizontalBarView.heightAnchor.constraint(equalToConstant: 2).isActive = true
 
     }
@@ -98,7 +114,14 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "menuCell", for: indexPath) as! MenuCell
         cell.backgroundColor = .white
-        cell.nameLabel.text = sectionTitles[indexPath.row]
+        
+        if numberOfSections == 2 {
+            cell.nameLabel.text = sectionTitles[indexPath.row]
+        }
+        else {
+            cell.nameLabel.text = classTypes[indexPath.row]
+        }
+        
         return cell
         
     }
@@ -111,7 +134,7 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: frame.width / 2, height: frame.height)
+        return CGSize(width: frame.width / CGFloat(numberOfSections), height: frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
