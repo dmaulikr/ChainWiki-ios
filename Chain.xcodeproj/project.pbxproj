@@ -78,6 +78,8 @@
 		04B2B22A1DEFC2F400C7BD1A /* AbilityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2B2291DEFC2F400C7BD1A /* AbilityCollectionView.swift */; };
 		04B2B22C1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2B22B1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift */; };
 		04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */; };
+		04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */; };
+		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
 		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
 		04D28F3D1DEC239A00F55D3F /* AbilityListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F3C1DEC239A00F55D3F /* AbilityListCollectionView.swift */; };
 		04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F401DEC255D00F55D3F /* MenuBar.swift */; };
@@ -217,6 +219,8 @@
 		04B2B2291DEFC2F400C7BD1A /* AbilityCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityCollectionView.swift; sourceTree = "<group>"; };
 		04B2B22B1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewTableCell.swift; sourceTree = "<group>"; };
 		04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditModel.swift; sourceTree = "<group>"; };
+		04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainLogo.swift; sourceTree = "<group>"; };
+		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04D28F3C1DEC239A00F55D3F /* AbilityListCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListCollectionView.swift; sourceTree = "<group>"; };
 		04D28F401DEC255D00F55D3F /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -455,6 +459,8 @@
 		04A2ECC51D6F80BF00189142 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */,
+				04BF5B001DF214CF00AE8CD8 /* PCView.swift */,
 				047561561D946BB1004886BF /* RoundedButton.swift */,
 				04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */,
 				04F3CD881DA31E620026D5AF /* CopyableLabel.swift */,
@@ -848,6 +854,7 @@
 			files = (
 				04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */,
 				0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */,
+				04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */,
 				04180D2B1DEBE71A00E4303D /* AbilityListCell.swift in Sources */,
 				043DB68D1DBDDC9900549703 /* AppRater.swift in Sources */,
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
@@ -868,6 +875,7 @@
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */,
+				04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */,
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,

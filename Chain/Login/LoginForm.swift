@@ -19,9 +19,9 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var loginTopConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var loginTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
     @IBOutlet weak var loginTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var containerViews: [UIView]! {
@@ -37,8 +37,21 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     
-    @IBOutlet weak var loginButton: RoundedButton!
-    @IBOutlet weak var guestButton: RoundedButton!
+    @IBOutlet weak var loginButton: RoundedButton! {
+        didSet {
+            
+            loginButton.layer.shadowColor = Color.lightGray.cgColor
+            loginButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+            loginButton.layer.shadowRadius = 0
+            loginButton.layer.shadowOpacity = 1
+            loginButton.layer.masksToBounds = false
+        }
+    }
+    @IBOutlet weak var guestButton: RoundedButton! {
+        didSet {
+            guestButton.tintColor = Color.textGray
+        }
+    }
     @IBAction func emailLogin(_ sender: AnyObject) {
         self.view.endEditing(true)
         let email = self.email.text
@@ -97,13 +110,20 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
     }
 
     @IBAction func createEmail(_ sender: AnyObject) {
-        self.performSegue(withIdentifier: "createEmail", sender: self)
+//        self.performSegue(withIdentifier: "createEmail", sender: self)
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let popup = storyboard.instantiateViewController(withIdentifier: "CreateEmail") as? CreateEmail else { return }
+        self.addChildViewController(popup)
+        self.view.addSubview(popup.view)
+        popup.view.frame = self.view.frame
+        popup.didMove(toParentViewController: self)
     }
     
     func setupViews() {
         for textField in floatingTextFields {
             
             textField.clearButtonMode = .whileEditing
+            textField.backgroundColor = .clear
             textField.tintColor = Color.lightGreen
             textField.selectedIconColor = Color.lightGreen
             textField.selectedLineColor = Color.lightGreen
@@ -112,6 +132,8 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
             textField.iconColor = Color.lightGray
             textField.errorColor = Color.darkSalmon
             textField.delegate = self
+//            textField.textAlignment = .center
+            textField.lineColor = Color.lightGray
         }
         errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"
@@ -125,6 +147,27 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 //        navigationItem.backBarButtonItem = backButton
     }
     
+    @IBAction func guestLogin(_ sender: Any) {
+        
+        FIRAuth.auth()?.signInAnonymously() { (user, error) in
+            
+            if error != nil {
+                print("ANONYMOUS LOGIN ERROR")
+            }
+                
+            else {
+                print("GUEST LOGIN SUCCESSFUL")
+                guard let user = user else {
+                    return
+                }
+                defaults.setImagePermissions(value: true)
+                defaults.setLogin(value: true)
+                defaults.setUID(value: user.uid)
+                self.changeRootVC(vc: .login)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -134,23 +177,23 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        topConstraint.constant = -self.textFieldContainerView.frame.height
-        
-        loginButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
-        guestButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
+//        topConstraint.constant = -self.textFieldContainerView.frame.height
+//        
+//        loginButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
+//        guestButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        animate()
+//        animate()
     }
     
     func animate() {
         
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
             
-            self.topConstraint.constant = 20
+//            self.topConstraint.constant = 20
             self.view.layoutIfNeeded()
             
         }, completion: nil)

@@ -14,6 +14,8 @@ import NVActivityIndicatorView
 
 class CreateEmail: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var popupView: UIView!
+
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
@@ -22,6 +24,12 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nickname: SkyFloatingLabelTextFieldWithIcon!
     var signedIn = false
     @IBOutlet weak var spinner: NVActivityIndicatorView!
+    @IBAction func closePopup(_ sender: Any) {
+        
+        animateRemovePopup()
+        
+        
+    }
     @IBAction func createEmail(_ sender: AnyObject) {
 
         self.view.endEditing(true)
@@ -200,6 +208,11 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
     
     func setupViews() {
         
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        popupView.layer.cornerRadius = 5
+        popupView.layer.borderWidth = 1
+        popupView.layer.borderColor = UIColor.clear.cgColor
+        
         for textField in floatingTextFields {
             
             textField.clearButtonMode = .whileEditing
@@ -228,17 +241,56 @@ class CreateEmail: UIViewController, UITextFieldDelegate {
         
     }
     
+    func animateRemovePopup() {
+
+//        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+//            self.popupView.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+//        }, completion: { (finished: Bool) in
+//            self.view.removeFromSuperview()
+//        })
+        
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseOut,
+                       animations: {
+                        self.popupView.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+                        self.view.alpha = 0
+        },
+                       completion: { (finished: Bool) in
+                                    self.view.removeFromSuperview()
+        })
+
+
+    }
+    
+    func animatePopup()
+    {
+        popupView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseOut,
+                       animations: {
+                        self.popupView.transform = .identity
+                        self.popupView.alpha = 1
+            },
+                       completion: nil)
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         self.hideKeyboardWhenTappedAround()
+        animatePopup()
+        
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Try to find next responder

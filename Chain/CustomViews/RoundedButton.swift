@@ -15,7 +15,7 @@ class RoundedButton: UIButton {
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.clear.cgColor
-        
+
     }
     
     /*
