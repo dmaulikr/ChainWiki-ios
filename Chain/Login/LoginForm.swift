@@ -14,8 +14,9 @@ import FirebaseAuth
 //import pop
 
 
-class LoginForm: UIViewController,  UITextFieldDelegate {
+class LoginForm: UIViewController {
 
+    @IBOutlet weak var logo: PCView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
@@ -189,6 +190,13 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 //        animate()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard let touch = touches.first?.location(in: self.view) else { return }
+        if logo.frame.contains(touch){
+            logo.bounceAnimate()
+        }
+    }
     func animate() {
         
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
@@ -208,6 +216,12 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
 
     }
     
+    
+    
+    
+}
+
+extension LoginForm: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let text = email.text {
@@ -235,8 +249,6 @@ class LoginForm: UIViewController,  UITextFieldDelegate {
         }
         return true
     }
-    
-    
 }
 
 extension UIImage {
