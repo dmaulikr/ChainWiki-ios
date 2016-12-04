@@ -22,16 +22,9 @@ class AbilityListCollectionView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = "어빌리티"
         setupMenuBar()
-        collectionView.register(UINib(nibName: "AbilityListTableCell", bundle: nil), forCellWithReuseIdentifier: "AbilityListTableCell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        self.automaticallyAdjustsScrollViewInsets = false
-//        collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
-        collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor, constant: 0).isActive = true
-        
+        setupCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,6 +34,17 @@ class AbilityListCollectionView: UIViewController {
         guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
         table.tableView.deselectRow(at: selectedIndexPath, animated: true)
         
+    }
+    
+    func setupCollectionView() {
+        collectionView.register(UINib(nibName: "AbilityListTableCell", bundle: nil), forCellWithReuseIdentifier: "AbilityListTableCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor, constant: 0).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true
     }
     
     private func setupMenuBar() {
