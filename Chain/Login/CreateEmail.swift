@@ -229,6 +229,7 @@ class CreateEmail: UIViewController {
             textField.iconColor = Color.lightGray
             textField.errorColor = Color.darkSalmon
             textField.delegate = self
+            textField.lineColor = Color.lightGray
         }
         errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"

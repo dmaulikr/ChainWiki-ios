@@ -16,8 +16,8 @@ extension UserDefaults {
     }
     
     func isLoggedIn() -> Bool {
-//        return bool(forKey: "loggedIn")
-        return true
+        return bool(forKey: "loggedIn")
+//        return true
     }
     
     func setUID(value: String) {

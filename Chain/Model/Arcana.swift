@@ -50,6 +50,8 @@ struct Arcana: Equatable, Hashable {
     var abilityName3: String?
     var abilityDesc3: String?
     
+    var partyAbility: String?
+    
     var numberOfViews: Int
     var dateAdded: String?
     var chainStory: String?
@@ -213,6 +215,10 @@ struct Arcana: Equatable, Hashable {
 
         if let cStone = (snapshot.value as? NSDictionary)?["chainStone"] as? String {
             chainStone = cStone
+        }
+        
+        if let pA = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
+            partyAbility = pA
         }
 
         

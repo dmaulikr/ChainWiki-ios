@@ -508,7 +508,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case 3:    // Arcana abilities. TODO: Check for 0, 1, 2 abilities.
             
-            if let _ = arcana.abilityName2 {    // has 2 abilities
+            if let _ = arcana.partyAbility {
+                return 6
+            }
+            else if let _ = arcana.abilityName2 {    // has 2 abilities
                 return 4
             }
             else if let _ = arcana.abilityName1 {  // has only 1 ability
@@ -803,20 +806,22 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case 3:
             
             switch (indexPath as NSIndexPath).row {
-            case 0,2:
+            case 0,2,4:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
                 
-                if (indexPath as NSIndexPath).row == 0 {
+                switch indexPath.row {
+                case 0:
                     cell.attributeKey.text = "어빌 1"
                     cell.attributeValue.text = arcana.abilityName1
-                    
-                }
-                else {
+                case 2:
                     cell.attributeKey.text = "어빌 2"
                     cell.attributeValue.text = arcana.abilityName2
+                default:
+                    cell.attributeKey.text = "파티 어빌"
+                    cell.attributeValue.text = " "
                 }
-                
+
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
                 
@@ -825,23 +830,16 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
                 
-                
-                if indexPath.row == 1 {
-                    
-                    //                    let paragraphStyle = NSMutableParagraphStyle()
-                    //                    //line height size
-                    //                    paragraphStyle.lineSpacing = 10
-                    //                    let attrString = NSMutableAttributedString(string: arcana.abilityDesc1)
-                    //                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-                    //                    cell.skillAbilityDesc.attributedText = attrString
+                switch indexPath.row {
+                case 1:
                     cell.skillAbilityDesc.text = arcana.abilityDesc1
-                    
-                    
-                }
-                else {
+                case 3:
                     cell.skillAbilityDesc.text = arcana.abilityDesc2
+                default:
+                    cell.skillAbilityDesc.text = arcana.partyAbility
+                    
                 }
-                
+
                 cell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
                 
                 cell.layoutMargins = UIEdgeInsets.zero
