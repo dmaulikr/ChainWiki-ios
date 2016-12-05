@@ -49,6 +49,7 @@ class AbilityListCollectionView: UIViewController {
     
     private func setupMenuBar() {
         
+        
         view.addSubview(menuBar)
         menuBar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -123,7 +124,7 @@ extension AbilityListCollectionView: UICollectionViewDelegate, UICollectionViewD
         let list = AbilityListDataSource().getAbilityList(index: indexPath.row)
         cell.abilityNames = list.titles
         cell.abilityImages = list.images
-        cell.tableDelegate = self       
+//        cell.tableDelegate = self       
         
         return cell
         

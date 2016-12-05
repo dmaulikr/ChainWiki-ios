@@ -50,7 +50,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
   - LicensesViewController (0.6.0)
-  - NVActivityIndicatorView (3.0)
+  - NVActivityIndicatorView (3.1)
   - SkyFloatingLabelTextField (1.2.1)
 
 DEPENDENCIES:
@@ -73,10 +73,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   NVActivityIndicatorView:
-    :commit: 4d36ec2e0d9dc5bd21b781666f101c673de47d7b
+    :commit: 2869f5000ecad49b4ce6d1652d7f3c43db86a4cf
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
   SkyFloatingLabelTextField:
-    :commit: 03177934f990c794060765f33c408268ce8afee0
+    :commit: 27c777aff939934f11fc0304fdf3df266a62a45e
     :git: https://github.com/MLSDev/SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
@@ -94,7 +94,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
-  NVActivityIndicatorView: 19c0c7549ffe4f830f65d00b2f0d9a144e4c5105
+  NVActivityIndicatorView: 3c11ea6a71582943c233adc2b1f0474252766442
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
 
 PODFILE CHECKSUM: 71c6be54e701ba617afeca15654e80b3b601da2d

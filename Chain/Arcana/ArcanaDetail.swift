@@ -283,7 +283,7 @@ class ArcanaDetail: UIViewController {
         
         
         
-        navigationController?.hidesBarsOnSwipe = true
+//        navigationController?.hidesBarsOnSwipe = true
     
     }
 

@@ -311,7 +311,7 @@ public enum NVActivityIndicatorType: Int {
 }
 
 /// Activity indicator view with nice animations
-public class NVActivityIndicatorView: UIView {
+public final class NVActivityIndicatorView: UIView {
     /// Default type. Default value is .BallSpinFadeLoader.
     public static var DEFAULT_TYPE: NVActivityIndicatorType = .ballSpinFadeLoader
     
@@ -329,6 +329,12 @@ public class NVActivityIndicatorView: UIView {
     
     /// Default minimum display time of UI blocker. Default value is 0 ms.
     public static var DEFAULT_BLOCKER_MINIMUM_DISPLAY_TIME = 0
+    
+    /// Default message displayed in UI blocker. Default value is nil.
+    public static var DEFAULT_BLOCKER_MESSAGE: String? = nil
+    
+    /// Default font of message displayed in UI blocker. Default value is bold system font, size 20.
+    public static var DEFAULT_BLOCKER_MESSAGE_FONT = UIFont.boldSystemFont(ofSize: 20)
     
     /// Animation type.
     public var type: NVActivityIndicatorType = NVActivityIndicatorView.DEFAULT_TYPE
@@ -407,7 +413,7 @@ public class NVActivityIndicatorView: UIView {
     /**
      Start animating.
      */
-    public func startAnimating() {
+    public final func startAnimating() {
         isHidden = false
         isAnimating = true
         layer.speed = 1
@@ -417,7 +423,7 @@ public class NVActivityIndicatorView: UIView {
     /**
      Stop animating.
      */
-    public func stopAnimating() {
+    public final func stopAnimating() {
         isHidden = true
         isAnimating = false
         layer.sublayers?.removeAll()
@@ -440,7 +446,7 @@ public class NVActivityIndicatorView: UIView {
     
     // MARK: Privates
     
-    private func setUpAnimation() {
+    private final func setUpAnimation() {
         let animation: NVActivityIndicatorAnimationDelegate = type.animation()
         var animationRect = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(padding, padding, padding, padding))
         let minEdge = min(animationRect.width, animationRect.height)

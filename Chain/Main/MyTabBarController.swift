@@ -31,12 +31,26 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         for (index, tab) in tabTitles.enumerated() {
             
-            let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
-            let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
-            child.tabBarItem.title = tab
-            child.tabBarItem.image = tabIcons[index]
-            child.tabBarItem.tag = index
-            views.append(child)
+            if index == 1 {
+                let vc = CollectionViewWithMenu()
+                let child = UINavigationController(rootViewController: vc)
+                child.navigationBar.isHidden = true
+
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+            }
+            else {
+                let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
+                let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
+                
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+            }
+            
 
         }
 

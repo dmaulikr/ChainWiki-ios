@@ -65,6 +65,7 @@ class LoginForm: UIViewController {
                 if error != nil {
                     
                     if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                        print(errorCode)
                         switch (errorCode) {
                             
                         case .errorCodeUserNotFound:

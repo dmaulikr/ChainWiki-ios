@@ -141,7 +141,7 @@ class AbilityCollectionView: UIViewController, UICollectionViewDelegate, UIColle
 
     private func setupMenuBar() {
         
-        menuBar.numberOfSections = numberOfSections
+        menuBar.numberOfItems = numberOfSections
         
         view.addSubview(menuBar)
         menuBar.translatesAutoresizingMaskIntoConstraints = false
@@ -192,7 +192,7 @@ class AbilityCollectionView: UIViewController, UICollectionViewDelegate, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityViewTableCell
         cell.selectedIndex = indexPath.row
         cell.abilityType = abilityType
-        cell.tableDelegate = self
+//        cell.tableDelegate = self
 //        switch indexPath.row {
 //        case 0:
 //            cell.currentArray = self.arcanaArray.filter({$0.group == "전사"})

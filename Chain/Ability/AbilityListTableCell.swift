@@ -15,28 +15,41 @@ class AbilityListTableCell: UICollectionViewCell {
     var pageIndex: Int!
     var abilityNames = [String]()
     var abilityImages = [UIImage]()
-    var tableDelegate: AbilityListCollectionView?
+//    var tableDelegate: AbilityListCollectionView?
+    var tableDelegate: CollectionViewWithMenu?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        tableView.register(UINib(nibName: "AbilityListCell", bundle: nil), forCellReuseIdentifier: "abilityListCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-//        getAbilityList()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupTableView()
     }
     
-    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupTableView() {
+        
+        tableView = UITableView(frame: .zero)
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        tableView.register(UINib(nibName: "AbilityListCell", bundle: nil), forCellReuseIdentifier: "abilityListCell")
+        tableView.backgroundColor = .white
+        tableView.estimatedRowHeight = 90
+        tableView.sectionHeaderHeight = 1
+        
+    }
 
 }
 
 extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return abilityNames.count
     }
@@ -51,24 +64,15 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-//        let flowLayout = UICollectionViewFlowLayout()
-        let abilityVC = AbilityCollectionView()//collectionViewLayout: flowLayout)
+        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
         
-        guard let selectedAbilityType = tableDelegate?.index else { return }
-        print("selectedAbilityType \(selectedAbilityType)")
-        abilityVC.selectedIndex = selectedAbilityType
-        abilityVC.abilityType = abilityNames[tableView.indexPathForSelectedRow!.row]
+        
+        let abilityVC = CollectionViewWithMenu(abilityType: abilityNames[tableView.indexPathForSelectedRow!.row], selectedIndex: selectedAbilityType)
+        
+        
+//        abilityVC.abilityType =
         tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
-//        let storyboard = UIStoryboard(name: "Ability", bundle: nil)
-//        guard let abilityVC = storyboard.instantiateViewController(withIdentifier: "AbilityView") as? AbilityView else { return }
-//        
-//        guard let selectedAbilityType = tableDelegate?.index else { return }
-//        print("SELECTED ABILITY \(selectedAbilityType)")
-//        abilityVC.selectedIndex = selectedAbilityType
-//        abilityVC.abilityType = abilityNames[tableView.indexPathForSelectedRow!.row]
-//
-//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
-        
+
     
     }
     
