@@ -10,7 +10,19 @@ import UIKit
 
 class TavernListTableCell: BaseCollectionViewCell {
 
-    var pageIndex: Int!
+    var pageIndex: Int! {
+        didSet {
+            switch pageIndex {
+            case 0:
+                currentArray = tavernNamesPart1
+            case 1:
+                currentArray = tavernNamesPart2
+            default:
+                currentArray = tavernNamesPart3
+            }
+            tableView.reloadData()
+        }
+    }
 //    var tavernNames = [String]()
 //    var abilityImages = [UIImage]()
     
@@ -26,17 +38,6 @@ class TavernListTableCell: BaseCollectionViewCell {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TavernListCell", bundle: nil), forCellReuseIdentifier: "TavernListCell")
-        
-        switch pageIndex {
-            
-        case 0:
-            currentArray = tavernNamesPart1
-        case 1:
-            currentArray = tavernNamesPart2
-        default:
-            currentArray = tavernNamesPart3
-            
-        }
     }
 
 }
@@ -45,8 +46,6 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
         return currentArray.count
     }
     
@@ -59,14 +58,29 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
+//        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
+//        
+//        
+//        let abilityVC = CollectionViewWithMenu(abilityType: currentArray[tableView.indexPathForSelectedRow!.row], selectedIndex: selectedAbilityType)
+//        
+//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
         
         
-        let abilityVC = CollectionViewWithMenu(abilityType: currentArray[tableView.indexPathForSelectedRow!.row], selectedIndex: selectedAbilityType)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
         
-        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
+        vc.navTitle = currentArray[indexPath.row]
+        vc.tavern = convertTavern(tavern: currentArray[indexPath.row])
         
-        
+        tableDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
+
+
+        
+
+
+    
+
+

@@ -95,7 +95,7 @@
         <!--Tavern Home View-->
         <scene sceneID="Cgz-Ny-JHD">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yid-Mq-lFN" customClass="TavernHomeView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TavernHomeView" automaticallyAdjustsScrollViewInsets="NO" id="yid-Mq-lFN" customClass="TavernHomeView" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nqG-Ox-Pq0"/>
                         <viewControllerLayoutGuide type="bottom" id="f4H-JO-0tC"/>
@@ -131,7 +131,7 @@
                 <navigationController storyboardIdentifier="TavernNav" automaticallyAdjustsScrollViewInsets="NO" id="iMB-hA-YK1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VSn-eN-1jt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -170,21 +170,11 @@ class CollectionViewWithMenu: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        let selectedCV = IndexPath(item: selectedIndex, section: 0)
-        guard let menuType = menuType else { return }
-        
-        if menuType == .AbilityList {
-            guard let table = collectionView.cellForItem(at: selectedCV) as? AbilityListTableCell else { return }
-            guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
-            table.tableView.deselectRow(at: selectedIndexPath, animated: true)
+        let selectedCV = IndexPath(item: selectedIndex, section: 0)        
+        let table = collectionView.cellForItem(at: selectedCV) as! BaseCollectionViewCell
+        guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
+        table.tableView.deselectRow(at: selectedIndexPath, animated: true)
 
-        }
-        else {
-            guard let table = collectionView.cellForItem(at: selectedCV) as? AbilityViewTableCell else { return }
-            guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
-            table.tableView.deselectRow(at: selectedIndexPath, animated: true)
-
-        }
         
     }
     

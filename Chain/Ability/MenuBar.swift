@@ -19,7 +19,7 @@ class MenuBar: UIView {
     let menuHeight : CGFloat = 50
     let sectionTitles = ["메인", "인연"]
     let classTypes = ["전사", "기사", "궁수", "법사", "승려"]
-    let tavernTypes = ["페스", "1,2부", "3부"]
+    let tavernTypes = ["1부", "2부", "3부"]
     var parentController: CollectionViewWithMenu?
     var numberOfItems: Int = 2
     var menuType: menuType?
