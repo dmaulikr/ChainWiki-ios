@@ -35,7 +35,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 case 1: // Ability Tab
                     let vc = CollectionViewWithMenu()
                     let child = UINavigationController(rootViewController: vc)
-                    child.navigationBar.isHidden = true
+//                    child.navigationBar.isHidden = true
                     
                     child.tabBarItem.title = tab
                     child.tabBarItem.image = tabIcons[index]
@@ -45,7 +45,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 case 2: // Tavern Tab
                     let vc = CollectionViewWithMenu(menuType: .TavernList)
                     let child = UINavigationController(rootViewController: vc)
-                    child.navigationBar.isHidden = true
+//                    child.title = "주점"
+//                    child.navigationBar.isHidden = true
                     
                     child.tabBarItem.title = tab
                     child.tabBarItem.image = tabIcons[index]

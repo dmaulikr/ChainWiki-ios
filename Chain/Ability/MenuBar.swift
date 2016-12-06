@@ -16,7 +16,7 @@ enum menuType {
 
 class MenuBar: UIView {
 
-    let menuHeight : CGFloat = 50
+    let menuHeight : CGFloat = 40
     let sectionTitles = ["메인", "인연"]
     let classTypes = ["전사", "기사", "궁수", "법사", "승려"]
     let tavernTypes = ["1부", "2부", "3부"]
@@ -29,13 +29,16 @@ class MenuBar: UIView {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 50), collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 40), collectionViewLayout: layout)
+//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: "menuCell")
         let firstItem = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: firstItem, animated: true, scrollPosition: UICollectionViewScrollPosition())
+        
         return collectionView
     }()
     
@@ -43,12 +46,14 @@ class MenuBar: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         numberOfItems = 2
-        addSubview(collectionView)
+        
+//        setupMenuBar()
         setupBottomBorder()
         setupHorizontalBar()
         
         
     }
+    
     
     init(frame: CGRect, menuType: menuType) {
         super.init(frame: frame)
@@ -73,6 +78,16 @@ class MenuBar: UIView {
     }
     
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+    
+    func setupMenuBar() {
+        addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
     
     func setupBottomBorder() {
         let bottomBorderView = UIView()

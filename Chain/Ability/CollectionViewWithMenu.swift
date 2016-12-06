@@ -30,6 +30,7 @@ class CollectionViewWithMenu: UIViewController {
         menuType = .AbilityList
         self.numberOfMenuTabs = 2
         self.reuseIdentifier = "AbilityListTableCell"
+        self.title = "어빌리티"
         setupMenuBar()
     }
     
@@ -41,6 +42,7 @@ class CollectionViewWithMenu: UIViewController {
         downloadArray()
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
+        self.title = abilityType
         setupMenuBar()
         
     }
@@ -52,6 +54,7 @@ class CollectionViewWithMenu: UIViewController {
         self.numberOfMenuTabs = 3
         self.menuType = menuType
         self.reuseIdentifier = "TavernListTableCell"
+        self.title = "주점"
         setupMenuBar()
     }
     
@@ -160,7 +163,7 @@ class CollectionViewWithMenu: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.backgroundColor = .white
-        self.title = abilityType
+//        self.title = abilityType
 
         setupCollectionView()
 
@@ -169,9 +172,9 @@ class CollectionViewWithMenu: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-        let selectedCV = IndexPath(item: selectedIndex, section: 0)        
-        let table = collectionView.cellForItem(at: selectedCV) as! BaseCollectionViewCell
+//        self.navigationController?.navigationBar.isHidden = true
+        let selectedCV = IndexPath(item: selectedIndex, section: 0)
+        guard let table = collectionView.cellForItem(at: selectedCV) as? BaseCollectionViewCell else { return }
         guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
         table.tableView.deselectRow(at: selectedIndexPath, animated: true)
 
