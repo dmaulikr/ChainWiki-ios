@@ -9,11 +9,6 @@
 import UIKit
 import Firebase
 
-
-enum vcType {
-    case AbilityList
-    case AbilityView
-}
 class CollectionViewWithMenu: UIViewController {
     
     var menuBar = MenuBar()
@@ -23,7 +18,7 @@ class CollectionViewWithMenu: UIViewController {
     var collectionView: UICollectionView!
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]()
-    var vc = vcType.AbilityList
+    var menuType: menuType?
     var reuseIdentifier = ""
     var datasource: AbilityViewDataSource!
 
@@ -32,7 +27,7 @@ class CollectionViewWithMenu: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.vc = .AbilityList
+        menuType = .AbilityList
         self.numberOfMenuTabs = 2
         self.reuseIdentifier = "AbilityListTableCell"
         setupMenuBar()
@@ -40,7 +35,7 @@ class CollectionViewWithMenu: UIViewController {
     
     init(abilityType: String, selectedIndex: Int) {
         super.init(nibName: nil, bundle: nil)
-        self.vc = .AbilityView
+        menuType = .AbilityView
         self.abilityType = abilityType
         self.selectedIndex = selectedIndex
         downloadArray()
@@ -48,6 +43,16 @@ class CollectionViewWithMenu: UIViewController {
         self.reuseIdentifier = "AbilityViewTableCell"
         setupMenuBar()
         
+    }
+    
+    init(menuType: menuType) {
+        super.init(nibName: nil, bundle: nil)
+        
+        // should be tavernView
+        self.numberOfMenuTabs = 3
+        self.menuType = menuType
+        self.reuseIdentifier = "TavernListTableCell"
+        setupMenuBar()
     }
     
     
@@ -156,10 +161,7 @@ class CollectionViewWithMenu: UIViewController {
         
         self.view.backgroundColor = .white
         self.title = abilityType
-//        setupMenuBar()
-//        if self.vc == .AbilityView {
-//            downloadArray()
-//        }
+
         setupCollectionView()
 
         
@@ -169,7 +171,9 @@ class CollectionViewWithMenu: UIViewController {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         let selectedCV = IndexPath(item: selectedIndex, section: 0)
-        if vc == .AbilityList {
+        guard let menuType = menuType else { return }
+        
+        if menuType == .AbilityList {
             guard let table = collectionView.cellForItem(at: selectedCV) as? AbilityListTableCell else { return }
             guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
             table.tableView.deselectRow(at: selectedIndexPath, animated: true)
@@ -186,9 +190,9 @@ class CollectionViewWithMenu: UIViewController {
     
     private func setupMenuBar() {
         
-        menuBar = MenuBar(frame: .zero, sections: numberOfMenuTabs)
+        guard let menuType = menuType else { return }
         
-//        menuBar.numberOfSections = numberOfMenuTabs
+        menuBar = MenuBar(frame: .zero, menuType: menuType)
         
         view.addSubview(menuBar)
         menuBar.translatesAutoresizingMaskIntoConstraints = false
@@ -225,8 +229,8 @@ class CollectionViewWithMenu: UIViewController {
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
         collectionView.register(AbilityViewTableCell.self, forCellWithReuseIdentifier: "AbilityViewTableCell")
-//        collectionView.register(UINib(nibName: "AbilityListTableCell", bundle: nil), forCellWithReuseIdentifier: "AbilityListTableCell")
         collectionView.register(AbilityListTableCell.self, forCellWithReuseIdentifier: "AbilityListTableCell")
+        collectionView.register(TavernListTableCell.self, forCellWithReuseIdentifier: "TavernListTableCell")
         
     }
     
@@ -265,7 +269,9 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch vc {
+        guard let menuType = menuType else { return UICollectionViewCell() }
+        
+        switch menuType {
         case .AbilityList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityListTableCell
             
@@ -288,6 +294,11 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
             cell.tag = indexPath.row
             return cell
 
+        case .TavernList:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TavernListTableCell
+            cell.pageIndex = indexPath.row
+            cell.tableDelegate = self
+            return cell
         }
         
         

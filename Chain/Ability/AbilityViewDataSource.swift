@@ -15,7 +15,7 @@ enum classType {
     case Magicians
     case Healers
 }
-class AbilityViewDataSource: NSObject, UITableViewDataSource {
+class AbilityViewDataSource: NSObject {
     
     var selectedClass = classType.Warriors
     
@@ -63,7 +63,6 @@ class AbilityViewDataSource: NSObject, UITableViewDataSource {
     
     private func filterAbilityList() {
         
-//        dispatch
         warriors = arcanaArray.filter({$0.group == "전사"})
         DispatchQueue.global().async { [unowned self] in
             self.knights = self.arcanaArray.filter({$0.group == "기사"})
@@ -113,62 +112,4 @@ class AbilityViewDataSource: NSObject, UITableViewDataSource {
 //        }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        if currentArray.count != 0 {
-            
-        }
-        for i in cell.labelCollection {
-            i.text = nil
-        }
-        cell.arcanaImage.image = nil
-        
-        //        cell.imageSpinner.startAnimating()
-        
-        let arcana = currentArray[indexPath.row]
-        
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.nickNameKR {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.nickNameJP {
-            
-            cell.arcanaNickJP.text = nnJP
-            
-        }
-        cell.arcanaNameKR.text = arcana.nameKR
-        cell.arcanaNameJP.text = arcana.nameJP
-        
-        cell.arcanaRarity.text = "#\(arcana.rarity)★"
-        cell.arcanaGroup.text = "#\(arcana.group)"
-        cell.arcanaWeapon.text = "#\(arcana.weapon)"
-        if let a = arcana.affiliation {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
-            }
-            
-        }
-        
-        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-        cell.arcanaUID = arcana.uid
-        // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
-            
-            cell.arcanaImage.image = i
-            print("LOADED FROM CACHE")
-            
-        }
-            
-        else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
-        }
-        
-        
-        return cell
-    }
 }

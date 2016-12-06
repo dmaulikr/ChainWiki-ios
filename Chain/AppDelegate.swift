@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         FIRDatabase.database().reference().keepSynced(true)
-
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
             defaults.setImagePermissions(value: true)
@@ -77,6 +77,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        
+        let googleHandler = GIDSignIn.sharedInstance().handle(url,
+                                                              sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                              annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return googleHandler
     }
 
     

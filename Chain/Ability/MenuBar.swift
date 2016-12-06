@@ -8,14 +8,21 @@
 
 import UIKit
 
+enum menuType {
+    case AbilityList
+    case AbilityView
+    case TavernList
+}
+
 class MenuBar: UIView {
 
     let menuHeight : CGFloat = 50
-    var homeController: AbilityListCollectionView?
     let sectionTitles = ["메인", "인연"]
     let classTypes = ["전사", "기사", "궁수", "법사", "승려"]
+    let tavernTypes = ["페스", "1,2부", "3부"]
     var parentController: CollectionViewWithMenu?
     var numberOfItems: Int = 2
+    var menuType: menuType?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,9 +50,18 @@ class MenuBar: UIView {
         
     }
     
-    init(frame: CGRect, sections: Int) {
+    init(frame: CGRect, menuType: menuType) {
         super.init(frame: frame)
-        numberOfItems = sections
+        self.menuType = menuType
+        switch menuType {
+            case .AbilityList:
+                numberOfItems = 2
+            case .AbilityView:
+                numberOfItems = 5
+            case .TavernList:
+                numberOfItems = 3
+        }
+        
         addSubview(collectionView)
         setupBottomBorder()
         setupHorizontalBar()
@@ -115,11 +131,16 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             cell.nameLabel.textColor = Color.textGray
         }
         
-        if numberOfItems == 2 {
-            cell.nameLabel.text = sectionTitles[indexPath.row]
-        }
-        else {
-            cell.nameLabel.text = classTypes[indexPath.row]
+        if let menuType = menuType {
+            
+            switch menuType {
+            case .AbilityList:
+                cell.nameLabel.text = sectionTitles[indexPath.row]
+            case .AbilityView:
+                cell.nameLabel.text = classTypes[indexPath.row]
+            case .TavernList:
+                cell.nameLabel.text = tavernTypes[indexPath.row]
+            }
         }
         
         return cell

@@ -149,6 +149,10 @@ class LoginForm: UIViewController {
 //        navigationItem.backBarButtonItem = backButton
     }
     
+    @IBAction func googleLogin(_ sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
+        
+    }
     @IBAction func guestLogin(_ sender: Any) {
         
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
@@ -162,6 +166,7 @@ class LoginForm: UIViewController {
                 guard let user = user else {
                     return
                 }
+                
                 defaults.setImagePermissions(value: true)
                 defaults.setLogin(value: true)
                 defaults.setUID(value: user.uid)
@@ -174,6 +179,8 @@ class LoginForm: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         setupViews()
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -217,7 +224,128 @@ class LoginForm: UIViewController {
 
     }
     
+    func createNick() {
+        print("called alert")
+
+        let alert = UIAlertController(title: "닉네임 입력", message: "2글자 이상", preferredStyle: .alert)
+        alert.view.tintColor = Color.salmon
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: {
+            _ -> Void in
+            let textField = alert.textFields![0] as UITextField
+            if let nick = textField.text {
+                if nick.characters.count >= 2 {
+                    // check firebase for duplicate
+                    let ref = FIREBASE_REF.child("nickName/\(nick)")
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
+                        if snapshot.exists() {
+                            self.errorLabel.backgroundColor = UIColor.yellow
+                            self.errorLabel.textColor = UIColor.darkGray
+                            self.errorLabel.text = "닉네임이 이미 존재합니다."
+                            
+                        }
+                        else {
+
+                            // upload to firebase
+                            
+                            let user = FIRAuth.auth()?.currentUser
+                            if let user = user {
+                                let changeRequest = user.profileChangeRequest()
+                                print("DISPLAYNAME WILL CHANGE TO \(nick)")
+                                changeRequest.displayName = nick
+                                changeRequest.commitChanges { error in
+                                    
+                                    if let _ = error {
+                                        // An error happened.
+                                    } else {
+                                        // Profile updated.
+                                        let nickRef = FIREBASE_REF.child("nickName/\(nick)")
+                                        nickRef.setValue(true)
+                                        
+                                        defaults.setName(value: nick)
+                                        self.changeRootVC(vc: .login)
+                                    }
+                                }
+                            }
+                        }
+                        self.errorLabel.fadeViewInThenOut(delay: 2)
+                    })
+                }
+                else {
+                    // present alert saying >= 2
+                    self.errorLabel.text = "2글자 이상 입력하세요."
+                    self.errorLabel.fadeViewInThenOut(delay: 2)
+                    
+                }
+            }
+            
+            // do something with textField
+        }))
+        
+
+        alert.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            
+            
+        })
+//
+//        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+//            alert.dismiss(animated: true, completion: nil)
+//        }
+//        
+//        alert.addAction(cancelAction)
+        
+        
+        self.present(alert, animated: true) {
+            alert.view.tintColor = Color.salmon
+
+        }
+    }
     
+    
+    
+}
+
+extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let err = error {
+            print("Failed to log into Google: ", err)
+            return
+        }
+        
+        print("Successfully logged into Google", user)
+        
+        guard let idToken = user.authentication.idToken else { return }
+        guard let accessToken = user.authentication.accessToken else { return }
+        let credentials = FIRGoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        
+        FIRAuth.auth()?.signIn(with: credentials, completion: { [unowned self]  (user, error) in
+            if let _ = error {
+                return
+            }
+            
+            // Set nickname
+            
+            guard let uid = user?.uid else { return }
+            
+            self.createNick()
+            defaults.setLogin(value: true)
+            defaults.setUID(value: uid)
+            defaults.setEditPermissions(value: true)
+            defaults.setImagePermissions(value: true)
+            
+            getFavorites()
+            
+            
+        })
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        
+        self.changeRootVC(vc: .logout)
+    }
     
     
 }
@@ -326,3 +454,4 @@ func getFavorites() {
     }
     
 }
+

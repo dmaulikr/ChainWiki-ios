@@ -69,6 +69,8 @@ enum Color {
     static let lightGreen = UIColor(red:0.41, green:0.64, blue:0.51, alpha:1.0) // #68a283
     static let textGray = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
     static let gray247 = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)    // #f7f7f7
+    static let googleRed = UIColor(red:0.86, green:0.20, blue:0.21, alpha:1.0) // #db3236
+
 }
 
 let defaults = UserDefaults.standard

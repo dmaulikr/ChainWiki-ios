@@ -9,31 +9,9 @@
 import UIKit
 import Firebase
 
-class AbilityViewTableCell: UICollectionViewCell {
+class AbilityViewTableCell: BaseCollectionViewCell {
     
-    //    @IBOutlet weak var tableView: UITableView!
-    
-    lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.delegate = self
-        //        dataSource = AbilityViewDataSource(index: pageIndex)
-        tableView.dataSource = self
-        
-        tableView.reloadData()
-        self.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        tableView.backgroundColor = .white
-        tableView.estimatedRowHeight = 90
-        tableView.sectionHeaderHeight = 1
-        return tableView
 
-    }()
-    var dataSource:AbilityViewDataSource!
     var pageIndex = 0
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]() {
@@ -42,38 +20,15 @@ class AbilityViewTableCell: UICollectionViewCell {
             
         }
     }
-    var tableDelegate: CollectionViewWithMenu?
     var selectedIndex = 0
     var abilityType = ""
-    var group = DispatchGroup()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setupViews() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
     }
 
-    func setupTableView() {
-        
-        tableView = UITableView(frame: .zero)
-        tableView.delegate = self
-        tableView.dataSource = dataSource
-        
-        tableView.reloadData()
-        self.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        tableView.backgroundColor = .white
-        tableView.estimatedRowHeight = 90
-        tableView.sectionHeaderHeight = 1
-        
-    }
 
     
 }
