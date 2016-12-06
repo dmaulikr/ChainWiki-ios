@@ -38,7 +38,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drv-Fl-75K">
-                                                    <rect key="frame" x="65" y="54.5" width="31" height="17"/>
+                                                    <rect key="frame" x="65" y="55" width="31" height="17"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -59,7 +59,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-IB-gyj" customClass="UnderlinedLabel" customModule="Chain" customModuleProvider="target">
-                                            <rect key="frame" x="10" y="6" width="24.5" height="13.5"/>
+                                            <rect key="frame" x="10" y="6" width="25" height="14"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="11"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -131,7 +131,7 @@
                 <navigationController storyboardIdentifier="TavernNav" automaticallyAdjustsScrollViewInsets="NO" id="iMB-hA-YK1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSn-eN-1jt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VSn-eN-1jt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

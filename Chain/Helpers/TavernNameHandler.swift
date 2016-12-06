@@ -45,6 +45,18 @@ func convertTavern(tavern: String) -> String {
     case "레무레스섬":
         return "lemures"
         
+        
+    // 3부 주점
+    case "성왕국":
+        return "holyKingdom"
+    case "현자의탑2":
+        return "sage2"
+    case "호수도시2":
+        return "lake2"
+    case "정령섬2":
+        return "soul2"
+    case "화염구령2":
+        return "fire2"
     default:
         return ""
     }

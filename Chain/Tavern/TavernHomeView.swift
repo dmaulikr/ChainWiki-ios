@@ -22,7 +22,7 @@ class TavernHomeView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "capital"))
         self.title = navTitle
         tableView.dataSource = self
         tableView.delegate = self
@@ -67,6 +67,13 @@ class TavernHomeView: UIViewController {
         })
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
     }
 }
 
@@ -148,6 +155,7 @@ extension TavernHomeView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)

@@ -65,12 +65,24 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
 //        
 //        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
         
+        guard let pageIndex = pageIndex else { return }
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
         
         let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
-        vc.navTitle = currentArray[indexPath.row]
-        vc.tavern = convertTavern(tavern: currentArray[indexPath.row])
+
+        let tavern = currentArray[indexPath.row]
+        vc.navTitle = tavern
+        if pageIndex == 2 && indexPath.row != 0 {
+            
+            let tavern2 = "\(tavern)2"
+            
+            vc.tavern = convertTavern(tavern: tavern2)
+        }
+        else {
+            vc.tavern = convertTavern(tavern: tavern)
+        }
+        
         
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
     }

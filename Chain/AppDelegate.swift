@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         FIRDatabase.database().reference().keepSynced(true)
+        
+        // Login Providers
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        
+        
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
             defaults.setImagePermissions(value: true)
@@ -82,11 +88,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
         
+        let facebookHandler = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        
         let googleHandler = GIDSignIn.sharedInstance().handle(url,
                                                               sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                               annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         
-        return googleHandler
+        return facebookHandler || googleHandler
     }
 
     

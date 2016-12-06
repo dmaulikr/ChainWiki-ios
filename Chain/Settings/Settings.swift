@@ -37,7 +37,13 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             // Remove the user's uid from storage.
             UserDefaults.standard.setValue(nil, forKey: "uid")
             
-            try! FIRAuth.auth()!.signOut()
+            let firebaseAuth = FIRAuth.auth()
+            do {
+                try firebaseAuth?.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+//            try! FIRAuth.auth()!.signOut()
             
             defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             defaults.synchronize()

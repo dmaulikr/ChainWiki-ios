@@ -11,7 +11,7 @@ import SkyFloatingLabelTextField
 import NVActivityIndicatorView
 import Firebase
 import FirebaseAuth
-//import pop
+import FBSDKLoginKit
 
 
 class LoginForm: UIViewController {
@@ -20,6 +20,7 @@ class LoginForm: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
+    @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
 //    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginLeadingConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var loginTopConstraint: NSLayoutConstraint!
@@ -153,6 +154,26 @@ class LoginForm: UIViewController {
         GIDSignIn.sharedInstance().signIn()
         
     }
+    @IBAction func facebookLogin(_ sender: Any) {
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id"]).start { (connection, result, err) in
+                        
+                        if err != nil {
+                            return
+                        }
+                        print(result ?? "")
+                    }
+                }
+            }
+        }
+        
+    }
     @IBAction func guestLogin(_ sender: Any) {
         
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
@@ -181,6 +202,7 @@ class LoginForm: UIViewController {
         setupViews()
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
+//        facebookLoginButton.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -307,6 +329,53 @@ class LoginForm: UIViewController {
     
 }
 
+/*
+extension LoginForm: FBSDKLoginButtonDelegate {
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        
+        let accessToken = FBSDKAccessToken.current()
+        guard let accessTokenString = accessToken?.tokenString else { return }
+        
+        let credentials = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
+        FIRAuth.auth()?.signIn(with: credentials, completion: { (user, error) in
+            if error != nil {
+                print("Something went wrong with our FB user: ", error ?? "")
+                return
+            }
+            
+            guard let uid = user?.uid else { return }
+            
+            defaults.setLogin(value: true)
+            defaults.setUID(value: uid)
+            defaults.setEditPermissions(value: true)
+            defaults.setImagePermissions(value: true)
+            
+            getFavorites()
+            
+            self.changeRootVC(vc: .login)
+            
+        })
+        
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id"]).start { (connection, result, err) in
+            
+            if err != nil {
+                return
+            }
+            print(result ?? "")
+        }
+        
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Logged out of Facebook")
+        
+    }
+    
+}
+ */
+
+
 extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -330,7 +399,6 @@ extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
             
             guard let uid = user?.uid else { return }
             
-            self.createNick()
             defaults.setLogin(value: true)
             defaults.setUID(value: uid)
             defaults.setEditPermissions(value: true)
@@ -338,13 +406,14 @@ extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
             
             getFavorites()
             
+            self.changeRootVC(vc: .login)
             
         })
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
-        self.changeRootVC(vc: .logout)
+//        self.changeRootVC(vc: .logout)
     }
     
     
