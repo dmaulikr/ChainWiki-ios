@@ -36,7 +36,7 @@ class LoginHome: UIViewController {
                 defaults.setImagePermissions(value: true)
                 defaults.setLogin(value: true)
                 defaults.setUID(value: user.uid)
-                self.changeRootVC(vc: .login)
+                self.changeRootVC(vc: .home)
             }
         }
     }

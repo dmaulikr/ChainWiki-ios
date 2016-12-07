@@ -123,7 +123,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                         
                                         nickNameRef.setValue(true)
                                         
-                                        self.changeRootVC(vc: .login)
+                                        self.changeRootVC(vc: .home)
                                         
                                     }
                                 }
@@ -181,7 +181,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                         defaults.setName(value: nickname)
                                         
                                         nickNameRef.setValue(true)
-                                        self.changeRootVC(vc: .login)
+                                        self.changeRootVC(vc: .home)
                                         
                                         
                                     }

@@ -239,7 +239,7 @@
         <!--Login Form-->
         <scene sceneID="Ai7-3r-h7n">
             <objects>
-                <viewController id="owE-FD-asH" customClass="LoginForm" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginForm" id="owE-FD-asH" customClass="LoginForm" customModule="Chain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0lQ-sV-l81"/>
                         <viewControllerLayoutGuide type="bottom" id="xF7-j3-TJw"/>

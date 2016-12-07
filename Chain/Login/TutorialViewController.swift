@@ -21,8 +21,7 @@ class TutorialViewController: UIViewController {
 
     @IBAction func startLogin(_ sender: AnyObject) {
         
-        performSegue(withIdentifier: "startLogin", sender: nil)
-        
+        changeRootVC(vc: .login)
     }
     
     func setupButton() {

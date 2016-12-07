@@ -104,7 +104,7 @@ class LoginForm: UIViewController, DisplayBanner {
                     
                     getFavorites()
                     
-                    self.changeRootVC(vc: .login)
+                    self.changeRootVC(vc: .home)
                     
 
                 }
@@ -187,7 +187,7 @@ class LoginForm: UIViewController, DisplayBanner {
                             
                             getFavorites()
                             
-                            self.changeRootVC(vc: .login)
+                            self.changeRootVC(vc: .home)
                             
                         })
 
@@ -215,7 +215,7 @@ class LoginForm: UIViewController, DisplayBanner {
                 defaults.setImagePermissions(value: true)
                 defaults.setLogin(value: true)
                 defaults.setUID(value: user.uid)
-                self.changeRootVC(vc: .login)
+                self.changeRootVC(vc: .home)
             }
         }
     }
@@ -429,7 +429,7 @@ extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
             
             getFavorites()
             
-            self.changeRootVC(vc: .login)
+            self.changeRootVC(vc: .home)
             
         })
     }
