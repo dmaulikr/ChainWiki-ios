@@ -279,9 +279,7 @@ extension Settings: UITextFieldDelegate {
     
     func changeNick() {
         print("called alert")
-        guard let userNick = defaults.getName() else {
-            return
-        }
+        let userNick = defaults.getName() ?? ""
         let alert = UIAlertController(title: "새로운 닉네임 입력", message: "현재: \(userNick)", preferredStyle: .alert)
         alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white

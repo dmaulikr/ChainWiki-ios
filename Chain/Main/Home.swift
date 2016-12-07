@@ -324,10 +324,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         AppRater.appRater.displayAlert()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        tableView.reloadData()
-    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let row = tableView.indexPathForSelectedRow {
@@ -568,13 +565,14 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             if !preventAnimation.contains(indexPath) {
                 preventAnimation.insert(indexPath)
                 
-                var t = cell.arcanaImage.transform
-                t = t.translatedBy(x: -90, y: 0)
-                t = t.rotated(by: CGFloat(M_PI))
-                cell.arcanaImage.transform = t
-                
+//                var t = cell.arcanaImage.transform
+//                t = t.translatedBy(x: -90, y: 0)
+//                t = t.rotated(by: -CGFloat.pi/2)
+//                cell.arcanaImage.transform = t
+                cell.arcanaImage.alpha = 0
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                    cell.arcanaImage.transform = CGAffineTransform.identity
+//                    cell.arcanaImage.transform = CGAffineTransform.identity
+                    cell.arcanaImage.alpha = 1
                 }, completion: nil)
                 
             }

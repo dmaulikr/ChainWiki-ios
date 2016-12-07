@@ -276,29 +276,6 @@
                                     <action selector="emailLogin:" destination="owE-FD-asH" eventType="touchUpInside" id="Dyh-HS-ChV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-EG-kTa" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
-                                <rect key="frame" x="40" y="364" width="295" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="l49-b1-hzq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
-                                <state key="normal" title="이메일 계정 생성하기">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="createEmail:" destination="owE-FD-asH" eventType="touchUpInside" id="YW8-rD-Sch"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로그인 알림" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="F4o-fu-iVT">
-                                <rect key="frame" x="20" y="603" width="335" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Xga-jc-Ayb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <color key="textColor" red="1" green="0.24104946369999999" blue="0.1474422219" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xc-Ul-SOT" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="175" y="321" width="25" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -402,18 +379,24 @@
                                 <color key="textColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVV-fH-CvE" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
-                                <rect key="frame" x="40" y="566" width="295" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVV-fH-CvE" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <rect key="frame" x="40" y="418" width="295" height="44"/>
                                 <color key="backgroundColor" red="0.85882352939999995" green="0.1960784314" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="419-WI-3rQ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
                                 <state key="normal" title="구글 로그인" image="googleLoginButton"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="googleLogin:" destination="owE-FD-asH" eventType="touchUpInside" id="cLS-RC-WcH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZr-MO-9Wd" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
-                                <rect key="frame" x="40" y="512" width="295" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZr-MO-9Wd" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <rect key="frame" x="40" y="364" width="295" height="44"/>
                                 <color key="backgroundColor" red="0.23015013337135315" green="0.34726864099502563" blue="0.59436625242233276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Fby-9I-tWt"/>
@@ -421,50 +404,58 @@
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="페이스북 로그인" image="facebookLoginButton"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="facebookLogin:" destination="owE-FD-asH" eventType="touchUpInside" id="6KC-vp-va2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-EG-kTa" customClass="RoundedButton" customModule="Chain" customModuleProvider="target">
+                                <rect key="frame" x="20" y="583" width="335" height="33"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <state key="normal" title="이메일 계정 생성하기">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createEmail:" destination="owE-FD-asH" eventType="touchUpInside" id="YW8-rD-Sch"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="L8f-EG-kTa" secondAttribute="trailing" constant="20" id="0HI-8k-ZPg"/>
                             <constraint firstItem="7xc-Ul-SOT" firstAttribute="centerY" secondItem="hyH-ns-g0s" secondAttribute="centerY" id="0T3-d7-HWy"/>
-                            <constraint firstItem="L8f-EG-kTa" firstAttribute="leading" secondItem="3UA-mn-QLI" secondAttribute="leading" id="1HT-LL-gL9"/>
-                            <constraint firstItem="L8f-EG-kTa" firstAttribute="top" secondItem="3UA-mn-QLI" secondAttribute="bottom" constant="10" id="31h-ce-3Y0"/>
                             <constraint firstItem="Bu3-WX-S8o" firstAttribute="top" secondItem="mds-tA-ecY" secondAttribute="bottom" constant="10" id="4iH-kH-ihO"/>
-                            <constraint firstItem="zVV-fH-CvE" firstAttribute="leading" secondItem="L8f-EG-kTa" secondAttribute="leading" id="5o8-Ee-ucz"/>
-                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="leading" secondItem="L8f-EG-kTa" secondAttribute="leading" id="6v6-fZ-ntv"/>
+                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="leading" secondItem="3UA-mn-QLI" secondAttribute="leading" id="7RX-b4-qAv"/>
                             <constraint firstItem="7xc-Ul-SOT" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="88c-PX-CUn"/>
-                            <constraint firstItem="xF7-j3-TJw" firstAttribute="top" secondItem="F4o-fu-iVT" secondAttribute="bottom" constant="20" id="8OC-KJ-CC4"/>
+                            <constraint firstItem="zVV-fH-CvE" firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" id="8qn-RO-4VG"/>
                             <constraint firstItem="Bu3-WX-S8o" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="40" id="ACc-FP-Gz1"/>
                             <constraint firstAttribute="trailing" secondItem="Bu3-WX-S8o" secondAttribute="trailing" constant="40" id="CcT-z7-hxz"/>
-                            <constraint firstItem="L8f-EG-kTa" firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" id="JUp-Bv-KHg"/>
+                            <constraint firstItem="L8f-EG-kTa" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="In2-vs-MzT"/>
                             <constraint firstItem="3UA-mn-QLI" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="40" id="KCq-IM-TrI"/>
                             <constraint firstItem="xF7-j3-TJw" firstAttribute="top" secondItem="JUj-0O-FMr" secondAttribute="bottom" constant="10" id="M3z-mD-fAZ"/>
-                            <constraint firstItem="zVV-fH-CvE" firstAttribute="trailing" secondItem="L8f-EG-kTa" secondAttribute="trailing" id="Nkh-sg-Odk"/>
                             <constraint firstItem="dwU-ZB-0tS" firstAttribute="trailing" secondItem="Bu3-WX-S8o" secondAttribute="trailing" id="Tn9-V6-YA1"/>
                             <constraint firstItem="JUj-0O-FMr" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="TtF-9R-Nbg"/>
                             <constraint firstAttribute="trailing" secondItem="JUj-0O-FMr" secondAttribute="trailing" constant="20" id="Uad-I1-Rcy"/>
                             <constraint firstItem="3UA-mn-QLI" firstAttribute="top" secondItem="dwU-ZB-0tS" secondAttribute="bottom" constant="10" id="WxU-FP-xS2"/>
                             <constraint firstItem="YpD-li-gDq" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="Yc0-qO-fCI"/>
                             <constraint firstItem="mds-tA-ecY" firstAttribute="top" secondItem="YpD-li-gDq" secondAttribute="bottom" constant="30" id="b0j-hM-hTw"/>
-                            <constraint firstItem="F4o-fu-iVT" firstAttribute="leading" secondItem="hyH-ns-g0s" secondAttribute="leading" constant="20" id="e8O-rY-YmW"/>
+                            <constraint firstItem="JUj-0O-FMr" firstAttribute="top" secondItem="L8f-EG-kTa" secondAttribute="bottom" constant="8" id="dAr-7C-v4N"/>
+                            <constraint firstItem="zVV-fH-CvE" firstAttribute="leading" secondItem="3UA-mn-QLI" secondAttribute="leading" id="dIw-3T-AbD"/>
                             <constraint firstItem="mds-tA-ecY" firstAttribute="centerX" secondItem="hyH-ns-g0s" secondAttribute="centerX" id="gA4-a2-xhq"/>
+                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="top" secondItem="3UA-mn-QLI" secondAttribute="bottom" constant="10" id="kJ6-qw-cYw"/>
                             <constraint firstItem="zVV-fH-CvE" firstAttribute="top" secondItem="cZr-MO-9Wd" secondAttribute="bottom" constant="10" id="l2Y-Ks-P1t"/>
                             <constraint firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" constant="40" id="ll3-Ci-2rj"/>
-                            <constraint firstAttribute="trailing" secondItem="F4o-fu-iVT" secondAttribute="trailing" constant="20" id="nF9-NR-Dua"/>
-                            <constraint firstItem="JUj-0O-FMr" firstAttribute="top" secondItem="zVV-fH-CvE" secondAttribute="bottom" constant="10" id="nJf-DJ-ILc"/>
+                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="trailing" secondItem="3UA-mn-QLI" secondAttribute="trailing" id="o8z-pl-0fK"/>
                             <constraint firstItem="dwU-ZB-0tS" firstAttribute="leading" secondItem="Bu3-WX-S8o" secondAttribute="leading" id="oyh-FV-WEq"/>
-                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="top" secondItem="L8f-EG-kTa" secondAttribute="bottom" priority="250" constant="10" id="ph1-SP-vvT"/>
                             <constraint firstItem="YpD-li-gDq" firstAttribute="top" secondItem="0lQ-sV-l81" secondAttribute="bottom" constant="20" id="rbE-M3-bFo"/>
-                            <constraint firstItem="cZr-MO-9Wd" firstAttribute="trailing" secondItem="L8f-EG-kTa" secondAttribute="trailing" id="uX4-iW-6Sd"/>
                             <constraint firstItem="dwU-ZB-0tS" firstAttribute="top" secondItem="Bu3-WX-S8o" secondAttribute="bottom" constant="10" id="xsK-hU-daz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JOL-cS-Gjw"/>
                     <connections>
                         <outlet property="email" destination="Bu3-WX-S8o" id="qvV-QW-PEu"/>
-                        <outlet property="errorLabel" destination="F4o-fu-iVT" id="PcM-DY-u0u"/>
                         <outlet property="facebookLoginButton" destination="cZr-MO-9Wd" id="iTh-VG-VKp"/>
                         <outlet property="guestButton" destination="L8f-EG-kTa" id="UJs-ob-Rdu"/>
                         <outlet property="loginButton" destination="3UA-mn-QLI" id="cLd-yK-mDe"/>

@@ -55,6 +55,7 @@
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
+		049926E71DF7590C00FD9889 /* BannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049926E61DF7590C00FD9889 /* BannerAlert.swift */; };
 		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
@@ -182,6 +183,7 @@
 		048E6E541D729A7D00687513 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = etc/GlobalConstants.swift; sourceTree = "<group>"; };
 		0490426D1DBD670700D5FDF0 /* Chain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chain-Bridging-Header.h"; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
+		049926E61DF7590C00FD9889 /* BannerAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAlert.swift; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
 		04A2EC911D6F7FA300189142 /* Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chain.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */,
+				049926E61DF7590C00FD9889 /* BannerAlert.swift */,
 				04BF5B001DF214CF00AE8CD8 /* PCView.swift */,
 				047561561D946BB1004886BF /* RoundedButton.swift */,
 				04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */,
@@ -884,6 +887,7 @@
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
+				049926E71DF7590C00FD9889 /* BannerAlert.swift in Sources */,
 				04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,

@@ -244,7 +244,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         else {
             edits.removeValue(forKey: "\(firebaseKeys[row])")
         }
-        print(edits["\(firebaseKeys[row])"])
+//        print(edits["\(firebaseKeys[row])"])
         
         rowBeingEdited = nil
         

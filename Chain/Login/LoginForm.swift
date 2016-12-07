@@ -14,10 +14,9 @@ import FirebaseAuth
 import FBSDKLoginKit
 
 
-class LoginForm: UIViewController {
+class LoginForm: UIViewController, DisplayBanner {
 
     @IBOutlet weak var logo: PCView!
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
     @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
@@ -66,23 +65,26 @@ class LoginForm: UIViewController {
                 if error != nil {
                     
                     if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
-                        print(errorCode)
+
+                        var errorText = ""
+                        
                         switch (errorCode) {
                             
                         case .errorCodeUserNotFound:
-                            self.errorLabel.text = "계정이 틀렸습니다."
+                            errorText = "계정이 틀렸습니다."
 
                         case .errorCodeInvalidEmail:
-                            self.errorLabel.text = "계정 형식이 맞지 않습니다."
+                            errorText = "계정 형식이 맞지 않습니다."
                             
                         case .errorCodeWrongPassword:
-                            self.errorLabel.text = "비밀번호가 틀렸습니다."
+                            errorText = "비밀번호가 틀렸습니다."
                             
                         default:
-                            self.errorLabel.text = "로그인을 못 하였습니다."
+                            errorText = "서버에 접속하지 못 하였습니다."
                         }
-                        self.errorLabel.fadeOut(withDuration: 0.2)
-                        self.errorLabel.fadeIn(withDuration: 0.5)
+                        
+                        self.displayBanner(title: "로그인 실패", desc: errorText)
+
                     }
                     
                     
@@ -138,7 +140,6 @@ class LoginForm: UIViewController {
 //            textField.textAlignment = .center
             textField.lineColor = Color.lightGray
         }
-        errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"
         email.keyboardType = .emailAddress
         password.iconText = "\u{f023}"
@@ -167,7 +168,30 @@ class LoginForm: UIViewController {
                         if err != nil {
                             return
                         }
-                        print(result ?? "")
+                        
+                        let credentials = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+
+                        FIRAuth.auth()?.signIn(with: credentials, completion: { [unowned self]  (user, error) in
+                            if let _ = error {
+                                return
+                            }
+                            
+                            // Set nickname
+                            
+                            guard let uid = user?.uid else { return }
+                            
+                            defaults.setLogin(value: true)
+                            defaults.setUID(value: uid)
+                            defaults.setEditPermissions(value: true)
+                            defaults.setImagePermissions(value: true)
+                            
+                            getFavorites()
+                            
+                            self.changeRootVC(vc: .login)
+                            
+                        })
+
+                        
                     }
                 }
             }
@@ -246,9 +270,11 @@ class LoginForm: UIViewController {
 
     }
     
+    /*
     func createNick() {
         print("called alert")
 
+        
         let alert = UIAlertController(title: "닉네임 입력", message: "2글자 이상", preferredStyle: .alert)
         alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white
@@ -263,9 +289,8 @@ class LoginForm: UIViewController {
                     let ref = FIREBASE_REF.child("nickName/\(nick)")
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         if snapshot.exists() {
-                            self.errorLabel.backgroundColor = UIColor.yellow
-                            self.errorLabel.textColor = UIColor.darkGray
-                            self.errorLabel.text = "닉네임이 이미 존재합니다."
+
+//                            self.errorLabel.text = "닉네임이 이미 존재합니다."
                             
                         }
                         else {
@@ -292,13 +317,11 @@ class LoginForm: UIViewController {
                                 }
                             }
                         }
-                        self.errorLabel.fadeViewInThenOut(delay: 2)
                     })
                 }
                 else {
                     // present alert saying >= 2
-                    self.errorLabel.text = "2글자 이상 입력하세요."
-                    self.errorLabel.fadeViewInThenOut(delay: 2)
+//                    self.errorLabel.text = "2글자 이상 입력하세요."
                     
                 }
             }
@@ -325,7 +348,7 @@ class LoginForm: UIViewController {
         }
     }
     
-    
+    */
     
 }
 

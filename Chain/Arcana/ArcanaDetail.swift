@@ -267,7 +267,9 @@ class ArcanaDetail: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        if let id = arcana?.uid {
+            print(id)
+        }
         
         // Increment number of views
         guard defaults.getName() != "제이k" else {
@@ -286,13 +288,6 @@ class ArcanaDetail: UIViewController {
 //        navigationController?.hidesBarsOnSwipe = true
     
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
 
     
     func imageTapped(_ sender: AnyObject) {
@@ -813,10 +808,20 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     cell.attributeKey.text = "어빌 1"
-                    cell.attributeValue.text = arcana.abilityName1
+                    if arcana.abilityName1 == "" {
+                        cell.attributeValue.text = " "
+                    }
+                    else {
+                        cell.attributeValue.text = arcana.abilityName1
+                    }
                 case 2:
                     cell.attributeKey.text = "어빌 2"
-                    cell.attributeValue.text = arcana.abilityName2
+                    if arcana.abilityName2 == "" {
+                        cell.attributeValue.text = " "
+                    }
+                    else {
+                        cell.attributeValue.text = arcana.abilityName2
+                    }
                 default:
                     cell.attributeKey.text = "파티 어빌"
                     cell.attributeValue.text = " "

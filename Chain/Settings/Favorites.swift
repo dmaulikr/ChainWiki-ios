@@ -109,7 +109,7 @@ class Favorites: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        
+        downloadFavorites()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
@@ -119,8 +119,11 @@ class Favorites: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        downloadFavorites()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
