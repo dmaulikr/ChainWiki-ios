@@ -9,13 +9,13 @@
 import UIKit
 
 protocol DisplayBanner {
-    func displayBanner(title: String, desc: String)
+    func displayBanner(desc: String)
 }
 
 extension DisplayBanner where Self: UIViewController {
     
-    func displayBanner(title: String, desc: String) {
-        let banner = BannerAlert(title: title, desc: desc)
+    func displayBanner(desc: String) {
+        let banner = BannerAlert(desc: desc)
         
         self.view.addSubview(banner)
         
@@ -52,9 +52,9 @@ class BannerAlert: UIView {
 //    var titleLabel = UILabel()
     
     var descLabel = UILabel()
-
+    let icon = UIImageView(image: #imageLiteral(resourceName: "exclamation"))
     
-    init(title: String, desc: String) {
+    init(desc: String) {
         super.init(frame: .zero)
         
         backgroundColor = Color.googleRed
@@ -70,21 +70,27 @@ class BannerAlert: UIView {
     func setupViews() {
         
 //        self.addSubview(titleLabel)
-        self.addSubview(descLabel)
-        
 //        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
 //        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
 //        titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//
 //        titleLabel.bottomAnchor.constraint(equalTo: descLabel.topAnchor, constant: 10).isActive = true
 //        titleLabel.setContentHuggingPriority(1000, for: .vertical)
         
+        self.addSubview(descLabel)
+        self.addSubview(icon)
+        
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        icon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        icon.trailingAnchor.constraint(equalTo: descLabel.leadingAnchor, constant: 10).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
         descLabel.translatesAutoresizingMaskIntoConstraints = false
-//        descLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         descLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        descLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+//        descLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         descLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10).isActive = true
+//        descLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
 //        descLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10).isActive = true
 //        descLabel.setContentHuggingPriority(500, for: .vertical)
         self.layoutIfNeeded()

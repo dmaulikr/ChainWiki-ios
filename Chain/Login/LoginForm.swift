@@ -83,7 +83,7 @@ class LoginForm: UIViewController, DisplayBanner {
                             errorText = "서버에 접속하지 못 하였습니다."
                         }
                         
-                        self.displayBanner(title: "로그인 실패", desc: errorText)
+                        self.displayBanner(desc: errorText)
 
                     }
                     

@@ -12,11 +12,10 @@ import FirebaseAuth
 import Firebase
 import NVActivityIndicatorView
 
-class CreateEmail: UIViewController {
+class CreateEmail: UIViewController, DisplayBanner {
 
     @IBOutlet weak var popupView: UIScrollView!
 
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
@@ -36,36 +35,35 @@ class CreateEmail: UIViewController {
     @IBAction func createEmail(_ sender: AnyObject) {
 
         self.view.endEditing(true)
+        var errorText = ""
         
         if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text, let nickname = self.nickname.text {
         
             if password == "" || passwordConfirm == "" {
-                errorLabel.fadeOut(withDuration: 0.2)
-                errorLabel.fadeIn(withDuration: 0.5)
-                errorLabel.text = "비밀번호를 입력하세요."
+                errorText = "비밀번호를 입력하세요."
+                self.displayBanner(desc: errorText)
             }
             
             else if nickname == "" || nickname.characters.count < 2 {
-                errorLabel.fadeOut(withDuration: 0.2)
-                errorLabel.fadeIn(withDuration: 0.5)
-                errorLabel.text = "닉네임은 2자 이상이 필요합니다."
+                errorText = "닉네임은 2자 이상이 필요합니다."
                 spinner.stopAnimating()
+                self.displayBanner(desc: errorText)
             }
             else if password != passwordConfirm {
-                errorLabel.fadeOut(withDuration: 0.2)
-                errorLabel.fadeIn(withDuration: 0.5)
-                errorLabel.text = "비밀번호가 맞지 않습니다."
+
+                errorText = "비밀번호가 맞지 않습니다."
                 spinner.stopAnimating()
-                }
-                else {
+                self.displayBanner(desc: errorText)
+            }
+            else {
                     spinner.startAnimating()
                     let nickNameRef = FIREBASE_REF.child("nickName/\(nickname)")
                     nickNameRef.observeSingleEvent(of: .value, with: { snapshot in
                         
                         if snapshot.exists() {
-                            self.errorLabel.fadeOut(withDuration: 0.2)
-                            self.errorLabel.fadeIn(withDuration: 0.5)
-                            self.errorLabel.text = "닉네임이 이미 사용 중입니다."
+
+                            errorText = "닉네임이 이미 사용 중입니다."
+                            self.displayBanner(desc: errorText)
                             self.spinner.stopAnimating()
                         }
                         else {
@@ -83,24 +81,19 @@ class CreateEmail: UIViewController {
                                             switch (errorCode) {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "이메일이 이미 사용 중입니다."
+                                                errorText = "이메일이 이미 사용 중입니다."
                                                 
                                             case .errorCodeInvalidEmail:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "이메일이 올바르지 않습니다."
+                                                errorText = "이메일이 올바르지 않습니다."
                                                 
                                             case .errorCodeWeakPassword:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "비밀번호가 약합니다."
+                                                errorText = "비밀번호가 약합니다."
                                                 
                                             default:
-                                                print("some other error")
+                                                errorText = "서버에 접속하지 못 하였습니다."
                                             }
                                             self.spinner.stopAnimating()
+                                            self.displayBanner(desc: errorText)
                                         }
                                         
                                     }
@@ -147,24 +140,19 @@ class CreateEmail: UIViewController {
                                             switch (errorCode) {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "이메일이 이미 사용 중입니다."
+                                                errorText = "이메일이 이미 사용 중입니다."
                                                 
                                             case .errorCodeInvalidEmail:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "이메일이 올바르지 않습니다."
+                                                errorText = "이메일이 올바르지 않습니다."
                                                 
                                             case .errorCodeWeakPassword:
-                                                self.errorLabel.fadeOut(withDuration: 0.2)
-                                                self.errorLabel.fadeIn(withDuration: 0.5)
-                                                self.errorLabel.text = "비밀번호가 약합니다."
+                                                errorText = "비밀번호가 약합니다."
                                                 
                                             default:
-                                                print("some other error")
+                                                errorText = "서버에 접속하지 못 하였습니다."
                                             }
                                             self.spinner.stopAnimating()
+                                            self.displayBanner(desc: errorText)
                                         }
                                     }
                                     else {
@@ -205,6 +193,8 @@ class CreateEmail: UIViewController {
                     })
                     
                 }
+            
+            
             }
    
     }
@@ -231,7 +221,6 @@ class CreateEmail: UIViewController {
             textField.delegate = self
             textField.lineColor = Color.lightGray
         }
-        errorLabel.textColor = Color.darkSalmon
         email.iconText = "\u{f0e0}"
         email.keyboardType = .emailAddress
         email.tag = 0

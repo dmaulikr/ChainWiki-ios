@@ -192,16 +192,6 @@
                                     <constraint firstAttribute="trailing" secondItem="fcY-uW-0Vk" secondAttribute="trailing" constant="5" id="sky-V5-puZ"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로그인 알림" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Hap-B0-ufd">
-                                <rect key="frame" x="10" y="603" width="355" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="dMl-tn-qCR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZT-H4-fmM" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="175" y="321" width="25" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,12 +211,9 @@
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PZT-H4-fmM" firstAttribute="centerX" secondItem="lGs-sG-I37" secondAttribute="centerX" id="1d6-Cc-XJD"/>
-                            <constraint firstItem="Duz-aX-kXW" firstAttribute="top" secondItem="Hap-B0-ufd" secondAttribute="bottom" constant="20" id="N3m-Eq-ahu"/>
                             <constraint firstItem="eid-7P-gW4" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leadingMargin" constant="10" id="NaX-oH-epJ"/>
                             <constraint firstItem="eid-7P-gW4" firstAttribute="top" secondItem="lGs-sG-I37" secondAttribute="topMargin" constant="100" id="RRf-Ml-kwE"/>
                             <constraint firstItem="PZT-H4-fmM" firstAttribute="centerY" secondItem="lGs-sG-I37" secondAttribute="centerY" id="fGJ-8u-nF7"/>
-                            <constraint firstAttribute="trailing" secondItem="Hap-B0-ufd" secondAttribute="trailing" constant="10" id="fLJ-sg-Hdf"/>
-                            <constraint firstItem="Hap-B0-ufd" firstAttribute="leading" secondItem="lGs-sG-I37" secondAttribute="leading" constant="10" id="iLu-hE-yLB"/>
                             <constraint firstAttribute="bottomMargin" secondItem="eid-7P-gW4" secondAttribute="bottom" constant="100" id="k13-nO-ypC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eid-7P-gW4" secondAttribute="trailing" constant="10" id="utN-ee-WUz"/>
                         </constraints>
@@ -234,7 +221,6 @@
                     <navigationItem key="navigationItem" id="oGb-J9-7fv"/>
                     <connections>
                         <outlet property="email" destination="0v7-c8-Tzr" id="nFQ-h4-xzT"/>
-                        <outlet property="errorLabel" destination="Hap-B0-ufd" id="0BJ-1F-m2d"/>
                         <outlet property="nickname" destination="Wia-oD-Pcz" id="Iwf-ui-Q98"/>
                         <outlet property="password" destination="2yA-ng-bIe" id="gzO-0d-m9G"/>
                         <outlet property="passwordConfirm" destination="Kyn-lM-c0F" id="Y0B-7z-5HX"/>
