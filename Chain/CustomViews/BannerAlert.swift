@@ -25,7 +25,8 @@ extension DisplayBanner where Self: UIViewController {
         initialHeight.isActive = true
         banner.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         banner.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        banner.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
+        banner.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.tabBarController?.tabBar.isHidden = true
         self.view.layoutIfNeeded()
         
         // animate this from bottom up
@@ -40,6 +41,7 @@ extension DisplayBanner where Self: UIViewController {
                 
             }, completion: { finished in
                 banner.removeFromSuperview()
+                self.tabBarController?.tabBar.isHidden = false
             })
         })
         
