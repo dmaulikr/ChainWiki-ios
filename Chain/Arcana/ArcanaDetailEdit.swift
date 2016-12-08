@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, DisplayBanner {
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "인연 이름", "인연 코스트", "인연 설명"]
     
@@ -20,7 +20,6 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBOutlet weak var tableView: UITableView!
     var rowBeingEdited : Int? = nil
-    @IBOutlet weak var alert: UILabel!
     
     @IBAction func complete(_ sender: AnyObject) {
 
@@ -37,7 +36,14 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         let alertController = UIAlertController(title: "수정 확인", message: "수정하시겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
-            self.displayBanner()
+            
+            if self.edits.count == 0 {
+                
+                self.displayBanner(desc: "수정된 정보가 없었습니다.")
+            }
+            else {
+                self.backTwo()
+            }
             self.uploadArcana()
         })
         alertController.addAction(defaultAction)
@@ -50,22 +56,6 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         })
         
         
-    }
-    
-    func displayBanner() {
-        if edits.count == 0 {
-            alert.backgroundColor = UIColor.yellow
-            alert.textColor = UIColor.darkGray
-            alert.text = "수정된 정보가 없었습니다."
-        }
-        else {
-//            alert.backgroundColor = Color.salmon
-//            alert.textColor = UIColor.white
-//            alert.text = "아르카나 수정 완료!"
-            backTwo()
-        }
-        
-        alert.fadeViewInThenOut(delay: 2)
     }
     
     func uploadArcana() {
@@ -259,17 +249,9 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
         return true
     }
-    
-    func setupViews() {
-        alert.layer.masksToBounds = true
-        alert.layer.cornerRadius = 5
-        alert.layer.borderWidth = 1
-        alert.layer.borderColor = UIColor.clear.cgColor
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension

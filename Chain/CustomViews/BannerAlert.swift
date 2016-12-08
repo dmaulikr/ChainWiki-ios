@@ -9,13 +9,13 @@
 import UIKit
 
 protocol DisplayBanner {
-    func displayBanner(desc: String)
+    func displayBanner(desc: String, color: UIColor)
 }
 
 extension DisplayBanner where Self: UIViewController {
     
-    func displayBanner(desc: String) {
-        let banner = BannerAlert(desc: desc)
+    func displayBanner(desc: String, color: UIColor = Color.googleRed) {
+        let banner = BannerAlert(desc: desc, color: color)
         
         self.view.addSubview(banner)
         
@@ -45,6 +45,7 @@ extension DisplayBanner where Self: UIViewController {
         
         
     }
+    
 }
 
 class BannerAlert: UIView {
@@ -54,10 +55,10 @@ class BannerAlert: UIView {
     var descLabel = UILabel()
     let icon = UIImageView(image: #imageLiteral(resourceName: "exclamation"))
     
-    init(desc: String) {
+    init(desc: String, color: UIColor) {
         super.init(frame: .zero)
         
-        backgroundColor = Color.googleRed
+        backgroundColor = color
 //        titleLabel.text = title
 //        titleLabel.textColor = .white
         descLabel.text = desc

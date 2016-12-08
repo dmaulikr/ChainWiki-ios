@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 import SafariServices
 import LicensesViewController
 
-class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate {
+class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate, DisplayBanner {
 
     let sectionTitles = ["앱 설정", "계정", "소개", "지원"]
     let appSection = ["이미지 다운로드 허용"]
@@ -22,7 +22,6 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
     let supportSection = ["이메일 문의"]
     
     var hasEmail = false
-    @IBOutlet weak var confirmation: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 
@@ -293,17 +292,15 @@ extension Settings: UITextFieldDelegate {
                     // check firebase for duplicate
                     self.spinner.startAnimating()
                     let ref = FIREBASE_REF.child("nickName/\(nick)")
+                    
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         if snapshot.exists() {
-                            self.confirmation.backgroundColor = UIColor.yellow
-                            self.confirmation.textColor = UIColor.darkGray
-                            self.confirmation.text = "닉네임이 이미 존재합니다."
-                            
+
+                            self.displayBanner(desc: "닉네임이 이미 존재합니다.")
                         }
                         else {
-                            self.confirmation.backgroundColor = Color.salmon
-                            self.confirmation.textColor = UIColor.white
-                            self.confirmation.text = "닉네임 변경 완료!"
+                            
+                            self.displayBanner(desc: "닉네임 변경 완료!", color: Color.lightGreen)
                             // upload to firebase
                             
                             let user = FIRAuth.auth()?.currentUser
@@ -330,7 +327,7 @@ extension Settings: UITextFieldDelegate {
                             }
                         }
                         self.spinner.stopAnimating()
-                        self.confirmation.fadeViewInThenOut(delay: 2)
+                        
                     })
                 }
                 else {

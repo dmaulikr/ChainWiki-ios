@@ -16,6 +16,12 @@ import FBSDKLoginKit
 
 class LoginForm: UIViewController, DisplayBanner {
 
+    @IBOutlet weak var loginGuide: UIView! {
+        didSet {
+            loginGuide.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        }
+    }
+    var showLoginGuide = true
     @IBOutlet weak var logo: PCView!
     @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
 
@@ -232,6 +238,7 @@ class LoginForm: UIViewController, DisplayBanner {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loginGuide.transform = CGAffineTransform(translationX: 0, y: -SCREENHEIGHT)
 //        topConstraint.constant = -self.textFieldContainerView.frame.height
 //        
 //        loginButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
@@ -241,16 +248,32 @@ class LoginForm: UIViewController, DisplayBanner {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.loginGuide.transform = .identity
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+
+        
 //        animate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        guard let touch = touches.first?.location(in: self.view) else { return }
-        if logo.frame.contains(touch){
-            logo.bounceAnimate()
+        if showLoginGuide {
+            guard let _ = touches.first?.location(in: self.loginGuide) else { return }
+            
+            loginGuide.fadeOut(withDuration: 0.2)
+            showLoginGuide = false
+        }
+        else {
+            guard let touch = touches.first?.location(in: self.view) else { return }
+            if logo.frame.contains(touch){
+                logo.bounceAnimate()
+            }
+
         }
     }
+    
     func animate() {
         
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
