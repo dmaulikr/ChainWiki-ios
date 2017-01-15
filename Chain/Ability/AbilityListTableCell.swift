@@ -49,17 +49,17 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//    }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         guard let section = Section(rawValue: section) else { return nil }
         
         switch section {
-        case .Primary: return "메인 어빌"
-        case .Status: return "상태 이상"
-        case .Area: return "지형 특효"
+        case .Primary:
+            return AbilitySectionHeader(sectionTitle: "메인 어빌")
+        case .Status:
+            return AbilitySectionHeader(sectionTitle: "상태 이상")
+        case .Area:
+            return AbilitySectionHeader(sectionTitle: "지형 특효")
             
         }
     }

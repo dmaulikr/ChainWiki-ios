@@ -79,6 +79,8 @@
 		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
 		04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */; };
 		04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */; };
+		04CBBD431E2B4938009D5E5F /* AbilitySectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */; };
+		04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */; };
 		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
 		04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F401DEC255D00F55D3F /* MenuBar.swift */; };
 		04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */; };
@@ -216,6 +218,8 @@
 		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewDataSource.swift; sourceTree = "<group>"; };
 		04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
+		04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilitySectionHeader.swift; sourceTree = "<group>"; };
+		04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalBar.swift; sourceTree = "<group>"; };
 		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04D28F401DEC255D00F55D3F /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListTableCell.swift; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 				043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */,
 				04D28F401DEC255D00F55D3F /* MenuBar.swift */,
 				04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */,
+				04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */,
+				04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */,
 				04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */,
 				04180A311DF628FA00C1BA72 /* AbilityListCell.swift */,
 				04180A321DF628FA00C1BA72 /* AbilityListCell.xib */,
@@ -848,6 +854,7 @@
 				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
+				04CBBD431E2B4938009D5E5F /* AbilitySectionHeader.swift in Sources */,
 				04691E961D97BF8C00E15C5F /* Favorites.swift in Sources */,
 				045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */,
 				04AE0E281D7A2E70008902A8 /* FilterCell.swift in Sources */,
@@ -862,6 +869,7 @@
 				04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */,
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04691E8D1D979D2800E15C5F /* TavernHomeView.swift in Sources */,
+				04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,
 				043392451DF3F31A009328A1 /* CollectionViewWithMenu.swift in Sources */,
 				040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */,
