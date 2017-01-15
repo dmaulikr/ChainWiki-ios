@@ -11,8 +11,10 @@ import UIKit
 class AbilityListTableCell: BaseCollectionViewCell {
 
     var pageIndex: Int!
-    var abilityNames = [String]()
-    var abilityImages = [UIImage]()
+    // Choose one of the below from parent, then designate which one this cell should use!
+    var primaryAbilities = [Ability]()
+    var statusAbilities = [Ability]()
+    var areaAbilities = [Ability]()
     
     override func setupViews() {
         
@@ -24,27 +26,90 @@ class AbilityListTableCell: BaseCollectionViewCell {
 
 }
 
+enum Section: Int {
+    case Primary
+    case Status
+    case Area
+}
 extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return abilityNames.count
+        
+        switch section {
+        case 0:
+            return primaryAbilities.count
+        case 1:
+            return statusAbilities.count
+        default:
+            return areaAbilities.count
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       
+        guard let section = Section(rawValue: section) else { return nil }
+        
+        switch section {
+        case .Primary: return "메인 어빌"
+        case .Status: return "상태 이상"
+        case .Area: return "지형 특효"
+            
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "abilityListCell") as! AbilityListCell
-        cell.abilityName.text = abilityNames[indexPath.row]
-        cell.abilityImage.image = abilityImages[indexPath.row]
+        
+        guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
+        
+        switch section {
+            
+        case .Primary:
+            cell.abilityName.text = primaryAbilities[indexPath.row].getKR()
+//            cell.abilityImage.image = primaryAbilities[indexPath.row].getImage()
+        case .Status:
+            cell.abilityName.text = statusAbilities[indexPath.row].getKR()
+//            cell.abilityImage.image = statusAbilities[indexPath.row].getImage()
+        case .Area:
+            cell.abilityName.text = areaAbilities[indexPath.row].getKR()
+//            cell.abilityImage.image = areaAbilities[indexPath.row].getImage()
+            
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        
         guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
         
+        guard let section = Section(rawValue: indexPath.section) else { return }
         
-        let abilityVC = CollectionViewWithMenu(abilityType: abilityNames[tableView.indexPathForSelectedRow!.row], selectedIndex: selectedAbilityType)
+        var abilityKR = ""
+        var abilityEN = ""
+        
+        switch section {
+        case .Primary:
+            abilityKR = primaryAbilities[tableView.indexPathForSelectedRow!.row].getKR()
+            abilityEN = primaryAbilities[tableView.indexPathForSelectedRow!.row].getEN()
+        case .Status:
+            abilityKR = statusAbilities[tableView.indexPathForSelectedRow!.row].getKR()
+            abilityEN = statusAbilities[tableView.indexPathForSelectedRow!.row].getEN()
+        case .Area:
+            abilityKR = areaAbilities[tableView.indexPathForSelectedRow!.row].getKR()
+            abilityEN = areaAbilities[tableView.indexPathForSelectedRow!.row].getEN()
+            
+        }
+        let abilityName = (abilityKR, abilityEN)
+        let abilityVC = CollectionViewWithMenu(abilityType: abilityName, selectedIndex: selectedAbilityType)
         
         tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
 

@@ -184,10 +184,17 @@ class LoginForm: UIViewController, DisplayBanner {
                             
                             // Set nickname
                             
-                            guard let uid = user?.uid else { return }
+                            guard let user = user else {
+                                return
+                            }
+                            
+                            if let nickName = user.displayName {
+                                defaults.setName(value: nickName)
+                            }
+
                             
                             defaults.setLogin(value: true)
-                            defaults.setUID(value: uid)
+                            defaults.setUID(value: user.uid)
                             defaults.setEditPermissions(value: true)
                             defaults.setImagePermissions(value: true)
                             
@@ -443,10 +450,17 @@ extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
             
             // Set nickname
             
-            guard let uid = user?.uid else { return }
+            guard let user = user else {
+                return
+            }
+            
+            if let nickName = user.displayName {
+                defaults.setName(value: nickName)
+            }
+
             
             defaults.setLogin(value: true)
-            defaults.setUID(value: uid)
+            defaults.setUID(value: user.uid)
             defaults.setEditPermissions(value: true)
             defaults.setImagePermissions(value: true)
             
@@ -466,6 +480,7 @@ extension LoginForm: GIDSignInDelegate, GIDSignInUIDelegate {
 }
 
 extension LoginForm: UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let text = email.text {

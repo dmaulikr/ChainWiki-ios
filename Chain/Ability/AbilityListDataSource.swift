@@ -11,21 +11,50 @@ import UIKit
 
 class AbilityListDataSource: NSObject {
     
-    private let abilityArray = ["마나의 소양", "상자 획득", "AP 회복", "골드", "경험치", "서브시 증가", "마나 슬롯 속도", "마나 획득 확률 증가"]
-    private let kizunaArray = ["마나의 소양", "상자 획득", "골드", "경험치", "서브시 증가", "필살기 증가", "공격력 증가", "보스 웨이브시 공격력 증가", "어둠 면역", "슬로우 면역", "독 면역", "마나 슬롯 속도", "마나 획득 확률 증가"]
+    private let primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance()]
     
-    private let abilityImages = [#imageLiteral(resourceName: "mana"), #imageLiteral(resourceName: "treasure"), #imageLiteral(resourceName: "apRecovery"), #imageLiteral(resourceName: "gold"), #imageLiteral(resourceName: "exp"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "darknessImmune"), #imageLiteral(resourceName: "slowImmune"), #imageLiteral(resourceName: "poisonImmune"), #imageLiteral(resourceName: "manaSlot"), #imageLiteral(resourceName: "manaChance")]
-    private let kizunaImages = [#imageLiteral(resourceName: "mana"), #imageLiteral(resourceName: "treasure"), #imageLiteral(resourceName: "gold"), #imageLiteral(resourceName: "exp"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "support"), #imageLiteral(resourceName: "darknessImmune"), #imageLiteral(resourceName: "slowImmune"), #imageLiteral(resourceName: "poisonImmune"), #imageLiteral(resourceName: "manaSlot"), #imageLiteral(resourceName: "manaChance")]
+    private let statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
     
-    func getAbilityList(index: Int) -> (titles: [String], images: [UIImage]) {
+    private let areaAbilities = [WasteLand(), Forest(), Cavern(), Desert(), Snow(), Urban(), Water(), Night()]
+    
+    func getAbilityList() -> AbilityArray {
         
-        if index == 0 {
-            return (abilityArray, abilityImages)
-        }
-        else {
-            return (kizunaArray, kizunaImages)
-        }
-      
+
+        let abilityArray = AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
+        
+        return abilityArray
+        //        if index == 0 {
+        //            return (abilityArray, abilityImages)
+        //        }
+        //        else {
+        //            return (kizunaArray, kizunaImages)
+        //        }
+        
+        
+    }
+//    func getAbilityList(index: Int) -> (names: [String], images: [UIImage]) {
+//        
+//        var abilityNames = [String]()
+//        var abilityImages = [UIImage]()
+//        
+//        for ability in abilityArray {
+//            abilityNames.append(ability.getKR())
+//            abilityImages.append(ability.getImage())
+//        }
+//        
+//        return (abilityNames, abilityImages)
+////        if index == 0 {
+////            return (abilityArray, abilityImages)
+////        }
+////        else {
+////            return (kizunaArray, kizunaImages)
+////        }
+//      
+//        
+//    }
+    
+    deinit {
+        print("AbilityListDataSource has been deinited.")
         
     }
     

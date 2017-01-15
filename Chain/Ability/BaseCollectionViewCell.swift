@@ -24,7 +24,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 90
-        tableView.sectionHeaderHeight = 1
+        tableView.estimatedSectionHeaderHeight = 50
         
         return tableView
         

@@ -10,6 +10,7 @@
 		0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2871D75386C00A0A728 /* ArcanaDetail.swift */; };
 		0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */; };
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
+		040454951DFB981500A1F74E /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040454941DFB981500A1F74E /* Ability.swift */; };
 		040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */; };
 		040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1751DB87A5E00193363 /* ChangeRootVC.swift */; };
 		040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1771DB8940E00193363 /* FadeAnimation.swift */; };
@@ -56,6 +57,7 @@
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
 		049926E71DF7590C00FD9889 /* BannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049926E61DF7590C00FD9889 /* BannerAlert.swift */; };
+		049A79371E01264400ABEEAB /* ArcanaArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A79361E01264400ABEEAB /* ArcanaArray.swift */; };
 		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
@@ -76,6 +78,7 @@
 		04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */; };
 		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
 		04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */; };
+		04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */; };
 		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
 		04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F401DEC255D00F55D3F /* MenuBar.swift */; };
 		04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */; };
@@ -132,6 +135,7 @@
 		0401B2871D75386C00A0A728 /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
 		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
+		040454941DFB981500A1F74E /* Ability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		0406BDDF1D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		0490426D1DBD670700D5FDF0 /* Chain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chain-Bridging-Header.h"; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
 		049926E61DF7590C00FD9889 /* BannerAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAlert.swift; sourceTree = "<group>"; };
+		049A79361E01264400ABEEAB /* ArcanaArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaArray.swift; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
 		04A2EC911D6F7FA300189142 /* Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chain.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +215,7 @@
 		04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainLogo.swift; sourceTree = "<group>"; };
 		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewDataSource.swift; sourceTree = "<group>"; };
+		04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04D28F401DEC255D00F55D3F /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListTableCell.swift; sourceTree = "<group>"; };
@@ -278,6 +284,7 @@
 				040EA17B1DB8955200193363 /* DismissKeyboard.swift */,
 				045E4D0D1DB9D8A400EBC793 /* SearchController.swift */,
 				049CF7471D95E52B00B283EC /* TransitioningObject.swift */,
+				04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -298,6 +305,7 @@
 		0447E1D71D87D09500670834 /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				040454941DFB981500A1F74E /* Ability.swift */,
 				043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */,
 				04D28F401DEC255D00F55D3F /* MenuBar.swift */,
 				04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */,
@@ -460,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				04A2ECC81D6F80EB00189142 /* Arcana.swift */,
+				049A79361E01264400ABEEAB /* ArcanaArray.swift */,
 				0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */,
 			);
 			path = Model;
@@ -835,6 +844,7 @@
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				040454951DFB981500A1F74E /* Ability.swift in Sources */,
 				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginForm.swift in Sources */,
@@ -884,6 +894,7 @@
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
+				04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
@@ -891,6 +902,7 @@
 				04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,
+				049A79371E01264400ABEEAB /* ArcanaArray.swift in Sources */,
 				04F3CD891DA31E620026D5AF /* CopyableLabel.swift in Sources */,
 				04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */,
 			);
@@ -1061,7 +1073,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1090,7 +1102,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;

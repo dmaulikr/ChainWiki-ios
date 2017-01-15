@@ -99,6 +99,9 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
                         if let nick = defaults.getName() {
                             editsRef.child("nickName").setValue(nick)
                         }
+                        else {
+                            editsRef.child("nickName").setValue("소중한 첸클 유저")
+                        }
                         editsRef.child("date").setValue(dateString)
                         editsRef.child("uid").setValue(id)
                         

@@ -22,7 +22,6 @@ class TavernHomeView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "capital"))
         self.title = navTitle
         tableView.dataSource = self
         tableView.delegate = self

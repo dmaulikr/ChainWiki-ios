@@ -14,25 +14,20 @@ protocol DisplayBanner {
 
 extension DisplayBanner where Self: UIViewController {
     
-    func displayBanner(desc: String, color: UIColor = Color.googleRed) {
+    func displayBanner(desc: String, color: UIColor = UIColor.red) {
         let banner = BannerAlert(desc: desc, color: color)
         
         self.view.addSubview(banner)
         
-        banner.translatesAutoresizingMaskIntoConstraints = false
-        // regular constraints
+        banner.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
         let initialHeight = banner.heightAnchor.constraint(equalToConstant: 0)
         initialHeight.isActive = true
-        banner.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        banner.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        banner.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.view.layoutIfNeeded()
         
         // animate this from bottom up
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             initialHeight.isActive = false
-            banner.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            banner.heightAnchor.constraint(equalToConstant: 40).isActive = true
             self.view.layoutIfNeeded()
         }, completion: {
             (Bool) -> Void in
@@ -54,49 +49,33 @@ class BannerAlert: UIView {
 
 //    var titleLabel = UILabel()
     
-    var descLabel = UILabel()
-    let icon = UIImageView(image: #imageLiteral(resourceName: "exclamation"))
+    var descLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        return label
+    }()
+    
+//    let icon = UIImageView(image: #imageLiteral(resourceName: "exclamation"))
     
     init(desc: String, color: UIColor) {
         super.init(frame: .zero)
-        
+
         backgroundColor = color
-//        titleLabel.text = title
-//        titleLabel.textColor = .white
         descLabel.text = desc
-        descLabel.textColor = .white
-        descLabel.textAlignment = .center
-        descLabel.font = UIFont(name: "Apple SD Gothic Neo-Medium", size: 15)
         setupViews()
     }
     
     func setupViews() {
         
-//        self.addSubview(titleLabel)
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-//        titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//        titleLabel.bottomAnchor.constraint(equalTo: descLabel.topAnchor, constant: 10).isActive = true
-//        titleLabel.setContentHuggingPriority(1000, for: .vertical)
-        
+//        self.addSubview(icon)
         self.addSubview(descLabel)
-        self.addSubview(icon)
         
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        icon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        icon.trailingAnchor.constraint(equalTo: descLabel.leadingAnchor, constant: 10).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 25).isActive = true
+//        icon.anchor(top: nil, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 25, heightConstant: 25)
+        descLabel.anchor(top: nil, leading: leadingAnchor, trailing: trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 10, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        descLabel.anchorCenterYToSuperview()
         
-        descLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-//        descLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        descLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10).isActive = true
-//        descLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-//        descLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10).isActive = true
-//        descLabel.setContentHuggingPriority(500, for: .vertical)
-        self.layoutIfNeeded()
         
     }
 

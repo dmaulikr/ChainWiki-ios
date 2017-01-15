@@ -44,6 +44,10 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
         return currentArray.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell

@@ -15,13 +15,21 @@ class CollectionViewWithMenu: UIViewController {
     var selectedIndex: Int = 0
     var numberOfMenuTabs = 0
     var abilityType = ""
+    var abilityTitle = ""
     var collectionView: UICollectionView!
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]()
     var menuType: menuType?
     var reuseIdentifier = ""
     var datasource: AbilityViewDataSource!
-
+    var abilityNames = [String]()
+    
+    var abilities = [[Ability]]()
+    
+    var primaryAbilities = [Ability]()
+    var statusAbilities = [Ability]()
+    var areaAbilities = [Ability]()
+    
     
     var group = DispatchGroup()
     
@@ -34,15 +42,15 @@ class CollectionViewWithMenu: UIViewController {
         setupMenuBar()
     }
     
-    init(abilityType: String, selectedIndex: Int) {
+    init(abilityType: (String, String), selectedIndex: Int) {
         super.init(nibName: nil, bundle: nil)
         menuType = .AbilityView
-        self.abilityType = abilityType
+        self.abilityType = abilityType.1
         self.selectedIndex = selectedIndex
         downloadArray()
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
-        self.title = abilityType
+        self.title = abilityType.0
         setupMenuBar()
         
     }
@@ -77,8 +85,9 @@ class CollectionViewWithMenu: UIViewController {
         // Then check ability type
         
         //["마나의 소양", "상자 획득", "골드", "경험치", "서브시 증가", "필살기 증가", "공격력 증가", "보스 웨이브시 공격력 증가"]
-        var refPrefix = ""
+        let refPrefix = abilityType
         
+        /*
         switch abilityType {
             
         case "마나의 소양":
@@ -114,7 +123,7 @@ class CollectionViewWithMenu: UIViewController {
             break
             
         }
-        
+        */
         //        print("REF IS \(refPrefix)\(refSuffix)")
         let ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
         
@@ -166,6 +175,17 @@ class CollectionViewWithMenu: UIViewController {
 //        self.title = abilityType
 
         setupCollectionView()
+
+        guard let menuType = menuType else { return }
+        
+        if menuType == .AbilityList {
+            
+            let list = AbilityListDataSource().getAbilityList()
+            primaryAbilities = list.getPrimary()
+            statusAbilities = list.getStatus()
+            areaAbilities = list.getArea()
+            
+        }
 
         
     }
@@ -268,9 +288,9 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
         case .AbilityList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityListTableCell
             
-            let list = AbilityListDataSource().getAbilityList(index: indexPath.row)
-            cell.abilityNames = list.titles
-            cell.abilityImages = list.images
+            cell.primaryAbilities = primaryAbilities
+            cell.statusAbilities = statusAbilities
+            cell.areaAbilities = areaAbilities
             cell.tableDelegate = self
             
             return cell

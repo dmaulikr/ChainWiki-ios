@@ -51,6 +51,7 @@ class PageViewController: UIPageViewController {
 
 //MARK: implementation of UIPageViewControllerDataSource
 extension PageViewController: UIPageViewControllerDataSource {
+    
     // 1
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -70,7 +71,7 @@ extension PageViewController: UIPageViewControllerDataSource {
             
             if let index = viewController.tutorialIndex {
                 if index + 1 == photos.count {
-                    // out of boudns
+                    // out of bounds
                     return nil
                 }
                 else {

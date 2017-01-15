@@ -238,12 +238,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             tableView.deselectRow(at: selectedRow, animated: true)
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

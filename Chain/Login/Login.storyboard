@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -492,24 +492,6 @@
             </objects>
             <point key="canvasLocation" x="860" y="498.80059970014997"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Fhp-rs-YhV">
-            <objects>
-                <viewController id="fFC-c4-vfi" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vnX-NM-Ng0"/>
-                        <viewControllerLayoutGuide type="bottom" id="5PC-Q0-GWZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="V0r-q1-xuI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1VC-CP-zIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1783" y="1227"/>
-        </scene>
         <!--Page View Controller-->
         <scene sceneID="RJm-BM-hfh">
             <objects>
@@ -587,19 +569,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lh-tu-St3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="301.60000000000002" y="-567.16641679160421"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="uQP-JY-67B">
-            <objects>
-                <viewController id="vsm-wu-MRM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="HvZ-Hp-Mfb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DB9-vb-e9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>
