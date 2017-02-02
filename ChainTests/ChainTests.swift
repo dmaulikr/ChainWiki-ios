@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import Chain
+//@testable import Chain
 
 class ChainTests: XCTestCase {
     

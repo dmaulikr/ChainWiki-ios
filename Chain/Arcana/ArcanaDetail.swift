@@ -272,9 +272,7 @@ class ArcanaDetail: UIViewController {
         }
         
         // Increment number of views
-        guard defaults.getName() != "제이k" else {
-            return
-        }
+
         let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
         viewRef.observeSingleEvent(of: .value, with: { snapshot in
             if let views = snapshot.value as? Int {
@@ -282,10 +280,6 @@ class ArcanaDetail: UIViewController {
             }
             
         })
-        
-        
-        
-//        navigationController?.hidesBarsOnSwipe = true
     
     }
 

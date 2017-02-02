@@ -12,7 +12,6 @@ extension UserDefaults {
     
     func setLogin(value: Bool) {
         set(value, forKey: "loggedIn")
-        synchronize()
     }
     
     func isLoggedIn() -> Bool {
@@ -22,7 +21,6 @@ extension UserDefaults {
     
     func setUID(value: String) {
         set(value, forKey: "uid")
-        synchronize()
     }
     
     func getUID() -> String? {
@@ -31,7 +29,6 @@ extension UserDefaults {
     
     func setName(value: String) {
         set(value, forKey: "name")
-        synchronize()
     }
     
     func getName() -> String? {
@@ -39,7 +36,6 @@ extension UserDefaults {
     }
     func setEditPermissions(value: Bool) {
         set(value, forKey: "edit")
-        synchronize()
     }
     
     func canEdit() -> Bool {
@@ -48,7 +44,6 @@ extension UserDefaults {
     
     func setAbilityIndex(value: Int) {
         set(value, forKey: "abilityIndex")
-        synchronize()
     }
     
     func abilityIndex() -> Int {
@@ -57,7 +52,6 @@ extension UserDefaults {
     
     func setRecent(value: [String]) {
         set(value, forKey: "recent")
-        synchronize()
     }
     
     func getRecent() -> [String] {
@@ -66,7 +60,6 @@ extension UserDefaults {
     
     func setLikes(value: [String]) {
         set(value, forKey: "likes")
-        synchronize()
     }
     
     func getLikes() -> [String]{
@@ -75,7 +68,6 @@ extension UserDefaults {
     
     func setFavorites(value: [String]) {
         set(value, forKey: "favorites")
-        synchronize()
     }
     
     func getFavorites() -> [String] {
@@ -84,7 +76,6 @@ extension UserDefaults {
     
     func setImagePermissions(value: Bool) {
         set(value, forKey: "image")
-        synchronize()
     }
     
     func getImagePermissions() -> Bool {
@@ -94,7 +85,6 @@ extension UserDefaults {
     func updateVersion() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             set(version, forKey: "version")
-            synchronize()
         }
     }
     
@@ -114,7 +104,6 @@ extension UserDefaults {
     
     func setAppLaunches(value: Int) {
         set(value, forKey: "numberOfLaunches")
-        synchronize()
     }
     
     func hasShownRating() -> Bool {
@@ -123,7 +112,6 @@ extension UserDefaults {
     
     func setShownRating(value: Bool) {
         set(value, forKey: "hasShownRating")
-        synchronize()
     }
     
     
