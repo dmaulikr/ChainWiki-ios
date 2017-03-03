@@ -451,11 +451,11 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         }
         if searchController.isActive && searchController.searchBar.text != "" {
             
-            if searchArray.count == 0 {
-                tableView.alpha = 0
+            if self.searchArray.count == 0 {
+                self.tableView.alpha = 0
             }
             else {
-                tableView.fadeIn(withDuration: 0.2)
+                self.tableView.fadeIn(withDuration: 0.2)
             }
             
             return searchArray.count
@@ -654,7 +654,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     }
     
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { 
         
         searchController.searchBar.resignFirstResponder()
     }
@@ -668,10 +668,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        
-
         showSearch = false
-        
     }
 
 }
@@ -679,7 +676,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
 // MARK: FilterDelegate, TavernViewDelegate
 extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: Filter) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             
             self.preventAnimation.removeAll()
             if let vc = self.childViewControllers[0] as? Filter {
@@ -778,10 +775,10 @@ extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: TavernView, tavern: String) {
         
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             
             let ref = FIREBASE_REF.child("tavern/\(tavern)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
+            ref.observeSingleEvent(of: .value, with: {  [unowned self] snapshot in
                 
                 var tavern = [Arcana]()
                 for item in snapshot.children {

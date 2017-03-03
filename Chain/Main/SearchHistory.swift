@@ -21,7 +21,6 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arcanaArray.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,7 +49,7 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
-                ref.observeSingleEvent(of: .value, with: { snapshot in
+                ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
                     if let arcana = Arcana(snapshot: snapshot) {
                         array.append(arcana)
                         
@@ -60,7 +59,7 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 })
             }
             
-            self.group.notify(queue: DispatchQueue.main, execute: {
+            self.group.notify(queue: DispatchQueue.main, execute: { [unowned self] in
                 self.arcanaArray = array.reversed()
                 self.tableView.reloadData()
             })

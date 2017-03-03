@@ -90,7 +90,6 @@ extension UserDefaults {
     
     func getStoredVersion() -> String? {
         return object(forKey: "version") as? String
-
     }
     
     func getCurrentVersion() -> String? {

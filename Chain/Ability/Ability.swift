@@ -122,6 +122,11 @@ class BossWave: Ability {
     }
 }
 
+class PartyHeal: Ability {
+    init() {
+        super.init(kr: "웨이브 회복", en: "partyHeal", img: #imageLiteral(resourceName: "apRecovery"))
+    }
+}
 // 상태 이상 부여
 
 class DarkStrike: Ability {

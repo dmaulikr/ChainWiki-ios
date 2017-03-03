@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
-            defaults.setImagePermissions(value: true)
+//            defaults.setImagePermissions(value: true)
             defaults.updateVersion()
         }
 

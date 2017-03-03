@@ -52,6 +52,10 @@ class CollectionViewWithMenu: UIViewController {
         self.reuseIdentifier = "AbilityViewTableCell"
         self.title = abilityType.0
         setupMenuBar()
+        if abilityType.0 == "웨이브 회복" {
+            setupNavBar()
+        }
+        
         
     }
     
@@ -125,7 +129,20 @@ class CollectionViewWithMenu: UIViewController {
         }
         */
         //        print("REF IS \(refPrefix)\(refSuffix)")
-        let ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
+        var ref: FIRDatabaseReference
+        let updatedVersion = "1.2"
+        
+        if let currentVersion = defaults.getStoredVersion() {
+            if currentVersion.versionToInt().lexicographicallyPrecedes(updatedVersion.versionToInt()) {
+                ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
+            }
+            else {
+                ref = FIREBASE_REF.child("ability").child(refPrefix).child(refSuffix)
+            }
+        }
+        else {
+            ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
+        }
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
@@ -157,6 +174,7 @@ class CollectionViewWithMenu: UIViewController {
             self.group.notify(queue: DispatchQueue.main, execute: { [unowned self] in
                 
                 self.arcanaArray = array
+                self.currentArray = array
                 self.datasource = AbilityViewDataSource(arcanaArray: array)
 
                 self.collectionView.reloadData()
@@ -217,6 +235,18 @@ class CollectionViewWithMenu: UIViewController {
         
         menuBar.backgroundColor = .white
         menuBar.parentController = self
+    }
+    
+    private func setupNavBar() {
+        let filterButton = UIBarButtonItem(title: "전체", style: .plain, target: self, action: #selector(filter))
+        navigationItem.rightBarButtonItem = filterButton
+    }
+    
+    func filter() {
+        
+        
+//        currentArray = self.arcanaArray.filter({$0.abilityDesc1?.contains("아군")})
+        
     }
     
     // MARK: UICollectionViewDataSource
