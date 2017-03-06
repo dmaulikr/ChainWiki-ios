@@ -13,12 +13,26 @@ protocol FilterDelegate : class {
     func didUpdate(_ sender: Filter)
 }
 
-class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-
+class Filter: UIViewController {
     
     weak var delegate: FilterDelegate?
 
-    @IBOutlet weak var collectionView: UICollectionView!
+//    @IBOutlet weak var collectionView: UICollectionView!
+    lazy var collectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = true
+        
+        return collectionView
+    }()
+    
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
     fileprivate let cellInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
@@ -27,7 +41,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     var cellSize = CGFloat()
     var cellSizeTavern = CGFloat()
     var clearFilterSize = CGFloat()
-    
+
     var hasFilter = false
     var array = [Arcana]()
 
@@ -37,16 +51,33 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     let affiliation = ["여행자", "마신", "부도", "성도", "현탑", "미궁", "호도", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "레무", "의용군", "화격단"]
     
     var filterTypes = [String : [String]]()
-    
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        
+    }
+    
+    func setupViews() {
+        
+        view.addSubview(collectionView)
+        
+        collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+    }
+}
+
+// MARK - UICollectionViewDelegateFlowLayout
+extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
- 
+        
         switch section {
- 
+            
         case 0: // Rarity
             return 5
         case 1: // Class
@@ -59,7 +90,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             return 1
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch (indexPath as NSIndexPath).section {
@@ -72,34 +103,34 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
         case 1:    // Class
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
-            cell.filterType.text = group[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = group[(indexPath as NSIndexPath).row]
             return cell
         case 2:    // Weapon
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
-            cell.filterType.text = weapon[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = weapon[(indexPath as NSIndexPath).row]
             return cell
             
         case 3:    // Affiliation
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
-            cell.filterType.text = affiliation[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = affiliation[(indexPath as NSIndexPath).row]
             return cell
             
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
-            cell.filterType.text = "필터 지우기"
+            cell.filterLabel.text = "필터 지우기"
             return cell
         }
         
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         
         
         // TODO: Add to filterTypes based on section
         // Hold an array to be updated after selection
-//        var filteredArray = [Arcana]()
+        //        var filteredArray = [Arcana]()
         
         switch (indexPath as NSIndexPath).section {
             
@@ -115,7 +146,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 rarityArray = rarityDict
             }
                 
-            // Else make a new one
+                // Else make a new one
             else {
                 rarityArray = [String]()
             }
@@ -123,13 +154,13 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             rarityArray.append(cell.rarity.text!)
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             hasFilter = true
-
+            
         case 1:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED GROUP \(cell.filterType.text!)")
-
+            print("SELECTED GROUP \(cell.filterLabel.text!)")
+            
             var groupArray = [String]()
             
             if let groupDict = filterTypes["group"] {
@@ -138,14 +169,14 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             else {
                 groupArray = [String]()
             }
-            groupArray.append(cell.filterType.text!)
+            groupArray.append(cell.filterLabel.text!)
             filterTypes.updateValue(groupArray, forKey: "group")
             hasFilter = true
         case 2:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED WEAPON \(cell.filterType.text!)")
+            print("SELECTED WEAPON \(cell.filterLabel.text!)")
             
             var weaponArray = [String]()
             
@@ -155,14 +186,14 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             else {
                 weaponArray = [String]()
             }
-            weaponArray.append(cell.filterType.text!)
+            weaponArray.append(cell.filterLabel.text!)
             filterTypes.updateValue(weaponArray, forKey: "weapon")
             hasFilter = true
         case 3:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED AFFILIATION \(cell.filterType.text!)")
+            print("SELECTED AFFILIATION \(cell.filterLabel.text!)")
             
             var affiliationArray = [String]()
             
@@ -173,7 +204,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 affiliationArray = [String]()
             }
             
-            affiliationArray.append(fullAffiliationName(affiliation: cell.filterType.text!))
+            affiliationArray.append(fullAffiliationName(affiliation: cell.filterLabel.text!))
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
             hasFilter = true
             
@@ -191,21 +222,21 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 }
                 hasFilter = false
             }
-
+            
         }
         
         
         
         self.delegate!.didUpdate(self)
-
         
-
+        
+        
         
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-
+        
         switch (indexPath as NSIndexPath).section {
             
         case 0:
@@ -220,7 +251,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(rarityArray, forKey: "rarity")
         case 1:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
-            let deleteGroup = cell.filterType.text!
+            let deleteGroup = cell.filterLabel.text!
             var groupArray = filterTypes["group"]!
             for (index, filter) in groupArray.enumerated().reversed() {
                 if filter == deleteGroup {
@@ -230,7 +261,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(groupArray, forKey: "group")
         case 2:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
-            let deleteWeapon = cell.filterType.text!
+            let deleteWeapon = cell.filterLabel.text!
             var weaponArray = filterTypes["weapon"]!
             for (index, filter) in weaponArray.enumerated().reversed() {
                 if filter == deleteWeapon {
@@ -240,7 +271,7 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             filterTypes.updateValue(weaponArray, forKey: "weapon")
         default:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
-            let deleteAffiliation = cell.filterType.text!
+            let deleteAffiliation = cell.filterLabel.text!
             var affiliationArray = filterTypes["affiliation"]!
             for (index, filter) in affiliationArray.enumerated().reversed() {
                 if filter == fullAffiliationName(affiliation: deleteAffiliation) {
@@ -256,24 +287,11 @@ class Filter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 hasFilter = false
             }
         }
-
-        self.delegate!.didUpdate(self)
+        
+        self.delegate?.didUpdate(self)
         
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.allowsMultipleSelection = true
-        
-        // Do any additional setup after loading the view.
-    }    
-    
-}
 
-// MARK - UICollectionViewDelegateFlowLayout
-extension Filter : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 414
@@ -313,10 +331,6 @@ extension Filter : UICollectionViewDelegateFlowLayout {
 
         
     }
-    
-
-    
 
 }
-
 

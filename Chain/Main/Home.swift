@@ -12,13 +12,29 @@ import AlamofireImage
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var filterView: UIView!
+//    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var searchView: UIView!
 
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+    
+    let filterView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    // Initial setup
     var initialLoad = true
     var initialAnimation = true
-    var navTitle = ""
+    var preventAnimation = Set<IndexPath>()
+    
     var showFilter: Bool = false {
         didSet {
             
@@ -32,7 +48,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    var searchController = UISearchController(searchResultsController: nil)
+    var searchController: UISearchController!
     
     var showSearch: Bool = false {
         didSet {
@@ -51,16 +67,15 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
-    var preventAnimation = Set<IndexPath>()
     
-    var rarityArray = [String]()
+    
     var gesture = UITapGestureRecognizer()
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     
     
     
-    func setupBarButtons() {
+    func setupNavBar() {
         
         let filter = UIButton()
         filter.setImage(UIImage(named: "filter.png"), for: .normal)
@@ -195,14 +210,14 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 
         let ref = FIREBASE_REF.child("arcana")
         
-        ref.observe(.childAdded, with: { [weak self] snapshot in
+        ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
 
-                self?.arcanaArray.insert(arcana, at: 0)
-                self?.originalArray.append(arcana)
-                if self?.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    self?.tableView.reloadData()
+                self.arcanaArray.insert(arcana, at: 0)
+                self.originalArray.append(arcana)
+                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
+                    self.tableView.reloadData()
 //                    self?.animateTable()
                 }
             }
@@ -210,15 +225,15 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             
         })
         
-        ref.observeSingleEvent(of: .value, with: { [weak self] snapshot in
+        ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
 
-            self?.animateTable()
+            self.animateTable()
     
-//            self.tableView.reloadData()
-            self?.initialLoad = false
+            self.tableView.reloadData()
+            self.initialLoad = false
         })
         
-        ref.observe(.childRemoved, with: { [unowned self] snapshot in
+        ref.observe(.childRemoved, with: { snapshot in
             print(snapshot.key)
             let uidToRemove = snapshot.key
             
@@ -240,26 +255,26 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             }
         })
         
-        ref.observe(.childChanged, with: { [weak self] snapshot in
+        ref.observe(.childChanged, with: { snapshot in
             
             let uidToChange = snapshot.key
                     
-            if let index = self?.originalArray.index(where: {$0.uid == uidToChange}) {
+            if let index = self.originalArray.index(where: {$0.uid == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self?.originalArray[index] = arcana
+                    self.originalArray[index] = arcana
                 }
                 
             }
             
             
-            if let index = self?.arcanaArray.index(where: {$0.uid == uidToChange}) {
+            if let index = self.arcanaArray.index(where: {$0.uid == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self?.arcanaArray[index] = arcana
-                    self?.tableView.reloadData()
+                    self.arcanaArray[index] = arcana
+                    self.tableView.reloadData()
                 }
                 
             }
@@ -269,9 +284,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
 //        filterViewFrame = filterView.frame
-        setupBarButtons()
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        setupNavBar()
+//        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
 //        navigationController?.hidesBarsOnSwipe = true
@@ -279,8 +295,8 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             a.delegate = self
         }
         
-        tableView.dataSource = self
-        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.delegate = self
         syncArcana()
 
         tableView.estimatedRowHeight = 90
@@ -338,6 +354,21 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         searchController.isActive = false
     }
     
+    
+    func setupViews() {
+        
+        view.addSubview(tableView)
+        view.addSubview(filterView)
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        filterView.anchor(top: view.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        
+//        let filterMenu = Filter()
+        let filterMenu = storyboard!.instantiateViewController(withIdentifier: "Filter") as! Filter
+        addChildViewController(filterMenu)
+        
+        filterView.addSubview(filterMenu.view)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 

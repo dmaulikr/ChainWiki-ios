@@ -37,7 +37,6 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     
     func updateSearches() {
-        let defaults = UserDefaults.standard
         let uids = defaults.object(forKey: "recent") as? [String] ?? [String]().reversed()
         // todo. if i crash here, set some bool to true to check at next open and clear defaults.
 //        defaults.removeObject(forKey: "recent")
@@ -45,11 +44,11 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
             var array = [Arcana]()
             
             for id in uids {
-                self.group.enter()
+                group.enter()
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
-                ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
+                ref.observeSingleEvent(of: .value, with: { snapshot in
                     if let arcana = Arcana(snapshot: snapshot) {
                         array.append(arcana)
                         
@@ -59,7 +58,7 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 })
             }
             
-            self.group.notify(queue: DispatchQueue.main, execute: { [unowned self] in
+            group.notify(queue: DispatchQueue.main, execute: {
                 self.arcanaArray = array.reversed()
                 self.tableView.reloadData()
             })
@@ -78,11 +77,8 @@ class SearchHistory: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateSearches()
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

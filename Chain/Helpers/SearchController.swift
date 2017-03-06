@@ -10,7 +10,7 @@ import UIKit
 
 class SearchController: UISearchController {
     
-    var searchController = UISearchController(searchResultsController: nil)
+//    var searchController = UISearchController(searchResultsController: nil)
     
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
