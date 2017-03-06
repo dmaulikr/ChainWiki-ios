@@ -17,7 +17,6 @@ class Filter: UIViewController {
     
     weak var delegate: FilterDelegate?
 
-//    @IBOutlet weak var collectionView: UICollectionView!
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
@@ -29,6 +28,11 @@ class Filter: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true
+        collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .white
+        
+        collectionView.register(RarityCell.self, forCellWithReuseIdentifier: "RarityCell")
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         
         return collectionView
     }()
@@ -52,6 +56,15 @@ class Filter: UIViewController {
     
     var filterTypes = [String : [String]]()
 
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -62,7 +75,7 @@ class Filter: UIViewController {
         
         view.addSubview(collectionView)
         
-        collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
     }
 }
@@ -96,27 +109,26 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         switch (indexPath as NSIndexPath).section {
             
         case 0: // Rarity
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "rarityCell", for: indexPath) as! RarityCell
-            cell.rarity.text = rarity[(indexPath as NSIndexPath).row]
-            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RarityCell", for: indexPath) as! RarityCell
+            cell.rarityLabel.text = rarity[(indexPath as NSIndexPath).row]
             return cell
             
         case 1:    // Class
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = group[(indexPath as NSIndexPath).row]
             return cell
         case 2:    // Weapon
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = weapon[(indexPath as NSIndexPath).row]
             return cell
             
         case 3:    // Affiliation
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = affiliation[(indexPath as NSIndexPath).row]
             return cell
             
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filter", for: indexPath) as! FilterCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = "필터 지우기"
             return cell
         }
@@ -137,7 +149,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         case 0:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
             cell.cellAnimate()
-            print("SELECTED RARITY \(cell.rarity.text!)")
+            print("SELECTED RARITY \(cell.rarityLabel.text!)")
             
             var rarityArray = [String]()
             
@@ -151,7 +163,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
                 rarityArray = [String]()
             }
             
-            rarityArray.append(cell.rarity.text!)
+            rarityArray.append(cell.rarityLabel.text!)
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             hasFilter = true
             
@@ -225,12 +237,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             
         }
         
-        
-        
-        self.delegate!.didUpdate(self)
-        
-        
-        
+        delegate!.didUpdate(self)
         
     }
     
@@ -241,7 +248,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             
         case 0:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
-            let deleteRarity = cell.rarity.text!
+            let deleteRarity = cell.rarityLabel.text!
             var rarityArray = filterTypes["rarity"]!
             for (index, filter) in rarityArray.enumerated().reversed() {
                 if filter == deleteRarity {
@@ -300,7 +307,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 //        let totalInset = CGFloat(127)   // cell spacing, plus two side section insets
         
         
-        cellSize = (self.view.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/numberOfCells
+        cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + cellSpacingInsets))/numberOfCells
         cellSizeTavern = (self.view.frame.width - (sectionInsets.left * 2 + CGFloat(3)))/4
         clearFilterSize = self.view.frame.width - sectionInsets.left * 2
         switch indexPath.section {

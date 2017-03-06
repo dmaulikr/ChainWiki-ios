@@ -91,7 +91,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         let sortButton = UIBarButtonItem()
         sortButton.customView = sort
  
-        self.navigationItem.rightBarButtonItems = [filterButton,sortButton]
+        navigationItem.rightBarButtonItems = [filterButton,sortButton]
     }
     
     @IBAction func sort(_ sender: AnyObject) {
@@ -285,18 +285,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-//        filterViewFrame = filterView.frame
         setupNavBar()
-//        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-//        navigationController?.hidesBarsOnSwipe = true
-        if let a = childViewControllers[0] as? Filter {
-            a.delegate = self
-        }
         
-//        tableView.dataSource = self
-//        tableView.delegate = self
+        
+
         syncArcana()
 
         tableView.estimatedRowHeight = 90
@@ -308,25 +300,14 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-            self.view.addGestureRecognizer(gesture)
+            view.addGestureRecognizer(gesture)
         }
         
         longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-//        self.filterView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
-//        self.view.addGestureRecognizer(panGestureRecognizer)
         gesture.cancelsTouchesInView = false
-        
-//        self.view.addGestureRecognizer(panGestureRecognizer)
-        // UISearchController methods
-        /*
- gesture = UITapGestureRecognizer(target: self, action: #selector(HomeContainerView.dismissFilter(_:)))
- let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(HomeContainerView.handlePanGesture(_:)))
- self.filterView.addGestureRecognizer(panGestureRecognizer)
- gesture.cancelsTouchesInView = false
- homeView.addGestureRecognizer(gesture)
-         */
+
         searchController = SearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.delegate = self
@@ -361,13 +342,19 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(filterView)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        filterView.anchor(top: view.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         
-//        let filterMenu = Filter()
-        let filterMenu = storyboard!.instantiateViewController(withIdentifier: "Filter") as! Filter
+        let filterMenu = Filter()
+        filterMenu.delegate = self
+        
         addChildViewController(filterMenu)
         
         filterView.addSubview(filterMenu.view)
+        filterMenu.view.frame = filterView.frame
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -707,97 +694,94 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
 // MARK: FilterDelegate, TavernViewDelegate
 extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: Filter) {
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.async {
             
             self.preventAnimation.removeAll()
-            if let vc = self.childViewControllers[0] as? Filter {
+            self.filters = sender.filterTypes
+            
+            // No filters, bring back original array
+            if sender.hasFilter == false {
+                // TODO: replace arcanaArray with original arcanaArray.
+                print("NO FILTERS, PREPARING ORIGINAL ARRAY")
+                self.arcanaArray = self.originalArray.reversed()
+                self.tableView.reloadData()
                 
-                self.filters = vc.filterTypes
+                print("NO FILTERS")
+            }
                 
-                // No filters, bring back original array
-                if vc.hasFilter == false {
-                    // TODO: replace arcanaArray with original arcanaArray.
-                    print("NO FILTERS, PREPARING ORIGINAL ARRAY")
-                    self.arcanaArray = self.originalArray.reversed()
-                    self.tableView.reloadData()
+                
+            else {  // hasFilter == true
+                // create set that combines all filters
+                //flatmap
+                
+                var raritySet = Set<Arcana>()
+                if let r = self.filters["rarity"] {
                     
-                    print("NO FILTERS")
+                    for rarity in r {
+                        print("FOR RARITY \(rarity)")
+                        let filteredRarity = self.originalArray.filter({$0.rarity == rarity})
+                        
+                        raritySet = raritySet.union(Set(filteredRarity))
+                    }
+                    
                 }
+                
+                
+                var groupSet = Set<Arcana>()
+                if let g = self.filters["group"] {
                     
+                    for group in g {
+                        print(group)
+                        let filteredGroup = self.originalArray.filter({$0.group == group})
+                        groupSet = groupSet.union(Set(filteredGroup))
+                    }
                     
-                else {  // hasFilter == true
-                    // create set that combines all filters
-                    //flatmap
+                }
+                
+                var weaponSet = Set<Arcana>()
+                if let w = self.filters["weapon"] {
                     
-                    var raritySet = Set<Arcana>()
-                    if let r = self.filters["rarity"] {
+                    for weapon in w {
+                        let filteredWeapon = self.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
+                        weaponSet = weaponSet.union(Set(filteredWeapon))
+                    }
+                    
+                }
+                
+                var affiliationSet = Set<Arcana>()
+                if let a = self.filters["affiliation"] {
+                    
+                    for affiliation in a {
+                        let filteredAffiliation = self.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
+                        affiliationSet = affiliationSet.union(Set(filteredAffiliation))
+                    }
+                    
+                }
+                
+                let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
+                
+                var finalFilter: Set = Set<Arcana>()
+                for (_,value) in sets {
+                    
+                    // TODO: clicking 권 then 철연 gives 철연.
+                    if value.count != 0 {
                         
-                        for rarity in r {
-                            print("FOR RARITY \(rarity)")
-                            let filteredRarity = self.originalArray.filter({$0.rarity == rarity})
+                        // if set is empty, create a new one
+                        if finalFilter.count == 0 {
+                            finalFilter = finalFilter.union(value)
+                        }
                             
-                            raritySet = raritySet.union(Set(filteredRarity))
-                        }
-                        
-                    }
-                    
-                    
-                    var groupSet = Set<Arcana>()
-                    if let g = self.filters["group"] {
-                        
-                        for group in g {
-                            print(group)
-                            let filteredGroup = self.originalArray.filter({$0.group == group})
-                            groupSet = groupSet.union(Set(filteredGroup))
-                        }
-                        
-                    }
-                    
-                    var weaponSet = Set<Arcana>()
-                    if let w = self.filters["weapon"] {
-                        
-                        for weapon in w {
-                            let filteredWeapon = self.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
-                            weaponSet = weaponSet.union(Set(filteredWeapon))
-                        }
-                        
-                    }
-                    
-                    var affiliationSet = Set<Arcana>()
-                    if let a = self.filters["affiliation"] {
-                        
-                        for affiliation in a {
-                            let filteredAffiliation = self.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
-                            affiliationSet = affiliationSet.union(Set(filteredAffiliation))
-                        }
-                        
-                    }
-                    
-                    let sets = ["rarity" : raritySet, "group" : groupSet, "weapon" : weaponSet, "affiliation" : affiliationSet]
-                    
-                    var finalFilter: Set = Set<Arcana>()
-                    for (_,value) in sets {
-                        
-                        // TODO: clicking 권 then 철연 gives 철연.
-                        if value.count != 0 {
-                            
-                            // if set is empty, create a new one
-                            if finalFilter.count == 0 {
-                                finalFilter = finalFilter.union(value)
-                            }
-                                
-                                // Set already exists, so intersect
-                            else {
-                                finalFilter = finalFilter.intersection(value)
-                            }
+                            // Set already exists, so intersect
+                        else {
+                            finalFilter = finalFilter.intersection(value)
                         }
                     }
-                    
-                    self.arcanaArray = Array(finalFilter)
-                    self.tableView.reloadData()
-                    self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
+                }
+                
+                self.arcanaArray = Array(finalFilter)
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
 
-                }
             }
             
         }

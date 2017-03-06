@@ -12,20 +12,24 @@ class FilterCell: UICollectionViewCell {
 
     let filterLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo Light", size: 12)
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 14)
         label.textColor = Color.textGray
         return label
     }()
     
     func setupViews() {
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Color.lightGreen
+        selectedBackgroundView = backgroundView
+
         addSubview(filterLabel)
         
         filterLabel.anchorCenterSuperview()
     }
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
         
     }

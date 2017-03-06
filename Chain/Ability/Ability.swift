@@ -10,12 +10,10 @@ class Ability {
     
     private let KR: String
     private let EN: String
-    private let image: UIImage
     
-    init(kr: String, en: String, img: UIImage) {
+    init(kr: String, en: String) {
         self.KR = kr
         self.EN = en
-        self.image = img
     }
     
     func getKR() -> String {
@@ -26,8 +24,8 @@ class Ability {
         return EN
     }
     
-    func getImage() -> UIImage {
-        return image
+    deinit {
+        print("ability has been deinited")
     }
 }
 
@@ -58,122 +56,122 @@ class AbilityArray {
 }
 class Mana: Ability {
     init() {
-        super.init(kr: "마나의 소양", en: "mana", img: #imageLiteral(resourceName: "mana"))
+        super.init(kr: "마나의 소양", en: "mana")
     }
 }
 
 class ManaSlot: Ability {
     init() {
-        super.init(kr: "마나 슬롯 속도", en: "manaSlot", img: #imageLiteral(resourceName: "manaSlot"))
+        super.init(kr: "마나 슬롯 속도", en: "manaSlot")
     }
 }
 
 class ManaChance: Ability {
     init() {
-        super.init(kr: "마나 획득 확률 증가", en: "manaChance", img: #imageLiteral(resourceName: "manaChance"))
+        super.init(kr: "마나 획득 확률 증가", en: "manaChance")
     }
 }
 
 class Gold: Ability {
     init() {
-        super.init(kr: "골드", en: "gold", img: #imageLiteral(resourceName: "gold"))
+        super.init(kr: "골드", en: "gold")
     }
 }
 
 class Experience: Ability {
     init() {
-        super.init(kr: "경험치", en: "exp", img: #imageLiteral(resourceName: "exp"))
+        super.init(kr: "경험치", en: "exp")
     }
 }
 
 class APRecover: Ability {
     init() {
-        super.init(kr: "AP 회복", en: "apRecover", img: #imageLiteral(resourceName: "apRecovery"))
+        super.init(kr: "AP 회복", en: "apRecover")
     }
 }
 
 class Treasure: Ability {
     init() {
-        super.init(kr: "상자 획득", en: "treasure", img: #imageLiteral(resourceName: "treasure"))
+        super.init(kr: "상자 획득", en: "treasure")
     }
 }
 
 class Sub: Ability {
     init() {
-        super.init(kr: "서브시 증가", en: "sub", img: #imageLiteral(resourceName: "support"))
+        super.init(kr: "서브시 증가", en: "sub")
     }
 }
 
 class SkillUp: Ability {
     init() {
-        super.init(kr: "필살기 증가", en: "skillUp", img: #imageLiteral(resourceName: "skillUp"))
+        super.init(kr: "필살기 증가", en: "skillUp")
     }
 }
 
 class AttackUp: Ability {
     init() {
-        super.init(kr: "공격력 증가", en: "attackUp", img: #imageLiteral(resourceName: "skillUp"))
+        super.init(kr: "공격력 증가", en: "attackUp")
     }
 }
 
 class BossWave: Ability {
     init() {
-        super.init(kr: "보스 웨이브시 공격력 증가", en: "bossWave", img: #imageLiteral(resourceName: "boss"))
+        super.init(kr: "보스 웨이브시 공격력 증가", en: "bossWave")
     }
 }
 
 class PartyHeal: Ability {
     init() {
-        super.init(kr: "웨이브 회복", en: "partyHeal", img: #imageLiteral(resourceName: "apRecovery"))
+        super.init(kr: "웨이브 회복", en: "partyHeal")
     }
 }
 // 상태 이상 부여
 
 class DarkStrike: Ability {
     init() {
-        super.init(kr: "어둠 부여", en: "darkTouch", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "어둠 부여", en: "darkTouch")
     }
 }
 
 class SlowStrike: Ability {
     init() {
-        super.init(kr: "슬로우 부여", en: "slowStrike", img: #imageLiteral(resourceName: "slowImmune"))
+        super.init(kr: "슬로우 부여", en: "slowStrike")
     }
 }
 
 class PoisonStrike: Ability {
     init() {
-        super.init(kr: "독 부여", en: "poisonStrike", img: #imageLiteral(resourceName: "poisonImmune"))
+        super.init(kr: "독 부여", en: "poisonStrike")
     }
 }
 
 class CurseStrike: Ability {
     init() {
-        super.init(kr: "저주 부여", en: "curseStrike", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "저주 부여", en: "curseStrike")
     }
 }
 
 class SkeletonStrike: Ability {
     init() {
-        super.init(kr: "쇠약 부여", en: "skeletonStrike", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "쇠약 부여", en: "skeletonStrike")
     }
 }
 
 class StunStrike: Ability {
     init() {
-        super.init(kr: "다운 부여", en: "stunStrike", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "다운 부여", en: "stunStrike")
     }
 }
 
 class FrostStrike: Ability {
     init() {
-        super.init(kr: "동결 부여", en: "frostStrike", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "동결 부여", en: "frostStrike")
     }
 }
 
 class SealStrike: Ability {
     init() {
-        super.init(kr: "봉인 부여", en: "sealStrike", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "봉인 부여", en: "sealStrike")
     }
 }
 
@@ -181,104 +179,104 @@ class SealStrike: Ability {
 
 class DarkImmune: Ability {
     init() {
-        super.init(kr: "어둠 면역", en: "darkImmune", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "어둠 면역", en: "darkImmune")
     }
 }
 
 class SlowImmune: Ability {
     init() {
-        super.init(kr: "슬로우 면역", en: "slowImmune", img: #imageLiteral(resourceName: "slowImmune"))
+        super.init(kr: "슬로우 면역", en: "slowImmune")
     }
 }
 
 class PoisonImmune: Ability {
     init() {
-        super.init(kr: "독 면역", en: "poisonImmune", img: #imageLiteral(resourceName: "poisonImmune"))
+        super.init(kr: "독 면역", en: "poisonImmune")
     }
 }
 
 class CurseImmune: Ability {
     init() {
-        super.init(kr: "저주 면역", en: "curseImmune", img: #imageLiteral(resourceName: "poisonImmune"))
+        super.init(kr: "저주 면역", en: "curseImmune")
     }
 }
 
 class WeakImmune: Ability {
     init() {
-        super.init(kr: "쇠약 면역", en: "weakImmune", img: #imageLiteral(resourceName: "skeleton"))
+        super.init(kr: "쇠약 면역", en: "weakImmune")
     }
 }
 
 class SkeletonImmune: Ability {
     init() {
-        super.init(kr: "백골 면역", en: "skeletonImmune", img: #imageLiteral(resourceName: "skeleton"))
+        super.init(kr: "백골 면역", en: "skeletonImmune")
     }
 }
 
 class StunImmune: Ability {
     init() {
-        super.init(kr: "다운 면역", en: "stunImmune", img: #imageLiteral(resourceName: "stun"))
+        super.init(kr: "다운 면역", en: "stunImmune")
     }
 }
 
 class FrostImmune: Ability {
     init() {
-        super.init(kr: "동결 면역", en: "frostImmune", img: #imageLiteral(resourceName: "frost"))
+        super.init(kr: "동결 면역", en: "frostImmune")
     }
 }
 
 class SealImmune: Ability {
     init() {
-        super.init(kr: "봉인 면역", en: "sealImmune", img: #imageLiteral(resourceName: "seal"))
+        super.init(kr: "봉인 면역", en: "sealImmune")
     }
 }
 
 // 지형 특효
 class WasteLand: Ability {
     init() {
-        super.init(kr: "황무지 특효", en: "wastelands", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "황무지 특효", en: "wastelands")
     }
 }
 
 class Forest: Ability {
     init() {
-        super.init(kr: "숲 특효", en: "forest", img: #imageLiteral(resourceName: "forest"))
+        super.init(kr: "숲 특효", en: "forest")
     }
 }
 
 class Cavern: Ability {
     init() {
-        super.init(kr: "덩굴 특효", en: "cavern", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "덩굴 특효", en: "cavern")
     }
 }
 
 class Desert: Ability {
     init() {
-        super.init(kr: "사막 특효", en: "desert", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "사막 특효", en: "desert")
     }
 }
 
 class Snow: Ability {
     init() {
-        super.init(kr: "설산 특효", en: "snow", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "설산 특효", en: "snow")
     }
 }
 
 class Urban: Ability {
     init() {
-        super.init(kr: "도시 특효", en: "urban", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "도시 특효", en: "urban")
     }
 }
 
 class Water: Ability {
     init() {
-        super.init(kr: "해변 특효", en: "water", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "해변 특효", en: "water")
     }
 }
 
 class Night: Ability {
     init() {
-        super.init(kr: "야간 특효", en: "night", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "야간 특효", en: "night")
     }
 }
 
@@ -290,7 +288,7 @@ class Insect: Ability {
     private let defenseKR = "방어력 증가"
     
     init() {
-        super.init(kr: "벌레 특효", en: "insect", img: #imageLiteral(resourceName: "darknessImmune"))
+        super.init(kr: "벌레 특효", en: "insect")
     }
     
     func getAttack() -> String {
