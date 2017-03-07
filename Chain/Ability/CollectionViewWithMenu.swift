@@ -188,11 +188,11 @@ class CollectionViewWithMenu: UIViewController {
         if menuType == .AbilityList {
             
             let list = AbilityListDataSource().getAbilityList()
-            let test = list.getPrimary()
-            primaryAbilities = test
-//            primaryAbilities = list.getPrimary()
-//            statusAbilities = list.getStatus()
-//            areaAbilities = list.getArea()
+//            let test = list.getPrimary()
+//            primaryAbilities = test
+            primaryAbilities = list.getPrimary()
+            statusAbilities = list.getStatus()
+            areaAbilities = list.getArea()
             
         }
 
