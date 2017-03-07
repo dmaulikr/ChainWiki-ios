@@ -38,26 +38,26 @@ class Ability {
 
 class AbilityArray {
     
-    private let primary: [Unowned<Ability>]
-    private let status: [Unowned<Ability>]
-    private let area: [Unowned<Ability>]
+    private let primary: [Ability]
+    private let status: [Ability]
+    private let area: [Ability]
     
     
-    init(primary: [Unowned<Ability>], status: [Unowned<Ability>], area: [Unowned<Ability>]) {
+    init(primary: [Ability], status: [Ability], area: [Ability]) {
         self.primary = primary
         self.status = status
         self.area = area
     }
     
-    func getPrimary() -> [Unowned<Ability>] {
+    func getPrimary() -> [Ability] {
         return primary
     }
     
-    func getStatus() -> [Unowned<Ability>] {
+    func getStatus() -> [Ability] {
         return status
     }
     
-    func getArea() -> [Unowned<Ability>] {
+    func getArea() -> [Ability] {
         return area
     }
     

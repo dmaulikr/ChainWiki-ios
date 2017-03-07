@@ -22,9 +22,9 @@ class CollectionViewWithMenu: UIViewController {
     
     weak var datasource: AbilityViewDataSource!
     
-    var primaryAbilities: [Unowned<Ability>]?
-    var statusAbilities = [Unowned<Ability>]()
-    var areaAbilities = [Unowned<Ability>]()
+    var primaryAbilities: [Ability]?
+    var statusAbilities = [Ability]()
+    var areaAbilities = [Ability]()
     
     var group = DispatchGroup()
     

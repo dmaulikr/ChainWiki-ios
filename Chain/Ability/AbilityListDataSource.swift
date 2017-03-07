@@ -8,66 +8,29 @@
 
 import UIKit
 
-
 class AbilityListDataSource: NSObject {
     
-    private var primaryAbilities: [Unowned<Ability>]
-    private var statusAbilities: [Unowned<Ability>]
-    private var areaAbilities: [Unowned<Ability>]
-    
+    private var primaryAbilities: [Ability]
+    private var statusAbilities: [Ability]
+    private var areaAbilities: [Ability]
     
     override init() {
         
-        primaryAbilities = [Unowned(Mana()), Unowned(Treasure()), Unowned(Gold()), Unowned(Experience()), Unowned(APRecover()), Unowned(Sub()), Unowned(SkillUp()), Unowned(AttackUp()), Unowned(BossWave()), Unowned(ManaSlot()), Unowned(ManaChance()), Unowned(PartyHeal())]
+        primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
 
-        statusAbilities = [Unowned(DarkImmune()), Unowned(DarkStrike()), Unowned(SlowImmune()), Unowned(SlowStrike()), Unowned(PoisonImmune()), Unowned(PoisonStrike()), Unowned(CurseImmune()), Unowned(CurseStrike()), Unowned(SkeletonImmune()), Unowned(SkeletonStrike()), Unowned(StunImmune()), Unowned(StunStrike()), Unowned(FrostImmune()), Unowned(FrostStrike()), Unowned(SealImmune()), Unowned(SealStrike())]
+        statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
         
-        areaAbilities = [Unowned(WasteLand()), Unowned(Forest()), Unowned(Cavern()), Unowned(Desert()), Unowned(Snow()), Unowned(Urban()), Unowned(Water()), Unowned(Night())]
+        areaAbilities = [WasteLand(), Forest(), Cavern(), Desert(), Snow(), Urban(), Water(), Night()]
         
         super.init()
     }
     
     func getAbilityList() -> AbilityArray {
-        
-
-//        let abilityArray = AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
-        
-        return AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
-        //        if index == 0 {
-        //            return (abilityArray, abilityImages)
-        //        }
-        //        else {
-        //            return (kizunaArray, kizunaImages)
-        //        }
-        
-        
-    }
-//    func getAbilityList(index: Int) -> (names: [String], images: [UIImage]) {
-//        
-//        var abilityNames = [String]()
-//        var abilityImages = [UIImage]()
-//        
-//        for ability in abilityArray {
-//            abilityNames.append(ability.getKR())
-//            abilityImages.append(ability.getImage())
-//        }
-//        
-//        return (abilityNames, abilityImages)
-////        if index == 0 {
-////            return (abilityArray, abilityImages)
-////        }
-////        else {
-////            return (kizunaArray, kizunaImages)
-////        }
-//      
-//        
-//    }
-
-    deinit {
-        print("AbilityListDataSource has been deinited.")
-        primaryAbilities = []
-        statusAbilities = []
-        areaAbilities = []
-    }
     
+        let abilityArray = AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
+
+        return abilityArray
+
+    }
+
 }
