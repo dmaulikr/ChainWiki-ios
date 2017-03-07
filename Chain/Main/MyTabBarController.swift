@@ -32,35 +32,45 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         for (index, tab) in tabTitles.enumerated() {
             
             switch index {
-                case 1: // Ability Tab
-                    let vc = CollectionViewWithMenu()
-                    let child = UINavigationController(rootViewController: vc)
-//                    child.navigationBar.isHidden = true
-                    
-                    child.tabBarItem.title = tab
-                    child.tabBarItem.image = tabIcons[index]
-                    child.tabBarItem.tag = index
-                    views.append(child)
                 
-                case 2: // Tavern Tab
-                    let vc = CollectionViewWithMenu(menuType: .TavernList)
-                    let child = UINavigationController(rootViewController: vc)
+            case 1: // Ability Tab
+                let vc = CollectionViewWithMenu()
+                let child = UINavigationController(rootViewController: vc)
+//                    child.navigationBar.isHidden = true
+                
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+            
+            case 2: // Tavern Tab
+                let vc = CollectionViewWithMenu(menuType: .TavernList)
+                let child = UINavigationController(rootViewController: vc)
 //                    child.title = "주점"
 //                    child.navigationBar.isHidden = true
-                    
-                    child.tabBarItem.title = tab
-                    child.tabBarItem.image = tabIcons[index]
-                    child.tabBarItem.tag = index
-                    views.append(child)
                 
-                default:
-                    let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
-                    let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
-                    
-                    child.tabBarItem.title = tab
-                    child.tabBarItem.image = tabIcons[index]
-                    child.tabBarItem.tag = index
-                    views.append(child)
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+                
+            case 3: // Favorites
+                let vc = Favorites()
+                let child = UINavigationController(rootViewController: vc)
+                
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+                
+            default:
+                let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
+                let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
+                
+                child.tabBarItem.title = tab
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
 
 
             }

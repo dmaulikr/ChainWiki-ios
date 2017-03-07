@@ -13,11 +13,96 @@ import FirebaseAuth
 
 class Favorites: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tip: UILabel!
-    var group = DispatchGroup()
     var array = [Arcana]()
-    @IBOutlet weak var edit: UIBarButtonItem!
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+
+        return tableView
+    }()
+    
+    let tipLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아르카나를 추가하세요!"
+        label.textColor = .darkGray
+        label.font = UIFont(name: "AppleSDGothicNeo", size: 17)
+        label.alpha = 0
+        return label
+    }()
+    
+    lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(editFavorites))
+        return button
+    }()
+    
+    lazy var settingsButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(openSettings))
+        return button
+    }()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViews()
+        setupNavBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        downloadFavorites()
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
+    }
+
+    func setupViews() {
+        
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
+        
+        view.addSubview(tableView)
+        view.addSubview(tipLabel)
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        tipLabel.anchorCenterSuperview()
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+
+    }
+    
+    func setupNavBar() {
+        
+        navigationItem.title = "즐겨찾기"
+        navigationItem.leftBarButtonItem = settingsButton
+        navigationItem.rightBarButtonItem = editButton
+
+    }
+    
+    func openSettings() {
+        
+    }
+
+    func editFavorites() {
+        
+    }
+    
     @IBAction func settings(_ sender: AnyObject) {
         
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
@@ -31,7 +116,7 @@ class Favorites: UIViewController {
         if array.count != 0 {
             if !tableView.isEditing {
                 tableView.setEditing(true, animated: true)
-                edit.title = "완료"
+                editButton.title = "완료"
             }
             else {
                 tableView.setEditing(false, animated: true)
@@ -55,7 +140,7 @@ class Favorites: UIViewController {
                         defaults.setFavorites(value: uids)
                     }
                 }
-                edit.title = "수정"
+                editButton.title = "수정"
                 
                 
             }
@@ -66,7 +151,7 @@ class Favorites: UIViewController {
             // user deleted last row.
             if tableView.isEditing {
                 tableView.setEditing(false, animated: true)
-                edit.title = "수정"
+                editButton.title = "수정"
             }
         }
     }
@@ -85,53 +170,28 @@ class Favorites: UIViewController {
         
         var array = [Arcana]()
         
+        let group = DispatchGroup()
+        
         for id in uids {
-            self.group.enter()
+            group.enter()
             
             let ref = FIREBASE_REF.child("arcana/\(id)")
             
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 let arcana = Arcana(snapshot: snapshot)
                 array.append(arcana!)
-                self.group.leave()
+                group.leave()
                 
             })
         }
         
-        self.group.notify(queue: DispatchQueue.main, execute: {
+        group.notify(queue: DispatchQueue.main, execute: {
             
             self.array = array
             self.tableView.reloadData()
         })
 
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        downloadFavorites()
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: row, animated: true)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     
 }
@@ -148,11 +208,11 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         
         if array.count == 0 {
             tableView.alpha = 0
-            tip.fadeIn(withDuration: 0.5)
+            tipLabel.fadeIn(withDuration: 0.5)
             
         }
         else {
-            tip.fadeOut(withDuration: 0.2)
+            tipLabel.fadeOut(withDuration: 0.2)
             tableView.alpha = 1
         }
         
@@ -235,9 +295,9 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         tableView.reloadData()
-        self.tableView.beginUpdates()
-        self.tableView.setEditing(editing, animated: animated)
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.setEditing(editing, animated: animated)
+        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

@@ -15,13 +15,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero)
-        tableView.reloadData()
-        self.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
         tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 90
         tableView.estimatedSectionHeaderHeight = 50
@@ -35,13 +29,16 @@ class BaseCollectionViewCell: UICollectionViewCell {
         setupViews()
     }
     
-    func setupViews() {
-        
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupViews() {
+        
+        addSubview(tableView)
+        
+        tableView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+    }
     
 }

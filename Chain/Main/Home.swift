@@ -12,8 +12,6 @@ import AlamofireImage
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
-//    @IBOutlet weak var searchView: UIView!
-
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
