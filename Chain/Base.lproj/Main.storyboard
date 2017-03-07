@@ -49,9 +49,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="cBk-8N-djP"/>
                                 </constraints>
-                                <connections>
-                                    <segue destination="is1-Fp-bbO" kind="embed" id="Vdz-DV-KhZ"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,7 +70,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="GRP-ev-0Rs" id="awy-MW-NmG"/>
-                        <outlet property="searchView" destination="1ta-nR-jzS" id="YTv-Bo-y6C"/>
                         <segue destination="Byw-71-fc4" kind="show" identifier="showArcana" id="vf6-Qv-Qwi"/>
                     </connections>
                 </viewController>
@@ -761,11 +757,11 @@
                         <viewControllerLayoutGuide type="bottom" id="g8T-lP-6jK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mYP-1s-pFR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sAD-0H-Ou3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -778,7 +774,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="sAD-0H-Ou3" id="DST-Mi-oD0"/>
                         <segue destination="Byw-71-fc4" kind="show" identifier="searchToArcana" id="yib-dA-nmg"/>
                     </connections>
                 </viewController>

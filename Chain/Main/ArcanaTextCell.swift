@@ -9,19 +9,36 @@
 import UIKit
 
 class ArcanaTextCell: UITableViewCell {
-
-    @IBOutlet weak var nameKR: UILabel!
-    @IBOutlet weak var nameJP: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
+        label.textColor = Color.textGray
+        return label
+    }()
+    
+//    let nameJP: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
+//        label.textColor = Color.textGray
+//        return label
+//    }()
+    
+    func setupViews() {
+        
+        addSubview(nameLabel)
+        
+        nameLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 5, leadingConstant: 10, trailingConstant: 10, bottomConstant: 5, widthConstant: 0, heightConstant: 0)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

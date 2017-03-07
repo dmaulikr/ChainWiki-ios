@@ -20,9 +20,9 @@ class CollectionViewWithMenu: UIViewController {
     var menuType: menuType?
     var reuseIdentifier = ""
     
-    weak var datasource: AbilityViewDataSource!
+    weak var datasource: AbilityViewDataSource?
     
-    var primaryAbilities: [Ability]?
+    var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
     
@@ -90,21 +90,15 @@ class CollectionViewWithMenu: UIViewController {
         self.menuType = menuType
         self.reuseIdentifier = "TavernListTableCell"
         self.title = "주점"
-//        setupMenuBar()
         
         menuBar = MenuBar(frame: .zero, menuType: menuType)
         menuBar.parentController = self
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-        print("CV Deinited")
-    }
-    
+
     func downloadArray() {
         
         // check if ability or kizuna
@@ -182,26 +176,13 @@ class CollectionViewWithMenu: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        
-        guard let menuType = menuType else { return }
-        
-        if menuType == .AbilityList {
-            
-            let list = AbilityListDataSource().getAbilityList()
-//            let test = list.getPrimary()
-//            primaryAbilities = test
-            primaryAbilities = list.getPrimary()
-            statusAbilities = list.getStatus()
-            areaAbilities = list.getArea()
-            
-        }
-
+        setupAbilityList()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.navigationController?.navigationBar.isHidden = true
+        
         let selectedCV = IndexPath(item: selectedIndex, section: 0)
         guard let table = collectionView.cellForItem(at: selectedCV) as? BaseCollectionViewCell else { return }
         guard let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
@@ -228,6 +209,20 @@ class CollectionViewWithMenu: UIViewController {
     private func setupNavBar() {
         let filterButton = UIBarButtonItem(title: "전체", style: .plain, target: self, action: #selector(filter))
         navigationItem.rightBarButtonItem = filterButton
+    }
+    
+    func setupAbilityList() {
+        guard let menuType = menuType else { return }
+        
+        if menuType == .AbilityList {
+            
+            let list = AbilityListDataSource().getAbilityList()
+            primaryAbilities = list.getPrimary()
+            statusAbilities = list.getStatus()
+            areaAbilities = list.getArea()
+            
+        }
+
     }
     
     func filter() {
@@ -276,11 +271,7 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
         switch menuType {
         case .AbilityList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityListTableCell
-            
-            if let test = primaryAbilities {
-                cell.primaryAbilities = test
-            }
-//            cell.primaryAbilities = primaryAbilities
+            cell.primaryAbilities = primaryAbilities
             cell.statusAbilities = statusAbilities
             cell.areaAbilities = areaAbilities
             cell.tableDelegate = self

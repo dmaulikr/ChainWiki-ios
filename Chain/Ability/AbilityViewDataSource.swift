@@ -56,22 +56,19 @@ class AbilityViewDataSource: NSObject {
             
         }
         
-        
-        
-        
     }
     
     private func filterAbilityList() {
         
         warriors = arcanaArray.filter({$0.group == "전사"})
-        DispatchQueue.global().async { [unowned self] in
+        
+        // Process the other arrays in background.
+        DispatchQueue.global().async {
             self.knights = self.arcanaArray.filter({$0.group == "기사"})
             self.archers = self.arcanaArray.filter({$0.group == "궁수"})
             self.magicians = self.arcanaArray.filter({$0.group == "법사"})
             self.healers = self.arcanaArray.filter({$0.group == "승려"})
         }
-        
-        
     
     }
 

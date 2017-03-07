@@ -12,9 +12,7 @@ import AlamofireImage
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
-//    @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var filterView: UIView!
-    @IBOutlet weak var searchView: UIView!
+//    @IBOutlet weak var searchView: UIView!
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -28,6 +26,13 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         let view = UIView()
         view.backgroundColor = .white
         return view
+    }()
+    
+    let searchView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+
     }()
     
     // Initial setup
@@ -282,12 +287,11 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         })
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupNavBar()
-        
-        
 
         syncArcana()
 
@@ -340,10 +344,22 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         view.addSubview(tableView)
         view.addSubview(filterView)
+        view.addSubview(searchView)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
         
+        setupChildViews()
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
+    }
+    
+    func setupChildViews() {
+        
+        // Setup FilterView
         let filterMenu = Filter()
         filterMenu.delegate = self
         
@@ -352,9 +368,14 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         filterView.addSubview(filterMenu.view)
         filterMenu.view.frame = filterView.frame
         
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
+        // Setup SearchView
+        let searchHistory = SearchHistory()
+//        searchHistory.delegate = self
         
+        addChildViewController(searchHistory)
+        
+        searchView.addSubview(searchHistory.view)
+        searchHistory.view.frame = searchView.frame
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
