@@ -97,29 +97,17 @@ class Favorites: UIViewController {
     
     func openSettings() {
         
+        let vc = Settings()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func editFavorites() {
         
-    }
-    
-    @IBAction func settings(_ sender: AnyObject) {
-        
-        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Settings") as! Settings
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
-    @IBAction func startEditing(_ sender: AnyObject) {
-        
         if array.count != 0 {
+            
+            tableViewSetEditing()
+            
             if !tableView.isEditing {
-                tableView.setEditing(true, animated: true)
-                editButton.title = "완료"
-            }
-            else {
-                tableView.setEditing(false, animated: true)
                 // set userDefaults to new array.
                 var favoritesDict = [String: Int]()
                 var uids = [String]()
@@ -140,22 +128,24 @@ class Favorites: UIViewController {
                         defaults.setFavorites(value: uids)
                     }
                 }
-                editButton.title = "수정"
-                
-                
-            }
 
+            }
+            
         }
         
-        else {
-            // user deleted last row.
-            if tableView.isEditing {
-                tableView.setEditing(false, animated: true)
-                editButton.title = "수정"
-            }
-        }
     }
     
+    func tableViewSetEditing() {
+        
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            editButton.title = "수정"
+        }
+        else {
+            tableView.setEditing(true, animated: true)
+            editButton.title = "완료"
+        }
+    }
     
     func downloadFavorites() {
         
@@ -197,7 +187,6 @@ class Favorites: UIViewController {
 }
 
 
-// MARK - UITableViewDelegate, UITableViewDataSource
 extension Favorites: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -216,17 +205,16 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
             tableView.alpha = 1
         }
         
-        
         return array.count
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
@@ -289,7 +277,7 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let arcanaDetail = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
         arcanaDetail.arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-        self.navigationController?.pushViewController(arcanaDetail, animated: true)
+        navigationController?.pushViewController(arcanaDetail, animated: true)
         
     }
     

@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 import SafariServices
 import LicensesViewController
 
-class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  MFMailComposeViewControllerDelegate, DisplayBanner {
+class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBanner {
 
     let sectionTitles = ["앱 설정", "계정", "소개", "지원"]
     let appSection = ["이미지 다운로드 허용"]
@@ -22,10 +22,78 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
     let supportSection = ["이메일 문의"]
     
     var hasEmail = false
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
-    @IBAction func logout(_ sender: AnyObject) {
+    lazy var tableView: UITableView = {
+        
+        let tableView = UITableView(frame: .zero, style: .plain)
+        
+        tableView.backgroundColor = .white
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(UINib(nibName: "SettingsSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "sectionHeader")
+        tableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+        
+        return tableView
+    }()
+
+    let activityIndicator: NVActivityIndicatorView = {
+        let activityIndicator = NVActivityIndicatorView(frame: .zero, type: .ballScaleRippleMultiple, color: Color.googleRed, padding: 0)
+        return activityIndicator
+    }()
+    
+    lazy var logoutButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "로그아웃", style: .plain, target: self, action: #selector(logout))
+        return button
+    }()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViews()
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
+        // check to see which first cell to populate.
+        
+        if defaults.bool(forKey: "edit") == true {
+            hasEmail = true
+        }
+        else {
+            hasEmail = false
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
+    }
+    
+    func setupViews() {
+        
+        automaticallyAdjustsScrollViewInsets = false
+        
+        view.backgroundColor = .white
+        
+        view.addSubview(tableView)
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+    }
+    
+    func logout() {
         
         let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         alert.view.tintColor = Color.salmon
@@ -34,7 +102,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         
         let confirmAction = UIAlertAction(title: "확인", style: .default) { (action) in
             // Remove the user's uid from storage.
-            UserDefaults.standard.setValue(nil, forKey: "uid")
+            defaults.setValue(nil, forKey: "uid")
             
             let firebaseAuth = FIRAuth.auth()
             do {
@@ -42,11 +110,10 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-//            try! FIRAuth.auth()!.signOut()
+            //            try! FIRAuth.auth()!.signOut()
             
             defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             defaults.synchronize()
-
             
             self.changeRootVC(vc: .logout)
             
@@ -63,16 +130,62 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
         self.present(alert, animated: true) {
             alert.view.tintColor = Color.salmon
         }
+
+    }
+    
+    func sendEmail() {
+        
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["jitaekim93@gmail.com"])
+            mail.setSubject("체인크로니클 위키 iOS 앱 문의")
+            
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+        
+    }
+    
+    
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if let text = textField.text {
+            if text.characters.count < 2 {
+                print("must be > 2")
+                
+            }
+        }
         
     }
 
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toLicenses" {
+            if let destinationVC = segue.destination as? LicensesViewController {
+                destinationVC.loadPlist(Bundle.main, resourceName: "Credits")
+            }
+        }
+    }
 
+}
+
+extension Settings: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
     
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         // Dequeue with the reuse identifier
@@ -123,7 +236,7 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
             cell.imageToggle.alpha = 1
             cell.title.text = appSection[indexPath.row]
             cell.icon.image = #imageLiteral(resourceName: "imageDownload")
-            // either changeNick or linkEmail
+        // either changeNick or linkEmail
         case 1:
             if hasEmail {
                 cell.icon.image = #imageLiteral(resourceName: "goEmail")
@@ -187,88 +300,15 @@ class Settings: UIViewController, UITableViewDelegate, UITableViewDataSource,  M
                 break
             }
         case 3:
-            sendEmail(self)
+            sendEmail()
             
         default:
             break
             
         }
-
-    }
-    
-    @IBAction func sendEmail(_ sender: AnyObject) {
-        
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(["jitaekim93@gmail.com"])
-            mail.setSubject("체인크로니클 위키 iOS 앱 문의")
-            
-            present(mail, animated: true)
-        } else {
-            // show failure alert
-        }
         
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "SettingsSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "sectionHeader")
-        tableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-        tableView.backgroundColor = .white
-        
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        
-        // check to see which first cell to populate.
-        
-        if defaults.bool(forKey: "edit") == true {
-            hasEmail = true
-        }
-        else {
-            hasEmail = false
-        }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if let selectedRow = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedRow, animated: true)
-        }
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        if let text = textField.text {
-            if text.characters.count < 2 {
-                print("must be > 2")
-                
-            }
-        }
-        
-    }
-
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toLicenses" {
-            if let destinationVC = segue.destination as? LicensesViewController {
-                destinationVC.loadPlist(Bundle.main, resourceName: "Credits")
-            }
-        }
-    }
-
 }
-
 extension Settings: UITextFieldDelegate {
     
     func changeNick() {
@@ -285,7 +325,7 @@ extension Settings: UITextFieldDelegate {
             if let nick = textField.text {
                 if nick.characters.count >= 2 {
                     // check firebase for duplicate
-                    self.spinner.startAnimating()
+                    self.activityIndicator.startAnimating()
                     let ref = FIREBASE_REF.child("nickName/\(nick)")
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -321,7 +361,7 @@ extension Settings: UITextFieldDelegate {
                                 }
                             }
                         }
-                        self.spinner.stopAnimating()
+                        self.activityIndicator.stopAnimating()
                         
                     })
                 }
