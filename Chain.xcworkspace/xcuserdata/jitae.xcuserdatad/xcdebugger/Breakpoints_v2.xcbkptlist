@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chain/Ability/CollectionViewWithMenu.swift"
-            timestampString = "510016363.620592"
+            timestampString = "510549525.499025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "downloadArray()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,45 +106,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chain/Ability/CollectionViewWithMenu.swift"
-            timestampString = "510016363.620592"
+            timestampString = "510549525.499025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "downloadArray()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chain.CollectionViewWithMenu.downloadArray () -&gt; ()"
-                  moduleName = "Chain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jitae/Desktop/Chain/Chain/Ability/CollectionViewWithMenu.swift"
-                  timestampString = "510527039.83379"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "147"
-                  endingLineNumber = "147"
-                  offsetFromSymbolStart = "1700">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chain.CollectionViewWithMenu.(downloadArray () -&gt; ()).(closure #1)"
-                  moduleName = "Chain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jitae/Desktop/Chain/Chain/Ability/CollectionViewWithMenu.swift"
-                  timestampString = "510527039.835046"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "149"
-                  endingLineNumber = "149"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chain/Ability/CollectionViewWithMenu.swift"
+            timestampString = "510549642.358372"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "deinit"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

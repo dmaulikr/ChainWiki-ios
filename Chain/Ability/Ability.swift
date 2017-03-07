@@ -6,6 +6,13 @@
 //  Copyright © 2016 Jitae Kim. All rights reserved.
 //
 
+class Unowned<T: AnyObject> {
+    unowned var value: T
+    init (_ value: T) {
+        self.value = value
+    }
+}
+
 class Ability {
     
     private let KR: String
@@ -25,34 +32,39 @@ class Ability {
     }
     
     deinit {
-        print("ability has been deinited")
+        print("\(EN) has been deinited")
     }
 }
 
 class AbilityArray {
     
-    private let primary: [Ability]
-    private let status: [Ability]
-    private let area: [Ability]
+    private let primary: [Unowned<Ability>]
+    private let status: [Unowned<Ability>]
+    private let area: [Unowned<Ability>]
     
     
-    init(primary: [Ability], status: [Ability], area: [Ability]) {
+    init(primary: [Unowned<Ability>], status: [Unowned<Ability>], area: [Unowned<Ability>]) {
         self.primary = primary
         self.status = status
         self.area = area
     }
     
-    func getPrimary() -> [Ability] {
+    func getPrimary() -> [Unowned<Ability>] {
         return primary
     }
     
-    func getStatus() -> [Ability] {
+    func getStatus() -> [Unowned<Ability>] {
         return status
     }
     
-    func getArea() -> [Ability] {
+    func getArea() -> [Unowned<Ability>] {
         return area
     }
+    
+    deinit {
+        print("abilityArray is deinited")
+    }
+    
 }
 class Mana: Ability {
     init() {

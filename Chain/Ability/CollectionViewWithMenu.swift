@@ -15,23 +15,41 @@ class CollectionViewWithMenu: UIViewController {
     var selectedIndex: Int = 0
     var numberOfMenuTabs = 0
     var abilityType = ""
-    var abilityTitle = ""
-    var collectionView: UICollectionView!
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]()
     var menuType: menuType?
     var reuseIdentifier = ""
-    var datasource: AbilityViewDataSource!
-    var abilityNames = [String]()
     
-    var abilities = [[Ability]]()
+    weak var datasource: AbilityViewDataSource!
     
-    var primaryAbilities = [Ability]()
-    var statusAbilities = [Ability]()
-    var areaAbilities = [Ability]()
-    
+    var primaryAbilities: [Unowned<Ability>]?
+    var statusAbilities = [Unowned<Ability>]()
+    var areaAbilities = [Unowned<Ability>]()
     
     var group = DispatchGroup()
+    
+    lazy var collectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
+        
+        collectionView.register(AbilityViewTableCell.self, forCellWithReuseIdentifier: "AbilityViewTableCell")
+        collectionView.register(AbilityListTableCell.self, forCellWithReuseIdentifier: "AbilityListTableCell")
+        collectionView.register(TavernListTableCell.self, forCellWithReuseIdentifier: "TavernListTableCell")
+        
+        return collectionView
+        
+    }()
+
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +57,10 @@ class CollectionViewWithMenu: UIViewController {
         self.numberOfMenuTabs = 2
         self.reuseIdentifier = "AbilityListTableCell"
         self.title = "어빌리티"
-        setupMenuBar()
+        
+        menuBar = MenuBar(frame: .zero, menuType: .AbilityList)
+        menuBar.parentController = self
+//        setupMenuBar()
     }
     
     init(abilityType: (String, String), selectedIndex: Int) {
@@ -51,7 +72,9 @@ class CollectionViewWithMenu: UIViewController {
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
         self.title = abilityType.0
-        setupMenuBar()
+//        setupMenuBar()
+        menuBar = MenuBar(frame: .zero, menuType: .AbilityView)
+        menuBar.parentController = self
         if abilityType.0 == "웨이브 회복" {
             setupNavBar()
         }
@@ -67,13 +90,21 @@ class CollectionViewWithMenu: UIViewController {
         self.menuType = menuType
         self.reuseIdentifier = "TavernListTableCell"
         self.title = "주점"
-        setupMenuBar()
+//        setupMenuBar()
+        
+        menuBar = MenuBar(frame: .zero, menuType: menuType)
+        menuBar.parentController = self
     }
     
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("CV Deinited")
+    }
+    
     func downloadArray() {
         
         // check if ability or kizuna
@@ -88,47 +119,9 @@ class CollectionViewWithMenu: UIViewController {
         
         // Then check ability type
         
-        //["마나의 소양", "상자 획득", "골드", "경험치", "서브시 증가", "필살기 증가", "공격력 증가", "보스 웨이브시 공격력 증가"]
         let refPrefix = abilityType
-        
-        /*
-        switch abilityType {
-            
-        case "마나의 소양":
-            refPrefix = "mana"
-        case "마나 슬롯 속도":
-            refPrefix = "manaSlot"
-        case "마나 획득 확률 증가":
-            refPrefix = "manaChance"
-        case "상자 획득":
-            refPrefix = "treasure"
-        case "AP 회복":
-            refPrefix = "apRecover"
-        case "골드":
-            refPrefix = "gold"
-        case "경험치":
-            refPrefix = "exp"
-        case "서브시 증가":
-            refPrefix = "sub"
-        case "필살기 증가":
-            refPrefix = "skillUp"
-        case "공격력 증가":
-            refPrefix = "attackUp"
-        case "보스 웨이브시 공격력 증가":
-            refPrefix = "bossWave"
-        case "어둠 면역":
-            refPrefix = "darkImmune"
-        case "슬로우 면역":
-            refPrefix = "slowImmune"
-        case "독 면역":
-            refPrefix = "poisonImmune"
-            
-        default:
-            break
-            
-        }
-        */
-        //        print("REF IS \(refPrefix)\(refSuffix)")
+ 
+//        print("REF IS \(refPrefix)\(refSuffix)")
         var ref: FIRDatabaseReference
         let updatedVersion = "1.2"
         
@@ -187,21 +180,19 @@ class CollectionViewWithMenu: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = false
         
-        self.view.backgroundColor = .white
-//        self.title = abilityType
-
-        setupCollectionView()
-
+        setupViews()
+        
         guard let menuType = menuType else { return }
         
         if menuType == .AbilityList {
             
             let list = AbilityListDataSource().getAbilityList()
-            primaryAbilities = list.getPrimary()
-            statusAbilities = list.getStatus()
-            areaAbilities = list.getArea()
+            let test = list.getPrimary()
+            primaryAbilities = test
+//            primaryAbilities = list.getPrimary()
+//            statusAbilities = list.getStatus()
+//            areaAbilities = list.getArea()
             
         }
 
@@ -219,22 +210,19 @@ class CollectionViewWithMenu: UIViewController {
         
     }
     
-    private func setupMenuBar() {
+    func setupViews() {
         
-        guard let menuType = menuType else { return }
-        
-        menuBar = MenuBar(frame: .zero, menuType: menuType)
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
         
         view.addSubview(menuBar)
-        menuBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        menuBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        menuBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.addSubview(collectionView)
         
         menuBar.backgroundColor = .white
-        menuBar.parentController = self
+        menuBar.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 50)
+        
+        collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 50, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
     }
     
     private func setupNavBar() {
@@ -249,38 +237,10 @@ class CollectionViewWithMenu: UIViewController {
         
     }
     
-    // MARK: UICollectionViewDataSource
-    
-    func setupCollectionView() {
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .white
-        
-        self.view.addSubview(collectionView)
-        self.automaticallyAdjustsScrollViewInsets = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 50).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
-        collectionView.register(AbilityViewTableCell.self, forCellWithReuseIdentifier: "AbilityViewTableCell")
-        collectionView.register(AbilityListTableCell.self, forCellWithReuseIdentifier: "AbilityListTableCell")
-        collectionView.register(TavernListTableCell.self, forCellWithReuseIdentifier: "TavernListTableCell")
-        
-    }
-    
     func scrollToMenuIndex(_ menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
-        self.selectedIndex = menuIndex
+        selectedIndex = menuIndex
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -296,7 +256,7 @@ class CollectionViewWithMenu: UIViewController {
         let indexPath = IndexPath(item: Int(index), section: 0)
         
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
-        self.selectedIndex = indexPath.item
+        selectedIndex = indexPath.item
     }
 
     
@@ -306,7 +266,6 @@ class CollectionViewWithMenu: UIViewController {
 extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return numberOfMenuTabs
     }
     
@@ -318,7 +277,10 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
         case .AbilityList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityListTableCell
             
-            cell.primaryAbilities = primaryAbilities
+            if let test = primaryAbilities {
+                cell.primaryAbilities = test
+            }
+//            cell.primaryAbilities = primaryAbilities
             cell.statusAbilities = statusAbilities
             cell.areaAbilities = areaAbilities
             cell.tableDelegate = self

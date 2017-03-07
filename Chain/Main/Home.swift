@@ -225,7 +225,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             
         })
         
-        ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
 
             self.animateTable()
     
@@ -790,10 +790,10 @@ extension Home: FilterDelegate, TavernViewDelegate {
     func didUpdate(_ sender: TavernView, tavern: String) {
         
         
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.async {
             
             let ref = FIREBASE_REF.child("tavern/\(tavern)")
-            ref.observeSingleEvent(of: .value, with: {  [unowned self] snapshot in
+            ref.observeSingleEvent(of: .value, with: { snapshot in
                 
                 var tavern = [Arcana]()
                 for item in snapshot.children {

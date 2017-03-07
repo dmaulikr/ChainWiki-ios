@@ -11,18 +11,28 @@ import UIKit
 
 class AbilityListDataSource: NSObject {
     
-    private let primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
+    private var primaryAbilities: [Unowned<Ability>]
+    private var statusAbilities: [Unowned<Ability>]
+    private var areaAbilities: [Unowned<Ability>]
     
-    private let statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
     
-    private let areaAbilities = [WasteLand(), Forest(), Cavern(), Desert(), Snow(), Urban(), Water(), Night()]
+    override init() {
+        
+        primaryAbilities = [Unowned(Mana()), Unowned(Treasure()), Unowned(Gold()), Unowned(Experience()), Unowned(APRecover()), Unowned(Sub()), Unowned(SkillUp()), Unowned(AttackUp()), Unowned(BossWave()), Unowned(ManaSlot()), Unowned(ManaChance()), Unowned(PartyHeal())]
+
+        statusAbilities = [Unowned(DarkImmune()), Unowned(DarkStrike()), Unowned(SlowImmune()), Unowned(SlowStrike()), Unowned(PoisonImmune()), Unowned(PoisonStrike()), Unowned(CurseImmune()), Unowned(CurseStrike()), Unowned(SkeletonImmune()), Unowned(SkeletonStrike()), Unowned(StunImmune()), Unowned(StunStrike()), Unowned(FrostImmune()), Unowned(FrostStrike()), Unowned(SealImmune()), Unowned(SealStrike())]
+        
+        areaAbilities = [Unowned(WasteLand()), Unowned(Forest()), Unowned(Cavern()), Unowned(Desert()), Unowned(Snow()), Unowned(Urban()), Unowned(Water()), Unowned(Night())]
+        
+        super.init()
+    }
     
     func getAbilityList() -> AbilityArray {
         
 
-        let abilityArray = AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
+//        let abilityArray = AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
         
-        return abilityArray
+        return AbilityArray(primary: primaryAbilities, status: statusAbilities, area: areaAbilities)
         //        if index == 0 {
         //            return (abilityArray, abilityImages)
         //        }
@@ -52,10 +62,12 @@ class AbilityListDataSource: NSObject {
 //      
 //        
 //    }
-    
+
     deinit {
         print("AbilityListDataSource has been deinited.")
-        
+        primaryAbilities = []
+        statusAbilities = []
+        areaAbilities = []
     }
     
 }
