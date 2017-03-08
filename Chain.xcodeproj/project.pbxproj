@@ -101,6 +101,7 @@
 		04F3CD891DA31E620026D5AF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3CD881DA31E620026D5AF /* CopyableLabel.swift */; };
 		04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA20F1E6F99A200E848B4 /* DataViewController.swift */; };
 		04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA2121E6F9D1B00E848B4 /* DataLink.swift */; };
+		04FAA2151E6FA2F800E848B4 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */; };
 		04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
@@ -244,6 +245,7 @@
 		04F3CD881DA31E620026D5AF /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		04FAA20F1E6F99A200E848B4 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataViewController.swift; path = Chain/DataViewController.swift; sourceTree = SOURCE_ROOT; };
 		04FAA2121E6F9D1B00E848B4 /* DataLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLink.swift; sourceTree = "<group>"; };
+		04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkViewController.swift; path = Chain/LinkViewController.swift; sourceTree = SOURCE_ROOT; };
 		04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -510,8 +512,9 @@
 		04FAA2111E6F99A800E848B4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				04FAA20F1E6F99A200E848B4 /* DataViewController.swift */,
 				04FAA2121E6F9D1B00E848B4 /* DataLink.swift */,
+				04FAA20F1E6F99A200E848B4 /* DataViewController.swift */,
+				04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */,
 			);
 			name = Data;
 			path = Tavern;
@@ -925,6 +928,7 @@
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
+				04FAA2151E6FA2F800E848B4 /* LinkViewController.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,

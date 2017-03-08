@@ -8,11 +8,13 @@
 
 import UIKit
 import SafariServices
-
+import Firebase
 
 class DataViewController: UIViewController {
 
     var dataLinks = [DataLink]()
+    private let ref = FIREBASE_REF.child("links")
+    private var refHandle: FIRDatabaseHandle?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -37,6 +39,12 @@ class DataViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard let handle = refHandle else { return }
+        ref.removeObserver(withHandle: handle)
+    }
+    
     func setupViews() {
         
         title = "자료"
@@ -50,11 +58,8 @@ class DataViewController: UIViewController {
     
     func observeLinks() {
         
-        let ref = FIREBASE_REF.child("links")
-        
-        ref.observe(.childAdded, with: { snapshot in
-            print(snapshot.value)
-            // each link will have two children. one for the link, one for the korean text to be displayed
+        refHandle = ref.observe(.childAdded, with: { snapshot in
+
             if let linkData = snapshot.value as? Dictionary<String, AnyObject> {
                 
                 if let linkURL = linkData["url"] as? String, let title = linkData["title"] as? String {
@@ -90,10 +95,13 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let link = dataLinks[indexPath.row].getURL()
-        if let url = URL(string: link) {
-            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-            present(vc, animated: true)
-        }
+        let title = dataLinks[indexPath.row].getTitle()
+        
+        guard let url = URL(string: link) else { return }
+        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        vc.title = title
+        navigationController?.pushViewController(vc, animated: true)
+        
         
     }
     
