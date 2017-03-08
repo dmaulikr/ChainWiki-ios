@@ -9,18 +9,25 @@ import UIKit
 
 class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    let tabTitles = ["아르카나", "어빌리티", "주점", "즐겨찾기"]
-    let tabIcons = [#imageLiteral(resourceName: "arcanaTab"), #imageLiteral(resourceName: "abilityTab"), #imageLiteral(resourceName: "tavern"), #imageLiteral(resourceName: "favorites")]
-    let storyboards = ["Main", "Ability", "Tavern", "Settings"]
-    let childVCs = ["HomeNav", "AbilityNav", "TavernNav", "FavoritesNav"]
+    private enum Tab: Int {
+        case Arcana
+        case Ability
+        case Tavern
+        case DataLink
+        case Favorites
+    }
+
+    let tabTitles = ["아르카나", "어빌리티", "주점", "자료", "즐겨찾기"]
+    let tabIcons = [#imageLiteral(resourceName: "arcanaTab"), #imageLiteral(resourceName: "abilityTab"), #imageLiteral(resourceName: "tavern"), #imageLiteral(resourceName: "openSite"), #imageLiteral(resourceName: "favorites")]
     
     var tabBarImageView: UIImageView!
     var imageViews = [UIImageView]()
+    
     override func viewDidLoad() {
-        
-        self.delegate = self
+        super.viewDidLoad()
+        delegate = self
         setupTabBar()
-        self.tabBar.tintColor = Color.lightGreen
+        tabBar.tintColor = Color.lightGreen
         
     }
     
@@ -29,62 +36,68 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         var views = [UIViewController]()
         // Setup Tab Bar Views
         
-        for (index, tab) in tabTitles.enumerated() {
+        for (index, title) in tabTitles.enumerated() {
             
-            switch index {
+            guard let tab = Tab(rawValue: index) else { return }
+            
+            switch tab {
                 
-            case 1: // Ability Tab
+            case .Arcana:
+                let vc = Home()
+                let child = UINavigationController(rootViewController: vc)
+                
+                child.tabBarItem.title = title
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+
+            case .Ability:
                 let vc = CollectionViewWithMenu()
                 let child = UINavigationController(rootViewController: vc)
-//                    child.navigationBar.isHidden = true
                 
-                child.tabBarItem.title = tab
+                child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
             
-            case 2: // Tavern Tab
+            case .Tavern:
                 let vc = CollectionViewWithMenu(menuType: .TavernList)
                 let child = UINavigationController(rootViewController: vc)
-//                    child.title = "주점"
-//                    child.navigationBar.isHidden = true
                 
-                child.tabBarItem.title = tab
+                child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
                 
-            case 3: // Favorites
+            case .DataLink:
+                let vc = DataViewController()
+                let child = UINavigationController(rootViewController: vc)
+                
+                child.tabBarItem.title = title
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+                
+            case .Favorites:
                 let vc = Favorites()
                 let child = UINavigationController(rootViewController: vc)
                 
-                child.tabBarItem.title = tab
+                child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
-                
-            default:
-                let currentStoryboard = UIStoryboard(name: storyboards[index], bundle:nil)
-                let child = currentStoryboard.instantiateViewController(withIdentifier: childVCs[index]) as! UINavigationController
-                
-                child.tabBarItem.title = tab
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-
-
             }
 
         }
 
-        self.viewControllers = views
+        viewControllers = views
         
         // Setup to-be-animated views
         for childView in tabBar.subviews {
             
             let tabBarItemView = childView
-            self.tabBarImageView = tabBarItemView.subviews.first as! UIImageView
-            self.tabBarImageView.contentMode = .center
+            tabBarImageView = tabBarItemView.subviews.first as! UIImageView
+            tabBarImageView.contentMode = .center
             imageViews.append(tabBarImageView)
 
         }
@@ -92,7 +105,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         
     }
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-
+//        super.tabBar(tabBar, didSelect: item)
         imageViews[item.tag].bounceAnimate()
 
         

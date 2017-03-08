@@ -62,10 +62,6 @@ struct Arcana: Equatable, Hashable {
         return uid.hashValue
     }
     
-    
-
-    
-    
     init?(u: String, nKR: String, nnKR: String, nJP: String, nnJP: String, r: String, g: String, t: String, a: String, c: String, w: String, kN: String, kC: String, kD: String, sC: String, sN1: String, sM1: String, sD1: String, sN2: String, sM2: String, sD2: String, sN3: String, sM3: String, sD3: String, aN1: String, aD1: String, aN2: String, aD2: String, v: Int) {
         
         uid = u
@@ -247,8 +243,6 @@ struct Arcana: Equatable, Hashable {
         return arcanaDict
         
     }
-    
-
     
 }
 

@@ -19,22 +19,22 @@ class SearchController: UISearchController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.customInit()
+        customInit()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.customInit()
+        customInit()
     }
     
     func customInit() {
-        self.hidesNavigationBarDuringPresentation = false
-        self.searchBar.searchBarStyle = .minimal
-        self.dimsBackgroundDuringPresentation = false
+        hidesNavigationBarDuringPresentation = false
+        searchBar.searchBarStyle = .minimal
+        dimsBackgroundDuringPresentation = false
         
         // KVO. potential future problems here.
-        self.searchBar.setValue("취소", forKey:"_cancelButtonText")
-        if let searchTextField = self.searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
+        searchBar.setValue("취소", forKey:"_cancelButtonText")
+        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
             searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
             searchIcon.tintColor = UIColor.white

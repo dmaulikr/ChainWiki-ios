@@ -24,6 +24,7 @@ class AbilityViewTableCell: BaseCollectionViewCell {
     var abilityType = ""
     
     override func setupViews() {
+        super.setupViews()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")

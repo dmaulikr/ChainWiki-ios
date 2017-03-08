@@ -17,6 +17,7 @@ class AbilityListTableCell: BaseCollectionViewCell {
     var areaAbilities = [Ability]()
     
     override func setupViews() {
+        super.setupViews()
         
         tableView.delegate = self
         tableView.dataSource = self

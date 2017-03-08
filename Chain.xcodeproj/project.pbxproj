@@ -99,6 +99,8 @@
 		04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF66AA1DB363D000E13370 /* SettingsCell.swift */; };
 		04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF66AC1DB3640200E13370 /* SettingsCell.xib */; };
 		04F3CD891DA31E620026D5AF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3CD881DA31E620026D5AF /* CopyableLabel.swift */; };
+		04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA20F1E6F99A200E848B4 /* DataViewController.swift */; };
+		04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA2121E6F9D1B00E848B4 /* DataLink.swift */; };
 		04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */; };
 		618D1B0D0E4CF6B80138C776 /* Pods_ChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C07E5E6F21968556D6ACA5 /* Pods_ChainUITests.framework */; };
 		781C1EFA08CB36191209ED35 /* Pods_ChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD31E6E1E167E52C1F627D7 /* Pods_ChainTests.framework */; };
@@ -240,6 +242,8 @@
 		04EF66AA1DB363D000E13370 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		04EF66AC1DB3640200E13370 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		04F3CD881DA31E620026D5AF /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		04FAA20F1E6F99A200E848B4 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataViewController.swift; path = Chain/DataViewController.swift; sourceTree = SOURCE_ROOT; };
+		04FAA2121E6F9D1B00E848B4 /* DataLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLink.swift; sourceTree = "<group>"; };
 		04FAF3561D948ADD0061726F /* UnderlinedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
 		1BAF675FCE57B957E684B58C /* Pods-ChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainUITests/Pods-ChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46B66FBB77D74CEB5A1B14A0 /* Pods-ChainTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChainTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChainTests/Pods-ChainTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 				046C93351D7582D6000E3FBD /* Arcana */,
 				0447E1D71D87D09500670834 /* Ability */,
 				04A3B1761D8E7B7500BBF297 /* Tavern */,
+				04FAA2111E6F99A800E848B4 /* Data */,
 				04A2ECC51D6F80BF00189142 /* Custom Views */,
 				045EF6A81DAB5DCA002148DD /* Settings */,
 				04A2ECC71D6F80D300189142 /* Model */,
@@ -499,6 +504,16 @@
 				04A3B1791D8E7C0D00BBF297 /* TavernCell.swift */,
 				047B6FB71D8ECC3F00083DAC /* TavernHeader.swift */,
 			);
+			path = Tavern;
+			sourceTree = "<group>";
+		};
+		04FAA2111E6F99A800E848B4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				04FAA20F1E6F99A200E848B4 /* DataViewController.swift */,
+				04FAA2121E6F9D1B00E848B4 /* DataLink.swift */,
+			);
+			name = Data;
 			path = Tavern;
 			sourceTree = "<group>";
 		};
@@ -867,6 +882,7 @@
 				040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */,
 				04B2B22C1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
+				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
@@ -902,6 +918,7 @@
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */,
 				042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */,
+				04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */,
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,

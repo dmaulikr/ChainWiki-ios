@@ -12,32 +12,42 @@ import AlamofireImage
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
 
+    private let ref = FIREBASE_REF.child("arcana")
+    private var arcanaRefHandle: FIRDatabaseHandle?
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 90
+        
+        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+
         return tableView
     }()
     
     let filterView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.alpha = 0
         return view
     }()
     
     let searchView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.alpha = 0
         return view
 
     }()
     
     // Initial setup
     var initialLoad = true
-    var initialAnimation = true
     var preventAnimation = Set<IndexPath>()
     
+    var searchController: SearchController? = SearchController(searchResultsController: nil)
+
     var showFilter: Bool = false {
         didSet {
             
@@ -50,8 +60,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 
         }
     }
-    
-    var searchController: UISearchController!
     
     var showSearch: Bool = false {
         didSet {
@@ -67,17 +75,109 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }
 
     
-    var arcanaArray = [Arcana]()
+    var arcanaArray: [Arcana] = []// = [Arcana]()//: [Unowned<Arcana>] = []
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
-    
     
     var gesture = UITapGestureRecognizer()
     var longPress = UILongPressGestureRecognizer()
     var filters = [String: [String]]()
     
+    init() {
+//        searchController = SearchController(searchResultsController: nil)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        setupNavBar()
+        setupSearchBar()
+        
+        syncArcana()
+        
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+            view.addGestureRecognizer(gesture)
+        }
+        
+        longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
+        panGestureRecognizer.delegate = self
+        gesture.cancelsTouchesInView = false
+        
+        
+        // Include the search bar within the navigation bar.
+        definesPresentationContext = true
+
+        navigationItem.titleView = searchController!.searchBar
+        
+        
+        AppRater.appRater.displayAlert()
+    }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchController?.isActive = false
+        
+    }
+    
+    
+    func setupViews() {
+        
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
+        
+        view.addSubview(tableView)
+        view.addSubview(filterView)
+        view.addSubview(searchView)
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
+        
+        setupChildViews()
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
+    }
+    
+    func setupChildViews() {
+        
+        // Setup FilterView
+        let filterMenu = Filter()
+        filterMenu.delegate = self
+        
+        addChildViewController(filterMenu)
+        
+        filterView.addSubview(filterMenu.view)
+        filterMenu.view.frame = filterView.frame
+        
+        // Setup SearchView
+        let searchHistory = SearchHistory()
+//        searchHistory.delegate = self
+        
+        addChildViewController(searchHistory)
+        
+        searchView.addSubview(searchHistory.view)
+        searchHistory.view.frame = searchView.frame
+    }
+
     func setupNavBar() {
         
         let filter = UIButton()
@@ -97,15 +197,25 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItems = [filterButton,sortButton]
     }
     
+    func setupSearchBar() {
+        
+        searchController?.searchResultsUpdater = self
+        searchController?.delegate = self
+        searchController?.searchBar.delegate = self
+    }
     @IBAction func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else {
             return
         }
         
-        if searchController.isActive {
-            searchController.isActive = false
+        
+        if let sc = searchController {
+            if sc.isActive {
+                sc.isActive = false
+            }
         }
+        
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
@@ -176,15 +286,22 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }
 
     @IBAction func filter(_ sender: AnyObject) {
+        
+        guard let searchController = searchController else { return }
+        
         if searchController.isActive {
             searchController.isActive = false
         }
         showFilter = !showFilter
+
+        
     }
 
     func dismissFilter(_ sender: AnyObject) {
         
         // If search is active and user presses bottom half, dismiss search.
+        guard let searchController = searchController else { return }
+        
         if searchController.searchBar.text?.characters.count == 0 && searchController.isActive && gesture.location(in: self.view).y > 220 {
             debugPrint("dismiss search")
             gesture.cancelsTouchesInView = true
@@ -207,13 +324,9 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    
-    
     func syncArcana() {
-
-        let ref = FIREBASE_REF.child("arcana")
         
-        ref.observe(.childAdded, with: { snapshot in
+        arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
 
@@ -223,6 +336,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
                     self.tableView.reloadData()
 //                    self?.animateTable()
                 }
+                
             }
             
             
@@ -234,8 +348,14 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
             self.tableView.reloadData()
             self.initialLoad = false
+            if let refHandle = self.arcanaRefHandle {
+                self.ref.removeObserver(withHandle: refHandle)
+                
+            }
+            
         })
-        
+ 
+        /*
         ref.observe(.childRemoved, with: { snapshot in
             print(snapshot.key)
             let uidToRemove = snapshot.key
@@ -283,108 +403,30 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             }
 
         })
+ */
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-        setupNavBar()
-
-        syncArcana()
-
-        tableView.estimatedRowHeight = 90
-//        tableView.rowHeight = UITableViewAutomaticDimension
-        showFilter = false
-        showSearch = false
-//        searchView.alpha = 0
-//        filterView.alpha = 0.0
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-            view.addGestureRecognizer(gesture)
-        }
-        
-        longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-        panGestureRecognizer.delegate = self
-        gesture.cancelsTouchesInView = false
-
-        searchController = SearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        
-        // Include the search bar within the navigation bar.
-        navigationItem.titleView = searchController.searchBar
-        
-        definesPresentationContext = true
-
-        AppRater.appRater.displayAlert()
-    }
-    
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: row, animated: true)
-        }
-        
-    }
-  
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        searchController.isActive = false
-    }
-    
-    
-    func setupViews() {
-        
-        view.addSubview(tableView)
-        view.addSubview(filterView)
-        view.addSubview(searchView)
-        
-        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
-        searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
-        
-        setupChildViews()
-        
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        
-    }
-    
-    func setupChildViews() {
-        
-        // Setup FilterView
-        let filterMenu = Filter()
-        filterMenu.delegate = self
-        
-        addChildViewController(filterMenu)
-        
-        filterView.addSubview(filterMenu.view)
-        filterMenu.view.frame = filterView.frame
-        
-        // Setup SearchView
-        let searchHistory = SearchHistory()
-//        searchHistory.delegate = self
-        
-        addChildViewController(searchHistory)
-        
-        searchView.addSubview(searchHistory.view)
-        searchHistory.view.frame = searchView.frame
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if (segue.identifier == "showArcana") {
             let arcana: Arcana
-            if  searchController.searchBar.text != "" {
-                arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-            } else {
+            
+            if let searchController = searchController {
+                
+                if  searchController.searchBar.text != "" {
+                    arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+                }
+                else {
+                    arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+                }
+
+            }
+            else {
                 arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
             }
+            
+            
             let vc = segue.destination as! ArcanaDetail
             vc.arcana = arcana
             self.view.isUserInteractionEnabled = true
@@ -486,16 +528,20 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             tableView.isUserInteractionEnabled = true
             tableView.fadeIn(withDuration: 0.2)
         }
-        if searchController.isActive && searchController.searchBar.text != "" {
-            
-            if self.searchArray.count == 0 {
-                self.tableView.alpha = 0
+        
+        if let searchController = searchController {
+            if searchController.isActive && searchController.searchBar.text != "" {
+                
+                if self.searchArray.count == 0 {
+                    self.tableView.alpha = 0
+                }
+                else {
+                    self.tableView.fadeIn(withDuration: 0.2)
+                }
+                
+                return searchArray.count
             }
-            else {
-                self.tableView.fadeIn(withDuration: 0.2)
-            }
-            
-            return searchArray.count
+
         }
         
         return arcanaArray.count
@@ -533,12 +579,17 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             
             let arcana: Arcana
             
-            if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
-                arcana = searchArray[indexPath.row]
-            } else {
+            if let searchController = searchController {
+                if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
+                    arcana = searchArray[indexPath.row]
+                } else {
+                    arcana = arcanaArray[indexPath.row]
+                }
+
+            }
+            else {
                 arcana = arcanaArray[indexPath.row]
             }
-            
             
             // check if arcana has only name, or nickname.
             if let nnKR = arcana.nickNameKR {
@@ -644,8 +695,6 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     func animateTable() {
         tableView.reloadData()
         
-        initialAnimation = false
-        
         let cells = tableView.visibleCells
         
         for i in cells {
@@ -693,6 +742,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { 
         
+        guard let searchController = searchController else { return }
         searchController.searchBar.resignFirstResponder()
     }
     

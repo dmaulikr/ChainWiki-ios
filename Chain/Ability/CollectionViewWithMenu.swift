@@ -26,7 +26,6 @@ class CollectionViewWithMenu: UIViewController {
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
     
-    var group = DispatchGroup()
     
     lazy var collectionView: UICollectionView = {
         
@@ -142,8 +141,10 @@ class CollectionViewWithMenu: UIViewController {
             
             var array = [Arcana]()
             
+            let group = DispatchGroup()
+
             for id in uid {
-                self.group.enter()
+                group.enter()
                 
                 let ref = FIREBASE_REF.child("arcana/\(id)")
                 
@@ -152,13 +153,13 @@ class CollectionViewWithMenu: UIViewController {
                         array.append(arcana)
                     }
                     
-                    self.group.leave()
+                    group.leave()
                     
                 })
                 
             }
             
-            self.group.notify(queue: DispatchQueue.main, execute: { [unowned self] in
+            group.notify(queue: DispatchQueue.main, execute: {
                 
                 self.arcanaArray = array
                 self.currentArray = array
@@ -212,6 +213,7 @@ class CollectionViewWithMenu: UIViewController {
     }
     
     func setupAbilityList() {
+        
         guard let menuType = menuType else { return }
         
         if menuType == .AbilityList {
@@ -220,6 +222,7 @@ class CollectionViewWithMenu: UIViewController {
             primaryAbilities = list.getPrimary()
             statusAbilities = list.getStatus()
             areaAbilities = list.getArea()
+            collectionView.reloadData()
             
         }
 
