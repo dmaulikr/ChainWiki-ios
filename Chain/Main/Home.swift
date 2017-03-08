@@ -95,19 +95,8 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         setupViews()
         setupNavBar()
         setupSearchBar()
-        
-        syncArcana()
-        
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-            view.addGestureRecognizer(gesture)
-        }
-        
-        longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-        panGestureRecognizer.delegate = self
-        gesture.cancelsTouchesInView = false
+        setupGestures()
+//        syncArcana()
         
         AppRater.appRater.displayAlert()
     }
@@ -197,6 +186,20 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    func setupGestures() {
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            gesture = UITapGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+            view.addGestureRecognizer(gesture)
+        }
+        
+        longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
+        panGestureRecognizer.delegate = self
+        gesture.cancelsTouchesInView = false
+
+    }
+    
     func syncArcana() {
         
         arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
@@ -273,9 +276,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
     func sort(_ sender: AnyObject) {
         
-        guard let button = sender as? UIView else {
-            return
-        }
+        guard let button = sender as? UIView else { return }
         
         if searchController.isActive {
             searchController.isActive = false
@@ -342,8 +343,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             presenter.sourceView = button
             presenter.sourceRect = button.bounds
         }
-        
-
         
         present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = Color.salmon
@@ -460,7 +459,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
   
 }
 
-// MARK: UITableViewDelegate, UITableViewDataSource
 extension Home: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -674,7 +672,6 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     public func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
@@ -690,19 +687,15 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
         tableView.reloadData()
     }
     
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { 
         
         searchController.searchBar.resignFirstResponder()
     }
     
     func didPresentSearchController(_ searchController: UISearchController) {
-        
         showSearch = true
         showFilter = false
-
     }
-    
     
     func didDismissSearchController(_ searchController: UISearchController) {
         showSearch = false
@@ -712,6 +705,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
 
 // MARK: FilterDelegate, TavernViewDelegate
 extension Home: FilterDelegate, TavernViewDelegate {
+    
     func didUpdate(_ sender: Filter) {
         DispatchQueue.main.async {
             
@@ -798,9 +792,11 @@ extension Home: FilterDelegate, TavernViewDelegate {
                 }
                 
                 self.arcanaArray = Array(finalFilter)
-                self.tableView.reloadData()
-                self.tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-
+                
+                if self.arcanaArray.count > 0 {
+                    self.tableView.reloadData()
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
             }
             
         }

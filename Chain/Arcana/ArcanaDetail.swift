@@ -466,6 +466,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case Edit
         
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 8
     }

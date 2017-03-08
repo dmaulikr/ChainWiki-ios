@@ -65,9 +65,9 @@ class Favorites: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         downloadFavorites()
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: row, animated: true)
-        }
+        guard let row = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: row, animated: true)
+        
     }
 
     func setupViews() {
@@ -202,7 +202,7 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         }
         else {
             tipLabel.fadeOut(withDuration: 0.2)
-            tableView.alpha = 1
+            tableView.fadeIn(withDuration: 0.5)
         }
         
         return array.count

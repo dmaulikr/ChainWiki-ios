@@ -30,6 +30,8 @@ class RarityCell: UICollectionViewCell {
     
     func setupViews() {
         
+        backgroundColor = .white
+        
         let backgroundView = UIView()
         backgroundView.backgroundColor = Color.lightGreen
         selectedBackgroundView = backgroundView
@@ -42,7 +44,6 @@ class RarityCell: UICollectionViewCell {
         addSubview(stackView)
         
         stackView.anchorCenterSuperview()
-        
         
     }
     

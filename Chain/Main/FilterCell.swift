@@ -14,11 +14,14 @@ class FilterCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 14)
         label.textColor = Color.textGray
+        label.highlightedTextColor = .white
         return label
     }()
     
     func setupViews() {
         
+        backgroundColor = .white
+
         let backgroundView = UIView()
         backgroundView.backgroundColor = Color.lightGreen
         selectedBackgroundView = backgroundView

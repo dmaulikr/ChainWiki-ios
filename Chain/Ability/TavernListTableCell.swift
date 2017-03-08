@@ -23,8 +23,6 @@ class TavernListTableCell: BaseCollectionViewCell {
             tableView.reloadData()
         }
     }
-//    var tavernNames = [String]()
-//    var abilityImages = [UIImage]()
     
     private let tavernNamesPart1 = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구"]
     
@@ -35,6 +33,8 @@ class TavernListTableCell: BaseCollectionViewCell {
     var currentArray = [String]()
     
     override func setupViews() {
+        super.setupViews()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TavernListCell", bundle: nil), forCellReuseIdentifier: "TavernListCell")
@@ -43,7 +43,6 @@ class TavernListTableCell: BaseCollectionViewCell {
 }
 
 extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentArray.count
