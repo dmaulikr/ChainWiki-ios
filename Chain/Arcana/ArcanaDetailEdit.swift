@@ -143,65 +143,65 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
         switch indexPath.row {
             
         case 0:
-            cell.attribute.text = arcana.nameKR
+            cell.attribute.text = arcana.getNameKR()
         case 1:
-            cell.attribute.text = arcana.nickNameKR
+            cell.attribute.text = arcana.getNicknameKR()
         case 2:
-            cell.attribute.text = arcana.nameJP
+            cell.attribute.text = arcana.getNameJP()
         case 3:
-            cell.attribute.text = arcana.nickNameJP
+            cell.attribute.text = arcana.getNicknameJP()
         case 4:
-            cell.attribute.text = arcana.skillName1
+            cell.attribute.text = arcana.getSkillName1()
         case 5:
-            cell.attribute.text = arcana.skillMana1
+            cell.attribute.text = arcana.getSkillMana1()
         case 6:
-            cell.attribute.text = arcana.skillDesc1
+            cell.attribute.text = arcana.getSkillDesc1()
         case 7,8,9:
-            if arcana.skillCount == "1" {
+            if arcana.getSkillCount() == "1" {
                 cell.isUserInteractionEnabled = false
                 cell.attribute.text = nil
             }
             else {
                 switch indexPath.row {
                 case 7:
-                    cell.attribute.text = arcana.skillName2
+                    cell.attribute.text = arcana.getSkillName2()
                 case 8:
-                    cell.attribute.text = arcana.skillMana2
+                    cell.attribute.text = arcana.getSkillMana2()
                 default:
-                    cell.attribute.text = arcana.skillDesc2
+                    cell.attribute.text = arcana.getSkillDesc2()
                 }
                 
             }
         case 10,11,12:
-            if arcana.skillCount != "3" {
+            if arcana.getSkillCount() != "3" {
                 cell.isUserInteractionEnabled = false
                 cell.attribute.text = nil
             }
             else {
                 switch indexPath.row {
                 case 10:
-                    cell.attribute.text = arcana.skillName3
+                    cell.attribute.text = arcana.getSkillName3()
                 case 11:
-                    cell.attribute.text = arcana.skillMana3
+                    cell.attribute.text = arcana.getSkillMana3()
                 default:
-                    cell.attribute.text = arcana.skillDesc3
+                    cell.attribute.text = arcana.getSkillDesc3()
                 }
             }
             
         case 13:
-            cell.attribute.text = arcana.abilityName1
+            cell.attribute.text = arcana.getAbilityName1()
         case 14:
-            cell.attribute.text = arcana.abilityDesc1
+            cell.attribute.text = arcana.getAbilityDesc1()
         case 15:
-            cell.attribute.text = arcana.abilityName2
+            cell.attribute.text = arcana.getAbilityName2()
         case 16:
-            cell.attribute.text = arcana.abilityDesc2
+            cell.attribute.text = arcana.getAbilityDesc2()
         case 17:
-            cell.attribute.text = arcana.kizunaName
+            cell.attribute.text = arcana.getKizunaName()
         case 18:
-            cell.attribute.text = arcana.kizunaCost
+            cell.attribute.text = arcana.getKizunaCost()
         default:
-            cell.attribute.text = arcana.kizunaDesc
+            cell.attribute.text = arcana.getKizunaDesc()
             
         }
         
@@ -265,7 +265,7 @@ class ArcanaDetailEdit: UIViewController, UITableViewDelegate, UITableViewDataSo
 
         }
 
-        self.title = arcana?.nameKR
+        self.title = arcana?.getNameKR()
         self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has
     }

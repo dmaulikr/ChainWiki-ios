@@ -111,7 +111,7 @@ extension SearchHistory: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaTextCell") as! ArcanaTextCell
-        cell.nameLabel.text = arcanaArray[indexPath.row].nameKR
+        cell.nameLabel.text = arcanaArray[indexPath.row].getNameKR()
         return cell
     }
     

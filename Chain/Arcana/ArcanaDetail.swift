@@ -53,7 +53,7 @@ class ArcanaDetail: UIViewController {
         
         
         if let arcana = arcana {
-//            let nKR = arcana.nameKR
+//            let nKR = arcana.getNameKR()
             let uid = arcana.uid
             recents = defaults.getRecent()
             
@@ -139,7 +139,7 @@ class ArcanaDetail: UIViewController {
         guard let arcana = arcana else {
             return
         }
-        self.title = "\(arcana.nameKR)"
+        self.title = "\(arcana.getNameKR())"
 //        self.tableView.backgroundColor = UIColor.white
     }
     
@@ -484,7 +484,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             // Returning 2 * skillCount for description.
             
-            switch arcana.skillCount {
+            switch arcana.getSkillCount() {
             case "1":
                 return 2
             case "2":
@@ -497,13 +497,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case 3:    // Arcana abilities. TODO: Check for 0, 1, 2 abilities.
             
-            if let _ = arcana.partyAbility {
+            if let _ = arcana.getPartyAbility() {
                 return 6
             }
-            else if let _ = arcana.abilityName2 {    // has 2 abilities
+            else if let _ = arcana.getAbilityName2() {    // has 2 abilities
                 return 4
             }
-            else if let _ = arcana.abilityName1 {  // has only 1 ability
+            else if let _ = arcana.getAbilityName1() {  // has only 1 ability
                 return 2
             }
             else {
@@ -515,17 +515,17 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case 5:    // chainstory, chainstone
             var count = 0
-            if let _ = arcana.chainStory {
+            if let _ = arcana.getChainStory() {
                 count += 1
             }
-            if let _ = arcana.chainStone {
+            if let _ = arcana.getChainStone() {
                 count += 1
             }
             
             return count
             
         case 6: // tavern, (date added)
-            if arcana.tavern == "" {
+            if arcana.getTavern() == "" {
                 return 0
             }
             else {
@@ -639,9 +639,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaButtons") as! ArcanaButtonsCell
-                if let likes = arcana.numberOfLikes {
-                    cell.numberOfLikes.text = "\(likes)"
-                }
+                
+                cell.numberOfLikes.text = "\(arcana.getNumberOfLikes())"
                 
                 cell.heart.tag = 0
                 cell.heart.addTarget(self, action: #selector(ArcanaDetail.toggleHeart), for: .touchUpInside)
@@ -686,24 +685,24 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
             case 0:
                 attributeKey = "이름"
-                if let nnKR = arcana.nickNameKR, let nnJP = arcana.nickNameJP {
-                    attributeValue = "\(nnKR) \(arcana.nameKR)\n\(nnJP) \(arcana.nameJP)"
+                if let nnKR = arcana.getNicknameKR(), let nnJP = arcana.getNicknameJP() {
+                    attributeValue = "\(nnKR) \(arcana.getNameKR())\n\(nnJP) \(arcana.getNameJP())"
                 }
                 else {
-                    attributeValue = "\(arcana.nameKR)\n\(arcana.nameJP)"
+                    attributeValue = "\(arcana.getNameKR())\n\(arcana.getNameJP())"
                 }
                 
                 
                 
             case 1:
                 attributeKey = "레어"
-                attributeValue = getRarityLong(arcana.rarity)
+                attributeValue = getRarityLong(arcana.getRarity())
             case 2:
                 attributeKey = "직업"
-                attributeValue = arcana.group
+                attributeValue = arcana.getGroup()
             case 3:
                 attributeKey = "소속"
-                if let a = arcana.affiliation {
+                if let a = arcana.getAffiliation() {
                     if a == "" {
                         attributeValue = "정보 없음"
                     }
@@ -716,10 +715,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 }
             case 4:
                 attributeKey = "코스트"
-                attributeValue = arcana.cost
+                attributeValue = arcana.getCost()
             case 5:
                 attributeKey = "무기"
-                attributeValue = arcana.weapon
+                attributeValue = arcana.getWeapon()
                 
             default:
                 break
@@ -749,17 +748,17 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                     
                 case 0:
                     headerCell.skillNumber.text = "스킬 1"
-                    headerCell.skillName.text = arcana.skillName1
-                    headerCell.skillMana.text = arcana.skillMana1
+                    headerCell.skillName.text = arcana.getSkillName1()
+                    headerCell.skillMana.text = arcana.getSkillMana1()
                     
                 case 2:
                     headerCell.skillNumber.text = "스킬 2"
-                    headerCell.skillName.text = arcana.skillName2
-                    headerCell.skillMana.text = arcana.skillMana2
+                    headerCell.skillName.text = arcana.getSkillName2()
+                    headerCell.skillMana.text = arcana.getSkillMana2()
                 default:
                     headerCell.skillNumber.text = "스킬 3"
-                    headerCell.skillName.text = arcana.skillName3
-                    headerCell.skillMana.text = arcana.skillMana3
+                    headerCell.skillName.text = arcana.getSkillName3()
+                    headerCell.skillMana.text = arcana.getSkillMana3()
                     
                 }
                 
@@ -775,11 +774,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
                 switch (indexPath as NSIndexPath).row {
                 case 1:
-                    descCell.skillAbilityDesc.text = arcana.skillDesc1
+                    descCell.skillAbilityDesc.text = arcana.getSkillDesc1()
                 case 3:
-                    descCell.skillAbilityDesc.text = arcana.skillDesc2
+                    descCell.skillAbilityDesc.text = arcana.getSkillDesc2()
                 default:
-                    descCell.skillAbilityDesc.text = arcana.skillDesc3
+                    descCell.skillAbilityDesc.text = arcana.getSkillDesc3()
                     
                 }
                 descCell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
@@ -802,19 +801,19 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     cell.attributeKey.text = "어빌 1"
-                    if arcana.abilityName1 == "" {
+                    if arcana.getAbilityName1() == "" {
                         cell.attributeValue.text = " "
                     }
                     else {
-                        cell.attributeValue.text = arcana.abilityName1
+                        cell.attributeValue.text = arcana.getAbilityName1()
                     }
                 case 2:
                     cell.attributeKey.text = "어빌 2"
-                    if arcana.abilityName2 == "" {
+                    if arcana.getAbilityName2() == "" {
                         cell.attributeValue.text = " "
                     }
                     else {
-                        cell.attributeValue.text = arcana.abilityName2
+                        cell.attributeValue.text = arcana.getAbilityName2()
                     }
                 default:
                     cell.attributeKey.text = "파티 어빌"
@@ -831,11 +830,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
                 switch indexPath.row {
                 case 1:
-                    cell.skillAbilityDesc.text = arcana.abilityDesc1
+                    cell.skillAbilityDesc.text = arcana.getAbilityDesc1()
                 case 3:
-                    cell.skillAbilityDesc.text = arcana.abilityDesc2
+                    cell.skillAbilityDesc.text = arcana.getAbilityDesc2()
                 default:
-                    cell.skillAbilityDesc.text = arcana.partyAbility
+                    cell.skillAbilityDesc.text = arcana.getPartyAbility()
                     
                 }
 
@@ -849,15 +848,15 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaSkill") as! ArcanaSkillCell
                 cell.skillNumber.text = "인연"
                 cell.skillManaCost.text = "코스트"
-                cell.skillName.text = arcana.kizunaName
-                cell.skillMana.text = arcana.kizunaCost
+                cell.skillName.text = arcana.getKizunaName()
+                cell.skillMana.text = arcana.getKizunaCost()
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
                 
             }
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-                cell.skillAbilityDesc.text = arcana.kizunaDesc
+                cell.skillAbilityDesc.text = arcana.getKizunaDesc()
                 cell.skillAbilityDesc.setLineHeight(lineHeight: 1.2)
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
@@ -867,13 +866,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             switch indexPath.row {
             case 0:
-                if let cStory = arcana.chainStory {
+                if let cStory = arcana.getChainStory() {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                     cell.storyKey.text = "체인스토리"
                     cell.storyAttribute.text = cStory
                     cell.layoutMargins = UIEdgeInsets.zero
                     return cell
-                } else if let cStone = arcana.chainStone {
+                } else if let cStone = arcana.getChainStone() {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                     cell.storyKey.text = "정령석 보상"
                     cell.storyAttribute.text = cStone
@@ -885,7 +884,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             default:
-                if let cStone = arcana.chainStone {
+                if let cStone = arcana.getChainStone() {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "chainStory") as! ArcanaChainStory
                     cell.storyKey.text = "정령석 보상"
                     cell.storyAttribute.text = cStone
@@ -903,7 +902,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
             cell.attributeKey.text = "출현 장소"
-            cell.attributeValue.text = arcana.tavern
+            cell.attributeValue.text = arcana.getTavern()
             return cell
             
         default:

@@ -222,7 +222,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
-            self.arcanaArray = self.arcanaArray.sorted(by: {($0.nameKR) < ($1.nameKR)})
+            self.arcanaArray = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
 //            self.tableView.reloadData()
             self.animateTable()
             
@@ -592,28 +592,28 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             }
             
             // check if arcana has only name, or nickname.
-            if let nnKR = arcana.nickNameKR {
+            if let nnKR = arcana.getNicknameKR() {
                 cell.arcanaNickKR.text = nnKR
                 cell.arcanaNickKR.textColor = UIColor.black
             }
-            if let nnJP = arcana.nickNameJP {
+            if let nnJP = arcana.getNicknameJP() {
                 
                 cell.arcanaNickJP.text = nnJP
                 cell.arcanaNickJP.textColor = Color.textGray
             }
-            cell.arcanaNameKR.text = arcana.nameKR
+            cell.arcanaNameKR.text = arcana.getNameKR()
             cell.arcanaNameKR.textColor = UIColor.black
-            cell.arcanaNameJP.text = arcana.nameJP
+            cell.arcanaNameJP.text = arcana.getNameJP()
             cell.arcanaNameJP.textColor = Color.textGray
             
-            cell.arcanaRarity.text = "#\(arcana.rarity)★"
+            cell.arcanaRarity.text = "#\(arcana.getRarity())★"
             cell.arcanaRarity.textColor = Color.lightGreen
-            cell.arcanaGroup.text = "#\(arcana.group)"
+            cell.arcanaGroup.text = "#\(arcana.getGroup())"
             cell.arcanaGroup.textColor = Color.lightGreen
-            cell.arcanaWeapon.text = "#\(arcana.weapon)"
+            cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
             cell.arcanaWeapon.textColor = Color.lightGreen
             
-            if let a = arcana.affiliation {
+            if let a = arcana.getAffiliation() {
                 if a != "" {
                     cell.arcanaAffiliation.text = "#\(a)"
                     cell.arcanaAffiliation.textColor = Color.lightGreen
@@ -621,7 +621,7 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
                 
             }
             
-            cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
+            cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
             cell.numberOfViews.textColor = Color.lightGreen
             
             cell.arcanaUID = arcana.uid
@@ -733,7 +733,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
         }
         
         searchArray = originalArray.filter { arcana in
-            return arcana.nameKR.contains(searchText) || arcana.nameJP.contains(searchText)
+            return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
         }
         
         tableView.reloadData()
@@ -788,7 +788,7 @@ extension Home: FilterDelegate, TavernViewDelegate {
                     
                     for rarity in r {
                         print("FOR RARITY \(rarity)")
-                        let filteredRarity = self.originalArray.filter({$0.rarity == rarity})
+                        let filteredRarity = self.originalArray.filter({$0.getRarity() == rarity})
                         
                         raritySet = raritySet.union(Set(filteredRarity))
                     }
@@ -801,7 +801,7 @@ extension Home: FilterDelegate, TavernViewDelegate {
                     
                     for group in g {
                         print(group)
-                        let filteredGroup = self.originalArray.filter({$0.group == group})
+                        let filteredGroup = self.originalArray.filter({$0.getGroup() == group})
                         groupSet = groupSet.union(Set(filteredGroup))
                     }
                     
@@ -811,7 +811,7 @@ extension Home: FilterDelegate, TavernViewDelegate {
                 if let w = self.filters["weapon"] {
                     
                     for weapon in w {
-                        let filteredWeapon = self.originalArray.filter({$0.weapon[$0.weapon.startIndex] == weapon[weapon.startIndex]})
+                        let filteredWeapon = self.originalArray.filter({$0.getWeapon()[$0.getWeapon().startIndex] == weapon[weapon.startIndex]})
                         weaponSet = weaponSet.union(Set(filteredWeapon))
                     }
                     
@@ -821,7 +821,7 @@ extension Home: FilterDelegate, TavernViewDelegate {
                 if let a = self.filters["affiliation"] {
                     
                     for affiliation in a {
-                        let filteredAffiliation = self.originalArray.filter({$0.affiliation != nil && $0.affiliation!.contains(affiliation)})
+                        let filteredAffiliation = self.originalArray.filter({$0.getAffiliation() != nil && $0.getAffiliation()!.contains(affiliation)})
                         affiliationSet = affiliationSet.union(Set(filteredAffiliation))
                     }
                     

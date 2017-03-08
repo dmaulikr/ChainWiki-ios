@@ -63,29 +63,29 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
         let arcana = currentArray[indexPath.row]
         
         // check if arcana has only name, or nickname.
-        if let nnKR = arcana.nickNameKR {
+        if let nnKR = arcana.getNicknameKR() {
             cell.arcanaNickKR.text = nnKR
         }
-        if let nnJP = arcana.nickNameJP {
+        if let nnJP = arcana.getNicknameJP() {
             
             cell.arcanaNickJP.text = nnJP
             
         }
-        cell.arcanaNameKR.text = arcana.nameKR
-        cell.arcanaNameJP.text = arcana.nameJP
+        cell.arcanaNameKR.text = arcana.getNameKR()
+        cell.arcanaNameJP.text = arcana.getNameJP()
         
-        cell.arcanaRarity.text = "#\(arcana.rarity)★"
-        cell.arcanaGroup.text = "#\(arcana.group)"
-        cell.arcanaWeapon.text = "#\(arcana.weapon)"
-        if let a = arcana.affiliation {
+        cell.arcanaRarity.text = "#\(arcana.getRarity())★"
+        cell.arcanaGroup.text = "#\(arcana.getGroup())"
+        cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
+        if let a = arcana.getAffiliation() {
             if a != "" {
                 cell.arcanaAffiliation.text = "#\(a)"
             }
             
         }
         
-        cell.numberOfViews.text = "조회 \(arcana.numberOfViews)"
-        cell.arcanaUID = arcana.uid
+        cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+        cell.arcanaUID = arcana.getUID()
         // Check cache first
         if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
             

@@ -81,51 +81,52 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         
         cell.key.text = keys[indexPath.row]
         
+        /*
         switch indexPath.row {
             
         case 0:
-            cell.attribute.text = arcana.arcana.nameKR
+            cell.attribute.text = arcana.getNameKR()
         case 1:
-            cell.attribute.text = arcana.arcana.nickNameKR
+            cell.attribute.text = arcana.getNicknameKR()
         case 2:
-            cell.attribute.text = arcana.arcana.nameJP
+            cell.attribute.text = arcana.getNameJP()
         case 3:
-            cell.attribute.text = arcana.arcana.nickNameJP
+            cell.attribute.text = arcana.getNicknameJP()
         case 4:
-            cell.attribute.text = arcana.arcana.skillName1
+            cell.attribute.text = arcana.getSkillName1()
         case 5:
-            cell.attribute.text = arcana.arcana.skillMana1
+            cell.attribute.text = arcana.getSkillMana1()
         case 6:
-            cell.attribute.text = arcana.arcana.skillDesc1
+            cell.attribute.text = arcana.getSkillDesc1()
         case 7:
-            cell.attribute.text = arcana.arcana.skillName2
+            cell.attribute.text = arcana.getSkillName2()
         case 8:
-            cell.attribute.text = arcana.arcana.skillMana2
+            cell.attribute.text = arcana.getSkillMana2()
         case 9:
-            cell.attribute.text = arcana.arcana.skillDesc2
+            cell.attribute.text = arcana.getSkillDesc2()
         case 10:
-            cell.attribute.text = arcana.arcana.skillName3
+            cell.attribute.text = arcana.getSkillName3()
         case 11:
-            cell.attribute.text = arcana.arcana.skillMana3
+            cell.attribute.text = arcana.getSkillMana3()
         case 12:
-            cell.attribute.text = arcana.arcana.skillDesc3
+            cell.attribute.text = arcana.getSkillDesc3()
         case 13:
-            cell.attribute.text = arcana.arcana.abilityName1
+            cell.attribute.text = arcana.getAbilityName1()
         case 14:
-            cell.attribute.text = arcana.arcana.abilityDesc1
+            cell.attribute.text = arcana.getAbilityDesc1()
         case 15:
-            cell.attribute.text = arcana.arcana.abilityName2
+            cell.attribute.text = arcana.getAbilityName2()
         case 16:
-            cell.attribute.text = arcana.arcana.abilityDesc2
+            cell.attribute.text = arcana.getAbilityDesc2()
         case 17:
-            cell.attribute.text = arcana.arcana.kizunaName
+            cell.attribute.text = arcana.getKizunaName()
         case 18:
-            cell.attribute.text = arcana.arcana.kizunaCost
+            cell.attribute.text = arcana.getKizunaCost()
         default:
-            cell.attribute.text = arcana.arcana.kizunaDesc
+            cell.attribute.text = arcana.getKizunaDesc()
             
         }
-        
+        */
         cell.attribute.tag = indexPath.row
         cell.attribute.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         return cell
@@ -149,7 +150,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "ArcanaDetailEditCell", bundle: nil), forCellReuseIdentifier: "arcanaDetailEditCell")
         
-        self.title = arcana?.arcana.nameKR
+//        self.title = arcana?.getNameKR()
         self.hideKeyboardWhenTappedAround()
         // count number of attributes the arcana has
     }

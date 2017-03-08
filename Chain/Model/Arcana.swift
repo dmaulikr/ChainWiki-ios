@@ -11,107 +11,59 @@ import Firebase
 struct Arcana: Equatable, Hashable {
     
     var uid: String
-    var nameKR: String
-    var nickNameKR: String?
-    var nameJP: String
-    var nickNameJP: String?
-    var rarity: String
-    var group: String  // Class, 직업
-    var tavern: String  // 주점
-    var affiliation: String? // 소속
-    var cost: String
-    var weapon: String
+    private var nameKR: String
+    private var nickNameKR: String?
+    private var nameJP: String
+    private var nickNameJP: String?
+    private var rarity: String
+    private var group: String  // Class, 직업
+    private var tavern: String  // 주점
+    private var affiliation: String? // 소속
+    private var cost: String
+    private var weapon: String
 
-    var kizunaName: String
-    var kizunaCost: String
-    var kizunaDesc: String
+    private var kizunaName: String
+    private var kizunaCost: String
+    private var kizunaDesc: String
     
-    var skillCount : String
+    private var skillCount : String
     
-    var skillName1 : String
-    var skillMana1 : String
-    var skillDesc1 : String
+    private var skillName1 : String
+    private var skillMana1 : String
+    private var skillDesc1 : String
     
-    var skillName2 : String?
-    var skillMana2 : String?
-    var skillDesc2 : String?
+    private var skillName2 : String?
+    private var skillMana2 : String?
+    private var skillDesc2 : String?
     
-    var skillName3 : String?
-    var skillMana3 : String?
-    var skillDesc3 : String?
+    private var skillName3 : String?
+    private var skillMana3 : String?
+    private var skillDesc3 : String?
     
     
-    var abilityName1: String?
-    var abilityDesc1: String?
+    private var abilityName1: String?
+    private var abilityDesc1: String?
     
-    var abilityName2: String?
-    var abilityDesc2: String?
+    private var abilityName2: String?
+    private var abilityDesc2: String?
     
-    var abilityName3: String?
-    var abilityDesc3: String?
+    private var abilityName3: String?
+    private var abilityDesc3: String?
     
-    var partyAbility: String?
+    private var partyAbility: String?
     
-    var numberOfViews: Int
-    var dateAdded: String?
-    var chainStory: String?
-    var chainStone: String?
-    var numberOfLikes: Int?
+    private var numberOfViews: Int
+    private var dateAdded: String?
+    private var chainStory: String?
+    private var chainStone: String?
+    private var numberOfLikes: Int
     
     var hashValue: Int {
         return uid.hashValue
     }
-    
-    init?(u: String, nKR: String, nnKR: String, nJP: String, nnJP: String, r: String, g: String, t: String, a: String, c: String, w: String, kN: String, kC: String, kD: String, sC: String, sN1: String, sM1: String, sD1: String, sN2: String, sM2: String, sD2: String, sN3: String, sM3: String, sD3: String, aN1: String, aD1: String, aN2: String, aD2: String, v: Int) {
-        
-        uid = u
-        nameKR = nKR
-        nickNameKR = nnKR
-        nameJP = nJP
-        nickNameJP = nnJP
-        rarity = r
-        group = g
-        tavern = t
-        affiliation = a
-        cost = c
-        weapon = w
-        
-        kizunaName  = kN
-        kizunaCost = kC
-        kizunaDesc = kD
-        
-        skillCount = sC
-        
-        skillName1 = sN1
-        skillMana1 = sM1
-        skillDesc1 = sD1
-        
-        skillName2 = sN2
-        skillMana2 = sM2
-        skillDesc2 = sD2
-        
-        skillName3 = sN3
-        skillMana3 = sM3
-        skillDesc3 = sD3
-        
-        abilityName1 = aN1
-        abilityDesc1 = aD1
-        
-        abilityName2 = aN2
-        abilityDesc2 = aD2
-        
-        numberOfViews = v
-        
-        
-    }
-    
 
- 
     init?(snapshot: FIRDataSnapshot) {
-        
-//        if let a = snapshot.value as? NSDictionary {
-//            let b = a["uid"] as? String
-//        }
+
         guard let u = (snapshot.value as? NSDictionary)?["uid"] as? String, let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String, let nJP = (snapshot.value as? NSDictionary)?["nameJP"] as? String, let r = (snapshot.value as? NSDictionary)?["rarity"] as? String, let g = (snapshot.value as? NSDictionary)?["class"] as? String, let t = (snapshot.value as? NSDictionary)?["tavern"] as? String, let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String, let c = (snapshot.value as? NSDictionary)?["cost"] as? String, let w = (snapshot.value as? NSDictionary)?["weapon"] as? String, let kN = (snapshot.value as? NSDictionary)?["kizunaName"] as? String, let kC = (snapshot.value as? NSDictionary)?["kizunaCost"] as? String, let kD = (snapshot.value as? NSDictionary)?["kizunaDesc"] as? String, let sC = (snapshot.value as? NSDictionary)?["skillCount"] as? String, let sN1 = (snapshot.value as? NSDictionary)?["skillName1"] as? String, let sM1 = (snapshot.value as? NSDictionary)?["skillMana1"] as? String, let sD1 = (snapshot.value as? NSDictionary)?["skillDesc1"] as? String, let v = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int else {
                 print("COULD NOT GET SNAPSHOT OF 1 SKILL ARCANA")
             print(snapshot.ref)
@@ -140,10 +92,8 @@ struct Arcana: Equatable, Hashable {
             skillDesc1 = sD1
             
             numberOfViews = v
-        
-        if let likes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int {
-            numberOfLikes = likes
-        }
+            numberOfLikes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int ?? 0
+
         if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
             nickNameKR = nnKR
         }
@@ -242,6 +192,150 @@ struct Arcana: Equatable, Hashable {
         
         return arcanaDict
         
+    }
+    
+    func getUID() -> String {
+        return uid
+    }
+    
+    func getNameKR() -> String {
+        return nameKR
+    }
+    
+    func getNicknameKR() -> String? {
+        return nickNameKR
+    }
+    
+    func getNameJP() -> String {
+        return nameJP
+    }
+    
+    func getNicknameJP() -> String? {
+        return nickNameJP
+    }
+    
+    func getRarity() -> String {
+        return rarity
+    }
+    
+    func getGroup() -> String {
+        return group
+    }
+    
+    func getTavern() -> String {
+        return tavern
+    }
+    
+    func getAffiliation() -> String? {
+        return affiliation
+    }
+    
+    func getCost() -> String {
+        return cost
+    }
+    
+    func getWeapon() -> String {
+        return weapon
+    }
+    
+    func getKizunaName() -> String {
+        return kizunaName
+    }
+    
+    func getKizunaCost() -> String {
+        return kizunaCost
+    }
+    
+    func getKizunaDesc() -> String {
+        return nameJP
+    }
+    
+    func getSkillCount() -> String {
+        return skillCount
+    }
+    
+    func getSkillName1() -> String {
+        return skillName1
+    }
+    
+    func getSkillMana1() -> String {
+        return skillMana1
+    }
+    
+    func getSkillDesc1() -> String {
+        return skillDesc1
+    }
+    
+    func getSkillName2() -> String? {
+        return skillName2
+    }
+    
+    func getSkillMana2() -> String? {
+        return skillMana2
+    }
+    
+    func getSkillDesc2() -> String? {
+        return skillDesc2
+    }
+    
+    func getSkillName3() -> String? {
+        return skillDesc3
+    }
+    
+    func getSkillMana3() -> String? {
+        return skillMana3
+    }
+    
+    func getSkillDesc3() -> String? {
+        return skillDesc3
+    }
+    
+    func getAbilityName1() -> String? {
+        return abilityName1
+    }
+    
+    func getAbilityDesc1() -> String? {
+        return abilityDesc1
+    }
+    
+    func getAbilityName2() -> String? {
+        return abilityName2
+    }
+    
+    func getAbilityDesc2() -> String? {
+        return abilityDesc2
+    }
+    
+    func getAbilityName3() -> String? {
+        return abilityName3
+    }
+    
+    func getAbilityDesc3() -> String? {
+        return abilityDesc3
+    }
+    
+    func getPartyAbility() -> String? {
+        return partyAbility
+    }
+    
+    func getNumberOfViews() -> Int {
+        return numberOfViews
+    }
+    
+    func getNumberOfLikes() -> Int {
+        return numberOfLikes
+    }
+    
+    func getDateAdded() -> String? {
+        return dateAdded
+    }
+    
+    func getChainStory() -> String? {
+        return chainStory
+    }
+    
+    func getChainStone() -> String? {
+        return chainStone
     }
     
 }
