@@ -112,8 +112,8 @@ class Favorites: UIViewController {
                 var favoritesDict = [String: Int]()
                 var uids = [String]()
                 for (index, arcana) in array.enumerated() {
-                    favoritesDict.updateValue(index, forKey: arcana.uid)
-                    uids.append(arcana.uid)
+                    favoritesDict.updateValue(index, forKey: arcana.getUID())
+                    uids.append(arcana.getUID())
                     
                 }
                 
@@ -253,9 +253,9 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
-        cell.arcanaUID = arcana.uid
+        cell.arcanaUID = arcana.getUID()
         // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
             
             cell.arcanaImage.image = i
             //            cell.imageSpinner.stopAnimating()
@@ -264,7 +264,7 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         }
             
         else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+            FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
         }
         
         

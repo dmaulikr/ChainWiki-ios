@@ -72,9 +72,9 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    var searchController: SearchController? = SearchController(searchResultsController: nil)
+    let searchController: SearchController = SearchController(searchResultsController: nil)
 
-    var arcanaArray: [Arcana] = []// = [Arcana]()//: [Unowned<Arcana>] = []
+    var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
     
@@ -109,32 +109,22 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         panGestureRecognizer.delegate = self
         gesture.cancelsTouchesInView = false
         
-        
-        // Include the search bar within the navigation bar.
-        definesPresentationContext = true
-
-        navigationItem.titleView = searchController!.searchBar
-        
-        
         AppRater.appRater.displayAlert()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: row, animated: true)
-        }
-        
+        guard let row = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: row, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        searchController?.isActive = false
-        if let refHandle = self.arcanaRefHandle {
-            ref.removeObserver(withHandle: refHandle)
-            
-        }
+        searchController.isActive = false
+        
+        guard let refHandle = self.arcanaRefHandle else { return }
+        ref.removeObserver(withHandle: refHandle)
     }
     
     
@@ -183,7 +173,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         let filter = UIButton()
         filter.setImage(UIImage(named: "filter.png"), for: .normal)
         filter.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        filter.addTarget(self, action: #selector(Home.filter(_:)), for: .touchUpInside)
+        filter.addTarget(self, action: #selector(Home.filter), for: .touchUpInside)
         let filterButton = UIBarButtonItem()
         filterButton.customView = filter
         
@@ -199,22 +189,96 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
     func setupSearchBar() {
         
-        searchController?.searchResultsUpdater = self
-        searchController?.delegate = self
-        searchController?.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+        navigationItem.titleView = searchController.searchBar
+        
     }
     
-    @IBAction func sort(_ sender: AnyObject) {
+    func syncArcana() {
+        
+        arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
+            
+            if let arcana = Arcana(snapshot: snapshot) {
+                
+                self.arcanaArray.insert(arcana, at: 0)
+                self.originalArray.append(arcana)
+                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
+                    self.tableView.reloadData()
+                    //                    self?.animateTable()
+                }
+                
+            }
+            
+        })
+        
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            
+            self.animateTable()
+            self.tableView.reloadData()
+            self.initialLoad = false
+            
+        })
+        
+        ref.observe(.childRemoved, with: { snapshot in
+            print(snapshot.key)
+            let uidToRemove = snapshot.key
+            
+            for (index, arcana) in self.originalArray.enumerated() {
+                if arcana.getUID() == uidToRemove {
+                    self.originalArray.remove(at: index)
+                    
+                }
+                
+            }
+            
+            for (index, arcana) in self.arcanaArray.enumerated() {
+                if arcana.getUID() == uidToRemove {
+                    self.arcanaArray.remove(at: index)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+                
+            }
+        })
+        
+        ref.observe(.childChanged, with: { snapshot in
+            
+            let uidToChange = snapshot.key
+            
+            if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
+                
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    self.originalArray[index] = arcana
+                }
+                
+            }
+            
+            if let index = self.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
+                
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    self.arcanaArray[index] = arcana
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
+                
+            }
+            
+        })
+        
+    }
+    
+    func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else {
             return
         }
         
-        
-        if let sc = searchController {
-            if sc.isActive {
-                sc.isActive = false
-            }
+        if searchController.isActive {
+            searchController.isActive = false
         }
         
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
@@ -286,22 +350,18 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         })
     }
 
-    @IBAction func filter(_ sender: AnyObject) {
-        
-        guard let searchController = searchController else { return }
+    func filter() {
         
         if searchController.isActive {
             searchController.isActive = false
         }
         showFilter = !showFilter
 
-        
     }
 
     func dismissFilter(_ sender: AnyObject) {
         
         // If search is active and user presses bottom half, dismiss search.
-        guard let searchController = searchController else { return }
         
         if searchController.searchBar.text?.characters.count == 0 && searchController.isActive && gesture.location(in: self.view).y > 220 {
             debugPrint("dismiss search")
@@ -325,84 +385,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    func syncArcana() {
-        
-        arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
-
-            if let arcana = Arcana(snapshot: snapshot) {
-
-                self.arcanaArray.insert(arcana, at: 0)
-                self.originalArray.append(arcana)
-                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    self.tableView.reloadData()
-//                    self?.animateTable()
-                }
-                
-            }
-            
-            
-        })
-        
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-
-            self.animateTable()
     
-            self.tableView.reloadData()
-            self.initialLoad = false
-
-            
-        })
- 
-        /*
-        ref.observe(.childRemoved, with: { snapshot in
-            print(snapshot.key)
-            let uidToRemove = snapshot.key
-            
-            for (index, arcana) in self.originalArray.enumerated() {
-                if arcana.uid == uidToRemove {
-                    self.originalArray.remove(at: index)
-                    
-                }
-                
-            }
-            
-            for (index, arcana) in self.arcanaArray.enumerated() {
-                if arcana.uid == uidToRemove {
-                    self.arcanaArray.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-                
-            }
-        })
-        
-        ref.observe(.childChanged, with: { snapshot in
-            
-            let uidToChange = snapshot.key
-                    
-            if let index = self.originalArray.index(where: {$0.uid == uidToChange}) {
-                
-                if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.originalArray[index] = arcana
-                }
-                
-            }
-            
-            
-            if let index = self.arcanaArray.index(where: {$0.uid == uidToChange}) {
-                
-                if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.arcanaArray[index] = arcana
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                }
-                
-            }
-
-        })
- */
-    }
     
     
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -466,7 +449,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             if hasMovedGreaterThanHalfway {
                 //dismissFilter.
 //                print("HAS MOVED MORE THAN HALF, DISMISS")
-                filter(self)
+                filter()
             }
             
             
@@ -480,11 +463,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
 // MARK: UITableViewDelegate, UITableViewDataSource
 extension Home: UITableViewDelegate, UITableViewDataSource {
 
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if arcanaArray.count == 0 {
@@ -496,19 +474,16 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             tableView.fadeIn(withDuration: 0.2)
         }
         
-        if let searchController = searchController {
-            if searchController.isActive && searchController.searchBar.text != "" {
-                
-                if self.searchArray.count == 0 {
-                    self.tableView.alpha = 0
-                }
-                else {
-                    self.tableView.fadeIn(withDuration: 0.2)
-                }
-                
-                return searchArray.count
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            if self.searchArray.count == 0 {
+                self.tableView.alpha = 0
             }
-
+            else {
+                self.tableView.fadeIn(withDuration: 0.2)
+            }
+            
+            return searchArray.count
         }
         
         return arcanaArray.count
@@ -546,13 +521,8 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             
             let arcana: Arcana
             
-            if let searchController = searchController {
-                if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
-                    arcana = searchArray[indexPath.row]
-                } else {
-                    arcana = arcanaArray[indexPath.row]
-                }
-
+            if searchController.isActive && searchController.searchBar.text?.isEmpty == false {
+                arcana = searchArray[indexPath.row]
             }
             else {
                 arcana = arcanaArray[indexPath.row]
@@ -657,20 +627,13 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         
         let arcana: Arcana
         
-        if let searchController = searchController {
-            
-            if  searchController.searchBar.text != "" {
-                arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-            }
-            else {
-                arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-            }
-            
+        if searchController.searchBar.text != "" {
+            arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
         }
         else {
             arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
         }
-        
+
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
         
@@ -730,7 +693,6 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { 
         
-        guard let searchController = searchController else { return }
         searchController.searchBar.resignFirstResponder()
     }
     

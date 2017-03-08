@@ -148,7 +148,7 @@ extension TavernHomeView: UITableViewDelegate, UITableViewDataSource {
         }
             
         else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+            FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
         }
         
         return cell

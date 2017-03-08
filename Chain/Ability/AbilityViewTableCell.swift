@@ -87,7 +87,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
         cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
         cell.arcanaUID = arcana.getUID()
         // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
             
             cell.arcanaImage.image = i
             print("LOADED FROM CACHE")
@@ -95,7 +95,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
         }
             
         else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+            FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
         }
         
         
