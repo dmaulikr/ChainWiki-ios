@@ -131,7 +131,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchController?.isActive = false
-        
+        if let refHandle = self.arcanaRefHandle {
+            ref.removeObserver(withHandle: refHandle)
+            
+        }
     }
     
     
@@ -346,10 +349,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
             self.tableView.reloadData()
             self.initialLoad = false
-            if let refHandle = self.arcanaRefHandle {
-                self.ref.removeObserver(withHandle: refHandle)
-                
-            }
+
             
         })
  
@@ -591,10 +591,10 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
             cell.numberOfViews.textColor = Color.lightGreen
             
-            cell.arcanaUID = arcana.uid
+            cell.arcanaUID = arcana.getUID()
             
             // Check cache first
-            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/icon.jpg") {
+            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
                 
                 cell.arcanaImage.image = i
                 print("LOADED FROM CACHE")
@@ -602,7 +602,7 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
             }
                 
             else {
-                FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+                FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
             }
             
         }
