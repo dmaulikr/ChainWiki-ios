@@ -19,6 +19,18 @@ class FirebaseService {
 
     private var STORAGE_REF = FIRStorage.storage().reference()
     
+    func incrementCount(ref: FIRDatabaseReference) {
+        
+        ref.runTransactionBlock({ data -> FIRTransactionResult in
+            
+            if let chatCount = data.value as? Int {
+                data.value = chatCount + 1
+            }
+            return FIRTransactionResult.success(withValue: data)
+            
+        })
+        
+    }
     func downloadImage(uid: String, sender: AnyObject) {
         
         if defaults.getImagePermissions() {

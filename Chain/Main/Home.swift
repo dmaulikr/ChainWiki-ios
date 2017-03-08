@@ -45,8 +45,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     // Initial setup
     var initialLoad = true
     var preventAnimation = Set<IndexPath>()
-    
-    var searchController: SearchController? = SearchController(searchResultsController: nil)
 
     var showFilter: Bool = false {
         didSet {
@@ -74,7 +72,8 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    
+    var searchController: SearchController? = SearchController(searchResultsController: nil)
+
     var arcanaArray: [Arcana] = []// = [Arcana]()//: [Unowned<Arcana>] = []
     var originalArray = [Arcana]()
     var searchArray = [Arcana]()
@@ -84,7 +83,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     var filters = [String: [String]]()
     
     init() {
-//        searchController = SearchController(searchResultsController: nil)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -170,7 +168,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
         // Setup SearchView
         let searchHistory = SearchHistory()
-//        searchHistory.delegate = self
         
         addChildViewController(searchHistory)
         
@@ -203,6 +200,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         searchController?.delegate = self
         searchController?.searchBar.delegate = self
     }
+    
     @IBAction func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else {
@@ -407,33 +405,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if (segue.identifier == "showArcana") {
-            let arcana: Arcana
-            
-            if let searchController = searchController {
-                
-                if  searchController.searchBar.text != "" {
-                    arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-                }
-                else {
-                    arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-                }
-
-            }
-            else {
-                arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-            }
-            
-            
-            let vc = segue.destination as! ArcanaDetail
-            vc.arcana = arcana
-            self.view.isUserInteractionEnabled = true
-        }
-    }
-
-    
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 //        print("in shouldReceiveTouch")
 //        gestureRecognizer.delegate = self
@@ -503,11 +474,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             break
         }
     }
-
-    
-    
-    
-    
+  
 }
 
 // MARK: UITableViewDelegate, UITableViewDataSource
@@ -686,9 +653,30 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.view.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = false
         
-        self.performSegue(withIdentifier: "showArcana", sender: (indexPath as NSIndexPath).row)
+        let arcana: Arcana
+        
+        if let searchController = searchController {
+            
+            if  searchController.searchBar.text != "" {
+                arcana = searchArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            }
+            else {
+                arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+            }
+            
+        }
+        else {
+            arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+        }
+        
+        let vc = ArcanaDetail(arcana: arcana)
+        navigationController?.pushViewController(vc, animated: true)
+        
+        view.isUserInteractionEnabled = true
+        
+
     }
     
     

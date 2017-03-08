@@ -274,10 +274,9 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let arcanaDetail = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
-        arcanaDetail.arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-        navigationController?.pushViewController(arcanaDetail, animated: true)
+        let arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+        let vc = ArcanaDetail(arcana: arcana)
+        navigationController?.pushViewController(vc, animated: true)
         
     }
     

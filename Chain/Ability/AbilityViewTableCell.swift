@@ -103,12 +103,10 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        
-        let vc = storyBoard.instantiateViewController(withIdentifier: "ArcanaDetail") as! ArcanaDetail
-        vc.arcana = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-        
+                
+        let arcana = currentArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+        let vc = ArcanaDetail(arcana: arcana)
+
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
         
         

@@ -14,13 +14,80 @@ import NVActivityIndicatorView
 
 class ArcanaDetail: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    var arcana: Arcana?
+    let arcana: Arcana
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
+        
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.contentInset = UIEdgeInsets.zero
+        
+        return tableView
+    }()
+    
     var heart = false
     var favorite = false
     var imageTapped = false
     var tap = UITapGestureRecognizer()
-    @IBOutlet weak var toolBar: UIToolbar!
+    
+    init(arcana: Arcana) {
+        self.arcana = arcana
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateHistory()
+        setupViews()
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
+        checkFavorites()
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let selectedRow = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: selectedRow, animated: true)
+        
+        let indexPath = IndexPath(row: 1, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let dataRequest = FirebaseService.dataRequest
+        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana/\(arcana.getUID())/numberOfViews"))
+        
+    }
+    
+    func setupViews() {
+
+        title = "\(arcana.getNameKR())"
+        
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+    }
     
     @IBAction func exportArcana(_ sender: AnyObject) {
         
@@ -48,45 +115,43 @@ class ArcanaDetail: UIViewController {
         
         
     }
-    func updateHistory(){
+    
+    func updateHistory() {
         var recents = [String]()
         
+        let uid = arcana.getUID()
+        recents = defaults.getRecent()
         
-        if let arcana = arcana {
-//            let nKR = arcana.getNameKR()
-            let uid = arcana.uid
-            recents = defaults.getRecent()
-            
-            if recents.count == 0 {
-                recents.append(uid)
-            }
-                
-            else {
-                var found = false
-                for (index, search) in recents.enumerated() {
-                    if uid == search {
-                        recents.remove(at: index)
-                        recents.append(uid)
-                        found = true
-                        break
-                    }
-                }
-                
-                if found == false {
-                    
-                    if recents.count >= 5 {
-                        recents.remove(at: 0)
-                        recents.append(uid)
-                    }
-                        
-                    else {
-                        recents.append(uid)
-                    }
-                }
-            }
-            defaults.setRecent(value: recents)
-            defaults.set(recents, forKey: "recent")
+        if recents.count == 0 {
+            recents.append(uid)
         }
+            
+        else {
+            var found = false
+            for (index, search) in recents.enumerated() {
+                if uid == search {
+                    recents.remove(at: index)
+                    recents.append(uid)
+                    found = true
+                    break
+                }
+            }
+            
+            if found == false {
+                
+                if recents.count >= 5 {
+                    recents.remove(at: 0)
+                    recents.append(uid)
+                }
+                    
+                else {
+                    recents.append(uid)
+                }
+            }
+        }
+        defaults.setRecent(value: recents)
+        defaults.set(recents, forKey: "recent")
+    
     }
 
     @IBAction func edit(_ sender: AnyObject) {
@@ -102,48 +167,35 @@ class ArcanaDetail: UIViewController {
     
     func checkFavorites() {
         // TODO: when favoriting, automatically like. when cancelling, only cancel one.
-        if let arcana = arcana {
-            
-            guard let uid = defaults.getUID() else {
-                return
-            }
-            let favRef = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
-            let heartRef = FIREBASE_REF.child("user/\(uid)/likes/\(arcana.uid)")
-            favRef.observeSingleEvent(of: .value, with: { snapshot in
-                if snapshot.exists() {
-//                    print("favorited already")
-                    self.favorite = true
-                }
-                else {
-//                    print("not favorited")
-                }
-            })
-            
-            heartRef.observeSingleEvent(of: .value, with: { snapshot in
-                if snapshot.exists() {
-//                    print("liked already")
-                    self.heart = true
-                }
-                else {
-//                    print("not liked")
-                }
-            })
-        }
         
-    }
-       
-        
-    
-    
-    func setupViews() {
-        guard let arcana = arcana else {
+        guard let uid = defaults.getUID() else {
             return
         }
-        self.title = "\(arcana.getNameKR())"
-//        self.tableView.backgroundColor = UIColor.white
+        let favRef = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.getUID())")
+        let heartRef = FIREBASE_REF.child("user/\(uid)/likes/\(arcana.getUID())")
+        favRef.observeSingleEvent(of: .value, with: { snapshot in
+            if snapshot.exists() {
+//                    print("favorited already")
+                self.favorite = true
+            }
+            else {
+//                    print("not favorited")
+            }
+        })
+        
+        heartRef.observeSingleEvent(of: .value, with: { snapshot in
+            if snapshot.exists() {
+//                    print("liked already")
+                self.heart = true
+            }
+            else {
+//                    print("not liked")
+            }
+        })
+        
+        
     }
-    
-    
+   
     func getRarityLong(_ string: String) -> String {
         
         switch string {
@@ -167,142 +219,80 @@ class ArcanaDetail: UIViewController {
     func toggleHeart(_ sender: UIButton) {
         
         var userInfo = defaults.getLikes()
-        if let arcana = arcana, let uid = defaults.getUID()  {
+        guard let userID = defaults.getUID() else { return }
             
-            let ref = FIREBASE_REF.child("user/\(uid)/likes/\(arcana.uid)")
-            
-            var found = false
-            
-            for (index, id) in userInfo.enumerated().reversed() {
-                if id == arcana.uid {
-                    userInfo.remove(at: index)
-                    ref.removeValue()
-                    found = true
-                    break
-                }
+        let ref = FIREBASE_REF.child("user/\(userID)/likes/\(arcana.getUID())")
+        
+        var found = false
+        
+        for (index, id) in userInfo.enumerated().reversed() {
+            if id == arcana.getUID() {
+                userInfo.remove(at: index)
+                ref.removeValue()
+                found = true
+                break
             }
-            
-            if found == false {
-                // add to array
-                userInfo.append(arcana.uid)
-                ref.setValue(true)
-                FirebaseService.dataRequest.incrementLikes(uid: arcana.uid, increment: true)
-            }
-            else {
-                FirebaseService.dataRequest.incrementLikes(uid: arcana.uid, increment: false)
-            }
-
-            
-            defaults.setLikes(value: userInfo)
         }
+        
+        if found == false {
+            // add to array
+            userInfo.append(arcana.getUID())
+            ref.setValue(true)
+            FirebaseService.dataRequest.incrementLikes(uid: arcana.getUID(), increment: true)
+        }
+        else {
+            FirebaseService.dataRequest.incrementLikes(uid: arcana.getUID(), increment: false)
+        }
+
+        
+        defaults.setLikes(value: userInfo)
+        
        
     }
     
     func toggleFavorite(_ sender: UIButton) {
         
         var userInfo = defaults.getFavorites()
-        if let arcana = arcana, let uid = defaults.getUID()  {
+        guard let userID = defaults.getUID() else { return }
             
-            let ref = FIREBASE_REF.child("user/\(uid)/favorites/\(arcana.uid)")
-            
-            var found = false
-            
-            for (index, id) in userInfo.enumerated().reversed() {
-                if id == arcana.uid {
-                    userInfo.remove(at: index)
-                    ref.removeValue()
-                    found = true
-                    break
-                }
+        let ref = FIREBASE_REF.child("user/\(userID)/favorites/\(arcana.getUID())")
+        
+        var found = false
+        
+        for (index, id) in userInfo.enumerated().reversed() {
+            if id == arcana.getUID() {
+                userInfo.remove(at: index)
+                ref.removeValue()
+                found = true
+                break
             }
-            
-            if found == false {
-                // add to array
-                userInfo.append(arcana.uid)
-                ref.setValue(true)
-            }
-            
-            defaults.setFavorites(value: userInfo)
         }
         
-    }
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        addToolButtons()
-        updateHistory()
-        tableView.delegate = self
-        tableView.dataSource = self
-        setupViews()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 160
-        
-        tableView.layoutMargins = UIEdgeInsets.zero
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.contentInset = UIEdgeInsets.zero;
-
-//        scrollViewDidEndDragging(tableView, willDecelerate: true)
-        
-        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
-        checkFavorites()
-        
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        // Do any additional setup after loading the view.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let selectedRow = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedRow, animated: true)
-        }
-        let indexPath = IndexPath(row: 1, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    deinit {
-        print("DEINITED")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let id = arcana?.uid {
-            print(id)
+        if found == false {
+            // add to array
+            userInfo.append(arcana.getUID())
+            ref.setValue(true)
         }
         
-        // Increment number of views
-
-        let viewRef = FIREBASE_REF.child("arcana/\(arcana!.uid)/numberOfViews")
-        viewRef.observeSingleEvent(of: .value, with: { snapshot in
-            if let views = snapshot.value as? Int {
-                viewRef.setValue(views+1)
-            }
-            
-        })
-    
+        defaults.setFavorites(value: userInfo)
+        
+        
     }
-
-    
+ 
     func imageTapped(_ sender: AnyObject) {
         if imageTapped == false {
             // enlarge image
-            if let arcana = arcana {
-                if let imageView = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
-                    let newImageView = UIImageView(image: imageView)
-                    newImageView.frame = UIScreen.main.bounds
-                    newImageView.backgroundColor = .black
-                    newImageView.contentMode = .scaleAspectFit
-                    newImageView.isUserInteractionEnabled = true
-                    self.view.window!.addSubview(newImageView)
-                    
-                    addGestures(newImageView)
-                    imageTapped = true
-                }
+            if let imageView = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/main.jpg") {
+                let newImageView = UIImageView(image: imageView)
+                newImageView.frame = UIScreen.main.bounds
+                newImageView.backgroundColor = .black
+                newImageView.contentMode = .scaleAspectFit
+                newImageView.isUserInteractionEnabled = true
+                view.window!.addSubview(newImageView)
+                
+                addGestures(newImageView)
+                imageTapped = true
             }
-            
-            
-            
         }
         
     }
@@ -455,7 +445,7 @@ class ArcanaDetail: UIViewController {
         else {  // EDIT HISTORY
             
             let vc = segue.destination as! ArcanaEditList
-            vc.arcanaUID = arcana!.uid
+            vc.arcanaUID = arcana.getUID()
         }
     }
 
@@ -463,24 +453,33 @@ class ArcanaDetail: UIViewController {
 
 // MARK - UITableViewDelegate, UITableViewDataSource
 extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
+    
+    private enum Section: Int {
+        
+        case Image
+        case Attribute
+        case Skill
+        case Ability
+        case Kizuna
+        case ChainStory
+        case Tavern
+        case Edit
+        
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 8
     }
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        guard let section = Section(rawValue: section) else { return 0 }
         
-        guard let arcana = arcana else {
-            return 0
-        }
-        
-        switch (section) {
-        case 0: // arcanaImage, buttons
+        switch section {
+        case .Image: // arcanaImage, buttons
             return 2
-        case 1: // arcanaAttribute
+        case .Attribute: // arcanaAttribute
             return 6
-        case 2: // arcanaSkill
+        case .Skill: // arcanaSkill
             
             // Returning 2 * skillCount for description.
             
@@ -495,7 +494,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 2
             }
             
-        case 3:    // Arcana abilities. TODO: Check for 0, 1, 2 abilities.
+        case .Ability:    // Arcana abilities. TODO: Check for 0, 1, 2 abilities.
             
             if let _ = arcana.getPartyAbility() {
                 return 6
@@ -510,10 +509,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 0
             }
             
-        case 4:    // Kizuna
+        case .Kizuna:    // Kizuna
             return 2
             
-        case 5:    // chainstory, chainstone
+        case .ChainStory:    // chainstory, chainstone
             var count = 0
             if let _ = arcana.getChainStory() {
                 count += 1
@@ -524,7 +523,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             return count
             
-        case 6: // tavern, (date added)
+        case .Tavern: // tavern, (date added)
             if arcana.getTavern() == "" {
                 return 0
             }
@@ -533,7 +532,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-        default:    // edit history
+        case .Edit:    // edit history
             return 1
             
         }
@@ -543,8 +542,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch indexPath.section {
-        case 0:
+        guard let section = Section(rawValue: indexPath.section) else { return 0 }
+
+        switch section {
+        case .Image:
             if indexPath.row == 0 {
                 return 405
             }
@@ -559,8 +560,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch indexPath.section {
-        case 0:
+        guard let section = Section(rawValue: indexPath.section) else { return 0 }
+
+        switch section {
+            
+        case .Image:
             if indexPath.row == 0 {
                 return 405
             }
@@ -569,15 +573,16 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-        case 1:
+        case .Attribute:
             if (indexPath as NSIndexPath).row == 0 {
                 return 160
             }
             else {
                 return 80
             }
-        case 3:
+        case .Ability:
             return 80
+            
         default:
             return UITableViewAutomaticDimension
         }
@@ -603,13 +608,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let arcana = arcana else {
-            return UITableViewCell()
-        }
-        switch indexPath.section {
+
+        guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
+
+        switch section {
             
-        case 0: // arcanaImage, buttons
+        case .Image: // arcanaImage, buttons
             
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaImage") as! ArcanaImageCell
@@ -621,7 +625,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
                 let size = CGSize(width: SCREENWIDTH, height: 400)
                 
-                if let i = IMAGECACHE.image(withIdentifier: "\(arcana.uid)/main.jpg") {
+                if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/main.jpg") {
                     
                     let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
                     
@@ -631,7 +635,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                     
                     //  Not in cache, download from firebase
                 else {
-                    FirebaseService.dataRequest.downloadImage(uid: arcana.uid, sender: cell)
+                    FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
                     
                 }
                 return cell
@@ -654,7 +658,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
                 
                 let userLikes = defaults.getLikes()
-                if !userLikes.contains(arcana.uid) {
+                if !userLikes.contains(arcana.getUID()) {
                     cell.heart.isSelected = false
                 }
                 else {
@@ -662,7 +666,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 let userFavorites = defaults.getFavorites()
-                if !userFavorites.contains(arcana.uid) {
+                if !userFavorites.contains(arcana.getUID()) {
                     cell.favorite.isSelected = false
                 }
                 else {
@@ -674,7 +678,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             
             
-        case 1:    // arcanaAttribute
+        case .Attribute:    // arcanaAttribute
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
             
@@ -731,7 +735,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             return cell
             
-        case 2: // Arcana Skill
+        case .Skill: // Arcana Skill
             //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
             
             
@@ -791,7 +795,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
         // Arcana Ability
-        case 3:
+        case .Ability:
             
             switch (indexPath as NSIndexPath).row {
             case 0,2,4:
@@ -843,7 +847,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
-        case 4:
+        case .Kizuna:
             if (indexPath as NSIndexPath).row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaSkill") as! ArcanaSkillCell
                 cell.skillNumber.text = "인연"
@@ -862,7 +866,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-        case 5:
+        case .ChainStory:
             
             switch indexPath.row {
             case 0:
@@ -898,14 +902,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-        case 6:
+        case .Tavern:
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaAttribute") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
             cell.attributeKey.text = "출현 장소"
             cell.attributeValue.text = arcana.getTavern()
             return cell
             
-        default:
+        case .Edit:
             let cell = tableView.dequeueReusableCell(withIdentifier: "viewEditsCell") as! ArcanaViewEditsCell
             cell.editLabel.text = "편집 기록 보기"
             cell.arrow.image = #imageLiteral(resourceName: "go")
