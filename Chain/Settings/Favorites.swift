@@ -32,7 +32,7 @@ class Favorites: UIViewController {
         let label = UILabel()
         label.text = "아르카나를 추가하세요!"
         label.textColor = .darkGray
-        label.font = UIFont(name: "AppleSDGothicNeo", size: 17)
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         label.alpha = 0
         return label
     }()

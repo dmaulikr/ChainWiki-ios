@@ -81,7 +81,7 @@ class FirebaseService {
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.7)!) {
                                     
-                                    sender.imageSpinner.stopAnimating()
+                                    sender.activityIndicator.stopAnimating()
                                     let size = CGSize(width: SCREENWIDTH, height: 400)
                                     let aspectScaledToFitImage = thumbnail.af_imageAspectScaled(toFit: size)
                                     
@@ -101,7 +101,7 @@ class FirebaseService {
 
         }
         else if let sender = sender as? ArcanaImageCell {
-            sender.imageSpinner.stopAnimating()
+            sender.activityIndicator.stopAnimating()
         }
         
     }

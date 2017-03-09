@@ -25,7 +25,7 @@
 		04180A3E1DF63AD400C1BA72 /* TavernListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A3D1DF63AD400C1BA72 /* TavernListCell.swift */; };
 		04180D2E1DEC0CD500E4303D /* AbilityListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */; };
 		041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FD5681DB9A6F50068657F /* FirebaseService.swift */; };
-		042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */; };
+		042834FA1D91E10D0043BE6E /* ArcanaChainStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */; };
 		042835021D91EE250043BE6E /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042835011D91EE250043BE6E /* LoginForm.swift */; };
 		042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042FE9CD1D98A82C002ACE74 /* ArcanaDetailEditCell.xib */; };
 		043392451DF3F31A009328A1 /* CollectionViewWithMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */; };
@@ -161,7 +161,7 @@
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		041FD5681DB9A6F50068657F /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		042834F81D91AF680043BE6E /* Chain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chain.entitlements; sourceTree = "<group>"; };
-		042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStory.swift; sourceTree = "<group>"; };
+		042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStoryCell.swift; sourceTree = "<group>"; };
 		042835011D91EE250043BE6E /* LoginForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		042FE9CD1D98A82C002ACE74 /* ArcanaDetailEditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaDetailEditCell.xib; sourceTree = "<group>"; };
 		043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWithMenu.swift; sourceTree = "<group>"; };
@@ -361,12 +361,12 @@
 				04349D121DACD9FF00216141 /* ArcanaEditListCell.xib */,
 				04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */,
 				049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */,
-				042834F91D91E10D0043BE6E /* ArcanaChainStory.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
 				046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */,
 				048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */,
+				042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */,
 				0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */,
 			);
 			path = Arcana;
@@ -920,7 +920,7 @@
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */,
-				042834FA1D91E10D0043BE6E /* ArcanaChainStory.swift in Sources */,
+				042834FA1D91E10D0043BE6E /* ArcanaChainStoryCell.swift in Sources */,
 				04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */,
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,

@@ -18,7 +18,7 @@ enum classType {
 class AbilityViewDataSource: NSObject {
     
     var selectedClass = classType.Warriors
-    
+
     private var arcanaArray = [Arcana]()
     private var currentArray = [Arcana]()
     
@@ -37,6 +37,7 @@ class AbilityViewDataSource: NSObject {
     
     init(index: Int) {
         super.init()
+        
         switch index {
         case 0:
             self.selectedClass = .Warriors

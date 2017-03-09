@@ -88,7 +88,7 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as UITableViewCell
         cell.textLabel?.text = dataLinks[indexPath.row].getTitle()
-        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo", size: 14)
+        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         return cell
     }
     

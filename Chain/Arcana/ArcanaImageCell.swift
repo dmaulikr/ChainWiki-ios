@@ -12,18 +12,37 @@ import AlamofireImage
 
 class ArcanaImageCell: UITableViewCell {
 
-    @IBOutlet weak var arcanaImage: UIImageView!
-    @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layoutIfNeeded()
+    let arcanaImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
+        return spinner
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func setupViews() {
+        
+        addSubview(arcanaImage)
+        addSubview(activityIndicator)
+        
+        arcanaImage.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 400)
+        
+        activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
+        activityIndicator.anchorCenterSuperview()
     }
-
+    
 }

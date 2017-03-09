@@ -9,11 +9,78 @@
 import UIKit
 
 class ArcanaButtonsCell: UITableViewCell {
-
-    @IBOutlet weak var heart: UIButton!
-    @IBOutlet weak var favorite: UIButton!
     
-    @IBAction func toggleHeart(_ sender: UIButton!) {
+    weak var arcanaDetailDelegate: ArcanaDetail?
+    
+    lazy var heartButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(_: #imageLiteral(resourceName: "heartNormal").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(_: #imageLiteral(resourceName: "heartSelected").withRenderingMode(.alwaysOriginal), for: .selected)
+        button.addTarget(self, action: #selector(toggleButton(_:)), for: .touchUpInside)
+        return button
+        
+    }()
+    
+    lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(_: #imageLiteral(resourceName: "starNormal").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(_: #imageLiteral(resourceName: "starSelected").withRenderingMode(.alwaysOriginal), for: .selected)
+        button.addTarget(self, action: #selector(toggleButton(_:)), for: .touchUpInside)
+        return button
+        
+    }()
+    
+    let numberOfLikesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 11)
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        
+        addSubview(heartButton)
+        addSubview(numberOfLikesLabel)
+        addSubview(favoriteButton)
+        
+        heartButton.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 44, heightConstant: 44)
+        heartButton.anchorCenterYToSuperview()
+        
+        numberOfLikesLabel.anchor(top: nil, leading: heartButton.trailingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        numberOfLikesLabel.anchorCenterYToSuperview()
+        
+        favoriteButton.anchor(top: nil, leading: numberOfLikesLabel.trailingAnchor, trailing: trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 5, bottomConstant: 0, widthConstant: 44, heightConstant: 44)
+        favoriteButton.anchorCenterYToSuperview()
+        
+    }
+    
+    func toggleButton(_ sender: UIButton) {
+        
+        if !sender.isSelected {
+            bounceAnimate()
+        }
+        sender.isSelected = !sender.isSelected
+        
+        if sender == heartButton {
+            arcanaDetailDelegate?.toggleHeart(self)
+        }
+        else {
+            arcanaDetailDelegate?.toggleFavorite(self)
+        }
+        
+    }
+    
+    func toggleHeart(_ sender: UIButton!) {
         if (sender.isSelected) {
             sender.isSelected = false
         }
@@ -23,7 +90,7 @@ class ArcanaButtonsCell: UITableViewCell {
         }
     }
     
-    @IBAction func toggleFavorite(_ sender: UIButton!) {
+    func toggleFavorite(_ sender: UIButton!) {
         if (sender.isSelected) {
             sender.isSelected = false
         }
@@ -31,19 +98,6 @@ class ArcanaButtonsCell: UITableViewCell {
             sender.isSelected = true
             sender.bounceAnimate()
         }
-    }
-
-    @IBOutlet weak var numberOfLikes: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

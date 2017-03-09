@@ -166,47 +166,50 @@ class LoginForm: UIViewController, DisplayBanner {
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             if (error == nil){
-                let fbloginresult : FBSDKLoginManagerLoginResult = result!
-                if(fbloginresult.grantedPermissions.contains("email"))
-                {
-                    FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id"]).start { (connection, result, err) in
-                        
-                        if err != nil {
-                            return
+                
+                if let _ = result?.grantedPermissions?.contains("email") {
+                    
+                        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id"]).start { (connection, result, err) in
+                            
+                            if err != nil {
+                                return
+                            }
+                            
+                            let credentials = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                            
+                            FIRAuth.auth()?.signIn(with: credentials, completion: { [unowned self]  (user, error) in
+                                if let _ = error {
+                                    return
+                                }
+                                
+                                // Set nickname
+                                
+                                guard let user = user else {
+                                    return
+                                }
+                                
+                                if let nickName = user.displayName {
+                                    defaults.setName(value: nickName)
+                                }
+                                
+                                
+                                defaults.setLogin(value: true)
+                                defaults.setUID(value: user.uid)
+                                defaults.setEditPermissions(value: true)
+                                defaults.setImagePermissions(value: true)
+                                
+                                getFavorites()
+                                
+                                self.changeRootVC(vc: .home)
+                                
+                            })
+                            
+                            
                         }
-                        
-                        let credentials = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-
-                        FIRAuth.auth()?.signIn(with: credentials, completion: { [unowned self]  (user, error) in
-                            if let _ = error {
-                                return
-                            }
-                            
-                            // Set nickname
-                            
-                            guard let user = user else {
-                                return
-                            }
-                            
-                            if let nickName = user.displayName {
-                                defaults.setName(value: nickName)
-                            }
-
-                            
-                            defaults.setLogin(value: true)
-                            defaults.setUID(value: user.uid)
-                            defaults.setEditPermissions(value: true)
-                            defaults.setImagePermissions(value: true)
-                            
-                            getFavorites()
-                            
-                            self.changeRootVC(vc: .home)
-                            
-                        })
-
-                        
-                    }
+                    
+                    
                 }
+                
             }
         }
         

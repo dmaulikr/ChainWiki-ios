@@ -96,7 +96,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         setupNavBar()
         setupSearchBar()
         setupGestures()
-//        syncArcana()
+        syncArcana()
         
         AppRater.appRater.displayAlert()
     }
@@ -665,7 +665,6 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: Search Bar
 extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
     
     @available(iOS 8.0, *)
@@ -703,7 +702,6 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
 
 }
 
-// MARK: FilterDelegate, TavernViewDelegate
 extension Home: FilterDelegate, TavernViewDelegate {
     
     func didUpdate(_ sender: Filter) {
@@ -807,7 +805,8 @@ extension Home: FilterDelegate, TavernViewDelegate {
         
         DispatchQueue.main.async {
             
-            let ref = FIREBASE_REF.child("tavern/\(tavern)")
+            let ref = FIREBASE_REF.child("tavern").child(tavern)
+            
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 
                 var tavern = [Arcana]()

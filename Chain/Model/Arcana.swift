@@ -247,7 +247,7 @@ struct Arcana: Equatable, Hashable {
     }
     
     func getKizunaDesc() -> String {
-        return nameJP
+        return kizunaDesc
     }
     
     func getSkillCount() -> String {

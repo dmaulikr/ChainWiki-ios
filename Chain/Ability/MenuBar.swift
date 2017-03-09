@@ -31,7 +31,7 @@ class MenuBar: UIView {
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 40), collectionViewLayout: layout)
 //        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
+        collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
