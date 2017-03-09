@@ -10,7 +10,7 @@ import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell {
     
-    var tableDelegate: CollectionViewWithMenu?
+    weak var tableDelegate: CollectionViewWithMenu?
     
     lazy var tableView: UITableView = {
         

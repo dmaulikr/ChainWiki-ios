@@ -21,7 +21,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 90
-        
+        tableView.separatorStyle = .singleLine
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
 
         return tableView

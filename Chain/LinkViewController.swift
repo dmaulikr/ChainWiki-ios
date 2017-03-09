@@ -8,34 +8,39 @@
 
 import UIKit
 import WebKit
+import NVActivityIndicatorView
+import SafariServices
 
-class LinkViewController: UIViewController, WKNavigationDelegate {
+class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate {
 
-    let url: String
-    
-    lazy var webView: WKWebView = {
-        let webView = WKWebView()
-        webView.navigationDelegate = self
-        return webView
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
+        return spinner
     }()
     
-    init(url: String) {
-        self.url = url
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    init(url: URL) {
+        super.init(url: url, entersReaderIfAvailable: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = webView
-        guard let url = URL(string: self.url) else { return }
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
-
+        setupViews()
+        delegate = self
+        
+    }
+    
+    func setupViews() {
+        
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
+        activityIndicator.anchorCenterSuperview()
+        activityIndicator.startAnimating()
+        
     }
 
 
+    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+        activityIndicator.stopAnimating()
+    }
 }

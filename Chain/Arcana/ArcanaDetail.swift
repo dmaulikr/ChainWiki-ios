@@ -597,9 +597,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
                 cell.layoutMargins = UIEdgeInsets.zero
-                cell.arcanaImage.addGestureRecognizer(tap)
-                cell.selectionStyle = .none
+                cell.preservesSuperviewLayoutMargins = false
+                cell.separatorInset = UIEdgeInsets.zero
                 
+                cell.selectionStyle = .none
+
+                cell.arcanaImage.addGestureRecognizer(tap)
                 cell.activityIndicator.startAnimating()
                 
                 let size = CGSize(width: SCREENWIDTH, height: 400)
@@ -622,6 +625,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaButtonsCell") as! ArcanaButtonsCell
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.preservesSuperviewLayoutMargins = false
+                cell.separatorInset = UIEdgeInsets.zero
+                
                 cell.selectionStyle = .none
                 cell.arcanaDetailDelegate = self
                 cell.numberOfLikesLabel.text = "\(arcana.getNumberOfLikes())"

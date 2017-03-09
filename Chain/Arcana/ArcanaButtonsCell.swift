@@ -67,7 +67,7 @@ class ArcanaButtonsCell: UITableViewCell {
     func toggleButton(_ sender: UIButton) {
         
         if !sender.isSelected {
-            bounceAnimate()
+            sender.bounceAnimate()
         }
         sender.isSelected = !sender.isSelected
         
@@ -81,7 +81,7 @@ class ArcanaButtonsCell: UITableViewCell {
     }
     
     func toggleHeart(_ sender: UIButton!) {
-        if (sender.isSelected) {
+        if sender.isSelected {
             sender.isSelected = false
         }
         else {

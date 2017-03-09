@@ -25,7 +25,7 @@ class CollectionViewWithMenu: UIViewController {
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
-    
+    var test = [String]()
     
     lazy var collectionView: UICollectionView = {
         
@@ -217,13 +217,16 @@ class CollectionViewWithMenu: UIViewController {
         guard let menuType = menuType else { return }
         
         if menuType == .AbilityList {
+
+            primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
             
-            let list = AbilityListDataSource().getAbilityList()
-            primaryAbilities = list.getPrimary()
-            statusAbilities = list.getStatus()
-            areaAbilities = list.getArea()
+            statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
+
+            areaAbilities = [WasteLand(), Forest(), Cavern(), Desert(), Snow(), Urban(), Water(), Night()]
+
+            
             collectionView.reloadData()
-            
+
         }
 
     }

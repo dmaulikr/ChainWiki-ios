@@ -36,36 +36,6 @@ class Ability {
     }
 }
 
-class AbilityArray {
-    
-    private let primary: [Ability]
-    private let status: [Ability]
-    private let area: [Ability]
-    
-    
-    init(primary: [Ability], status: [Ability], area: [Ability]) {
-        self.primary = primary
-        self.status = status
-        self.area = area
-    }
-    
-    func getPrimary() -> [Ability] {
-        return primary
-    }
-    
-    func getStatus() -> [Ability] {
-        return status
-    }
-    
-    func getArea() -> [Ability] {
-        return area
-    }
-    
-    deinit {
-        print("abilityArray is deinited")
-    }
-    
-}
 class Mana: Ability {
     init() {
         super.init(kr: "마나의 소양", en: "mana")

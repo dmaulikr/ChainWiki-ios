@@ -98,6 +98,7 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
         let title = dataLinks[indexPath.row].getTitle()
         
         guard let url = URL(string: link) else { return }
+//        let vc = LinkViewController(url: url)
         let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
         vc.title = title
         navigationController?.pushViewController(vc, animated: true)

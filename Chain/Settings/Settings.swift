@@ -39,7 +39,7 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
     }()
 
     let activityIndicator: NVActivityIndicatorView = {
-        let activityIndicator = NVActivityIndicatorView(frame: .zero, type: .ballScaleRippleMultiple, color: Color.googleRed, padding: 0)
+        let activityIndicator = NVActivityIndicatorView(frame: .zero, type: .ballScaleRippleMultiple, color: Color.darkSalmon, padding: 0)
         return activityIndicator
     }()
     
@@ -88,8 +88,11 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         view.backgroundColor = .white
         
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
+        activityIndicator.anchorCenterSuperview()
         
     }
     
