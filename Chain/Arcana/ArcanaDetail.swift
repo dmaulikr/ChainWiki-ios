@@ -203,7 +203,8 @@ class ArcanaDetail: UIViewController {
     func edit(_ sender: AnyObject) {
         
         if defaults.canEdit() {
-            self.performSegue(withIdentifier: "editArcana", sender: self)
+            let vc = ArcanaDetailEdit(arcana: arcana)
+            navigationController?.pushViewController(vc, animated: true)
             
         }
         else {
@@ -414,22 +415,6 @@ class ArcanaDetail: UIViewController {
         UIGraphicsEndImageContext();
         
         return image
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if (segue.identifier == "editArcana") {
-            
-            let vc = segue.destination as! ArcanaDetailEdit
-            vc.arcana = arcana
-            
-            
-        }
-        else {  // EDIT HISTORY
-            
-            let vc = segue.destination as! ArcanaEditList
-            vc.arcanaUID = arcana.getUID()
-        }
     }
 
 }
@@ -905,9 +890,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 7 {
-            self.performSegue(withIdentifier: "editHistory", sender: (indexPath as NSIndexPath).row)
-        }
+        guard let section = Section(rawValue: indexPath.section), section == .Edit else { return }
+        
+//        let vc = ArcanaDetailEdit(arcana: arcana)
+//        navigationController?.pushViewController(vc, animated: true)
+
     }
 
 }

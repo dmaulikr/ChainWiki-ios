@@ -10,19 +10,41 @@ import UIKit
 
 class ArcanaDetailEditCell: UITableViewCell {
 
-    @IBOutlet weak var key: UILabel!
-    @IBOutlet weak var attribute: UITextView!
+    let arcanaKeyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        label.textColor = .lightGray
+        label.textAlignment = .center
+        return label
+    }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    let arcanaAttributeTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        textView.spellCheckingType = .no
+        textView.isScrollEnabled = false
+        return textView
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
         
-        // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        
+        addSubview(arcanaKeyLabel)
+        addSubview(arcanaAttributeTextView)
+        
+        arcanaKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 80, heightConstant: 0)
+        
+        arcanaAttributeTextView.anchor(top: topAnchor, leading: arcanaKeyLabel.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
     }
 
 }

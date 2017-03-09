@@ -72,14 +72,14 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaDetailEditCell") as! ArcanaDetailEditCell
-        cell.attribute.isUserInteractionEnabled = false
+        cell.arcanaAttributeTextView.isUserInteractionEnabled = false
         
         guard let arcana = arcana else {
             return UITableViewCell()
         }
         
         
-        cell.key.text = keys[indexPath.row]
+        cell.arcanaKeyLabel.text = keys[indexPath.row]
         
         /*
         switch indexPath.row {
@@ -127,8 +127,8 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
             
         }
         */
-        cell.attribute.tag = indexPath.row
-        cell.attribute.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
+        cell.arcanaAttributeTextView.tag = indexPath.row
+        cell.arcanaAttributeTextView.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         return cell
     }
     

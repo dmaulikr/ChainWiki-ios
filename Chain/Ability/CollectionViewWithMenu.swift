@@ -25,7 +25,6 @@ class CollectionViewWithMenu: UIViewController {
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
-    var test = [String]()
     
     lazy var collectionView: UICollectionView = {
         
@@ -59,7 +58,6 @@ class CollectionViewWithMenu: UIViewController {
         
         menuBar = MenuBar(frame: .zero, menuType: .AbilityList)
         menuBar.parentController = self
-//        setupMenuBar()
     }
     
     init(abilityType: (String, String), selectedIndex: Int) {
@@ -71,7 +69,6 @@ class CollectionViewWithMenu: UIViewController {
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
         self.title = abilityType.0
-//        setupMenuBar()
         menuBar = MenuBar(frame: .zero, menuType: .AbilityView)
         menuBar.parentController = self
         if abilityType.0 == "웨이브 회복" {
