@@ -891,8 +891,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         guard let section = Section(rawValue: indexPath.section), section == .Edit else { return }
         
-//        let vc = ArcanaDetailEdit(arcana: arcana)
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = ArcanaDetailEdit(arcana: arcana)
+        navigationController?.pushViewController(vc, animated: true)
 
     }
 

@@ -9,47 +9,64 @@
 import UIKit
 import Firebase
 
-class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ArcanaEditList: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tip: UILabel!
+    lazy var tableView: UITableView = {
+        
+        let tableView = UITableView(frame: .zero, style: .plain)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(ArcanaEditListCell.self, forCellReuseIdentifier: "ArcanaEditListCell")
+        
+        return tableView
+    }()
+    
+    let tipLabel: UILabel = {
+        let label = UILabel()
+        label.text = "수정 기록 없음!"
+        label.textAlignment = .center
+        return label
+    }()
+    
     var edits = [String]()
     var names = [String]()
     var arcanaUID: String?
     var arcanaEdit = [ArcanaEdit]()
     var editor: String?
     var arcanaEditModel = [ArcanaEditModel]()
+
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if arcanaEditModel.count == 0 {
-            tableView.alpha = 0
-            tip.alpha = 1
-        }
-        else {
-            tableView.alpha = 1
-            tip.alpha = 0
-        }
-        print(arcanaEditModel.count)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        getEdits()
         
-        return arcanaEditModel.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaEditListCell") as! ArcanaEditListCell
+    func setupViews() {
         
-        cell.date.text = arcanaEditModel[indexPath.row].date
-        cell.name.text = arcanaEditModel[indexPath.row].editorName
-//        cell.date.text = edits[indexPath.row]
-//        cell.name.text = names[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "showEdits", sender: self)
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
+        title = "수정 기록"
+        
+        view.addSubview(tableView)
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+
     }
     
     func getEdits() {
@@ -94,25 +111,8 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "ArcanaEditListCell", bundle: nil), forCellReuseIdentifier: "arcanaEditListCell")
-        getEdits()
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        // Do any additional setup after loading the view.
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
-    
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -130,5 +130,37 @@ class ArcanaEditList: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
  
+
+}
+
+extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if arcanaEditModel.count == 0 {
+            tableView.alpha = 0
+            tipLabel.alpha = 1
+        }
+        else {
+            tableView.alpha = 1
+            tipLabel.alpha = 0
+        }
+        
+        return arcanaEditModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaEditListCell") as! ArcanaEditListCell
+        
+        cell.dateLabel.text = arcanaEditModel[indexPath.row].date
+        cell.nameLabel.text = arcanaEditModel[indexPath.row].editorName
+        //        cell.date.text = edits[indexPath.row]
+        //        cell.name.text = names[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+//        let vc = ArcanaEditHistory(
+    }
 
 }

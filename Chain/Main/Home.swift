@@ -274,6 +274,33 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    private func sortArcanaByName() {
+        arcanaArray = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
+        animateTable()
+    }
+    
+    private func sortArcanaByRecent() {
+        arcanaArray = originalArray.reversed()
+        animateTable()
+    }
+    
+    private func sortArcanaByNumberOfViews() {
+
+        ref.queryOrdered(byChild: "numberOfViews").observeSingleEvent(of: .value, with: { snapshot in
+            
+            var array = [Arcana]()
+            for item in snapshot.children.reversed() {
+                
+                if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
+                    array.append(arcana)
+                }
+            }
+            self.arcanaArray = array
+            self.tableView.reloadData()
+        })
+
+    }
+    
     func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else { return }
@@ -287,55 +314,24 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         alertController.setValue(NSAttributedString(string:
             "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
-        let alpha = UIAlertAction(title: "이름순", style: .default, handler: { (action:UIAlertAction) in
-            self.arcanaArray = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
-//            self.tableView.reloadData()
-            self.animateTable()
-            
+        let alpha = UIAlertAction(title: "이름순", style: .default, handler: { action in
+            self.sortArcanaByName()
         })
         alertController.addAction(alpha)
-        let recent = UIAlertAction(title: "최신순", style: .default, handler: { (action:UIAlertAction) in
-            
-            let ref = FIREBASE_REF.child("arcana")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                var array = [Arcana]()
-                for item in snapshot.children.reversed() {
-                    
-                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                        array.append(arcana)
-                    }
-                    
-                }
-                self.arcanaArray = array
-//                self.tableView.reloadData()
-                self.animateTable()
-            })
-
-        })
         
+        let recent = UIAlertAction(title: "최신순", style: .default, handler: { action in
+            
+            self.sortArcanaByRecent()
+        })
         alertController.addAction(recent)
-        let views = UIAlertAction(title: "조회순", style: .default, handler: { (action:UIAlertAction) in
-            let ref = FIREBASE_REF.child("arcana")
-            ref.queryOrdered(byChild: "numberOfViews").observeSingleEvent(of: .value, with: { snapshot in
-                
-                var array = [Arcana]()
-                for item in snapshot.children.reversed() {
-                    
-                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                        array.append(arcana)
-                    }
-                }
-                self.arcanaArray = array
-                self.tableView.reloadData()
-            })
-            
+        
+        let views = UIAlertAction(title: "조회순", style: .default, handler: { action in
+            self.sortArcanaByNumberOfViews()
         })
-        
         alertController.addAction(views)
-        
 
         alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
-            (alertAction: UIAlertAction!) in
+            action in
             alertController.dismiss(animated: true, completion: nil)
         }))
         
