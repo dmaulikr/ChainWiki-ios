@@ -14,7 +14,6 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     
     let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     let arcana: Arcana
-//    var arcanaEdit: ArcanaEdit?
     var edits = [String : String]()
     var originalAttributes = [String]()
     

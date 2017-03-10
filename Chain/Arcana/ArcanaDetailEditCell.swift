@@ -14,7 +14,7 @@ class ArcanaDetailEditCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         label.textColor = .lightGray
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
     

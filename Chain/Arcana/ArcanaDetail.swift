@@ -91,8 +91,8 @@ class ArcanaDetail: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let dataRequest = FirebaseService.dataRequest
-        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana/\(arcana.getUID())/numberOfViews"))
+//        let dataRequest = FirebaseService.dataRequest
+//        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana/\(arcana.getUID())/numberOfViews"))
         
     }
     
@@ -117,19 +117,18 @@ class ArcanaDetail: UIViewController {
         
         shareButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         shareButton.addTarget(self, action: #selector(exportArcana(_:)), for: .touchUpInside)
+        shareButton.setImage(#imageLiteral(resourceName: "export"), for: .normal)
         
         let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
         shareBarButton.customView = shareButton
-        shareBarButton.image = #imageLiteral(resourceName: "favorites")
         
         let editButton = UIButton(type: .system)
         editButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         editButton.addTarget(self, action: #selector(edit(_:)), for: .touchUpInside)
+        editButton.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
         
         let editBarButton = UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
-        editBarButton.tintColor = .white
         editBarButton.customView = editButton
-//        editBarButton.setImage(#imageLiteral(resourceName: "favorites"), for: .normal)
         
         navigationItem.rightBarButtonItems = [editBarButton, shareBarButton]
 
@@ -924,9 +923,16 @@ extension ArcanaDetail: ArcanaDetailProtocol {
             userInfo.append(arcana.getUID())
             ref.setValue(true)
             FirebaseService.dataRequest.incrementLikes(uid: arcana.getUID(), increment: true)
+            if let currentLikes = cell.numberOfLikesLabel.text, let count = Int(currentLikes) {
+                cell.numberOfLikesLabel.text = "\(count + 1)"
+            }
+            
         }
         else {
             FirebaseService.dataRequest.incrementLikes(uid: arcana.getUID(), increment: false)
+            if let currentLikes = cell.numberOfLikesLabel.text, let count = Int(currentLikes), count > 0{
+                cell.numberOfLikesLabel.text = "\(count - 1)"
+            }
         }
         
         
