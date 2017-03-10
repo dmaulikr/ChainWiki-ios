@@ -20,7 +20,7 @@ class CollectionViewWithMenu: UIViewController {
     var menuType: menuType?
     var reuseIdentifier = ""
     
-    weak var datasource: AbilityViewDataSource?
+    var datasource: AbilityViewDataSource?
     
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()

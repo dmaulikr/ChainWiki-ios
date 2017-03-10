@@ -9,47 +9,57 @@
 import UIKit
 
 class PageViewController: UIPageViewController {
-    let photos = [#imageLiteral(resourceName: "PreviewFilter"), #imageLiteral(resourceName: "PreviewAbility"), #imageLiteral(resourceName: "PreviewEdit")]
-    let descs = ["종류별로 아르카나 검색.", "어빌리티별로 아르카나 검색.", "아르카나 정보 수정."]
-    var currentIndex: Int!
+    
+    fileprivate let photos = [#imageLiteral(resourceName: "PreviewFilter"), #imageLiteral(resourceName: "PreviewAbility"), #imageLiteral(resourceName: "PreviewEdit")]
+    fileprivate let descs = ["종류별로 아르카나 검색.", "어빌리티별로 아르카나 검색.", "아르카나 정보 수정."]
+    fileprivate var currentIndex: Int!
+    
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Color.gray247
+        setupViews()
+        setupViewControllers()
         dataSource = self
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-
-        if let viewController = viewTutorialController(index: currentIndex ?? 0) {
-            let viewControllers = [viewController]
-
-            setViewControllers(
-                viewControllers,
-                direction: .forward,
-                animated: false,
-                completion: nil
-            )
-        }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         // Show the navigation bar on other view controllers
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-    func viewTutorialController(index: Int) -> TutorialViewController? {
-        if let storyboard = storyboard, let page = storyboard.instantiateViewController(withIdentifier: "TutorialViewController")
-                as? TutorialViewController {
-            page.photo = photos[index]
-            page.desc = descs[index]
-            page.tutorialIndex = index
-            return page
-        }
-        return nil
+    func setupViews() {
+        
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = Color.gray247
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
     }
+    
+    func setupViewControllers() {
+        
+        let index = currentIndex ?? 0
+        let page = TutorialViewController(index: index, photo: photos[index], desc: descs[index])
+        
+        let viewControllers = [page]
+        
+        setViewControllers(
+            viewControllers,
+            direction: .forward,
+            animated: false,
+            completion: nil
+        )
+    }
+
 }
 
-//MARK: implementation of UIPageViewControllerDataSource
 extension PageViewController: UIPageViewControllerDataSource {
     
     // 1
@@ -59,27 +69,25 @@ extension PageViewController: UIPageViewControllerDataSource {
         if let viewController = viewController as? TutorialViewController {
             var index = viewController.tutorialIndex
             guard index != NSNotFound && index != 0 else { return nil }
-            index = index! - 1
-            return viewTutorialController(index: index!)
+            index = index - 1
+            return TutorialViewController(index: index, photo: photos[index], desc: descs[index])
         }
         return nil
     }
     
     // 2
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
         if let viewController = viewController as? TutorialViewController {
             
-            if let index = viewController.tutorialIndex {
-                if index + 1 == photos.count {
-                    // out of bounds
-                    return nil
-                }
-                else {
-                    return viewTutorialController(index: index + 1)
-                }
+            let index = viewController.tutorialIndex
+            let nextindex = index + 1
+            
+            if nextindex == photos.count {
+                return nil
             }
             else {
-                return nil
+                return TutorialViewController(index: nextindex, photo: photos[nextindex], desc: descs[nextindex])
             }
             
         }

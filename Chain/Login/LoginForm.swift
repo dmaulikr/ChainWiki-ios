@@ -13,23 +13,81 @@ import Firebase
 import FirebaseAuth
 import FBSDKLoginKit
 
-
 class LoginForm: UIViewController, DisplayBanner {
 
-    @IBOutlet weak var loginGuide: UIView! {
-        didSet {
-            loginGuide.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        }
-    }
-    var showLoginGuide = true
-    @IBOutlet weak var logo: PCView!
-    @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
+    let logoImage: PCView = {
+        let view = PCView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let chainWikiLabel: UILabel = {
+        let label = UILabel()
+        label.text = "체인크로니클 위키"
+        label.textColor = Color.lightGreen
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 25)
+        return label
+    }()
+    
+    lazy var emailTextField: FloatingTextField = {
+        let textField = FloatingTextField(title: "이메일")
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var passwordTextField: FloatingTextField = {
+        let textField = FloatingTextField(title: "비밀번호")
+        textField.delegate = self
+        return textField
+    }()
 
-    @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
-//    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    lazy var loginButton: RoundedButton = {
+        let button = RoundedButton(type: .system)
+        button.setTitle("로그인", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        button.backgroundColor = Color.lightGreen
+        button.layer.shadowColor = Color.lightGray.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.shadowRadius = 0
+        button.layer.shadowOpacity = 1
+        button.layer.masksToBounds = false
+        button.addTarget(self, action: #selector(emailLogin(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    let facebookLoginButton: UIButton = {
+        let button = loginbutton
+    }()
+    let googleLoginButton = GIDSignInButton()
+    
+    lazy var createEmailButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.text = "이메일 계정 생성하기"
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        button.titleLabel?.textColor = .lightGray
+        button.addTarget(self, action: #selector(createEmail(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var guestLoginButton: RoundedButton = {
+        let button = RoundedButton(type: .system)
+        button.titleLabel?.text = "게스트 로그인"
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        button.titleLabel?.textColor = .lightGray
+        button.addTarget(self, action: #selector(guestLogin(_:)), for: .touchUpInside)
+        return button
+    }()
+
+    
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
+        return spinner
+    }()
+    
     @IBOutlet weak var loginLeadingConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var loginTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var loginSpinner: NVActivityIndicatorView!
+
+    
     @IBOutlet weak var loginTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var containerViews: [UIView]! {
         didSet {
@@ -41,31 +99,14 @@ class LoginForm: UIViewController, DisplayBanner {
         }
     }
     @IBOutlet weak var textFieldContainerView: UIView!
-    @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
     
-    @IBOutlet weak var loginButton: RoundedButton! {
-        didSet {
-            
-            loginButton.layer.shadowColor = Color.lightGray.cgColor
-            loginButton.layer.shadowOffset = CGSize(width: 0, height: 1)
-            loginButton.layer.shadowRadius = 0
-            loginButton.layer.shadowOpacity = 1
-            loginButton.layer.masksToBounds = false
-        }
-    }
-    @IBOutlet weak var guestButton: RoundedButton! {
-        didSet {
-            guestButton.tintColor = Color.textGray
-        }
-    }
-    @IBAction func emailLogin(_ sender: AnyObject) {
-        self.view.endEditing(true)
-        let email = self.email.text
-        let pw = password.text
+    func emailLogin(_ sender: AnyObject) {
+        view.endEditing(true)
+        let email = self.emailTextField.text
+        let pw = passwordTextField.text
         
         if (email != "" && pw != "") {
-            loginSpinner.startAnimating()
+            activityIndicator.startAnimating()
             
             FIRAuth.auth()?.signIn(withEmail: email!, password: pw!) { (user, error) in
                 if error != nil {
@@ -114,13 +155,13 @@ class LoginForm: UIViewController, DisplayBanner {
                     
 
                 }
-                self.loginSpinner.stopAnimating()
+                self.activityIndicator.stopAnimating()
             }
         }
         
     }
 
-    @IBAction func createEmail(_ sender: AnyObject) {
+    func createEmail(_ sender: AnyObject) {
 //        self.performSegue(withIdentifier: "createEmail", sender: self)
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let popup = storyboard.instantiateViewController(withIdentifier: "CreateEmail") as? CreateEmail else { return }
@@ -130,34 +171,8 @@ class LoginForm: UIViewController, DisplayBanner {
         popup.didMove(toParentViewController: self)
     }
     
-    func setupViews() {
-        for textField in floatingTextFields {
-            
-            textField.clearButtonMode = .whileEditing
-            textField.backgroundColor = .clear
-            textField.tintColor = Color.lightGreen
-            textField.selectedIconColor = Color.lightGreen
-            textField.selectedLineColor = Color.lightGreen
-            textField.selectedTitleColor = Color.lightGreen
-            textField.iconFont = UIFont(name: "FontAwesome", size: 15)
-            textField.iconColor = Color.lightGray
-            textField.errorColor = Color.darkSalmon
-            textField.delegate = self
-//            textField.textAlignment = .center
-            textField.lineColor = Color.lightGray
-        }
-        email.iconText = "\u{f0e0}"
-        email.keyboardType = .emailAddress
-        password.iconText = "\u{f023}"
-        password.isSecureTextEntry = true
-        
-        
-        self.title = "로그인"
-//        let backButton = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
-//        navigationItem.backBarButtonItem = backButton
-    }
-    
-    @IBAction func googleLogin(_ sender: Any) {
+
+    func googleLogin(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
         
     }
@@ -236,52 +251,69 @@ class LoginForm: UIViewController, DisplayBanner {
         }
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
         setupViews()
+        hideKeyboardWhenTappedAround()
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-//        facebookLoginButton.delegate = self
-        // Do any additional setup after loading the view.
-    }
+        //        facebookLoginButton.delegate = self
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loginGuide.transform = CGAffineTransform(translationX: 0, y: -SCREENHEIGHT)
-//        topConstraint.constant = -self.textFieldContainerView.frame.height
-//        
-//        loginButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
-//        guestButton.transform = CGAffineTransform(translationX: SCREENWIDTH, y: 0)
 
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.loginGuide.transform = .identity
-            self.view.layoutIfNeeded()
-        }, completion: nil)
 
+    func setupViews() {
         
-//        animate()
+        view.backgroundColor = .white
+        title = "로그인"
+        
+        view.addSubview(logoImage)
+        view.addSubview(chainWikiLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(loginButton)
+        view.addSubview(facebookLoginButton)
+        view.addSubview(googleLoginButton)
+        view.addSubview(createEmailButton)
+        view.addSubview(guestLoginButton)
+        
+        logoImage.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: nil, bottom: nil, topConstant: 20, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 100, heightConstant: 100)
+        logoImage.anchorCenterXToSuperview()
+        
+        chainWikiLabel.anchor(top: logoImage.bottomAnchor, leading: nil, trailing: nil, bottom: nil, topConstant: 30, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        chainWikiLabel.anchorCenterXToSuperview()
+        
+        emailTextField.anchor(top: chainWikiLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 40, trailingConstant: 40, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
+        
+        passwordTextField.anchor(top: emailTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
+        
+        loginButton.anchor(top: passwordTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 44)
+        
+        facebookLoginButton.anchor(top: loginButton.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 80)
+        
+        googleLoginButton.anchor(top: facebookLoginButton.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 44)
+        
+        createEmailButton.anchor(top: nil, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        guestLoginButton.anchor(top: createEmailButton.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if showLoginGuide {
-            guard let _ = touches.first?.location(in: self.loginGuide) else { return }
-            
-            loginGuide.fadeOut(withDuration: 0.2)
-            showLoginGuide = false
+        guard let touch = touches.first?.location(in: self.view) else { return }
+        if logoImage.frame.contains(touch){
+            logoImage.bounceAnimate()
         }
-        else {
-            guard let touch = touches.first?.location(in: self.view) else { return }
-            if logo.frame.contains(touch){
-                logo.bounceAnimate()
-            }
 
-        }
     }
     
     func animate() {
@@ -296,7 +328,7 @@ class LoginForm: UIViewController, DisplayBanner {
         UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
 
             self.loginButton.transform = .identity
-            self.guestButton.transform = .identity
+            self.guestLoginButton.transform = .identity
             self.view.layoutIfNeeded()
             
         }, completion: nil)
@@ -486,25 +518,25 @@ extension LoginForm: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        if let text = email.text {
-            if let floatingLabelTextField = email {
-                if(!text.isEmail) {
-                    floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
-                }
-                else {
-                    // The error message will only disappear when we reset it to nil or empty string
-                    floatingLabelTextField.errorMessage = ""
-                }
+        if let text = emailTextField.text {
+            
+            if(!text.isEmail) {
+                emailTextField.errorMessage = "올바른 이메일을 입력하세요."
             }
+            else {
+                // The error message will only disappear when we reset it to nil or empty string
+                emailTextField.errorMessage = ""
+            }
+            
             
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if textField == email {
+        if textField == emailTextField {
             textField.resignFirstResponder()
-            _ = password.becomeFirstResponder()
+            _ = passwordTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
             self.emailLogin(self)

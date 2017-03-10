@@ -19,9 +19,10 @@ extension UIViewController {
     
     func changeRootVC(vc: RootVC) {
         
+        guard let snapshot:UIView = view.window?.snapshotView(afterScreenUpdates: true) else { return }
+
         switch vc {
         case .home:
-            let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
             let initialViewController = MyTabBarController()
             initialViewController.view.addSubview(snapshot)
             
@@ -38,10 +39,8 @@ extension UIViewController {
             })
 
         case .login:
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginForm")
+            let initialViewController = LoginForm()
             
-            let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
             initialViewController.view.addSubview(snapshot)
             
             self.view.window?.rootViewController = initialViewController
