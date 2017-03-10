@@ -77,9 +77,9 @@ class TavernView: UIViewController {
                 }
             
             
-            let vc = segue.destination as! TavernHomeView
-            vc.navTitle = tavernRef
-            vc.tavern = convertTavern(tavern: tavernRef)
+//            let vc = segue.destination as! TavernHomeView
+//            vc.navTitle = tavernRef
+//            vc.tavern = convertTavern(tavern: tavernRef)
         }
         
     }

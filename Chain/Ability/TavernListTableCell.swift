@@ -10,15 +10,17 @@ import UIKit
 
 class TavernListTableCell: BaseCollectionViewCell {
 
+    var arcanaArray = [String]()
+
     var pageIndex: Int! {
         didSet {
             switch pageIndex {
             case 0:
-                currentArray = tavernNamesPart1
+                arcanaArray = tavernNamesPart1
             case 1:
-                currentArray = tavernNamesPart2
+                arcanaArray = tavernNamesPart2
             default:
-                currentArray = tavernNamesPart3
+                arcanaArray = tavernNamesPart3
             }
             tableView.reloadData()
         }
@@ -29,8 +31,6 @@ class TavernListTableCell: BaseCollectionViewCell {
     private let tavernNamesPart2 = ["새벽대해", "수인의대륙", "죄의대륙", "박명의대륙", "철연의대륙", "연대기대륙", "서가", "레무레스섬"]
     
     private let tavernNamesPart3 = ["성왕국", "현자의탑", "호수도시", "정령섬", "화염구령"]
-    
-    var currentArray = [String]()
     
     override func setupViews() {
         super.setupViews()
@@ -45,7 +45,7 @@ class TavernListTableCell: BaseCollectionViewCell {
 extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentArray.count
+        return arcanaArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -54,7 +54,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TavernListCell") as! TavernListCell
-        cell.tavernName.text = currentArray[indexPath.row]
+        cell.tavernName.text = arcanaArray[indexPath.row]
         
         return cell
     }
@@ -70,23 +70,24 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
         
         guard let pageIndex = pageIndex else { return }
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
         
-        let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
+//        let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
 
-        let tavern = currentArray[indexPath.row]
-        vc.navTitle = tavern
+        let tavernKR = arcanaArray[indexPath.row]
+        let tavernEN: String
+//        vc.navTitle = tavern
         if pageIndex == 2 && indexPath.row != 0 {
             
-            let tavern2 = "\(tavern)2"
+            let tavern2 = "\(tavernKR)2"
             
-            vc.tavern = convertTavern(tavern: tavern2)
+            tavernEN = convertTavern(tavern: tavern2)
         }
         else {
-            vc.tavern = convertTavern(tavern: tavern)
+            tavernEN = convertTavern(tavern: tavernKR)
         }
         
-        
+        let vc = TavernHomeView(tavernKR: tavernKR, tavernEN: tavernEN)
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     

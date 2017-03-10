@@ -88,7 +88,7 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as UITableViewCell
         cell.textLabel?.text = dataLinks[indexPath.row].getTitle()
-        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         return cell
     }
     
@@ -99,7 +99,7 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let url = URL(string: link) else { return }
 //        let vc = LinkViewController(url: url)
-        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: false)
         vc.title = title
         navigationController?.pushViewController(vc, animated: true)
         

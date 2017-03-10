@@ -29,8 +29,6 @@ class AbilityViewTableCell: BaseCollectionViewCell {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
     }
-
-
     
 }
 

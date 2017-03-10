@@ -1,6 +1,6 @@
 
 //
-//  TavernHomeView.swift
+//  Favorites.swift
 //  Chain
 //
 //  Created by Jitae Kim on 9/24/16.
@@ -22,6 +22,7 @@ class Favorites: UIViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.alpha = 0
 
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
 
@@ -178,6 +179,15 @@ class Favorites: UIViewController {
         group.notify(queue: DispatchQueue.main, execute: {
             
             self.array = array
+            if array.count == 0 {
+                self.tableView.alpha = 0
+                self.tipLabel.fadeIn(withDuration: 0.5)
+                
+            }
+            else {
+                self.tipLabel.fadeOut(withDuration: 0.2)
+                self.tableView.fadeIn(withDuration: 0.5)
+            }
             self.tableView.reloadData()
         })
 
@@ -194,17 +204,6 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if array.count == 0 {
-            tableView.alpha = 0
-            tipLabel.fadeIn(withDuration: 0.5)
-            
-        }
-        else {
-            tipLabel.fadeOut(withDuration: 0.2)
-            tableView.fadeIn(withDuration: 0.5)
-        }
-        
         return array.count
     }
     

@@ -15,7 +15,12 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     private let ref = FIREBASE_REF.child("arcana")
     private var arcanaRefHandle: FIRDatabaseHandle?
     
-    lazy var tableView: UITableView = {
+    fileprivate var arcanaArray = [Arcana]()
+    fileprivate var originalArray = [Arcana]()
+    fileprivate var searchArray = [Arcana]()
+    fileprivate var filters = [String: [String]]()
+    
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
@@ -27,14 +32,14 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         return tableView
     }()
     
-    let filterView: UIView = {
+    fileprivate let filterView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.alpha = 0
         return view
     }()
     
-    let searchView: UIView = {
+    fileprivate let searchView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.alpha = 0
@@ -43,10 +48,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }()
     
     // Initial setup
-    var initialLoad = true
-    var preventAnimation = Set<IndexPath>()
+    fileprivate var initialLoad = true
+    fileprivate var preventAnimation = Set<IndexPath>()
 
-    var showFilter: Bool = false {
+    fileprivate var showFilter: Bool = false {
         didSet {
             
             if self.showFilter == true {
@@ -59,7 +64,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    var showSearch: Bool = false {
+    fileprivate var showSearch: Bool = false {
         didSet {
             if showSearch {
                 print("active")
@@ -72,15 +77,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    let searchController: SearchController = SearchController(searchResultsController: nil)
-
-    var arcanaArray = [Arcana]()
-    var originalArray = [Arcana]()
-    var searchArray = [Arcana]()
+    fileprivate let searchController: SearchController = SearchController(searchResultsController: nil)
     
-    var gesture = UITapGestureRecognizer()
-    var longPress = UILongPressGestureRecognizer()
-    var filters = [String: [String]]()
+    fileprivate var gesture = UITapGestureRecognizer()
+    fileprivate var longPress = UILongPressGestureRecognizer()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -88,6 +88,11 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        guard let refHandle = arcanaRefHandle else { return }
+        ref.removeObserver(withHandle: refHandle)
     }
 
     override func viewDidLoad() {
@@ -111,16 +116,13 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchController.isActive = false
-        
-        guard let refHandle = self.arcanaRefHandle else { return }
-        ref.removeObserver(withHandle: refHandle)
     }
-    
     
     func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
+        navigationItem.title = "이전"
         
         view.addSubview(tableView)
         view.addSubview(filterView)
@@ -131,9 +133,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
         
         setupChildViews()
-        
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
         
     }
     
@@ -194,8 +193,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
         
         longPress = UILongPressGestureRecognizer(target: self, action: #selector(Home.dismissFilter(_:)))
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Home.handlePanGesture(_:)))
-        panGestureRecognizer.delegate = self
         gesture.cancelsTouchesInView = false
 
     }
@@ -210,7 +207,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
                 self.originalArray.append(arcana)
                 if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
                     self.tableView.reloadData()
-                    //                    self?.animateTable()
                 }
                 
             }
@@ -226,7 +222,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         })
         
         ref.observe(.childRemoved, with: { snapshot in
-            print(snapshot.key)
+
             let uidToRemove = snapshot.key
             
             for (index, arcana) in self.originalArray.enumerated() {
@@ -378,79 +374,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
         
         
-    }
-    
-    
-    
-    
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        print("in shouldReceiveTouch")
-//        gestureRecognizer.delegate = self
-//        if filterView.alpha == 1 {
-//            print("touching filterview")
-//            return true
-//        }
-//        else if CGRect(x: self.view.frame.width - 50, y: 0, width: self.view.frame.width, height: self.view.frame.height).contains(touch.location(in: self.view)) {
-//            print("should open filterview")
-//            return true
-//        }
-//        else {
-//            
-//            return false
-//        }
-//    }
-    
-
-    func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        
-        //        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
-        
-        switch(recognizer.state) {
-        case .began:
-            //            if self.filterView.alpha == 0 {
-            //                self.filterView.alpha = 1
-            //                self.filterView.frame = CGRect(x: SCREENWIDTH , y: filterView.frame.origin.y, width: filterView.frame.width, height: filterView.frame.height)
-            //            }
-            //
-            print("BEGAN")
-        case .changed:
-            
-            if CGRect(x: 95, y: 0, width: self.view.frame.width, height: self.view.frame.height).contains(recognizer.location(in: self.view)) {
-                // Gesture started inside the pannable view. Do your thing.
-                
-                if self.filterView.frame.origin.x >= 95 && recognizer.view!.frame.origin.x >= 95 {
-                    if recognizer.view!.frame.origin.x >= 95 && recognizer.view!.frame.origin.x + recognizer.translation(in: filterView).x >= 95{
-                        recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translation(in: filterView).x
-                        recognizer.setTranslation(CGPoint.zero, in: filterView)
-                        
-                    }
-                }
-                
-                
-                
-            }
-            
-            
-        case .ended:
-//            print("ENDED")
-            // animate the side panel open or closed based on whether the view has moved more or less than halfway
-            let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
-            
-            if recognizer.view!.frame.origin.x < 95 {
-                recognizer.view!.frame.origin.x = 95
-            }
-            
-            
-            if hasMovedGreaterThanHalfway {
-                //dismissFilter.
-//                print("HAS MOVED MORE THAN HALF, DISMISS")
-                filter()
-            }
-            
-            
-        default:
-            break
-        }
     }
   
 }
@@ -615,6 +538,7 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         view.isUserInteractionEnabled = false
@@ -638,6 +562,7 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
     
     
     func animateTable() {
+        
         tableView.reloadData()
         
         let cells = tableView.visibleCells
@@ -682,8 +607,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
         tableView.reloadData()
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { 
-        
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.resignFirstResponder()
     }
     

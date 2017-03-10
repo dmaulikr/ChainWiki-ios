@@ -23,6 +23,7 @@ class ArcanaAttributeCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         label.textColor = .black
+        label.numberOfLines = 2
         return label
     }()
     
