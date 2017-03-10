@@ -10,6 +10,8 @@ import UIKit
 
 class SearchHistory: UIViewController {
 
+    var arcanaArray = [Arcana]()
+
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
 
@@ -21,8 +23,6 @@ class SearchHistory: UIViewController {
         return tableView
     }()
     
-    var arcanaArray = [Arcana]()
-
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -117,8 +117,12 @@ extension SearchHistory: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        let arcana: Arcana = arcanaArray[row]
+
+        let vc = ArcanaDetail(arcana: arcana)
+        navigationController?.pushViewController(vc, animated: true)
         
-//        performSegue(withIdentifier: "searchToArcana", sender: (indexPath as NSIndexPath).row)
     }
 
 }

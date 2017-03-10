@@ -11,7 +11,9 @@ import Firebase
 
 class ArcanaEditList: UIViewController {
 
-    lazy var tableView: UITableView = {
+    fileprivate let arcanaID: String
+    
+    fileprivate lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .plain)
         
@@ -23,22 +25,20 @@ class ArcanaEditList: UIViewController {
         return tableView
     }()
     
-    let tipLabel: UILabel = {
+    fileprivate let tipLabel: UILabel = {
         let label = UILabel()
         label.text = "수정 기록 없음!"
         label.textAlignment = .center
         return label
     }()
     
-    var edits = [String]()
-    var names = [String]()
-    var arcanaUID: String?
-    var arcanaEdit = [ArcanaEdit]()
-    var editor: String?
-    var arcanaEditModel = [ArcanaEditModel]()
-
+    fileprivate var edits = [String]()
+    fileprivate var names = [String]()
+    fileprivate var editor: String?
+    fileprivate var arcanaEditsArray = [ArcanaEditModel]()
     
-    init() {
+    init(arcanaID: String) {
+        self.arcanaID = arcanaID
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,7 +53,7 @@ class ArcanaEditList: UIViewController {
         
     }
     
-    func setupViews() {
+    private func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -69,45 +69,39 @@ class ArcanaEditList: UIViewController {
 
     }
     
-    func getEdits() {
-        // TODO: GET STRUCT ARCANAEDITS
-        if let uid = arcanaUID {
-            let ref = FIREBASE_REF.child("arcanaEdit/\(uid)")
-            ref.observeSingleEvent(of: .value, with: { snapshot in
+    private func getEdits() {
+
+        let ref = FIREBASE_REF.child("arcanaEdit").child(arcanaID)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
 //                
 //                var editDates = [String]()
 //                var editNames = [String]()
-                if let snapshotValue = snapshot.value as? NSDictionary {
+            guard let editData = snapshot.value as? Dictionary<String, AnyObject> else { return }
+                
+                for child in editData.reversed() {
                     
-                    for child in (snapshotValue as? [String:AnyObject])!.reversed() {
-                        
-                        let date = child.value["date"] as! String
+                    let date = child.value["date"] as! String
 //                        editDates.append(date)
-                        let name = child.value["nickName"] as! String
+                    let name = child.value["nickName"] as! String
 //                        editNames.append(name)
-                        let editUID = child.value["uid"] as! String
+                    let editUID = child.value["uid"] as! String
 //                        self.editor = editUID
-                        let updateRef = ref.child("\(editUID)/update")
-                        updateRef.observeSingleEvent(of: .value, with: { snapshot in
-                            var indexes = [IndexPath]()
-                            if let arcana = ArcanaEdit(snapshot: snapshot) {
-                                self.arcanaEditModel.insert(ArcanaEditModel(a: arcana, id: editUID, name: name, ref: ref.child(child.key), d: date), at: 0)
-                                indexes.append(IndexPath(row: 0, section: 0))
-                            }
-                            
-                            
-                            self.tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
-                        })
+                    let updateRef = ref.child("\(editUID)/update")
+                    updateRef.observeSingleEvent(of: .value, with: { snapshot in
+                        var indexes = [IndexPath]()
+                        if let arcana = ArcanaEdit(snapshot: snapshot) {
+                            self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: name, ref: ref.child(child.key), d: date), at: 0)
+                            indexes.append(IndexPath(row: 0, section: 0))
+                        }
                         
-                    }
+                        
+                        self.tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
+                    })
                     
                 }
-                
-            })
             
-            
-            
-        }
+        })
+        
         
     }
     
@@ -119,7 +113,7 @@ class ArcanaEditList: UIViewController {
         
         if segue.identifier == "showEdits" {
             if let vc = segue.destination as? ArcanaEditHistory {
-                vc.arcana = arcanaEditModel[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+                vc.arcana = arcanaEditsArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
                 vc.editor = editor
                 
             }
@@ -136,7 +130,7 @@ class ArcanaEditList: UIViewController {
 extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if arcanaEditModel.count == 0 {
+        if arcanaEditsArray.count == 0 {
             tableView.alpha = 0
             tipLabel.alpha = 1
         }
@@ -145,14 +139,14 @@ extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
             tipLabel.alpha = 0
         }
         
-        return arcanaEditModel.count
+        return arcanaEditsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaEditListCell") as! ArcanaEditListCell
         
-        cell.dateLabel.text = arcanaEditModel[indexPath.row].date
-        cell.nameLabel.text = arcanaEditModel[indexPath.row].editorName
+        cell.dateLabel.text = arcanaEditsArray[indexPath.row].date
+        cell.nameLabel.text = arcanaEditsArray[indexPath.row].editorName
         //        cell.date.text = edits[indexPath.row]
         //        cell.name.text = names[indexPath.row]
         return cell

@@ -41,7 +41,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             guard let tab = Tab(rawValue: index) else { return }
             
             switch tab {
-                
+              
             case .Arcana:
                 let vc = Home()
                 let child = UINavigationController(rootViewController: vc)
@@ -86,6 +86,14 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
+                
+//            default:
+//                let child = UIViewController()
+//                
+//                child.tabBarItem.title = title
+//                child.tabBarItem.image = tabIcons[index]
+//                child.tabBarItem.tag = index
+//                views.append(child)
             }
 
         }

@@ -49,7 +49,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     
     // Initial setup
     fileprivate var initialLoad = true
-    fileprivate var preventAnimation = Set<IndexPath>()
+    var preventAnimation = Set<IndexPath>()
 
     fileprivate var showFilter: Bool = false {
         didSet {
@@ -77,7 +77,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    fileprivate let searchController: SearchController = SearchController(searchResultsController: nil)
+    let searchController: SearchController = SearchController(searchResultsController: nil)
     
     fileprivate var gesture = UITapGestureRecognizer()
     fileprivate var longPress = UILongPressGestureRecognizer()
@@ -91,7 +91,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }
     
     deinit {
-        guard let refHandle = arcanaRefHandle else { return }
+        guard let refHandle = self.arcanaRefHandle else { return }
         ref.removeObserver(withHandle: refHandle)
     }
 
@@ -116,6 +116,11 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchController.isActive = false
+        
+        if let refHandle = self.arcanaRefHandle {
+            ref.removeObserver(withHandle: refHandle)
+        }
+
     }
     
     func setupViews() {
@@ -218,6 +223,10 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             self.animateTable()
             self.tableView.reloadData()
             self.initialLoad = false
+            if let refHandle = self.arcanaRefHandle {
+                self.ref.removeObserver(withHandle: refHandle)
+
+            }
             
         })
         

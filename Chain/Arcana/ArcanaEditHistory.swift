@@ -73,12 +73,7 @@ class ArcanaEditHistory: UIViewController, UITableViewDataSource, UITableViewDel
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaDetailEditCell") as! ArcanaDetailEditCell
         cell.arcanaAttributeTextView.isUserInteractionEnabled = false
-        
-        guard let arcana = arcana else {
-            return UITableViewCell()
-        }
-        
-        
+
         cell.arcanaKeyLabel.text = keys[indexPath.row]
         
         /*

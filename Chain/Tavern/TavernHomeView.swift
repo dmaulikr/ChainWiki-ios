@@ -13,9 +13,9 @@ class TavernHomeView: UIViewController {
 
     private let ref: FIRDatabaseReference
 
-    var arcanaArray = [Arcana]()
+    fileprivate var arcanaArray = [Arcana]()
 
-    lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
@@ -28,7 +28,7 @@ class TavernHomeView: UIViewController {
         return tableView
     }()
     
-    let tavernEN: String
+    fileprivate let tavernEN: String
 
     init(tavernKR: String, tavernEN: String) {
         self.tavernEN = tavernEN
@@ -55,7 +55,7 @@ class TavernHomeView: UIViewController {
         }
     }
     
-    func setupViews() {
+    private func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -66,7 +66,7 @@ class TavernHomeView: UIViewController {
 
     }
     
-    func getArcanaByTavern() {
+    private func getArcanaByTavern() {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
