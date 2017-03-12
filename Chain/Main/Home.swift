@@ -116,10 +116,6 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchController.isActive = false
-        
-        if let refHandle = self.arcanaRefHandle {
-            ref.removeObserver(withHandle: refHandle)
-        }
 
     }
     

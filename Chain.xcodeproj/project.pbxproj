@@ -88,6 +88,7 @@
 		04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594C1DB60A1200D30C21 /* PageViewController.swift */; };
 		04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */; };
 		04DBE7591E2B508600E0A8B1 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DBE7581E2B508600E0A8B1 /* SnapshotHelper.swift */; };
+		04DCE62E1E74CEA100AF1C1E /* ArcanaPeekPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE62D1E74CEA100AF1C1E /* ArcanaPeekPreview.swift */; };
 		04DD91141D8669B50023CDA4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DD91131D8669B50023CDA4 /* Login.storyboard */; };
 		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EDE6F31D9377CA005731B9 /* LoginHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F21D9377CA005731B9 /* LoginHome.swift */; };
@@ -232,6 +233,7 @@
 		04D6594C1DB60A1200D30C21 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		04DBE7581E2B508600E0A8B1 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		04DCE62D1E74CEA100AF1C1E /* ArcanaPeekPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPeekPreview.swift; sourceTree = "<group>"; };
 		04DD91131D8669B50023CDA4 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04EDE6F21D9377CA005731B9 /* LoginHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHome.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				04A2EC981D6F7FA300189142 /* Main.storyboard */,
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
 				04A2EC961D6F7FA300189142 /* Home.swift */,
+				04DCE62D1E74CEA100AF1C1E /* ArcanaPeekPreview.swift */,
 				04691E8E1D97A87300E15C5F /* ArcanaCell.xib */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
 				046710C31D97D070000CF487 /* ArcanaTextCell.xib */,
@@ -925,6 +928,7 @@
 				04A3B17A1D8E7C0D00BBF297 /* TavernCell.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
+				04DCE62E1E74CEA100AF1C1E /* ArcanaPeekPreview.swift in Sources */,
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
