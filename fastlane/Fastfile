@@ -1,0 +1,103 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "1.105.2"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+
+
+    cocoapods
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  lane :inc do
+      increment_build_number
+    end
+
+  lane :provision do
+      # 3
+      produce(
+        app_name: '체인크로니클 위키',
+        language: 'Korean',
+        # app_version: '1.0.1',
+        sku: 'cck16'
+      )
+      # 4
+      cert
+      # 5
+      sigh(force: true)
+    end
+
+  desc "Create ipa"
+  lane :build do
+
+    increment_build_number
+
+    increment_version_number(
+      # bump_type: "patch" # Automatically increment patch version number
+      # version_number: "1.1.1"
+    )
+    # version = increment_version_number
+    gym(scheme: "Chain", use_legacy_build_api: true, configuration: "Release")
+  end
+
+  desc "Upload to App Store"
+  lane :upload do
+
+    deliver
+  end
+
+  lane :update do
+    cert
+    sigh(force: true)
+
+    build
+    deliver
+  end
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  desc "Take screenshots"
+  lane :screenshot do
+    snapshot
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer

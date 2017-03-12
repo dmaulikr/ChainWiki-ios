@@ -8,16 +8,34 @@
 
 import UIKit
 
+enum BannerFormType {
+    
+    case emailNotFound
+    case emailAlreadyInUse
+    case invalidEmail
+    
+    case incorrectPassword
+    case weakPassword
+    case shortPassword
+
+    case nicknameAlreadyInUse
+    case shortNickname
+
+    case serverError
+    
+    case noEdits
+}
+
 protocol DisplayBanner {
-    func displayBanner(desc: String, color: UIColor)
+    func displayBanner(formType: BannerFormType, color: UIColor)
 }
 
 extension DisplayBanner where Self: UIViewController {
     
-    func displayBanner(desc: String, color: UIColor = Color.salmon) {
-        let banner = BannerAlert(desc: desc, color: color)
+    func displayBanner(formType: BannerFormType, color: UIColor = Color.salmon) {
+        let banner = BannerAlert(formType: formType, color: color)
         
-        self.view.addSubview(banner)
+        view.addSubview(banner)
         
         banner.alpha = 0
         banner.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -43,10 +61,10 @@ extension DisplayBanner where Self: UIViewController {
 }
 
 class BannerAlert: UIView {
-
-//    var titleLabel = UILabel()
     
-    var descLabel: UILabel = {
+    let formType: BannerFormType
+    
+    let textLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
@@ -55,31 +73,55 @@ class BannerAlert: UIView {
         return label
     }()
     
-//    let icon = UIImageView(image: #imageLiteral(resourceName: "exclamation"))
-    
-    init(desc: String, color: UIColor) {
+    init(formType: BannerFormType, color: UIColor) {
+        self.formType = formType
         super.init(frame: .zero)
-
         backgroundColor = color
-        descLabel.text = desc
         setupViews()
+        setLabelText()
     }
-    
-    func setupViews() {
-        
-//        self.addSubview(icon)
-        self.addSubview(descLabel)
-        
-//        icon.anchor(top: nil, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 25, heightConstant: 25)
-        descLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
-//        descLabel.anchorCenterYToSuperview()
-        
-        
-    }
-
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setupViews() {
+        
+        addSubview(textLabel)
+        
+        textLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)        
+        
+    }
+    
+    func setLabelText() {
+        
+        switch formType {
+            
+        case .emailNotFound:
+            textLabel.text = "계정을 찾지 못하였습니다."
+        case .emailAlreadyInUse:
+            textLabel.text = "이메일이 이미 사용 중입니다."
+        case .invalidEmail:
+            textLabel.text = "이메일 형식이 맞지 않습니다."
+        case .incorrectPassword:
+            textLabel.text = "비밀번호가 틀렸습니다."
+        case .weakPassword:
+            textLabel.text = "비밀번호가 약합니다."
+        case .shortPassword:
+            textLabel.text = "비밀번호 6자 이상이 필요합니다."
+        case .nicknameAlreadyInUse:
+            textLabel.text = "닉네임이 이미 사용 중입니다."
+        case .shortNickname:
+            textLabel.text = "닉네임은 2자 이상이 필요합니다."
+        case .serverError:
+            textLabel.text = "서버에 접속하지 못하였습니다."
+            
+        case .noEdits:
+            textLabel.text = "수정된 정보가 없었습니다."
+        }
+    }
+
+    
+
 
 }

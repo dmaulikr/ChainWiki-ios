@@ -1,6 +1,6 @@
 {
   "name": "NVActivityIndicatorView",
-  "version": "3.3",
+  "version": "3.5.1",
   "summary": "A collection of awesome loading animations",
   "homepage": "https://github.com/ninjaprox/NVActivityIndicatorView",
   "screenshots": "https://raw.githubusercontent.com/ninjaprox/NVActivityIndicatorView/master/Demo.gif",
@@ -18,7 +18,7 @@
   },
   "source": {
     "git": "https://github.com/ninjaprox/NVActivityIndicatorView.git",
-    "tag": "v3.3"
+    "tag": "3.5.1"
   },
   "source_files": "NVActivityIndicatorView/**/*.swift",
   "frameworks": [
