@@ -9,12 +9,18 @@
 import UIKit
 import SkyFloatingLabelTextField
 
+enum TextFieldFormType {
+    case email
+    case password
+    case passwordConfirm
+    case nickname
+}
 class FloatingTextField: SkyFloatingLabelTextFieldWithIcon {
 
-    let placeHolderTitle: String
+    let formType: TextFieldFormType
     
-    init(title: String) {
-        placeHolderTitle = title
+    init(_ form: TextFieldFormType) {
+        formType = form
         super.init(frame: .zero)
         setupViews()
     }
@@ -24,19 +30,18 @@ class FloatingTextField: SkyFloatingLabelTextFieldWithIcon {
     }
     
     func setupViews() {
-//        iconWidth = 20
-//        iconMarginBottom = 0
+
         backgroundColor = .clear
         tintColor = Color.lightGreen
         textColor = .black
-
-        placeholder = placeHolderTitle
+        font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        
         placeholderColor = .lightGray
+        placeholderFont = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
 
         lineColor = .lightGray
         selectedLineColor = Color.lightGreen
 
-        selectedTitle = placeHolderTitle
         selectedTitleColor = Color.lightGreen
         
         selectedIconColor = Color.lightGreen
@@ -47,13 +52,25 @@ class FloatingTextField: SkyFloatingLabelTextFieldWithIcon {
         
         clearButtonMode = .whileEditing
         
-        if title == "이메일" {
+        switch formType {
+            
+        case .email:
+            placeholder = "이메일"
+            selectedTitle = "이메일"
             iconText = "\u{f0e0}"
             keyboardType = .emailAddress
-        }
-        else if title == "비밀번호" {
+            
+        case .password, .passwordConfirm:
+            placeholder = "비밀번호"
+            selectedTitle = "비밀번호"
             iconText = "\u{f023}"
             isSecureTextEntry = true
+
+        case.nickname:
+            placeholder = "닉네임"
+            selectedTitle = "닉네임"
+            iconText = "\u{f007}"
+            tag = 3
         }
 
     }

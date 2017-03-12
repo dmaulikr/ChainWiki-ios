@@ -61,6 +61,20 @@ let IMAGECACHE = AutoPurgingImageCache(
 
 
 // Colors
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
+}
+
 enum Color {
     
     static let salmon = UIColor(red:0.92, green:0.65, blue:0.63, alpha:1.0) // #EBA5A0
@@ -70,13 +84,13 @@ enum Color {
     static let textGray = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
     static let gray247 = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)    // #f7f7f7
     static let googleRed = UIColor(red:0.86, green:0.20, blue:0.21, alpha:1.0) // #db3236
+    static let facebookBlue = UIColor(netHex: 0x3b5998)
 
 }
 
 let defaults = UserDefaults.standard
 
 extension UIViewController {
-    
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

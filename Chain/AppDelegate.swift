@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
             
         else {
-            let initialViewController = LoginForm()
+            let initialViewController = LoginHome()
 //            let initialViewController = PageViewController()
             UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
                 self.window!.rootViewController = initialViewController

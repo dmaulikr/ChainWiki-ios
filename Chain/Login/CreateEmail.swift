@@ -13,58 +13,133 @@ import Firebase
 import NVActivityIndicatorView
 
 class CreateEmail: UIViewController, DisplayBanner {
-
-    @IBOutlet weak var popupView: UIScrollView!
-
-    @IBOutlet var floatingTextFields: [SkyFloatingLabelTextFieldWithIcon]!
-    @IBOutlet weak var email: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet weak var password: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet weak var passwordConfirm: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet weak var nickname: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet weak var spinner: NVActivityIndicatorView!
+    
+    lazy var emailTextField: FloatingTextField = {
+        let textField = FloatingTextField(.email)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var passwordTextField: FloatingTextField = {
+        let textField = FloatingTextField(.password)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var passwordConfirmTextField: FloatingTextField = {
+        let textField = FloatingTextField(.passwordConfirm)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var nicknameTextField: FloatingTextField = {
+        let textField = FloatingTextField(.nickname)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var registerButton: RoundedButton = {
+        let button = RoundedButton(type: .system)
+        button.setTitle("완료", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        button.backgroundColor = Color.lightGreen
+        button.addTarget(self, action: #selector(createEmail), for: .touchUpInside)
+        return button
+    }()
+    
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
+        return spinner
+    }()
     
     var signedIn = false
     var keyboardShown = false
     
-    @IBAction func closePopup(_ sender: Any) {
-        
-        animateRemovePopup()
-        
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        setupNavBar()
+        hideKeyboardWhenTappedAround()
         
     }
-    @IBAction func createEmail(_ sender: AnyObject) {
-
-        self.view.endEditing(true)
-        var errorText = ""
+    
+    func setupViews() {
         
-        if let email = self.email.text, let password = self.password.text, let passwordConfirm = self.passwordConfirm.text, let nickname = self.nickname.text {
+        view.backgroundColor = .white
+        
+        view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(passwordConfirmTextField)
+        view.addSubview(nicknameTextField)
+        view.addSubview(registerButton)
+        
+        emailTextField.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 20, trailingConstant: 20, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        passwordTextField.anchor(top: emailTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        passwordConfirmTextField.anchor(top: passwordTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        nicknameTextField.anchor(top: passwordConfirmTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        registerButton.anchor(top: nicknameTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 30, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 50)
+        
+    }
+    
+    func setupNavBar() {
+        
+        title = "이메일 계정 생성"
+        
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancel))
+        let registerbutton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(createEmail))
+//        saveButton.tintColor = .lightGray
+//        saveButton.isEnabled = false
+        
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = registerbutton
+        
+    }
+    
+    func cancel() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func createEmail() {
+
+        view.endEditing(true)
+        var formType: BannerFormType?
+        
+        if let email = emailTextField.text, let password = passwordTextField.text, let passwordConfirm = passwordConfirmTextField.text, let nickname = nicknameTextField.text {
         
             if password == "" || passwordConfirm == "" {
-                errorText = "비밀번호를 입력하세요."
-                self.displayBanner(desc: errorText)
+                formType = .shortPassword
             }
             
             else if nickname == "" || nickname.characters.count < 2 {
-                errorText = "닉네임은 2자 이상이 필요합니다."
-                spinner.stopAnimating()
-                self.displayBanner(desc: errorText)
+                formType = .shortNickname
             }
+                
             else if password != passwordConfirm {
-
-                errorText = "비밀번호가 맞지 않습니다."
-                spinner.stopAnimating()
-                self.displayBanner(desc: errorText)
+                formType = .incorrectPassword
             }
+                
             else {
-                    spinner.startAnimating()
-                    let nickNameRef = FIREBASE_REF.child("nickName/\(nickname)")
+                    activityIndicator.startAnimating()
+                
+                    let nickNameRef = FIREBASE_REF.child("nickName").child(nickname)
                     nickNameRef.observeSingleEvent(of: .value, with: { snapshot in
                         
                         if snapshot.exists() {
-
-                            errorText = "닉네임이 이미 사용 중입니다."
-                            self.displayBanner(desc: errorText)
-                            self.spinner.stopAnimating()
+                            formType = .nicknameAlreadyInUse
+                            self.activityIndicator.stopAnimating()
                         }
                         else {
                             
@@ -75,34 +150,33 @@ class CreateEmail: UIViewController, DisplayBanner {
                                 let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: password)
                                 
                                 FIRAuth.auth()?.currentUser?.link(with: credential) { (user, error) in
+                                    
+                                    self.activityIndicator.stopAnimating()
+
                                     if error != nil {
                                         print("ERROR LINKING TO EMAIL")
+
                                         if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
                                             switch (errorCode) {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
-                                                errorText = "이메일이 이미 사용 중입니다."
+                                                formType = .emailAlreadyInUse
                                                 
                                             case .errorCodeInvalidEmail:
-                                                errorText = "이메일이 올바르지 않습니다."
+                                                formType = .invalidEmail
                                                 
                                             case .errorCodeWeakPassword:
-                                                errorText = "비밀번호가 약합니다."
+                                                formType = .weakPassword
                                                 
                                             default:
-                                                errorText = "서버에 접속하지 못 하였습니다."
+                                                formType = .serverError
                                             }
-                                            self.spinner.stopAnimating()
-                                            self.displayBanner(desc: errorText)
                                         }
                                         
                                     }
                                     else {
 //                                        print("successfully linked email!")
-                                        self.spinner.stopAnimating()
-                                        guard let user = user else {
-                                            return
-                                        }
+                                        guard let user = user else { return }
                                          
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue(true)
@@ -133,32 +207,31 @@ class CreateEmail: UIViewController, DisplayBanner {
                             else {
                                 FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                                     
+                                    self.activityIndicator.stopAnimating()
+
                                     if error != nil {
-                                        
                                         
                                         if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
                                             switch (errorCode) {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
-                                                errorText = "이메일이 이미 사용 중입니다."
+                                                formType = .emailAlreadyInUse
                                                 
                                             case .errorCodeInvalidEmail:
-                                                errorText = "이메일이 올바르지 않습니다."
+                                                formType = .invalidEmail
                                                 
                                             case .errorCodeWeakPassword:
-                                                errorText = "비밀번호가 약합니다."
+                                                formType = .weakPassword
                                                 
                                             default:
-                                                errorText = "서버에 접속하지 못 하였습니다."
+                                                formType = .serverError
                                             }
-                                            self.spinner.stopAnimating()
-                                            self.displayBanner(desc: errorText)
                                         }
                                     }
+                                        
                                     else {
                                         
 //                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
-                                        self.spinner.stopAnimating()
                                         guard let user = user else {
                                             return
                                         }
@@ -194,124 +267,14 @@ class CreateEmail: UIViewController, DisplayBanner {
                     
                 }
             
+            if let form = formType {
+                displayBanner(formType: form)
+            }
+            
             
             }
    
     }
-    
-    func setupViews() {
-        
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        self.view.isUserInteractionEnabled = true
-        popupView.layer.cornerRadius = 5
-        popupView.layer.borderWidth = 1
-        popupView.layer.borderColor = UIColor.clear.cgColor
-        
-        for textField in floatingTextFields {
-            
-            textField.clearButtonMode = .whileEditing
-            textField.tintColor = Color.lightGreen
-            textField.titleColor = Color.lightGreen
-            textField.selectedIconColor = Color.lightGreen
-            textField.selectedLineColor = Color.lightGreen
-            textField.selectedTitleColor = Color.lightGreen
-            textField.iconFont = UIFont(name: "FontAwesome", size: 15)
-            textField.iconColor = Color.lightGray
-            textField.errorColor = Color.darkSalmon
-            textField.delegate = self
-            textField.lineColor = Color.lightGray
-        }
-        email.iconText = "\u{f0e0}"
-        email.keyboardType = .emailAddress
-        email.tag = 0
-        password.iconText = "\u{f023}"
-        password.tag = 1
-        passwordConfirm.iconText = "\u{f023}"
-        passwordConfirm.tag = 2
-        nickname.iconText = "\u{f007}"
-        nickname.tag = 3
-        password.isSecureTextEntry = true
-        passwordConfirm.isSecureTextEntry = true
-        
-    }
-    
-    func animateRemovePopup() {
-
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 2.0,
-                       options: .curveEaseOut,
-                       animations: {
-                        self.popupView.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
-                        self.view.alpha = 0
-        },
-                       completion: { (finished: Bool) in
-                                    self.view.removeFromSuperview()
-        })
-
-
-    }
-    
-    func animatePopup()
-    {
-        popupView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        
-        UIView.animate(withDuration: 0.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 1.0,
-                       options: .curveEaseInOut,
-                       animations: {
-                        self.popupView.transform = .identity
-                        self.popupView.alpha = 1
-            },
-                       completion: nil)
-
-    }
-    
-    func keyboardWillShow(notification:NSNotification){
-        //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
-        var userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
-        var contentInset:UIEdgeInsets = self.popupView.contentInset
-        contentInset.bottom = keyboardFrame.size.height
-        self.popupView.contentInset = contentInset
-        keyboardShown = true
-    }
-    
-    func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        self.popupView.contentInset = contentInset
-        keyboardShown = false
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-
-        setupViews()
-        self.hideKeyboardWhenTappedAround()
-        animatePopup()
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if !keyboardShown {
-            if !self.popupView.frame.contains((touches.first?.location(in: self.view))!) {
-                closePopup(sender: self)
-            }
-            
-        }
-        
-    }
-
-    
     
     func changeRootView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -320,15 +283,6 @@ class CreateEmail: UIViewController, DisplayBanner {
         self.view.window?.rootViewController = initialViewController
         self.view.window?.makeKeyAndVisible()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -340,9 +294,9 @@ extension CreateEmail: UITextFieldDelegate {
         } else {
             // Not found, so remove keyboard.
             textField.resignFirstResponder()
-            if textField == nickname {
+            if textField == nicknameTextField {
                 //do login stuff
-                createEmail(self)
+                createEmail()
             }
         }
         // Do not add a line break
@@ -354,57 +308,56 @@ extension CreateEmail: UITextFieldDelegate {
             
             switch textField {
                 
-            case email:
-                if let floatingLabelTextField = email {
-                    if(!text.isEmail) {
-                        floatingLabelTextField.errorMessage = "올바른 이메일을 입력하세요."
-                    }
-                    else {
-                        // The error message will only disappear when we reset it to nil or empty string
-                        floatingLabelTextField.errorMessage = ""
-                    }
+            case emailTextField:
+                
+                if(!text.isEmail) {
+                    emailTextField.errorMessage = "올바른 이메일을 입력하세요."
+                }
+                else {
+                    // The error message will only disappear when we reset it to nil or empty string
+                    emailTextField.errorMessage = ""
                 }
                 
-            case password:
-                if let floatingLabelTextField = password {
-                    if(text.characters.count < 6) {
-                        floatingLabelTextField.errorMessage = "6자 이상 입력하세요."
-                    }
-                    else {
-                        // The error message will only disappear when we reset it to nil or empty string
-                        floatingLabelTextField.errorMessage = ""
-                    }
+                
+            case passwordTextField:
+                
+                if(text.characters.count < 6) {
+                    passwordTextField.errorMessage = "6자 이상 입력하세요."
+                }
+                else {
+                    // The error message will only disappear when we reset it to nil or empty string
+                    passwordTextField.errorMessage = ""
                 }
                 
-            case passwordConfirm:
-                if let floatingLabelTextField = passwordConfirm {
-                    if(text != password.text) {
-                        floatingLabelTextField.errorMessage = "비밀번호가 맞지 않습니다."
-                    }
-                    else {
-                        // The error message will only disappear when we reset it to nil or empty string
-                        floatingLabelTextField.errorMessage = ""
-                    }
+                
+            case passwordConfirmTextField:
+
+                if text != passwordConfirmTextField.text {
+                    passwordConfirmTextField.errorMessage = "비밀번호가 맞지 않습니다."
                 }
+                else {
+                    // The error message will only disappear when we reset it to nil or empty string
+                    passwordConfirmTextField.errorMessage = ""
+                }
+                
                 
             default:
+
+                let ref = FIREBASE_REF.child("nickname/\(text)")
+                    
+                ref.observeSingleEvent(of: .value, with: { snapshot in
+                    
+                    if snapshot.exists() {
+                        self.nicknameTextField.errorMessage = "닉네임이 이미 존재합니다."
+                    }
+                        
+                    else {
+                        self.nicknameTextField.errorMessage = ""
+                    }
+                    
+                })
+                    
                 
-                if let floatingLabelTextField = nickname {
-                    let ref = FIREBASE_REF.child("nickname/\(text)")
-                    
-                    ref.observeSingleEvent(of: .value, with: { snapshot in
-                        
-                        if snapshot.exists() {
-                            floatingLabelTextField.errorMessage = "닉네임이 이미 존재합니다."
-                        }
-                            
-                        else {
-                            floatingLabelTextField.errorMessage = ""
-                        }
-                        
-                    })
-                    
-                }
             }
             
         }

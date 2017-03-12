@@ -65,7 +65,7 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         
         // check to see which first cell to populate.
         
-        if defaults.bool(forKey: "edit") == true {
+        if defaults.canEdit() {
             hasEmail = true
         }
         else {
@@ -130,7 +130,7 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         alert.addAction(cancelAction)
         
         
-        self.present(alert, animated: true) {
+        present(alert, animated: true) {
             alert.view.tintColor = Color.salmon
         }
 
@@ -334,11 +334,10 @@ extension Settings: UITextFieldDelegate {
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         if snapshot.exists() {
 
-                            self.displayBanner(desc: "닉네임이 이미 존재합니다.")
+                            self.displayBanner(formType: .nicknameAlreadyInUse, color: .red)
                         }
                         else {
                             
-                            self.displayBanner(desc: "닉네임 변경 완료!", color: Color.lightGreen)
                             // upload to firebase
                             
                             let user = FIRAuth.auth()?.currentUser

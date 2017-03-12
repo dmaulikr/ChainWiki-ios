@@ -39,7 +39,7 @@ extension UIViewController {
             })
 
         case .login:
-            let initialViewController = LoginForm()
+            let initialViewController = LoginHome()
             
             initialViewController.view.addSubview(snapshot)
             

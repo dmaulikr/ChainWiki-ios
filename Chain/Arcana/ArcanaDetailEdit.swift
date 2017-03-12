@@ -90,7 +90,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
             
             if self.edits.count == 0 {
                 
-                self.displayBanner(desc: "수정된 정보가 없었습니다.")
+                self.displayBanner(formType: .noEdits, color: .yellow)
             }
             else {
                 self.backTwo()
