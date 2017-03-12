@@ -13,8 +13,8 @@ import AlamofireImage
 import NVActivityIndicatorView
 
 enum ArcanaButton {
-    case Heart
-    case Favorite
+    case heart
+    case favorite
 }
 
 protocol ArcanaDetailProtocol : class {
@@ -63,7 +63,6 @@ class ArcanaDetail: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -423,14 +422,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     private enum Section: Int {
         
-        case Image
-        case Attribute
-        case Skill
-        case Ability
-        case Kizuna
-        case ChainStory
-        case Tavern
-        case Edit
+        case image
+        case attribute
+        case skill
+        case ability
+        case kizuna
+        case chainStory
+        case tavern
+        case edit
         
     }
     
@@ -443,11 +442,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         guard let section = Section(rawValue: section) else { return 0 }
         
         switch section {
-        case .Image:
+        case .image:
             return 2
-        case .Attribute:
+        case .attribute:
             return 6
-        case .Skill:
+        case .skill:
             
             // Returning 2 * skillCount for description.
             
@@ -462,7 +461,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 2
             }
             
-        case .Ability:
+        case .ability:
             
             if let _ = arcana.getPartyAbility() {
                 return 6
@@ -477,10 +476,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 0
             }
             
-        case .Kizuna:
+        case .kizuna:
             return 2
             
-        case .ChainStory:
+        case .chainStory:
             var count = 0
             if let _ = arcana.getChainStory() {
                 count += 1
@@ -491,7 +490,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             return count
             
-        case .Tavern:
+        case .tavern:
             if arcana.getTavern() == "" {
                 return 0
             }
@@ -499,7 +498,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 1
             }
             
-        case .Edit:
+        case .edit:
             return 1
         }
         
@@ -510,7 +509,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
 
         switch section {
-        case .Image:
+        case .image:
             if indexPath.row == 0 {
                 return 405
             }
@@ -529,7 +528,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 
         switch section {
             
-        case .Image:
+        case .image:
             if indexPath.row == 0 {
                 return 405
             }
@@ -538,14 +537,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-        case .Attribute:
+        case .attribute:
             if (indexPath as NSIndexPath).row == 0 {
                 return 160
             }
             else {
                 return 80
             }
-        case .Ability:
+        case .ability:
             return 80
             
         default:
@@ -559,7 +558,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             guard let section = Section(rawValue: section) else { return 0 }
 
             switch section {
-            case .Image:
+            case .image:
                 return 0
             default:
                 return 10
@@ -576,7 +575,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 
         switch section {
             
-        case .Image: // arcanaImage, buttons
+        case .image:
             
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
@@ -638,7 +637,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             
             
-        case .Attribute:    // arcanaAttribute
+        case .attribute:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.layoutMargins = UIEdgeInsets.zero
             cell.selectionStyle = .none
@@ -696,7 +695,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             return cell
             
-        case .Skill: // Arcana Skill
+        case .skill:
             //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
             
             
@@ -758,8 +757,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 
             }
             
-        // Arcana Ability
-        case .Ability:
+        case .ability:
             
             switch indexPath.row {
             case 0,2,4:
@@ -811,7 +809,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.layoutMargins = UIEdgeInsets.zero
                 return cell
             }
-        case .Kizuna:
+            
+        case .kizuna:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
                 cell.selectionStyle = .none
@@ -832,7 +831,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-        case .ChainStory:
+        case .chainStory:
             
             switch indexPath.row {
             case 0:
@@ -871,7 +870,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-        case .Tavern:
+        case .tavern:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.selectionStyle = .none
             cell.layoutMargins = UIEdgeInsets.zero
@@ -879,7 +878,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.attributeValueLabel.text = arcana.getTavern()
             return cell
             
-        case .Edit:
+        case .edit:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaViewEditsCell") as! ArcanaViewEditsCell
             cell.editLabel.text = "편집 기록 보기"
             cell.arrow.image = #imageLiteral(resourceName: "go")
@@ -893,7 +892,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let section = Section(rawValue: indexPath.section), section == .Edit else { return }
+        guard let section = Section(rawValue: indexPath.section), section == .edit else { return }
         
         let vc = ArcanaEditList(arcanaID: arcana.getUID())
         navigationController?.pushViewController(vc, animated: true)

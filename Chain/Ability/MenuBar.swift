@@ -9,9 +9,9 @@
 import UIKit
 
 enum menuType {
-    case AbilityList
-    case AbilityView
-    case TavernList
+    case abilityList
+    case abilityView
+    case tavernList
 }
 
 class MenuBar: UIView {
@@ -59,11 +59,11 @@ class MenuBar: UIView {
         super.init(frame: frame)
         self.menuType = menuType
         switch menuType {
-            case .AbilityList:
+            case .abilityList:
                 numberOfItems = 2
-            case .AbilityView:
+            case .abilityView:
                 numberOfItems = 5
-            case .TavernList:
+            case .tavernList:
                 numberOfItems = 3
         }
         
@@ -149,11 +149,11 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         if let menuType = menuType {
             
             switch menuType {
-            case .AbilityList:
+            case .abilityList:
                 cell.nameLabel.text = sectionTitles[indexPath.row]
-            case .AbilityView:
+            case .abilityView:
                 cell.nameLabel.text = classTypes[indexPath.row]
-            case .TavernList:
+            case .tavernList:
                 cell.nameLabel.text = tavernTypes[indexPath.row]
             }
         }

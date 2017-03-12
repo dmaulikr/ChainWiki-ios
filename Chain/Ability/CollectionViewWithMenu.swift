@@ -51,25 +51,25 @@ class CollectionViewWithMenu: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        menuType = .AbilityList
+        menuType = .abilityList
         self.numberOfMenuTabs = 2
         self.reuseIdentifier = "AbilityListTableCell"
         self.title = "어빌리티"
         
-        menuBar = MenuBar(frame: .zero, menuType: .AbilityList)
+        menuBar = MenuBar(frame: .zero, menuType: .abilityList)
         menuBar.parentController = self
     }
     
     init(abilityType: (String, String), selectedIndex: Int) {
         super.init(nibName: nil, bundle: nil)
-        menuType = .AbilityView
+        menuType = .abilityView
         self.abilityType = abilityType.1
         self.selectedIndex = selectedIndex
         downloadArray()
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
         self.title = abilityType.0
-        menuBar = MenuBar(frame: .zero, menuType: .AbilityView)
+        menuBar = MenuBar(frame: .zero, menuType: .abilityView)
         menuBar.parentController = self
         if abilityType.0 == "웨이브 회복" {
             setupNavBar()
@@ -81,7 +81,6 @@ class CollectionViewWithMenu: UIViewController {
     init(menuType: menuType) {
         super.init(nibName: nil, bundle: nil)
         
-        // should be tavernView
         self.numberOfMenuTabs = 3
         self.menuType = menuType
         self.reuseIdentifier = "TavernListTableCell"
@@ -213,7 +212,7 @@ class CollectionViewWithMenu: UIViewController {
         
         guard let menuType = menuType else { return }
         
-        if menuType == .AbilityList {
+        if menuType == .abilityList {
 
             primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
             
@@ -272,7 +271,7 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
         guard let menuType = menuType else { return UICollectionViewCell() }
         
         switch menuType {
-        case .AbilityList:
+        case .abilityList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityListTableCell
             cell.primaryAbilities = primaryAbilities
             cell.statusAbilities = statusAbilities
@@ -280,7 +279,7 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
             cell.tableDelegate = self
             
             return cell
-        case .AbilityView:
+        case .abilityView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityViewTableCell
             cell.selectedIndex = self.selectedIndex
             cell.abilityType = abilityType
@@ -293,7 +292,7 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
             cell.tag = indexPath.row
             return cell
 
-        case .TavernList:
+        case .tavernList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TavernListTableCell
             cell.pageIndex = indexPath.row
             cell.tableDelegate = self

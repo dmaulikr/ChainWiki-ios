@@ -15,6 +15,7 @@ enum TextFieldFormType {
     case passwordConfirm
     case nickname
 }
+
 class FloatingTextField: SkyFloatingLabelTextFieldWithIcon {
 
     let formType: TextFieldFormType

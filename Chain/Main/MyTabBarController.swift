@@ -61,7 +61,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 views.append(child)
             
             case .Tavern:
-                let vc = CollectionViewWithMenu(menuType: .TavernList)
+                let vc = CollectionViewWithMenu(menuType: .tavernList)
                 let child = UINavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title

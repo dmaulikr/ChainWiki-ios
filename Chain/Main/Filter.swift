@@ -80,11 +80,11 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     
     private enum Section: Int {
         
-        case Rarity
-        case Class
-        case Weapon
-        case Affiliation
-        case Clear
+        case rarity
+        case group
+        case weapon
+        case affiliation
+        case clear
         
     }
 
@@ -98,15 +98,15 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
         switch section {
             
-        case .Rarity:
+        case .rarity:
             return 5
-        case .Class:
+        case .group:
             return 5
-        case .Weapon:
+        case .weapon:
             return 9
-        case .Affiliation:
+        case .affiliation:
             return affiliation.count
-        case .Clear:
+        case .clear:
             return 1
         }
     }
@@ -117,26 +117,26 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         switch section {
             
-        case .Rarity:
+        case .rarity:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RarityCell", for: indexPath) as! RarityCell
             cell.rarityLabel.text = rarity[(indexPath as NSIndexPath).row]
             return cell
             
-        case .Class:
+        case .group:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = group[(indexPath as NSIndexPath).row]
             return cell
-        case .Weapon:
+        case .weapon:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = weapon[(indexPath as NSIndexPath).row]
             return cell
             
-        case .Affiliation:
+        case .affiliation:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = affiliation[(indexPath as NSIndexPath).row]
             return cell
             
-        case .Clear:
+        case .clear:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = "필터 지우기"
             return cell
@@ -155,7 +155,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         switch section {
             
-        case .Rarity:
+        case .rarity:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
             cell.cellAnimate()
             print("SELECTED RARITY \(cell.rarityLabel.text!)")
@@ -176,7 +176,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             hasFilter = true
             
-        case .Class:
+        case .group:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
@@ -194,7 +194,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             filterTypes.updateValue(groupArray, forKey: "group")
             hasFilter = true
             
-        case .Weapon:
+        case .weapon:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
@@ -212,7 +212,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             filterTypes.updateValue(weaponArray, forKey: "weapon")
             hasFilter = true
             
-        case .Affiliation:
+        case .affiliation:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
@@ -231,7 +231,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             filterTypes.updateValue(affiliationArray, forKey: "affiliation")
             hasFilter = true
             
-        case .Clear:
+        case .clear:
             
             if let selectedFilters = collectionView.indexPathsForSelectedItems {
                 for i in selectedFilters {
@@ -258,7 +258,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
         switch section {
             
-        case .Rarity:
+        case .rarity:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
             let deleteRarity = cell.rarityLabel.text!
             var rarityArray = filterTypes["rarity"]!
@@ -269,7 +269,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             }
             filterTypes.updateValue(rarityArray, forKey: "rarity")
             
-        case .Class:
+        case .group:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteGroup = cell.filterLabel.text!
             var groupArray = filterTypes["group"]!
@@ -280,7 +280,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             }
             filterTypes.updateValue(groupArray, forKey: "group")
             
-        case .Weapon:
+        case .weapon:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteWeapon = cell.filterLabel.text!
             var weaponArray = filterTypes["weapon"]!
@@ -291,7 +291,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             }
             filterTypes.updateValue(weaponArray, forKey: "weapon")
             
-        case .Affiliation:
+        case .affiliation:
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             let deleteAffiliation = cell.filterLabel.text!
             var affiliationArray = filterTypes["affiliation"]!
@@ -326,14 +326,14 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         switch section {
             
-        case .Rarity, .Class, .Weapon:
+        case .rarity, .group, .weapon:
             return CGSize(width: cellSize, height: cellSize)
             
-        case .Affiliation:
+        case .affiliation:
             cellSizeTavern = (view.frame.width - (sectionInsets.left * 2 + CGFloat(3)))/4
             return CGSize(width: cellSizeTavern, height: cellSize)
             
-        case .Clear:
+        case .clear:
             clearFilterSize = view.frame.width - sectionInsets.left * 2
             return CGSize(width: clearFilterSize, height: cellSize)
         }
