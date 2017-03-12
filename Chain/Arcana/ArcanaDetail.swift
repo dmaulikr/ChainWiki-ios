@@ -411,7 +411,7 @@ class ArcanaDetail: UIViewController {
         tableView.frame = previousFrame
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
+        UIGraphicsEndImageContext()
         
         return image
     }
@@ -714,15 +714,19 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 case 0:
                     headerCell.skillNumberLabel.text = "스킬 1"
                     headerCell.skillNameLabel.text = arcana.getSkillName1()
+                    headerCell.skillManaLabel.text = "마나"
                     headerCell.skillManaCostLabel.text = arcana.getSkillMana1()
                     
                 case 2:
                     headerCell.skillNumberLabel.text = "스킬 2"
                     headerCell.skillNameLabel.text = arcana.getSkillName2()
+                    headerCell.skillManaLabel.text = "마나"
                     headerCell.skillManaCostLabel.text = arcana.getSkillMana2()
+                    
                 default:
                     headerCell.skillNumberLabel.text = "스킬 3"
                     headerCell.skillNameLabel.text = arcana.getSkillName3()
+                    headerCell.skillManaLabel.text = "마나"
                     headerCell.skillManaCostLabel.text = arcana.getSkillMana3()
                     
                 }

@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppRater.appRater.incrementAppLaunches()
         
-        if !defaults.isLoggedIn() {
+        if defaults.isLoggedIn() {
             let initialViewController = MyTabBarController()
             UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
                 self.window!.rootViewController = initialViewController

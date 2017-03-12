@@ -13,8 +13,6 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         _ = anchorWithReturnAnchors(top: top, leading: leading, trailing: trailing, bottom: bottom, topConstant: topConstant, leadingConstant: leadingConstant, trailingConstant: trailingConstant, bottomConstant: bottomConstant, widthConstant: widthConstant, heightConstant: heightConstant)
-        
-        
     }
     
     func anchorWithReturnAnchors(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, topConstant: CGFloat = 0, leadingConstant: CGFloat = 0, trailingConstant: CGFloat = 0, bottomConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
