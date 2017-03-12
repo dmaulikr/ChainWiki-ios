@@ -13,13 +13,18 @@ import FirebaseAuth
 
 class Favorites: UIViewController {
     
-    var array = [Arcana]()
+    fileprivate var arcanaArray = [Arcana]()
+    fileprivate var arcanaDataSource: ArcanaDataSource? {
+        didSet {
+            tableView.dataSource = arcanaDataSource
+            tableView.reloadData()
+        }
+    }
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
 
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.alpha = 0
@@ -104,7 +109,7 @@ class Favorites: UIViewController {
 
     func editFavorites() {
         
-        if array.count != 0 {
+        if arcanaArray.count != 0 {
             
             tableViewSetEditing()
             
@@ -112,7 +117,7 @@ class Favorites: UIViewController {
                 // set userDefaults to new array.
                 var favoritesDict = [String: Int]()
                 var uids = [String]()
-                for (index, arcana) in array.enumerated() {
+                for (index, arcana) in arcanaArray.enumerated() {
                     favoritesDict.updateValue(index, forKey: arcana.getUID())
                     uids.append(arcana.getUID())
                     
@@ -178,7 +183,8 @@ class Favorites: UIViewController {
         
         group.notify(queue: DispatchQueue.main, execute: {
             
-            self.array = array
+            self.arcanaArray = array
+            self.arcanaDataSource = ArcanaDataSource(array)
             if array.count == 0 {
                 self.tableView.alpha = 0
                 self.tipLabel.fadeIn(withDuration: 0.5)
@@ -197,15 +203,7 @@ class Favorites: UIViewController {
 }
 
 
-extension Favorites: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
-    }
+extension Favorites: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -215,65 +213,9 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         return UITableViewAutomaticDimension
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        
-        
-        for i in cell.labelCollection {
-            i.text = nil
-        }
-        
-        cell.arcanaImage.image = nil
-        
-        //        cell.imageSpinner.startAnimating()
-        
-        let arcana = array[indexPath.row]
-        
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.getNicknameKR() {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.getNicknameJP() {
-            
-            cell.arcanaNickJP.text = nnJP
-            
-        }
-        cell.arcanaNameKR.text = arcana.getNameKR()
-        cell.arcanaNameJP.text = arcana.getNameJP()
-        
-        cell.arcanaRarity.text = "#\(arcana.getRarity())★"
-        cell.arcanaGroup.text = "#\(arcana.getGroup())"
-        cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
-        if let a = arcana.getAffiliation() {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
-            }
-            
-        }
-        
-        cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
-        cell.arcanaUID = arcana.getUID()
-        // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
-            
-            cell.arcanaImage.image = i
-            //            cell.imageSpinner.stopAnimating()
-            print("LOADED FROM CACHE")
-            
-        }
-            
-        else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
-        }
-        
-        
-        
-        return cell
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let arcana = array[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
+        let arcana = arcanaArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
         
@@ -292,9 +234,9 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
-        let itemToMove = array[sourceIndexPath.row]
-        array.remove(at: sourceIndexPath.row)
-        array.insert(itemToMove, at: destinationIndexPath.row)
+        let itemToMove = arcanaArray[sourceIndexPath.row]
+        arcanaArray.remove(at: sourceIndexPath.row)
+        arcanaArray.insert(itemToMove, at: destinationIndexPath.row)
         
     }
     
@@ -310,8 +252,8 @@ extension Favorites: UITableViewDelegate, UITableViewDataSource {
         
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
-            let idToRemove = self.array[indexPath.row].uid
-            self.array.remove(at: indexPath.row)
+            let idToRemove = self.arcanaArray[indexPath.row].uid
+            self.arcanaArray.remove(at: indexPath.row)
             
             var userFavorites = defaults.getFavorites()
             

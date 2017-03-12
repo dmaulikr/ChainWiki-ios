@@ -14,12 +14,17 @@ class TavernHomeView: UIViewController {
     private let ref: FIRDatabaseReference
 
     fileprivate var arcanaArray = [Arcana]()
+    fileprivate var arcanaDataSource: ArcanaDataSource? {
+        didSet {
+            tableView.dataSource = arcanaDataSource
+            tableView.reloadData()
+        }
+    }
 
     fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -100,7 +105,8 @@ class TavernHomeView: UIViewController {
             group.notify(queue: DispatchQueue.main, execute: {
                 print("Finished all requests.")
                 self.arcanaArray = array.sorted { $0.getRarity() > $1.getRarity() }
-                self.tableView.reloadData()
+                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+//                self.tableView.reloadData()
             })
             
         })
@@ -108,7 +114,7 @@ class TavernHomeView: UIViewController {
     }
 }
 
-extension TavernHomeView: UITableViewDelegate, UITableViewDataSource {
+extension TavernHomeView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -125,62 +131,10 @@ extension TavernHomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        
-        for i in cell.labelCollection {
-            i.text = nil
-        }
-        cell.arcanaImage.image = nil
-        
-        //        cell.imageSpinner.startAnimating()
-        
-        let arcana = arcanaArray[indexPath.row]
-        
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.getNicknameKR() {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.getNicknameJP() {
-            
-            cell.arcanaNickJP.text = nnJP
-            
-        }
-        cell.arcanaNameKR.text = arcana.getNameKR()
-        cell.arcanaNameJP.text = arcana.getNameJP()
-        
-        cell.arcanaRarity.text = "#\(arcana.getRarity())★"
-        cell.arcanaGroup.text = "#\(arcana.getGroup())"
-        cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
-        if let a = arcana.getAffiliation() {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
-            }
-            
-        }
-        
-        cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
-        cell.arcanaUID = arcana.getUID()
-        // Check cache first
-        if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
-            
-            cell.arcanaImage.image = i
-            //            cell.imageSpinner.stopAnimating()
-            print("LOADED FROM CACHE")
-            
-        }
-            
-        else {
-            FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
-        }
-        
-        return cell
-    }
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

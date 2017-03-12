@@ -66,12 +66,11 @@ class ArcanaDetail: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         updateHistory()
         setupViews()
         setupNavBar()
         
-        tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
+        tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         checkFavorites()
         
         

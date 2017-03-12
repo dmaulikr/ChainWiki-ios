@@ -281,15 +281,11 @@ extension CollectionViewWithMenu: UICollectionViewDelegate, UICollectionViewDele
             return cell
         case .abilityView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AbilityViewTableCell
-            cell.selectedIndex = self.selectedIndex
-            cell.abilityType = abilityType
-            cell.pageIndex = indexPath.row
             cell.tableDelegate = self
             if let datasource = datasource {
                 cell.currentArray = datasource.getCurrentArray(index: indexPath.row)
             }
             
-            cell.tag = indexPath.row
             return cell
 
         case .tavernList:
