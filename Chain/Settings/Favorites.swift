@@ -63,7 +63,6 @@ class Favorites: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setupNavBar()
     }
@@ -77,6 +76,10 @@ class Favorites: UIViewController {
     }
 
     func setupViews() {
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: tableView)
+        }
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -281,4 +284,26 @@ extension Favorites: UITableViewDelegate {
     
 }
 
+extension Favorites: UIViewControllerPreviewingDelegate {
+    
+    @available(iOS 9.0, *)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        
+        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+        
+        let arcana = arcanaArray[indexPath.row]
+        
+        let vc = ArcanaPeekPreview(arcana: arcana)
+        vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
+        
+        return vc
+    }
+    
+}
 

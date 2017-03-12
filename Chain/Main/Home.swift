@@ -334,7 +334,7 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             self.sortArcanaByNumberOfViews()
         })
         alertController.addAction(views)
-
+  
         alertController.addAction(UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {
             action in
             alertController.dismiss(animated: true, completion: nil)

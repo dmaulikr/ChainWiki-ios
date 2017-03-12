@@ -50,8 +50,8 @@ extension AbilityViewTableCell: UITableViewDelegate {
 
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
         
-        
     }
     
 }
+
 

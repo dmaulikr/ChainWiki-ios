@@ -55,12 +55,15 @@ class TavernHomeView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: row, animated: true)
-        }
+        guard let row = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: row, animated: true)
     }
     
     private func setupViews() {
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: tableView)
+        }
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -145,4 +148,27 @@ extension TavernHomeView: UITableViewDelegate {
 
     }
 
+}
+
+extension TavernHomeView: UIViewControllerPreviewingDelegate {
+    
+    @available(iOS 9.0, *)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        
+        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+        
+        let arcana = arcanaArray[indexPath.row]
+        
+        let vc = ArcanaPeekPreview(arcana: arcana)
+        vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
+        
+        return vc
+    }
+    
 }
