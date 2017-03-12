@@ -216,49 +216,49 @@ class SealImmune: Ability {
 // 지형 특효
 class WasteLand: Ability {
     init() {
-        super.init(kr: "황무지 특효", en: "wastelands")
+        super.init(kr: "황무지", en: "wastelands")
     }
 }
 
 class Forest: Ability {
     init() {
-        super.init(kr: "숲 특효", en: "forest")
+        super.init(kr: "숲", en: "forest")
     }
 }
 
 class Cavern: Ability {
     init() {
-        super.init(kr: "덩굴 특효", en: "cavern")
+        super.init(kr: "덩굴", en: "cavern")
     }
 }
 
 class Desert: Ability {
     init() {
-        super.init(kr: "사막 특효", en: "desert")
+        super.init(kr: "사막", en: "desert")
     }
 }
 
 class Snow: Ability {
     init() {
-        super.init(kr: "설산 특효", en: "snow")
+        super.init(kr: "설산", en: "snow")
     }
 }
 
 class Urban: Ability {
     init() {
-        super.init(kr: "도시 특효", en: "urban")
+        super.init(kr: "도시", en: "urban")
     }
 }
 
 class Water: Ability {
     init() {
-        super.init(kr: "해변 특효", en: "water")
+        super.init(kr: "해변", en: "water")
     }
 }
 
 class Night: Ability {
     init() {
-        super.init(kr: "야간 특효", en: "night")
+        super.init(kr: "야간", en: "night")
     }
 }
 
@@ -270,7 +270,7 @@ class Insect: Ability {
     private let defenseKR = "방어력 증가"
     
     init() {
-        super.init(kr: "벌레 특효", en: "insect")
+        super.init(kr: "벌레", en: "insect")
     }
     
     func getAttack() -> String {

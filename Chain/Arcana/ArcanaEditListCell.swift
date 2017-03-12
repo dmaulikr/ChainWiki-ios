@@ -39,7 +39,7 @@ class ArcanaEditListCell: UITableViewCell {
         addSubview(dateLabel)
         addSubview(nameLabel)
         
-        dateLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        dateLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
         dateLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .horizontal)
         
         nameLabel.anchor(top: topAnchor, leading: dateLabel.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)

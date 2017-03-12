@@ -10,9 +10,9 @@ import UIKit
 
 class ArcanaPeekPreview: UIViewController {
     
-    let arcana: Arcana
+    fileprivate let arcana: Arcana
     
-    lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
@@ -53,7 +53,7 @@ class ArcanaPeekPreview: UIViewController {
         sizeHeaderToFit(tableView: tableView)
     }
     
-    func sizeHeaderToFit(tableView: UITableView) {
+    private func sizeHeaderToFit(tableView: UITableView) {
         if let headerView = tableView.tableHeaderView {
             let height = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
             var frame = headerView.frame
@@ -65,7 +65,7 @@ class ArcanaPeekPreview: UIViewController {
         }
     }
     
-    func setupViews() {
+    private func setupViews() {
         
         let header = ArcanaPeekTableViewHeader(name: arcana.getNameKR())
         tableView.tableHeaderView = header

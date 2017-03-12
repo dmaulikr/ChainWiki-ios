@@ -10,8 +10,6 @@ import UIKit
 
 class AbilityListTableCell: BaseCollectionViewCell {
 
-    var pageIndex: Int!
-    // Choose one of the below from parent, then designate which one this cell should use!
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
@@ -21,18 +19,21 @@ class AbilityListTableCell: BaseCollectionViewCell {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "AbilityListCell", bundle: nil), forCellReuseIdentifier: "abilityListCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AbilityListCell")
         
     }
 
 }
 
-enum Section: Int {
-    case Primary
-    case Status
-    case Area
-}
+
+
 extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
+    
+    enum Section: Int {
+        case primary
+        case status
+        case area
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -40,14 +41,17 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        guard let section = Section(rawValue: section) else { return 0 }
+        
         switch section {
-        case 0:
+        case .primary:
             return primaryAbilities.count
-        case 1:
+        case .status:
             return statusAbilities.count
-        default:
+        case .area:
             return areaAbilities.count
         }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -55,33 +59,32 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         guard let section = Section(rawValue: section) else { return nil }
         
         switch section {
-        case .Primary:
+        case .primary:
             return AbilitySectionHeader(sectionTitle: "메인 어빌")
-        case .Status:
+        case .status:
             return AbilitySectionHeader(sectionTitle: "상태 이상")
-        case .Area:
+        case .area:
             return AbilitySectionHeader(sectionTitle: "지형 특효")
             
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "abilityListCell") as! AbilityListCell
         
         guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AbilityListCell", for: indexPath)
+        
+        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         
         switch section {
             
-        case .Primary:
-            cell.abilityName.text = primaryAbilities[indexPath.row].getKR()
-//            cell.abilityImage.image = primaryAbilities[indexPath.row].getImage()
-        case .Status:
-            cell.abilityName.text = statusAbilities[indexPath.row].getKR()
-//            cell.abilityImage.image = statusAbilities[indexPath.row].getImage()
-        case .Area:
-            cell.abilityName.text = areaAbilities[indexPath.row].getKR()
-//            cell.abilityImage.image = areaAbilities[indexPath.row].getImage()
-            
+        case .primary:
+            cell.textLabel?.text = primaryAbilities[indexPath.row].getKR()
+        case .status:
+            cell.textLabel?.text = statusAbilities[indexPath.row].getKR()
+        case .area:
+            cell.textLabel?.text = areaAbilities[indexPath.row].getKR()
         }
         
         return cell
@@ -92,23 +95,24 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         
         guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
         
-        guard let section = Section(rawValue: indexPath.section) else { return }
+        guard let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
         
         var abilityKR = ""
         var abilityEN = ""
         
         switch section {
-        case .Primary:
-            abilityKR = primaryAbilities[tableView.indexPathForSelectedRow!.row].getKR()
-            abilityEN = primaryAbilities[tableView.indexPathForSelectedRow!.row].getEN()
-        case .Status:
-            abilityKR = statusAbilities[tableView.indexPathForSelectedRow!.row].getKR()
-            abilityEN = statusAbilities[tableView.indexPathForSelectedRow!.row].getEN()
-        case .Area:
-            abilityKR = areaAbilities[tableView.indexPathForSelectedRow!.row].getKR()
-            abilityEN = areaAbilities[tableView.indexPathForSelectedRow!.row].getEN()
+        case .primary:
+            abilityKR = primaryAbilities[row].getKR()
+            abilityEN = primaryAbilities[row].getEN()
+        case .status:
+            abilityKR = statusAbilities[row].getKR()
+            abilityEN = statusAbilities[row].getEN()
+        case .area:
+            abilityKR = areaAbilities[row].getKR()
+            abilityEN = areaAbilities[row].getEN()
             
         }
+        
         let abilityName = (abilityKR, abilityEN)
         let abilityVC = CollectionViewWithMenu(abilityType: abilityName, selectedIndex: selectedAbilityType)
         

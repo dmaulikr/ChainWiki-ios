@@ -21,8 +21,6 @@
 		040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1791DB8951F00193363 /* TavernNameHandler.swift */; };
 		040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA17B1DB8955200193363 /* DismissKeyboard.swift */; };
 		041729071E7297D50090E634 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041729061E7297D50090E634 /* FloatingTextField.swift */; };
-		04180A331DF628FA00C1BA72 /* AbilityListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A311DF628FA00C1BA72 /* AbilityListCell.swift */; };
-		04180A341DF628FA00C1BA72 /* AbilityListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04180A321DF628FA00C1BA72 /* AbilityListCell.xib */; };
 		04180A361DF6365200C1BA72 /* TavernList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A351DF6365200C1BA72 /* TavernList.swift */; };
 		04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */; };
 		04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */; };
@@ -157,8 +155,6 @@
 		040EA1791DB8951F00193363 /* TavernNameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernNameHandler.swift; sourceTree = "<group>"; };
 		040EA17B1DB8955200193363 /* DismissKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyboard.swift; sourceTree = "<group>"; };
 		041729061E7297D50090E634 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
-		04180A311DF628FA00C1BA72 /* AbilityListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListCell.swift; sourceTree = "<group>"; };
-		04180A321DF628FA00C1BA72 /* AbilityListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbilityListCell.xib; sourceTree = "<group>"; };
 		04180A351DF6365200C1BA72 /* TavernList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernList.swift; sourceTree = "<group>"; };
 		04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TavernListTableCell.swift; path = ../Ability/TavernListTableCell.swift; sourceTree = "<group>"; };
@@ -330,8 +326,6 @@
 				04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */,
 				04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */,
 				04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */,
-				04180A311DF628FA00C1BA72 /* AbilityListCell.swift */,
-				04180A321DF628FA00C1BA72 /* AbilityListCell.xib */,
 				04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */,
 				04B2B22B1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift */,
 				04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */,
@@ -681,7 +675,6 @@
 			files = (
 				043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */,
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
-				04180A341DF628FA00C1BA72 /* AbilityListCell.xib in Resources */,
 				046710C41D97D070000CF487 /* ArcanaTextCell.xib in Resources */,
 				042FE9CE1D98A82C002ACE74 /* ArcanaDetailEditCell.xib in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
@@ -919,7 +912,6 @@
 				04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */,
 				0400A30A1E75233E00B195E9 /* ImageHelpers.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* Filter.swift in Sources */,
-				04180A331DF628FA00C1BA72 /* AbilityListCell.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
 				04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */,
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,

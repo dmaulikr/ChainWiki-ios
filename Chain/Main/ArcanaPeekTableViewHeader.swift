@@ -10,9 +10,9 @@ import UIKit
 
 class ArcanaPeekTableViewHeader: UIView {
     
-    let name: String
+    private let name: String
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
         label.textColor = Color.lightGreen
@@ -31,7 +31,7 @@ class ArcanaPeekTableViewHeader: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+    private func setupViews() {
         
         nameLabel.text = name
         

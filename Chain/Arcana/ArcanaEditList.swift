@@ -28,6 +28,7 @@ class ArcanaEditList: UIViewController {
     fileprivate let tipLabel: UILabel = {
         let label = UILabel()
         label.text = "수정 기록 없음!"
+        label.textColor = Color.textGray
         label.textAlignment = .center
         return label
     }()
@@ -60,9 +61,11 @@ class ArcanaEditList: UIViewController {
         title = "수정 기록"
         
         view.addSubview(tableView)
+        view.addSubview(tipLabel)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
+        tipLabel.anchorCenterSuperview()
         
         let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
@@ -130,6 +133,7 @@ class ArcanaEditList: UIViewController {
 extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if arcanaEditsArray.count == 0 {
             tableView.alpha = 0
             tipLabel.alpha = 1
@@ -143,12 +147,11 @@ extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaEditListCell") as! ArcanaEditListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaEditListCell") as! ArcanaEditListCell
         
         cell.dateLabel.text = arcanaEditsArray[indexPath.row].date
         cell.nameLabel.text = arcanaEditsArray[indexPath.row].editorName
-        //        cell.date.text = edits[indexPath.row]
-        //        cell.name.text = names[indexPath.row]
+        
         return cell
     }
     
