@@ -10,17 +10,17 @@ import UIKit
 
 class TavernListTableCell: BaseCollectionViewCell {
 
-    var arcanaArray = [String]()
+    var tavernArray = [String]()
 
     var pageIndex: Int! {
         didSet {
             switch pageIndex {
             case 0:
-                arcanaArray = tavernNamesPart1
+                tavernArray = tavernNamesPart1
             case 1:
-                arcanaArray = tavernNamesPart2
+                tavernArray = tavernNamesPart2
             default:
-                arcanaArray = tavernNamesPart3
+                tavernArray = tavernNamesPart3
             }
             tableView.reloadData()
         }
@@ -45,7 +45,7 @@ class TavernListTableCell: BaseCollectionViewCell {
 extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arcanaArray.count
+        return tavernArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -54,7 +54,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TavernListCell") as! TavernListCell
-        cell.tavernName.text = arcanaArray[indexPath.row]
+        cell.tavernName.text = tavernArray[indexPath.row]
         
         return cell
     }
@@ -74,7 +74,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
         
 //        let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
 
-        let tavernKR = arcanaArray[indexPath.row]
+        let tavernKR = tavernArray[indexPath.row]
         let tavernEN: String
 //        vc.navTitle = tavern
         if pageIndex == 2 && indexPath.row != 0 {
@@ -89,6 +89,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
         
         let vc = TavernHomeView(tavernKR: tavernKR, tavernEN: tavernEN)
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
+        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

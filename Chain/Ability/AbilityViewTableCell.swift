@@ -49,9 +49,8 @@ extension AbilityViewTableCell: UITableViewDelegate {
         let vc = ArcanaDetail(arcana: arcana)
 
         tableDelegate?.navigationController?.pushViewController(vc, animated: true)
-        
+        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
-
 

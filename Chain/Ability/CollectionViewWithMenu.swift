@@ -17,7 +17,7 @@ class CollectionViewWithMenu: UIViewController {
     var abilityType = ""
     var arcanaArray = [Arcana]()
     var currentArray = [Arcana]()
-    var menuType: menuType?
+    var menuType: MenuType?
     var reuseIdentifier = ""
     
     var datasource: AbilityViewDataSource?
@@ -80,7 +80,7 @@ class CollectionViewWithMenu: UIViewController {
         
     }
     
-    init(menuType: menuType) {
+    init(menuType: MenuType) {
         menuBar = MenuBar(menuType: menuType)
 
         super.init(nibName: nil, bundle: nil)
@@ -91,7 +91,7 @@ class CollectionViewWithMenu: UIViewController {
         self.reuseIdentifier = "TavernListTableCell"
         self.title = "주점"
         
-            }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -244,9 +244,7 @@ class CollectionViewWithMenu: UIViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        menuBar.horizontalBarLeftAnchorConstraint?.constant = (scrollView.contentOffset.x)/CGFloat(numberOfMenuTabs) + CGFloat(10)
-        
+        menuBar.horizontalBarLeadingAnchorConstraint?.constant = (scrollView.contentOffset.x)/CGFloat(numberOfMenuTabs) + CGFloat(10)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum menuType {
+enum MenuType {
     case abilityList
     case abilityView
     case tavernList
@@ -17,8 +17,9 @@ enum menuType {
 class MenuBar: UIView {
 
     weak var parentController: CollectionViewWithMenu?
+    weak var menuBarDelegate: MenuBarViewController?
 
-    let menuType: menuType
+    let menuType: MenuType
     let menuHeight : CGFloat = 40
     let numberOfItems: Int
 
@@ -54,7 +55,7 @@ class MenuBar: UIView {
         return view
     }()
     
-    var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+    var horizontalBarLeadingAnchorConstraint: NSLayoutConstraint?
 
     let horizontalBarView: UIView = {
         let view = UIView()
@@ -62,7 +63,7 @@ class MenuBar: UIView {
         return view
     }()
     
-    init(menuType: menuType) {
+    init(menuType: MenuType) {
         
         self.menuType = menuType
 
@@ -97,8 +98,8 @@ class MenuBar: UIView {
         
         horizontalBarView.anchor(top: nil, leading: nil, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 2)
         
-        horizontalBarLeftAnchorConstraint = horizontalBarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
-        horizontalBarLeftAnchorConstraint?.isActive = true
+        horizontalBarLeadingAnchorConstraint = horizontalBarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        horizontalBarLeadingAnchorConstraint?.isActive = true
         horizontalBarView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(1)/CGFloat(numberOfItems), constant: -20).isActive = true
         
     }
@@ -131,6 +132,7 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         parentController?.scrollToMenuIndex(indexPath.item)
+        menuBarDelegate?.childViewController?.scrollToMenuIndex(indexPath.item)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

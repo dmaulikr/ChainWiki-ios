@@ -101,6 +101,10 @@
 		04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF66AA1DB363D000E13370 /* SettingsCell.swift */; };
 		04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF66AC1DB3640200E13370 /* SettingsCell.xib */; };
 		04F3CD891DA31E620026D5AF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3CD881DA31E620026D5AF /* CopyableLabel.swift */; };
+		04F87D631E763C4000E318F7 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */; };
+		04F87D671E76517200E318F7 /* TavernArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D661E76517200E318F7 /* TavernArcanaViewController.swift */; };
+		04F87D691E76522700E318F7 /* AbilityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D681E76522700E318F7 /* AbilityListViewController.swift */; };
+		04F87D6B1E7658A500E318F7 /* AbilityListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D6A1E7658A500E318F7 /* AbilityListCollectionViewController.swift */; };
 		04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA20F1E6F99A200E848B4 /* DataViewController.swift */; };
 		04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA2121E6F9D1B00E848B4 /* DataLink.swift */; };
 		04FAA2151E6FA2F800E848B4 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */; };
@@ -247,6 +251,10 @@
 		04EF66AA1DB363D000E13370 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		04EF66AC1DB3640200E13370 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		04F3CD881DA31E620026D5AF /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		04F87D661E76517200E318F7 /* TavernArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernArcanaViewController.swift; sourceTree = "<group>"; };
+		04F87D681E76522700E318F7 /* AbilityListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListViewController.swift; sourceTree = "<group>"; };
+		04F87D6A1E7658A500E318F7 /* AbilityListCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListCollectionViewController.swift; sourceTree = "<group>"; };
 		04FAA20F1E6F99A200E848B4 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataViewController.swift; path = Chain/DataViewController.swift; sourceTree = SOURCE_ROOT; };
 		04FAA2121E6F9D1B00E848B4 /* DataLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLink.swift; sourceTree = "<group>"; };
 		04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkViewController.swift; path = Chain/LinkViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -326,6 +334,9 @@
 				040454941DFB981500A1F74E /* Ability.swift */,
 				043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */,
 				0400A30F1E76333700B195E9 /* MenuBarViewController.swift */,
+				04F87D681E76522700E318F7 /* AbilityListViewController.swift */,
+				04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */,
+				04F87D6A1E7658A500E318F7 /* AbilityListCollectionViewController.swift */,
 				04D28F401DEC255D00F55D3F /* MenuBar.swift */,
 				04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */,
 				04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */,
@@ -503,6 +514,7 @@
 		04A3B1761D8E7B7500BBF297 /* Tavern */ = {
 			isa = PBXGroup;
 			children = (
+				04F87D661E76517200E318F7 /* TavernArcanaViewController.swift */,
 				04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */,
 				04180A3B1DF63A5800C1BA72 /* TavernListCell.xib */,
 				04180A3D1DF63AD400C1BA72 /* TavernListCell.swift */,
@@ -878,6 +890,7 @@
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
 				04A2EC971D6F7FA300189142 /* Home.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
+				04F87D631E763C4000E318F7 /* BaseCollectionViewController.swift in Sources */,
 				040454951DFB981500A1F74E /* Ability.swift in Sources */,
 				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
@@ -892,6 +905,7 @@
 				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
+				04F87D6B1E7658A500E318F7 /* AbilityListCollectionViewController.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				047B6FB81D8ECC3F00083DAC /* TavernHeader.swift in Sources */,
@@ -910,6 +924,7 @@
 				04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */,
 				041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */,
 				0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */,
+				04F87D691E76522700E318F7 /* AbilityListViewController.swift in Sources */,
 				0400A3081E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
 				040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */,
@@ -940,6 +955,7 @@
 				0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
+				04F87D671E76517200E318F7 /* TavernArcanaViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				049926E71DF7590C00FD9889 /* BannerAlert.swift in Sources */,
 				04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */,

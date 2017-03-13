@@ -25,8 +25,6 @@ class AbilityListTableCell: BaseCollectionViewCell {
 
 }
 
-
-
 extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     
     enum Section: Int {
@@ -93,8 +91,8 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         
-        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
-        
+//        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
+        guard let selectedAbilityType = collectionViewDelegate?.selectedIndex else { return }
         guard let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
         
         var abilityKR = ""
@@ -114,10 +112,11 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         }
         
         let abilityName = (abilityKR, abilityEN)
-        let abilityVC = CollectionViewWithMenu(abilityType: abilityName, selectedIndex: selectedAbilityType)
+//        let abilityVC = CollectionViewWithMenu(abilityType: abilityName, selectedIndex: selectedAbilityType)
         
-        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
-
+//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
+        let abilityVC = MenuBarViewController(abilityType: abilityName, selectedIndex: selectedAbilityType)
+        collectionViewDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
     
     }
     

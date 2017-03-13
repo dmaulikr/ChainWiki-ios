@@ -52,7 +52,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 views.append(child)
 
             case .Ability:
-                let vc = CollectionViewWithMenu()
+                let vc = MenuBarViewController(menuType: .abilityList)
                 let child = UINavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title
@@ -61,9 +61,9 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 views.append(child)
             
             case .Tavern:
-                let vc = CollectionViewWithMenu(menuType: .tavernList)
+                let vc = MenuBarViewController(menuType: .tavernList)
                 let child = UINavigationController(rootViewController: vc)
-                
+
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
