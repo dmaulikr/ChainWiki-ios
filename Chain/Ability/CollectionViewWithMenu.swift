@@ -11,7 +11,7 @@ import Firebase
 
 class CollectionViewWithMenu: UIViewController {
     
-    var menuBar = MenuBar()
+    var menuBar: MenuBar
     var selectedIndex: Int = 0
     var numberOfMenuTabs = 0
     var abilityType = ""
@@ -47,21 +47,25 @@ class CollectionViewWithMenu: UIViewController {
         return collectionView
         
     }()
-
     
     init() {
+        menuBar = MenuBar(menuType: .abilityList)
+
         super.init(nibName: nil, bundle: nil)
+        menuBar.parentController = self
+
         menuType = .abilityList
         self.numberOfMenuTabs = 2
         self.reuseIdentifier = "AbilityListTableCell"
         self.title = "어빌리티"
         
-        menuBar = MenuBar(frame: .zero, menuType: .abilityList)
-        menuBar.parentController = self
     }
     
     init(abilityType: (String, String), selectedIndex: Int) {
+        menuBar = MenuBar(menuType: .abilityView)
         super.init(nibName: nil, bundle: nil)
+        menuBar.parentController = self
+
         menuType = .abilityView
         self.abilityType = abilityType.1
         self.selectedIndex = selectedIndex
@@ -69,8 +73,6 @@ class CollectionViewWithMenu: UIViewController {
         self.numberOfMenuTabs = 5
         self.reuseIdentifier = "AbilityViewTableCell"
         self.title = abilityType.0
-        menuBar = MenuBar(frame: .zero, menuType: .abilityView)
-        menuBar.parentController = self
         if abilityType.0 == "웨이브 회복" {
             setupNavBar()
         }
@@ -79,16 +81,17 @@ class CollectionViewWithMenu: UIViewController {
     }
     
     init(menuType: menuType) {
+        menuBar = MenuBar(menuType: menuType)
+
         super.init(nibName: nil, bundle: nil)
-        
+        menuBar.parentController = self
+
         self.numberOfMenuTabs = 3
         self.menuType = menuType
         self.reuseIdentifier = "TavernListTableCell"
         self.title = "주점"
         
-        menuBar = MenuBar(frame: .zero, menuType: menuType)
-        menuBar.parentController = self
-    }
+            }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

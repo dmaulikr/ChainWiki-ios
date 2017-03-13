@@ -14,7 +14,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     lazy var tableView: UITableView = {
         
-        let tableView = UITableView(frame: .zero)
+        let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 90

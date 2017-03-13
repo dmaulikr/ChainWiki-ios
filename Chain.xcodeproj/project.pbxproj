@@ -12,6 +12,7 @@
 		0400A30A1E75233E00B195E9 /* ImageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A3091E75233E00B195E9 /* ImageHelpers.swift */; };
 		0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A30B1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift */; };
 		0400A30E1E75C02C00B195E9 /* ArcanaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A30D1E75C02C00B195E9 /* ArcanaDataSource.swift */; };
+		0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A30F1E76333700B195E9 /* MenuBarViewController.swift */; };
 		0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2871D75386C00A0A728 /* ArcanaDetail.swift */; };
 		0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */; };
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
@@ -145,6 +146,7 @@
 		0400A3091E75233E00B195E9 /* ImageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelpers.swift; sourceTree = "<group>"; };
 		0400A30B1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPeekTableViewHeader.swift; sourceTree = "<group>"; };
 		0400A30D1E75C02C00B195E9 /* ArcanaDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDataSource.swift; sourceTree = "<group>"; };
+		0400A30F1E76333700B195E9 /* MenuBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarViewController.swift; sourceTree = "<group>"; };
 		0401B2871D75386C00A0A728 /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
 		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			children = (
 				040454941DFB981500A1F74E /* Ability.swift */,
 				043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */,
+				0400A30F1E76333700B195E9 /* MenuBarViewController.swift */,
 				04D28F401DEC255D00F55D3F /* MenuBar.swift */,
 				04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */,
 				04CBBD421E2B4938009D5E5F /* AbilitySectionHeader.swift */,
@@ -929,6 +932,7 @@
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
 				0400A3061E74D23E00B195E9 /* ArcanaPeekPreview.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
+				0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
 				04FAA2151E6FA2F800E848B4 /* LinkViewController.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
