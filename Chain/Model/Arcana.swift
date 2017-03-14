@@ -8,49 +8,49 @@
 
 import Firebase
 
-struct Arcana: Equatable, Hashable {
+class Arcana: Equatable, Hashable {
     
     var uid: String
-    private var nameKR: String
-    private var nickNameKR: String?
-    private var nameJP: String
-    private var nickNameJP: String?
-    private var rarity: String
-    private var group: String  // Class, 직업
-    private var tavern: String  // 주점
-    private var affiliation: String? // 소속
-    private var cost: String
-    private var weapon: String
+    var nameKR: String
+    var nicknameKR: String?
+    var nameJP: String
+    var nicknameJP: String?
+    var rarity: String
+    var group: String  // Class, 직업
+    var tavern: String  // 주점
+    var affiliation: String? // 소속
+    var cost: String
+    var weapon: String
 
-    private var kizunaName: String
-    private var kizunaCost: String
-    private var kizunaDesc: String
+    var kizunaName: String
+    var kizunaCost: String
+    var kizunaDesc: String
     
-    private var skillCount : String
+    var skillCount : String
     
-    private var skillName1 : String
-    private var skillMana1 : String
-    private var skillDesc1 : String
+    var skillName1 : String
+    var skillMana1 : String
+    var skillDesc1 : String
     
-    private var skillName2 : String?
-    private var skillMana2 : String?
-    private var skillDesc2 : String?
+    var skillName2 : String?
+    var skillMana2 : String?
+    var skillDesc2 : String?
     
-    private var skillName3 : String?
-    private var skillMana3 : String?
-    private var skillDesc3 : String?
+    var skillName3 : String?
+    var skillMana3 : String?
+    var skillDesc3 : String?
     
     
-    private var abilityName1: String?
-    private var abilityDesc1: String?
+    var abilityName1: String?
+    var abilityDesc1: String?
     
-    private var abilityName2: String?
-    private var abilityDesc2: String?
+    var abilityName2: String?
+    var abilityDesc2: String?
     
-    private var abilityName3: String?
-    private var abilityDesc3: String?
+    var abilityName3: String?
+    var abilityDesc3: String?
     
-    private var partyAbility: String?
+    var partyAbility: String?
     
     private var numberOfViews: Int
     private var dateAdded: String?
@@ -95,11 +95,11 @@ struct Arcana: Equatable, Hashable {
             numberOfLikes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int ?? 0
 
         if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
-            nickNameKR = nnKR
+            nicknameKR = nnKR
         }
 
         if let nnJP = (snapshot.value as? NSDictionary)?["nickNameJP"] as? String {
-            nickNameJP = nnJP
+            nicknameJP = nnJP
         }
         
         if let aN1 = (snapshot.value as? NSDictionary)?["abilityName1"] as? String {
@@ -203,7 +203,7 @@ struct Arcana: Equatable, Hashable {
     }
     
     func getNicknameKR() -> String? {
-        return nickNameKR
+        return nicknameKR
     }
     
     func getNameJP() -> String {
@@ -211,7 +211,7 @@ struct Arcana: Equatable, Hashable {
     }
     
     func getNicknameJP() -> String? {
-        return nickNameJP
+        return nicknameJP
     }
     
     func getRarity() -> String {

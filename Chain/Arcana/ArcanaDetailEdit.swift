@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol EditDelegate {
+    func edited(_ cell: ArcanaDetailEditCell)
+}
+
 class ArcanaDetailEdit: UIViewController, DisplayBanner {
 
-    let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "인연 이름", "인연 코스트", "인연 설명"]
+    let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "파티 어빌", "인연 이름", "인연 코스트", "인연 설명", "출현 장소"]
     
     let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     let arcana: Arcana
@@ -47,6 +51,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         setupViews()
         setupNavBar()
         hideKeyboardWhenTappedAround()
+//        setupKeyboardObservers()
     }
     
     func setupViews() {
@@ -72,6 +77,15 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
 
     }
     
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+    }
+    
+    func handleKeyboardDidShow() {
+        let indexPath = IndexPath(item: keys.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
     func save() {
 
         if let row = rowBeingEdited {
@@ -89,7 +103,6 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
             
             if self.edits.count == 0 {
-                
                 self.displayBanner(formType: .noEdits, color: .yellow)
             }
             else {
@@ -173,13 +186,34 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
 }
 
 extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+
+    fileprivate enum Row: Int {
+        case nameKR
+        case nicknameKR
+        case nameJP
+        case nicknameJP
+        case skillname1
+        case skillmana1
+        case skilldesc1
+        case skillname2
+        case skillmana2
+        case skilldesc2
+        case skillname3
+        case skillmana3
+        case skilldesc3
+        case abilityname1
+        case abilitydesc1
+        case abilityname2
+        case abilitydesc2
+        case partyability
+        case kizunaname
+        case kizunacost
+        case kizunadesc
+        case tavern
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 19
+        return keys.count
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -188,81 +222,110 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaDetailEditCell") as! ArcanaDetailEditCell
+        cell.editDelegate = self
         cell.arcanaAttributeTextView.delegate = self
+        cell.arcanaAttributeTextView.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         cell.isUserInteractionEnabled = true
         
         cell.arcanaKeyLabel.text = keys[indexPath.row]
-        
-        switch indexPath.row {
-            
-        case 0:
+
+        switch row {
+        case .nameKR:
             cell.arcanaAttributeTextView.text = arcana.getNameKR()
-        case 1:
+        case .nicknameKR:
             cell.arcanaAttributeTextView.text = arcana.getNicknameKR()
-        case 2:
+        case .nameJP:
             cell.arcanaAttributeTextView.text = arcana.getNameJP()
-        case 3:
+        case .nicknameJP:
             cell.arcanaAttributeTextView.text = arcana.getNicknameJP()
-        case 4:
+        case .skillname1:
             cell.arcanaAttributeTextView.text = arcana.getSkillName1()
-        case 5:
+        case .skillmana1:
             cell.arcanaAttributeTextView.text = arcana.getSkillMana1()
-        case 6:
+        case .skilldesc1:
             cell.arcanaAttributeTextView.text = arcana.getSkillDesc1()
-        case 7,8,9:
+            
+        case .skillname2, .skillmana2, .skilldesc2:
             if arcana.getSkillCount() == "1" {
                 cell.isUserInteractionEnabled = false
                 cell.arcanaAttributeTextView.text = nil
             }
             else {
-                switch indexPath.row {
-                case 7:
+                switch row {
+                case .skillname2:
                     cell.arcanaAttributeTextView.text = arcana.getSkillName2()
-                case 8:
+                case .skillmana2:
                     cell.arcanaAttributeTextView.text = arcana.getSkillMana2()
-                default:
+                case .skilldesc2:
                     cell.arcanaAttributeTextView.text = arcana.getSkillDesc2()
+                default:
+                    break
                 }
                 
             }
-        case 10,11,12:
+        case .skillname3, .skillmana3, .skilldesc3:
             if arcana.getSkillCount() != "3" {
                 cell.isUserInteractionEnabled = false
                 cell.arcanaAttributeTextView.text = nil
             }
             else {
-                switch indexPath.row {
-                case 10:
+                switch row {
+                case .skillname3:
                     cell.arcanaAttributeTextView.text = arcana.getSkillName3()
-                case 11:
+                case .skillmana3:
                     cell.arcanaAttributeTextView.text = arcana.getSkillMana3()
-                default:
+                case .skilldesc3:
                     cell.arcanaAttributeTextView.text = arcana.getSkillDesc3()
+                default:
+                    break
                 }
             }
             
-        case 13:
+        case .abilityname1:
             cell.arcanaAttributeTextView.text = arcana.getAbilityName1()
-        case 14:
+        case .abilitydesc1:
             cell.arcanaAttributeTextView.text = arcana.getAbilityDesc1()
-        case 15:
+        case .abilityname2:
             cell.arcanaAttributeTextView.text = arcana.getAbilityName2()
-        case 16:
+        case .abilitydesc2:
             cell.arcanaAttributeTextView.text = arcana.getAbilityDesc2()
-        case 17:
+        case .kizunaname:
             cell.arcanaAttributeTextView.text = arcana.getKizunaName()
-        case 18:
+        case .kizunacost:
             cell.arcanaAttributeTextView.text = arcana.getKizunaCost()
-        default:
+        case .kizunadesc:
             cell.arcanaAttributeTextView.text = arcana.getKizunaDesc()
+        case .tavern:
+            cell.arcanaAttributeTextView.text = arcana.getTavern()
+        default:
+            break
             
         }
         
-        cell.arcanaAttributeTextView.tag = indexPath.row
-        cell.arcanaAttributeTextView.delegate = self
-        cell.arcanaAttributeTextView.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         return cell
+    }
+    
+}
+
+extension ArcanaDetailEdit: EditDelegate {
+    
+    func edited(_ cell: ArcanaDetailEditCell) {
+        
+        let editedText = cell.arcanaAttributeTextView.text
+        
+        guard let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
+        
+        switch row {
+        case .nameKR:
+            arcana
+        default:
+            break
+        }
+        
+        
     }
     
 }

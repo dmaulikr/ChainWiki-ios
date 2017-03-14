@@ -10,9 +10,11 @@ import UIKit
 
 class ArcanaDetailEditCell: UITableViewCell {
 
+    weak var editDelegate: ArcanaDetailEdit?
+    
     let arcanaKeyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
         label.textColor = .lightGray
         label.textAlignment = .left
         return label
@@ -20,7 +22,7 @@ class ArcanaDetailEditCell: UITableViewCell {
     
     let arcanaAttributeTextView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        textView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
         textView.spellCheckingType = .no
         textView.isScrollEnabled = false
         return textView
