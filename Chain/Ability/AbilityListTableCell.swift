@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum AbilityMenu {
+    case ability
+    case kizuna
+}
+
 class AbilityListTableCell: BaseCollectionViewCell {
 
     var primaryAbilities = [Ability]()
@@ -92,8 +97,7 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
 
         
 //        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
-        guard let selectedAbilityType = collectionViewDelegate?.selectedIndex else { return }
-        guard let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let abilityMenu = collectionViewDelegate?.abilityMenu, let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
         
         var abilityKR = ""
         var abilityEN = ""
@@ -112,10 +116,8 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         }
         
         let abilityName = (abilityKR, abilityEN)
-//        let abilityVC = CollectionViewWithMenu(abilityType: abilityName, selectedIndex: selectedAbilityType)
+        let abilityVC = MenuBarViewController(abilityType: abilityName, abilityMenu: abilityMenu)
         
-//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
-        let abilityVC = MenuBarViewController(abilityType: abilityName, selectedIndex: selectedAbilityType)
         collectionViewDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
     
     }

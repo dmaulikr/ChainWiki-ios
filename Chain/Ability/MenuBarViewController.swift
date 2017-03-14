@@ -16,6 +16,7 @@ class MenuBarViewController: UIViewController {
     var childViewController: BaseCollectionViewController?
     var selectedIndex: Int = 0
     var abilityType: (String, String)?
+    var abilityMenu: AbilityMenu?
     
     let containerView: UIView = {
         let view = UIView()
@@ -29,10 +30,12 @@ class MenuBarViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(abilityType: (String, String), selectedIndex: Int) {
+    convenience init(abilityType: (String, String), abilityMenu: AbilityMenu) {
         self.init(menuType: .abilityView)
-        self.selectedIndex = selectedIndex
         self.abilityType = abilityType
+        self.abilityMenu = abilityMenu
+        title = abilityType.0
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,7 +82,8 @@ class MenuBarViewController: UIViewController {
     func setupChildViewController() {
         
         if menuType == .abilityView {
-            childViewController = BaseCollectionViewController(abilityType: abilityType!, selectedIndex: selectedIndex)
+            guard let abilityType = abilityType, let abilityMenu = abilityMenu else { return }
+            childViewController = BaseCollectionViewController(abilityType: abilityType, abilityMenu: abilityMenu)
         }
         else {
             childViewController = BaseCollectionViewController(menuType: menuType)

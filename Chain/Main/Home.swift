@@ -631,7 +631,7 @@ extension Home: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBar
 
 }
 
-extension Home: FilterDelegate, TavernViewDelegate {
+extension Home: FilterDelegate {
     
     func didUpdate(_ sender: Filter) {
         DispatchQueue.main.async {
@@ -728,33 +728,6 @@ extension Home: FilterDelegate, TavernViewDelegate {
             
         }
     }
-    
-    func didUpdate(_ sender: TavernView, tavern: String) {
-        
-        
-        DispatchQueue.main.async {
-            
-            let ref = FIREBASE_REF.child("tavern").child(tavern)
-            
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                
-                var tavern = [Arcana]()
-                for item in snapshot.children {
-                    if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                        tavern.append(arcana)
-                    }
-                }
-                self.arcanaArray = tavern
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.tableView.reloadData()
-                })
-                
-            })
-            
-        }
-        
-    }
-
 }
 
 extension Home: UIViewControllerPreviewingDelegate {

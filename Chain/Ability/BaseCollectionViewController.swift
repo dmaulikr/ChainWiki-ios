@@ -14,8 +14,19 @@ class BaseCollectionViewController: UIViewController {
     weak var menuBarDelegate: MenuBarViewController?
 
     let menuType: MenuType
-//    let numberOfMenuTabs: Int = 3
-    var selectedIndex: Int = 0
+    var abilityMenu: AbilityMenu? = .ability
+    var selectedIndex: Int = 0 {
+        didSet {
+            if menuType == .abilityList {
+                if selectedIndex == 0 {
+                    abilityMenu = .ability
+                }
+                else {
+                    abilityMenu = .kizuna
+                }
+            }
+        }
+    }
     
     var primaryAbilities: [Ability]?
     var statusAbilities: [Ability]?
@@ -56,16 +67,15 @@ class BaseCollectionViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    init(abilityType: (String, String), selectedIndex: Int) {
+    init(abilityType: (String, String), abilityMenu: AbilityMenu) {
         menuType = .abilityView
         super.init(nibName: nil, bundle: nil)
         self.abilityType = abilityType.1
+        self.abilityMenu = abilityMenu
         downloadArray()
-        self.selectedIndex = selectedIndex
-        title = abilityType.0
-        if abilityType.0 == "웨이브 회복" {
-            setupNavBar()
-        }
+//        if abilityType.0 == "웨이브 회복" {
+//            setupNavBar()
+//        }
         
     }
     
@@ -137,7 +147,7 @@ class BaseCollectionViewController: UIViewController {
         // check if ability or kizuna
         var refSuffix = ""
         
-        if selectedIndex == 0 {
+        if abilityMenu == .ability {
             refSuffix = "Ability"
         }
         else {
@@ -148,7 +158,6 @@ class BaseCollectionViewController: UIViewController {
         
         let refPrefix = abilityType
         
-        //        print("REF IS \(refPrefix)\(refSuffix)")
         var ref: FIRDatabaseReference
         let updatedVersion = "1.2"
         
@@ -157,7 +166,7 @@ class BaseCollectionViewController: UIViewController {
                 ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
             }
             else {
-                ref = FIREBASE_REF.child("ability").child(refPrefix).child(refSuffix)
+                ref = FIREBASE_REF.child("ability").child("\(refPrefix)\(refSuffix)")
             }
         }
         else {
@@ -251,8 +260,8 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
             }
             
             cell.collectionViewDelegate = self
-            
             return cell
+            
         case .abilityView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AbilityViewTableCell", for: indexPath) as! AbilityViewTableCell
             cell.collectionViewDelegate = self
@@ -297,7 +306,6 @@ extension BaseCollectionViewController: UIViewControllerPreviewingDelegate {
         
         // Configure the peek source
         guard let indexPath = cvCell.tableView.indexPathForRow(at: screenLocation) else { return nil }
-
         previewingContext.sourceRect = cvCell.tableView.rectForRow(at: indexPath)
         
         // Peek the arcana

@@ -37,7 +37,7 @@ class TavernListTableCell: BaseCollectionViewCell {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "TavernListCell", bundle: nil), forCellReuseIdentifier: "TavernListCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TavernListCell")
     }
 
 }
@@ -53,34 +53,21 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TavernListCell") as! TavernListCell
-        cell.tavernName.text = tavernArray[indexPath.row]
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TavernListCell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = tavernArray[indexPath.row]
+        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
-//        
-//        
-//        let abilityVC = CollectionViewWithMenu(abilityType: currentArray[tableView.indexPathForSelectedRow!.row], selectedIndex: selectedAbilityType)
-//        
-//        tableDelegate?.navigationController?.pushViewController(abilityVC, animated: true)
-        
+
         guard let pageIndex = pageIndex else { return }
-        
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Tavern", bundle:nil)
-        
-//        let vc = storyBoard.instantiateViewController(withIdentifier: "TavernHomeView") as! TavernHomeView
 
         let tavernKR = tavernArray[indexPath.row]
         let tavernEN: String
-//        vc.navTitle = tavern
+
         if pageIndex == 2 && indexPath.row != 0 {
-            
             let tavern2 = "\(tavernKR)2"
-            
             tavernEN = convertTavern(tavern: tavern2)
         }
         else {
@@ -88,16 +75,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
         }
         
         let vc = TavernHomeView(tavernKR: tavernKR, tavernEN: tavernEN)
-        tableDelegate?.navigationController?.pushViewController(vc, animated: true)
         collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
-
-
-        
-
-
-    
-
-

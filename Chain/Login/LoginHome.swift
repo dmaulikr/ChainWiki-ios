@@ -259,7 +259,7 @@ class LoginHome: UIViewController, DisplayBanner {
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let _, let accessToken):
+            case .success(let grantedPermissions, _, let accessToken):
                 print("Logged in!")
                 if grantedPermissions.contains("email") {
                     
