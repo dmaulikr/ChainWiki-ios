@@ -23,9 +23,7 @@ class AppRater {
     
     func displayAlert() {
         
-        guard defaults.hasShownRating() == false, defaults.getAppLaunchCount() > 10 else {
-            return
-        }
+        guard defaults.hasShownRating() == false, defaults.getAppLaunchCount() > 10 else { return }
         defaults.setShownRating(value: true)
         
         let alert = UIAlertController(title: "리뷰 작성", message: "앱 경험을 리뷰로 작성해 주세요!", preferredStyle: .alert)
@@ -34,14 +32,11 @@ class AppRater {
         alert.view.layer.cornerRadius = 10
         
         let confirmAction = UIAlertAction(title: "리뷰하러 가기", style: .default) { (action) in
-            if let url = NSURL(string: "itms-apps://itunes.apple.com/app/id1165642488") as? URL {
-                UIApplication.shared.openURL(url)
-            }
-            
+            guard let url = NSURL(string: "itms-apps://itunes.apple.com/app/id1165642488") as? URL else { return }
+            UIApplication.shared.openURL(url)
         }
         
         let cancelAction = UIAlertAction(title: "다시 보지 않기", style: .cancel) { (action) in
-            
             alert.dismiss(animated: true, completion: nil)
         }
         

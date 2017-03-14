@@ -126,6 +126,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = group[(indexPath as NSIndexPath).row]
             return cell
+            
         case .weapon:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
             cell.filterLabel.text = weapon[(indexPath as NSIndexPath).row]

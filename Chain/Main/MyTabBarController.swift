@@ -10,11 +10,11 @@ import UIKit
 class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private enum Tab: Int {
-        case Arcana
-        case Ability
-        case Tavern
-        case DataLink
-        case Favorites
+        case arcana
+        case ability
+        case tavern
+        case dataLink
+        case favorites
     }
 
     let tabTitles = ["아르카나", "어빌리티", "주점", "자료", "즐겨찾기"]
@@ -42,45 +42,45 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             
             switch tab {
               
-            case .Arcana:
+            case .arcana:
                 let vc = Home()
-                let child = UINavigationController(rootViewController: vc)
+                let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
 
-            case .Ability:
+            case .ability:
                 let vc = MenuBarViewController(menuType: .abilityList)
-                let child = UINavigationController(rootViewController: vc)
+                let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
             
-            case .Tavern:
+            case .tavern:
                 let vc = MenuBarViewController(menuType: .tavernList)
-                let child = UINavigationController(rootViewController: vc)
+                let child = NavigationController(rootViewController: vc)
 
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
                 
-            case .DataLink:
+            case .dataLink:
                 let vc = DataViewController()
-                let child = UINavigationController(rootViewController: vc)
+                let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
                 
-            case .Favorites:
+            case .favorites:
                 let vc = Favorites()
-                let child = UINavigationController(rootViewController: vc)
+                let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title
                 child.tabBarItem.image = tabIcons[index]

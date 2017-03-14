@@ -28,21 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
-        
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
 //            defaults.setImagePermissions(value: true)
             defaults.updateVersion()
         }
 
-        // Navigation Bar Setup
-        
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().barTintColor = Color.lightGreen
-        
-
-        AppRater.appRater.incrementAppLaunches()
+//        AppRater.appRater.incrementAppLaunches()
         
         if defaults.isLoggedIn() {
             let initialViewController = MyTabBarController()
@@ -52,8 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
             
         else {
-            let initialViewController = LoginHome()
-//            let initialViewController = PageViewController()
+//            let initialViewController = LoginHome()
+            let initialViewController = PageViewController()
             UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
                 self.window!.rootViewController = initialViewController
                 }, completion: nil)

@@ -83,27 +83,11 @@ class SearchHistory: UIViewController {
         }
 
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        
-//        if (segue.identifier == "searchToArcana") {
-//            let arcana: Arcana
-//
-//            arcana = arcanaArray[tableView.indexPathForSelectedRow?.row]
-//
-//            let vc = segue.destination as! ArcanaDetail
-//            vc.arcana = arcana
-//        }
-//    }
 
 }
 
 extension SearchHistory: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arcanaArray.count
     }

@@ -506,47 +506,47 @@ extension Home: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        guard let cell = cell as? ArcanaCell else { return }
-        
-        if showFilter == true {
-            // rotate image over.
-
-            if !preventAnimation.contains(indexPath) {
-                preventAnimation.insert(indexPath)
-                
-//                var t = cell.arcanaImage.transform
-//                t = t.translatedBy(x: -90, y: 0)
-//                t = t.rotated(by: -CGFloat.pi/2)
-//                cell.arcanaImage.transform = t
-                cell.arcanaImage.alpha = 0
-                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-//                    cell.arcanaImage.transform = CGAffineTransform.identity
-                    cell.arcanaImage.alpha = 1
-                }, completion: nil)
-                
-            }
-            
-        }
-            
-        else {
-//            let visibleCells = tableView.indexPathsForVisibleRows
-            if !preventAnimation.contains(indexPath) {
-                preventAnimation.insert(indexPath)
-                //            cell.alpha = 0
-                cell.transform = CGAffineTransform(translationX: -200, y: 0)
-                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
-                    cell.transform = CGAffineTransform.identity
-                }, completion: nil)
-                
-            }
-
-        }
-        
-        
-        
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        
+//        guard let cell = cell as? ArcanaCell else { return }
+//        
+//        if showFilter == true {
+//            // rotate image over.
+//
+//            if !preventAnimation.contains(indexPath) {
+//                preventAnimation.insert(indexPath)
+//                
+////                var t = cell.arcanaImage.transform
+////                t = t.translatedBy(x: -90, y: 0)
+////                t = t.rotated(by: -CGFloat.pi/2)
+////                cell.arcanaImage.transform = t
+//                cell.arcanaImage.alpha = 0
+//                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+////                    cell.arcanaImage.transform = CGAffineTransform.identity
+//                    cell.arcanaImage.alpha = 1
+//                }, completion: nil)
+//                
+//            }
+//            
+//        }
+//            
+//        else {
+////            let visibleCells = tableView.indexPathsForVisibleRows
+//            if !preventAnimation.contains(indexPath) {
+//                preventAnimation.insert(indexPath)
+//                //            cell.alpha = 0
+//                cell.transform = CGAffineTransform(translationX: -200, y: 0)
+//                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+//                    cell.transform = CGAffineTransform.identity
+//                }, completion: nil)
+//                
+//            }
+//
+//        }
+//        
+//        
+//        
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

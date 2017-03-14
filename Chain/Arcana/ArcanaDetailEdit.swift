@@ -52,6 +52,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         setupNavBar()
         hideKeyboardWhenTappedAround()
 //        setupKeyboardObservers()
+        
     }
     
     func setupViews() {
@@ -84,6 +85,23 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     func handleKeyboardDidShow() {
         let indexPath = IndexPath(item: keys.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    
+    func edit(text: String, row: Int) {
+        
+        guard let arcanaEdit = arcana as? ArcanaEdit, let row = Row(rawValue: row) else { return }
+        
+        switch row {
+        case .nameKR:
+            arcanaEdit.setNameKR(text)
+        case .nicknameKR:
+            arcanaEdit.setNicknameKR(text)
+        case .nameJP:
+            arcanaEdit.setNameJP(text)
+        default:
+            break
+        }
     }
     
     func save() {
@@ -227,6 +245,7 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaDetailEditCell") as! ArcanaDetailEditCell
         cell.editDelegate = self
         cell.arcanaAttributeTextView.delegate = self
+        cell.arcanaAttributeTextView.tag = indexPath.row
         cell.arcanaAttributeTextView.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         cell.isUserInteractionEnabled = true
         
@@ -314,29 +333,31 @@ extension ArcanaDetailEdit: EditDelegate {
     
     func edited(_ cell: ArcanaDetailEditCell) {
         
-        let editedText = cell.arcanaAttributeTextView.text
+        let arcanaEdit = arcana as! ArcanaEdit
         
-        guard let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
+        guard let editedText = cell.arcanaAttributeTextView.text, let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
         
         switch row {
         case .nameKR:
-            arcana
+            arcanaEdit.setNameKR(editedText)
+        case .nicknameKR:
+            arcanaEdit.setNicknameKR(editedText)
         default:
             break
         }
         
         
     }
+
     
 }
 
 extension ArcanaDetailEdit: UITextViewDelegate {
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        rowBeingEdited = textView.tag
-    }
-    
     func textViewDidEndEditing(_ textView: UITextView) {
+        
+        guard let text = textView.text else { return }
+        edit(text: text, row: textView.tag)
         
         // Update dictionary with key+attribute
         let row = textView.tag
