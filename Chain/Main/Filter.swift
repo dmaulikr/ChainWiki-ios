@@ -249,7 +249,7 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             
         }
         
-        delegate!.didUpdate(self)
+        delegate?.didUpdate(self)
         
     }
     
@@ -309,9 +309,8 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         // Check if deselected last cell, meaning no filters selected
         if collectionView.indexPathsForSelectedItems!.count == 0 {
-            if let _ = parent as? Home {
-                hasFilter = false
-            }
+            hasFilter = false
+            
         }
         
         delegate?.didUpdate(self)
@@ -346,8 +345,9 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAt section: Int) -> UIEdgeInsets {
         
+        guard let section = Section(rawValue: section) else { return UIEdgeInsets.zero }
         switch section {
-        case 0: // This one needs higher top inset
+        case .rarity: // This one needs higher top inset
             return sectionInsets
         default:
             return UIEdgeInsetsMake(5, 14, 5, 14)

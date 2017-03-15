@@ -39,6 +39,15 @@ class ArcanaViewController: UIViewController {
         return view
     }()
 
+    let tipLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아르카나가 없어요 :("
+        label.textColor = Color.textGray
+        label.textAlignment = .center
+        label.alpha = 0
+        return label
+    }()
+    
     var showFilter: Bool = false {
         didSet {
             
@@ -90,9 +99,13 @@ class ArcanaViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(tableView)
+        view.addSubview(tipLabel)
         view.addSubview(filterView)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        tipLabel.anchorCenterSuperview()
+
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         
         setupChildViews()
@@ -343,11 +356,11 @@ extension ArcanaViewController: FilterDelegate {
                 }
                 
                 self.arcanaArray = Array(finalFilter)
-                
+                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 if self.arcanaArray.count > 0 {
-                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
+                
             }
             
         }

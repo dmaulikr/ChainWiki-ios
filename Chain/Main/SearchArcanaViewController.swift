@@ -142,7 +142,8 @@ class SearchArcanaViewController: ArcanaViewController {
                 if let arcana = Arcana(snapshot: snapshot) {
                     
                     self.arcanaArray[index] = arcana
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+//                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                 }
                 
             }

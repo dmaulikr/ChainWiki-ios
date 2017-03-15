@@ -189,7 +189,7 @@ class BaseCollectionViewController: UIViewController {
             for id in uid {
                 group.enter()
                 
-                let ref = FIREBASE_REF.child("arcana/\(id)")
+                let ref = FIREBASE_REF.child("arcana").child(id)
                 
                 ref.observeSingleEvent(of: .value, with: { snapshot in
                     if let arcana = Arcana(snapshot: snapshot) {

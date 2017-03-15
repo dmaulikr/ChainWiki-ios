@@ -14,6 +14,14 @@ class TavernArcanaViewController: ArcanaViewController {
     override var arcanaDataSource: ArcanaDataSource? {
         didSet {
             tableView.dataSource = arcanaDataSource
+            if arcanaArray.count > 0 {
+                tableView.alpha = 1
+                tipLabel.alpha = 0
+            }
+            else {
+                tableView.alpha = 0
+                tipLabel.alpha = 1
+            }
             tableView.reloadData()
         }
     }
