@@ -19,7 +19,12 @@ class ArcanaViewController: UIViewController {
     var filters = [String: [String]]()
     var initialLoad = true
     
-    var arcanaDataSource: ArcanaDataSource?
+    var arcanaDataSource: ArcanaDataSource? {
+        didSet {
+            tableView.dataSource = arcanaDataSource
+            tableView.reloadData()
+        }
+    }
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

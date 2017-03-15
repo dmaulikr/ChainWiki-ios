@@ -80,7 +80,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 views.append(child)
                 
             case .favorites:
-                let vc = Favorites()
+//                let vc = Favorites()
+                let vc = FavoritesArcanaViewController()
                 let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title

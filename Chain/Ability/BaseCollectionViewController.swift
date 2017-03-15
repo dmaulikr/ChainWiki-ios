@@ -132,9 +132,9 @@ class BaseCollectionViewController: UIViewController {
     
     func setupAbilityList() {
         
-        primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
+        primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
         
-        statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
+        statusAbilities = [DarkAttackUp(), DarkImmune(), DarkStrike(), SlowAttackUp(), SlowImmune(), SlowStrike(), PoisonAttackUp(), PoisonImmune(), PoisonStrike(), CurseAttackUp(), CurseImmune(), CurseStrike(), SkeletonAttackUp(), SkeletonImmune(), SkeletonStrike(), StunAttackUp(), StunImmune(), StunStrike(), FrostAttackUp(), FrostImmune(), FrostStrike(), SealAttackUp(), SealImmune(), SealStrike()]
         
         areaAbilities = [WasteLand(), Forest(), Cavern(), Desert(), Snow(), Urban(), Water(), Night()]
         
@@ -159,7 +159,7 @@ class BaseCollectionViewController: UIViewController {
         let refPrefix = abilityType
         
         var ref: FIRDatabaseReference
-        let updatedVersion = "1.2"
+        let updatedVersion = "1.1.2"
         
         if let currentVersion = defaults.getStoredVersion() {
             if currentVersion.versionToInt().lexicographicallyPrecedes(updatedVersion.versionToInt()) {

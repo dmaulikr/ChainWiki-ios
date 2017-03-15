@@ -107,11 +107,61 @@ class PartyHeal: Ability {
         super.init(kr: "웨이브 회복", en: "partyHeal")
     }
 }
+
+// 상태 이상의 적에 공격력 증가
+class DarkAttackUp: Ability {
+    init() {
+        super.init(kr: "어둠 적에게 공격력 증가", en: "darkAttackUp")
+    }
+}
+
+class SlowAttackUp: Ability {
+    init() {
+        super.init(kr: "슬로우 적에게 공격력 증가", en: "slowAttackUp")
+    }
+}
+
+class PoisonAttackUp: Ability {
+    init() {
+        super.init(kr: "독 적에게 공격력 증가", en: "poisonAttackUp")
+    }
+}
+
+class CurseAttackUp: Ability {
+    init() {
+        super.init(kr: "저주 적에게 공격력 증가", en: "curseAttackUp")
+    }
+}
+
+class SkeletonAttackUp: Ability {
+    init() {
+        super.init(kr: "쇠약 적에게 공격력 증가", en: "skeletonAttackUp")
+    }
+}
+
+class StunAttackUp: Ability {
+    init() {
+        super.init(kr: "다운 적에게 공격력 증가", en: "stunAttackUp")
+    }
+}
+
+class FrostAttackUp: Ability {
+    init() {
+        super.init(kr: "동결 적에게 공격력 증가", en: "frostAttackUp")
+    }
+}
+
+class SealAttackUp: Ability {
+    init() {
+        super.init(kr: "봉인 적에게 공격력 증가", en: "sealStrike")
+    }
+}
+
 // 상태 이상 부여
 
 class DarkStrike: Ability {
     init() {
-        super.init(kr: "어둠 부여", en: "darkTouch")
+        super.init(kr: "어둠 부여", en: "darkStrike")
     }
 }
 

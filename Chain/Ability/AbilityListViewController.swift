@@ -13,6 +13,7 @@ class AbilityListViewController: MenuBarViewController {
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
+    var raceAbilities = [Ability]()
     
     init() {
         super.init(menuType: .abilityList)
@@ -29,7 +30,7 @@ class AbilityListViewController: MenuBarViewController {
 
     func setupAbilityList() {
 
-        primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), AttackUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
+        primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
         
         statusAbilities = [DarkImmune(), DarkStrike(), SlowImmune(), SlowStrike(), PoisonImmune(), PoisonStrike(), CurseImmune(), CurseStrike(), SkeletonImmune(), SkeletonStrike(), StunImmune(), StunStrike(), FrostImmune(), FrostStrike(), SealImmune(), SealStrike()]
         
