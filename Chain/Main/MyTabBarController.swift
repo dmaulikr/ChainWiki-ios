@@ -44,7 +44,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
               
             case .arcana:
 //                let vc = Home()
-                let vc = ArcanaViewController()
+                let vc = SearchArcanaViewController()
                 let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title

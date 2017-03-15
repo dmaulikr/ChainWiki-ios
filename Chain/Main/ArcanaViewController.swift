@@ -14,48 +14,32 @@ class ArcanaViewController: UIViewController {
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
     var arcanaRefHandle: FIRDatabaseHandle?
     
-    let searchController: SearchController = SearchController(searchResultsController: nil)
-    
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
-    var searchArray = [Arcana]()
-    fileprivate var filters = [String: [String]]()
-    fileprivate var initialLoad = true
+    var filters = [String: [String]]()
+    var initialLoad = true
     
-    var arcanaDataSource: ArcanaDataSource? {
-        didSet {
-            tableView.dataSource = arcanaDataSource
-            tableView.reloadData()
-        }
-    }
+    var arcanaDataSource: ArcanaDataSource?
     
-    fileprivate lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
-
+        tableView.alpha = 0
         tableView.estimatedRowHeight = 90
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         
         return tableView
     }()
 
-    fileprivate let filterView: UIView = {
+    let filterView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.alpha = 0
         return view
-    }()
-    
-    fileprivate let searchView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.alpha = 0
-        return view
-        
     }()
 
-    fileprivate var showFilter: Bool = false {
+    var showFilter: Bool = false {
         didSet {
             
             if self.showFilter == true {
@@ -68,23 +52,13 @@ class ArcanaViewController: UIViewController {
         }
     }
     
-    fileprivate var showSearch: Bool = false {
-        didSet {
-            if showSearch {
-                self.searchView.alpha = 1
-            }
-            else {
-                self.searchView.alpha = 0
-            }
-        }
-    }
-    
-    fileprivate var gesture = UITapGestureRecognizer()
-    fileprivate var longPress = UILongPressGestureRecognizer()
+    var gesture = UITapGestureRecognizer()
+    var longPress = UILongPressGestureRecognizer()
 
     init() {
         ref = FIREBASE_REF.child("arcana")
         super.init(nibName: nil, bundle: nil)
+        navigationItem.title = "홈"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,9 +74,8 @@ class ArcanaViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupNavBar()
-        setupSearchBar()
         setupGestures()
-        syncArcana()
+        downloadArcana()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,11 +91,9 @@ class ArcanaViewController: UIViewController {
         
         view.addSubview(tableView)
         view.addSubview(filterView)
-        view.addSubview(searchView)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
-        searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
         
         setupChildViews()
 
@@ -138,14 +109,7 @@ class ArcanaViewController: UIViewController {
         
         filterView.addSubview(filterMenu.view)
         filterMenu.view.frame = filterView.frame
-        
-        // Setup SearchView
-        let searchHistory = SearchHistory()
-        
-        addChildViewController(searchHistory)
-        
-        searchView.addSubview(searchHistory.view)
-        searchHistory.view.frame = searchView.frame
+
     }
 
     func setupNavBar() {
@@ -153,7 +117,7 @@ class ArcanaViewController: UIViewController {
         let filter = UIButton()
         filter.setImage(UIImage(named: "filter.png"), for: .normal)
         filter.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        filter.addTarget(self, action: #selector(filterArcana), for: .touchUpInside)
+        filter.addTarget(self, action: #selector(toggleFilterView), for: .touchUpInside)
         let filterButton = UIBarButtonItem()
         filterButton.customView = filter
         
@@ -166,17 +130,7 @@ class ArcanaViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [filterButton,sortButton]
     }
-    
-    func setupSearchBar() {
-        
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        definesPresentationContext = true
-        navigationItem.titleView = searchController.searchBar
-        
-    }
-    
+
     func setupGestures() {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -193,116 +147,28 @@ class ArcanaViewController: UIViewController {
         
     }
     
-    func syncArcana() {
-
-        arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
-            
-            if let arcana = Arcana(snapshot: snapshot) {
-                
-                self.arcanaArray.insert(arcana, at: 0)
-                self.originalArray.insert(arcana, at: 0)
-                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    self.tableView.reloadData()
-                }
-                
-            }
-            
-        })
-        
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-            
-//            self.animateTable()
-            self.tableView.reloadData()
-            self.initialLoad = false
-            if let refHandle = self.arcanaRefHandle {
-                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
-                self.ref.removeObserver(withHandle: refHandle)
-                
-            }
-            
-        })
-        
-        ref.observe(.childRemoved, with: { snapshot in
-            
-            let uidToRemove = snapshot.key
-            
-            for (index, arcana) in self.originalArray.enumerated() {
-                if arcana.getUID() == uidToRemove {
-                    self.originalArray.remove(at: index)
-                    
-                }
-                
-            }
-            
-            for (index, arcana) in self.arcanaArray.enumerated() {
-                if arcana.getUID() == uidToRemove {
-                    self.arcanaArray.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-                
-            }
-        })
-        
-        ref.observe(.childChanged, with: { snapshot in
-            
-            let uidToChange = snapshot.key
-            
-            if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
-                
-                if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.originalArray[index] = arcana
-                }
-                
-            }
-            
-            if let index = self.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
-                
-                if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.arcanaArray[index] = arcana
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                }
-                
-            }
-            
-        })
+    func downloadArcana() {
         
     }
     
     private func sortArcanaByName() {
-        arcanaArray = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
+        let array = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
+        arcanaDataSource = ArcanaDataSource(array)
     }
     
     private func sortArcanaByRecent() {
-        arcanaArray = originalArray.reversed()
+        let array = self.arcanaArray.sorted(by: {($0.getUID()) > ($1.getUID())})
+        arcanaDataSource = ArcanaDataSource(array)
     }
     
     private func sortArcanaByNumberOfViews() {
-        
-        ref.queryOrdered(byChild: "numberOfViews").observeSingleEvent(of: .value, with: { snapshot in
-            
-            var array = [Arcana]()
-            for item in snapshot.children.reversed() {
-                
-                if let arcana = Arcana(snapshot: item as! FIRDataSnapshot) {
-                    array.append(arcana)
-                }
-            }
-            self.arcanaArray = array
-            self.tableView.reloadData()
-        })
-        
+        let array = self.arcanaArray.sorted(by: {($0.getNumberOfViews()) > ($1.getNumberOfViews())})
+        arcanaDataSource = ArcanaDataSource(array)
     }
 
     func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else { return }
-        
-        if searchController.isActive {
-            searchController.isActive = false
-        }
         
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
@@ -336,35 +202,18 @@ class ArcanaViewController: UIViewController {
         })
     }
     
-    func filterArcana() {
-        
-        if searchController.isActive {
-            searchController.isActive = false
-        }
+    func toggleFilterView() {
         showFilter = !showFilter
-        
     }
 
     func dismissFilter() {
-        
-        // If search is active and user presses bottom half, dismiss search.
-        
-        if searchController.searchBar.text?.characters.count == 0 && searchController.isActive && gesture.location(in: self.view).y > 220 {
-            debugPrint("dismiss search")
-            gesture.cancelsTouchesInView = true
-            searchController.dismiss(animated: true, completion: nil)
-            showSearch = false
-            
-        }
-            
-            // If filter is open and user presses on left column, dismiss filter.
-        else if showFilter && gesture.location(in: self.view).x < 95 {
-            debugPrint("dismiss filter")
+
+        // If filter is open and user presses on left column, dismiss filter.
+        if showFilter && gesture.location(in: self.view).x < 95 {
             gesture.cancelsTouchesInView = true
             showFilter = false
         }
         else {
-            debugPrint("failed")
             gesture.cancelsTouchesInView = false
         }
         
@@ -374,30 +223,13 @@ class ArcanaViewController: UIViewController {
 }
 
 extension ArcanaViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if arcanaArray.count == 0 {
-            tableView.alpha = 0
-        }
-        else {
-            tableView.alpha = 1
-        }
-        
-        return arcanaArray.count
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let row = tableView.indexPathForSelectedRow?.row else { return }
         
         let arcana: Arcana
-        if searchController.isActive {
-            arcana = searchArray[row]
-        }
-        else {
-            arcana = arcanaArray[row]
-        }
+        arcana = arcanaArray[row]
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
@@ -405,42 +237,6 @@ extension ArcanaViewController: UITableViewDelegate {
     
 }
 
-extension ArcanaViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
-    
-    @available(iOS 8.0, *)
-    public func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchText: searchController.searchBar.text!)
-    }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        
-        // dismiss history if user starts typing.
-        if searchText != "" {
-            showSearch = false
-        }
-        
-        searchArray = originalArray.filter { arcana in
-            return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
-        }
-        
-        arcanaDataSource = ArcanaDataSource(searchArray)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchController.searchBar.resignFirstResponder()
-    }
-    
-    func didPresentSearchController(_ searchController: UISearchController) {
-        showSearch = true
-        showFilter = false
-    }
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-        showSearch = false
-        arcanaDataSource = ArcanaDataSource(arcanaArray)
-    }
-    
-}
 
 extension ArcanaViewController: UIViewControllerPreviewingDelegate {
     
@@ -456,12 +252,7 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
         let arcana: Arcana
-        if searchController.isActive {
-            arcana = searchArray[indexPath.row]
-        }
-        else {
-            arcana = arcanaArray[indexPath.row]
-        }
+        arcana = arcanaArray[indexPath.row]
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)

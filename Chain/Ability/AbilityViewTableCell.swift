@@ -11,11 +11,17 @@ import Firebase
 
 class AbilityViewTableCell: BaseCollectionViewCell {
     
-    fileprivate var arcanaArray = [Arcana]()
-
     var currentArray = [Arcana]() {
         didSet {
-            arcanaDataSource = ArcanaDataSource(currentArray)
+            if currentArray.count > 0 {
+                tipLabel.alpha = 0
+                arcanaDataSource = ArcanaDataSource(currentArray)
+                tableView.alpha = 1
+            }
+            else {
+                tipLabel.alpha = 1
+                tableView.alpha = 0
+            }
         }
     }
     

@@ -202,11 +202,11 @@ extension ArcanaPeekPreview: UITableViewDelegate, UITableViewDataSource {
                 cell.skillAbilityDescLabel.text = "[" + arcana.getSkillMana1() + " 마나] " + arcana.getSkillDesc1()
             case 1:
                 if let mana = arcana.getSkillMana2(), let skill = arcana.getSkillDesc2() {
-                    cell.skillAbilityDescLabel.text = "[" + mana + " 마나]" + skill
+                    cell.skillAbilityDescLabel.text = "[" + mana + " 마나] " + skill
                 }
             default:
                 if let mana = arcana.getSkillMana3(), let skill = arcana.getSkillDesc3() {
-                    cell.skillAbilityDescLabel.text = "[" + mana + " 마나]" + skill
+                    cell.skillAbilityDescLabel.text = "[" + mana + " 마나] " + skill
                 }
             }
             

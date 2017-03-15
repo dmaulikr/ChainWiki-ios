@@ -11,17 +11,25 @@ import Firebase
 
 class TavernArcanaViewController: ArcanaViewController {
     
+    override var arcanaDataSource: ArcanaDataSource? {
+        didSet {
+            tableView.dataSource = arcanaDataSource
+            tableView.reloadData()
+        }
+    }
+    
     init(tavernKR: String, tavernEN: String) {
         super.init()
         ref = FIREBASE_REF.child("tavern").child(tavernEN)
-        title = tavernKR
+        navigationItem.title = tavernKR
+        tableView.alpha = 1
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func syncArcana() {
+    
+    override func downloadArcana() {
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             var uid = [String]()

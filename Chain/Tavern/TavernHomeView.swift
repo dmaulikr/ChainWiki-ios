@@ -105,10 +105,10 @@ class TavernHomeView: UIViewController {
             }
             
             group.notify(queue: DispatchQueue.main, execute: {
-                print("Finished all requests.")
+
                 self.arcanaArray = array.sorted { $0.getRarity() > $1.getRarity() }
                 self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
-//                self.tableView.reloadData()
+                //                self.tableView.reloadData()
             })
             
         })

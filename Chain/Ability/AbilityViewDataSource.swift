@@ -15,6 +15,7 @@ enum classType {
     case Magicians
     case Healers
 }
+
 class AbilityViewDataSource: NSObject {
     
     var selectedClass = classType.Warriors
@@ -94,20 +95,7 @@ class AbilityViewDataSource: NSObject {
             
         }
         return currentArray
-//        switch classType {
-//            
-//        case .Warriors:
-//            return warriors
-//        case .Knights:
-//            return knights
-//        case .Archers:
-//            return archers
-//        case .Magicians:
-//            return magicians
-//        case .Healers:
-//            return healers
-//            
-//        }
+
     }
     
 }
