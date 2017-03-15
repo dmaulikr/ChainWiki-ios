@@ -74,7 +74,7 @@ extension TavernListTableCell: UITableViewDelegate, UITableViewDataSource {
             tavernEN = convertTavern(tavern: tavernKR)
         }
         
-        let vc = TavernHomeView(tavernKR: tavernKR, tavernEN: tavernEN)
+        let vc = TavernArcanaViewController(tavernKR: tavernKR, tavernEN: tavernEN)
         collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     

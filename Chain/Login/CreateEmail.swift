@@ -60,6 +60,11 @@ class CreateEmail: UIViewController, DisplayBanner {
         super.init(nibName: nil, bundle: nil)
     }
     
+    init(signedIn: Bool) {
+        self.signedIn = signedIn
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

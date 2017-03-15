@@ -20,6 +20,7 @@ class ArcanaPeekPreview: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 60
         tableView.estimatedRowHeight = 160
+        tableView.allowsSelection = false
         
 //        tableView.layoutMargins = UIEdgeInsets.zero
 //        tableView.separatorInset = UIEdgeInsets.zero
@@ -69,6 +70,8 @@ class ArcanaPeekPreview: UIViewController {
         
         let header = ArcanaPeekTableViewHeader(name: arcana.getNameKR())
         tableView.tableHeaderView = header
+        view.backgroundColor = .white
+        title = arcana.getNameKR()
         
         view.addSubview(tableView)
         
@@ -196,7 +199,7 @@ extension ArcanaPeekPreview: UITableViewDelegate, UITableViewDataSource {
             
             switch indexPath.row {
             case 0:
-                cell.skillAbilityDescLabel.text = "[" + arcana.getSkillMana1() + " 마나]" + arcana.getSkillDesc1()
+                cell.skillAbilityDescLabel.text = "[" + arcana.getSkillMana1() + " 마나] " + arcana.getSkillDesc1()
             case 1:
                 if let mana = arcana.getSkillMana2(), let skill = arcana.getSkillDesc2() {
                     cell.skillAbilityDescLabel.text = "[" + mana + " 마나]" + skill

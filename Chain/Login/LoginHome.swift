@@ -82,7 +82,6 @@ class LoginHome: UIViewController, DisplayBanner {
         return button
     }()
 
-    
     lazy var createEmailButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("이메일 계정 생성하기", for: .normal)
@@ -224,6 +223,8 @@ class LoginHome: UIViewController, DisplayBanner {
     
     func firebaseLogin(loginProvider: LoginProvider, credentials: FIRAuthCredential) {
         
+        animateUserLogin()
+
         FIRAuth.auth()?.signIn(with: credentials, completion: { (user, error) in
             if let _ = error {
                 
@@ -312,17 +313,32 @@ class LoginHome: UIViewController, DisplayBanner {
         
     }
     
+    func animateUserLogin() {
+        
+        let whiteView = UIView()
+        whiteView.backgroundColor = .white
+        
+        view.addSubview(whiteView)
+        whiteView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.anchorCenterSuperview()
+        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.layoutIfNeeded()
+        activityIndicator.startAnimating()
+        
+    }
+
+    
 }
 
 extension LoginHome: GIDSignInDelegate, GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let err = error {
-            print("Failed to log into Google: ", err)
             return
         }
-        
-        print("Successfully logged into Google", user)
         
         guard let idToken = user.authentication.idToken, let accessToken = user.authentication.accessToken else { return }
         

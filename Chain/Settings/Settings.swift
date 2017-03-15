@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 import SafariServices
 import LicensesViewController
 
-class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBanner {
+class Settings: UIViewController, DisplayBanner {
 
     let sectionTitles = ["앱 설정", "계정", "소개", "지원"]
     let appSection = ["이미지 다운로드 허용"]
@@ -26,7 +26,7 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
     lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .plain)
-        
+    
         tableView.backgroundColor = .white
         
         tableView.delegate = self
@@ -49,6 +49,12 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
     }()
     
     init() {
+        if defaults.canEdit() {
+            hasEmail = true
+        }
+        else {
+            hasEmail = false
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,34 +64,21 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        
-        // check to see which first cell to populate.
-        
-        if defaults.canEdit() {
-            hasEmail = true
-        }
-        else {
-            hasEmail = false
-        }
-        
+        setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let selectedRow = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedRow, animated: true)
-        }
+        guard let selectedRow = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: selectedRow, animated: true)
     }
     
     func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
-        
         view.backgroundColor = .white
+        title = "설정"
         
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
@@ -94,6 +87,12 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
         activityIndicator.anchorCenterSuperview()
         
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+    }
+    
+    func setupNavBar() {
+        navigationItem.rightBarButtonItem = logoutButton
     }
     
     func logout() {
@@ -129,7 +128,6 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
         
-        
         present(alert, animated: true) {
             alert.view.tintColor = Color.salmon
         }
@@ -151,34 +149,99 @@ class Settings: UIViewController, MFMailComposeViewControllerDelegate, DisplayBa
         
     }
     
-    
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func changeNick() {
         
-        if let text = textField.text {
-            if text.characters.count < 2 {
-                print("must be > 2")
-                
+        let userNick = defaults.getName() ?? ""
+        let alert = UIAlertController(title: "새로운 닉네임 입력", message: "현재: \(userNick)", preferredStyle: .alert)
+        alert.view.tintColor = Color.salmon
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        
+        alert.addAction(UIAlertAction(title: "변경", style: .default, handler: {
+            _ -> Void in
+            let textField = alert.textFields![0] as UITextField
+            if let nick = textField.text {
+                if nick.characters.count >= 2 {
+                    // check firebase for duplicate
+                    self.activityIndicator.startAnimating()
+                    let ref = FIREBASE_REF.child("nickName/\(nick)")
+                    
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
+                        if snapshot.exists() {
+                            
+                            self.displayBanner(formType: .nicknameAlreadyInUse, color: .red)
+                        }
+                        else {
+                            
+                            // upload to firebase
+                            
+                            let user = FIRAuth.auth()?.currentUser
+                            if let user = user {
+                                let changeRequest = user.profileChangeRequest()
+                                print("DISPLAYNAME WILL CHANGE TO \(nick)")
+                                changeRequest.displayName = nick
+                                changeRequest.commitChanges { error in
+                                    
+                                    if let _ = error {
+                                        // An error happened.
+                                    } else {
+                                        // Profile updated.
+                                        let nickRef = FIREBASE_REF.child("nickName/\(nick)")
+                                        nickRef.setValue(true)
+                                        if userNick != "" {
+                                            let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
+                                            oldNickRef.removeValue()
+                                        }
+                                        
+                                        defaults.setName(value: nick)
+                                    }
+                                }
+                            }
+                        }
+                        self.activityIndicator.stopAnimating()
+                        
+                    })
+                }
+                else {
+                    // present alert saying >= 2
+                }
             }
+            
+            // do something with textField
+        }))
+        
+        alert.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            textField.placeholder = userNick
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
         }
         
-    }
-
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true) {
+            alert.view.tintColor = Color.salmon
+            guard let selectedRow = self.tableView.indexPathForSelectedRow else { return }
+            self.tableView.deselectRow(at: selectedRow, animated: true)
+        }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toLicenses" {
-            if let destinationVC = segue.destination as? LicensesViewController {
-                destinationVC.loadPlist(Bundle.main, resourceName: "Credits")
-            }
-        }
+    func goEmail() {
+        let vc = CreateEmail(signedIn: true)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func openSite() {
+        guard let url = URL(string: "https://jitaek.github.io/ChainChronicleKoreaWiki/") else { return }
+        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        present(vc, animated: true)
+    }
+    
+    func openLicenses() {
+        let vc = LicensesViewController()
+        vc.loadPlist(Bundle.main, resourceName: "Credits")
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }
@@ -191,10 +254,8 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        // Dequeue with the reuse identifier
         let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! SettingsSectionHeader
         header.sectionTitle.text = sectionTitles[section]
-        
         return header
     }
     
@@ -283,14 +344,10 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         case 1:
             
             if hasEmail {
-                // changeNick
                 changeNick()
-                
             }
             else {
-                // go email
                 goEmail()
-                
             }
             
         case 2:
@@ -298,7 +355,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 openSite()
             case 1:
-                self.performSegue(withIdentifier: "toLicenses", sender: self)
+                openLicenses()
             default:
                 break
             }
@@ -312,105 +369,28 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         
     }
 }
+
+extension Settings: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
+}
+
 extension Settings: UITextFieldDelegate {
     
-    func changeNick() {
-        print("called alert")
-        let userNick = defaults.getName() ?? ""
-        let alert = UIAlertController(title: "새로운 닉네임 입력", message: "현재: \(userNick)", preferredStyle: .alert)
-        alert.view.tintColor = Color.salmon
-        alert.view.backgroundColor = .white
-        alert.view.layer.cornerRadius = 10
-        
-        alert.addAction(UIAlertAction(title: "변경", style: .default, handler: {
-            _ -> Void in
-            let textField = alert.textFields![0] as UITextField
-            if let nick = textField.text {
-                if nick.characters.count >= 2 {
-                    // check firebase for duplicate
-                    self.activityIndicator.startAnimating()
-                    let ref = FIREBASE_REF.child("nickName/\(nick)")
-                    
-                    ref.observeSingleEvent(of: .value, with: { snapshot in
-                        if snapshot.exists() {
-
-                            self.displayBanner(formType: .nicknameAlreadyInUse, color: .red)
-                        }
-                        else {
-                            
-                            // upload to firebase
-                            
-                            let user = FIRAuth.auth()?.currentUser
-                            if let user = user {
-                                let changeRequest = user.profileChangeRequest()
-                                print("DISPLAYNAME WILL CHANGE TO \(nick)")
-                                changeRequest.displayName = nick
-                                changeRequest.commitChanges { error in
-                                    
-                                    if let _ = error {
-                                        // An error happened.
-                                    } else {
-                                        // Profile updated.
-                                        let nickRef = FIREBASE_REF.child("nickName/\(nick)")
-                                        nickRef.setValue(true)
-                                        if userNick != "" {
-                                            let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
-                                            oldNickRef.removeValue()
-                                        }
-                                        
-                                        defaults.setName(value: nick)
-                                    }
-                                }
-                            }
-                        }
-                        self.activityIndicator.stopAnimating()
-                        
-                    })
-                }
-                else {
-                    // present alert saying >= 2
-                }
-            }
-            
-            // do something with textField
-        }))
-        
-        alert.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
-            
-            textField.placeholder = userNick
-            
-        })
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
-        alert.addAction(cancelAction)
-        
-        
-        self.present(alert, animated: true) {
-            alert.view.tintColor = Color.salmon
-            if let selectedRow = self.tableView.indexPathForSelectedRow {
-                self.tableView.deselectRow(at: selectedRow, animated: true)
-            }
-        }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
-    
-    func goEmail() {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Login", bundle:nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "CreateEmail") as! CreateEmail
-        vc.signedIn = true
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
-    func openSite() {
-        if let url = URL(string: "https://jitaek.github.io/ChainChronicleKoreaWiki/") {
-            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-            present(vc, animated: true)
+        if let text = textField.text, text.characters.count < 2 {
+            print("must be > 2")
         }
+        
     }
     
 }

@@ -53,7 +53,10 @@ class ArcanaDetail: UIViewController {
     var heart = false
     var favorite = false
     var imageTapped = false
-    var tap = UITapGestureRecognizer()
+    lazy var tap: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        return tap
+    }()
     
     init(arcana: Arcana) {
         self.arcana = arcana
@@ -69,11 +72,7 @@ class ArcanaDetail: UIViewController {
         updateHistory()
         setupViews()
         setupNavBar()
-        
-        tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         checkFavorites()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,9 +103,7 @@ class ArcanaDetail: UIViewController {
         view.addSubview(tableView)
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
+
     }
     
     func setupNavBar() {
@@ -140,13 +137,11 @@ class ArcanaDetail: UIViewController {
         alertController.view.layer.cornerRadius = 10
         
         let save = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
-            if let image = self.generateImage(tblview: self.tableView) {
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
-            }
+            guard let image = self.generateImage(tblview: self.tableView) else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         })
         
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction) in
-        })
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
         alertController.addAction(save)
         alertController.addAction(cancel)
@@ -277,7 +272,7 @@ class ArcanaDetail: UIViewController {
         }
         
     }
-    //    (target: self, action: #selector(Home.dismissFilter(_:)))
+
     func addGestures(_ sender: UIImageView) {
         
         let closeImage = UITapGestureRecognizer(target: self, action: #selector(self.dismissImage(_:)))
@@ -356,20 +351,18 @@ class ArcanaDetail: UIViewController {
         alertController.view.tintColor = Color.salmon
         
         let save = UIAlertAction(title: "이미지 저장", style: .default, handler: { (action:UIAlertAction) in
-            UIImageWriteToSavedPhotosAlbum(sender as! UIImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            guard let image = sender as? UIImage else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         })
         
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction) in
-        })
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
         alertController.addAction(save)
         alertController.addAction(cancel)
     
-//        present(alertController, animated: true, completion: nil)
-        
+        present(alertController, animated: true, completion: nil)
         
     }
-    
     
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
@@ -378,21 +371,6 @@ class ArcanaDetail: UIViewController {
             showAlert(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.")
         }
     }
-    
-//    func addToolButtons() {
-//        let a = UIBarButtonItem(
-//        let item1 = UIBarButtonItem(title: "저장", style: UIBarButtonItemStyle., target: self, action: nil)
-//        item1.width = SCREENWIDTH/2
-//        item1.customView?.backgroundColor = .black
-//        item1.setTitlePositionAdjustment(.init(horizontal: -50, vertical: 0), for: .default)
-//        let item2 = UIBarButtonItem(title: "편집", style: .plain, target: self, action: nil)
-//        item2.width = SCREENWIDTH/2
-//        item2.setTitlePositionAdjustment(.init(horizontal: -50, vertical: 0), for: .default)
-//        var items = [UIBarButtonItem]()
-//        items.append(item1)
-//        items.append(item2)
-//        toolBar.setItems(items, animated: true)
-//    }
 
     func generateImage(tblview:UITableView) -> UIImage? {
         
@@ -521,6 +499,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         }
         
     }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
@@ -892,7 +871,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let section = Section(rawValue: indexPath.section), section == .edit else { return }
-        
         let vc = ArcanaEditList(arcanaID: arcana.getUID())
         navigationController?.pushViewController(vc, animated: true)
 
