@@ -62,14 +62,16 @@ class AbilityViewDataSource: NSObject {
     
     private func filterAbilityList() {
         
-        warriors = arcanaArray.filter({$0.getGroup() == "전사"})
+        // get the arcana's class, then sort by rarity
+        self.warriors = arcanaArray.filter({$0.getGroup() == "전사"}).sorted(by: {($0.getRarity()) > ($1.getRarity())})
         
         // Process the other arrays in background.
         DispatchQueue.global().async {
-            self.knights = self.arcanaArray.filter({$0.getGroup() == "기사"})
-            self.archers = self.arcanaArray.filter({$0.getGroup() == "궁수"})
-            self.magicians = self.arcanaArray.filter({$0.getGroup() == "법사"})
-            self.healers = self.arcanaArray.filter({$0.getGroup() == "승려"})
+            
+            self.knights = self.arcanaArray.filter({$0.getGroup() == "기사"}).sorted(by: {($0.getRarity()) > ($1.getRarity())})
+            self.archers = self.arcanaArray.filter({$0.getGroup() == "궁수"}).sorted(by: {($0.getRarity()) > ($1.getRarity())})
+            self.magicians = self.arcanaArray.filter({$0.getGroup() == "법사"}).sorted(by: {($0.getRarity()) > ($1.getRarity())})
+            self.healers = self.arcanaArray.filter({$0.getGroup() == "승려"}).sorted(by: {($0.getRarity()) > ($1.getRarity())})
         }
     
     }
