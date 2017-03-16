@@ -47,7 +47,9 @@ class SearchArcanaViewController: ArcanaViewController {
     
     override func setupViews() {
         super.setupViews()
+        
         view.addSubview(searchView)
+        
         searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
 
     }
@@ -82,8 +84,8 @@ class SearchArcanaViewController: ArcanaViewController {
                 
                 self.arcanaArray.insert(arcana, at: 0)
                 self.originalArray.insert(arcana, at: 0)
-                if self.initialLoad == false { //upon first load, don't reload the tableView until all children are loaded
-                    //                    self.tableView.reloadData()
+                if self.initialLoad == false {
+                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 
             }
@@ -92,13 +94,8 @@ class SearchArcanaViewController: ArcanaViewController {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            //            self.animateTable()
             self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
             self.initialLoad = false
-            if let refHandle = self.arcanaRefHandle {
-                self.ref.removeObserver(withHandle: refHandle)
-                
-            }
             
         })
         
@@ -107,9 +104,9 @@ class SearchArcanaViewController: ArcanaViewController {
             let uidToRemove = snapshot.key
             
             for (index, arcana) in self.originalArray.enumerated() {
+                
                 if arcana.getUID() == uidToRemove {
                     self.originalArray.remove(at: index)
-                    
                 }
                 
             }
@@ -117,8 +114,7 @@ class SearchArcanaViewController: ArcanaViewController {
             for (index, arcana) in self.arcanaArray.enumerated() {
                 if arcana.getUID() == uidToRemove {
                     self.arcanaArray.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 
             }
@@ -129,9 +125,7 @@ class SearchArcanaViewController: ArcanaViewController {
             let uidToChange = snapshot.key
             
             if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
-                
                 if let arcana = Arcana(snapshot: snapshot) {
-                    
                     self.originalArray[index] = arcana
                 }
                 
@@ -143,7 +137,6 @@ class SearchArcanaViewController: ArcanaViewController {
                     
                     self.arcanaArray[index] = arcana
                     self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
-//                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                 }
                 
             }

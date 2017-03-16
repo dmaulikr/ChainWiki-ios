@@ -88,8 +88,8 @@ class ArcanaDetail: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-//        let dataRequest = FirebaseService.dataRequest
-//        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana/\(arcana.getUID())/numberOfViews"))
+        let dataRequest = FirebaseService.dataRequest
+        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
         
     }
     
