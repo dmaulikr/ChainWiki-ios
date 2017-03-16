@@ -415,7 +415,10 @@ class ArcanaEdit {
             abilityDesc3 = aD3
         }
         
-        
+        if let pA = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
+            partyAbility = pA
+        }
+
     }
 
 }

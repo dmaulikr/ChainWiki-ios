@@ -87,22 +87,29 @@ class ArcanaEditList: UIViewController {
                 
                 for child in editData.reversed() {
                     
-                    let date = child.value["date"] as! String
-                    let name = child.value["nickname"] as! String
-                    let editUID = child.value["uid"] as! String
-                    
-                    let updateRef = ref.child(editUID).child("update")
-                    updateRef.observeSingleEvent(of: .value, with: { snapshot in
-                        var indexes = [IndexPath]()
-                        let arcana = ArcanaEdit(snapshot: snapshot)
-                        self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: name, ref: ref.child(child.key), d: date), at: 0)
-                        indexes.append(IndexPath(row: 0, section: 0))
+                    if let date = child.value["date"] as? String, let editUID = child.value["uid"] as? String {
                         
-                        self.tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
-                    })
+                        var editorName = ""
+                        if let name = child.value["nickname"] as? String {
+                            editorName = name
+                        }
+                        else if let name = child.value["nickName"] as? String {
+                            editorName = name
+                        }
+                        
+                        let updateRef = ref.child(editUID).child("update")
+                        updateRef.observeSingleEvent(of: .value, with: { snapshot in
+                            var indexes = [IndexPath]()
+                            let arcana = ArcanaEdit(snapshot: snapshot)
+                            self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: editorName, ref: ref.child(child.key), d: date), at: 0)
+                            indexes.append(IndexPath(row: 0, section: 0))
+                            
+                            self.tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
+                        })
+
+                    }
                     
                 }
-            
         })
         
     }

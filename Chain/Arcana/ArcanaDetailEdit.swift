@@ -16,7 +16,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "파티 어빌", "인연 이름", "인연 코스트", "인연 설명", "출현 장소"]
     
-    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
+    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "partyAbility", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     let arcana: Arcana
     var edits = [String : String]()
     var originalAttributes = [String]()
@@ -90,12 +90,12 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { action in
             
             if self.edits.count == 0 {
-                self.displayBanner(formType: .noEdits, color: .yellow)
+                self.displayBanner(formType: .noEdits, color: Color.googleRed)
             }
             else {
                 self.backTwo()
+                self.uploadArcana()
             }
-            self.uploadArcana()
         })
         alertController.addAction(defaultAction)
         
@@ -109,52 +109,47 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     }
     
     func uploadArcana() {
-        // TODO: Check if there were any edits
-        if edits.count != 0 {
         
-            // Process the edit date
-            let date = Date()
-            let format = DateFormatter()
-            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let dateString = format.string(from: date)
+        // Process the edit date
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = format.string(from: date)
+        
+        
+        let arcanaID = arcana.getUID()
+        let arcanaRef = FIREBASE_REF.child("arcanaEdit").child(arcanaID)
+        let autoID =  arcanaRef.childByAutoId().key
+        // childchanged to update single arcana values
+        for (key, value) in edits {
             
-            
-            let arcanaID = arcana.getUID()
-            let arcanaRef = FIREBASE_REF.child("arcanaEdit").child(arcanaID)
-            let autoID =  arcanaRef.childByAutoId().key
-            // childchanged to update single arcana values
-            for (key, value) in edits {
+            let originalRef = FIREBASE_REF.child("arcana").child(arcanaID).child(key)
+            let editsRef = arcanaRef.child(autoID)
+            let editsPreviousRef = editsRef.child("previous").child(key)
+            let editsUpdateRef = editsRef.child("update").child(key)
+            // move old values to edit ref
+            originalRef.observeSingleEvent(of: .value, with: { snapshot in
                 
-                let originalRef = FIREBASE_REF.child("arcana").child(arcanaID).child(key)
-                let editsRef = arcanaRef.child(autoID)
-                let editsPreviousRef = editsRef.child("previous").child(key)
-                let editsUpdateRef = editsRef.child("update").child(key)
-                // move old values to edit ref
-                originalRef.observeSingleEvent(of: .value, with: { snapshot in
-                    
-                    editsPreviousRef.setValue(snapshot.value)
-                    
-                    // Moved old data, now replace old data with user's edit
-                    if let id = defaults.getUID() {
-                        editsRef.child("editorUID").setValue(id)
-                    }
-                    
-                    editsUpdateRef.setValue(value)
-                    originalRef.setValue(value)
-                    
-                    if let nick = defaults.getName() {
-                        editsRef.child("nickname").setValue(nick)
-                    }
-                    else {
-                        editsRef.child("nickname").setValue("소중한 첸클 유저")
-                    }
-                    editsRef.child("date").setValue(dateString)
-                    editsRef.child("uid").setValue(autoID)
-                    
-                })
-            }
-            
-            
+                editsPreviousRef.setValue(snapshot.value)
+                
+                // Moved old data, now replace old data with user's edit
+                if let id = defaults.getUID() {
+                    editsRef.child("editorUID").setValue(id)
+                }
+                
+                editsUpdateRef.setValue(value)
+                originalRef.setValue(value)
+                
+                if let nick = defaults.getName() {
+                    editsRef.child("nickname").setValue(nick)
+                }
+                else {
+                    editsRef.child("nickname").setValue("소중한 첸클 유저")
+                }
+                editsRef.child("date").setValue(dateString)
+                editsRef.child("uid").setValue(autoID)
+                
+            })
         }
 
     }
@@ -335,6 +330,8 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaAttributeTextView.text = arcana.getAbilityName2()
         case .abilitydesc2:
             cell.arcanaAttributeTextView.text = arcana.getAbilityDesc2()
+        case .partyability:
+            cell.arcanaAttributeTextView.text = arcana.getPartyAbility()
         case .kizunaname:
             cell.arcanaAttributeTextView.text = arcana.getKizunaName()
         case .kizunacost:
@@ -343,8 +340,7 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaAttributeTextView.text = arcana.getKizunaDesc()
         case .tavern:
             cell.arcanaAttributeTextView.text = arcana.getTavern()
-        default:
-            break
+
             
         }
         
