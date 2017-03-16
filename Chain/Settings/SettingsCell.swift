@@ -10,32 +10,36 @@ import UIKit
 
 class SettingsCell: UITableViewCell {
 
-    @IBOutlet weak var icon: UIImageView!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var imageToggle: UISwitch!
+    let icon: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        return label
+    }()
     
-    @IBAction func toggleImage(_ sender: AnyObject) {
-
-        if defaults.getImagePermissions() {
-            defaults.setImagePermissions(value: false)
-            print("setting to false")
-        }
-        else {
-            defaults.setImagePermissions(value: true)
-            print("setting to true")
-        }
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
         
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
         
+        addSubview(icon)
+        addSubview(titleLabel)
+        
+        icon.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 30, heightConstant: 30)
+        titleLabel.anchor(top: topAnchor, leading: icon.trailingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
+                
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    
 }

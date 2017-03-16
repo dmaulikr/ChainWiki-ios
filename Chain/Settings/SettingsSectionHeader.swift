@@ -8,13 +8,30 @@
 
 import UIKit
 
-class SettingsSectionHeader: UITableViewHeaderFooterView {
+class SettingsSectionHeader: UIView {
 
-    @IBOutlet weak var sectionTitle: UILabel!
+    let sectionTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
+        label.textColor = .black
+        return label
+    }()
     
+    init() {
+        super.init(frame: .zero)
+        setupViews()
+    }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        
+        addSubview(sectionTitleLabel)
+        
+        sectionTitleLabel.anchor(top: nil, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        sectionTitleLabel.anchorCenterYToSuperview()
     }
 
 }

@@ -32,8 +32,8 @@ class Settings: UIViewController, DisplayBanner {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UINib(nibName: "SettingsSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "sectionHeader")
-        tableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+        tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
+        tableView.register(ImageToggleCell.self, forCellReuseIdentifier: "ImageToggleCell")
         
         return tableView
     }()
@@ -248,17 +248,25 @@ class Settings: UIViewController, DisplayBanner {
 
 extension Settings: UITableViewDelegate, UITableViewDataSource {
     
+    private enum Section: Int {
+        case app
+        case account
+        case about
+        case support
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! SettingsSectionHeader
-        header.sectionTitle.text = sectionTitles[section]
-        return header
+
+        let view = SettingsSectionHeader()
+        view.sectionTitleLabel.text = sectionTitles[section]
+        return view
     }
     
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
@@ -269,14 +277,16 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        guard let section = Section(rawValue: section) else { return 0 }
+        
         switch section {
-        case 0:
+        case .app:
             return appSection.count
-        case 1:
+        case .account:
             return accountSection.count
-        case 2:
+        case .about:
             return aboutSection.count
-        default:
+        case .support:
             return supportSection.count
         }
         
@@ -284,11 +294,13 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as! SettingsCell
+        guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
         
-        switch indexPath.section {
+        switch section {
             
-        case 0:
+        case .app:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageToggleCell") as! ImageToggleCell
+
             // have a toggle for image downloads. should be a different cell
             cell.selectionStyle = .none
             if defaults.getImagePermissions() {
@@ -297,51 +309,56 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
             else {
                 cell.imageToggle.isOn = false
             }
-            cell.imageToggle.alpha = 1
-            cell.title.text = appSection[indexPath.row]
+            cell.titleLabel.text = appSection[indexPath.row]
             cell.icon.image = #imageLiteral(resourceName: "imageDownload")
-        // either changeNick or linkEmail
-        case 1:
-            if hasEmail {
-                cell.icon.image = #imageLiteral(resourceName: "goEmail")
-                cell.title.text = "닉네임 변경"
-            }
-            else {
+        
+            return cell
+        case .account, .about, .support:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
+            
+            switch section {
+            case .account:
+                if hasEmail {
+                    cell.icon.image = #imageLiteral(resourceName: "goEmail")
+                    cell.titleLabel.text = "닉네임 변경"
+                }
+                else {
+                    cell.icon.image = #imageLiteral(resourceName: "emailSettings")
+                    cell.titleLabel.text = "이메일 전환"
+                }
+            case .about:
+                cell.titleLabel.text = aboutSection[indexPath.row]
+                
+                switch indexPath.row {
+                case 0:
+                    cell.icon.image = #imageLiteral(resourceName: "openSite")
+                    
+                case 1:
+                    cell.icon.image = #imageLiteral(resourceName: "licenses")
+                    
+                default:
+                    break
+                }
+
+            case .support:
                 cell.icon.image = #imageLiteral(resourceName: "emailSettings")
-                cell.title.text = "이메일 전환"
-            }
-            
-            
-        case 2:
-            cell.title.text = aboutSection[indexPath.row]
-            
-            switch indexPath.row {
-            case 0:
-                cell.icon.image = #imageLiteral(resourceName: "openSite")
-                
-            case 1:
-                cell.icon.image = #imageLiteral(resourceName: "licenses")
-                
+                cell.titleLabel.text = "이메일 문의"
             default:
                 break
             }
+
             
-        case 3:
-            cell.icon.image = #imageLiteral(resourceName: "emailSettings")
-            cell.title.text = "이메일 문의"
-            
-        default:
-            break
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.section {
+        guard let section = Section(rawValue: indexPath.section) else { return }
+        
+        switch section {
             
-        case 1:
+        case .account:
             
             if hasEmail {
                 changeNick()
@@ -350,7 +367,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
                 goEmail()
             }
             
-        case 2:
+        case .about:
             switch indexPath.row {
             case 0:
                 openSite()
@@ -359,7 +376,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
             default:
                 break
             }
-        case 3:
+        case .support:
             sendEmail()
             
         default:

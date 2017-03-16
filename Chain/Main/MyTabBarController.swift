@@ -43,7 +43,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             switch tab {
               
             case .arcana:
-//                let vc = Home()
                 let vc = SearchArcanaViewController()
                 let child = NavigationController(rootViewController: vc)
                 
@@ -80,7 +79,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 views.append(child)
                 
             case .favorites:
-//                let vc = Favorites()
                 let vc = FavoritesArcanaViewController()
                 let child = NavigationController(rootViewController: vc)
                 

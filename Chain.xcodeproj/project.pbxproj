@@ -86,6 +86,7 @@
 		04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594C1DB60A1200D30C21 /* PageViewController.swift */; };
 		04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */; };
 		04DBE7591E2B508600E0A8B1 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DBE7581E2B508600E0A8B1 /* SnapshotHelper.swift */; };
+		04E03D211E79DDA500432F10 /* ImageToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E03D201E79DDA500432F10 /* ImageToggleCell.swift */; };
 		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
 		04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */; };
@@ -229,6 +230,7 @@
 		04D6594C1DB60A1200D30C21 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		04D6594E1DB60A3C00D30C21 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		04DBE7581E2B508600E0A8B1 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		04E03D201E79DDA500432F10 /* ImageToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageToggleCell.swift; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04EDE6F41D937AF2005731B9 /* CreateEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEmail.swift; sourceTree = "<group>"; };
 		04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEdit.swift; sourceTree = "<group>"; };
@@ -340,9 +342,10 @@
 			children = (
 				04691E951D97BF8C00E15C5F /* Favorites.swift */,
 				045EF6A61DAB5DC4002148DD /* Settings.storyboard */,
-				04EF66AA1DB363D000E13370 /* SettingsCell.swift */,
-				04EF66AC1DB3640200E13370 /* SettingsCell.xib */,
 				045EF6A91DAB5DEE002148DD /* Settings.swift */,
+				04EF66AC1DB3640200E13370 /* SettingsCell.xib */,
+				04EF66AA1DB363D000E13370 /* SettingsCell.swift */,
+				04E03D201E79DDA500432F10 /* ImageToggleCell.swift */,
 				04EF66A41DB319DC00E13370 /* SettingsSectionHeader.xib */,
 				04EF66A61DB31A9600E13370 /* SettingsSectionHeader.swift */,
 			);
@@ -911,6 +914,7 @@
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
 				04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */,
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,
+				04E03D211E79DDA500432F10 /* ImageToggleCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
 				04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */,
 				042834FA1D91E10D0043BE6E /* ArcanaChainStoryCell.swift in Sources */,
