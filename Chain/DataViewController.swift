@@ -26,6 +26,11 @@ class DataViewController: UIViewController {
         return tableView
     }()
 
+    deinit {
+        guard let refHandle = refHandle else { return }
+        ref.removeObserver(withHandle: refHandle)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         observeLinks()
@@ -72,6 +77,9 @@ class DataViewController: UIViewController {
         })
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let handle = self.refHandle {
+                self.ref.removeObserver(withHandle: handle)
+            }
             self.tableView.reloadData()
         })
     }

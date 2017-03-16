@@ -181,15 +181,15 @@ class Settings: UIViewController, DisplayBanner {
                                 print("DISPLAYNAME WILL CHANGE TO \(nick)")
                                 changeRequest.displayName = nick
                                 changeRequest.commitChanges { error in
-                                    
+                                      
                                     if let _ = error {
                                         // An error happened.
                                     } else {
                                         // Profile updated.
-                                        let nickRef = FIREBASE_REF.child("nickName/\(nick)")
+                                        let nickRef = FIREBASE_REF.child("nickName").child(nick)
                                         nickRef.setValue(true)
                                         if userNick != "" {
-                                            let oldNickRef = FIREBASE_REF.child("nickName/\(userNick)")
+                                            let oldNickRef = FIREBASE_REF.child("nickName").child(userNick)
                                             oldNickRef.removeValue()
                                         }
                                         

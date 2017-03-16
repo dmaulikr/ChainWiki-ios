@@ -21,61 +21,31 @@ extension UIViewController {
         
         guard let snapshot:UIView = view.window?.snapshotView(afterScreenUpdates: true) else { return }
 
+        var initialViewController = UIViewController()
+        
         switch vc {
+            
         case .home:
-            let initialViewController = MyTabBarController()
-            initialViewController.view.addSubview(snapshot)
-            
-            self.view.window?.rootViewController = initialViewController
-            
-            UIView.animate(withDuration: 0.2, animations: {()  in
-                
-                snapshot.layer.opacity = 0
-                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-            }, completion: {
-                (value: Bool) in
-                snapshot.removeFromSuperview()
-                
-            })
-
+            initialViewController = MyTabBarController()
         case .login:
-            let initialViewController = LoginHome()
-            
-            initialViewController.view.addSubview(snapshot)
-            
-            self.view.window?.rootViewController = initialViewController
-            
-            UIView.animate(withDuration: 0.2, animations: {()  in
-                
-                snapshot.layer.opacity = 0
-                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-            }, completion: {
-                (value: Bool) in
-                snapshot.removeFromSuperview()
-                
-            })
-
+            initialViewController = LoginHome()
         case .logout:
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
-            
-            let snapshot:UIView = (self.view.window?.snapshotView(afterScreenUpdates: true))!
-            initialViewController.view.addSubview(snapshot)
-            
-            self.view.window?.rootViewController = initialViewController
-            
-            UIView.animate(withDuration: 0.2, animations: {()  in
-                
-                snapshot.layer.opacity = 0
-                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-            }, completion: {
-                (value: Bool) in
-                snapshot.removeFromSuperview()
-                
-            })
-
-            
+            initialViewController = PageViewController()
+        
         }
+        
+        initialViewController.view.addSubview(snapshot)
+        view.window?.rootViewController = initialViewController
+        
+        UIView.animate(withDuration: 0.2, animations: {()  in
+            
+            snapshot.layer.opacity = 0
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview()
+            
+        })
 
     }
     

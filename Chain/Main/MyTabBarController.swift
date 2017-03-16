@@ -34,7 +34,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     func setupTabBar() {
         
         var views = [UIViewController]()
-        // Setup Tab Bar Views
         
         for (index, title) in tabTitles.enumerated() {
             
@@ -59,7 +58,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
-            
+
             case .tavern:
                 let vc = MenuBarViewController(menuType: .tavernList)
                 let child = NavigationController(rootViewController: vc)
@@ -87,13 +86,13 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 child.tabBarItem.tag = index
                 views.append(child)
                 
-//            default:
-//                let child = UIViewController()
-//                
-//                child.tabBarItem.title = title
-//                child.tabBarItem.image = tabIcons[index]
-//                child.tabBarItem.tag = index
-//                views.append(child)
+            default:
+                let child = UIViewController()
+                
+                child.tabBarItem.title = title
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
             }
 
         }

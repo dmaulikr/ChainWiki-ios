@@ -174,11 +174,12 @@ class Favorites: UIViewController {
         for id in uids {
             group.enter()
             
-            let ref = FIREBASE_REF.child("arcana/\(id)")
+            let ref = FIREBASE_REF.child("arcana").child(id)
             
             ref.observeSingleEvent(of: .value, with: { snapshot in
-                let arcana = Arcana(snapshot: snapshot)
-                array.append(arcana!)
+                if let arcana = Arcana(snapshot: snapshot) {
+                    array.append(arcana)
+                }
                 group.leave()
                 
             })

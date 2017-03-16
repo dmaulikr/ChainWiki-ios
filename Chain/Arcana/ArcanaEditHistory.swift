@@ -74,12 +74,10 @@ class ArcanaEditHistory: UIViewController {
             
             editRef.observeSingleEvent(of: .value, with: { snapshot in
                 
-                print(snapshot)
                 let dict = snapshot.value as! [String : AnyObject]
                 let reportRef = FIREBASE_REF.child("report")
                 let id = reportRef.childByAutoId().key
                 reportRef.child(id).setValue(dict)
-                
                 
             })
         })
@@ -133,7 +131,7 @@ extension ArcanaEditHistory: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
+        guard let row = Row(rawValue: indexPath.row), let arcanaEdit = arcana.arcana else { return UITableViewCell() }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaDetailEditCell") as! ArcanaDetailEditCell
         cell.arcanaAttributeTextView.isUserInteractionEnabled = false
@@ -143,72 +141,72 @@ extension ArcanaEditHistory: UITableViewDataSource, UITableViewDelegate {
         
         switch row {
         case .nameKR:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getNameKR()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getNameKR()
         case .nicknameKR:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getNicknameKR()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getNicknameKR()
         case .nameJP:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getNameJP()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getNameJP()
         case .nicknameJP:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getNicknameJP()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getNicknameJP()
         case .skillname1:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getSkillName1()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getSkillName1()
         case .skillmana1:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getSkillMana1()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getSkillMana1()
         case .skilldesc1:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getSkillDesc1()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getSkillDesc1()
             
         case .skillname2, .skillmana2, .skilldesc2:
-            if arcana.arcana.getSkillCount() == "1" {
+            if arcanaEdit.getSkillCount() == "1" {
                 cell.isUserInteractionEnabled = false
                 cell.arcanaAttributeTextView.text = nil
             }
             else {
                 switch row {
                 case .skillname2:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillName2()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillName2()
                 case .skillmana2:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillMana2()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillMana2()
                 case .skilldesc2:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillDesc2()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillDesc2()
                 default:
                     break
                 }
                 
             }
         case .skillname3, .skillmana3, .skilldesc3:
-            if arcana.arcana.getSkillCount() != "3" {
+            if arcanaEdit.getSkillCount() != "3" {
                 cell.isUserInteractionEnabled = false
                 cell.arcanaAttributeTextView.text = nil
             }
             else {
                 switch row {
                 case .skillname3:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillName3()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillName3()
                 case .skillmana3:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillMana3()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillMana3()
                 case .skilldesc3:
-                    cell.arcanaAttributeTextView.text = arcana.arcana.getSkillDesc3()
+                    cell.arcanaAttributeTextView.text = arcanaEdit.getSkillDesc3()
                 default:
                     break
                 }
             }
             
         case .abilityname1:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getAbilityName1()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getAbilityName1()
         case .abilitydesc1:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getAbilityDesc1()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getAbilityDesc1()
         case .abilityname2:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getAbilityName2()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getAbilityName2()
         case .abilitydesc2:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getAbilityDesc2()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getAbilityDesc2()
         case .kizunaname:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getKizunaName()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getKizunaName()
         case .kizunacost:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getKizunaCost()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getKizunaCost()
         case .kizunadesc:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getKizunaDesc()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getKizunaDesc()
         case .tavern:
-            cell.arcanaAttributeTextView.text = arcana.arcana.getTavern()
+            cell.arcanaAttributeTextView.text = arcanaEdit.getTavern()
         default:
             break
             
