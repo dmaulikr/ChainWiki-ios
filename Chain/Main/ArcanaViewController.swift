@@ -32,6 +32,8 @@ class ArcanaViewController: UIViewController {
         tableView.delegate = self
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
+        tableView.tableFooterView = UIView(frame: .zero)
+
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         
         return tableView

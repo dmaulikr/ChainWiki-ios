@@ -20,6 +20,11 @@ class FavoritesArcanaViewController: ArcanaViewController {
         return button
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        downloadArcana()
+        
+    }
     override func setupNavBar() {
         navigationItem.title = "즐겨찾기"
         navigationItem.leftBarButtonItem = settingsButton

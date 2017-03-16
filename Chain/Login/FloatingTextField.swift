@@ -74,6 +74,7 @@ class FloatingTextField: SkyFloatingLabelTextFieldWithIcon {
             tag = 3
         }
 
+        autocapitalizationType = .none
     }
 
 }

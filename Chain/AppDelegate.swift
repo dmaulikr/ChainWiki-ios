@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -30,25 +29,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // check for update
         if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
-//            defaults.setImagePermissions(value: true)
+            defaults.setImagePermissions(value: true)
             defaults.updateVersion()
         }
 
         AppRater.appRater.incrementAppLaunches()
         
+        var initialViewController = UIViewController()
+        
         if defaults.isLoggedIn() {
-            let initialViewController = MyTabBarController()
-            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.window!.rootViewController = initialViewController
-                }, completion: nil)
+            initialViewController = MyTabBarController()
         }
             
         else {
-            let initialViewController = PageViewController()
-            UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
-                self.window!.rootViewController = initialViewController
-                }, completion: nil)
+            initialViewController = PageViewController()
         }
+        
+        self.window!.rootViewController = initialViewController
+        self.window!.makeKeyAndVisible()
+
         return true
         
     }

@@ -77,6 +77,12 @@ class CreateEmail: UIViewController, DisplayBanner {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+    }
+    
     func setupViews() {
         
         view.backgroundColor = .white
@@ -86,6 +92,7 @@ class CreateEmail: UIViewController, DisplayBanner {
         view.addSubview(passwordConfirmTextField)
         view.addSubview(nicknameTextField)
         view.addSubview(registerButton)
+        view.addSubview(activityIndicator)
         
         emailTextField.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 20, trailingConstant: 20, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
@@ -97,6 +104,8 @@ class CreateEmail: UIViewController, DisplayBanner {
         
         registerButton.anchor(top: nicknameTextField.bottomAnchor, leading: emailTextField.leadingAnchor, trailing: emailTextField.trailingAnchor, bottom: nil, topConstant: 30, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 50)
         
+        activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
+        activityIndicator.anchorCenterXToSuperview()
     }
     
     func setupNavBar() {
@@ -143,8 +152,9 @@ class CreateEmail: UIViewController, DisplayBanner {
                     nickNameRef.observeSingleEvent(of: .value, with: { snapshot in
                         
                         if snapshot.exists() {
-                            formType = .nicknameAlreadyInUse
+//                            formType = .nicknameAlreadyInUse
                             self.activityIndicator.stopAnimating()
+                            self.displayBanner(formType: .nicknameAlreadyInUse)
                         }
                         else {
                             
@@ -162,7 +172,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                         print("ERROR LINKING TO EMAIL")
 
                                         if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
-                                            switch (errorCode) {
+                                            switch errorCode {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
                                                 formType = .emailAlreadyInUse
@@ -176,11 +186,15 @@ class CreateEmail: UIViewController, DisplayBanner {
                                             default:
                                                 formType = .serverError
                                             }
+                                            
+                                            if let formType = formType {
+                                                self.displayBanner(formType: formType)
+                                            }
                                         }
                                         
                                     }
                                     else {
-//                                        print("successfully linked email!")
+                                        print("successfully linked email!")
                                         guard let user = user else { return }
                                          
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
@@ -217,7 +231,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                     if error != nil {
                                         
                                         if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
-                                            switch (errorCode) {
+                                            switch errorCode {
                                                 
                                             case .errorCodeEmailAlreadyInUse:
                                                 formType = .emailAlreadyInUse
@@ -231,16 +245,16 @@ class CreateEmail: UIViewController, DisplayBanner {
                                             default:
                                                 formType = .serverError
                                             }
+                                            if let formType = formType {
+                                                self.displayBanner(formType: formType)
+                                            }
                                         }
                                     }
                                         
                                     else {
                                         
-//                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
-                                        guard let user = user else {
-                                            return
-                                        }
-                                        
+                                        print("EMAIL ACCOUNT CREATED, LOGGING IN...")
+                                        guard let user = user else { return }
                                         
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue("true")
@@ -280,32 +294,28 @@ class CreateEmail: UIViewController, DisplayBanner {
             }
    
     }
-    
-    func changeRootView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
-        
-        self.view.window?.rootViewController = initialViewController
-        self.view.window?.makeKeyAndVisible()
-    }
 
 }
 
 extension CreateEmail: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Try to find next responder
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
-            nextField.becomeFirstResponder()
-        } else {
-            // Not found, so remove keyboard.
+
+        switch textField {
+            
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            passwordConfirmTextField.becomeFirstResponder()
+        case passwordConfirmTextField:
+            nicknameTextField.becomeFirstResponder()
+        case nicknameTextField:
+            createEmail()
+        default:
             textField.resignFirstResponder()
-            if textField == nicknameTextField {
-                //do login stuff
-                createEmail()
-            }
         }
-        // Do not add a line break
-        return false
+
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

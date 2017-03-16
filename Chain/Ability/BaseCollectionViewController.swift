@@ -95,7 +95,7 @@ class BaseCollectionViewController: UIViewController {
                 registerForPreviewing(with: self, sourceView: collectionView)
             }
         case .tavernList:
-            downloadArray()
+            break
         }
 
     }
@@ -120,16 +120,16 @@ class BaseCollectionViewController: UIViewController {
         
     }
     
-    private func setupNavBar() {
-        let filterButton = UIBarButtonItem(title: "전체", style: .plain, target: self, action: #selector(filter))
-        navigationItem.rightBarButtonItem = filterButton
-    }
-    
-    func filter() {
-        
-        
-    }
-    
+//    private func setupNavBar() {
+//        let filterButton = UIBarButtonItem(title: "전체", style: .plain, target: self, action: #selector(filter))
+//        navigationItem.rightBarButtonItem = filterButton
+//    }
+//    
+//    func filter() {
+//        
+//        
+//    }
+//    
     func setupAbilityList() {
         
         primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
