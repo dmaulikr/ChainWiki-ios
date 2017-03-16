@@ -69,11 +69,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     func setupNavBar() {
         
         title = "아르카나 수정"
-        
         let saveButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(save))
-//        saveButton.tintColor = .lightGray
-//        saveButton.isEnabled = false
-
         navigationItem.rightBarButtonItem = saveButton
 
     }
@@ -87,38 +83,11 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
-    
-    func edit(text: String, row: Int) {
-        
-        guard let arcanaEdit = arcana as? ArcanaEdit, let row = Row(rawValue: row) else { return }
-        
-        switch row {
-        case .nameKR:
-            arcanaEdit.setNameKR(text)
-        case .nicknameKR:
-            arcanaEdit.setNicknameKR(text)
-        case .nameJP:
-            arcanaEdit.setNameJP(text)
-        default:
-            break
-        }
-    }
-    
     func save() {
 
-        if let row = rowBeingEdited {
-            let indexPath = NSIndexPath(row: row, section: 0)
-            
-            let cell : ArcanaDetailEditCell? = self.tableView.cellForRow(at: indexPath as IndexPath) as! ArcanaDetailEditCell?
-            
-            cell?.arcanaAttributeTextView.resignFirstResponder()
-        }
-        
-        // TODO: Confirm
-        
         let alertController = UIAlertController(title: "수정 확인", message: "수정하시겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon
-        let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
+        let defaultAction = UIAlertAction(title: "확인", style: .default, handler: { action in
             
             if self.edits.count == 0 {
                 self.displayBanner(formType: .noEdits, color: .yellow)
@@ -130,8 +99,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         })
         alertController.addAction(defaultAction)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: { () -> () in
             alertController.view.tintColor = Color.salmon
@@ -143,27 +111,24 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     func uploadArcana() {
         // TODO: Check if there were any edits
         if edits.count != 0 {
-            
+        
+            // Process the edit date
             let date = Date()
-            
             let format = DateFormatter()
-//            format.locale = Locale(identifier: "ko_kr")
-//            format.timeZone = TimeZone(abbreviation: "KST")
             format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
             let dateString = format.string(from: date)
             
-            let uid = arcana.getUID()
             
-            let arcanaRef = FIREBASE_REF.child("arcanaEdit/\(uid)")
-            let id =  arcanaRef.childByAutoId().key
+            let arcanaID = arcana.getUID()
+            let arcanaRef = FIREBASE_REF.child("arcanaEdit").child(arcanaID)
+            let autoID =  arcanaRef.childByAutoId().key
             // childchanged to update single arcana values
             for (key, value) in edits {
                 
-                let originalRef = FIREBASE_REF.child("arcana/\(uid)/\(key)")
-                let editsRef = arcanaRef.child("\(id)")
-                let editsPreviousRef = editsRef.child("previous/\(key)")
-                let editsUpdateRef = editsRef.child("update/\(key)")
+                let originalRef = FIREBASE_REF.child("arcana").child(arcanaID).child(key)
+                let editsRef = arcanaRef.child(autoID)
+                let editsPreviousRef = editsRef.child("previous").child(key)
+                let editsUpdateRef = editsRef.child("update").child(key)
                 // move old values to edit ref
                 originalRef.observeSingleEvent(of: .value, with: { snapshot in
                     
@@ -184,7 +149,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
                         editsRef.child("nickName").setValue("소중한 첸클 유저")
                     }
                     editsRef.child("date").setValue(dateString)
-                    editsRef.child("uid").setValue(id)
+                    editsRef.child("uid").setValue(autoID)
                     
                 })
             }
@@ -244,7 +209,6 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaDetailEditCell") as! ArcanaDetailEditCell
         cell.editDelegate = self
-        cell.arcanaAttributeTextView.delegate = self
         cell.arcanaAttributeTextView.tag = indexPath.row
         cell.arcanaAttributeTextView.contentInset = UIEdgeInsetsMake(-8,0,0,-8)    // very hacky ui adjusting
         cell.isUserInteractionEnabled = true
@@ -333,66 +297,20 @@ extension ArcanaDetailEdit: EditDelegate {
     
     func edited(_ cell: ArcanaDetailEditCell) {
         
-        let arcanaEdit = arcana as! ArcanaEdit
-        
         guard let editedText = cell.arcanaAttributeTextView.text, let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
+        
+        var key = ""
         
         switch row {
         case .nameKR:
-            arcanaEdit.setNameKR(editedText)
+            key = "nameKR"
         case .nicknameKR:
-            arcanaEdit.setNicknameKR(editedText)
+            key = "nicknameKR"
         default:
             break
         }
-        
+        edits.updateValue(editedText, forKey: key)
         
     }
 
-    
-}
-
-extension ArcanaDetailEdit: UITextViewDelegate {
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
-        guard let text = textView.text else { return }
-        edit(text: text, row: textView.tag)
-        
-        // Update dictionary with key+attribute
-        let row = textView.tag
-        print(textView.text)
-        print(textView.tag)
-        print(originalAttributes[textView.tag])
-        if textView.text != originalAttributes[textView.tag] {
-            // ERROR. used to have value, but user deleted completely.
-            if originalAttributes[textView.tag] != "" && textView.text == "" {
-                //replace empty with original
-                textView.text = originalAttributes[textView.tag]
-                showAlert(title: "잠깐!", message: "정보를 삭제할 수 없습니다.")
-            }
-            else {
-                edits.updateValue(textView.text, forKey: "\(firebaseKeys[row])")
-            }
-            
-        }
-        else {
-            edits.removeValue(forKey: "\(firebaseKeys[row])")
-        }
-        //        print(edits["\(firebaseKeys[row])"])
-        
-        rowBeingEdited = nil
-        
-    }
-    
-    
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
-    
 }

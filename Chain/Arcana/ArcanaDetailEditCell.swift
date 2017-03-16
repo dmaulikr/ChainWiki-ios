@@ -20,11 +20,13 @@ class ArcanaDetailEditCell: UITableViewCell {
         return label
     }()
     
-    let arcanaAttributeTextView: UITextView = {
+    lazy var arcanaAttributeTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
         textView.spellCheckingType = .no
         textView.isScrollEnabled = false
+        textView.delegate = self
+        textView.autocorrectionType = .no
         return textView
     }()
     
@@ -49,4 +51,20 @@ class ArcanaDetailEditCell: UITableViewCell {
         
     }
 
+}
+
+extension ArcanaDetailEditCell: UITextViewDelegate {
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        editDelegate?.edited(self)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
 }

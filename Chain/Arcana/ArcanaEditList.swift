@@ -12,7 +12,8 @@ import Firebase
 class ArcanaEditList: UIViewController {
 
     fileprivate let arcanaID: String
-    
+    fileprivate var arcanaEditsArray = [ArcanaEditModel]()
+
     fileprivate lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -36,7 +37,6 @@ class ArcanaEditList: UIViewController {
     fileprivate var edits = [String]()
     fileprivate var names = [String]()
     fileprivate var editor: String?
-    fileprivate var arcanaEditsArray = [ArcanaEditModel]()
     
     init(arcanaID: String) {
         self.arcanaID = arcanaID
@@ -51,7 +51,13 @@ class ArcanaEditList: UIViewController {
         super.viewDidLoad()
         setupViews()
         getEdits()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func setupViews() {
@@ -76,27 +82,21 @@ class ArcanaEditList: UIViewController {
 
         let ref = FIREBASE_REF.child("arcanaEdit").child(arcanaID)
         ref.observeSingleEvent(of: .value, with: { snapshot in
-//                
-//                var editDates = [String]()
-//                var editNames = [String]()
+
             guard let editData = snapshot.value as? Dictionary<String, AnyObject> else { return }
                 
                 for child in editData.reversed() {
                     
                     let date = child.value["date"] as! String
-//                        editDates.append(date)
                     let name = child.value["nickName"] as! String
-//                        editNames.append(name)
                     let editUID = child.value["uid"] as! String
-//                        self.editor = editUID
-                    let updateRef = ref.child("\(editUID)/update")
+                    
+                    let updateRef = ref.child(editUID).child("update")
                     updateRef.observeSingleEvent(of: .value, with: { snapshot in
                         var indexes = [IndexPath]()
-                        if let arcana = ArcanaEdit(snapshot: snapshot) {
-                            self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: name, ref: ref.child(child.key), d: date), at: 0)
-                            indexes.append(IndexPath(row: 0, section: 0))
-                        }
-                        
+                        let arcana = ArcanaEdit(snapshot: snapshot)
+                        self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: name, ref: ref.child(child.key), d: date), at: 0)
+                        indexes.append(IndexPath(row: 0, section: 0))
                         
                         self.tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
                     })
@@ -105,28 +105,7 @@ class ArcanaEditList: UIViewController {
             
         })
         
-        
     }
-    
-
-
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "showEdits" {
-            if let vc = segue.destination as? ArcanaEditHistory {
-                vc.arcana = arcanaEditsArray[(tableView.indexPathForSelectedRow! as NSIndexPath).row]
-                vc.editor = editor
-                
-            }
-            print("going to showEdits")
-        }
-        
-        
-        
-    }
- 
 
 }
 
@@ -157,7 +136,11 @@ extension ArcanaEditList: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-//        let vc = ArcanaEditHistory(
+        let arcanaEdit: ArcanaEditModel
+        arcanaEdit = arcanaEditsArray[indexPath.row]
+        
+        let vc = ArcanaEditHistory(arcana: arcanaEdit)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }

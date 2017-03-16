@@ -44,7 +44,6 @@
 		043DB68D1DBDDC9900549703 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DB68C1DBDDC9900549703 /* AppRater.swift */; };
 		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
 		045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E4D0D1DB9D8A400EBC793 /* SearchController.swift */; };
-		045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045EF6A61DAB5DC4002148DD /* Settings.storyboard */; };
 		045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A91DAB5DEE002148DD /* Settings.swift */; };
 		046710C21D97D011000CF487 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C11D97D011000CF487 /* SearchHistory.swift */; };
 		046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046710C51D97D18F000CF487 /* ArcanaTextCell.swift */; };
@@ -91,10 +90,8 @@
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
 		04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */; };
 		04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */; };
-		04EF66A51DB319DC00E13370 /* SettingsSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF66A41DB319DC00E13370 /* SettingsSectionHeader.xib */; };
 		04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF66A61DB31A9600E13370 /* SettingsSectionHeader.swift */; };
 		04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF66AA1DB363D000E13370 /* SettingsCell.swift */; };
-		04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EF66AC1DB3640200E13370 /* SettingsCell.xib */; };
 		04F3CD891DA31E620026D5AF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3CD881DA31E620026D5AF /* CopyableLabel.swift */; };
 		04F87D631E763C4000E318F7 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */; };
 		04F87D691E76522700E318F7 /* AbilityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87D681E76522700E318F7 /* AbilityListViewController.swift */; };
@@ -180,7 +177,6 @@
 		043DB68C1DBDDC9900549703 /* AppRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		045E4D0D1DB9D8A400EBC793 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
-		045EF6A61DAB5DC4002148DD /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		045EF6A91DAB5DEE002148DD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		046710C11D97D011000CF487 /* SearchHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		046710C51D97D18F000CF487 /* ArcanaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaTextCell.swift; sourceTree = "<group>"; };
@@ -235,10 +231,8 @@
 		04EDE6F41D937AF2005731B9 /* CreateEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEmail.swift; sourceTree = "<group>"; };
 		04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEdit.swift; sourceTree = "<group>"; };
 		04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEditCell.swift; sourceTree = "<group>"; };
-		04EF66A41DB319DC00E13370 /* SettingsSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsSectionHeader.xib; sourceTree = "<group>"; };
 		04EF66A61DB31A9600E13370 /* SettingsSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeader.swift; sourceTree = "<group>"; };
 		04EF66AA1DB363D000E13370 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		04EF66AC1DB3640200E13370 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		04F3CD881DA31E620026D5AF /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		04F87D681E76522700E318F7 /* AbilityListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListViewController.swift; sourceTree = "<group>"; };
@@ -341,12 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				04691E951D97BF8C00E15C5F /* Favorites.swift */,
-				045EF6A61DAB5DC4002148DD /* Settings.storyboard */,
 				045EF6A91DAB5DEE002148DD /* Settings.swift */,
-				04EF66AC1DB3640200E13370 /* SettingsCell.xib */,
 				04EF66AA1DB363D000E13370 /* SettingsCell.swift */,
 				04E03D201E79DDA500432F10 /* ImageToggleCell.swift */,
-				04EF66A41DB319DC00E13370 /* SettingsSectionHeader.xib */,
 				04EF66A61DB31A9600E13370 /* SettingsSectionHeader.swift */,
 			);
 			path = Settings;
@@ -676,11 +667,8 @@
 				043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */,
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
-				04EF66A51DB319DC00E13370 /* SettingsSectionHeader.xib in Resources */,
-				045EF6A71DAB5DC4002148DD /* Settings.storyboard in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
 				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
-				04EF66AD1DB3640200E13370 /* SettingsCell.xib in Resources */,
 				0435239B1DB461CA004D96A3 /* Credits.plist in Resources */,
 				043523971DB45CAF004D96A3 /* credits.py in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
