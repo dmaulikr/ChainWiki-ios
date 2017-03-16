@@ -239,13 +239,16 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
         
         if searchText != "" {
             showSearch = false
+            searchArray = originalArray.filter { arcana in
+                return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
+            }
+            arcanaDataSource = ArcanaDataSource(searchArray)
         }
-        
-        searchArray = originalArray.filter { arcana in
-            return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
+        else {
+            showSearch = true
+            arcanaDataSource = ArcanaDataSource(originalArray)
         }
-        
-        arcanaDataSource = ArcanaDataSource(searchArray)
+
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

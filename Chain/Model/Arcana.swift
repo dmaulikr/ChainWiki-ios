@@ -94,11 +94,16 @@ class Arcana: Equatable, Hashable {
             numberOfViews = v
             numberOfLikes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int ?? 0
 
-        if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
+        if let nnKR = (snapshot.value as? NSDictionary)?["nicknameKR"] as? String {
             nicknameKR = nnKR
         }
-
-        if let nnJP = (snapshot.value as? NSDictionary)?["nickNameJP"] as? String {
+        else if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
+            nicknameKR = nnKR
+        }
+        if let nnJP = (snapshot.value as? NSDictionary)?["nickameJP"] as? String {
+            nicknameJP = nnJP
+        }
+        else if let nnJP = (snapshot.value as? NSDictionary)?["nickNameJP"] as? String {
             nicknameJP = nnJP
         }
         
@@ -154,7 +159,6 @@ class Arcana: Equatable, Hashable {
             dateAdded = d
         }
 
-        
         if let cStory = (snapshot.value as? NSDictionary)?["chainStory"] as? String {
             chainStory = cStory
         }

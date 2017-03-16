@@ -88,7 +88,7 @@ class ArcanaEditList: UIViewController {
                 for child in editData.reversed() {
                     
                     let date = child.value["date"] as! String
-                    let name = child.value["nickName"] as! String
+                    let name = child.value["nickname"] as! String
                     let editUID = child.value["uid"] as! String
                     
                     let updateRef = ref.child(editUID).child("update")

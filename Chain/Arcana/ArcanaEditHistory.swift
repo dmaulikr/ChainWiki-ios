@@ -13,7 +13,7 @@ class ArcanaEditHistory: UIViewController {
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "파티 어빌", "인연 이름", "인연 코스트", "인연 설명", "출현 장소"]
     
-    let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
+    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
 
     var arcana: ArcanaEditModel
     var editor: String?

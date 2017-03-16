@@ -164,7 +164,7 @@ class Settings: UIViewController, DisplayBanner {
                 if nick.characters.count >= 2 {
                     // check firebase for duplicate
                     self.activityIndicator.startAnimating()
-                    let ref = FIREBASE_REF.child("nickName/\(nick)")
+                    let ref = FIREBASE_REF.child("nickName").child(nick)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         if snapshot.exists() {

@@ -16,7 +16,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "파티 어빌", "인연 이름", "인연 코스트", "인연 설명", "출현 장소"]
     
-    let firebaseKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
+    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
     let arcana: Arcana
     var edits = [String : String]()
     var originalAttributes = [String]()
@@ -143,10 +143,10 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
                     originalRef.setValue(value)
                     
                     if let nick = defaults.getName() {
-                        editsRef.child("nickName").setValue(nick)
+                        editsRef.child("nickname").setValue(nick)
                     }
                     else {
-                        editsRef.child("nickName").setValue("소중한 첸클 유저")
+                        editsRef.child("nickname").setValue("소중한 첸클 유저")
                     }
                     editsRef.child("date").setValue(dateString)
                     editsRef.child("uid").setValue(autoID)
@@ -166,6 +166,66 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         
     }
 
+}
+
+extension ArcanaDetailEdit: EditDelegate {
+    
+    func edited(_ cell: ArcanaDetailEditCell) {
+        
+        guard let editedText = cell.arcanaAttributeTextView.text, let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
+        
+        var key = ""
+        
+        switch row {
+        case .nameKR:
+            key = "nameKR"
+        case .nicknameKR:
+            key = "nicknameKR"
+        case .nameJP:
+            key = "nameJP"
+        case .nicknameJP:
+            key = "nicknameJP"
+        case .skillname1:
+            key = "skillName1"
+        case .skillmana1:
+            key = "skillMana1"
+        case .skilldesc1:
+            key = "skillDesc1"
+        case .skillname2:
+            key = "skillName2"
+        case .skillmana2:
+            key = "skillMana2"
+        case .skilldesc2:
+            key = "skillDesc2"
+        case .skillname3:
+            key = "skillName3"
+        case .skillmana3:
+            key = "skillMana3"
+        case .skilldesc3:
+            key = "skillDesc3"
+        case .abilityname1:
+            key = "abilityName1"
+        case .abilitydesc1:
+            key = "abilityDesc1"
+        case .abilityname2:
+            key = "abilityName2"
+        case .abilitydesc2:
+            key = "abilityDesc2"
+        case .partyability:
+            key = "partyAbility"
+        case .kizunaname:
+            key = "kizunaName"
+        case .kizunacost:
+            key = "kizunaCost"
+        case .kizunadesc:
+            key = "kizunaDesc"
+        case .tavern:
+            key = "tavern"
+        }
+        edits.updateValue(editedText, forKey: key)
+        
+    }
+    
 }
 
 extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
@@ -291,26 +351,4 @@ extension ArcanaDetailEdit: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-}
-
-extension ArcanaDetailEdit: EditDelegate {
-    
-    func edited(_ cell: ArcanaDetailEditCell) {
-        
-        guard let editedText = cell.arcanaAttributeTextView.text, let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
-        
-        var key = ""
-        
-        switch row {
-        case .nameKR:
-            key = "nameKR"
-        case .nicknameKR:
-            key = "nicknameKR"
-        default:
-            break
-        }
-        edits.updateValue(editedText, forKey: key)
-        
-    }
-
 }

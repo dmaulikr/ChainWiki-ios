@@ -44,9 +44,9 @@ class MenuBarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupMenuBar()
-//        setupViews()
-//        setupChildViewController()
+        setupMenuBar()
+        setupViews()
+        setupChildViewController()
     }
 
     func setupViews() {
