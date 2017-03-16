@@ -34,7 +34,6 @@
 		0425D49C1E78FBC00030BF4A /* FavoritesArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D49B1E78FBC00030BF4A /* FavoritesArcanaViewController.swift */; };
 		042834FA1D91E10D0043BE6E /* ArcanaChainStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */; };
 		042835021D91EE250043BE6E /* LoginHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042835011D91EE250043BE6E /* LoginHome.swift */; };
-		043392451DF3F31A009328A1 /* CollectionViewWithMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */; };
 		04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */; };
 		04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04349D101DACD79600216141 /* ArcanaEditList.swift */; };
 		04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */; };
@@ -64,7 +63,6 @@
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
 		04A2EC971D6F7FA300189142 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC961D6F7FA300189142 /* Home.swift */; };
-		04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2EC981D6F7FA300189142 /* Main.storyboard */; };
 		04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A2EC9E1D6F7FA300189142 /* Assets.xcassets */; };
 		04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */; };
 		04A2ECAD1D6F7FA300189142 /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2ECAC1D6F7FA300189142 /* ChainTests.swift */; };
@@ -146,7 +144,6 @@
 		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
 		040454941DFB981500A1F74E /* Ability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
-		0406BDDF1D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		040EA1751DB87A5E00193363 /* ChangeRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeRootVC.swift; sourceTree = "<group>"; };
@@ -167,7 +164,6 @@
 		042834F81D91AF680043BE6E /* Chain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chain.entitlements; sourceTree = "<group>"; };
 		042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaChainStoryCell.swift; sourceTree = "<group>"; };
 		042835011D91EE250043BE6E /* LoginHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHome.swift; sourceTree = "<group>"; };
-		043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWithMenu.swift; sourceTree = "<group>"; };
 		04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaButtonsCell.swift; sourceTree = "<group>"; };
 		04349D101DACD79600216141 /* ArcanaEditList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditList.swift; sourceTree = "<group>"; };
 		04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditListCell.swift; sourceTree = "<group>"; };
@@ -200,7 +196,6 @@
 		04A2EC911D6F7FA300189142 /* Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A2EC941D6F7FA300189142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A2EC961D6F7FA300189142 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		04A2EC991D6F7FA300189142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04A2EC9E1D6F7FA300189142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04A2ECA11D6F7FA300189142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04A2ECA31D6F7FA300189142 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = etc/Info.plist; sourceTree = "<group>"; };
@@ -314,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				040454941DFB981500A1F74E /* Ability.swift */,
-				043392441DF3F31A009328A1 /* CollectionViewWithMenu.swift */,
 				0400A30F1E76333700B195E9 /* MenuBarViewController.swift */,
 				04F87D681E76522700E318F7 /* AbilityListViewController.swift */,
 				04F87D621E763C4000E318F7 /* BaseCollectionViewController.swift */,
@@ -367,7 +361,6 @@
 		047561581D946E1C004886BF /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				04A2EC981D6F7FA300189142 /* Main.storyboard */,
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
 				04A2EC961D6F7FA300189142 /* Home.swift */,
 				0400A30D1E75C02C00B195E9 /* ArcanaDataSource.swift */,
@@ -668,7 +661,6 @@
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
-				04A2EC9A1D6F7FA300189142 /* Main.storyboard in Resources */,
 				0435239B1DB461CA004D96A3 /* Credits.plist in Resources */,
 				043523971DB45CAF004D96A3 /* credits.py in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
@@ -879,7 +871,6 @@
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,
-				043392451DF3F31A009328A1 /* CollectionViewWithMenu.swift in Sources */,
 				040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */,
 				047561571D946BB1004886BF /* RoundedButton.swift in Sources */,
 				04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */,
@@ -965,16 +956,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		04A2EC981D6F7FA300189142 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04A2EC991D6F7FA300189142 /* Base */,
-				0406BDDF1D8BE3270085F4D8 /* ko */,
-			);
-			name = Main.storyboard;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

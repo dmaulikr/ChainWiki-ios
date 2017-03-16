@@ -16,7 +16,6 @@ enum MenuType {
 
 class MenuBar: UIView {
 
-    weak var parentController: CollectionViewWithMenu?
     weak var menuBarDelegate: MenuBarViewController?
 
     let menuType: MenuType
@@ -131,7 +130,6 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        parentController?.scrollToMenuIndex(indexPath.item)
         menuBarDelegate?.childViewController?.scrollToMenuIndex(indexPath.item)
     }
 

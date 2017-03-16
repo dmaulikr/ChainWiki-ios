@@ -85,14 +85,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                 child.tabBarItem.image = tabIcons[index]
                 child.tabBarItem.tag = index
                 views.append(child)
-                
-            default:
-                let child = UIViewController()
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
             }
 
         }

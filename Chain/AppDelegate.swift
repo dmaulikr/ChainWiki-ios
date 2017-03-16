@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.updateVersion()
         }
 
-//        AppRater.appRater.incrementAppLaunches()
+        AppRater.appRater.incrementAppLaunches()
         
         if defaults.isLoggedIn() {
             let initialViewController = MyTabBarController()
@@ -44,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
             
         else {
-//            let initialViewController = LoginHome()
             let initialViewController = PageViewController()
             UIView.transition(with: self.window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {() -> Void in
                 self.window!.rootViewController = initialViewController

@@ -159,7 +159,7 @@ class BaseCollectionViewController: UIViewController {
         let refPrefix = abilityType
         
         var ref: FIRDatabaseReference
-        let updatedVersion = "1.1.2"
+        let updatedVersion = "2.0"
         
         if let currentVersion = defaults.getStoredVersion() {
             if currentVersion.versionToInt().lexicographicallyPrecedes(updatedVersion.versionToInt()) {
