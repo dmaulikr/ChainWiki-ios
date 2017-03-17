@@ -11,7 +11,7 @@ import UIKit
 class SearchArcanaViewController: ArcanaViewController {
     
     let searchController: SearchController = SearchController(searchResultsController: nil)
-    var searchArray = [Arcana]()
+//    var searchArray = [Arcana]()
 
     fileprivate let searchView: UIView = {
         let view = UIView()
@@ -189,12 +189,13 @@ class SearchArcanaViewController: ArcanaViewController {
         guard let row = tableView.indexPathForSelectedRow?.row else { return }
         
         let arcana: Arcana
-        if searchController.isActive {
-            arcana = searchArray[row]
-        }
-        else {
-            arcana = arcanaArray[row]
-        }
+//        if searchController.isActive {
+//            arcana = searchArray[row]
+//        }
+//        else {
+        guard let arcanaDataSource = arcanaDataSource else { return }
+        arcana = arcanaDataSource.arcanaArray[row]
+//        }
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
@@ -207,12 +208,13 @@ class SearchArcanaViewController: ArcanaViewController {
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
         let arcana: Arcana
-        if searchController.isActive {
-            arcana = searchArray[indexPath.row]
-        }
-        else {
-            arcana = arcanaArray[indexPath.row]
-        }
+//        if searchController.isActive {
+//            arcana = searchArray[indexPath.row]
+//        }
+//        else {
+        guard let arcanaDataSource = arcanaDataSource else { return nil }
+            arcana = arcanaDataSource.arcanaArray[indexPath.row]
+//        }
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
@@ -232,7 +234,7 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
         
         if searchText != "" {
             showSearch = false
-            searchArray = originalArray.filter { arcana in
+            let searchArray = originalArray.filter { arcana in
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
             arcanaDataSource = ArcanaDataSource(searchArray)

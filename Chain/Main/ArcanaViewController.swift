@@ -14,8 +14,8 @@ class ArcanaViewController: UIViewController {
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
     var arcanaRefHandle: FIRDatabaseHandle?
     
-    var arcanaArray = [Arcana]()
-    var originalArray = [Arcana]()
+//    var arcanaArray = [Arcana]()
+//    var originalArray = [Arcana]()
     var filters = [String: [String]]()
     var initialLoad = true
     
