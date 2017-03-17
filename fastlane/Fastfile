@@ -53,10 +53,10 @@ platform :ios do
 
     increment_version_number(
       # bump_type: "patch" # Automatically increment patch version number
-      # version_number: "1.1.1"
+      version_number: "2.0.0"
     )
     # version = increment_version_number
-    gym(scheme: "Chain", use_legacy_build_api: true, configuration: "Release")
+    gym(scheme: "Chain", configuration: "Release")
   end
 
   desc "Upload to App Store"

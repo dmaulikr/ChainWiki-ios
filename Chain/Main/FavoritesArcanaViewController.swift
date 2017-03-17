@@ -25,6 +25,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
         downloadArcana()
         
     }
+    
     override func setupNavBar() {
         navigationItem.title = "즐겨찾기"
         navigationItem.leftBarButtonItem = settingsButton
@@ -61,7 +62,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
         group.notify(queue: DispatchQueue.main, execute: {
             
             self.arcanaArray = array
-            self.arcanaDataSource = ArcanaDataSource(array)
+            self.arcanaDataSource = FavoritesArcanaDataSource(array)
             if array.count == 0 {
                 self.tableView.alpha = 0
                 self.tipLabel.fadeIn(withDuration: 0.5)
@@ -74,7 +75,6 @@ class FavoritesArcanaViewController: ArcanaViewController {
         })
         
     }
-    
     
     func openSettings() {
         let vc = Settings()
@@ -91,7 +91,10 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 // set userDefaults to new array.
                 var favoritesDict = [String: Int]()
                 var uids = [String]()
-                for (index, arcana) in arcanaArray.enumerated() {
+                
+                guard let arcanaDataSource = arcanaDataSource else { return }
+                
+                for (index, arcana) in arcanaDataSource.arcanaArray.enumerated() {
                     favoritesDict.updateValue(index, forKey: arcana.getUID())
                     uids.append(arcana.getUID())
                     
@@ -102,15 +105,19 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 if uids != userFavorites {
                     // made changes, upload to firebase
                     if let id = defaults.getUID() {
-                        let ref = FIREBASE_REF.child("user/\(id)/favorites")
+                        let ref = FIREBASE_REF.child("user").child(id).child("favorites")
                         ref.setValue(favoritesDict)
-                        
                         defaults.setFavorites(value: uids)
                     }
                 }
                 
             }
             
+        }
+        else {
+            if tableView.isEditing {
+                tableViewSetEditing()
+            }
         }
         
     }
@@ -142,29 +149,9 @@ class FavoritesArcanaViewController: ArcanaViewController {
         tableView.setEditing(editing, animated: animated)
         tableView.endUpdates()
     }
-    
-    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        let itemToMove = arcanaArray[sourceIndexPath.row]
-        arcanaArray.remove(at: sourceIndexPath.row)
-        arcanaArray.insert(itemToMove, at: destinationIndexPath.row)
-        
-    }
-    
+
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -191,8 +178,8 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 }
                 
             }
-            
-            self.tableView.reloadData()
+            self.arcanaDataSource = FavoritesArcanaDataSource(self.arcanaArray)
+//            self.tableView.reloadData()
         }
         
         return [delete]
@@ -200,7 +187,3 @@ class FavoritesArcanaViewController: ArcanaViewController {
 
 }
 
-//extension FavoritesArcanaViewController {
-//    
-//    
-//}

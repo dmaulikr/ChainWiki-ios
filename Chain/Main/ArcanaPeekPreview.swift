@@ -82,8 +82,7 @@ class ArcanaPeekPreview: UIViewController {
     override var previewActionItems: [UIPreviewActionItem] {
         
         let share = UIPreviewAction(title: "퍼가기", style: .default, handler: { (action, viewController) in
-            
-            generateImage(view: self.view)
+            self.generateImage(view: self.view)
         })
         
         return [share]

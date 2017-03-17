@@ -35,6 +35,7 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
         observeLinks()
         setupViews()
+//        downloadArcanaCount()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,6 +82,15 @@ class DataViewController: UIViewController {
                 self.ref.removeObserver(withHandle: handle)
             }
             self.tableView.reloadData()
+        })
+    }
+    
+    func downloadArcanaCount() {
+        
+        FIREBASE_REF.child("arcana").observeSingleEvent(of: .value, with: { snapshot in
+            print(snapshot.childrenCount)
+            let arcanaCountButton = UIBarButtonItem(title: "아르카나 갯수: \(snapshot.childrenCount)", style: .plain, target: nil, action: nil)
+            self.navigationItem.rightBarButtonItem = arcanaCountButton
         })
     }
 

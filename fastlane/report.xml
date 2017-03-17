@@ -5,52 +5,52 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000697">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.002436">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000369">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001447">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: cocoapods" time="7.195558">
+      <testcase classname="fastlane.lanes" name="2: cocoapods" time="7.98583">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: cert" time="3.045491">
+      <testcase classname="fastlane.lanes" name="3: cert" time="3.92729">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: sigh" time="4.982038">
+      <testcase classname="fastlane.lanes" name="4: sigh" time="5.968094">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: Switch to ios build lane" time="0.000408">
+      <testcase classname="fastlane.lanes" name="5: Switch to ios build lane" time="0.003144">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: increment_build_number" time="1.159573">
+      <testcase classname="fastlane.lanes" name="6: increment_build_number" time="2.207912">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: increment_version_number" time="1.153095">
+      <testcase classname="fastlane.lanes" name="7: increment_version_number" time="1.639194">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: gym" time="125.472085">
+      <testcase classname="fastlane.lanes" name="8: gym" time="139.896044">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: deliver" time="196.201623">
+      <testcase classname="fastlane.lanes" name="9: deliver" time="263.607674">
         
       </testcase>
     

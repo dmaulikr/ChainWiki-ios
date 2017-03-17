@@ -10,7 +10,7 @@ import UIKit
 
 class ArcanaDataSource: NSObject, UITableViewDataSource {
 
-    let arcanaArray: [Arcana]
+    var arcanaArray: [Arcana]
     
     init(_ arcanaArray: [Arcana]) {
         self.arcanaArray = arcanaArray
@@ -98,4 +98,5 @@ class ArcanaDataSource: NSObject, UITableViewDataSource {
         
         return cell
     }
+    
 }

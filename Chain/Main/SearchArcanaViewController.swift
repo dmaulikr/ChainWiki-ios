@@ -79,7 +79,7 @@ class SearchArcanaViewController: ArcanaViewController {
     override func downloadArcana() {
         
         arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
-            
+
             if let arcana = Arcana(snapshot: snapshot) {
                 
                 self.arcanaArray.insert(arcana, at: 0)

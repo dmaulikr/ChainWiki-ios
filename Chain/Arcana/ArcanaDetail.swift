@@ -111,7 +111,7 @@ class ArcanaDetail: UIViewController {
         let shareButton = UIButton(type: .custom)
         
         shareButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        shareButton.addTarget(self, action: #selector(exportArcana(_:)), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(exportArcana), for: .touchUpInside)
         shareButton.setImage(#imageLiteral(resourceName: "export"), for: .normal)
         
         let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
@@ -129,16 +129,15 @@ class ArcanaDetail: UIViewController {
 
     }
     
-    func exportArcana(_ sender: AnyObject) {
+    func exportArcana() {
         
         let alertController = UIAlertController(title: "앨범에 저장", message: "화면을 캡쳐하겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon
         alertController.view.backgroundColor = .white
         alertController.view.layer.cornerRadius = 10
         
-        let save = UIAlertAction(title: "확인", style: .default, handler: { (action:UIAlertAction) in
-            guard let image = self.generateImage(tblview: self.tableView) else { return }
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+        let save = UIAlertAction(title: "확인", style: .default, handler: { action in
+            self.generateImage(view: self.tableView)
         })
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -149,8 +148,6 @@ class ArcanaDetail: UIViewController {
         present(alertController, animated: true) {
             alertController.view.tintColor = Color.salmon
         }
-        
-        
         
     }
     
@@ -294,7 +291,7 @@ class ArcanaDetail: UIViewController {
         swipeLeft.direction = .left
         sender.addGestureRecognizer(swipeLeft)
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(saveImage(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(exportArcana))
         sender.addGestureRecognizer(longPress)
     }
     
@@ -343,53 +340,6 @@ class ArcanaDetail: UIViewController {
         }
         
         imageTapped = false
-    }
-    
-    func saveImage(_ sender: AnyObject) {
-        
-        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        alertController.view.tintColor = Color.salmon
-        
-        let save = UIAlertAction(title: "이미지 저장", style: .default, handler: { (action:UIAlertAction) in
-            guard let image = sender as? UIImage else { return }
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
-        })
-        
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        alertController.addAction(save)
-        alertController.addAction(cancel)
-    
-        present(alertController, animated: true, completion: nil)
-        
-    }
-    
-    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            showAlert(title: "저장 실패.", message: error.localizedDescription)
-        } else {
-            showAlert(title: "저장 완료!", message: "아르카나 정보가 사진에 저장되었습니다.")
-        }
-    }
-
-    func generateImage(tblview:UITableView) -> UIImage? {
-        
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: tableView.contentSize.width, height: tableView.contentSize.height),false, 0.0)
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        let previousFrame = tableView.frame
-        tableView.frame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.contentSize.width, height: tableView.contentSize.height)
-
-        
-        tableView.layer.render(in: context!)
-        
-        tableView.frame = previousFrame
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
     }
 
 }
