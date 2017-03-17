@@ -61,7 +61,6 @@ class FavoritesArcanaViewController: ArcanaViewController {
         
         group.notify(queue: DispatchQueue.main, execute: {
             
-            self.arcanaArray = array
             self.arcanaDataSource = FavoritesArcanaDataSource(array)
             if array.count == 0 {
                 self.tableView.alpha = 0
@@ -83,7 +82,9 @@ class FavoritesArcanaViewController: ArcanaViewController {
     
     func editFavorites() {
         
-        if arcanaArray.count != 0 {
+        guard let arcanaDataSource = arcanaDataSource else { return }
+        
+        if arcanaDataSource.arcanaArray.count != 0 {
             
             tableViewSetEditing()
             
@@ -91,9 +92,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 // set userDefaults to new array.
                 var favoritesDict = [String: Int]()
                 var uids = [String]()
-                
-                guard let arcanaDataSource = arcanaDataSource else { return }
-                
+                                
                 for (index, arcana) in arcanaDataSource.arcanaArray.enumerated() {
                     favoritesDict.updateValue(index, forKey: arcana.getUID())
                     uids.append(arcana.getUID())
@@ -135,9 +134,9 @@ class FavoritesArcanaViewController: ArcanaViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
-        let arcana = arcanaArray[row]
+
+        guard let row = tableView.indexPathForSelectedRow?.row, let arcanaDataSource = arcanaDataSource else { return }
+        let arcana = arcanaDataSource.arcanaArray[row]
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
         
@@ -156,10 +155,12 @@ class FavoritesArcanaViewController: ArcanaViewController {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+        guard let arcanaDataSource = arcanaDataSource else { return nil }
+        
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
-            let idToRemove = self.arcanaArray[indexPath.row].uid
-            self.arcanaArray.remove(at: indexPath.row)
+            let idToRemove = arcanaDataSource.arcanaArray[indexPath.row].uid
+            arcanaDataSource.arcanaArray.remove(at: indexPath.row)
             
             var userFavorites = defaults.getFavorites()
             
@@ -178,8 +179,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 }
                 
             }
-            self.arcanaDataSource = FavoritesArcanaDataSource(self.arcanaArray)
-//            self.tableView.reloadData()
+            
         }
         
         return [delete]

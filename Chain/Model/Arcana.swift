@@ -67,8 +67,6 @@ class Arcana: Equatable, Hashable {
         guard let u = (snapshot.value as? NSDictionary)?["uid"] as? String, let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String, let nJP = (snapshot.value as? NSDictionary)?["nameJP"] as? String, let r = (snapshot.value as? NSDictionary)?["rarity"] as? String, let g = (snapshot.value as? NSDictionary)?["class"] as? String, let t = (snapshot.value as? NSDictionary)?["tavern"] as? String, let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String, let c = (snapshot.value as? NSDictionary)?["cost"] as? String, let w = (snapshot.value as? NSDictionary)?["weapon"] as? String, let kN = (snapshot.value as? NSDictionary)?["kizunaName"] as? String, let kC = (snapshot.value as? NSDictionary)?["kizunaCost"] as? String, let kD = (snapshot.value as? NSDictionary)?["kizunaDesc"] as? String, let sC = (snapshot.value as? NSDictionary)?["skillCount"] as? String, let sN1 = (snapshot.value as? NSDictionary)?["skillName1"] as? String, let sM1 = (snapshot.value as? NSDictionary)?["skillMana1"] as? String, let sD1 = (snapshot.value as? NSDictionary)?["skillDesc1"] as? String, let v = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int else {
                 print("COULD NOT GET SNAPSHOT OF 1 SKILL ARCANA")
             print(snapshot.ref)
-            print(snapshot.key)
-            print((snapshot.value as? NSDictionary)?.count)
                 return nil
             }
         

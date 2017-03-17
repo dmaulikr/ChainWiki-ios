@@ -86,7 +86,6 @@ class ArcanaDataSource: NSObject, UITableViewDataSource {
             if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
                 
                 cell.arcanaImage.image = i
-                print("LOADED FROM CACHE")
                 
             }
                 

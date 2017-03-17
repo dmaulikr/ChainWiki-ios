@@ -35,7 +35,12 @@ class SearchArcanaViewController: ArcanaViewController {
     override var arcanaDataSource: ArcanaDataSource? {
         didSet {
             tableView.dataSource = arcanaDataSource
-            tableView.reloadData()
+            if initialLoad == true {
+//                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+            }
+            else {
+                tableView.reloadData()
+            }
             tableView.fadeIn(withDuration: 0.2)
         }
     }
@@ -82,11 +87,16 @@ class SearchArcanaViewController: ArcanaViewController {
 
             if let arcana = Arcana(snapshot: snapshot) {
                 
-                self.arcanaArray.insert(arcana, at: 0)
-                self.originalArray.insert(arcana, at: 0)
-                if self.initialLoad == false {
-                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+                if let arcanaDataSource = self.arcanaDataSource {
+                    arcanaDataSource.arcanaArray.insert(arcana, at: 0)
                 }
+                else {
+                    self.arcanaDataSource = ArcanaDataSource([arcana])
+                }
+                self.originalArray.insert(arcana, at: 0)
+//                if self.initialLoad == false {
+//                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+//                }
                 
             }
             
@@ -94,7 +104,7 @@ class SearchArcanaViewController: ArcanaViewController {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+            self.arcanaDataSource = ArcanaDataSource(self.originalArray)
             self.initialLoad = false
             
         })
@@ -111,10 +121,11 @@ class SearchArcanaViewController: ArcanaViewController {
                 
             }
             
-            for (index, arcana) in self.arcanaArray.enumerated() {
+            guard let arcanaDataSource = self.arcanaDataSource else { return }
+            for (index, arcana) in arcanaDataSource.arcanaArray.enumerated() {
                 if arcana.getUID() == uidToRemove {
-                    self.arcanaArray.remove(at: index)
-                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+                    arcanaDataSource.arcanaArray.remove(at: index)
+//                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 
             }
@@ -131,12 +142,13 @@ class SearchArcanaViewController: ArcanaViewController {
                 
             }
             
-            if let index = self.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
+            guard let arcanaDataSource = self.arcanaDataSource else { return }
+            if let index = arcanaDataSource.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self.arcanaArray[index] = arcana
-                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+                    arcanaDataSource.arcanaArray[index] = arcana
+//                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 
             }
@@ -257,7 +269,7 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
     
     func didDismissSearchController(_ searchController: UISearchController) {
         showSearch = false
-        arcanaDataSource = ArcanaDataSource(arcanaArray)
+        arcanaDataSource = ArcanaDataSource(originalArray)
     }
     
 }

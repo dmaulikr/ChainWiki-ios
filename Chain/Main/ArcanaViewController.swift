@@ -15,7 +15,7 @@ class ArcanaViewController: UIViewController {
     var arcanaRefHandle: FIRDatabaseHandle?
     
 //    var arcanaArray = [Arcana]()
-//    var originalArray = [Arcana]()
+    var originalArray = [Arcana]()
     var filters = [String: [String]]()
     var initialLoad = true
     
@@ -172,18 +172,21 @@ class ArcanaViewController: UIViewController {
     }
     
     private func sortArcanaByName() {
-        let array = self.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
-        arcanaDataSource = ArcanaDataSource(array)
+        guard let arcanaDataSource = arcanaDataSource else { return }
+        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
+        self.arcanaDataSource = ArcanaDataSource(array)
     }
     
     private func sortArcanaByRecent() {
-        let array = self.arcanaArray.sorted(by: {($0.getUID()) > ($1.getUID())})
-        arcanaDataSource = ArcanaDataSource(array)
+        guard let arcanaDataSource = arcanaDataSource else { return }
+        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getUID()) > ($1.getUID())})
+        self.arcanaDataSource = ArcanaDataSource(array)
     }
     
     private func sortArcanaByNumberOfViews() {
-        let array = self.arcanaArray.sorted(by: {($0.getNumberOfViews()) > ($1.getNumberOfViews())})
-        arcanaDataSource = ArcanaDataSource(array)
+        guard let arcanaDataSource = arcanaDataSource else { return }
+        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getNumberOfViews()) > ($1.getNumberOfViews())})
+        self.arcanaDataSource = ArcanaDataSource(array)
     }
 
     func sort(_ sender: AnyObject) {
@@ -246,10 +249,10 @@ extension ArcanaViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let row = tableView.indexPathForSelectedRow?.row, let arcanaDataSource = arcanaDataSource else { return }
         
         let arcana: Arcana
-        arcana = arcanaArray[row]
+        arcana = arcanaDataSource.arcanaArray[row]
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
@@ -267,12 +270,12 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        guard let indexPath = tableView.indexPathForRow(at: location), let arcanaDataSource = arcanaDataSource else { return nil }
         
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
         let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
+        arcana = arcanaDataSource.arcanaArray[indexPath.row]
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
@@ -287,57 +290,81 @@ extension ArcanaViewController: FilterDelegate {
     func didUpdate(_ sender: Filter) {
         DispatchQueue.main.async {
             
-//            self.preventAnimation.removeAll()
             self.filters = sender.filterTypes
             
             if sender.hasFilter == false {
-                self.arcanaArray = self.originalArray
-                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
-                
+                self.arcanaDataSource = ArcanaDataSource(self.originalArray)
             }
                 
             else {
                 
-                var raritySet = Set<Arcana>()
+                var raritySet: Set<Arcana>?
                 if let r = self.filters["rarity"] {
                     
                     for rarity in r {
-                        print("FOR RARITY \(rarity)")
-                        let filteredRarity = self.originalArray.filter({$0.getRarity() == rarity})
+
+                        let filteredRarity = Set(self.originalArray.filter({$0.getRarity() == rarity}))
                         
-                        raritySet = raritySet.union(Set(filteredRarity))
+                        if let _ = raritySet {
+                            raritySet = raritySet?.union(filteredRarity)
+                        }
+                        else {
+                            raritySet = filteredRarity
+                        }
                     }
                     
                 }
                 
                 
-                var groupSet = Set<Arcana>()
+                var groupSet: Set<Arcana>?
                 if let g = self.filters["group"] {
                     
                     for group in g {
-                        print(group)
-                        let filteredGroup = self.originalArray.filter({$0.getGroup() == group})
-                        groupSet = groupSet.union(Set(filteredGroup))
+
+                        let filteredGroup = Set(self.originalArray.filter({$0.getGroup() == group}))
+
+                        if let _ = groupSet {
+                            groupSet = groupSet?.union(filteredGroup)
+                        }
+                        else {
+                            groupSet = filteredGroup
+                        }
+
                     }
                     
                 }
                 
-                var weaponSet = Set<Arcana>()
+                var weaponSet: Set<Arcana>?
                 if let w = self.filters["weapon"] {
                     
                     for weapon in w {
-                        let filteredWeapon = self.originalArray.filter({$0.getWeapon()[$0.getWeapon().startIndex] == weapon[weapon.startIndex]})
-                        weaponSet = weaponSet.union(Set(filteredWeapon))
+                        
+                        let filteredWeapon = Set(self.originalArray.filter({$0.getWeapon()[$0.getWeapon().startIndex] == weapon[weapon.startIndex]}))
+                        
+                        if let _ = weaponSet {
+                            weaponSet = groupSet?.union(filteredWeapon)
+                        }
+                        else {
+                            weaponSet = filteredWeapon
+                        }
+
                     }
                     
                 }
                 
-                var affiliationSet = Set<Arcana>()
+                var affiliationSet: Set<Arcana>?
                 if let a = self.filters["affiliation"] {
                     
                     for affiliation in a {
-                        let filteredAffiliation = self.originalArray.filter({$0.getAffiliation() != nil && $0.getAffiliation()!.contains(affiliation)})
-                        affiliationSet = affiliationSet.union(Set(filteredAffiliation))
+                        
+                        let filteredAffiliation = Set(self.originalArray.filter({$0.getAffiliation() != nil && $0.getAffiliation()!.contains(affiliation)}))
+                        
+                        if let _ = affiliationSet {
+                            affiliationSet = groupSet?.union(filteredAffiliation)
+                        }
+                        else {
+                            affiliationSet = filteredAffiliation
+                        }
                     }
                     
                 }
@@ -347,24 +374,33 @@ extension ArcanaViewController: FilterDelegate {
                 var finalFilter: Set = Set<Arcana>()
                 for (_,value) in sets {
                     
-                    // TODO: clicking 권 then 철연 gives 철연.
-                    if value.count != 0 {
+                    // If the filter was selected, it will NOT be optional
+                    if let filter = value {
                         
-                        // if set is empty, create a new one
-                        if finalFilter.count == 0 {
-                            finalFilter = finalFilter.union(value)
-                        }
+                        if filter.count == 0 {
+                            // One filter had no matches, so show no results.
+                            finalFilter = Set<Arcana>()
+                            break
                             
-                            // Set already exists, so intersect
+                        }
                         else {
-                            finalFilter = finalFilter.intersection(value)
+                            // if set is empty, create a new one
+                            if finalFilter.count == 0 {
+                                finalFilter = finalFilter.union(filter)
+                            }
+                                
+                            // Set already exists, so intersect
+                            else {
+                                finalFilter = finalFilter.intersection(filter)
+                            }
                         }
                     }
+                    
                 }
                 
-                self.arcanaArray = Array(finalFilter)
-                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
-                if self.arcanaArray.count > 0 {
+                self.arcanaDataSource = ArcanaDataSource(Array(finalFilter))
+                guard let arcanaDataSource = self.arcanaDataSource else { return }
+                if arcanaDataSource.arcanaArray.count > 0 {
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
                 

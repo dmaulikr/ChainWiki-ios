@@ -14,7 +14,7 @@ class TavernArcanaViewController: ArcanaViewController {
     override var arcanaDataSource: ArcanaDataSource? {
         didSet {
             tableView.dataSource = arcanaDataSource
-            if arcanaArray.count > 0 {
+            if arcanaDataSource!.arcanaArray.count > 0 {
                 tableView.alpha = 1
                 tipLabel.alpha = 0
             }
@@ -38,6 +38,7 @@ class TavernArcanaViewController: ArcanaViewController {
     }
     
     override func downloadArcana() {
+        
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             var uid = [String]()
@@ -67,9 +68,9 @@ class TavernArcanaViewController: ArcanaViewController {
             
             group.notify(queue: DispatchQueue.main, execute: {
 
-                self.arcanaArray = array.sorted { $0.getRarity() > $1.getRarity() }
-                self.originalArray = self.arcanaArray
-                self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+                self.originalArray = array
+                let raritySortedArray = array.sorted { $0.getRarity() > $1.getRarity() }
+                self.arcanaDataSource = ArcanaDataSource(raritySortedArray)
             })
             
         })
