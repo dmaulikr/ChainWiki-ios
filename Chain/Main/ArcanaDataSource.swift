@@ -83,19 +83,11 @@ class ArcanaDataSource: NSObject, UITableViewDataSource {
             cell.arcanaUID = arcana.getUID()
             
             // Check cache first
-            if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/icon.jpg") {
-                
-                cell.arcanaImage.image = i
-                
-            }
-                
-            else {
-                FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
-            }
+            cell.arcanaImage.loadImageUsingCacheWithUrlString("\(arcana.getUID())/icon.jpg")
             
         }
         
         return cell
     }
-    
+
 }

@@ -14,6 +14,18 @@ class FirebaseService {
     
     static let dataRequest = FirebaseService()
 
+    let DOWNLOADER = ImageDownloader(
+        configuration: ImageDownloader.defaultURLSessionConfiguration(),
+        downloadPrioritization: .fifo,
+        maximumActiveDownloads: 4,
+        imageCache: AutoPurgingImageCache()
+    )
+    
+    let IMAGECACHE = AutoPurgingImageCache(
+        memoryCapacity: 100 * 1024 * 1024,
+        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    )
+    
     private var FIREBASE_REF = FIRDatabase.database().reference()
     private var ARCANA_REF = FIRDatabase.database().reference().child("arcana")
 
@@ -42,16 +54,16 @@ class FirebaseService {
                         // Handle any errors
                     } else {
                         let urlRequest = URLRequest(url: URL!)
-                        DOWNLOADER.download(urlRequest) { response in
+                        self.DOWNLOADER.download(urlRequest) { response in
                             
                             if let image = response.result.value {
                                 
                                 if let thumbnail = UIImage(data: UIImageJPEGRepresentation(image, 0.5)!) {
                                     
-                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/icon.jpg")
+                                    self.IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/icon.jpg")
                                     
                                     if sender.arcanaUID == uid {
-                                        sender.arcanaImage.image = IMAGECACHE.image(withIdentifier: "\(uid)/icon.jpg")
+                                        sender.arcanaImage.image = self.IMAGECACHE.image(withIdentifier: "\(uid)/icon.jpg")
 //                                        if animated {
                                             sender.arcanaImage.alpha = 0
                                             sender.arcanaImage.fadeIn(withDuration: 0.2)
@@ -75,7 +87,7 @@ class FirebaseService {
                     } else {
                         
                         let urlRequest = URLRequest(url: URL!)
-                        DOWNLOADER.download(urlRequest) { response in
+                        self.DOWNLOADER.download(urlRequest) { response in
                             
                             if let image = response.result.value {
                                 
@@ -89,7 +101,7 @@ class FirebaseService {
                                     sender.arcanaImage.alpha = 0
                                     sender.arcanaImage.fadeIn(withDuration: 0.2)
                                     
-                                    IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/main.jpg")
+                                    self.IMAGECACHE.add(thumbnail, withIdentifier: "\(uid)/main.jpg")
                                 }
                                 
                             }

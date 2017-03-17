@@ -118,11 +118,11 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
         switch menuType {
         case .abilityList:
-            cell.nameLabel.text = abilityTypes[indexPath.row]
+            cell.nameLabel?.text = abilityTypes[indexPath.row]
         case .abilityView:
-            cell.nameLabel.text = classTypes[indexPath.row]
+            cell.nameLabel?.text = classTypes[indexPath.row]
         case .tavernList:
-            cell.nameLabel.text = tavernTypes[indexPath.row]
+            cell.nameLabel?.text = tavernTypes[indexPath.row]
         }
         
         return cell
@@ -141,7 +141,7 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
 class MenuCell: UICollectionViewCell {
     
-    let nameLabel: UILabel = {
+    weak var nameLabel: UILabel? = {
         let label = UILabel()
         label.textColor = Color.textGray
         label.highlightedTextColor = .black
@@ -161,9 +161,9 @@ class MenuCell: UICollectionViewCell {
         
         backgroundColor = .white
         
-        addSubview(nameLabel)
+        addSubview(nameLabel!)
         
-        nameLabel.anchorCenterSuperview()
+        nameLabel?.anchorCenterSuperview()
     }
     
 }

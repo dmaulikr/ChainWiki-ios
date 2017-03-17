@@ -9,7 +9,6 @@
 
 import UIKit
 import Firebase
-import AlamofireImage
 
 var NICKNAME: String? {
     if let NICKNAME = UserDefaults.standard.value(forKey: "nickName") as? String {
@@ -23,6 +22,7 @@ var NICKNAME: String? {
 
 let FIREBASE_REF = FIRDatabase.database().reference()
 let STORAGE_REF = FIRStorage.storage().reference()
+let storage = FIRStorage.storage()
 //
 //let SCREENWIDTH = UIScreen.main.bounds.width
 //let SCREENHEIGHT = UIScreen.main.bounds.height
@@ -47,17 +47,7 @@ var SCREENORIENTATION: UIInterfaceOrientation {
 }
 
 
-let DOWNLOADER = ImageDownloader(
-    configuration: ImageDownloader.defaultURLSessionConfiguration(),
-    downloadPrioritization: .fifo,
-    maximumActiveDownloads: 4,
-    imageCache: AutoPurgingImageCache()
-)
 
-let IMAGECACHE = AutoPurgingImageCache(
-    memoryCapacity: 100 * 1024 * 1024,
-    preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-)
 
 
 // Colors

@@ -6,6 +6,69 @@
 //  Copyright © 2017 Jitae Kim. All rights reserved.
 //
 
+import Firebase
+
+import UIKit
+import Firebase
+
+let imageCache = NSCache<NSString, UIImage>()
+
+enum ImageType {
+    case icon
+    case main
+}
+extension UIImageView {
+    
+    func loadImageUsingCacheWithUrlString(_ arcanaIDWithImageType: String) {
+
+        if defaults.getImagePermissions() {
+        
+            self.image = nil
+            contentMode = .scaleAspectFit
+            
+            //check cache for image first
+            if let cachedImage = imageCache.object(forKey: arcanaIDWithImageType as NSString) {
+                self.image = cachedImage
+                return
+            }
+            
+            // image not in cache, download from firebase
+            STORAGE_REF.child("image/arcana").child(arcanaIDWithImageType).downloadURL { (URL, error) -> Void in
+                if (error != nil) {
+                    
+                    // Handle any errors
+                } else {
+                    print("URL IS \(URL)")
+                    
+                    URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                        
+                        if error != nil {
+                            print(error)
+                            return
+                        }
+                        
+                        DispatchQueue.main.async(execute: {
+                            
+                            if let downloadedImage = UIImage(data: data!) {
+                                imageCache.setObject(downloadedImage, forKey: arcanaIDWithImageType as NSString)
+                                self.alpha = 0
+                                self.fadeIn(withDuration: 0.2)
+                                self.image = downloadedImage
+                            }
+                        })
+                        
+                    }).resume()
+                    
+                    
+                }
+            }
+
+        }
+        
+    }
+}
+
+
 extension UIViewController {
     
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {

@@ -41,44 +41,53 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             
             switch tab {
               
-            case .arcana:
-                let vc = SearchArcanaViewController()
-                let child = NavigationController(rootViewController: vc)
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-
-            case .ability:
-                let vc = MenuBarViewController(menuType: .abilityList)
-                let child = NavigationController(rootViewController: vc)
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-
-            case .tavern:
-                let vc = MenuBarViewController(menuType: .tavernList)
-                let child = NavigationController(rootViewController: vc)
-
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-                
-            case .dataLink:
-                let vc = DataViewController()
-                let child = NavigationController(rootViewController: vc)
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-                
+//            case .arcana:
+//                let vc = SearchArcanaViewController()
+//                let child = NavigationController(rootViewController: vc)
+//                
+//                child.tabBarItem.title = title
+//                child.tabBarItem.image = tabIcons[index]
+//                child.tabBarItem.tag = index
+//                views.append(child)
+//
+//            case .ability:
+//                let vc = MenuBarViewController(menuType: .abilityList)
+//                let child = NavigationController(rootViewController: vc)
+//                
+//                child.tabBarItem.title = title
+//                child.tabBarItem.image = tabIcons[index]
+//                child.tabBarItem.tag = index
+//                views.append(child)
+//
+//            case .tavern:
+//                let vc = MenuBarViewController(menuType: .tavernList)
+//                let child = NavigationController(rootViewController: vc)
+//
+//                child.tabBarItem.title = title
+//                child.tabBarItem.image = tabIcons[index]
+//                child.tabBarItem.tag = index
+//                views.append(child)
+//                
+//            case .dataLink:
+//                let vc = DataViewController()
+//                let child = NavigationController(rootViewController: vc)
+//                
+//                child.tabBarItem.title = title
+//                child.tabBarItem.image = tabIcons[index]
+//                child.tabBarItem.tag = index
+//                views.append(child)
+//                
             case .favorites:
                 let vc = FavoritesArcanaViewController()
+                let child = NavigationController(rootViewController: vc)
+                
+                child.tabBarItem.title = title
+                child.tabBarItem.image = tabIcons[index]
+                child.tabBarItem.tag = index
+                views.append(child)
+            
+            default:
+                let vc = UIViewController()
                 let child = NavigationController(rootViewController: vc)
                 
                 child.tabBarItem.title = title

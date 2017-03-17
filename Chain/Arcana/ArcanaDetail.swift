@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import AlamofireImage
 import NVActivityIndicatorView
 
 enum ArcanaButton {
@@ -255,17 +254,17 @@ class ArcanaDetail: UIViewController {
     func imageTapped(_ sender: AnyObject) {
         if imageTapped == false {
             // enlarge image
-            if let imageView = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/main.jpg") {
-                let newImageView = UIImageView(image: imageView)
-                newImageView.frame = UIScreen.main.bounds
-                newImageView.backgroundColor = .black
-                newImageView.contentMode = .scaleAspectFit
-                newImageView.isUserInteractionEnabled = true
-                view.window?.addSubview(newImageView)
-                
-                addGestures(newImageView)
-                imageTapped = true
-            }
+            let newImageView = UIImageView()
+            newImageView.loadImageUsingCacheWithUrlString("\(arcana.getUID())/main.jpg")
+            newImageView.frame = UIScreen.main.bounds
+            newImageView.backgroundColor = .black
+            newImageView.contentMode = .scaleAspectFit
+            newImageView.isUserInteractionEnabled = true
+            view.window?.addSubview(newImageView)
+            
+            addGestures(newImageView)
+            imageTapped = true
+            
         }
         
     }
@@ -516,21 +515,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.arcanaImage.addGestureRecognizer(tap)
                 cell.activityIndicator.startAnimating()
                 
-                let size = CGSize(width: SCREENWIDTH, height: 400)
-                
-                if let i = IMAGECACHE.image(withIdentifier: "\(arcana.getUID())/main.jpg") {
-                    
-                    let aspectScaledToFitImage = i.af_imageAspectScaled(toFit: size)
-                    
-                    cell.arcanaImage.image = aspectScaledToFitImage
-                    cell.activityIndicator.stopAnimating()
-                }
-                    
-                    //  Not in cache, download from firebase
-                else {
-                    FirebaseService.dataRequest.downloadImage(uid: arcana.getUID(), sender: cell)
-                    
-                }
+                cell.arcanaImage.loadImageUsingCacheWithUrlString("\(arcana.getUID())/main.jpg")
+
                 return cell
             }
                 
