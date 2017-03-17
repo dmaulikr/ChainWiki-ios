@@ -35,6 +35,8 @@ class MenuBarViewController: UIViewController {
         self.abilityType = abilityType
         self.abilityMenu = abilityMenu
         title = abilityType.0
+        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
 
     }
     

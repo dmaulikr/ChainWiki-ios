@@ -125,6 +125,12 @@ final class SearchArcanaViewController: ArcanaViewController {
             for (index, arcana) in arcanaDataSource.arcanaArray.enumerated() {
                 if arcana.getUID() == uidToRemove {
                     arcanaDataSource.arcanaArray.remove(at: index)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    if let _ = self.tableView.cellForRow(at: indexPath) {
+                        if !self.searchController.isActive {
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        }
+                    }
 //                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 
@@ -148,8 +154,10 @@ final class SearchArcanaViewController: ArcanaViewController {
                 if let arcana = Arcana(snapshot: snapshot) {
                     
                     arcanaDataSource.arcanaArray[index] = arcana
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-//                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    if let _ = self.tableView.cellForRow(at: indexPath) {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
                 }
                 
             }

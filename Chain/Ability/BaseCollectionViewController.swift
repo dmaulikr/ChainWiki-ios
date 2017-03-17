@@ -118,6 +118,8 @@ class BaseCollectionViewController: UIViewController {
         
         collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
+        let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
     }
     
 //    private func setupNavBar() {
