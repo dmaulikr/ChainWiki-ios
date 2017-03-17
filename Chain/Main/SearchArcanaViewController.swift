@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchArcanaViewController: ArcanaViewController {
+final class SearchArcanaViewController: ArcanaViewController {
     
     let searchController: SearchController = SearchController(searchResultsController: nil)
 //    var searchArray = [Arcana]()
@@ -148,6 +148,7 @@ class SearchArcanaViewController: ArcanaViewController {
                 if let arcana = Arcana(snapshot: snapshot) {
                     
                     arcanaDataSource.arcanaArray[index] = arcana
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
 //                    self.arcanaDataSource = ArcanaDataSource(self.arcanaArray)
                 }
                 

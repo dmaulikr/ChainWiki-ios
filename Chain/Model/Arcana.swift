@@ -100,7 +100,7 @@ class Arcana: Equatable, Hashable {
         else if let nnKR = (snapshot.value as? NSDictionary)?["nickNameKR"] as? String {
             nicknameKR = nnKR
         }
-        if let nnJP = (snapshot.value as? NSDictionary)?["nickameJP"] as? String {
+        if let nnJP = (snapshot.value as? NSDictionary)?["nicknameJP"] as? String {
             nicknameJP = nnJP
         }
         else if let nnJP = (snapshot.value as? NSDictionary)?["nickNameJP"] as? String {
