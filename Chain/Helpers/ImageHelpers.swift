@@ -10,7 +10,6 @@ import Firebase
 
 import UIKit
 import Firebase
-import Kingfisher
 
 let imageCache = NSCache<NSString, UIImage>()
 

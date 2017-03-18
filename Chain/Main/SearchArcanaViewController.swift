@@ -260,9 +260,16 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
             let searchArray = originalArray.filter { arcana in
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
+            if searchArray.count == 0 {
+                tipLabel.alpha = 1
+            }
+            else {
+                tipLabel.alpha = 0
+            }
             arcanaDataSource = ArcanaDataSource(searchArray)
         }
         else {
+            tipLabel.alpha = 0
             showSearch = true
             arcanaDataSource = ArcanaDataSource(originalArray)
         }

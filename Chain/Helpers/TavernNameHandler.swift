@@ -12,6 +12,8 @@ func convertTavern(tavern: String) -> String {
     
     switch tavern {
         
+    case "링교환":
+        return "ringChange"
     case "부도시":
         return "capital"
     case "성도":

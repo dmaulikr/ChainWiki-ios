@@ -26,7 +26,7 @@ class TavernListTableCell: BaseCollectionViewCell {
         }
     }
     
-    private let tavernNamesPart1 = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구"]
+    private let tavernNamesPart1 = ["부도시", "성도", "현자의탑", "미궁산맥", "호수도시", "정령섬", "화염구령", "해풍의항구", "링교환"]
     
     private let tavernNamesPart2 = ["새벽대해", "수인의대륙", "죄의대륙", "박명의대륙", "철연의대륙", "연대기대륙", "서가", "레무레스섬"]
     
