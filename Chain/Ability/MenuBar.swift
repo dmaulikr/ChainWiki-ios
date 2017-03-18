@@ -22,9 +22,7 @@ class MenuBar: UIView {
     let menuHeight : CGFloat = 40
     let numberOfItems: Int
 
-    let abilityTypes = ["메인", "인연"]
-    let classTypes = ["전사", "기사", "궁수", "법사", "승려"]
-    let tavernTypes = ["1부", "2부", "3부"]
+    var menuTitles = [String]()
     
     lazy var collectionView: UICollectionView = {
         
@@ -76,15 +74,15 @@ class MenuBar: UIView {
         }
         
         super.init(frame: .zero)
-
         setupViews()
+        setupTitles()
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupViews() {
         
         addSubview(collectionView)
@@ -103,6 +101,18 @@ class MenuBar: UIView {
         
     }
 
+    func setupTitles() {
+
+        switch menuType {
+        case .abilityList:
+            menuTitles = ["메인", "인연"]
+        case .abilityView:
+            menuTitles = ["전사", "기사", "궁수", "법사", "승려"]
+        case .tavernList:
+            menuTitles = ["1부", "2부", "3부"]
+            
+        }
+    }
 }
 
 
@@ -116,15 +126,8 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCell", for: indexPath) as! MenuCell
 
-        switch menuType {
-        case .abilityList:
-            cell.nameLabel?.text = abilityTypes[indexPath.row]
-        case .abilityView:
-            cell.nameLabel?.text = classTypes[indexPath.row]
-        case .tavernList:
-            cell.nameLabel?.text = tavernTypes[indexPath.row]
-        }
-        
+        cell.nameLabel.text = menuTitles[indexPath.row]
+
         return cell
         
     }
@@ -141,7 +144,7 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
 class MenuCell: UICollectionViewCell {
     
-    weak var nameLabel: UILabel? = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = Color.textGray
         label.highlightedTextColor = .black
@@ -161,9 +164,9 @@ class MenuCell: UICollectionViewCell {
         
         backgroundColor = .white
         
-        addSubview(nameLabel!)
+        addSubview(nameLabel)
         
-        nameLabel?.anchorCenterSuperview()
+        nameLabel.anchorCenterSuperview()
     }
     
 }

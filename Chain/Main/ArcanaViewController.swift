@@ -12,7 +12,7 @@ import Firebase
 class ArcanaViewController: UIViewController {
 
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
-    var arcanaRefHandle: FIRDatabaseHandle?
+//    var arcanaRefHandle: FIRDatabaseHandle?
     
 //    var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
@@ -72,7 +72,6 @@ class ArcanaViewController: UIViewController {
     var longPress = UILongPressGestureRecognizer()
 
     init() {
-        ref = FIREBASE_REF.child("arcana")
         super.init(nibName: nil, bundle: nil)
         navigationItem.title = "홈"
     }
@@ -82,8 +81,9 @@ class ArcanaViewController: UIViewController {
     }
     
     deinit {
-        guard let refHandle = self.arcanaRefHandle else { return }
-        ref.removeObserver(withHandle: refHandle)
+        arcanaDataSource = nil
+        ref.removeAllObservers()
+        print("deinited")
     }
     
     override func viewDidLoad() {
@@ -129,6 +129,8 @@ class ArcanaViewController: UIViewController {
         
         filterView.addSubview(filterMenu.view)
         filterMenu.view.frame = filterView.frame
+        
+        filterMenu.didMove(toParentViewController: self)
 
     }
 

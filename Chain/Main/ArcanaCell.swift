@@ -23,7 +23,8 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var arcanaAffiliation: UILabel!
     @IBOutlet weak var numberOfViews: UILabel!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
-    var arcanaUID: String!
+    
+    var arcanaID: String!
     
     @IBOutlet var labelCollection: [UILabel]!
     override func awakeFromNib() {
@@ -36,6 +37,13 @@ class ArcanaCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        for label in labelCollection {
+            label.text = nil
+        }
     }
 
 }

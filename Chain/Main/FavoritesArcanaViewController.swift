@@ -59,7 +59,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
             })
         }
         
-        group.notify(queue: DispatchQueue.main, execute: {
+        group.notify(queue: .main) {
             
             self.arcanaDataSource = FavoritesArcanaDataSource(array)
             if array.count == 0 {
@@ -71,7 +71,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 self.tipLabel.fadeOut(withDuration: 0.2)
                 self.tableView.fadeIn(withDuration: 0.5)
             }
-        })
+        }
         
     }
     

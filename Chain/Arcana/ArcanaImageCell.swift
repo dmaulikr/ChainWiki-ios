@@ -8,13 +8,14 @@
 
 import UIKit
 import NVActivityIndicatorView
-import AlamofireImage
 
 class ArcanaImageCell: UITableViewCell {
 
+    var imageLoaded = false
+    
     let arcanaImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         return imageView
     }()

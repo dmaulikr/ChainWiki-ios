@@ -34,7 +34,6 @@ class BaseCollectionViewController: UIViewController {
     
     var datasource: AbilityViewDataSource?
     var abilityType = ""
-    var arcanaArray: [Arcana]?
     var currentArray: [Arcana]?
     
     lazy var collectionView: UICollectionView = {
@@ -206,7 +205,6 @@ class BaseCollectionViewController: UIViewController {
             
             group.notify(queue: DispatchQueue.main, execute: {
                 
-                self.arcanaArray = array
                 self.currentArray = array
                 self.datasource = AbilityViewDataSource(arcanaArray: array)
                 

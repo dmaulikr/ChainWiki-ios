@@ -100,7 +100,7 @@ class ArcanaEditList: UIViewController {
                         let updateRef = ref.child(editUID).child("update")
                         updateRef.observeSingleEvent(of: .value, with: { snapshot in
                             var indexes = [IndexPath]()
-                            let arcana = ArcanaEdit(snapshot: snapshot)
+                            let arcana = ArcanaEdit(arcanaID: self.arcanaID, snapshot: snapshot)
                             self.arcanaEditsArray.insert(ArcanaEditModel(a: arcana, id: editUID, name: editorName, ref: ref.child(child.key), d: date), at: 0)
                             indexes.append(IndexPath(row: 0, section: 0))
                             

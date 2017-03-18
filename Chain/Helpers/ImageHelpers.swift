@@ -10,6 +10,7 @@ import Firebase
 
 import UIKit
 import Firebase
+import Kingfisher
 
 let imageCache = NSCache<NSString, UIImage>()
 
@@ -17,44 +18,82 @@ enum ImageType {
     case icon
     case main
 }
+
 extension UIImageView {
     
-    func loadImageUsingCacheWithUrlString(_ arcanaIDWithImageType: String) {
+    func loadArcanaImage(_ arcanaID: String, imageType: ImageType, sender: AnyObject?) {
 
-        if defaults.getImagePermissions() {
+        var imageRef = ""
         
-            self.image = nil
-            contentMode = .scaleAspectFit
-            
-            //check cache for image first
-            if let cachedImage = imageCache.object(forKey: arcanaIDWithImageType as NSString) {
-                self.image = cachedImage
+        switch imageType {
+        case .icon:
+            imageRef = arcanaID + "/icon.jpg"
+        case .main:
+            imageRef = arcanaID + "/main.jpg"
+        }
+        
+        if defaults.getImagePermissions() {
+
+            // check cache for image first
+            if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
+                if let cell = sender as? ArcanaCell {
+                    if cell.arcanaID == arcanaID {
+                        self.image = cachedImage
+                    }
+                }
+                else {
+                    // sender is main arcana image
+                    if let cell = sender as? ArcanaImageCell {
+                        cell.activityIndicator.stopAnimating()
+                        cell.imageLoaded = true
+                        self.image = cachedImage
+                    }
+                    
+                }
                 return
             }
             
             // image not in cache, download from firebase
-            STORAGE_REF.child("image/arcana").child(arcanaIDWithImageType).downloadURL { (URL, error) -> Void in
+            STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     
                     // Handle any errors
                 } else {
-                    print("URL IS \(URL)")
                     
                     URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
                         
                         if error != nil {
-                            print(error)
                             return
                         }
                         
                         DispatchQueue.main.async(execute: {
                             
-                            if let downloadedImage = UIImage(data: data!) {
-                                imageCache.setObject(downloadedImage, forKey: arcanaIDWithImageType as NSString)
-                                self.alpha = 0
-                                self.fadeIn(withDuration: 0.2)
-                                self.image = downloadedImage
+                            guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                            
+                            imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
+                            
+                            if let cell = sender as? ArcanaCell {
+                                // Only set the image if the cell is one that requested the download
+                                if cell.arcanaID == arcanaID {
+                                    
+                                    cell.arcanaImage.image = downloadedImage
+                                    self.alpha = 0
+                                    self.fadeIn(withDuration: 0.2)
+
+                                }
                             }
+                            else {
+                                if let cell = sender as? ArcanaImageCell {
+                                    // Main image requested, just set the image.
+                                    cell.imageLoaded = true
+                                    cell.arcanaImage.image = downloadedImage
+                                    self.alpha = 0
+                                    self.fadeIn(withDuration: 0.2)
+                                    cell.activityIndicator.stopAnimating()
+                                }
+                                
+                            }
+                            
                         })
                         
                     }).resume()
@@ -64,7 +103,6 @@ extension UIImageView {
             }
 
         }
-        
     }
 }
 

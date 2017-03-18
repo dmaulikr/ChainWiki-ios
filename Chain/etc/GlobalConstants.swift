@@ -69,9 +69,9 @@ enum Color {
     
     static let salmon = UIColor(red:0.92, green:0.65, blue:0.63, alpha:1.0) // #EBA5A0
     static let darkSalmon = UIColor(red:0.82, green:0.24, blue:0.32, alpha:1.0)
-    static let lightGray = UIColor(red:0.86, green:0.88, blue:0.9, alpha:1.0)
+    static let lightGray = UIColor(red:0.86, green:0.88, blue:0.9, alpha:1.0)  // #dbe0e6
     static let lightGreen = UIColor(red:0.41, green:0.64, blue:0.51, alpha:1.0) // #68a283
-    static let textGray = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
+    static let textGray = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)  // #878787
     static let gray247 = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)    // #f7f7f7
     static let googleRed = UIColor(red:0.86, green:0.20, blue:0.21, alpha:1.0) // #db3236
     static let facebookBlue = UIColor(netHex: 0x3b5998)

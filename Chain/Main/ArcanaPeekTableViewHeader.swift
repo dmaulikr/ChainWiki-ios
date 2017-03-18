@@ -16,7 +16,6 @@ class ArcanaPeekTableViewHeader: UIView {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
         label.textColor = Color.lightGreen
-//        label.backgroundColor = Color.lightGreen
         label.textAlignment = .center
         return label
     }()

@@ -10,7 +10,7 @@ import Firebase
 
 class ArcanaEdit {
     
-    var uid: String?
+    var uid: String
     var nameKR: String?
     var nicknameKR: String?
     var nameJP: String?
@@ -55,7 +55,7 @@ class ArcanaEdit {
     var chainStory: String?
     var chainStone: String?
 
-    func getUID() -> String? {
+    func getUID() -> String {
         return uid
     }
     
@@ -313,11 +313,48 @@ class ArcanaEdit {
         self.partyAbility = partyAbility
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    init(_ arcana: Arcana) {
         
-        if let u = (snapshot.value as? NSDictionary)?["uid"] as? String {
-            uid = u
-        }
+        uid = arcana.getUID()
+        nameKR = arcana.getNameKR()
+        nicknameKR = arcana.getNicknameKR()
+        nameJP = arcana.getNameJP()
+        nicknameJP = arcana.getNicknameJP()
+        rarity = arcana.getRarity()
+        group = arcana.getGroup()
+        tavern = arcana.getTavern()
+        affiliation = arcana.getAffiliation()
+        cost = arcana.getCost()
+        weapon = arcana.getWeapon()
+
+        kizunaName = arcana.getKizunaName()
+        kizunaCost = arcana.getKizunaCost()
+        kizunaDesc = arcana.getKizunaDesc()
+        
+        skillName1 = arcana.getSkillName1()
+        skillMana1 = arcana.getSkillMana1()
+        skillDesc1 = arcana.getSkillDesc1()
+        
+        skillName2 = arcana.getSkillName2()
+        skillMana2 = arcana.getSkillMana2()
+        skillDesc2 = arcana.getSkillDesc2()
+        
+        skillName3 = arcana.getSkillName3()
+        skillMana3 = arcana.getSkillMana3()
+        skillDesc3 = arcana.getSkillDesc3()
+        
+        abilityName1 = arcana.getAbilityName1()
+        abilityDesc1 = arcana.getAbilityDesc1()
+        
+        abilityName2 = arcana.getAbilityName2()
+        abilityDesc2 = arcana.getAbilityDesc2()
+        
+        partyAbility = arcana.getPartyAbility()
+    }
+    
+    init(arcanaID: String, snapshot: FIRDataSnapshot) {
+        
+        uid = arcanaID
         
         if let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String {
             nameKR = nKR

@@ -55,6 +55,9 @@ class ArcanaDetailEditCell: UITableViewCell {
 
 extension ArcanaDetailEditCell: UITextViewDelegate {
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        editDelegate?.scrollUp(self)
+    }
     func textViewDidEndEditing(_ textView: UITextView) {
         editDelegate?.edited(self)
     }

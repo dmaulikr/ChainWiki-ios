@@ -69,6 +69,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         searchView.addSubview(searchHistory.view)
         searchHistory.view.frame = searchView.frame
         
+        searchHistory.didMove(toParentViewController: self)
+        
     }
 
     func setupSearchBar() {
@@ -83,7 +85,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     override func downloadArcana() {
         
-        arcanaRefHandle = ref.observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
                 
@@ -195,8 +197,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
         // If filter is open and user presses on left column, dismiss filter.
         else if showFilter && gesture.location(in: self.view).x < 95 {
-                gesture.cancelsTouchesInView = true
-                showFilter = false
+            gesture.cancelsTouchesInView = true
+            showFilter = false
         }
             
         else {

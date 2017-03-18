@@ -10,7 +10,7 @@ import UIKit
 
 class MenuBarViewController: UIViewController {
 
-    weak var menuBar: MenuBar!
+    var menuBar: MenuBar!
     var menuType: MenuType
     var numberOfMenuTabs: Int = 2
     var childViewController: BaseCollectionViewController?
@@ -26,7 +26,6 @@ class MenuBarViewController: UIViewController {
     
     init(menuType: MenuType) {
         self.menuType = menuType
-//        menuBar = MenuBar(menuType: menuType)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,9 +45,9 @@ class MenuBarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupMenuBar()
-//        setupViews()
-//        setupChildViewController()
+        setupMenuBar()
+        setupViews()
+        setupChildViewController()
     }
 
     func setupViews() {
@@ -66,6 +65,8 @@ class MenuBarViewController: UIViewController {
     
     func setupMenuBar() {
         
+        menuBar = MenuBar(menuType: menuType)
+
         menuBar.menuBarDelegate = self
 
         switch menuType {
@@ -100,6 +101,8 @@ class MenuBarViewController: UIViewController {
         containerView.addSubview(childViewController.view)
         
         childViewController.view.frame = containerView.frame
+        
+//        childViewController.didMove(toParentViewController: self)
 
     }
     

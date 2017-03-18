@@ -52,6 +52,7 @@ class ArcanaDetail: UIViewController {
     var heart = false
     var favorite = false
     var imageTapped = false
+    
     lazy var tap: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         return tap
@@ -59,6 +60,7 @@ class ArcanaDetail: UIViewController {
     
     init(arcana: Arcana) {
         self.arcana = arcana
+        print(arcana.getUID())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -118,7 +120,7 @@ class ArcanaDetail: UIViewController {
         
         let editButton = UIButton(type: .system)
         editButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        editButton.addTarget(self, action: #selector(edit(_:)), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
         editButton.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
         
         let editBarButton = UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
@@ -188,7 +190,7 @@ class ArcanaDetail: UIViewController {
     
     }
 
-    func edit(_ sender: AnyObject) {
+    func edit() {
         
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
@@ -252,10 +254,12 @@ class ArcanaDetail: UIViewController {
     }
     
     func imageTapped(_ sender: AnyObject) {
+        
         if imageTapped == false {
             // enlarge image
+            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaImageCell, cell.imageLoaded else { return }
             let newImageView = UIImageView()
-            newImageView.loadImageUsingCacheWithUrlString("\(arcana.getUID())/main.jpg")
+            newImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
             newImageView.frame = UIScreen.main.bounds
             newImageView.backgroundColor = .black
             newImageView.contentMode = .scaleAspectFit
@@ -392,6 +396,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             if let _ = arcana.getPartyAbility() {
                 return 6
             }
+            else if let _ = arcana.getAbilityName3() {    // 리제 롯데
+                return 6
+            }
             else if let _ = arcana.getAbilityName2() {    // has 2 abilities
                 return 4
             }
@@ -515,8 +522,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.arcanaImage.addGestureRecognizer(tap)
                 cell.activityIndicator.startAnimating()
                 
-                cell.arcanaImage.loadImageUsingCacheWithUrlString("\(arcana.getUID())/main.jpg")
-
+                cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
                 return cell
             }
                 
@@ -696,8 +702,15 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                         cell.attributeValueLabel.text = arcana.getAbilityName2()
                     }
                 default:
-                    cell.attributeKeyLabel.text = "파티 어빌"
-                    cell.attributeValueLabel.text = " "
+                    if let _ = arcana.getPartyAbility() {
+                        cell.attributeKeyLabel.text = "파티 어빌"
+                        cell.attributeValueLabel.text = " "
+                    }
+                    else {
+                        // 리제 롯데
+                        cell.attributeKeyLabel.text = "어빌 3"
+                        cell.attributeValueLabel.text = arcana.getAbilityName3()
+                    }
                 }
 
                 cell.layoutMargins = UIEdgeInsets.zero
@@ -714,7 +727,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 case 3:
                     cell.skillAbilityDescLabel.text = arcana.getAbilityDesc2()
                 default:
-                    cell.skillAbilityDescLabel.text = arcana.getPartyAbility()
+                    if let _ = arcana.getPartyAbility() {
+                        cell.skillAbilityDescLabel.text = arcana.getPartyAbility()
+                    }
+                    else {
+                        cell.skillAbilityDescLabel.text = arcana.getAbilityDesc3()
+                    }
                     
                 }
 

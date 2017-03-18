@@ -59,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>LicensesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -93,11 +98,6 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>1AEE3ECBF2BF741DD96EF7E7F020A37A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>27D8C94BD633390C1BD9D4F625C49AB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,6 +137,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>649C4475E3F0CC726C45CB634D13C708</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
 		<dict>
 			<key>primary</key>
@@ -152,11 +157,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8196BF5DB22B22BBA5D95669F92AACB9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>A7FEAA14E89971698ACA148F7F7202F2</key>
 		<dict>
 			<key>primary</key>
@@ -167,7 +167,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C4944FEC314D1A66588651D006273ADE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DDBCFDE490CDFDABF6F16A26F346932D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE50782EA23742990AAECA64CDA42724</key>
 		<dict>
 			<key>primary</key>
 			<true/>

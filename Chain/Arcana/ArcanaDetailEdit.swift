@@ -10,14 +10,16 @@ import UIKit
 
 protocol EditDelegate {
     func edited(_ cell: ArcanaDetailEditCell)
+    func scrollUp(_ cell: ArcanaDetailEditCell)
 }
 
 class ArcanaDetailEdit: UIViewController, DisplayBanner {
 
     let keys = ["한글 이름", "한글 호칭", "일어 이름", "일어 호칭", "스킬 1 이름", "스킬 1 마나", "스킬 1 설명", "스킬 2 이름", "스킬 2 마나", "스킬 2 설명", "스킬 3 이름", "스킬 3 마나", "스킬 3 설명", "어빌 1 이름", "어빌 1 설명", "어빌 2 이름", "어빌 2 설명", "파티 어빌", "인연 이름", "인연 코스트", "인연 설명", "출현 장소"]
     
-    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "partyAbility", "kizunaName", "kizunaCost", "kizunaDesc", "skillCount"]
-    let arcana: Arcana
+    let firebaseKeys = ["nameKR", "nicknameKR", "nameJP", "nicknameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName2", "abilityDesc2", "partyAbility", "kizunaName", "kizunaCost", "kizunaDesc", "tavern"]
+    
+    let arcana: ArcanaEdit
     var edits = [String : String]()
     var originalAttributes = [String]()
     
@@ -38,7 +40,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     }()
 
     init(arcana: Arcana) {
-        self.arcana = arcana
+        self.arcana = ArcanaEdit(arcana)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,9 +52,14 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         super.viewDidLoad()
         setupViews()
         setupNavBar()
+        setupKeyboardObservers()
         hideKeyboardWhenTappedAround()
-//        setupKeyboardObservers()
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setupViews() {
@@ -62,7 +69,9 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         
         view.addSubview(tableView)
         
-        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        tableViewBottomAnchor = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+        tableViewBottomAnchor?.isActive = true
         
     }
     
@@ -75,12 +84,10 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     }
     
     func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-    }
-    
-    func handleKeyboardDidShow() {
-        let indexPath = IndexPath(item: keys.count - 1, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func save() {
@@ -160,6 +167,26 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         _ = navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
         
     }
+    
+    var tableViewBottomAnchor: NSLayoutConstraint?
+    
+    func handleKeyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else { return }
+        
+        tableViewBottomAnchor?.constant = -keyboardFrame.height
+        UIView.animate(withDuration: keyboardDuration, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func handleKeyboardWillHide(_ notification: Notification) {
+        guard let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else { return }
+        
+        tableViewBottomAnchor?.constant = 0
+        UIView.animate(withDuration: keyboardDuration, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
 
 }
 
@@ -169,56 +196,61 @@ extension ArcanaDetailEdit: EditDelegate {
         
         guard let editedText = cell.arcanaAttributeTextView.text, let indexPath = tableView.indexPath(for: cell), let row = Row(rawValue: indexPath.row) else { return }
         
-        var key = ""
+        let key = firebaseKeys[indexPath.row]
         
         switch row {
         case .nameKR:
-            key = "nameKR"
+            arcana.setNameKR(editedText)
         case .nicknameKR:
-            key = "nicknameKR"
+            arcana.setNicknameKR(editedText)
         case .nameJP:
-            key = "nameJP"
+            arcana.setNameJP(editedText)
         case .nicknameJP:
-            key = "nicknameJP"
+            arcana.setNicknameJP(editedText)
         case .skillname1:
-            key = "skillName1"
+            arcana.setSkillName1(editedText)
         case .skillmana1:
-            key = "skillMana1"
+            arcana.setSkillMana1(editedText)
         case .skilldesc1:
-            key = "skillDesc1"
+            arcana.setSkillDesc1(editedText)
         case .skillname2:
-            key = "skillName2"
+            arcana.setSkillName2(editedText)
         case .skillmana2:
-            key = "skillMana2"
+            arcana.setSkillMana2(editedText)
         case .skilldesc2:
-            key = "skillDesc2"
+            arcana.setSkillDesc2(editedText)
         case .skillname3:
-            key = "skillName3"
+            arcana.setSkillName3(editedText)
         case .skillmana3:
-            key = "skillMana3"
+            arcana.setSkillMana3(editedText)
         case .skilldesc3:
-            key = "skillDesc3"
+            arcana.setSkillDesc3(editedText)
         case .abilityname1:
-            key = "abilityName1"
+            arcana.setAbilityName1(editedText)
         case .abilitydesc1:
-            key = "abilityDesc1"
+            arcana.setAbilityDesc1(editedText)
         case .abilityname2:
-            key = "abilityName2"
+            arcana.setAbilityName2(editedText)
         case .abilitydesc2:
-            key = "abilityDesc2"
+            arcana.setAbilityDesc2(editedText)
         case .partyability:
-            key = "partyAbility"
+            arcana.setPartyAbility(editedText)
         case .kizunaname:
-            key = "kizunaName"
+            arcana.setKizunaName(editedText)
         case .kizunacost:
-            key = "kizunaCost"
+            arcana.setKizunaCost(editedText)
         case .kizunadesc:
-            key = "kizunaDesc"
+            arcana.setKizunaDesc(editedText)
         case .tavern:
-            key = "tavern"
+            arcana.setTavern(editedText)
         }
         edits.updateValue(editedText, forKey: key)
         
+    }
+    
+    func scrollUp(_ cell: ArcanaDetailEditCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
 }

@@ -17,15 +17,11 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         case favorites
     }
 
-    let tabTitles = ["아르카나", "어빌리티", "주점", "자료", "즐겨찾기"]
-    let tabIcons = [#imageLiteral(resourceName: "arcanaTab"), #imageLiteral(resourceName: "abilityTab"), #imageLiteral(resourceName: "tavern"), #imageLiteral(resourceName: "openSite"), #imageLiteral(resourceName: "favorites")]
-    
-    var tabBarImageView: UIImageView!
     var imageViews = [UIImageView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        self.delegate = self
         setupTabBar()
         tabBar.tintColor = Color.lightGreen
         
@@ -33,78 +29,28 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func setupTabBar() {
         
-        var views = [UIViewController]()
+        let arcanaTab = NavigationController(rootViewController: SearchArcanaViewController())
+        arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         
-        for (index, title) in tabTitles.enumerated() {
-            
-            guard let tab = Tab(rawValue: index) else { return }
-            
-            switch tab {
-              
-//            case .arcana:
-//                let vc = SearchArcanaViewController()
-//                let child = NavigationController(rootViewController: vc)
-//                
-//                child.tabBarItem.title = title
-//                child.tabBarItem.image = tabIcons[index]
-//                child.tabBarItem.tag = index
-//                views.append(child)
-//
-//            case .ability:
-//                let vc = MenuBarViewController(menuType: .abilityList)
-//                let child = NavigationController(rootViewController: vc)
-//                
-//                child.tabBarItem.title = title
-//                child.tabBarItem.image = tabIcons[index]
-//                child.tabBarItem.tag = index
-//                views.append(child)
-//
-//            case .tavern:
-//                let vc = MenuBarViewController(menuType: .tavernList)
-//                let child = NavigationController(rootViewController: vc)
-//
-//                child.tabBarItem.title = title
-//                child.tabBarItem.image = tabIcons[index]
-//                child.tabBarItem.tag = index
-//                views.append(child)
-//                
-//            case .dataLink:
-//                let vc = DataViewController()
-//                let child = NavigationController(rootViewController: vc)
-//                
-//                child.tabBarItem.title = title
-//                child.tabBarItem.image = tabIcons[index]
-//                child.tabBarItem.tag = index
-//                views.append(child)
-//                
-            case .favorites:
-                let vc = FavoritesArcanaViewController()
-                let child = NavigationController(rootViewController: vc)
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-            
-            default:
-                let vc = UIViewController()
-                let child = NavigationController(rootViewController: vc)
-                
-                child.tabBarItem.title = title
-                child.tabBarItem.image = tabIcons[index]
-                child.tabBarItem.tag = index
-                views.append(child)
-            }
-
-        }
-
-        viewControllers = views
+        let abilityTab = NavigationController(rootViewController: MenuBarViewController(menuType: .abilityList))
+        abilityTab.tabBarItem = UITabBarItem(title: "어빌리티", image: #imageLiteral(resourceName: "abilityTab"), tag: 1)
+        
+        let tavernTab = NavigationController(rootViewController: MenuBarViewController(menuType: .tavernList))
+        tavernTab.tabBarItem = UITabBarItem(title: "주점", image: #imageLiteral(resourceName: "tavern"), tag: 2)
+        
+        let dataTab = NavigationController(rootViewController: DataViewController())
+        dataTab.tabBarItem = UITabBarItem(title: "자료", image: #imageLiteral(resourceName: "openSite"), tag: 3)
+        
+        let favoritesTab = NavigationController(rootViewController: FavoritesArcanaViewController())
+        favoritesTab.tabBarItem = UITabBarItem(title: "즐겨찾기", image: #imageLiteral(resourceName: "favorites"), tag: 4)
+        
+        viewControllers = [arcanaTab, abilityTab, tavernTab, dataTab, favoritesTab]
         
         // Setup to-be-animated views
         for childView in tabBar.subviews {
             
             let tabBarItemView = childView
-            tabBarImageView = tabBarItemView.subviews.first as! UIImageView
+            let tabBarImageView = tabBarItemView.subviews.first as! UIImageView
             tabBarImageView.contentMode = .center
             imageViews.append(tabBarImageView)
 
@@ -118,7 +64,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
 
         
     }
-    
+
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TransitioningObject()
         

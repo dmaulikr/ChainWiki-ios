@@ -14,14 +14,7 @@ class TavernArcanaViewController: ArcanaViewController {
     override var arcanaDataSource: ArcanaDataSource? {
         didSet {
             tableView.dataSource = arcanaDataSource
-            if arcanaDataSource!.arcanaArray.count > 0 {
-                tableView.alpha = 1
-                tipLabel.alpha = 0
-            }
-            else {
-                tableView.alpha = 0
-                tipLabel.alpha = 1
-            }
+            tableView.fadeIn(withDuration: 0.5)
             tableView.reloadData()
         }
     }
@@ -30,13 +23,12 @@ class TavernArcanaViewController: ArcanaViewController {
         super.init()
         ref = FIREBASE_REF.child("tavern").child(tavernEN)
         navigationItem.title = tavernKR
-        tableView.alpha = 1
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func downloadArcana() {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
