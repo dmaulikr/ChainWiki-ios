@@ -332,18 +332,18 @@
 			isa = PBXGroup;
 			children = (
 				0401B2871D75386C00A0A728 /* ArcanaDetail.swift */,
-				04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */,
-				04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */,
-				04349D101DACD79600216141 /* ArcanaEditList.swift */,
-				04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */,
-				04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */,
-				049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
 				046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */,
 				048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */,
 				042834F91D91E10D0043BE6E /* ArcanaChainStoryCell.swift */,
+				04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */,
+				04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */,
+				04349D101DACD79600216141 /* ArcanaEditList.swift */,
+				04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */,
+				04349D141DACDA1F00216141 /* ArcanaEditListCell.swift */,
+				049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */,
 				0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */,
 			);
 			path = Arcana;
@@ -535,6 +535,7 @@
 				4540E040F161CA1C1FBF4868 /* [CP] Copy Pods Resources */,
 				04012E351D8A6F8E00B17B44 /* Embed Frameworks */,
 				043523951DB45C65004D96A3 /* ShellScript */,
+				04ED3D3F1E7FA0D900A4C95E /* Upload Symbols to Firebase Crash Reporting */,
 			);
 			buildRules = (
 			);
@@ -687,6 +688,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Chain/etc/credits.py -s \"$SRCROOT\" -o \"$SRCROOT/Credits.plist\"";
+		};
+		04ED3D3F1E7FA0D900A4C95E /* Upload Symbols to Firebase Crash Reporting */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Symbols to Firebase Crash Reporting";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:1008757887866:ios:e713b34761ca7fad\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Users/jitae/Desktop/chainchronicle-ea233-firebase-crashreporting-je9x8-18a0baf7a2.json\"";
 		};
 		1449A3C3D380BEEC9872C010 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

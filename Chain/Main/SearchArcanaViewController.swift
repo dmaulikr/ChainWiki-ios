@@ -261,15 +261,15 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
             if searchArray.count == 0 {
-                tipLabel.alpha = 1
+                tipLabel.fadeIn(withDuration: 0.2)
             }
             else {
-                tipLabel.alpha = 0
+                tipLabel.fadeOut(withDuration: 0.2)
             }
             arcanaDataSource = ArcanaDataSource(searchArray)
         }
         else {
-            tipLabel.alpha = 0
+            tipLabel.fadeOut(withDuration: 0.2)
             showSearch = true
             arcanaDataSource = ArcanaDataSource(originalArray)
         }

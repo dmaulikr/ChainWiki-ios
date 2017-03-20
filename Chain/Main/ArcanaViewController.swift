@@ -281,7 +281,7 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
-        
+
         return vc
     }
     

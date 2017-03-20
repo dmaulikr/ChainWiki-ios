@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ArcanaPeekPreview: UIViewController {
     
@@ -46,6 +47,9 @@ class ArcanaPeekPreview: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        let dataRequest = FirebaseService.dataRequest
+        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
         
     }
 

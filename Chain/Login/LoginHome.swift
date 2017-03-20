@@ -105,6 +105,12 @@ class LoginHome: UIViewController, DisplayBanner {
         return spinner
     }()
     
+    let whiteView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -168,10 +174,11 @@ class LoginHome: UIViewController, DisplayBanner {
         let pw = passwordTextField.text
         
         if (email != "" && pw != "") {
-            activityIndicator.startAnimating()
+            animateUserLogin(animated: true)
             
             FIRAuth.auth()?.signIn(withEmail: email!, password: pw!) { (user, error) in
                 if error != nil {
+                    self.animateUserLogin(animated: false)
                     
                     if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
 
@@ -223,11 +230,11 @@ class LoginHome: UIViewController, DisplayBanner {
     
     func firebaseLogin(loginProvider: LoginProvider, credentials: FIRAuthCredential) {
         
-        animateUserLogin()
+        animateUserLogin(animated: true)
 
         FIRAuth.auth()?.signIn(with: credentials, completion: { (user, error) in
             if let _ = error {
-                
+                self.animateUserLogin(animated: false)
             }
             
             guard let user = user else { return }
@@ -286,9 +293,12 @@ class LoginHome: UIViewController, DisplayBanner {
     
     func guestLogin(_ sender: Any) {
         
+        animateUserLogin(animated: true)
+        
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
             
             if error != nil {
+                self.animateUserLogin(animated: false)
                 print("ANONYMOUS LOGIN ERROR")
             }
                 
@@ -313,20 +323,24 @@ class LoginHome: UIViewController, DisplayBanner {
         
     }
     
-    func animateUserLogin() {
+    func animateUserLogin(animated: Bool) {
         
-        let whiteView = UIView()
-        whiteView.backgroundColor = .white
+        if animated {
+            view.addSubview(whiteView)
+            whiteView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            
+            view.addSubview(activityIndicator)
+            activityIndicator.anchorCenterSuperview()
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            view.layoutIfNeeded()
+            activityIndicator.startAnimating()
+        }
+        else {
+            activityIndicator.stopAnimating()
+            whiteView.removeFromSuperview()
+        }
         
-        view.addSubview(whiteView)
-        whiteView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        
-        view.addSubview(activityIndicator)
-        activityIndicator.anchorCenterSuperview()
-        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        view.layoutIfNeeded()
-        activityIndicator.startAnimating()
         
     }
 

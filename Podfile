@@ -12,6 +12,7 @@ target 'Chain' do
     pod 'Firebase'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
+    pod 'Firebase/Crash'
     pod 'Google/SignIn'
     pod 'Firebase/Storage'
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
