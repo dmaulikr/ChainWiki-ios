@@ -534,7 +534,7 @@
 				83361517803DC7A3512E7B83 /* [CP] Embed Pods Frameworks */,
 				4540E040F161CA1C1FBF4868 /* [CP] Copy Pods Resources */,
 				04012E351D8A6F8E00B17B44 /* Embed Frameworks */,
-				043523951DB45C65004D96A3 /* ShellScript */,
+				043523951DB45C65004D96A3 /* Process Credits */,
 				04ED3D3F1E7FA0D900A4C95E /* Upload Symbols to Firebase Crash Reporting */,
 			);
 			buildRules = (
@@ -676,22 +676,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		043523951DB45C65004D96A3 /* ShellScript */ = {
+		043523951DB45C65004D96A3 /* Process Credits */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Process Credits";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "./Chain/etc/credits.py -s \"$SRCROOT\" -o \"$SRCROOT/Credits.plist\"";
 		};
 		04ED3D3F1E7FA0D900A4C95E /* Upload Symbols to Firebase Crash Reporting */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -699,7 +700,7 @@
 			name = "Upload Symbols to Firebase Crash Reporting";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:1008757887866:ios:e713b34761ca7fad\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Users/jitae/Desktop/chainchronicle-ea233-firebase-crashreporting-je9x8-18a0baf7a2.json\"";
 		};

@@ -139,6 +139,12 @@ class ArcanaDetail: UIViewController {
         
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
             self.generateImage(view: self.tableView)
+            
+            FIRAnalytics.logEvent(withName: kFIREventSelectContent, parameters: [
+                kFIRParameterItemName: "ExportArcana" as NSObject,
+                kFIRParameterValue: self.arcana.getNameKR() as NSObject,
+                kFIRParameterItemID: self.arcana.getUID() as NSObject
+                ])
         })
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -195,6 +201,11 @@ class ArcanaDetail: UIViewController {
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
             navigationController?.pushViewController(vc, animated: true)
+            FIRAnalytics.logEvent(withName: kFIREventSelectContent, parameters: [
+                kFIRParameterItemName: "EditArcana" as NSObject,
+                kFIRParameterValue: self.arcana.getNameKR() as NSObject,
+                kFIRParameterItemID: self.arcana.getUID() as NSObject
+                ])
             
         }
         else {

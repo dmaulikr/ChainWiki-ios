@@ -89,6 +89,9 @@ final class SearchArcanaViewController: ArcanaViewController {
 
             if let arcana = Arcana(snapshot: snapshot) {
                 
+                if arcana.getNameKR().contains("로엔디아") {
+                    
+                }
                 if let arcanaDataSource = self.arcanaDataSource {
                     arcanaDataSource.arcanaArray.insert(arcana, at: 0)
                 }
