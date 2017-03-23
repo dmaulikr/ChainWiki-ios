@@ -32,6 +32,7 @@ class ArcanaViewController: UIViewController {
         tableView.delegate = self
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
+        tableView.estimatedSectionHeaderHeight = 30
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
@@ -45,6 +46,8 @@ class ArcanaViewController: UIViewController {
         view.alpha = 0
         return view
     }()
+    
+    var filterViewLeadingConstraint: NSLayoutConstraint?
 
     let tipLabel: UILabel = {
         let label = UILabel()
@@ -83,7 +86,6 @@ class ArcanaViewController: UIViewController {
     deinit {
         arcanaDataSource = nil
         ref.removeAllObservers()
-        print("deinited")
     }
     
     override func viewDidLoad() {
@@ -113,6 +115,10 @@ class ArcanaViewController: UIViewController {
         
         tipLabel.anchorCenterSuperview()
 
+//        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+//        filterViewLeadingConstraint = filterView.leadingAnchor.constraint(equalTo: view.trailingAnchor)
+//        filterViewLeadingConstraint?.isActive = true
+        
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         
         setupChildViews()
@@ -167,6 +173,62 @@ class ArcanaViewController: UIViewController {
             registerForPreviewing(with: self, sourceView: tableView)
         }
         
+        
+        // Pan Filter gesture
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+//        view.addGestureRecognizer(panGesture)
+    }
+    
+    let pannableFrame = CGRect(x: 100, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
+    
+    func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+
+        let translation = gestureRecognizer.translation(in: self.view)
+
+        switch gestureRecognizer.state {
+
+        case .began, .changed:
+
+            if !showFilter {
+                showFilter = true
+            }
+            
+            if !pannableFrame.contains(gestureRecognizer.location(in: view)) {
+                
+            }
+            
+            if gestureRecognizer.velocity(in: view).x < 0 {
+                if filterView.center.x >= (SCREENWIDTH+100)/2 {
+                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
+                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+                }
+                else {
+                    return
+                    
+                }
+            }
+            else {
+                print("positive")
+                if filterView.center.x >= (SCREENWIDTH+100)/2 && filterView.center.x < (SCREENWIDTH * 1.5){
+//                if filterView.frame.minX < SCREENWIDTH {
+                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
+                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+                }
+                else {
+                    return
+                }
+            }
+
+        case .ended:
+            if filterView.frame.minX < 100 {
+                filterView.center = CGPoint(x: (SCREENWIDTH + 100)/2, y: filterView.center.y)
+//                gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+            }
+        default:
+            break
+        }
+
+
     }
     
     func downloadArcana() {
@@ -249,6 +311,13 @@ class ArcanaViewController: UIViewController {
 
 extension ArcanaViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let arcanaDataSource = arcanaDataSource, arcanaDataSource.arcanaArray.count > 0 else { return nil }
+        return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaDataSource.arcanaArray.count)")
+        
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let row = tableView.indexPathForSelectedRow?.row, let arcanaDataSource = arcanaDataSource else { return }
@@ -400,7 +469,14 @@ extension ArcanaViewController: FilterDelegate {
                     
                 }
                 
-                self.arcanaDataSource = ArcanaDataSource(Array(finalFilter))
+                let filteredArray = Array(finalFilter)
+                self.arcanaDataSource = ArcanaDataSource(filteredArray)
+                if filteredArray.count > 0 {
+                    self.tipLabel.alpha = 0
+                }
+                else {
+                    self.tipLabel.fadeIn(withDuration: 0.2)
+                }
                 guard let arcanaDataSource = self.arcanaDataSource else { return }
                 if arcanaDataSource.arcanaArray.count > 0 {
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

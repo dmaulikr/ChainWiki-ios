@@ -18,7 +18,6 @@ final class SearchArcanaViewController: ArcanaViewController {
         view.backgroundColor = .white
         view.alpha = 0
         return view
-        
     }()
     
     fileprivate var showSearch: Bool = false {
@@ -212,16 +211,10 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let row = tableView.indexPathForSelectedRow?.row, let arcanaDataSource = arcanaDataSource else { return }
         
         let arcana: Arcana
-//        if searchController.isActive {
-//            arcana = searchArray[row]
-//        }
-//        else {
-        guard let arcanaDataSource = arcanaDataSource else { return }
         arcana = arcanaDataSource.arcanaArray[row]
-//        }
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
@@ -229,18 +222,12 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        guard let indexPath = tableView.indexPathForRow(at: location), let arcanaDataSource = arcanaDataSource else { return nil }
         
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
         let arcana: Arcana
-//        if searchController.isActive {
-//            arcana = searchArray[indexPath.row]
-//        }
-//        else {
-        guard let arcanaDataSource = arcanaDataSource else { return nil }
-            arcana = arcanaDataSource.arcanaArray[indexPath.row]
-//        }
+        arcana = arcanaDataSource.arcanaArray[indexPath.row]
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
