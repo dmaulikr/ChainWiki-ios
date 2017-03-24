@@ -72,9 +72,11 @@ class BaseCollectionViewController: UIViewController {
         self.abilityType = abilityType.1
         self.abilityMenu = abilityMenu
         downloadArray()
-//        if abilityType.0 == "웨이브 회복" {
-//            setupNavBar()
-//        }
+        
+        FIRAnalytics.logEvent(withName: "selectedAbility", parameters: [
+            kFIRParameterItemName: "SelectAbility" as NSObject,
+            kFIRParameterValue: "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
+            ])
         
     }
     

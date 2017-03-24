@@ -11,14 +11,6 @@ import Firebase
 
 class TavernArcanaViewController: ArcanaViewController {
     
-    override var arcanaDataSource: ArcanaDataSource? {
-        didSet {
-            tableView.dataSource = arcanaDataSource
-            tableView.fadeIn(withDuration: 0.5)
-            tableView.reloadData()
-        }
-    }
-    
     init(tavernKR: String, tavernEN: String) {
         super.init()
         ref = FIREBASE_REF.child("tavern").child(tavernEN)
@@ -39,7 +31,6 @@ class TavernArcanaViewController: ArcanaViewController {
                 let arcanaID = (child as AnyObject).key as String
                 uid.append(arcanaID)
             }
-            
             
             var array = [Arcana]()
             
@@ -62,7 +53,8 @@ class TavernArcanaViewController: ArcanaViewController {
 
                 self.originalArray = array
                 let raritySortedArray = array.sorted { $0.getRarity() > $1.getRarity() }
-                self.arcanaDataSource = ArcanaDataSource(raritySortedArray)
+                self.arcanaArray = raritySortedArray
+                self.reloadTableView()
             })
             
         })

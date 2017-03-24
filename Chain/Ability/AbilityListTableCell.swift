@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum AbilityMenu {
+enum AbilityMenu: String {
     case ability
     case kizuna
 }

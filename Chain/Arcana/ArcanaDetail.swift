@@ -140,10 +140,9 @@ class ArcanaDetail: UIViewController {
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
             self.generateImage(view: self.tableView)
             
-            FIRAnalytics.logEvent(withName: kFIREventSelectContent, parameters: [
-                kFIRParameterItemName: "ExportArcana" as NSObject,
-                kFIRParameterValue: self.arcana.getNameKR() as NSObject,
-                kFIRParameterItemID: self.arcana.getUID() as NSObject
+            FIRAnalytics.logEvent(withName: "ExportedArcana", parameters: [
+                "name": self.arcana.getNameKR() as NSObject,
+                "arcanaID": self.arcana.getUID() as NSObject
                 ])
         })
         
@@ -201,10 +200,9 @@ class ArcanaDetail: UIViewController {
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
             navigationController?.pushViewController(vc, animated: true)
-            FIRAnalytics.logEvent(withName: kFIREventSelectContent, parameters: [
-                kFIRParameterItemName: "EditArcana" as NSObject,
-                kFIRParameterValue: self.arcana.getNameKR() as NSObject,
-                kFIRParameterItemID: self.arcana.getUID() as NSObject
+            FIRAnalytics.logEvent(withName: "TappedEditArcana", parameters: [
+                "name": self.arcana.getNameKR() as NSObject,
+                "arcanaID": self.arcana.getUID() as NSObject
                 ])
             
         }

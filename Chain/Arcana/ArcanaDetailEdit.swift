@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol EditDelegate {
     func edited(_ cell: ArcanaDetailEditCell)
@@ -155,6 +156,12 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
                 }
                 editsRef.child("date").setValue(dateString)
                 editsRef.child("uid").setValue(autoID)
+                
+                guard let nameKR = self.arcana.getNameKR() else { return }
+                FIRAnalytics.logEvent(withName: "SuccessfullyEditedArcana", parameters: [
+                    "name": nameKR as NSObject,
+                    "arcanaID": self.arcana.getUID() as NSObject
+                    ])
                 
             })
         }

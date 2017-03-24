@@ -12,27 +12,21 @@ import Firebase
 class ArcanaViewController: UIViewController {
 
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
-//    var arcanaRefHandle: FIRDatabaseHandle?
-    
-//    var arcanaArray = [Arcana]()
+    var filterViewController: Filter?
+
+    var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var filters = [String: [String]]()
     var initialLoad = true
-    
-    var arcanaDataSource: ArcanaDataSource? = ArcanaDataSource([Arcana]()) {
-        didSet {
-            tableView.dataSource = arcanaDataSource
-            tableView.reloadData()
-        }
-    }
-    
+
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         
         tableView.delegate = self
+        tableView.dataSource = self
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
-        tableView.estimatedSectionHeaderHeight = 30
+        tableView.estimatedSectionHeaderHeight = 50
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
@@ -84,7 +78,6 @@ class ArcanaViewController: UIViewController {
     }
     
     deinit {
-        arcanaDataSource = nil
         ref.removeAllObservers()
     }
     
@@ -128,15 +121,18 @@ class ArcanaViewController: UIViewController {
     func setupChildViews() {
         
         // Setup FilterView
-        let filterMenu = Filter()
-        filterMenu.delegate = self
+        filterViewController = Filter()
         
-        addChildViewController(filterMenu)
+        guard let filterViewController = filterViewController else { return }
         
-        filterView.addSubview(filterMenu.view)
-        filterMenu.view.frame = filterView.frame
+        filterViewController.delegate = self
         
-        filterMenu.didMove(toParentViewController: self)
+        addChildViewController(filterViewController)
+        
+        filterView.addSubview(filterViewController.view)
+        filterViewController.view.frame = filterView.frame
+        
+        filterViewController.didMove(toParentViewController: self)
 
     }
 
@@ -231,26 +227,36 @@ class ArcanaViewController: UIViewController {
 
     }
     
+    func reloadTableView() {
+        if arcanaArray.count == 0 {
+            tableView.alpha = 0
+            tipLabel.fadeIn(withDuration: 0.5)
+            
+        }
+        else {
+            tableView.reloadData()
+            tipLabel.fadeOut(withDuration: 0.2)
+            tableView.fadeIn(withDuration: 0.5)
+        }
+    }
+    
     func downloadArcana() {
         
     }
     
     private func sortArcanaByName() {
-        guard let arcanaDataSource = arcanaDataSource else { return }
-        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
-        self.arcanaDataSource = ArcanaDataSource(array)
+        arcanaArray = arcanaArray.sorted(by: {($0.getNameKR()) < ($1.getNameKR())})
+        reloadTableView()
     }
     
     private func sortArcanaByRecent() {
-        guard let arcanaDataSource = arcanaDataSource else { return }
-        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getUID()) > ($1.getUID())})
-        self.arcanaDataSource = ArcanaDataSource(array)
+        arcanaArray = arcanaArray.sorted(by: {($0.getUID()) > ($1.getUID())})
+        reloadTableView()
     }
     
     private func sortArcanaByNumberOfViews() {
-        guard let arcanaDataSource = arcanaDataSource else { return }
-        let array = arcanaDataSource.arcanaArray.sorted(by: {($0.getNumberOfViews()) > ($1.getNumberOfViews())})
-        self.arcanaDataSource = ArcanaDataSource(array)
+        arcanaArray = arcanaArray.sorted(by: {($0.getNumberOfViews()) > ($1.getNumberOfViews())})
+        reloadTableView()
     }
 
     func sort(_ sender: AnyObject) {
@@ -309,25 +315,72 @@ class ArcanaViewController: UIViewController {
 
 }
 
-extension ArcanaViewController: UITableViewDelegate {
+extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arcanaArray.count
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let arcanaDataSource = arcanaDataSource, arcanaDataSource.arcanaArray.count > 0 else { return nil }
-        return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaDataSource.arcanaArray.count)")
+        if arcanaArray.count > 0 {
+            return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+        }
         
+        return nil
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+        cell.arcanaNickKR.text = nil
+        cell.arcanaNickJP.text = nil
+        cell.arcanaImage.image = nil
+        
+        let arcana: Arcana
+        arcana = arcanaArray[indexPath.row]
+        
+        cell.arcanaID = arcana.getUID()
+        cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
+        
+        // check if arcana has only name, or nickname.
+        if let nnKR = arcana.getNicknameKR() {
+            cell.arcanaNickKR.text = nnKR
+        }
+        if let nnJP = arcana.getNicknameJP() {
+            cell.arcanaNickJP.text = nnJP
+        }
+        cell.arcanaNameKR.text = arcana.getNameKR()
+        cell.arcanaNameJP.text = arcana.getNameJP()
+        
+        cell.arcanaRarity.text = "#\(arcana.getRarity())★"
+        cell.arcanaGroup.text = "#\(arcana.getGroup())"
+        cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
+        
+        if let a = arcana.getAffiliation() {
+            if a != "" {
+                cell.arcanaAffiliation.text = "#\(a)"
+            }
+            
+        }
+        cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+        
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let row = tableView.indexPathForSelectedRow?.row, let arcanaDataSource = arcanaDataSource else { return }
+        guard let row = tableView.indexPathForSelectedRow?.row else { return }
         
         let arcana: Arcana
-        arcana = arcanaDataSource.arcanaArray[row]
+        arcana = arcanaArray[row]
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
     
 }
 
@@ -341,12 +394,12 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        guard let indexPath = tableView.indexPathForRow(at: location), let arcanaDataSource = arcanaDataSource else { return nil }
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
         
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
         let arcana: Arcana
-        arcana = arcanaDataSource.arcanaArray[indexPath.row]
+        arcana = arcanaArray[indexPath.row]
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
@@ -364,7 +417,8 @@ extension ArcanaViewController: FilterDelegate {
             self.filters = sender.filterTypes
             
             if sender.hasFilter == false {
-                self.arcanaDataSource = ArcanaDataSource(self.originalArray)
+                self.arcanaArray = self.originalArray
+                self.reloadTableView()
             }
                 
             else {
@@ -373,9 +427,9 @@ extension ArcanaViewController: FilterDelegate {
                 if let r = self.filters["rarity"] {
                     
                     for rarity in r {
+                        
 
                         let filteredRarity = Set(self.originalArray.filter({$0.getRarity() == rarity}))
-                        
                         if let _ = raritySet {
                             raritySet = raritySet?.union(filteredRarity)
                         }
@@ -469,18 +523,9 @@ extension ArcanaViewController: FilterDelegate {
                     
                 }
                 
-                let filteredArray = Array(finalFilter)
-                self.arcanaDataSource = ArcanaDataSource(filteredArray)
-                if filteredArray.count > 0 {
-                    self.tipLabel.alpha = 0
-                }
-                else {
-                    self.tipLabel.fadeIn(withDuration: 0.2)
-                }
-                guard let arcanaDataSource = self.arcanaDataSource else { return }
-                if arcanaDataSource.arcanaArray.count > 0 {
-                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                }
+                let filteredArray = Array(finalFilter).sorted(by: {($0.getUID()) > ($1.getUID())})
+                self.arcanaArray = filteredArray
+                self.reloadTableView()
                 
             }
             

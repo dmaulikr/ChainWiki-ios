@@ -82,9 +82,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             
         }
         
-        FIRAnalytics.logEvent(withName: kFIREventSelectContent, parameters: [
-            kFIRParameterItemName: "SelectTabBarItem" as NSObject,
-            kFIRParameterValue: tabBarItem as NSObject
+        FIRAnalytics.logEvent(withName: "SelectedTabBarItem", parameters: [
+            "name" : tabBarItem as NSObject
             ])
         
     }

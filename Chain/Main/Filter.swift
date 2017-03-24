@@ -233,24 +233,27 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             hasFilter = true
             
         case .clear:
-            
-            if let selectedFilters = collectionView.indexPathsForSelectedItems {
-                for i in selectedFilters {
-                    collectionView.deselectItem(at: i, animated: true)
-                    collectionView.cellForItem(at: i)?.isHighlighted = false
-                }
-                
-                let clearArray = [String]()
-                for (key, _) in filterTypes {
-                    filterTypes.updateValue(clearArray, forKey: key)
-                }
-                hasFilter = false
-            }
-            
+            clearFilters()
         }
         
         delegate?.didUpdate(self)
         
+    }
+    
+    func clearFilters() {
+        if let selectedFilters = collectionView.indexPathsForSelectedItems {
+            for i in selectedFilters {
+                collectionView.deselectItem(at: i, animated: true)
+                collectionView.cellForItem(at: i)?.isHighlighted = false
+            }
+            
+            let clearArray = [String]()
+            for (key, _) in filterTypes {
+                filterTypes.updateValue(clearArray, forKey: key)
+            }
+            hasFilter = false
+        }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -310,7 +313,6 @@ extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         // Check if deselected last cell, meaning no filters selected
         if collectionView.indexPathsForSelectedItems!.count == 0 {
             hasFilter = false
-            
         }
         
         delegate?.didUpdate(self)
