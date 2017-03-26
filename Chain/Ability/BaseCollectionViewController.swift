@@ -289,7 +289,7 @@ extension BaseCollectionViewController: UIViewControllerPreviewingDelegate {
     
     @available(iOS 9.0, *)
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        
+        menuBarDelegate?.navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {

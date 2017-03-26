@@ -18,6 +18,7 @@ class ArcanaViewController: UIViewController {
     var originalArray = [Arcana]()
     var filters = [String: [String]]()
     var initialLoad = true
+    var selectedIndexPath: IndexPath?
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -372,10 +373,12 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        
+        selectedIndexPath = indexPath
         
         let arcana: Arcana
-        arcana = arcanaArray[row]
+        arcana = arcanaArray[indexPath.row]
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)

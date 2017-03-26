@@ -133,8 +133,11 @@ final class SearchArcanaViewController: ArcanaViewController {
                     
                     self.arcanaArray[index] = arcana
                     let indexPath = IndexPath(row: index, section: 0)
-                    if let _ = self.tableView.cellForRow(at: indexPath) {
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    
+                    if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
+                        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
+                        self.selectedIndexPath = nil
                     }
                 }
                 
@@ -181,17 +184,6 @@ final class SearchArcanaViewController: ArcanaViewController {
             gesture.cancelsTouchesInView = false
         }
 
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
-        
-        let arcana: Arcana
-        arcana = arcanaArray[row]
-        
-        let vc = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(vc, animated: true)
     }
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
