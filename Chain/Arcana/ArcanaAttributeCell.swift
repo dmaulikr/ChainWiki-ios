@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaAttributeCell: UITableViewCell {
+class ArcanaAttributeCell: BaseTableViewCell {
 
     let attributeKeyLabel: UILabel = {
         let label = UILabel()
@@ -27,17 +27,7 @@ class ArcanaAttributeCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+    override func setupViews() {
 
         addSubview(attributeKeyLabel)
         addSubview(attributeValueLabel)

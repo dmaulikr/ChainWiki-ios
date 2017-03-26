@@ -24,6 +24,21 @@ class MenuBarViewController: UIViewController {
         return view
     }()
     
+    lazy var previewButton: UIBarButtonItem = {
+        
+        let showAbilityPreview = defaults.getPreviewAbility()
+        let previewIcon: UIImage
+        
+        if showAbilityPreview {
+            previewIcon = #imageLiteral(resourceName: "collapse")
+        }
+        else {
+            previewIcon = #imageLiteral(resourceName: "expand")
+        }
+        let button = UIBarButtonItem(image: previewIcon, style: .plain, target: self, action: #selector(toggleAbilityPreview))
+        return button
+    }()
+    
     init(menuType: MenuType) {
         self.menuType = menuType
         super.init(nibName: nil, bundle: nil)
@@ -75,6 +90,7 @@ class MenuBarViewController: UIViewController {
             title = "어빌리티"
         case .abilityView:
             numberOfMenuTabs = 5
+            setupNavBar()
         case .tavernList:
             numberOfMenuTabs = 3
             title = "주점"
@@ -104,6 +120,26 @@ class MenuBarViewController: UIViewController {
         
 //        childViewController.didMove(toParentViewController: self)
 
+    }
+    
+    
+    private func setupNavBar() {
+        navigationItem.rightBarButtonItem = previewButton
+    }
+    
+    func toggleAbilityPreview() {
+        
+        guard let showAbilityPreview = childViewController?.showAbilityPreview else { return }
+        
+        if showAbilityPreview {
+            previewButton.image = #imageLiteral(resourceName: "expand")
+        }
+        else {
+            previewButton.image = #imageLiteral(resourceName: "collapse")
+        }
+        childViewController?.showAbilityPreview = !showAbilityPreview
+        defaults.setPreviewAbility(value: !showAbilityPreview)
+        
     }
     
 }

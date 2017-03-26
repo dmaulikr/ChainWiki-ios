@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaChainStoryCell: UITableViewCell {
+class ArcanaChainStoryCell: BaseTableViewCell {
 
     let storyKeyLabel: UILabel = {
         let label = UILabel()
@@ -25,18 +25,8 @@ class ArcanaChainStoryCell: UITableViewCell {
         label.textColor = .black
         return label
     }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+
+    override func setupViews() {
         
         addSubview(storyKeyLabel)
         addSubview(storyAttributeLabel)

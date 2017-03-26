@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaSkillCell: UITableViewCell {
+class ArcanaSkillCell: BaseTableViewCell {
     
     let skillNumberLabel: UILabel = {
         let label = UILabel()
@@ -43,17 +43,7 @@ class ArcanaSkillCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+    override func setupViews() {
         
         addSubview(skillNumberLabel)
         addSubview(skillNameLabel)

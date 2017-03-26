@@ -34,6 +34,7 @@ extension UserDefaults {
     func getName() -> String? {
         return string(forKey: "name")
     }
+    
     func setEditPermissions(value: Bool) {
         set(value, forKey: "edit")
     }
@@ -62,7 +63,7 @@ extension UserDefaults {
         set(value, forKey: "likes")
     }
     
-    func getLikes() -> [String]{
+    func getLikes() -> [String] {
         return object(forKey: "likes") as? [String] ?? [String]()
     }
     
@@ -94,6 +95,14 @@ extension UserDefaults {
     
     func getCurrentVersion() -> String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? nil
+    }
+    
+    func setPreviewAbility(value: Bool) {
+        set(value, forKey: "previewAbility")
+    }
+    
+    func getPreviewAbility() -> Bool {
+        return bool(forKey: "previewAbility")
     }
     
     // MARK - App Rating

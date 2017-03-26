@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ArcanaImageCell: UITableViewCell {
+class ArcanaImageCell: BaseTableViewCell {
 
     var imageLoaded = false
     
@@ -24,18 +24,8 @@ class ArcanaImageCell: UITableViewCell {
         let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
         return spinner
     }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
-    func setupViews() {
+    override func setupViews() {
         
         addSubview(arcanaImage)
         addSubview(activityIndicator)

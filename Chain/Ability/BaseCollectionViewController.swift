@@ -14,7 +14,7 @@ class BaseCollectionViewController: UIViewController {
     weak var menuBarDelegate: MenuBarViewController?
 
     let menuType: MenuType
-    var abilityMenu: AbilityMenu? = .ability
+    var abilityMenu: AbilityMenu = .ability
     var selectedIndex: Int = 0 {
         didSet {
             if menuType == .abilityList {
@@ -35,6 +35,11 @@ class BaseCollectionViewController: UIViewController {
     var datasource: AbilityViewDataSource?
     var abilityType = ""
     var currentArray: [Arcana]?
+    var showAbilityPreview = defaults.getPreviewAbility() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     lazy var collectionView: UICollectionView = {
         
@@ -122,17 +127,7 @@ class BaseCollectionViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
     }
-    
-//    private func setupNavBar() {
-//        let filterButton = UIBarButtonItem(title: "전체", style: .plain, target: self, action: #selector(filter))
-//        navigationItem.rightBarButtonItem = filterButton
-//    }
-//    
-//    func filter() {
-//        
-//        
-//    }
-//    
+
     func setupAbilityList() {
         
         primaryAbilities = [Mana(), Treasure(), Gold(), Experience(), APRecover(), Sub(), SkillUp(), BossWave(), ManaSlot(), ManaChance(), PartyHeal()]
@@ -267,8 +262,10 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
         case .abilityView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AbilityViewTableCell", for: indexPath) as! AbilityViewTableCell
             cell.collectionViewDelegate = self
+            cell.showAbilityPreview = showAbilityPreview
+            cell.abilityMenu = abilityMenu
             if let datasource = datasource {
-                cell.currentArray = datasource.getCurrentArray(index: indexPath.row)
+                cell.arcanaArray = datasource.getCurrentArray(index: indexPath.row)
             }
             return cell
             
@@ -311,7 +308,7 @@ extension BaseCollectionViewController: UIViewControllerPreviewingDelegate {
         previewingContext.sourceRect = cvCell.tableView.rectForRow(at: indexPath)
         
         // Peek the arcana
-        let arcana = cvCell.currentArray[indexPath.row]
+        let arcana = cvCell.arcanaArray[indexPath.section]
         
         let vc = ArcanaPeekPreview(arcana: arcana)
         vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)

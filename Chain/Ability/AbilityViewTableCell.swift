@@ -11,11 +11,11 @@ import Firebase
 
 class AbilityViewTableCell: BaseCollectionViewCell {
     
-    var currentArray = [Arcana]() {
+    var arcanaArray = [Arcana]() {
         didSet {
-            if currentArray.count > 0 {
+            tableView.reloadData()
+            if arcanaArray.count > 0 {
                 tipLabel.alpha = 0
-                arcanaDataSource = ArcanaDataSource(currentArray)
                 tableView.alpha = 1
             }
             else {
@@ -25,33 +25,125 @@ class AbilityViewTableCell: BaseCollectionViewCell {
         }
     }
     
-    fileprivate var arcanaDataSource: ArcanaDataSource? {
-        didSet {
-            tableView.dataSource = arcanaDataSource
-            tableView.reloadData()
-        }
-    }
+    var abilityMenu: AbilityMenu = .ability
+    var showAbilityPreview = false
     
     override func setupViews() {
         super.setupViews()
         tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        tableView.register(ArcanaAbilityPreviewCell.self, forCellReuseIdentifier: "ArcanaAbilityPreviewCell")
     }
     
 }
 
 
-extension AbilityViewTableCell: UITableViewDelegate {
+extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
 
+    private enum Row: Int {
+        case arcana
+        case ability
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return arcanaArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if showAbilityPreview {
+            return 2
+        }
+        else {
+            return 1
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if arcanaArray.count > 0 && section == 0 {
+            return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+        }
+        
+        return nil
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
+        
+        let arcana = arcanaArray[indexPath.section]
 
+        switch row {
+            
+        case .arcana:
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+            cell.arcanaNickKR.text = nil
+            cell.arcanaNickJP.text = nil
+            cell.arcanaImage.image = nil
+            
+            cell.arcanaID = arcana.getUID()
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
+            
+            // check if arcana has only name, or nickname.
+            if let nnKR = arcana.getNicknameKR() {
+                cell.arcanaNickKR.text = nnKR
+            }
+            if let nnJP = arcana.getNicknameJP() {
+                cell.arcanaNickJP.text = nnJP
+            }
+            cell.arcanaNameKR.text = arcana.getNameKR()
+            cell.arcanaNameJP.text = arcana.getNameJP()
+            
+            cell.arcanaRarity.text = "#\(arcana.getRarity())★"
+            cell.arcanaGroup.text = "#\(arcana.getGroup())"
+            cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
+            
+            if let a = arcana.getAffiliation() {
+                if a != "" {
+                    cell.arcanaAffiliation.text = "#\(a)"
+                }
+                
+            }
+            cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+            
+            return cell
+
+        case .ability:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAbilityPreviewCell") as! ArcanaAbilityPreviewCell
+            
+            switch abilityMenu {
+            case .ability:
+                var abilityText = ""
+                if let aD1 = arcana.getAbilityDesc1() {
+                    abilityText = aD1
+                }
+                if let aD2 = arcana.getAbilityDesc2() {
+                    abilityText += "\n" + aD2
+                }
+                cell.abilityLabel.text = abilityText
+            case .kizuna:
+                cell.abilityLabel.text = arcana.getKizunaDesc()
+            }
+            
+            return cell
+        }
+        
+    }
+
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let section = tableView.indexPathForSelectedRow?.section else { return }
         
-        let arcana = currentArray[row]
+        let arcana = arcanaArray[section]
         let vc = ArcanaDetail(arcana: arcana)
 
         collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
