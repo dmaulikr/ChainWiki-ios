@@ -12,23 +12,17 @@ class ArcanaTextCell: UITableViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 13)
         label.textColor = Color.textGray
         return label
     }()
-    
-//    let nameJP: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
-//        label.textColor = Color.textGray
-//        return label
-//    }()
     
     func setupViews() {
         
         addSubview(nameLabel)
         
-        nameLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 5, leadingConstant: 10, trailingConstant: 10, bottomConstant: 5, widthConstant: 0, heightConstant: 0)
+        nameLabel.anchor(top: nil, leading: leadingAnchor, trailing: trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        nameLabel.anchorCenterYToSuperview()
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

@@ -10,7 +10,13 @@ import UIKit
 
 final class SearchArcanaViewController: ArcanaViewController {
     
-    let searchController: SearchController = SearchController(searchResultsController: nil)
+    let searchBar: SearchBar = SearchBar()
+    
+    let searchBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     
     fileprivate let searchView: UIView = {
         let view = UIView()
@@ -22,10 +28,12 @@ final class SearchArcanaViewController: ArcanaViewController {
     fileprivate var showSearch: Bool = false {
         didSet {
             if showSearch {
-                self.searchView.alpha = 1
+                searchView.alpha = 1
+                searchBar.showsCancelButton = true
             }
             else {
-                self.searchView.alpha = 0
+                searchView.alpha = 0
+                searchBar.showsCancelButton = false
             }
         }
     }
@@ -33,38 +41,84 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+
     }
     
-    override func setupViews() {
-        super.setupViews()
-        
-        view.addSubview(searchView)
-        
-        searchView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if searchBar.text == "" {
+            searchBarCancelButtonClicked(searchBar)
+        }
+    }
+    
+    var searchBarViewHeightConstraint: NSLayoutConstraint?
 
+    override func setupViews() {
+        
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
+        
+        view.addSubview(tableView)
+        view.addSubview(collectionView)
+        view.addSubview(searchBarView)
+        view.addSubview(tipLabel)
+        view.addSubview(filterView)
+        
+        searchBarView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
+        searchBarViewHeightConstraint = searchBarView.heightAnchor.constraint(equalToConstant: 40)
+        searchBarViewHeightConstraint?.isActive = true
+        
+        tableView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        collectionView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        tipLabel.anchorCenterSuperview()
+        
+        //        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        //        filterViewLeadingConstraint = filterView.leadingAnchor.constraint(equalTo: view.trailingAnchor)
+        //        filterViewLeadingConstraint?.isActive = true
+        
+        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+        
+        setupChildViews()
+        
     }
     
     override func setupChildViews() {
         
         super.setupChildViews()
-        let searchHistory = SearchHistory()
         
+        view.addSubview(searchView)
+        searchView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        let searchHistory = SearchHistory()
+
         addChildViewController(searchHistory)
         
         searchView.addSubview(searchHistory.view)
-        searchHistory.view.frame = searchView.frame
+        
+        searchHistory.view.anchor(top: searchView.topAnchor, leading: searchView.leadingAnchor, trailing: searchView.trailingAnchor, bottom: searchView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         searchHistory.didMove(toParentViewController: self)
         
     }
 
+    override func setupNavBar() {
+        super.setupNavBar()
+        navigationItem.leftBarButtonItem = toggleArcanaViewButton
+    }
+    
     func setupSearchBar() {
         
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
         definesPresentationContext = true
-        navigationItem.titleView = searchController.searchBar
+
+        searchBar.delegate = self
+        searchBarView.addSubview(searchBar)
+        
+        searchBar.anchor(top: searchBarView.topAnchor, leading: searchBarView.leadingAnchor, trailing: searchBarView.trailingAnchor, bottom: searchBarView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+
+        view.addSubview(searchView)
+        searchView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
         
     }
     
@@ -88,7 +142,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             self.initialLoad = false
-            self.reloadTableView()
+            self.reloadView()
         })
         
         ref.observe(.childRemoved, with: { snapshot in
@@ -108,9 +162,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 if arcana.getUID() == uidToRemove {
                     self.arcanaArray.remove(at: index)
                     let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    self.tableView.endUpdates()
+                    self.deleteRowAt(indexPath)
                 }
                 
             }
@@ -133,7 +185,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                     
                     self.arcanaArray[index] = arcana
                     let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.reloadRowAt(indexPath)
                     
                     if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
                         self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
@@ -148,18 +200,16 @@ final class SearchArcanaViewController: ArcanaViewController {
     }
 
     override func sort(_ sender: AnyObject) {
-        
-        if searchController.isActive {
-            searchController.isActive = false
+        if searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
         }
-        
         super.sort(sender)
         
     }
     
     override func toggleFilterView() {
-        if searchController.isActive {
-            searchController.isActive = false
+        if searchBar.isFirstResponder {
+            searchBarCancelButtonClicked(searchBar)
         }
         super.toggleFilterView()
     }
@@ -167,10 +217,10 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func dismissFilter() {
         
         // If search is active and user presses bottom half, dismiss search.
-        if searchController.searchBar.text?.characters.count == 0 && searchController.isActive && gesture.location(in: self.view).y > 220 {
+        if searchBar.text?.characters.count == 0 && searchBar.isFirstResponder && gesture.location(in: searchView).y > 270 {
             debugPrint("dismiss search")
             gesture.cancelsTouchesInView = true
-            searchController.dismiss(animated: true, completion: nil)
+            searchBar.resignFirstResponder()
             showSearch = false
             
         }
@@ -185,32 +235,44 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
 
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let translation = scrollView.panGestureRecognizer.translation(in: scrollView)
 
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
-        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
-        
-        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-        
-        let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
-        
-        let vc = ArcanaPeekPreview(arcana: arcana)
-        vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
-        
-        return vc
+        if translation.y > 0 {
+            // if moving up the tableView
+            showSearchBar(true)
+        } else {
+            // if moving down the tableView
+            showSearchBar(false)
+        }
+ 
     }
+
+    func showSearchBar(_ show: Bool) {
+        if show {
+            if searchBarViewHeightConstraint?.constant != 40 {
+                searchBarViewHeightConstraint?.constant = 40
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+        else {
+            if searchBarViewHeightConstraint?.constant != 0 {
+                searchBarViewHeightConstraint?.constant = 0
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+
 }
 
-extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
+extension SearchArcanaViewController: UISearchBarDelegate {
     
-    @available(iOS 8.0, *)
-    public func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchText: searchController.searchBar.text!)
-    }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
             showSearch = false
             let searchArray = originalArray.filter { arcana in
@@ -222,24 +284,32 @@ extension SearchArcanaViewController: UISearchResultsUpdating, UISearchControlle
             showSearch = true
             arcanaArray = originalArray
         }
-        reloadTableView()
+        reloadView()
 
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchController.searchBar.resignFirstResponder()
+        searchBar.resignFirstResponder()
     }
     
-    func didPresentSearchController(_ searchController: UISearchController) {
-        showSearch = true
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            showSearch = true
+        }
         showFilter = false
         filterViewController?.clearFilters()
     }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        showSearch = false
+    }
     
-    func didDismissSearchController(_ searchController: UISearchController) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
         showSearch = false
         arcanaArray = originalArray
-        reloadTableView()
+        reloadView()
     }
     
 }

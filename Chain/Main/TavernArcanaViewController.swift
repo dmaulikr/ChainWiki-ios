@@ -54,7 +54,7 @@ class TavernArcanaViewController: ArcanaViewController {
                 self.originalArray = array
                 let raritySortedArray = array.sorted { $0.getRarity() > $1.getRarity() }
                 self.arcanaArray = raritySortedArray
-                self.reloadTableView()
+                self.reloadView()
             })
             
         })

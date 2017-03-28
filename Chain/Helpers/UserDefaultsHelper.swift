@@ -105,6 +105,14 @@ extension UserDefaults {
         return bool(forKey: "previewAbility")
     }
     
+    func setArcanaView(value: String) {
+        set(value, forKey: "arcanaView")
+    }
+    
+    func getArcanaView() -> String? {
+        return string(forKey: "arcanaView")
+    }
+    
     // MARK - App Rating
     func getAppLaunchCount() -> Int {
         return integer(forKey: "numberOfLaunches")

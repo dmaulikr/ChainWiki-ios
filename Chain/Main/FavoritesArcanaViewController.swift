@@ -62,7 +62,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
         group.notify(queue: .main) {
             
             self.arcanaArray = array
-            self.reloadTableView()
+            self.reloadView()
         }
         
     }

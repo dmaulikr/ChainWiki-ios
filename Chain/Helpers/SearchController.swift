@@ -34,17 +34,18 @@ class SearchController: UISearchController {
         
         // KVO. potential future problems here.
         searchBar.setValue("취소", forKey:"_cancelButtonText")
+        searchBar.tintColor = Color.lightGreen
         if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
             searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-            searchIcon.tintColor = UIColor.white
-            searchTextField.tintColor = UIColor.white
-            let attributeColor = [NSForegroundColorAttributeName: UIColor.white]
+            searchIcon.tintColor = Color.lightGreen
+            searchTextField.tintColor = Color.lightGreen
+            let attributeColor = [NSForegroundColorAttributeName: Color.lightGreen]
             searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
-            searchTextField.textColor = UIColor.white
+            searchTextField.textColor = Color.lightGreen
             if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                 clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                clearButton.tintColor = UIColor.white
+                clearButton.tintColor = .lightGray
             }
             
         }

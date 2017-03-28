@@ -40,6 +40,11 @@ extension UIImageView {
                         self.image = cachedImage
                     }
                 }
+                else if let cell = sender as? ArcanaIconCell {
+                    if cell.arcanaID == arcanaID {
+                        self.image = cachedImage
+                    }
+                }
                 else {
                     // sender is main arcana image
                     if let cell = sender as? ArcanaImageCell {
@@ -80,6 +85,16 @@ extension UIImageView {
                                     self.fadeIn(withDuration: 0.2)
 
                                 }
+                            }
+                            else if let cell = sender as? ArcanaIconCell {
+                                if cell.arcanaID == arcanaID {
+                                    
+                                    cell.arcanaImage.image = downloadedImage
+                                    self.alpha = 0
+                                    self.fadeIn(withDuration: 0.2)
+                                    
+                                }
+
                             }
                             else {
                                 if let cell = sender as? ArcanaImageCell {

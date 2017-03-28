@@ -18,6 +18,8 @@ class SearchHistory: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.tableFooterView = UIView(frame: .zero)
+        
         tableView.register(ArcanaTextCell.self, forCellReuseIdentifier: "ArcanaTextCell")
 
         return tableView
@@ -90,6 +92,10 @@ extension SearchHistory: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arcanaArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
