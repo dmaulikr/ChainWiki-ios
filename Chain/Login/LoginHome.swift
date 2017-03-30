@@ -288,7 +288,7 @@ class LoginHome: UIViewController, DisplayBanner {
     
     func createEmail(_ sender: AnyObject) {
         let vc = CreateEmail()
-        present(NavigationController(rootViewController: vc), animated: true, completion: nil)
+        present(NavigationController(vc), animated: true, completion: nil)
     }
     
     func guestLogin(_ sender: Any) {

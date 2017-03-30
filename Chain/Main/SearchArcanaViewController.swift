@@ -11,6 +11,12 @@ import UIKit
 final class SearchArcanaViewController: ArcanaViewController {
     
     let searchBar: SearchBar = SearchBar()
+    override var arcanaVC: ArcanaVC {
+        get {
+            return .search
+        }
+        set {}
+    }
     
     let headerView: UIView = {
         let view = UIView()
@@ -41,7 +47,16 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if defaults.getShowedArcanaViewSelection() == false {
+            showArcanaViewSelection(showTip: true)
+        }
+        else {
+            getArcanaView()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

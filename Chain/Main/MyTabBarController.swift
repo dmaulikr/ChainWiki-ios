@@ -30,21 +30,20 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func setupTabBar() {
         
-        let arcanaTab = SearchArcanaViewController()
-//        let arcanaTab = NavigationController(rootViewController: SearchArcanaViewController())
-//        let arcanaTab = ArcanaViewPageController()
+//        let arcanaTab = SearchArcanaViewController()
+        let arcanaTab = NavigationController(SearchArcanaViewController())
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         
-        let abilityTab = NavigationController(rootViewController: MenuBarViewController(menuType: .abilityList))
+        let abilityTab = NavigationController(MenuBarViewController(menuType: .abilityList))
         abilityTab.tabBarItem = UITabBarItem(title: "어빌리티", image: #imageLiteral(resourceName: "abilityTab"), tag: 1)
         
-        let tavernTab = NavigationController(rootViewController: MenuBarViewController(menuType: .tavernList))
+        let tavernTab = NavigationController(MenuBarViewController(menuType: .tavernList))
         tavernTab.tabBarItem = UITabBarItem(title: "주점", image: #imageLiteral(resourceName: "tavern"), tag: 2)
         
-        let dataTab = NavigationController(rootViewController: DataViewController())
+        let dataTab = NavigationController(DataViewController())
         dataTab.tabBarItem = UITabBarItem(title: "자료", image: #imageLiteral(resourceName: "openSite"), tag: 3)
         
-        let favoritesTab = NavigationController(rootViewController: FavoritesArcanaViewController())
+        let favoritesTab = NavigationController(FavoritesArcanaViewController())
         favoritesTab.tabBarItem = UITabBarItem(title: "즐겨찾기", image: #imageLiteral(resourceName: "favorites"), tag: 4)
         
         viewControllers = [arcanaTab, abilityTab, tavernTab, dataTab, favoritesTab]

@@ -47,7 +47,6 @@
 		043DB68D1DBDDC9900549703 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DB68C1DBDDC9900549703 /* AppRater.swift */; };
 		043EEFB31E89DCDC00650B28 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFB21E89DCDC00650B28 /* SearchBar.swift */; };
 		043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */; };
-		043EEFBB1E8B444C00650B28 /* ImageTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBA1E8B444C00650B28 /* ImageTypeTableViewController.swift */; };
 		043EEFBD1E8B4AEB00650B28 /* ImageTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */; };
 		043EEFBF1E8B525500650B28 /* ArcanaMainImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */; };
 		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
@@ -59,6 +58,9 @@
 		046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */; };
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		047561571D946BB1004886BF /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047561561D946BB1004886BF /* RoundedButton.swift */; };
+		047C0D4D1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */; };
+		047C0D4F1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */; };
+		047C0D511E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D501E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift */; };
 		0486A7431E8B591C006D0164 /* ArcanaImageIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486A7421E8B591C006D0164 /* ArcanaImageIDCell.swift */; };
 		0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */; };
 		0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */; };
@@ -183,7 +185,6 @@
 		043DB68C1DBDDC9900549703 /* AppRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		043EEFB21E89DCDC00650B28 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewPageController.swift; sourceTree = "<group>"; };
-		043EEFBA1E8B444C00650B28 /* ImageTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeTableViewController.swift; sourceTree = "<group>"; };
 		043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCell.swift; sourceTree = "<group>"; };
 		043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageCell.swift; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
@@ -195,6 +196,9 @@
 		046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillCell.swift; sourceTree = "<group>"; };
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		047561561D946BB1004886BF /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypePageViewController.swift; sourceTree = "<group>"; };
+		047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypeViewController.swift; sourceTree = "<group>"; };
+		047C0D501E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewForArcanaTypeTableViewController.swift; sourceTree = "<group>"; };
 		0486A7421E8B591C006D0164 /* ArcanaImageIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageIDCell.swift; sourceTree = "<group>"; };
 		0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewEditsCell.swift; sourceTree = "<group>"; };
 		0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEdit.swift; sourceTree = "<group>"; };
@@ -344,8 +348,10 @@
 				04EF66AA1DB363D000E13370 /* SettingsCell.swift */,
 				04E03D201E79DDA500432F10 /* ImageToggleCell.swift */,
 				04EF66A61DB31A9600E13370 /* SettingsSectionHeader.swift */,
-				043EEFBA1E8B444C00650B28 /* ImageTypeTableViewController.swift */,
 				043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */,
+				047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */,
+				047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */,
+				047C0D501E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -896,6 +902,7 @@
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
 				0425D49C1E78FBC00030BF4A /* FavoritesArcanaViewController.swift in Sources */,
 				043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */,
+				047C0D511E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift in Sources */,
 				0425D49A1E78E8700030BF4A /* SearchArcanaViewController.swift in Sources */,
 				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
@@ -921,6 +928,7 @@
 				040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */,
 				045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */,
 				040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */,
+				047C0D4D1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift in Sources */,
 				0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */,
 				0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */,
 				04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */,
@@ -937,8 +945,8 @@
 				04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
-				043EEFBB1E8B444C00650B28 /* ImageTypeTableViewController.swift in Sources */,
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,
+				047C0D4F1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift in Sources */,
 				0400A3061E74D23E00B195E9 /* ArcanaPeekPreview.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */,

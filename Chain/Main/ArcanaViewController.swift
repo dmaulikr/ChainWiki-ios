@@ -16,12 +16,18 @@ enum ArcanaView: String {
     case mainGrid
 }
 
+enum ArcanaVC {
+    case search
+    case tavern
+    case favorites
+}
+
 class ArcanaViewController: UIViewController {
     
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
     var filterViewController: FilterViewController?
     
-    var tableViewCellReuseIdentifier = ""
+    var arcanaVC: ArcanaVC = .search
     
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
@@ -35,22 +41,22 @@ class ArcanaViewController: UIViewController {
                 tableView.isScrollEnabled = true
                 collectionView.isScrollEnabled = false
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "list")
-                defaults.setArcanaView(value: "list")
+//                defaults.setArcanaView(value: "list")
             case .main:
                 tableView.isScrollEnabled = true
                 collectionView.isScrollEnabled = false
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
-                defaults.setArcanaView(value: "main")
+//                defaults.setArcanaView(value: "main")
             case .profile:
                 tableView.isScrollEnabled = false
                 collectionView.isScrollEnabled = true
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-                defaults.setArcanaView(value: "profile")
+//                defaults.setArcanaView(value: "profile")
             case .mainGrid:
                 tableView.isScrollEnabled = false
                 collectionView.isScrollEnabled = true
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-                defaults.setArcanaView(value: "mainGrid")
+//                defaults.setArcanaView(value: "mainGrid")
             }
             reloadView()
         }
@@ -137,12 +143,6 @@ class ArcanaViewController: UIViewController {
     var longPress = UILongPressGestureRecognizer()
 
     init() {
-        if let userPref = defaults.getArcanaView(), let arcanaView = ArcanaView(rawValue: userPref) {
-            self.arcanaView = arcanaView
-        }
-        else {
-            defaults.setArcanaView(value: "list")
-        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -160,6 +160,11 @@ class ArcanaViewController: UIViewController {
         setupNavBar()
         setupGestures()
         downloadArcana()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getArcanaView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -320,37 +325,39 @@ class ArcanaViewController: UIViewController {
     
     func reloadView() {
         
-        arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
-        
-        switch arcanaView {
-        case .list, .main:
-            if arcanaArray.count == 0 {
-                tableView.alpha = 0
-                tipLabel.fadeIn(withDuration: 0.5)
-                
-            }
-            else {
-                collectionView.alpha = 0
-                tableView.reloadData()
-                tipLabel.fadeOut(withDuration: 0.2)
-                tableView.fadeIn(withDuration: 0.5)
-            }
+        if initialLoad == false {
+            arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
             
-        case .profile, .mainGrid:
-            if arcanaArray.count == 0 {
-                collectionView.alpha = 0
-                tipLabel.fadeIn(withDuration: 0.5)
+            switch arcanaView {
+            case .list, .main:
+                if arcanaArray.count == 0 {
+                    tableView.alpha = 0
+                    tipLabel.fadeIn(withDuration: 0.5)
+                    
+                }
+                else {
+                    collectionView.alpha = 0
+                    tableView.reloadData()
+                    tipLabel.fadeOut(withDuration: 0.2)
+                    tableView.fadeIn(withDuration: 0.5)
+                }
                 
-            }
-            else {
-                tableView.alpha = 0
-                collectionView.reloadData()
-                tipLabel.fadeOut(withDuration: 0.2)
-                collectionView.fadeIn(withDuration: 0.5)
+            case .profile, .mainGrid:
+                if arcanaArray.count == 0 {
+                    collectionView.alpha = 0
+                    tipLabel.fadeIn(withDuration: 0.5)
+                    
+                }
+                else {
+                    tableView.alpha = 0
+                    collectionView.reloadData()
+                    tipLabel.fadeOut(withDuration: 0.2)
+                    collectionView.fadeIn(withDuration: 0.5)
+                }
+                
             }
 
         }
-        
         
     }
     
@@ -483,6 +490,36 @@ class ArcanaViewController: UIViewController {
         
     }
 
+    
+    func getArcanaView() {
+        
+        switch arcanaVC {
+            
+        case .search:
+            if let userPref = defaults.getSearchView(), let arcanaView = ArcanaView(rawValue: userPref) {
+                self.arcanaView = arcanaView
+            }
+            else {
+                defaults.setSearchView(value: "list")
+            }
+        case .tavern:
+            if let userPref = defaults.getTavernView(), let arcanaView = ArcanaView(rawValue: userPref) {
+                self.arcanaView = arcanaView
+            }
+            else {
+                defaults.setTavernView(value: "list")
+            }
+        case .favorites:
+            if let userPref = defaults.getFavoritesView(), let arcanaView = ArcanaView(rawValue: userPref) {
+                self.arcanaView = arcanaView
+            }
+            else {
+                defaults.setSearchView(value: "list")
+            }
+            
+        }
+        
+    }
 }
 
 

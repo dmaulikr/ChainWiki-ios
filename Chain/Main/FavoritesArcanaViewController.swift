@@ -10,6 +10,13 @@ import UIKit
 
 class FavoritesArcanaViewController: ArcanaViewController {
 
+    override var arcanaVC: ArcanaVC {
+        get {
+            return .favorites
+        }
+        set {}
+    }
+    
     lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(editFavorites))
         return button
@@ -60,7 +67,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
         }
         
         group.notify(queue: .main) {
-            
+            self.initialLoad = false
             self.arcanaArray = array
             self.reloadView()
         }

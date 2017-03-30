@@ -10,6 +10,15 @@ import UIKit
 
 class NavigationController: UINavigationController {
 
+    init(_ rootViewController: UIViewController) {
+        super.init(nibName: nil, bundle: nil)
+        self.addChildViewController(rootViewController)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupviews()

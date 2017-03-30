@@ -105,13 +105,47 @@ extension UserDefaults {
         return bool(forKey: "previewAbility")
     }
     
-    func setArcanaView(value: String) {
-        set(value, forKey: "arcanaView")
+    // MARK: Visual preference for viewing Arcana
+    
+    func setShowedArcanaViewSelection(value: Bool) {
+        set(value, forKey: "showedArcanaViewSelection")
     }
     
-    func getArcanaView() -> String? {
-        return string(forKey: "arcanaView")
+    func getShowedArcanaViewSelection() -> Bool {
+        return bool(forKey: "showedArcanaViewSelection")
     }
+    
+    func setAllArcanaView(value: String) {
+        setSearchView(value: value)
+        setTavernView(value: value)
+        setFavoritesView(value: value)
+    }
+    
+    func setSearchView(value: String) {
+        set(value, forKey: "searchView")
+    }
+    
+    func getSearchView() -> String? {
+        return string(forKey: "searchView")
+    }
+    
+    func setTavernView(value: String) {
+        set(value, forKey: "tavernView")
+    }
+    
+    func getTavernView() -> String? {
+        return string(forKey: "tavernView")
+    }
+    
+    func setFavoritesView(value: String) {
+        set(value, forKey: "favoritesView")
+    }
+    
+    func getFavoritesView() -> String? {
+        return string(forKey: "favoritesView")
+    }
+    
+    // End preferred viewing preference
     
     func setMainImage(value: Bool) {
         set(value, forKey: "imageType")
@@ -120,6 +154,8 @@ extension UserDefaults {
     func getMainImage() -> Bool {
         return bool(forKey: "imageType")
     }
+    
+
     
     // MARK - App Rating
     func getAppLaunchCount() -> Int {

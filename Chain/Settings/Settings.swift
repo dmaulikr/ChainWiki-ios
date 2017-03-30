@@ -378,8 +378,9 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
             
         case .app:
             if indexPath.row == 1 {
-                let vc = ImageTypeTableViewController()
-                present(NavigationController(rootViewController: vc), animated: true, completion: nil)
+//                showArcanaViewSelection(showTip: false)
+                let vc = SelectViewForArcanaTypeViewController()
+                present(NavigationController(vc), animated: true, completion: nil)
             }
             
         case .account:

@@ -11,6 +11,13 @@ import Firebase
 
 class TavernArcanaViewController: ArcanaViewController {
     
+    override var arcanaVC: ArcanaVC {
+        get {
+            return .tavern
+        }
+        set {}
+    }
+    
     init(tavernKR: String, tavernEN: String) {
         super.init()
         ref = FIREBASE_REF.child("tavern").child(tavernEN)
@@ -51,6 +58,7 @@ class TavernArcanaViewController: ArcanaViewController {
             
             group.notify(queue: DispatchQueue.main, execute: {
 
+                self.initialLoad = false
                 self.originalArray = array
                 let raritySortedArray = array.sorted { $0.getRarity() > $1.getRarity() }
                 self.arcanaArray = raritySortedArray

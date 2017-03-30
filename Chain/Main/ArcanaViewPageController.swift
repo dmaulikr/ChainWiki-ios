@@ -48,7 +48,7 @@ class ArcanaViewPageController: UIPageViewController {
     func setupViewControllers() {
         
 //        let viewControllers = [NavigationController(rootViewController: SearchArcanaViewController())]
-        let viewControllers = [NavigationController(rootViewController: SearchArcanaViewController())]
+        let viewControllers = [NavigationController(SearchArcanaViewController())]
         setViewControllers(
             viewControllers,
             direction: .forward,
@@ -73,7 +73,7 @@ extension ArcanaViewPageController: UIPageViewControllerDataSource {
                 return arcanaViewController
             }
             else {
-                return NavigationController(rootViewController: SearchArcanaViewController())
+                return NavigationController(SearchArcanaViewController())
             }
 
         }
