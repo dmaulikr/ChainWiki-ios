@@ -13,6 +13,7 @@ enum ArcanaView: String {
     case list
     case main
     case profile
+    case mainGrid
 }
 
 class ArcanaViewController: UIViewController {
@@ -45,7 +46,11 @@ class ArcanaViewController: UIViewController {
                 collectionView.isScrollEnabled = true
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
                 defaults.setArcanaView(value: "profile")
-
+            case .mainGrid:
+                tableView.isScrollEnabled = false
+                collectionView.isScrollEnabled = true
+                toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
+                defaults.setArcanaView(value: "mainGrid")
             }
             reloadView()
         }
@@ -234,6 +239,9 @@ class ArcanaViewController: UIViewController {
             toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
         case .profile:
             toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
+        case .mainGrid:
+            toggleArcanaViewButton.image = #imageLiteral(resourceName: "grid")
+            
         }
     }
 
@@ -328,7 +336,7 @@ class ArcanaViewController: UIViewController {
                 tableView.fadeIn(withDuration: 0.5)
             }
             
-        case .profile:
+        case .profile, .mainGrid:
             if arcanaArray.count == 0 {
                 collectionView.alpha = 0
                 tipLabel.fadeIn(withDuration: 0.5)
@@ -351,7 +359,7 @@ class ArcanaViewController: UIViewController {
         switch arcanaView {
         case .list, .main:
             tableView.reloadRows(at: [indexPath], with: .none)
-        case .profile:
+        case .profile, .mainGrid:
             collectionView.reloadItems(at: [indexPath])
             
         }
@@ -368,7 +376,7 @@ class ArcanaViewController: UIViewController {
             tableView.insertSections(indexSet, with: .automatic)
             tableView.endUpdates()
             
-        case .profile:
+        case .profile, .mainGrid:
             collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         }
     }
@@ -384,7 +392,7 @@ class ArcanaViewController: UIViewController {
             tableView.deleteSections(indexSet, with: .automatic)
             tableView.endUpdates()
             
-        case .profile:
+        case .profile, .mainGrid:
             collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         }
         
@@ -456,6 +464,8 @@ class ArcanaViewController: UIViewController {
         case .main:
             arcanaView = .profile
         case .profile:
+            arcanaView = .mainGrid
+        case .mainGrid:
             arcanaView = .list
         }
     }
@@ -470,7 +480,6 @@ class ArcanaViewController: UIViewController {
         else {
             gesture.cancelsTouchesInView = false
         }
-        
         
     }
 
@@ -500,7 +509,7 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
             return vc
 
             
-        case .profile:
+        case .profile, .mainGrid:
             guard let indexPath = collectionView.indexPathForItem(at: location) else { return nil }
             
             let arcana: Arcana

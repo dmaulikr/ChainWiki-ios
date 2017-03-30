@@ -118,7 +118,13 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         arcana = arcanaArray[indexPath.row]
         cell.arcanaID = arcana.getUID()
         
-        cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+        switch arcanaView {
+        case .mainGrid:
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+        default:
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+
+        }
         return cell
         
     }
@@ -135,11 +141,23 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellSize: CGFloat
+        switch arcanaView {
+        case .mainGrid:
+            let cellSize: CGFloat
+            
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            
+            return CGSize(width: cellSize, height: cellSize * 1.5)
+
+        default:
+            let cellSize: CGFloat
+            
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 15))/4
+            
+            return CGSize(width: cellSize, height: cellSize)
+
+        }
         
-        cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 15))/4
-        
-        return CGSize(width: cellSize, height: cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

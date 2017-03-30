@@ -186,7 +186,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                         indexPath = IndexPath(row: 0, section: index)
                     case .main:
                         indexPath = IndexPath(row: 1, section: index)
-                    case .profile:
+                    case .profile, .mainGrid:
                         indexPath = IndexPath(item: index, section: 0)
                     }
                     self.reloadIndexPathAt(indexPath)
