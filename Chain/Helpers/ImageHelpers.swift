@@ -14,7 +14,7 @@ import Firebase
 let imageCache = NSCache<NSString, UIImage>()
 
 enum ImageType {
-    case icon
+    case profile
     case main
 }
 
@@ -25,7 +25,7 @@ extension UIImageView {
         var imageRef = ""
         
         switch imageType {
-        case .icon:
+        case .profile:
             imageRef = arcanaID + "/icon.jpg"
         case .main:
             imageRef = arcanaID + "/main.jpg"
@@ -35,7 +35,7 @@ extension UIImageView {
 
             // check cache for image first
             if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
-                if let cell = sender as? ArcanaCell {
+                if let cell = sender as? ArcanaImageIDCell {
                     if cell.arcanaID == arcanaID {
                         self.image = cachedImage
                     }
@@ -76,11 +76,11 @@ extension UIImageView {
                             
                             imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
                             
-                            if let cell = sender as? ArcanaCell {
+                            if let cell = sender as? ArcanaImageIDCell {
                                 // Only set the image if the cell is one that requested the download
                                 if cell.arcanaID == arcanaID {
                                     
-                                    cell.arcanaImage.image = downloadedImage
+                                    self.image = downloadedImage
                                     self.alpha = 0
                                     self.fadeIn(withDuration: 0.2)
 

@@ -25,12 +25,14 @@ class Settings: UIViewController, DisplayBanner {
 
     lazy var tableView: UITableView = {
         
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
     
         tableView.backgroundColor = .white
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.estimatedSectionHeaderHeight = 50
         
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(ImageToggleCell.self, forCellReuseIdentifier: "ImageToggleCell")
@@ -87,11 +89,13 @@ class Settings: UIViewController, DisplayBanner {
         activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
         activityIndicator.anchorCenterSuperview()
         
-        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
     }
     
     func setupNavBar() {
+        
+        let backButton = UIBarButtonItem(title: "이전", style:.plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         navigationItem.rightBarButtonItem = logoutButton
     }
     
@@ -255,22 +259,24 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         case support
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        let view = SettingsSectionHeader()
-        view.sectionTitleLabel.text = sectionTitles[section]
-        return view
-    }
-    
+        guard let section = Section(rawValue: section) else { return nil }
+        
+        switch section {
+        case .app:
+            return SectionHeader(sectionTitle: "앱 설정")
+        case .account:
+            return SectionHeader(sectionTitle: "계정")
+        case .about:
+            return SectionHeader(sectionTitle: "소개")
+        case .support:
+            return SectionHeader(sectionTitle: "지원")
 
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
+        }
+
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
@@ -281,7 +287,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .app:
-            return appSection.count
+            return 2
         case .account:
             return accountSection.count
         case .about:
@@ -299,20 +305,32 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         switch section {
             
         case .app:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageToggleCell") as! ImageToggleCell
-
-            // have a toggle for image downloads. should be a different cell
-            cell.selectionStyle = .none
-            if defaults.getImagePermissions() {
-                cell.imageToggle.isOn = true
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ImageToggleCell") as! ImageToggleCell
+                
+                // have a toggle for image downloads. should be a different cell
+                cell.selectionStyle = .none
+                
+                if defaults.getImagePermissions() {
+                    cell.imageToggle.isOn = true
+                }
+                else {
+                    cell.imageToggle.isOn = false
+                }
+                cell.titleLabel.text = appSection[indexPath.row]
+                cell.icon.image = #imageLiteral(resourceName: "imageDownload")
+                
+                return cell
             }
             else {
-                cell.imageToggle.isOn = false
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
+                cell.icon.image = #imageLiteral(resourceName: "imageDownload")
+                cell.titleLabel.text = "아르카나 이미지 유형 선택"
+                return cell
+                
             }
-            cell.titleLabel.text = appSection[indexPath.row]
-            cell.icon.image = #imageLiteral(resourceName: "imageDownload")
-        
-            return cell
+            
         case .account, .about, .support:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
             
@@ -358,6 +376,12 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
             
+        case .app:
+            if indexPath.row == 1 {
+                let vc = ImageTypeTableViewController()
+                present(NavigationController(rootViewController: vc), animated: true, completion: nil)
+            }
+            
         case .account:
             
             if hasEmail {
@@ -378,9 +402,6 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
             }
         case .support:
             sendEmail()
-            
-        default:
-            break
             
         }
         

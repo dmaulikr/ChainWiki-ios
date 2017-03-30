@@ -60,7 +60,7 @@ class ArcanaDetail: UIViewController {
     
     init(arcana: Arcana) {
         self.arcana = arcana
-        print(arcana.getUID())
+        print("ARCANAID: \(arcana.getUID())")
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,8 +89,11 @@ class ArcanaDetail: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let dataRequest = FirebaseService.dataRequest
-        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+        if defaults.getUID()! != "ces2IjhzRKTZEp1bUl0HXkkEZRy1" {
+            let dataRequest = FirebaseService.dataRequest
+            dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+
+        }
         
     }
     
@@ -473,7 +476,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case .image:
             if indexPath.row == 0 {
-                return 405
+                return SCREENWIDTH * 1.5
             }
             else {
                 return 50

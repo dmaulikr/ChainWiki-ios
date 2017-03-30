@@ -10,57 +10,82 @@ fileprivate let sectionInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 
 
 extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    private enum Row: Int {
+        case image
+        case arcana
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return arcanaArray.count
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if arcanaArray.count > 0 {
-            return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+        if arcanaView == .list {
+            return 1
         }
-        return nil
-        
+        else {
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-        cell.arcanaNickKR.text = nil
-        cell.arcanaNickJP.text = nil
-        cell.arcanaImage.image = nil
+        guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
         
         let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
+        arcana = arcanaArray[indexPath.section]
         
-        cell.arcanaID = arcana.getUID()
-        cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
-        
-        // check if arcana has only name, or nickname.
-        if let nnKR = arcana.getNicknameKR() {
-            cell.arcanaNickKR.text = nnKR
-        }
-        if let nnJP = arcana.getNicknameJP() {
-            cell.arcanaNickJP.text = nnJP
-        }
-        cell.arcanaNameKR.text = arcana.getNameKR()
-        cell.arcanaNameJP.text = arcana.getNameJP()
-        
-        cell.arcanaRarity.text = "#\(arcana.getRarity())★"
-        cell.arcanaGroup.text = "#\(arcana.getGroup())"
-        cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
-        
-        if let a = arcana.getAffiliation() {
-            if a != "" {
-                cell.arcanaAffiliation.text = "#\(a)"
+        if arcanaView == .list || (arcanaView == .main && row == .arcana) {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+            
+            cell.arcanaNickKR.text = nil
+            cell.arcanaNickJP.text = nil
+            cell.arcanaImage.image = nil
+            
+            cell.arcanaID = arcana.getUID()
+            print(arcana.getUID())
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+            
+            // check if arcana has only name, or nickname.
+            if let nnKR = arcana.getNicknameKR() {
+                cell.arcanaNickKR.text = nnKR
             }
+            if let nnJP = arcana.getNicknameJP() {
+                cell.arcanaNickJP.text = nnJP
+            }
+            cell.arcanaNameKR.text = arcana.getNameKR()
+            cell.arcanaNameJP.text = arcana.getNameJP()
+            
+            cell.arcanaRarity.text = "#\(arcana.getRarity())★"
+            cell.arcanaGroup.text = "#\(arcana.getGroup())"
+            cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
+            
+            if let a = arcana.getAffiliation() {
+                if a != "" {
+                    cell.arcanaAffiliation.text = "#\(a)"
+                }
+                
+            }
+            cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+            
+            return cell
             
         }
-        cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+        else {
         
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
+            cell.arcanaImageView.image = nil
+            
+            cell.arcanaID = arcana.getUID()
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
         
-        return cell
+            return cell
+        }
+ 
     }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -69,7 +94,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         selectedIndexPath = indexPath
         
         let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
+        arcana = arcanaArray[indexPath.section]
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)
@@ -79,45 +104,22 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    private enum Row: Int {
-        case icon
-        case iconLabel
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arcanaArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
+        cell.arcanaImage.image = nil
         
-        switch arcanaView {
-        case .icon:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
-            cell.arcanaImage.image = nil
-            
-            let arcana: Arcana
-            arcana = arcanaArray[indexPath.row]
-            cell.arcanaID = arcana.getUID()
-            
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
-            return cell
-
-        case .iconLabel:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconLabelCell", for: indexPath) as! ArcanaIconLabelCell
-            cell.arcanaImage.image = nil
-            
-            let arcana: Arcana
-            arcana = arcanaArray[indexPath.row]
-            cell.arcanaID = arcana.getUID()
-            
-            cell.nameLabel.text = arcana.getNameKR()
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
-            return cell
-
-        default:
-            return UICollectionViewCell()
-        }
+        let arcana: Arcana
+        arcana = arcanaArray[indexPath.row]
+        cell.arcanaID = arcana.getUID()
+        
+        cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+        return cell
         
     }
     
@@ -136,12 +138,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cellSize: CGFloat
         
         cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 15))/4
-
-        if arcanaView == .iconLabel {
-            return CGSize(width: cellSize, height: cellSize + 20)
-        }
-
-
+        
         return CGSize(width: cellSize, height: cellSize)
     }
     

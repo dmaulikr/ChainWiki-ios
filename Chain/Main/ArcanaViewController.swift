@@ -11,15 +11,17 @@ import Firebase
 
 enum ArcanaView: String {
     case list
-    case icon
-    case iconLabel
+    case main
+    case profile
 }
 
 class ArcanaViewController: UIViewController {
     
     var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
-    var filterViewController: Filter?
-
+    var filterViewController: FilterViewController?
+    
+    var tableViewCellReuseIdentifier = ""
+    
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
     var filters = [String: [String]]()
@@ -29,15 +31,21 @@ class ArcanaViewController: UIViewController {
         didSet {
             switch arcanaView {
             case .list:
+                tableView.isScrollEnabled = true
+                collectionView.isScrollEnabled = false
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "list")
                 defaults.setArcanaView(value: "list")
-            case .icon:
-                toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-                defaults.setArcanaView(value: "icon")
-            case .iconLabel:
+            case .main:
+                tableView.isScrollEnabled = true
+                collectionView.isScrollEnabled = false
                 toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
-                defaults.setArcanaView(value: "iconLabel")
-                
+                defaults.setArcanaView(value: "main")
+            case .profile:
+                tableView.isScrollEnabled = false
+                collectionView.isScrollEnabled = true
+                toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
+                defaults.setArcanaView(value: "profile")
+
             }
             reloadView()
         }
@@ -48,17 +56,23 @@ class ArcanaViewController: UIViewController {
         return button
     }()
     
+    let arcanaCountView = SectionHeader(sectionTitle: "")
+    
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.backgroundColor = .white
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
-        tableView.estimatedSectionHeaderHeight = 50
+//        tableView.estimatedSectionHeaderHeight = 30
+        
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
+        tableView.register(ArcanaMainImageCell.self, forCellReuseIdentifier: "ArcanaMainImageCell")
         
         return tableView
     }()
@@ -178,7 +192,7 @@ class ArcanaViewController: UIViewController {
     func setupChildViews() {
         
         // Setup FilterView
-        filterViewController = Filter()
+        filterViewController = FilterViewController()
         
         guard let filterViewController = filterViewController else { return }
         
@@ -216,10 +230,10 @@ class ArcanaViewController: UIViewController {
         switch arcanaView {
         case .list:
             toggleArcanaViewButton.image = #imageLiteral(resourceName: "list")
-        case .icon:
-            toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-        case .iconLabel:
+        case .main:
             toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
+        case .profile:
+            toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
         }
     }
 
@@ -298,8 +312,10 @@ class ArcanaViewController: UIViewController {
     
     func reloadView() {
         
+        arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
+        
         switch arcanaView {
-        case .list:
+        case .list, .main:
             if arcanaArray.count == 0 {
                 tableView.alpha = 0
                 tipLabel.fadeIn(withDuration: 0.5)
@@ -312,7 +328,7 @@ class ArcanaViewController: UIViewController {
                 tableView.fadeIn(withDuration: 0.5)
             }
             
-        case .icon, .iconLabel:
+        case .profile:
             if arcanaArray.count == 0 {
                 collectionView.alpha = 0
                 tipLabel.fadeIn(withDuration: 0.5)
@@ -324,30 +340,52 @@ class ArcanaViewController: UIViewController {
                 tipLabel.fadeOut(withDuration: 0.2)
                 collectionView.fadeIn(withDuration: 0.5)
             }
+
         }
+        
         
     }
     
-    func reloadRowAt(_ indexPath: IndexPath) {
+    func reloadIndexPathAt(_ indexPath: IndexPath) {
         
         switch arcanaView {
-        case .list:
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        case .icon, .iconLabel:
+        case .list, .main:
+            tableView.reloadRows(at: [indexPath], with: .none)
+        case .profile:
             collectionView.reloadItems(at: [indexPath])
             
         }
     }
     
-    func deleteRowAt(_ indexPath: IndexPath) {
+    func insertIndexPathAt(index: Int) {
+        
+        let indexSet = IndexSet(integer: index)
         
         switch arcanaView {
-        case .list:
+            
+        case .list, .main:
             tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.insertSections(indexSet, with: .automatic)
             tableView.endUpdates()
-        case .icon, .iconLabel:
-            collectionView.deleteItems(at: [indexPath])
+            
+        case .profile:
+            collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+        }
+    }
+    
+    func deleteIndexPathAt(index: Int) {
+        
+        let indexSet = IndexSet(integer: index)
+
+        switch arcanaView {
+            
+        case .list, .main:
+            tableView.beginUpdates()
+            tableView.deleteSections(indexSet, with: .automatic)
+            tableView.endUpdates()
+            
+        case .profile:
+            collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         }
         
     }
@@ -414,10 +452,10 @@ class ArcanaViewController: UIViewController {
     func toggleArcanaView() {
         switch arcanaView {
         case .list:
-            arcanaView = .icon
-        case .icon:
-            arcanaView = .iconLabel
-        case .iconLabel:
+            arcanaView = .main
+        case .main:
+            arcanaView = .profile
+        case .profile:
             arcanaView = .list
         }
     }
@@ -448,33 +486,43 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        let selectedIndexPath: IndexPath?
-        
         switch arcanaView {
-        case .list:
-            selectedIndexPath = tableView.indexPathForRow(at: location)
-        case .icon, .iconLabel:
-            selectedIndexPath = collectionView.indexPathForItem(at: location)
+        case .list, .main:
+            guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+            
+            let arcana: Arcana
+            arcana = arcanaArray[indexPath.section]
+            
+            let vc = ArcanaPeekPreview(arcana: arcana)
+            vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+
+            return vc
+
+            
+        case .profile:
+            guard let indexPath = collectionView.indexPathForItem(at: location) else { return nil }
+            
+            let arcana: Arcana
+            arcana = arcanaArray[indexPath.item]
+            
+            let vc = ArcanaPeekPreview(arcana: arcana)
+            vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
+            if let frame = collectionView.cellForItem(at: indexPath)?.frame {
+                previewingContext.sourceRect = frame
+            }
+            
+            return vc
 
         }
         
-        guard let indexPath = selectedIndexPath else { return nil }
-        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-        
-        let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
-        
-        let vc = ArcanaPeekPreview(arcana: arcana)
-        vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
-
-        return vc
     }
     
 }
 
 extension ArcanaViewController: FilterDelegate {
     
-    func didUpdate(_ sender: Filter) {
+    func didUpdate(_ sender: FilterViewController) {
         DispatchQueue.main.async {
             
             self.filters = sender.filterTypes

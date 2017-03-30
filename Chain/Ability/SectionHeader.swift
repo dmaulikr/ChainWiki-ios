@@ -8,9 +8,15 @@
 
 import UIKit
 
-class AbilitySectionHeader: UIView {
+class SectionHeader: UIView {
 
-    var sectionLabel = UILabel()
+    let sectionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Color.lightGreen
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        return label
+    }()
+    
     var underline = HorizontalBar()
     
     init(sectionTitle: String) {
@@ -23,9 +29,7 @@ class AbilitySectionHeader: UIView {
     func setupViews() {
         
         backgroundColor = .white
-        sectionLabel.textColor = Color.lightGreen
-        sectionLabel.font = UIFont.boldSystemFont(ofSize: 15)
-
+        
         addSubview(sectionLabel)
         addSubview(underline)
         
@@ -35,6 +39,11 @@ class AbilitySectionHeader: UIView {
         
     }
     
+    func setText(text: String) {
+        sectionLabel.alpha = 0
+        sectionLabel.text = text
+        sectionLabel.fadeIn(withDuration: 0.2)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -113,6 +113,14 @@ extension UserDefaults {
         return string(forKey: "arcanaView")
     }
     
+    func setMainImage(value: Bool) {
+        set(value, forKey: "imageType")
+    }
+    
+    func getMainImage() -> Bool {
+        return bool(forKey: "imageType")
+    }
+    
     // MARK - App Rating
     func getAppLaunchCount() -> Int {
         return integer(forKey: "numberOfLaunches")

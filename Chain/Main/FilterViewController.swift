@@ -9,10 +9,10 @@
 import UIKit
 
 protocol FilterDelegate : class {
-    func didUpdate(_ sender: Filter)
+    func didUpdate(_ sender: FilterViewController)
 }
 
-class Filter: UIViewController {
+class FilterViewController: UIViewController {
     
     weak var delegate: FilterDelegate?
 
@@ -71,12 +71,12 @@ class Filter: UIViewController {
         
         view.addSubview(collectionView)
         
-        collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
     }
 }
 
-extension Filter : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private enum Section: Int {
         

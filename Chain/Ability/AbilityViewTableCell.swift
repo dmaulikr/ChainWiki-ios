@@ -72,7 +72,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if arcanaArray.count > 0 && section == 0 {
-            return AbilitySectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+            return SectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
         }
         
         return nil
@@ -95,7 +95,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaImage.image = nil
             
             cell.arcanaID = arcana.getUID()
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .icon, sender: cell)
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
             
             // check if arcana has only name, or nickname.
             if let nnKR = arcana.getNicknameKR() {

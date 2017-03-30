@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ArcanaCell: UITableViewCell {
+class ArcanaCell: ArcanaImageIDCell {
 
 
     @IBOutlet weak var arcanaImage: UIImageView!
@@ -23,9 +23,7 @@ class ArcanaCell: UITableViewCell {
     @IBOutlet weak var arcanaAffiliation: UILabel!
     @IBOutlet weak var numberOfViews: UILabel!
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
-    
-    var arcanaID: String!
-    
+        
     @IBOutlet var labelCollection: [UILabel]!
     override func awakeFromNib() {
         super.awakeFromNib()

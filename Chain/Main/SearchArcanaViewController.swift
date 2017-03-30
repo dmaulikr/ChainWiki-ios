@@ -12,7 +12,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     let searchBar: SearchBar = SearchBar()
     
-    let searchBarView: UIView = {
+    let headerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
@@ -46,37 +46,33 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if searchBar.text == "" {
+        if searchBar.isFirstResponder && searchBar.text == "" {
             searchBarCancelButtonClicked(searchBar)
         }
     }
     
-    var searchBarViewHeightConstraint: NSLayoutConstraint?
+    var headerViewHeightConstraint: NSLayoutConstraint?
 
     override func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         
-        view.addSubview(tableView)
         view.addSubview(collectionView)
-        view.addSubview(searchBarView)
+        view.addSubview(tableView)
+        view.addSubview(headerView)
         view.addSubview(tipLabel)
         view.addSubview(filterView)
         
-        searchBarView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
-        searchBarViewHeightConstraint = searchBarView.heightAnchor.constraint(equalToConstant: 40)
-        searchBarViewHeightConstraint?.isActive = true
+        headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 70)
+        headerViewHeightConstraint?.isActive = true
         
-        tableView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        collectionView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         tipLabel.anchorCenterSuperview()
-        
-        //        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
-        //        filterViewLeadingConstraint = filterView.leadingAnchor.constraint(equalTo: view.trailingAnchor)
-        //        filterViewLeadingConstraint?.isActive = true
         
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         
@@ -89,7 +85,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         super.setupChildViews()
         
         view.addSubview(searchView)
-        searchView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        searchView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         let searchHistory = SearchHistory()
 
@@ -113,12 +109,15 @@ final class SearchArcanaViewController: ArcanaViewController {
         definesPresentationContext = true
 
         searchBar.delegate = self
-        searchBarView.addSubview(searchBar)
         
-        searchBar.anchor(top: searchBarView.topAnchor, leading: searchBarView.leadingAnchor, trailing: searchBarView.trailingAnchor, bottom: searchBarView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        headerView.addSubview(searchBar)
+        headerView.addSubview(arcanaCountView)
+        
+        searchBar.anchor(top: headerView.topAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
+        arcanaCountView.anchor(top: searchBar.bottomAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 30)
 
         view.addSubview(searchView)
-        searchView.anchor(top: searchBarView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 220)
+        searchView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 200)
         
     }
     
@@ -131,9 +130,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 self.arcanaArray.insert(arcana, at: 0)
                 self.originalArray.insert(arcana, at: 0)
                 if self.initialLoad == false {
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                    self.tableView.endUpdates()
+                    self.insertIndexPathAt(index: 0)
                 }
                 
             }
@@ -161,8 +158,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             for (index, arcana) in self.arcanaArray.enumerated() {
                 if arcana.getUID() == uidToRemove {
                     self.arcanaArray.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.deleteRowAt(indexPath)
+                    self.deleteIndexPathAt(index: index)
                 }
                 
             }
@@ -184,8 +180,16 @@ final class SearchArcanaViewController: ArcanaViewController {
                 if let arcana = Arcana(snapshot: snapshot) {
                     
                     self.arcanaArray[index] = arcana
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.reloadRowAt(indexPath)
+                    var indexPath: IndexPath
+                    switch self.arcanaView {
+                    case .list:
+                        indexPath = IndexPath(row: 0, section: index)
+                    case .main:
+                        indexPath = IndexPath(row: 1, section: index)
+                    case .profile:
+                        indexPath = IndexPath(item: index, section: 0)
+                    }
+                    self.reloadIndexPathAt(indexPath)
                     
                     if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
                         self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
@@ -217,7 +221,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func dismissFilter() {
         
         // If search is active and user presses bottom half, dismiss search.
-        if searchBar.text?.characters.count == 0 && searchBar.isFirstResponder && gesture.location(in: searchView).y > 270 {
+        if searchBar.text?.characters.count == 0 && searchBar.isFirstResponder && gesture.location(in: searchView).y > 200 {
             debugPrint("dismiss search")
             gesture.cancelsTouchesInView = true
             searchBar.resignFirstResponder()
@@ -237,7 +241,10 @@ final class SearchArcanaViewController: ArcanaViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let translation = scrollView.panGestureRecognizer.translation(in: scrollView)
+        
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
 
         if translation.y > 0 {
             // if moving up the tableView
@@ -251,16 +258,16 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     func showSearchBar(_ show: Bool) {
         if show {
-            if searchBarViewHeightConstraint?.constant != 40 {
-                searchBarViewHeightConstraint?.constant = 40
+            if headerViewHeightConstraint?.constant != 70 {
+                headerViewHeightConstraint?.constant = 70
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.layoutIfNeeded()
                 })
             }
         }
         else {
-            if searchBarViewHeightConstraint?.constant != 0 {
-                searchBarViewHeightConstraint?.constant = 0
+            if headerViewHeightConstraint?.constant != 0 {
+                headerViewHeightConstraint?.constant = 0
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.layoutIfNeeded()
                 })

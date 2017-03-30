@@ -63,11 +63,11 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .primary:
-            return AbilitySectionHeader(sectionTitle: "메인 어빌")
+            return SectionHeader(sectionTitle: "메인 어빌")
         case .status:
-            return AbilitySectionHeader(sectionTitle: "상태 이상")
+            return SectionHeader(sectionTitle: "상태 이상")
         case .area:
-            return AbilitySectionHeader(sectionTitle: "지형 특효")
+            return SectionHeader(sectionTitle: "지형 특효")
             
         }
     }

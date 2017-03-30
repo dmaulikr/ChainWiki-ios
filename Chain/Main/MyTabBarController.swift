@@ -31,6 +31,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     func setupTabBar() {
         
         let arcanaTab = NavigationController(rootViewController: SearchArcanaViewController())
+//        let arcanaTab = ArcanaViewPageController()
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         
         let abilityTab = NavigationController(rootViewController: MenuBarViewController(menuType: .abilityList))
