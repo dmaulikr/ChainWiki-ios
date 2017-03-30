@@ -11,8 +11,10 @@ import UIKit
 class ImageTypeTableViewController: UITableViewController {
 
     private enum Row: Int {
-        case profile
+        case list
         case main
+        case profile
+        case mainGrid
     }
     
     override func viewDidLoad() {
@@ -33,6 +35,7 @@ class ImageTypeTableViewController: UITableViewController {
     func setupNavBar() {
         let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.title = "보기 설정"
     }
     
     func cancel() {
@@ -40,7 +43,7 @@ class ImageTypeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -53,20 +56,36 @@ class ImageTypeTableViewController: UITableViewController {
         
         switch row {
             
-        case .profile:
+        case .list:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageCell") as! ProfileImageCell
 
             cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleProfile")
-            cell.titleLabel.text = "프로필 사진 보기"
+            cell.titleLabel.text = "프로필 + 정보 보기 (기본)"
             
             return cell
         case .main:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MainImageCell") as! MainImageCell
             
             cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
-            cell.titleLabel.text = "메인 사진 보기"
+            cell.titleLabel.text = "메인 사진 + 정보 보기"
             
             return cell
+            
+        case .profile:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageCell") as! ProfileImageCell
+            
+            cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleProfile")
+            cell.titleLabel.text = "프로필 사진만 보기"
+            
+            return cell
+        case .mainGrid:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageCell") as! ProfileImageCell
+            
+            cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
+            cell.titleLabel.text = "메인 사진만 보기"
+            
+            return cell
+            
         }
         
 
@@ -77,10 +96,15 @@ class ImageTypeTableViewController: UITableViewController {
         guard let row = Row(rawValue: indexPath.row) else { return }
         
         switch row {
-        case .profile:
-            defaults.setMainImage(value: false)
+        case .list:
+            defaults.setArcanaView(value: "list")
         case .main:
-            defaults.setMainImage(value: true)
+            defaults.setArcanaView(value: "main")
+        case .profile:
+            defaults.setArcanaView(value: "profile")
+        case .mainGrid:
+            defaults.setArcanaView(value: "mainGrid")
+            
         }
         
         dismiss(animated: true, completion: nil)
