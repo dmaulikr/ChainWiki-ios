@@ -81,7 +81,7 @@ class SelectViewForArcanaTypeViewController: UIViewController {
                 }
             }
             
-            let vc = ArcanaViewTypePageViewController(selectedArcanaViews: selectedArcanaViews)
+            let vc = ArcanaViewTypePageViewController(selectedArcanaViews: selectedArcanaViews, showTip: false)
             navigationController?.pushViewController(vc, animated: true)
 
         }

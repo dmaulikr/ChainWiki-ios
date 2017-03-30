@@ -155,20 +155,3 @@ class ArcanaViewTypeViewController: UIViewController {
         
     }
 }
-
-extension UIViewController {
-    
-    func showArcanaViewSelection(showTip: Bool) {
-        
-        let vc = ArcanaViewTypePageViewController(showTip: showTip)
-        present(vc, animated: true, completion: nil)
-
-    }
-    
-    func showArcanaViewSelection(selectedArcanaViews: [SelectedArcanaView]) {
-        
-        let vc = ArcanaViewTypePageViewController(selectedArcanaViews: selectedArcanaViews)
-        present(vc, animated: true, completion: nil)
-    }
-
-}

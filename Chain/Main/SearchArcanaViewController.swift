@@ -52,7 +52,10 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.getShowedArcanaViewSelection() == false {
-            showArcanaViewSelection(showTip: true)
+            
+            let vc = ArcanaViewTypePageViewController(selectedArcanaViews: [.all], showTip: true)
+            present(vc, animated: true, completion: nil)
+            
         }
         else {
             getArcanaView()
@@ -116,7 +119,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func setupNavBar() {
         super.setupNavBar()
-        navigationItem.leftBarButtonItem = toggleArcanaViewButton
+//        navigationItem.leftBarButtonItem = toggleArcanaViewButton
     }
     
     func setupSearchBar() {

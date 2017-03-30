@@ -45,20 +45,15 @@ class ArcanaViewTypePageViewController: UIPageViewController {
         return label
     }()
 
-    init(showTip: Bool) {
+    init(selectedArcanaViews: [SelectedArcanaView], showTip: Bool) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        self.selectedArcanaViews = selectedArcanaViews
         if showTip {
             tipView.alpha = 1
         }
         else {
             tipView.alpha = 0
         }
-    }
-    
-    init(selectedArcanaViews: [SelectedArcanaView]) {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        self.selectedArcanaViews = selectedArcanaViews
-        tipView.alpha = 0
     }
     
     required init?(coder: NSCoder) {

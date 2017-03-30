@@ -37,35 +37,21 @@ class ArcanaViewController: UIViewController {
     var arcanaView: ArcanaView = .list {
         didSet {
             switch arcanaView {
-            case .list:
+            case .list, .main:
                 tableView.isScrollEnabled = true
                 collectionView.isScrollEnabled = false
-                toggleArcanaViewButton.image = #imageLiteral(resourceName: "list")
-//                defaults.setArcanaView(value: "list")
-            case .main:
-                tableView.isScrollEnabled = true
-                collectionView.isScrollEnabled = false
-                toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
-//                defaults.setArcanaView(value: "main")
-            case .profile:
+            case .profile, .mainGrid:
                 tableView.isScrollEnabled = false
                 collectionView.isScrollEnabled = true
-                toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-//                defaults.setArcanaView(value: "profile")
-            case .mainGrid:
-                tableView.isScrollEnabled = false
-                collectionView.isScrollEnabled = true
-                toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-//                defaults.setArcanaView(value: "mainGrid")
             }
             reloadView()
         }
     }
     
-    lazy var toggleArcanaViewButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(toggleArcanaView))
-        return button
-    }()
+//    lazy var toggleArcanaViewButton: UIBarButtonItem = {
+//        let button = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(toggleArcanaView))
+//        return button
+//    }()
     
     let arcanaCountView = SectionHeader(sectionTitle: "")
     
@@ -236,18 +222,6 @@ class ArcanaViewController: UIViewController {
         sortButton.customView = sort
         
         navigationItem.rightBarButtonItems = [filterButton,sortButton]
-        
-        switch arcanaView {
-        case .list:
-            toggleArcanaViewButton.image = #imageLiteral(resourceName: "list")
-        case .main:
-            toggleArcanaViewButton.image = #imageLiteral(resourceName: "iconLabel")
-        case .profile:
-            toggleArcanaViewButton.image = #imageLiteral(resourceName: "icon")
-        case .mainGrid:
-            toggleArcanaViewButton.image = #imageLiteral(resourceName: "grid")
-            
-        }
     }
 
     func setupGestures() {
@@ -464,18 +438,18 @@ class ArcanaViewController: UIViewController {
         showFilter = !showFilter
     }
     
-    func toggleArcanaView() {
-        switch arcanaView {
-        case .list:
-            arcanaView = .main
-        case .main:
-            arcanaView = .profile
-        case .profile:
-            arcanaView = .mainGrid
-        case .mainGrid:
-            arcanaView = .list
-        }
-    }
+//    func toggleArcanaView() {
+//        switch arcanaView {
+//        case .list:
+//            arcanaView = .main
+//        case .main:
+//            arcanaView = .profile
+//        case .profile:
+//            arcanaView = .mainGrid
+//        case .mainGrid:
+//            arcanaView = .list
+//        }
+//    }
 
     func dismissFilter() {
 
