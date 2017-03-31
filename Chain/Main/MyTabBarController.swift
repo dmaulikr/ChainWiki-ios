@@ -7,6 +7,7 @@
 //
 import UIKit
 import Firebase
+import MIBadgeButton_Swift
 
 class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
@@ -49,10 +50,17 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         viewControllers = [arcanaTab, abilityTab, tavernTab, dataTab, favoritesTab]
         
         // Setup to-be-animated views
-        for childView in tabBar.subviews {
+        for (index, childView) in tabBar.subviews.enumerated() {
             
             let tabBarItemView = childView
             let tabBarImageView = tabBarItemView.subviews.first as! UIImageView
+            if index == 3 {
+                let badge = MIBadgeButton()
+                badge.badgeBackgroundColor = Color.lightGreen
+                badge.badgeString = "!"
+                tabBarImageView.addSubview(badge)
+                badge.anchor(top: tabBarImageView.topAnchor, leading: nil, trailing: tabBarImageView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 5, heightConstant: 5)
+            }
             tabBarImageView.contentMode = .center
             imageViews.append(tabBarImageView)
 
@@ -60,6 +68,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
 
         
     }
+    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         imageViews[item.tag].bounceAnimate()

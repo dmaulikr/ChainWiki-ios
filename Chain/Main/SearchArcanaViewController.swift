@@ -83,7 +83,15 @@ final class SearchArcanaViewController: ArcanaViewController {
         view.addSubview(filterView)
         
         headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 70)
+        
+        let headerViewHeight: CGFloat
+        if traitCollection.horizontalSizeClass == .compact {
+            headerViewHeight = 70
+        }
+        else {
+            headerViewHeight = 140
+        }
+        headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerViewHeight)
         headerViewHeightConstraint?.isActive = true
         
         tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -131,8 +139,20 @@ final class SearchArcanaViewController: ArcanaViewController {
         headerView.addSubview(searchBar)
         headerView.addSubview(arcanaCountView)
         
-        searchBar.anchor(top: headerView.topAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 40)
-        arcanaCountView.anchor(top: searchBar.bottomAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 30)
+        let searchBarHeight: CGFloat
+        let arcanaCountViewHeight: CGFloat
+
+        if traitCollection.horizontalSizeClass == .compact {
+            searchBarHeight = 40
+            arcanaCountViewHeight = 30
+        }
+        else {
+            searchBarHeight = 80
+            arcanaCountViewHeight = 60
+        }
+        searchBar.anchor(top: headerView.topAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: searchBarHeight)
+        
+        arcanaCountView.anchor(top: searchBar.bottomAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: arcanaCountViewHeight)
 
         view.addSubview(searchView)
         searchView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 200)
@@ -275,9 +295,17 @@ final class SearchArcanaViewController: ArcanaViewController {
     }
 
     func showSearchBar(_ show: Bool) {
+        
+        let headerViewHeight: CGFloat
+        if traitCollection.horizontalSizeClass == .compact {
+            headerViewHeight = 70
+        }
+        else {
+            headerViewHeight = 140
+        }
         if show {
-            if headerViewHeightConstraint?.constant != 70 {
-                headerViewHeightConstraint?.constant = 70
+            if headerViewHeightConstraint?.constant != headerViewHeight {
+                headerViewHeightConstraint?.constant = headerViewHeight
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.layoutIfNeeded()
                 })

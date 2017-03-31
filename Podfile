@@ -18,6 +18,8 @@ target 'Chain' do
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
     pod 'SkyFloatingLabelTextField'
     pod 'LicensesViewController', '~> 0.6.0'
+    pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
+
   # Pods for Chain
 
   target 'ChainTests' do

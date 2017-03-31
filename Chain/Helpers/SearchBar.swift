@@ -26,15 +26,27 @@ class SearchBar: UISearchBar {
         tintColor = Color.lightGreen
         barTintColor = .white
         backgroundColor = .white
-
+        
         if let searchTextField = value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
+            
+            let fontSize: CGFloat
+            if traitCollection.horizontalSizeClass == .compact {
+                fontSize = 15
+            }
+            else {
+                fontSize = 20
+            }
+            searchTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: fontSize)
             
             searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
             searchIcon.tintColor = Color.lightGreen
+            
             searchTextField.tintColor = Color.lightGreen
+            searchTextField.textColor = .black
+            
             let attributeColor = [NSForegroundColorAttributeName: Color.lightGreen]
             searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
-            searchTextField.textColor = .black
+            
             if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                 clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
                 clearButton.tintColor = .lightGray

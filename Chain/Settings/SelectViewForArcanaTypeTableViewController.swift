@@ -35,7 +35,7 @@ class SelectViewForArcanaTypeViewController: UIViewController {
     
     lazy var completeButton: RoundedButton = {
         let button = RoundedButton(type: .system)
-        button.setTitle("완료", for: .normal)
+        button.setTitle("다음", for: .normal)
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
         button.tintColor = .white
         button.backgroundColor = Color.lightGreen

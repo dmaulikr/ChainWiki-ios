@@ -93,7 +93,8 @@ PODS:
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
   - LicensesViewController (0.6.0)
-  - NVActivityIndicatorView (3.5.1)
+  - MIBadgeButton-Swift (0.5)
+  - NVActivityIndicatorView (3.5.2)
   - Protobuf (3.2.0)
   - SkyFloatingLabelTextField (3.0.0)
 
@@ -108,17 +109,24 @@ DEPENDENCIES:
   - Firebase/Storage
   - Google/SignIn
   - LicensesViewController (~> 0.6.0)
+  - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `master`)
   - SkyFloatingLabelTextField
 
 EXTERNAL SOURCES:
+  MIBadgeButton-Swift:
+    :branch: master
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
   NVActivityIndicatorView:
     :branch: master
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 CHECKOUT OPTIONS:
+  MIBadgeButton-Swift:
+    :commit: 245fbf64b0a3afb8ac2f19c17552059383092c1d
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
   NVActivityIndicatorView:
-    :commit: e53478888eca64d3bab58917b11e61523ef27c76
+    :commit: 46e0f52af6fd555e9f98561c7f99bd5a5df6e2a9
     :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 SPEC CHECKSUMS:
@@ -143,10 +151,11 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
-  NVActivityIndicatorView: 97413e83318f4549ade1ae5dd2d041b592ec77dd
+  MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
+  NVActivityIndicatorView: '0868b1ab3348a69db67fd076eca0d592b366a52e'
   Protobuf: 745f59e122e5de98d4d7ef291e264a0eef80f58e
   SkyFloatingLabelTextField: 35bc0c2653ad73c5fd8b7a34cfedf09c94367a1a
 
-PODFILE CHECKSUM: 1933eadab0f6c47d91f831e2307435723fefaaa5
+PODFILE CHECKSUM: 15b454f34c828ef3ef323bf747012afcefe19c29
 
 COCOAPODS: 1.2.0

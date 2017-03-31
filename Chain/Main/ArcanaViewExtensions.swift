@@ -111,22 +111,35 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
-        cell.arcanaImage.image = nil
-        
         let arcana: Arcana
         arcana = arcanaArray[indexPath.row]
-        cell.arcanaID = arcana.getUID()
         
         switch arcanaView {
-        case .mainGrid:
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
-        default:
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+        case .list, .main:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
+            cell.collectionViewDelegate = self
+            cell.arcana = arcana
+            cell.arcanaView = arcanaView
+            return cell
 
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
+            cell.arcanaImage.image = nil
+            
+            cell.arcanaID = arcana.getUID()
+            
+            switch arcanaView {
+                
+            case .mainGrid:
+                cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+            default:
+                cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+                
+            }
+            return cell
+            
         }
-        return cell
-        
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -142,6 +155,21 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch arcanaView {
+            
+        case .list:
+            let cellSize: CGFloat
+            
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 10))/3
+            
+            return CGSize(width: cellSize, height: 90)
+
+        case .main:
+            let cellSize: CGFloat
+            
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            
+            return CGSize(width: cellSize, height: cellSize * 1.5 + 90)
+            
         case .mainGrid:
             let cellSize: CGFloat
             

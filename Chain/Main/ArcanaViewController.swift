@@ -36,14 +36,22 @@ class ArcanaViewController: UIViewController {
     var selectedIndexPath: IndexPath?
     var arcanaView: ArcanaView = .list {
         didSet {
-            switch arcanaView {
-            case .list, .main:
-                tableView.isScrollEnabled = true
-                collectionView.isScrollEnabled = false
-            case .profile, .mainGrid:
+            if traitCollection.horizontalSizeClass == .compact {
+                switch arcanaView {
+                case .list, .main:
+                    tableView.isScrollEnabled = true
+                    collectionView.isScrollEnabled = false
+                case .profile, .mainGrid:
+                    tableView.isScrollEnabled = false
+                    collectionView.isScrollEnabled = true
+                }
+            }
+            else {
+                // iPad width, switch to collectionViews only
                 tableView.isScrollEnabled = false
                 collectionView.isScrollEnabled = true
             }
+            
             reloadView()
         }
     }
@@ -89,6 +97,7 @@ class ArcanaViewController: UIViewController {
         
         collectionView.register(ArcanaIconCell.self, forCellWithReuseIdentifier: "ArcanaIconCell")
         collectionView.register(ArcanaIconLabelCell.self, forCellWithReuseIdentifier: "ArcanaIconLabelCell")
+        collectionView.register(MainListTableView.self, forCellWithReuseIdentifier: "MainListTableView")
         
         return collectionView
     }()
@@ -301,21 +310,40 @@ class ArcanaViewController: UIViewController {
         if initialLoad == false {
             arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
             
-            switch arcanaView {
-            case .list, .main:
-                if arcanaArray.count == 0 {
-                    tableView.alpha = 0
-                    tipLabel.fadeIn(withDuration: 0.5)
+            if traitCollection.horizontalSizeClass == .compact {
+                switch arcanaView {
+                case .list, .main:
+                    if arcanaArray.count == 0 {
+                        tableView.alpha = 0
+                        tipLabel.fadeIn(withDuration: 0.5)
+                        
+                    }
+                    else {
+                        collectionView.alpha = 0
+                        tableView.reloadData()
+                        tipLabel.fadeOut(withDuration: 0.2)
+                        tableView.fadeIn(withDuration: 0.5)
+                    }
+                    
+                case .profile, .mainGrid:
+                    if arcanaArray.count == 0 {
+                        collectionView.alpha = 0
+                        tipLabel.fadeIn(withDuration: 0.5)
+                        
+                    }
+                    else {
+                        tableView.alpha = 0
+                        collectionView.reloadData()
+                        tipLabel.fadeOut(withDuration: 0.2)
+                        collectionView.fadeIn(withDuration: 0.5)
+                    }
                     
                 }
-                else {
-                    collectionView.alpha = 0
-                    tableView.reloadData()
-                    tipLabel.fadeOut(withDuration: 0.2)
-                    tableView.fadeIn(withDuration: 0.5)
-                }
-                
-            case .profile, .mainGrid:
+
+            }
+            
+            else {
+
                 if arcanaArray.count == 0 {
                     collectionView.alpha = 0
                     tipLabel.fadeIn(withDuration: 0.5)
@@ -327,9 +355,9 @@ class ArcanaViewController: UIViewController {
                     tipLabel.fadeOut(withDuration: 0.2)
                     collectionView.fadeIn(withDuration: 0.5)
                 }
-                
-            }
 
+            }
+            
         }
         
     }
