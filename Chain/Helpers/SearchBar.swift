@@ -30,8 +30,8 @@ class SearchBar: UISearchBar {
         if let searchTextField = value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
             let fontSize: CGFloat
-            if traitCollection.horizontalSizeClass == .compact {
-                fontSize = 15
+            if horizontalSize == .compact {
+                fontSize = 13
             }
             else {
                 fontSize = 20
@@ -46,7 +46,7 @@ class SearchBar: UISearchBar {
             
             let attributeColor = [NSForegroundColorAttributeName: Color.lightGreen]
             searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
-            
+        
             if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
                 clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
                 clearButton.tintColor = .lightGray

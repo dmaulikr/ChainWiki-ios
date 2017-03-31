@@ -159,7 +159,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .list:
             let cellSize: CGFloat
             
-            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 10))/3
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + (5 * (numberOfListColumns-1))))/numberOfListColumns
             
             return CGSize(width: cellSize, height: 90)
 
@@ -170,19 +170,19 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             return CGSize(width: cellSize, height: cellSize * 1.5 + 90)
             
+        case .profile:
+            let cellSize: CGFloat
+            
+            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + (5 * (numberOfProfileImageColumns-1))))/numberOfProfileImageColumns
+            
+            return CGSize(width: cellSize, height: cellSize)
+
         case .mainGrid:
             let cellSize: CGFloat
             
             cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
             
             return CGSize(width: cellSize, height: cellSize * 1.5)
-
-        default:
-            let cellSize: CGFloat
-            
-            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 15))/4
-            
-            return CGSize(width: cellSize, height: cellSize)
 
         }
         

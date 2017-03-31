@@ -20,13 +20,7 @@ var NICKNAME: String? {
     }
 }
 
-let FIREBASE_REF = FIRDatabase.database().reference()
-let STORAGE_REF = FIRStorage.storage().reference()
-let storage = FIRStorage.storage()
-//
-//let SCREENWIDTH = UIScreen.main.bounds.width
-//let SCREENHEIGHT = UIScreen.main.bounds.height
-
+// Size Classes and Devices
 
 var SCREENWIDTH: CGFloat {
     if UIInterfaceOrientationIsPortrait(SCREENORIENTATION) {
@@ -45,6 +39,21 @@ var SCREENHEIGHT: CGFloat {
 var SCREENORIENTATION: UIInterfaceOrientation {
     return UIApplication.shared.statusBarOrientation
 }
+
+let horizontalSize = UIScreen.main.traitCollection.horizontalSizeClass
+let verticalSize = UIScreen.main.traitCollection.verticalSizeClass
+var ISIPADPRO: Bool {
+    return SCREENHEIGHT == 1366.0
+}
+
+
+let FIREBASE_REF = FIRDatabase.database().reference()
+let STORAGE_REF = FIRStorage.storage().reference()
+let storage = FIRStorage.storage()
+//
+//let SCREENWIDTH = UIScreen.main.bounds.width
+//let SCREENHEIGHT = UIScreen.main.bounds.height
+
 
 
 

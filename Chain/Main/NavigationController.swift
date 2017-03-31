@@ -27,13 +27,13 @@ class NavigationController: UINavigationController {
     func setupviews() {
 
         let fontSize: CGFloat
-        if traitCollection.horizontalSizeClass == .compact {
+        if horizontalSize == .compact {
             fontSize = 15
         }
         else {
             fontSize = 20
         }
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Regular", size: fontSize)!]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize)!]
         navigationBar.tintColor = UIColor.white
         navigationBar.barTintColor = Color.lightGreen
     }

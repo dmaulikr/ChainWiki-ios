@@ -36,7 +36,7 @@ class ArcanaViewController: UIViewController {
     var selectedIndexPath: IndexPath?
     var arcanaView: ArcanaView = .list {
         didSet {
-            if traitCollection.horizontalSizeClass == .compact {
+            if horizontalSize == .compact {
                 switch arcanaView {
                 case .list, .main:
                     tableView.isScrollEnabled = true
@@ -55,7 +55,8 @@ class ArcanaViewController: UIViewController {
             reloadView()
         }
     }
-    
+    var numberOfProfileImageColumns: CGFloat = 4
+    var numberOfListColumns: CGFloat = 2
 //    lazy var toggleArcanaViewButton: UIBarButtonItem = {
 //        let button = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(toggleArcanaView))
 //        return button
@@ -138,6 +139,15 @@ class ArcanaViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        if horizontalSize == .compact {
+            numberOfProfileImageColumns = 4
+        }
+        else {
+            numberOfProfileImageColumns = 8
+            if ISIPADPRO {
+                numberOfListColumns = 3
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -310,7 +320,7 @@ class ArcanaViewController: UIViewController {
         if initialLoad == false {
             arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
             
-            if traitCollection.horizontalSizeClass == .compact {
+            if horizontalSize == .compact {
                 switch arcanaView {
                 case .list, .main:
                     if arcanaArray.count == 0 {
@@ -543,9 +553,9 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
             let vc = ArcanaPeekPreview(arcana: arcana)
             vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
             previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-
+            
             return vc
-
+            
             
         case .profile, .mainGrid:
             guard let indexPath = collectionView.indexPathForItem(at: location) else { return nil }
@@ -560,9 +570,9 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
             }
             
             return vc
-
+            
         }
-        
+
     }
     
 }

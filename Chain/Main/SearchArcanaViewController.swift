@@ -85,7 +85,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         let headerViewHeight: CGFloat
-        if traitCollection.horizontalSizeClass == .compact {
+        if horizontalSize == .compact {
             headerViewHeight = 70
         }
         else {
@@ -142,7 +142,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         let searchBarHeight: CGFloat
         let arcanaCountViewHeight: CGFloat
 
-        if traitCollection.horizontalSizeClass == .compact {
+        if horizontalSize == .compact {
             searchBarHeight = 40
             arcanaCountViewHeight = 30
         }
@@ -297,7 +297,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     func showSearchBar(_ show: Bool) {
         
         let headerViewHeight: CGFloat
-        if traitCollection.horizontalSizeClass == .compact {
+        if horizontalSize == .compact {
             headerViewHeight = 70
         }
         else {
