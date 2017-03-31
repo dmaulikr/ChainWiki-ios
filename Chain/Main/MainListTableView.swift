@@ -12,12 +12,13 @@ class MainListTableView: UICollectionViewCell {
 
     weak var collectionViewDelegate: ArcanaViewController?
     
-    var arcana: Arcana? {
+    var arcana: Arcana?
+
+    var arcanaView: ArcanaView? {
         didSet {
             tableView.reloadData()
         }
     }
-    var arcanaView: ArcanaView?
     
     lazy var tableView: UITableView = {
         

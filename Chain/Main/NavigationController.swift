@@ -28,7 +28,7 @@ class NavigationController: UINavigationController {
 
         let fontSize: CGFloat
         if horizontalSize == .compact {
-            fontSize = 15
+            fontSize = 17
         }
         else {
             fontSize = 20

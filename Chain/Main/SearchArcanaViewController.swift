@@ -76,6 +76,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         
+        view.addSubview(tableView)
         view.addSubview(collectionView)
         view.addSubview(headerView)
         view.addSubview(tipLabel)
@@ -88,7 +89,6 @@ final class SearchArcanaViewController: ArcanaViewController {
             
             headerViewHeight = 70
 
-            view.addSubview(tableView)
             tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
             collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -113,8 +113,6 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerViewHeight)
         headerViewHeightConstraint?.isActive = true
-        
-        
         
         tipLabel.anchorCenterSuperview()
         

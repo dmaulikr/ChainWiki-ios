@@ -566,22 +566,13 @@ class ArcanaViewController: UIViewController {
             if let userPref = defaults.getSearchView(), let arcanaView = ArcanaView(rawValue: userPref) {
                 self.arcanaView = arcanaView
             }
-            else {
-                defaults.setSearchView(value: "list")
-            }
         case .tavern:
             if let userPref = defaults.getTavernView(), let arcanaView = ArcanaView(rawValue: userPref) {
                 self.arcanaView = arcanaView
             }
-            else {
-                defaults.setTavernView(value: "list")
-            }
         case .favorites:
             if let userPref = defaults.getFavoritesView(), let arcanaView = ArcanaView(rawValue: userPref) {
                 self.arcanaView = arcanaView
-            }
-            else {
-                defaults.setSearchView(value: "list")
             }
             
         }
