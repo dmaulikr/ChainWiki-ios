@@ -29,6 +29,7 @@ class ArcanaDetail: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
+        imageView.alpha = 0
         return imageView
     }()
     

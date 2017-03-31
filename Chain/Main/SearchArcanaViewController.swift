@@ -87,20 +87,33 @@ final class SearchArcanaViewController: ArcanaViewController {
         let headerViewHeight: CGFloat
         if horizontalSize == .compact {
             headerViewHeight = 70
+            
+            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+
+            collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            
+            filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         }
         else {
-            headerViewHeight = 140
+            headerViewHeight = 100
+            collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            
+            showFilter = true
+            if ISIPADPRO {
+                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/3, heightConstant: 0)
+            }
+            else {
+                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+            }
+            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+
         }
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerViewHeight)
         headerViewHeightConstraint?.isActive = true
         
-        tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         tipLabel.anchorCenterSuperview()
-        
-        filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         
         setupChildViews()
         
@@ -147,8 +160,8 @@ final class SearchArcanaViewController: ArcanaViewController {
             arcanaCountViewHeight = 30
         }
         else {
-            searchBarHeight = 80
-            arcanaCountViewHeight = 60
+            searchBarHeight = 60
+            arcanaCountViewHeight = 40
         }
         searchBar.anchor(top: headerView.topAnchor, leading: headerView.leadingAnchor, trailing: headerView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: searchBarHeight)
         
@@ -218,17 +231,9 @@ final class SearchArcanaViewController: ArcanaViewController {
                 if let arcana = Arcana(snapshot: snapshot) {
                     
                     self.arcanaArray[index] = arcana
-                    var indexPath: IndexPath
-                    switch self.arcanaView {
-                    case .list:
-                        indexPath = IndexPath(row: 0, section: index)
-                    case .main:
-                        indexPath = IndexPath(row: 1, section: index)
-                    case .profile, .mainGrid:
-                        indexPath = IndexPath(item: index, section: 0)
-                    }
-                    self.reloadIndexPathAt(indexPath)
-                    
+
+                    self.reloadIndexPathAt(index)
+                    let indexPath = IndexPath(row: index, section: 0)
                     if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
                         self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
                         self.selectedIndexPath = nil
@@ -301,7 +306,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             headerViewHeight = 70
         }
         else {
-            headerViewHeight = 140
+            headerViewHeight = 100
         }
         if show {
             if headerViewHeightConstraint?.constant != headerViewHeight {

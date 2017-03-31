@@ -77,7 +77,7 @@ class BaseCollectionViewController: UIViewController {
         self.abilityType = abilityType.1
         self.abilityMenu = abilityMenu
         downloadArray()
-        
+ 
         FIRAnalytics.logEvent(withName: "selectedAbility", parameters: [
             kFIRParameterItemName: "SelectAbility" as NSObject,
             kFIRParameterValue: "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
@@ -110,8 +110,17 @@ class BaseCollectionViewController: UIViewController {
         super.viewDidAppear(animated)
         
         let selectedCV = IndexPath(item: selectedIndex, section: 0)
-        guard let table = collectionView.cellForItem(at: selectedCV) as? BaseCollectionViewCell, let selectedIndexPath = table.tableView.indexPathForSelectedRow else { return }
-        table.tableView.deselectRow(at: selectedIndexPath, animated: true)
+        if let table = collectionView.cellForItem(at: selectedCV) as? BaseCollectionViewCell, let selectedIndexPath = table.tableView.indexPathForSelectedRow {
+            table.tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+        
+        if let iPadSecondTable = collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as? BaseCollectionViewCell, let selectedIndexPath = iPadSecondTable.tableView.indexPathForSelectedRow {
+            iPadSecondTable.tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+        
+        if let iPadThirdTable = collectionView.cellForItem(at: IndexPath(row: 2, section: 0)) as? BaseCollectionViewCell, let selectedIndexPath = iPadThirdTable.tableView.indexPathForSelectedRow {
+            iPadThirdTable.tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
         
     }
     
@@ -126,6 +135,7 @@ class BaseCollectionViewController: UIViewController {
         
         let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
+        
     }
 
     func setupAbilityList() {
@@ -255,7 +265,12 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
                 cell.statusAbilities = statusAbilities
                 cell.areaAbilities = areaAbilities
             }
-            
+            if indexPath.row == 0 {
+                cell.abilityMenu = .ability
+            }
+            else {
+                cell.abilityMenu = .kizuna
+            }
             cell.collectionViewDelegate = self
             return cell
             
@@ -280,7 +295,22 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        switch menuType {
+            
+        case .abilityList:
+            if horizontalSize == .regular {
+                return CGSize(width: SCREENWIDTH/2, height: collectionView.frame.height)
+            }
+            
+        case .tavernList:
+            if horizontalSize == .regular {
+                return CGSize(width: SCREENWIDTH/3, height: collectionView.frame.height)
+            }
+        default:
+            break
+        }
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+
     }
     
 }

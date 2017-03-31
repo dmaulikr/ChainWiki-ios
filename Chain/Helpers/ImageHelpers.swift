@@ -109,6 +109,7 @@ extension UIImageView {
                                     cell.activityIndicator.stopAnimating()
                                 }
                                 else {
+                                    self.fadeIn(withDuration: 0.2)
                                     self.image = downloadedImage
                                 }
                                 

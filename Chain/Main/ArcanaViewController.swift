@@ -85,8 +85,15 @@ class ArcanaViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
+        
+        if horizontalSize == .regular && !ISIPADPRO {
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 0
+        }
+        else {
+            layout.minimumInteritemSpacing = 5
+            layout.minimumLineSpacing = 5
+        }
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -372,19 +379,41 @@ class ArcanaViewController: UIViewController {
         
     }
     
-    func reloadIndexPathAt(_ indexPath: IndexPath) {
+    func reloadIndexPathAt(_ index: Int) {
         
+        var indexPath: IndexPath
         if horizontalSize == .compact {
+            
             switch arcanaView {
-            case .list, .main:
-                tableView.reloadRows(at: [indexPath], with: .none)
-            case .profile, .mainGrid:
-                collectionView.reloadItems(at: [indexPath])
                 
+            case .list, .main:
+                if arcanaView == .list {
+                    indexPath = IndexPath(row: 0, section: index)
+                }
+                else {
+                    indexPath = IndexPath(row: 1, section: index)
+                }
+                tableView.beginUpdates()
+                tableView.reloadRows(at: [indexPath], with: .none)
+                tableView.endUpdates()
+
+            case .profile, .mainGrid:
+                indexPath = IndexPath(item: index, section: 0)
+
+                collectionView.performBatchUpdates({
+                    self.collectionView.reloadItems(at: [indexPath])
+                }, completion: nil)
+
             }
+            
+            
         }
         else {
-            collectionView.reloadItems(at: [indexPath])
+            indexPath = IndexPath(item: index, section: 0)
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [indexPath])
+            }, completion: nil)
+
         }
         
     }
@@ -402,16 +431,21 @@ class ArcanaViewController: UIViewController {
                 tableView.endUpdates()
                 
             case .profile, .mainGrid:
-                collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+                collectionView.performBatchUpdates({
+                    self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+                }, completion: nil)
             }
 
         }
         else {
-            collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+            collectionView.performBatchUpdates({
+                self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+            }, completion: nil)
         }
     }
     
     func deleteIndexPathAt(index: Int) {
+        print(index)
         
         let indexSet = IndexSet(integer: index)
 
@@ -424,12 +458,16 @@ class ArcanaViewController: UIViewController {
                 tableView.endUpdates()
                 
             case .profile, .mainGrid:
-                collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                collectionView.performBatchUpdates({
+                    self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                }, completion: nil)
             }
 
         }
         else {
-            collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+            collectionView.performBatchUpdates({
+                self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+            }, completion: nil)
         }
         
     }

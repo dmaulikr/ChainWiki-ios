@@ -18,6 +18,7 @@ class AbilityListTableCell: BaseCollectionViewCell {
     var primaryAbilities = [Ability]()
     var statusAbilities = [Ability]()
     var areaAbilities = [Ability]()
+    var abilityMenu: AbilityMenu = .ability
     
     override func setupViews() {
         super.setupViews()
@@ -97,7 +98,7 @@ extension AbilityListTableCell: UITableViewDelegate, UITableViewDataSource {
 
         
 //        guard let selectedAbilityType = tableDelegate?.selectedIndex else { return }
-        guard let abilityMenu = collectionViewDelegate?.abilityMenu, let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard /*let abilityMenu = collectionViewDelegate?.abilityMenu,*/ let section = Section(rawValue: indexPath.section), let row = tableView.indexPathForSelectedRow?.row else { return }
         
         var abilityKR = ""
         var abilityEN = ""
