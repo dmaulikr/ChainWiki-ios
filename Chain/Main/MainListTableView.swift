@@ -17,7 +17,7 @@ class MainListTableView: UICollectionViewCell {
             tableView.reloadData()
         }
     }
-    var arcanaView: ArcanaView = .list
+    var arcanaView: ArcanaView?
     
     lazy var tableView: UITableView = {
         

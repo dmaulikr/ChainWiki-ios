@@ -171,7 +171,12 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .main:
             let cellSize: CGFloat
             
-            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            if !ISIPADPRO {
+                cellSize = ((collectionView.frame.width - 10)/2)
+            }
+            else {
+                cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            }
             
             return CGSize(width: cellSize, height: cellSize * 1.5 + 90)
             
@@ -194,9 +199,10 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if horizontalSize == .regular && !ISIPADPRO {
+        if horizontalSize == .regular && !ISIPADPRO && arcanaView == .list {
             return .zero
         }
+        
         return sectionInsets
     }
     

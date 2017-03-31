@@ -55,6 +55,7 @@ class ArcanaViewController: UIViewController {
             reloadView()
         }
     }
+
     var numberOfProfileImageColumns: CGFloat = 4
     var numberOfListColumns: CGFloat = 2
 //    lazy var toggleArcanaViewButton: UIBarButtonItem = {
@@ -88,12 +89,12 @@ class ArcanaViewController: UIViewController {
         
         if horizontalSize == .regular && !ISIPADPRO {
             layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
+//            layout.minimumLineSpacing = 0
         }
         else {
             layout.minimumInteritemSpacing = 5
-            layout.minimumLineSpacing = 5
         }
+        layout.minimumLineSpacing = 5
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -557,7 +558,6 @@ class ArcanaViewController: UIViewController {
         
     }
 
-    
     func getArcanaView() {
         
         switch arcanaVC {

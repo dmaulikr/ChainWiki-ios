@@ -77,7 +77,6 @@ final class SearchArcanaViewController: ArcanaViewController {
         view.backgroundColor = .white
         
         view.addSubview(collectionView)
-        view.addSubview(tableView)
         view.addSubview(headerView)
         view.addSubview(tipLabel)
         view.addSubview(filterView)
@@ -86,26 +85,30 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         let headerViewHeight: CGFloat
         if horizontalSize == .compact {
-            headerViewHeight = 70
             
-            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            headerViewHeight = 70
 
+            view.addSubview(tableView)
+            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            
             collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
             filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         }
         else {
             headerViewHeight = 100
-            collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
-            showFilter = true
             if ISIPADPRO {
-                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/3, heightConstant: 0)
+                showFilter = true
+                collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+
+                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 367, heightConstant: 0)
             }
             else {
-                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+                collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+
+                filterView.anchor(top: headerView.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
             }
-            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
 
         }
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerViewHeight)
