@@ -374,27 +374,39 @@ class ArcanaViewController: UIViewController {
     
     func reloadIndexPathAt(_ indexPath: IndexPath) {
         
-        switch arcanaView {
-        case .list, .main:
-            tableView.reloadRows(at: [indexPath], with: .none)
-        case .profile, .mainGrid:
-            collectionView.reloadItems(at: [indexPath])
-            
+        if horizontalSize == .compact {
+            switch arcanaView {
+            case .list, .main:
+                tableView.reloadRows(at: [indexPath], with: .none)
+            case .profile, .mainGrid:
+                collectionView.reloadItems(at: [indexPath])
+                
+            }
         }
+        else {
+            collectionView.reloadItems(at: [indexPath])
+        }
+        
     }
     
     func insertIndexPathAt(index: Int) {
         
         let indexSet = IndexSet(integer: index)
         
-        switch arcanaView {
-            
-        case .list, .main:
-            tableView.beginUpdates()
-            tableView.insertSections(indexSet, with: .automatic)
-            tableView.endUpdates()
-            
-        case .profile, .mainGrid:
+        if horizontalSize == .compact {
+            switch arcanaView {
+                
+            case .list, .main:
+                tableView.beginUpdates()
+                tableView.insertSections(indexSet, with: .automatic)
+                tableView.endUpdates()
+                
+            case .profile, .mainGrid:
+                collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+            }
+
+        }
+        else {
             collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         }
     }
@@ -403,14 +415,20 @@ class ArcanaViewController: UIViewController {
         
         let indexSet = IndexSet(integer: index)
 
-        switch arcanaView {
-            
-        case .list, .main:
-            tableView.beginUpdates()
-            tableView.deleteSections(indexSet, with: .automatic)
-            tableView.endUpdates()
-            
-        case .profile, .mainGrid:
+        if horizontalSize == .compact {
+            switch arcanaView {
+                
+            case .list, .main:
+                tableView.beginUpdates()
+                tableView.deleteSections(indexSet, with: .automatic)
+                tableView.endUpdates()
+                
+            case .profile, .mainGrid:
+                collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+            }
+
+        }
+        else {
             collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         }
         

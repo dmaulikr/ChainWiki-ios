@@ -25,6 +25,13 @@ class ArcanaDetail: UIViewController {
     
     let arcana: Arcana
     
+    lazy var arcanaImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         
@@ -106,7 +113,16 @@ class ArcanaDetail: UIViewController {
         
         view.addSubview(tableView)
         
-        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        if horizontalSize == .compact {
+            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        }
+        else {
+            view.addSubview(arcanaImageView)
+            view.backgroundColor = .groupTableViewBackground
+            arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
+            arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
+            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        }
 
     }
     
@@ -456,7 +472,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
             if indexPath.row == 0 {
-                return UITableViewAutomaticDimension
+                if horizontalSize == .compact {
+                    return UITableViewAutomaticDimension
+
+                }
+                else {
+                    return 0
+                }
             }
             else {
                 return 50

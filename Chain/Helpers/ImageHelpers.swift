@@ -50,9 +50,12 @@ extension UIImageView {
                     if let cell = sender as? ArcanaImageCell {
                         cell.activityIndicator.stopAnimating()
                         cell.imageLoaded = true
-                        self.image = cachedImage
                     }
-                    
+                    else {
+                        // ipad image
+                    }
+                    self.image = cachedImage
+
                 }
                 return
             }
@@ -104,6 +107,9 @@ extension UIImageView {
                                     self.alpha = 0
                                     self.fadeIn(withDuration: 0.2)
                                     cell.activityIndicator.stopAnimating()
+                                }
+                                else {
+                                    self.image = downloadedImage
                                 }
                                 
                             }
