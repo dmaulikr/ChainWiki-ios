@@ -456,7 +456,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
             if indexPath.row == 0 {
-                return 405
+                return UITableViewAutomaticDimension
             }
             else {
                 return 50

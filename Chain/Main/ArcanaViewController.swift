@@ -64,7 +64,6 @@ class ArcanaViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
-//        tableView.estimatedSectionHeaderHeight = 30
         
         tableView.tableFooterView = UIView(frame: .zero)
 

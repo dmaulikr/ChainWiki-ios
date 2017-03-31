@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAnalytics
 
 extension UserDefaults {
     
@@ -16,7 +17,6 @@ extension UserDefaults {
     
     func isLoggedIn() -> Bool {
         return bool(forKey: "loggedIn")
-//        return true
     }
     
     func setUID(value: String) {
@@ -123,6 +123,10 @@ extension UserDefaults {
     
     func setSearchView(value: String) {
         set(value, forKey: "searchView")
+        // analytics
+        FIRAnalytics.logEvent(withName: "SearchView", parameters: [
+            "type" : value as NSObject
+            ])
     }
     
     func getSearchView() -> String? {
@@ -131,6 +135,9 @@ extension UserDefaults {
     
     func setTavernView(value: String) {
         set(value, forKey: "tavernView")
+        FIRAnalytics.logEvent(withName: "TavernView", parameters: [
+            "type" : value as NSObject
+            ])
     }
     
     func getTavernView() -> String? {
@@ -139,6 +146,9 @@ extension UserDefaults {
     
     func setFavoritesView(value: String) {
         set(value, forKey: "favoritesView")
+        FIRAnalytics.logEvent(withName: "FavoritesView", parameters: [
+            "type" : value as NSObject
+            ])
     }
     
     func getFavoritesView() -> String? {

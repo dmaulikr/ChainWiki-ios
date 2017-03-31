@@ -34,6 +34,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>24</string>
+	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1660485270908040</string>
 	<key>FacebookDisplayName</key>
