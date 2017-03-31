@@ -55,7 +55,7 @@ extension UIImageView {
                         // ipad image
                     }
                     self.image = cachedImage
-
+                    self.fadeIn(withDuration: 0.2)
                 }
                 return
             }
@@ -109,8 +109,8 @@ extension UIImageView {
                                     cell.activityIndicator.stopAnimating()
                                 }
                                 else {
-                                    self.fadeIn(withDuration: 0.2)
                                     self.image = downloadedImage
+                                    self.fadeIn(withDuration: 0.2)
                                 }
                                 
                             }

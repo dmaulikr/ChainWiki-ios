@@ -171,12 +171,12 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .main:
             let cellSize: CGFloat
             
-            if !ISIPADPRO {
-                cellSize = ((collectionView.frame.width - 10)/2)
-            }
-            else {
+//            if !ISIPADPRO {
+//                cellSize = ((collectionView.frame.width - 10)/2)
+//            }
+//            else {
                 cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
-            }
+//            }
             
             return CGSize(width: cellSize, height: cellSize * 1.5 + 90)
             
