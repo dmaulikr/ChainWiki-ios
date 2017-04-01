@@ -97,11 +97,11 @@ class ArcanaDetail: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if defaults.getUID()! != "ces2IjhzRKTZEp1bUl0HXkkEZRy1" {
-            let dataRequest = FirebaseService.dataRequest
-            dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
-
-        }
+//        if defaults.getUID()! != "ces2IjhzRKTZEp1bUl0HXkkEZRy1" {
+//            let dataRequest = FirebaseService.dataRequest
+//            dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+//
+//        }
         
     }
     

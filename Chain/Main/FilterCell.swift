@@ -26,6 +26,7 @@ class FilterCell: UICollectionViewCell {
         backgroundView.backgroundColor = Color.lightGreen
         selectedBackgroundView = backgroundView
 
+        layer.cornerRadius = 3
         addSubview(filterLabel)
         
         filterLabel.anchorCenterSuperview()

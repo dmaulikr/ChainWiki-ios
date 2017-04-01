@@ -20,7 +20,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
 
     var imageViews = [UIImageView]()
-    
+    var badge: MIBadgeButton?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -54,13 +55,33 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             
             let tabBarItemView = childView
             let tabBarImageView = tabBarItemView.subviews.first as! UIImageView
-//            if index == 3 {
-//                let badge = MIBadgeButton()
-//                badge.badgeBackgroundColor = Color.lightGreen
-//                badge.badgeString = "!"
-//                tabBarImageView.addSubview(badge)
-//                badge.anchor(top: tabBarImageView.topAnchor, leading: nil, trailing: tabBarImageView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 5, heightConstant: 5)
-//            }
+            if index == 3 {
+                
+                let dataRef = FIREBASE_REF.child("links")
+                dataRef.queryOrderedByKey().queryLimited(toLast: 1).observeSingleEvent(of: .childAdded, with: { snapshot in
+                    
+                    if let lastLink = defaults.getLastLink() {
+                        
+                        if snapshot.key != lastLink {
+                            // show the badge.
+                            self.badge = MIBadgeButton()
+                            guard let badge = self.badge else { return }
+                            badge.badgeBackgroundColor = Color.lightGreen
+                            badge.badgeString = "!"
+                            tabBarImageView.addSubview(badge)
+                            badge.anchor(top: tabBarImageView.topAnchor, leading: nil, trailing: tabBarImageView.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 5, heightConstant: 5)
+                        }
+
+                        
+                    }
+                    else {
+                        // first time setting up
+                        defaults.setLastLink(value: snapshot.key)
+                    }
+                    
+                })
+                
+            }
             tabBarImageView.contentMode = .center
             imageViews.append(tabBarImageView)
 
@@ -86,12 +107,14 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             tabBarItem = "Tavern"
         case .dataLink:
             tabBarItem = "Data"
+            // get rid of badge if it has it
+            badge?.removeFromSuperview()
         case .favorites:
             tabBarItem = "Favorites"
             
         }
-        
-        FIRAnalytics.logEvent(withName: "SelectedTabBarItem", parameters: [
+
+        FIRAnalytics.logEvent(withName: tabBarItem, parameters: [
             "name" : tabBarItem as NSObject
             ])
         

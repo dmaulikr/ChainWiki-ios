@@ -83,6 +83,14 @@ extension UserDefaults {
         return bool(forKey: "image")
     }
     
+    func setLastLink(value: String) {
+        set(value, forKey: "lastLink")
+    }
+    
+    func getLastLink() -> String? {
+        return string(forKey: "lastLink")
+    }
+    
     func updateVersion() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             set(version, forKey: "version")
@@ -127,6 +135,7 @@ extension UserDefaults {
         FIRAnalytics.logEvent(withName: "SearchView", parameters: [
             "type" : value as NSObject
             ])
+        
     }
     
     func getSearchView() -> String? {
