@@ -130,14 +130,6 @@ class FavoritesArcanaViewController: ArcanaViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        guard let row = tableView.indexPathForSelectedRow?.row else { return }
-        let arcana = arcanaArray[row]
-        let vc = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         tableView.reloadData()
@@ -154,18 +146,17 @@ class FavoritesArcanaViewController: ArcanaViewController {
         
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
-            let idToRemove = self.arcanaArray[indexPath.row].uid
-            self.arcanaArray.remove(at: indexPath.row)
+            let idToRemove = self.arcanaArray[indexPath.section].uid
+            self.arcanaArray.remove(at: indexPath.section)
             
             var userFavorites = defaults.getFavorites()
             
             for (index, i) in userFavorites.enumerated() {
-                print("INDEX is \(index)")
-                // not even checking here 2nd time.
+
                 if i == idToRemove {
                     userFavorites.remove(at: index)
-                    if let id = defaults.getUID() {
-                        let ref = FIREBASE_REF.child("user/\(id)/favorites/\(i)")
+                    if let userID = defaults.getUID() {
+                        let ref = FIREBASE_REF.child("user").child(userID).child("favorites").child(i)
                         ref.removeValue()
                         defaults.setFavorites(value: userFavorites)
                     }
@@ -194,9 +185,9 @@ class FavoritesArcanaViewController: ArcanaViewController {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
-        let itemToMove = arcanaArray[sourceIndexPath.row]
-        arcanaArray.remove(at: sourceIndexPath.row)
-        arcanaArray.insert(itemToMove, at: destinationIndexPath.row)
+        let itemToMove = arcanaArray[sourceIndexPath.section]
+        arcanaArray.remove(at: sourceIndexPath.section)
+        arcanaArray.insert(itemToMove, at: destinationIndexPath.section)
         
     }
 

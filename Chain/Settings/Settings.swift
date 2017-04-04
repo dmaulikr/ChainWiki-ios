@@ -33,6 +33,7 @@ class Settings: UIViewController, DisplayBanner {
         tableView.dataSource = self
         
         tableView.estimatedSectionHeaderHeight = 50
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(ImageToggleCell.self, forCellReuseIdentifier: "ImageToggleCell")

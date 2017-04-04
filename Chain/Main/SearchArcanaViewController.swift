@@ -177,8 +177,8 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func downloadArcana() {
         
         // For UI Testing.
-         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-//        ref.observe(.childAdded, with: { snapshot in
+//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
 
