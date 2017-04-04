@@ -20,17 +20,8 @@ target 'Chain' do
     pod 'LicensesViewController', '~> 0.6.0'
     pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
 
-  # Pods for Chain
-
-  target 'ChainTests' do
-    inherit! :search_paths
-    # Pods for testing
-    pod 'Firebase'
-  end
-
   target 'ChainUITests' do
     inherit! :search_paths
-    pod 'Firebase'
     # Pods for testing
   end
 

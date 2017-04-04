@@ -19,3 +19,10 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
+extension String {
+    func versionToInt() -> [Int] {
+        return self.components(separatedBy: ".")
+            .map { Int.init($0) ?? 0 }
+    }
+}

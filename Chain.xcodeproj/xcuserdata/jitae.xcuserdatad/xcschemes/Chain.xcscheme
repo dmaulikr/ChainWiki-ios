@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04A2ECB21D6F7FA300189142"
+               BlueprintIdentifier = "043A7CB21E8FB1DA0061EDD8"
                BuildableName = "ChainUITests.xctest"
                BlueprintName = "ChainUITests"
                ReferencedContainer = "container:Chain.xcodeproj">

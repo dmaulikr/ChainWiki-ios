@@ -231,8 +231,6 @@ class ArcanaViewController: UIViewController {
 
     func setupNavBar() {
         
-        navigationItem.title = "아르카나"
-
         let filter = UIButton()
         filter.setImage(UIImage(named: "filter.png"), for: .normal)
         filter.frame = CGRect(x: 0, y: 0, width: 30, height: 40)

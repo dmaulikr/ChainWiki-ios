@@ -49,12 +49,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac-615f275e.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleToolboxForMac-Defines-NSData+zlib.xcscheme</key>
+		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,11 +74,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-ChainTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-ChainUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,11 +92,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>13A24A8D222384EFDEF6FBFC18BC8E7A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1AEE3ECBF2BF741DD96EF7E7F020A37A</key>
 		<dict>
 			<key>primary</key>
@@ -127,27 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>433E90BF6136E433A0FEA61CD4159E56</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>44CAD6CE523055ED339E87154473A254</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>51B48FED2EE77D23534ACBF954072423</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>593E9479C06FB200807D11AB29EB50BD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5A30CC98A0447FEC910E466B1BF3E268</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,12 +132,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6FA52A029A9ACCB8974DF210FE953201</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7066513FDAE0FC484797CA43CDA5C9F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7335E9C9689F3B8A16F063A884748533</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>90066B11CCDFB54B16A3F20249F3811D</key>
+		<key>A31ACD7241CDCC524D5DE03A3A1FBBA8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A64153A01FFCFA17B1A048E9F4162CEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,17 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB1AD962985B7CE7CAEDD51E8025B89F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DDBCFDE490CDFDABF6F16A26F346932D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F1091A2F00AF158958E4C28B6EEBC2B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

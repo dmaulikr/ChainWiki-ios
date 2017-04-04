@@ -22,7 +22,7 @@ class DataViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DataCell")
+        tableView.register(DataCell.self, forCellReuseIdentifier: "DataCell")
         return tableView
     }()
 
@@ -104,9 +104,8 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as UITableViewCell
-        cell.textLabel?.text = dataLinks[indexPath.row].getTitle()
-        cell.textLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataCell
+        cell.linkTitleLabel.text = dataLinks[indexPath.row].getTitle()
         return cell
     }
     

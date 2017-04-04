@@ -57,13 +57,15 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             let tabBarImageView = tabBarItemView.subviews.first as! UIImageView
             if index == 3 {
                 
-                let dataRef = FIREBASE_REF.child("links")
-                dataRef.queryOrderedByKey().queryLimited(toLast: 1).observeSingleEvent(of: .childAdded, with: { snapshot in
+                let dataRef = FIREBASE_REF.child("links").child("eventMission")
+                dataRef.observeSingleEvent(of: .value, with: { snapshot in
                     
-                    if let lastLink = defaults.getLastLink() {
+                    guard let currentMission = snapshot.value as? String else { return }
+                    if let lastMission = defaults.getLastLink() {
                         
-                        if snapshot.key != lastLink {
+                        if currentMission != lastMission {
                             // show the badge.
+                            defaults.setLastLink(value: currentMission)
                             self.badge = MIBadgeButton()
                             guard let badge = self.badge else { return }
                             badge.badgeBackgroundColor = Color.lightGreen
@@ -76,7 +78,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
                     }
                     else {
                         // first time setting up
-                        defaults.setLastLink(value: snapshot.key)
+                        defaults.setLastLink(value: currentMission)
                     }
                     
                 })

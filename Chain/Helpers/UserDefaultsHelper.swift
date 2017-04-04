@@ -174,8 +174,6 @@ extension UserDefaults {
         return bool(forKey: "imageType")
     }
     
-
-    
     // MARK - App Rating
     func getAppLaunchCount() -> Int {
         return integer(forKey: "numberOfLaunches")
@@ -195,3 +193,4 @@ extension UserDefaults {
     
     
 }
+

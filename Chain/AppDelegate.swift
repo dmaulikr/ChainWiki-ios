@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.updateVersion()
         }
 
-        AppRater.appRater.incrementAppLaunches()
+//        AppRater.appRater.incrementAppLaunches()
         
         var initialViewController = UIViewController()
         

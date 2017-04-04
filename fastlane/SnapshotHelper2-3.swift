@@ -102,6 +102,8 @@ public class Snapshot: NSObject {
 
         #if os(tvOS)
             XCUIApplication().childrenMatchingType(.Browser).count
+        #elseif os(OSX)
+            XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
         #else
             XCUIDevice.sharedDevice().orientation = .Unknown
         #endif
@@ -121,20 +123,42 @@ public class Snapshot: NSObject {
     }
 
     class func pathPrefix() -> NSString? {
-        if let path = NSProcessInfo().environment["SIMULATOR_HOST_HOME"] as NSString? {
-            return path.stringByAppendingPathComponent("Library/Caches/tools.fastlane")
-        }
-        print("Couldn't find Snapshot configuration files at ~/Library/Caches/tools.fastlane")
-        return nil
+        var homeDir: NSString
+        //on OSX config is stored in /Users/<username>/Library
+        //and on iOS/tvOS/WatchOS it's in simulator's home dir
+        #if os(OSX)
+            
+            guard let user = ProcessInfo().environment["USER"] else {
+                print("Couldn't find Snapshot configuration files - can't detect current user ")
+                return nil
+            }
+            
+            guard let usersDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.NSUserDirectory, NSSearchPathDomainMask.NSLocalDomainMask, true)[0] as NSString? else {
+                print("Couldn't find Snapshot configuration files - can't detect `Users` dir")
+                return nil
+            }
+            
+            homeDir = usersDir.stringByAppendingPathComponent(user) as NSString
+        #else
+            guard homeDir = ProcessInfo().environment["SIMULATOR_HOST_HOME"] as NSString else {
+                print("Couldn't find simulator home location. Please, check SIMULATOR_HOST_HOME env variable.")
+                return nil
+            }
+        #endif
+        return homeDir.stringByAppendingPathComponent("Library/Caches/tools.fastlane") as NSString
     }
 }
 
 extension XCUIElement {
     var isLoadingIndicator: Bool {
+        let whiteListedLoaders = ["GeofenceLocationTrackingOn", "StandardLocationTrackingOn"]
+        if whiteListedLoaders.contains(self.identifier) {
+            return false
+        }
         return self.frame.size == CGSize(width: 10, height: 20)
     }
 }
 
 // Please don't remove the lines below
 // They are used to detect outdated configuration files
-// SnapshotHelperVersion [1.2]
+// SnapshotHelperVersion [1.3]

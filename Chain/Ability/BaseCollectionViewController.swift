@@ -225,9 +225,26 @@ class BaseCollectionViewController: UIViewController {
     }
     
     func scrollToMenuIndex(_ menuIndex: Int) {
+        
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
         selectedIndex = menuIndex
+        
+        if horizontalSize == .regular && menuType != .abilityView {
+            let numberOfMenuTabs = menuBarDelegate?.numberOfMenuTabs ?? 2
+            switch selectedIndex {
+            case 0:
+                self.menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = 10
+            default:
+                self.menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = (SCREENWIDTH/CGFloat(numberOfMenuTabs)) * CGFloat(selectedIndex) + CGFloat(10)
+                
+            }
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.menuBarDelegate?.menuBar.layoutIfNeeded()
+            })
+
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -141,6 +141,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func setupNavBar() {
         super.setupNavBar()
+        navigationItem.title = "아르카나"
 //        navigationItem.leftBarButtonItem = toggleArcanaViewButton
     }
     
@@ -175,7 +176,9 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     override func downloadArcana() {
         
-        ref.observe(.childAdded, with: { snapshot in
+        // For UI Testing.
+         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+//        ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
 

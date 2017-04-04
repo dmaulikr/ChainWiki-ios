@@ -10,8 +10,8 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
-    fileprivate let photos = [#imageLiteral(resourceName: "PreviewFilter"), #imageLiteral(resourceName: "PreviewAbility"), #imageLiteral(resourceName: "PreviewEdit")]
-    fileprivate let descs = ["종류별로 아르카나 검색.", "어빌리티별로 아르카나 검색.", "아르카나 정보 수정."]
+    fileprivate let photos = [#imageLiteral(resourceName: "listPreview"), #imageLiteral(resourceName: "abilityPreview"), #imageLiteral(resourceName: "mainGridPreview")]
+    fileprivate let descs = ["종류별로 아르카나 검색.", "어빌리티별로 아르카나 검색.", "맞춤형 설정"]
     fileprivate var currentIndex: Int!
     
     init() {
