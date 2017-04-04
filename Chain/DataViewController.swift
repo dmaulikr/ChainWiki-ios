@@ -21,7 +21,7 @@ class DataViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.register(DataCell.self, forCellReuseIdentifier: "DataCell")
         return tableView
     }()

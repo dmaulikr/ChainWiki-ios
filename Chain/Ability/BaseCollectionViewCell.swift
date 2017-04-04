@@ -19,6 +19,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 90
         tableView.estimatedSectionHeaderHeight = 50
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         
         return tableView
         
