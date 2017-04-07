@@ -11,7 +11,7 @@ import WebKit
 import NVActivityIndicatorView
 import SafariServices
 
-class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate {
+class LinkViewController: SFSafariViewController, SFSafariViewControllerDelegate {
 
     let url: URL
     
@@ -19,7 +19,6 @@ class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate 
         let button = UIBarButtonItem(title: "브라우저", style: .plain, target: self, action: #selector(openBrowser))
         return button
     }()
-
     
     let activityIndicator: NVActivityIndicatorView = {
         let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
@@ -60,15 +59,15 @@ class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate 
         alertController.setValue(NSAttributedString(string:
             "브라우저 선택", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
         
-        let alpha = UIAlertAction(title: "크롬으로 열기", style: .default, handler: { action in
+        let chrome = UIAlertAction(title: "크롬으로 열기", style: .default, handler: { action in
             self.openChrome()
         })
-        alertController.addAction(alpha)
+        alertController.addAction(chrome)
         
-        let recent = UIAlertAction(title: "사파리로 열기", style: .default, handler: { action in
+        let safari = UIAlertAction(title: "사파리로 열기", style: .default, handler: { action in
             self.openSafari()
         })
-        alertController.addAction(recent)
+        alertController.addAction(safari)
 
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
@@ -83,15 +82,15 @@ class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate 
     }
     
     func openChrome() {
-        let urlString = url.absoluteString
+        let urlString = url.absoluteString.replacingOccurrences(of: "https://", with: "")
         let chromeURLString = "googlechrome://" + urlString
         guard let chromeURL = URL(string: chromeURLString) else { return }
-        
         UIApplication.shared.openURL(chromeURL)
     }
     
     func openSafari() {
-        
+        guard let url = URL(string: url.absoluteString) else { return }
+        UIApplication.shared.openURL(url)
     }
 
     func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {

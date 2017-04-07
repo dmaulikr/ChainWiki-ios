@@ -120,7 +120,6 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
         vc.title = title
         navigationController?.pushViewController(vc, animated: true)
         
-        
     }
     
 }
