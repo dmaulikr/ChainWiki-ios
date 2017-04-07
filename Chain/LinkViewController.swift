@@ -13,18 +13,28 @@ import SafariServices
 
 class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate {
 
+    let url: URL
+    
+    lazy var browserButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "브라우저", style: .plain, target: self, action: #selector(openBrowser))
+        return button
+    }()
+
+    
     let activityIndicator: NVActivityIndicatorView = {
         let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
         return spinner
     }()
     
     init(url: URL) {
+        self.url = url
         super.init(url: url, entersReaderIfAvailable: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupNavBar()
         delegate = self
         
     }
@@ -38,7 +48,51 @@ class LinkViewController: SFSafariViewController,SFSafariViewControllerDelegate 
         activityIndicator.startAnimating()
         
     }
+    
+    func setupNavBar() {
+        navigationItem.rightBarButtonItem = browserButton
+    }
 
+    func openBrowser() {
+        
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        alertController.view.tintColor = Color.salmon
+        alertController.setValue(NSAttributedString(string:
+            "브라우저 선택", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
+        
+        let alpha = UIAlertAction(title: "크롬으로 열기", style: .default, handler: { action in
+            self.openChrome()
+        })
+        alertController.addAction(alpha)
+        
+        let recent = UIAlertAction(title: "사파리로 열기", style: .default, handler: { action in
+            self.openSafari()
+        })
+        alertController.addAction(recent)
+
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        if let presenter = alertController.popoverPresentationController {
+            presenter.barButtonItem = browserButton
+        }
+        
+        present(alertController, animated: true, completion: { () -> () in
+            alertController.view.tintColor = Color.salmon
+        })
+
+    }
+    
+    func openChrome() {
+        let urlString = url.absoluteString
+        let chromeURLString = "googlechrome://" + urlString
+        guard let chromeURL = URL(string: chromeURLString) else { return }
+        
+        UIApplication.shared.openURL(chromeURL)
+    }
+    
+    func openSafari() {
+        
+    }
 
     func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
         activityIndicator.stopAnimating()

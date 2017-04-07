@@ -98,8 +98,8 @@ class ArcanaDetail: UIViewController {
         super.viewDidAppear(animated)
 
 //        if defaults.getUID()! != "ces2IjhzRKTZEp1bUl0HXkkEZRy1" {
-//            let dataRequest = FirebaseService.dataRequest
-//            dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+//        let dataRequest = FirebaseService.dataRequest
+//        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
 //
 //        }
         
@@ -158,7 +158,7 @@ class ArcanaDetail: UIViewController {
         alertController.view.layer.cornerRadius = 10
         
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
-            self.generateImage(view: self.tableView)
+            self.screenShot()
             
             FIRAnalytics.logEvent(withName: "ExportedArcana", parameters: [
                 "name": self.arcana.getNameKR() as NSObject,
@@ -177,6 +177,32 @@ class ArcanaDetail: UIViewController {
         
     }
     
+    func screenShot() {
+        
+        let savedContentOffset = tableView.contentOffset
+        
+        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0)
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        tableView.layer.render(in: context)
+        
+        for i in 0 ..< tableView.numberOfSections  {
+            if tableView.numberOfRows(inSection: i) > 0 {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: i), at: .bottom, animated: false)
+                guard let context = UIGraphicsGetCurrentContext() else { return }
+                tableView.layer.render(in: context)
+            }
+        }
+        
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        
+        UIGraphicsEndImageContext()
+        tableView.contentOffset = savedContentOffset
+    }
+
     func updateHistory() {
         var recents = [String]()
         
@@ -388,12 +414,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case kizuna
         case chainStory
         case tavern
+        case wikiJP
         case edit
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return 9
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -460,6 +487,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 1
             }
             
+        case .wikiJP:
+            return 1
         case .edit:
             return 1
         }
@@ -836,7 +865,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            
+        case .wikiJP:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaViewEditsCell") as! ArcanaViewEditsCell
+            cell.editLabel.text = "일첸 위키 가기"
+            cell.arrow.image = #imageLiteral(resourceName: "go")
+            cell.layoutMargins = UIEdgeInsets.zero
+            return cell
         case .tavern:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.selectionStyle = .none
@@ -859,9 +893,30 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let section = Section(rawValue: indexPath.section), section == .edit else { return }
-        let vc = ArcanaEditList(arcanaID: arcana.getUID())
-        navigationController?.pushViewController(vc, animated: true)
+        guard let section = Section(rawValue: indexPath.section) else { return }
+        
+        switch section {
+        case .wikiJP:
+            
+            let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
+
+            var arcanaURL = ""
+            if let nicknameJP = arcana.getNicknameJP() {
+                arcanaURL = nicknameJP + arcana.getNameJP()
+            }
+            else {
+                arcanaURL = arcana.getNameJP()
+            }
+            guard let encodedURL = arcanaURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed), let url = URL(string: (baseURL + encodedURL)) else { return }
+            let vc = LinkViewController(url: url)
+            navigationController?.pushViewController(vc, animated: true)
+        case .edit:
+            let vc = ArcanaEditList(arcanaID: arcana.getUID())
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
+        
 
     }
 
