@@ -29,21 +29,6 @@ xcode-select --install
 </table>
 # Available Actions
 ## iOS
-### ios test
-```
-fastlane ios test
-```
-Runs all the tests
-### ios inc
-```
-fastlane ios inc
-```
-
-### ios provision
-```
-fastlane ios provision
-```
-
 ### ios build
 ```
 fastlane ios build

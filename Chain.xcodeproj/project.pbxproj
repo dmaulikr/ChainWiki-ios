@@ -51,6 +51,7 @@
 		043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */; };
 		043EEFBD1E8B4AEB00650B28 /* ImageTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */; };
 		043EEFBF1E8B525500650B28 /* ArcanaMainImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */; };
+		0443FA971E9847FE00F6CD4E /* SearchArcanaPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */; };
 		0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */; };
 		045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E4D0D1DB9D8A400EBC793 /* SearchController.swift */; };
 		045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A91DAB5DEE002148DD /* Settings.swift */; };
@@ -184,6 +185,7 @@
 		043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewPageController.swift; sourceTree = "<group>"; };
 		043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCell.swift; sourceTree = "<group>"; };
 		043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageCell.swift; sourceTree = "<group>"; };
+		0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchArcanaPageViewController.swift; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		045E4D0D1DB9D8A400EBC793 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		045EF6A91DAB5DEE002148DD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 			children = (
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
 				0425D4911E7893690030BF4A /* NavigationController.swift */,
+				0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */,
 				0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */,
 				040FA9A71E88999E00C315CD /* ArcanaViewExtensions.swift */,
 				0425D4991E78E8700030BF4A /* SearchArcanaViewController.swift */,
@@ -807,6 +810,7 @@
 				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
+				0443FA971E9847FE00F6CD4E /* SearchArcanaPageViewController.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */,
@@ -1050,7 +1054,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1080,7 +1084,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;

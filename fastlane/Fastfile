@@ -19,43 +19,19 @@ platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
 
-
     cocoapods
   end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
-
-  lane :inc do
-      increment_build_number
-    end
-
-  lane :provision do
-      # 3
-      produce(
-        app_name: '체인크로니클 위키',
-        language: 'Korean',
-        # app_version: '1.0.1',
-        sku: 'cck16'
-      )
-      # 4
-      cert
-      # 5
-      sigh(force: true)
-    end
 
   desc "Create ipa"
   lane :build do
 
     increment_build_number
 
-#    increment_version_number(
-#      bump_type: "patch" # Automatically increment patch version number
+    #increment_version_number(
+   #   bump_type: "patch" # Automatically increment patch version number
       # version_number: "2.1.0"
-#    )
-    # version = increment_version_number
+  #  )
+    
     gym(scheme: "Chain", configuration: "Release")
   end
 

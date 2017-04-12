@@ -31,7 +31,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func setupTabBar() {
-        
+//        let arcanaTab = SearchArcanaPageViewController()
 //        let arcanaTab = SearchArcanaViewController()
         let arcanaTab = NavigationController(SearchArcanaViewController())
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
@@ -57,7 +57,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             let tabBarImageView = tabBarItemView.subviews.first as! UIImageView
             if index == 3 {
                 
-                let dataRef = FIREBASE_REF.child("links").child("eventMission")
+                let dataRef = FIREBASE_REF.child("links").child("eventMission").child("url")
                 dataRef.observeSingleEvent(of: .value, with: { snapshot in
                     
                     guard let currentMission = snapshot.value as? String else { return }
