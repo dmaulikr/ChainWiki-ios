@@ -15,9 +15,10 @@
  */
 'use strict';
 
+var arcanaID;
+
 window.onload = function() {
   window.ChainWiki = new ChainWiki();
-  // getURL();
 };
 
 // Initializes ChainWiki.
@@ -25,6 +26,7 @@ function ChainWiki() {
   // Shortcuts to DOM Elements.
   this.arcanaList = document.getElementById('arcana');
   this.initFirebase();
+  arcanaID = getParameterByName('arcana');
   this.loadArcana();
 }
 
@@ -37,7 +39,9 @@ ChainWiki.prototype.initFirebase = function() {
 };
 
 ChainWiki.prototype.loadArcana = function() {
-  this.arcanaRef = this.database.ref(`arcana/-KhTB5s7zugNuOpARRic`);
+  console.log(arcanaID);
+  
+  this.arcanaRef = this.database.ref(`arcana/${arcanaID}`);
   // Make sure we remove all previous listeners.
   this.arcanaRef.off();
 
@@ -137,17 +141,15 @@ ChainWiki.prototype.loadImage = function(arcanaID) {
   const arcanaImage = document.getElementById('arcanaImage');
   // arcanaImage.setAttribute("id", "arcanaImageMain");
   this.storageRef.child(`/image/arcana/${arcanaID}/main.jpg`).getDownloadURL().then(function(url) {
-    // arcanaImage.innerHTML = `<img src =${url} class = "arcanaImageMain"/>`;
-
+    arcanaImage.innerHTML = `<img src =${url} class = "arcanaImageMain"/>`;
   }).catch(function(error) {
     console.log("Image download error.");
   });
 };
 
-function getURL(url) {
+function getParameterByName(name, url) {
     if (!url) {
       url = window.location.href;
-      console.log(url);
     }
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),

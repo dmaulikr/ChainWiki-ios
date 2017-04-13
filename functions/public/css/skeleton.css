@@ -28,13 +28,16 @@
 /* Custom
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .nameKRLabel {
-  font-size: 2.0rem;
+  font-size: 1.6rem;
+  font-weight: bold;
   padding: 0px 10px 0px 0px;
 }
 
 .nicknameKRLabel {
-  font-size: 1.5rem;
-  padding: 0px 0px 0px 10px;
+  font-size: 1.2rem;
+  padding: 0px 10px 0px 10px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .placeholder {
@@ -43,9 +46,15 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-color: #F7F7F7;
-    /*background-image: url('my_placeholder.png');*/
 }
 
+.arcanaImageIcon {
+    padding: 0px;
+    width: 75px;
+    height: 75px;
+    vertical-align: middle;
+    background-color: #F7F7F7;
+}
 .arcanaImageMain {
   display: block;
   width: 100%;
