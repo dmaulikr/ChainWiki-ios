@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 'use strict';
+var Localization = {
+  kr: 'kr',
+  jp: 'jp',
+};
+
+var ArcanaAttribute = {
+  rarity: 'rarity',
+  group: 'group',
+  weapon: 'weapon',
+  affiliation: 'affiliation',
+  numberOfViews: 'numberOfViews',
+};
 
 var lastArcanaIDKey;
 var initialKnownKey;
-var arcanaArray = new Array();
+var arcanaArray = [];
 var arcanaDictionary = {};
 var initialLoad = true;
 var pages = 0;
@@ -60,7 +72,7 @@ ChainWiki.prototype.loadArcana = function() {
       return;
     }
     this.insertNewArcana(data);
-    this.setupCell(data);
+    this.insertCell(data, 0);
     arcanaDictionary[data.key] = true;
   }.bind(this);
 
@@ -73,10 +85,6 @@ ChainWiki.prototype.loadArcana = function() {
     this.removeCell(data);
   }.bind(this);
 
-  var syncArcana = function(data) {
-    this.insertCell(data);
-  }.bind(this);
-  // this.arcanaRef.on('child_added', syncArcana);
   this.arcanaRef.orderByKey().limitToLast(10).on('child_added', addArcana);
   // this.arcanaRef.orderByKey().limitToLast(10).on('child_changed', updateArcana);
   // this.arcanaRef.orderByKey().limitToLast(10).on('child_removed', removeArcana);
@@ -96,7 +104,7 @@ ChainWiki.prototype.fetchArcana = function() {
       lastArcanaIDKey = data.key;
     }
     if (count < 10) {
-      this.appendCell(data);
+      this.insertCell(data, pages);
       this.insertNewArcana(data);
     }
     else {
@@ -111,140 +119,121 @@ ChainWiki.prototype.fetchArcana = function() {
   this.arcanaRef.orderByKey().endAt(lastArcanaIDKey).limitToLast(11).on('child_added', addArcana);
 };
 
-ChainWiki.prototype.setupCell = function(data) {
 
-  const val = data.val();
-  const arcanaID = data.key;
-  const nameKR = val.nameKR;
-  const nicknameKR = val.nicknameKR;
-
-  // row is a <tr> element
-  var rowNumber;
-  if (initialLoad) {
-    rowNumber = 0;
-  }
-  else {
-    rowNumber = 1;
-  }
-  var row = this.arcanaList.insertRow(rowNumber);
-  row.style.height = '106px';
-  row.setAttribute('onclick', `location.href='/arcana/?arcana=${arcanaID}'`);
-  row.setAttribute('id', `${arcanaID}_row`);
-  
-  var arcanaImageCell = document.createElement('td');
-  arcanaImageCell.style.width = '75px';  
-
-  this.storageRef.child(`/image/arcana/${arcanaID}/icon.jpg`).getDownloadURL().then(function(url) {
-    arcanaImageCell.innerHTML = `<img data-original='${url}' class='arcanaImageIcon' id='${arcanaID}_icon'/>`;
-    $('img.arcanaImageIcon').lazyload();
-
-  }).catch(function(error) {
-    console.log("Image download error.");
-  });
-
-  var nameCell = document.createElement('td');
-  const nameKRContainerView = document.createElement('div');
-
-  const nameKRLabel = document.createElement('span');
-  nameKRLabel.setAttribute('class', 'nameKRLabel');
-  nameKRLabel.setAttribute('id', `${arcanaID}_nameKR`)
-  nameKRLabel.innerHTML = nameKR;
-  nameKRContainerView.appendChild(nameKRLabel);
-
-  const nicknameKRLabel = document.createElement('span');
-  nicknameKRLabel.setAttribute('class', 'nicknameKRLabel');
-  nicknameKRLabel.setAttribute('id', `${arcanaID}_nicknameKR`)
-  if (nicknameKR) {
-      nicknameKRLabel.innerHTML = nicknameKR;
-  }
-  nameKRContainerView.appendChild(nicknameKRLabel);
-
-  nameCell.appendChild(nameKRContainerView);
-  row.appendChild(arcanaImageCell);
-  row.appendChild(nameCell);
-};
-
-ChainWiki.prototype.updateCell = function(data) {
-
-  const val = data.val();
-  const arcanaID = data.key;
-  const nameKR = val.nameKR;
-  const nicknameKR = val.nicknameKR;
-
-  const nameKRCell = $('#' + `${arcanaID}_nameKR`);
-  nameKRCell.html(nameKR);
-
-  if (nicknameKR) {
-    const nicknameKRCell = $('#' + `${arcanaID}_nicknameKR`);
-    nicknameKRCell.html(nicknameKR);
-  }
-
-  // this.storageRef.child(`/image/arcana/${arcanaID}/icon.jpg`).getDownloadURL().then(function(url) {
-
-  //   const arcanaImageCell = $('#' + `${arcanaID}_icon`);
-  //   arcanaImageCell.html(`<img data-original='${url}' class='arcanaImageIcon' id='${arcanaID}_icon'/>`);
-  //   $('img.arcanaImageIcon').lazyload();
-
-  // }).catch(function(error) {
-  //   console.log("Image download error.");
-  // });
-
-};
-
-ChainWiki.prototype.insertCell = function(data) {
-
-  const val = data.val();
-  const arcanaID = data.key;
-
-  console.log('removing :', val.nameKR);
-  const row = $('#' + `${arcanaID}_row`);
-  row.remove();
-
-};
-
-ChainWiki.prototype.appendCell = function(data) {
+ChainWiki.prototype.insertCell = function(data, index) {
 
   // todo: find the previous <tr> with the previousIDkey? and INSERT at that point.
   console.log('appending cell...');
   const val = data.val();
   const arcanaID = data.key;
   const nameKR = val.nameKR;
-  const nicknameKR = val.nicknameKR;
+  const nicknameKR = val.nicknameKR || val.nickNameKR;
+  const nameJP = val.nameJP;
+  const nicknameJP = val.nicknameJP || val.nickNameJP;
+
   console.log('fetching', nameKR, arcanaID);
   // row is a <tr> element
-  var row = this.arcanaList.insertRow(pages);
-  row.style.height = '106px';
+  var row = this.arcanaList.insertRow(index);
+  row.style.height = '95px';
   row.setAttribute('onclick', `location.href='/arcana/?arcana=${arcanaID}'`);
   
   var arcanaImageCell = document.createElement('td');
-  arcanaImageCell.style.width = '75px';  
+  arcanaImageCell.style.width = '66px';  
+  arcanaImageCell.style.height = '66px';
 
   this.storageRef.child(`/image/arcana/${arcanaID}/icon.jpg`).getDownloadURL().then(function(url) {
-    arcanaImageCell.innerHTML = `<img data-original='${url}' class='arcanaImageIcon' id='${arcanaID}icon'/>`;
-    $('img.arcanaImageIcon').lazyload();
-
+    arcanaImageCell.innerHTML = `<img data-original='${url}' class='arcanaImageIcon' id='${arcanaID}_icon'/>`;
+    $('img.arcanaImageIcon').lazyload({
+      placeholder: 'images/placeholder.png',
+      effect : 'fadeIn'
+    });
   }).catch(function(error) {
     console.log("Image download error.");
   });
 
   var nameCell = document.createElement('td');
-  const nameKRContainerView = document.createElement('div');
+  nameCell.style.verticalAlign = 'top';
 
-  const nameKRLabel = document.createElement('span');
-  nameKRLabel.setAttribute('class', 'nameKRLabel');
-  nameKRLabel.innerHTML = nameKR;
-  nameKRContainerView.appendChild(nameKRLabel);
-
-  const nicknameKRLabel = document.createElement('span');
-  nicknameKRLabel.setAttribute('class', 'nicknameKRLabel');
-  nicknameKRLabel.innerHTML = nicknameKR;
-  nameKRContainerView.appendChild(nicknameKRLabel);
+  const nameKRContainerView = setupName(nameKR, nicknameKR, Localization.kr);
+  const nameJPContainerView = setupName(nameJP, nicknameJP, Localization.jp);
+  const detailContainerView = setupDetail(val.rarity, val.class, val.weapon, val.affiliation, val.numberOfViews);
 
   nameCell.appendChild(nameKRContainerView);
+  nameCell.appendChild(nameJPContainerView);
+  nameCell.appendChild(detailContainerView);
+
   row.appendChild(arcanaImageCell);
   row.appendChild(nameCell);
 
 };
+
+function setupName(name, nickname, localization) {
+
+  const nameContainerView = document.createElement('div');
+  const nameLabel = document.createElement('span');
+  nameLabel.innerHTML = name;
+  if (localization == 'kr') {
+    nameLabel.setAttribute('class', 'nameKRLabel');
+  }
+  else {
+    nameLabel.setAttribute('class', 'nameJPLabel');
+  }
+
+  nameContainerView.appendChild(nameLabel);
+
+  if (nickname) {
+
+    const nicknameLabel = document.createElement('span');
+    nicknameLabel.innerHTML = nickname;
+    if (localization == 'kr') {
+      nicknameLabel.setAttribute('class', 'nicknameKRLabel');
+    }
+    else {
+      nicknameLabel.setAttribute('class', 'nicknameJPLabel');
+    }
+    nameContainerView.appendChild(nicknameLabel);
+  }
+
+  return nameContainerView;
+}
+
+function setupDetail(rarity, group, weapon, affiliation, numberOfViews) {
+  console.log("setup detail");
+  const detailContainerView = document.createElement('div');
+
+  const rarityLabel = createDetailLabel(rarity, ArcanaAttribute.rarity);
+  const groupLabel = createDetailLabel(group, ArcanaAttribute.group);
+  const weaponLabel = createDetailLabel(weapon, ArcanaAttribute.weapon);
+  const affiliationLabel = createDetailLabel(affiliation, ArcanaAttribute.affiliation);
+  const numberOfViewsLabel = createDetailLabel(numberOfViews, ArcanaAttribute.numberOfViews);
+
+  detailContainerView.appendChild(rarityLabel);
+  detailContainerView.appendChild(groupLabel);
+  detailContainerView.appendChild(weaponLabel);
+  detailContainerView.appendChild(affiliationLabel);
+  detailContainerView.appendChild(numberOfViewsLabel);
+
+  return detailContainerView;
+}
+
+function createDetailLabel(detail, arcanaAttribute) {
+  console.log(arcanaAttribute);
+  const detailLabel = document.createElement('span');
+  detailLabel.setAttribute('class', 'detailLabel');
+
+  if (arcanaAttribute == "rarity") {
+    detailLabel.innerHTML = '#' + detail + '성';
+  }
+  else if (arcanaAttribute == "numberOfViews") {
+    detailLabel.innerHTML = '조회 ' + detail;
+  }
+  else {
+    detailLabel.innerHTML = '#' + detail;
+  }
+
+  return detailLabel
+
+}
 
 ChainWiki.prototype.insertNewArcana = function(data) {
 
@@ -293,8 +282,30 @@ ChainWiki.prototype.insertNewArcana = function(data) {
   // }
 };
 
+function searchArcana() {
+  const searchInput = document.getElementById('searchArcanaText').value;
+  console.log("Searching for", searchInput);
+  if (searchInput) {
+      window.location.href = `/search/?nameKR=${searchInput}`
+  }
+}
+
+function authListener() {
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log('user is signed in');
+  } else {
+    console.log('user is not signed in');
+    firebase.auth().signInAnonymously().catch(function(error) {
+      
+    });
+  }
+});
+}
+
 window.onload = function() {
   window.ChainWiki = new ChainWiki();
+  authListener()
 };
 
 $(window).scroll(function() {
@@ -302,4 +313,15 @@ $(window).scroll(function() {
         console.log("Scrolled to bottom...");
         window.ChainWiki.fetchArcana();
     }
+});
+
+$(document).ready(function(){
+  console.log("READY");
+    $('#searchArcanaText').keypress(function(e){
+      console.log("PRESSED");
+      if(e.keyCode==13) {
+        searchArcana()
+        return false;
+      }
+    });
 });

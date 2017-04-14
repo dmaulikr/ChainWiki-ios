@@ -24,6 +24,7 @@ protocol ArcanaDetailProtocol : class {
 class ArcanaDetail: UIViewController {
     
     let arcana: Arcana
+    weak var presentingDelegate: LoadingArcanaViewController?
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -70,6 +71,15 @@ class ArcanaDetail: UIViewController {
         self.arcana = arcana
         print("ARCANAID: \(arcana.getUID())")
         super.init(nibName: nil, bundle: nil)
+        setupNavBar()
+
+    }
+    
+    init(arcana: Arcana, site: Bool) {
+        self.arcana = arcana
+        print("ARCANAID: \(arcana.getUID())")
+        super.init(nibName: nil, bundle: nil)
+        setupNavBarModal()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,7 +90,6 @@ class ArcanaDetail: UIViewController {
         super.viewDidLoad()
         updateHistory()
         setupViews()
-        setupNavBar()
         checkFavorites()
     }
     
@@ -97,8 +106,12 @@ class ArcanaDetail: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let dataRequest = FirebaseService.dataRequest
-        dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+        if let bundleID = Bundle.main.bundleIdentifier {
+            if bundleID != "com.jk.cckorea.debug" {
+                let dataRequest = FirebaseService.dataRequest
+                dataRequest.incrementCount(ref: FIREBASE_REF.child("arcana").child(arcana.getUID()).child("numberOfViews"))
+            }
+        }
     }
     
     func setupViews() {
@@ -145,6 +158,39 @@ class ArcanaDetail: UIViewController {
         navigationItem.rightBarButtonItems = [editBarButton, shareBarButton]
 
     }
+    
+    func setupNavBarModal() {
+        
+        let closeButton = UIBarButtonItem(title: "닫기", style: .done, target: self, action: #selector(cancel))
+        navigationItem.leftBarButtonItem = closeButton
+        
+        let shareButton = UIButton(type: .custom)
+        
+        shareButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        shareButton.addTarget(self, action: #selector(exportArcana), for: .touchUpInside)
+        shareButton.setImage(#imageLiteral(resourceName: "export"), for: .normal)
+        
+        let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
+        shareBarButton.customView = shareButton
+        
+        let editButton = UIButton(type: .system)
+        editButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
+        editButton.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
+        
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
+        editBarButton.customView = editButton
+        
+        navigationItem.rightBarButtonItems = [editBarButton, shareBarButton]
+        
+    }
+    
+    func cancel() {
+        dismiss(animated: true, completion: {
+            self.presentingDelegate?.dismiss(animated: true, completion: nil)
+        })
+    }
+
     
     func exportArcana() {
         

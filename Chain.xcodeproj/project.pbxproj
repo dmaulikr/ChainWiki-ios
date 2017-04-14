@@ -86,6 +86,7 @@
 		04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */; };
 		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
 		04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */; };
+		04C17B3D1EA145AB00AB93CF /* LoadingArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */; };
 		04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */; };
 		04CBBD431E2B4938009D5E5F /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD421E2B4938009D5E5F /* SectionHeader.swift */; };
 		04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */; };
@@ -225,6 +226,7 @@
 		04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainLogo.swift; sourceTree = "<group>"; };
 		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewDataSource.swift; sourceTree = "<group>"; };
+		04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingArcanaViewController.swift; sourceTree = "<group>"; };
 		04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		04CBBD421E2B4938009D5E5F /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalBar.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				0401B2871D75386C00A0A728 /* ArcanaDetail.swift */,
+				04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */,
 				040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */,
 				0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
@@ -597,9 +600,12 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 3NP653TDUD;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
 						};
@@ -807,6 +813,7 @@
 				043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */,
 				047C0D511E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift in Sources */,
 				0425D49A1E78E8700030BF4A /* SearchArcanaViewController.swift in Sources */,
+				04C17B3D1EA145AB00AB93CF /* LoadingArcanaViewController.swift in Sources */,
 				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
@@ -1054,7 +1061,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1062,8 +1069,8 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "927d8620-75aa-4af4-9734-aff68ca07d3b";
-				PROVISIONING_PROFILE_SPECIFIER = "com.jk.cckorea Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1083,8 +1090,8 @@
 				COCOAPODS_PARALLEL_CODE_SIGN = true;
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 34;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;
@@ -1093,8 +1100,8 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jk.cckorea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "deb87352-4981-439e-bf6f-4a57f24ace87";
-				PROVISIONING_PROFILE_SPECIFIER = "com.jk.cckorea AppStore";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chain/Chain-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

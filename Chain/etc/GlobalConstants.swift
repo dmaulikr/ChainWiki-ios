@@ -48,16 +48,9 @@ var ISIPADPRO: Bool {
 
 
 let FIREBASE_REF = FIRDatabase.database().reference()
+let ARCANA_REF = FIREBASE_REF.child("arcana")
 let STORAGE_REF = FIRStorage.storage().reference()
 let storage = FIRStorage.storage()
-//
-//let SCREENWIDTH = UIScreen.main.bounds.width
-//let SCREENHEIGHT = UIScreen.main.bounds.height
-
-
-
-
-
 
 // Colors
 extension UIColor {

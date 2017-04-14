@@ -28,6 +28,9 @@ function ChainWiki() {
   this.initFirebase();
   arcanaID = getParameterByName('arcana');
   this.loadArcana();
+  if (location.hostname !== "localhost" && location.hostname == "172.91.86.210") {
+    incrementViewCount();
+  }
 }
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
@@ -37,6 +40,17 @@ ChainWiki.prototype.initFirebase = function() {
   this.database = firebase.database();
   this.storageRef = firebase.storage().ref();
 };
+
+function incrementViewCount() {
+  firebase.database().ref(`arcana/${arcanaID}/numberOfViews`).transaction(function(count) {
+    if (count) {
+      console.log('count was', count);
+      count++;
+    }
+    return count;
+  });
+
+}
 
 ChainWiki.prototype.loadArcana = function() {
   console.log(arcanaID);
@@ -53,11 +67,11 @@ ChainWiki.prototype.loadArcana = function() {
     this.setupBaseInfo(val);
   }.bind(this);
 
-  this.arcanaRef.on('value', function(snapshot) {
+  this.arcanaRef.once('value').then(function(snapshot) {
 
     const val = snapshot.val();
     const arcanaID = snapshot.key;
-
+    document.title = val.nameKR;
     setupImage(arcanaID);
     setupBaseInfo(val);
   });
@@ -76,6 +90,14 @@ ChainWiki.prototype.setupBaseInfo = function(val) {
   document.getElementById('skillName1').innerHTML = val.skillName1;
   document.getElementById('skillMana1').innerHTML = val.skillMana1;
   document.getElementById('skillDesc1').innerHTML = val.skillDesc1;
+
+  if (val.skillDesc2) {
+    addSkill(val.skillName2, val.skillMana2, val.skillDesc2, 2);
+  }
+
+  if (val.skillDesc3) {
+    addSkill(val.skillName3, val.skillMana3, val.skillDesc3, 3);
+  }
 
   document.getElementById('abilityName1').innerHTML = val.abilityName1;
   document.getElementById('abilityDesc1').innerHTML = val.abilityDesc1;
@@ -96,6 +118,66 @@ ChainWiki.prototype.setupBaseInfo = function(val) {
 
 function insertAfter(referenceNode, newNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function addSkill(skillName, skillMana, skillDesc, count) {
+
+  // create the one row table.
+    
+    const table = document.createElement('table');
+    table.setAttribute('class', 'arcanaSkillTable');
+
+    const row = table.insertRow(0);
+
+    const headerCell = document.createElement('th');
+    headerCell.setAttribute('class', 'headerCell');
+
+    const bodyCell = document.createElement('td');
+    bodyCell.setAttribute('class', 'bodyCell');
+
+    row.appendChild(headerCell);
+    row.appendChild(bodyCell);
+
+    const skillContainerView = document.createElement('div');
+    skillContainerView.setAttribute('class', 'container');
+    
+    const skillNameCell = document.createElement('div');
+    skillNameCell.setAttribute('class', 'skillNameCell');
+    skillNameCell.style.cssFloat = 'left';
+    skillNameCell.innerHTML = skillName;
+
+    const skillManaCell = document.createElement('div');
+    skillManaCell.setAttribute('class', 'manaCell');
+    skillManaCell.style.cssFloat = 'right';
+    skillManaCell.innerHTML = skillMana;
+
+    bodyCell.appendChild(skillContainerView);
+    skillContainerView.appendChild(skillNameCell);
+    skillContainerView.appendChild(skillManaCell);
+
+    // setup the skillDesc below the table
+    const skillDescDiv = document.createElement('div');
+    skillDescDiv.setAttribute('class', 'skillAbilityDescCell');
+    skillDescDiv.innerHTML = skillDesc;
+    if (count == 2) {
+      skillDescDiv.setAttribute('id', 'skillDesc2');
+    }
+
+    var previousDiv;
+    if (count == 2) {
+      console.log('adding skill2');
+      headerCell.innerHTML = '스킬 2';
+      // skillNameCell.setAttribute('id', 'skillName1');
+      
+      previousDiv = document.getElementById('skillDesc1');
+    }
+    else if (count == 3) {
+      console.log('adding skill3');
+      headerCell.innerHTML = '스킬';
+      previousDiv = document.getElementById('skillDesc2');
+    }
+    insertAfter(previousDiv, table);
+    insertAfter(table, skillDescDiv);
 }
 
 function addAbility(abilityName, abilityDesc, type) {
@@ -139,9 +221,12 @@ function addAbility(abilityName, abilityDesc, type) {
 ChainWiki.prototype.loadImage = function(arcanaID) {
 
   const arcanaImage = document.getElementById('arcanaImage');
-  // arcanaImage.setAttribute("id", "arcanaImageMain");
   this.storageRef.child(`/image/arcana/${arcanaID}/main.jpg`).getDownloadURL().then(function(url) {
-    arcanaImage.innerHTML = `<img src =${url} class = "arcanaImageMain"/>`;
+    arcanaImage.innerHTML = `<img src =${url} class="arcanaImageMain"/>`;
+    $('img.arcanaImageMain').lazyload({
+      // placeholder: 'images/placeholder.png',
+      effect : 'fadeIn'
+    });
   }).catch(function(error) {
     console.log("Image download error.");
   });

@@ -17,7 +17,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
         set {}
     }
-    
+
     let headerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white

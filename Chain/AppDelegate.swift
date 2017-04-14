@@ -77,18 +77,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
+        if url.scheme == "ccwiki" {
+            // push the arcana vc
+            if let query = url.query {
+                var arcanaID = query.replacingOccurrences(of: "arcana=", with: "")
+                arcanaID = arcanaID.replacingOccurrences(of: ")", with: "")
+                let vc = LoadingArcanaViewController(arcanaID: arcanaID)
+                window?.rootViewController?.present(vc, animated: true, completion: nil)
+            }
+            
+            
+            return true
+        }
+        else {
+            
+            let facebookHandler = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+            
+            let googleHandler = GIDSignIn.sharedInstance().handle(url,
+                                                                  sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                                  annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+            
+            return facebookHandler || googleHandler
+        }
         
-        let facebookHandler = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+    }
+    
+    func application(_ application: UIApplication,
+                     continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         
-        let googleHandler = GIDSignIn.sharedInstance().handle(url,
-                                                              sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-                                                              annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let url = userActivity.webpageURL,
+            let _ = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                return false
+        }
         
-        return facebookHandler || googleHandler
+        guard let webpageUrl = URL(string: "ccwiki://\(userActivity.webpageURL)") else { return false }
+        application.openURL(webpageUrl)
+        
+        return false
     }
 
-    
-    
 }
 
 
