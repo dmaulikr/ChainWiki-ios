@@ -43,9 +43,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>36</string>
+	<string>39</string>
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
-	<true/>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1660485270908040</string>
 	<key>FacebookDisplayName</key>

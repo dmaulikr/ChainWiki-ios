@@ -418,7 +418,7 @@ class ArcanaViewController: UIViewController {
     }
     
     func insertIndexPathAt(index: Int) {
-        
+
         let indexSet = IndexSet(integer: index)
         
         if horizontalSize == .compact {

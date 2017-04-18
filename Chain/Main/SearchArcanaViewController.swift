@@ -185,7 +185,9 @@ final class SearchArcanaViewController: ArcanaViewController {
                 self.arcanaArray.insert(arcana, at: 0)
                 self.originalArray.insert(arcana, at: 0)
                 if self.initialLoad == false {
-                    self.insertIndexPathAt(index: 0)
+                    DispatchQueue.main.async {
+                        self.insertIndexPathAt(index: 0)
+                    }
                 }
                 
             }
@@ -213,7 +215,9 @@ final class SearchArcanaViewController: ArcanaViewController {
             for (index, arcana) in self.arcanaArray.enumerated() {
                 if arcana.getUID() == uidToRemove {
                     self.arcanaArray.remove(at: index)
-                    self.deleteIndexPathAt(index: index)
+                    DispatchQueue.main.async {
+                        self.deleteIndexPathAt(index: index)
+                    }
                 }
                 
             }
@@ -236,12 +240,15 @@ final class SearchArcanaViewController: ArcanaViewController {
                     
                     self.arcanaArray[index] = arcana
 
-                    self.reloadIndexPathAt(index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
-                        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
-                        self.selectedIndexPath = nil
+                    DispatchQueue.main.async {
+                        self.reloadIndexPathAt(index)
+                        let indexPath = IndexPath(row: index, section: 0)
+                        if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
+                            self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
+                            self.selectedIndexPath = nil
+                        }
                     }
+
                 }
                 
             }
