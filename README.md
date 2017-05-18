@@ -24,12 +24,12 @@ Compatible with both iPhone and iPad through Auto Layout.
 
 ## Screenshots
 
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/tree/master/Screenshots/ListPreview.jpg" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ListPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ArcanaMainPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/AbilityPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/iPadPreview.jpg" width="320">
 
 ## Some Tools Used
-Firebase Authentication, Realtime Database, Storage, Analytics 
-Fastlane Delivery https://github.com/fastlane/fastlane  
+Firebase Authentication, Realtime Database, Storage, Analytics   
+Fastlane  
 Icons8 https://icons8.com/
