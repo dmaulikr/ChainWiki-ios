@@ -1,2 +1,1 @@
-웹사이트 업데이트: https://chainchronicle-ea233.firebaseapp.com/
-웹사이트 유니버설 링크 지원
+강제 종료 버그 수정

@@ -681,7 +681,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:1008757887866:ios:e713b34761ca7fad\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Users/jitae/Desktop/chainchronicle-ea233-firebase-crashreporting-je9x8-18a0baf7a2.json\"";
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:1008757887866:ios:e713b34761ca7fad\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Users/jitae/Desktop/Chain/chainchronicle-ea233-firebase-crashreporting-je9x8-173e1b9a6a.json\"";
 		};
 		19B5C4E54CCF81B0CB4F751C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1061,7 +1061,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jitae Kim (52T2475ZWN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1091,7 +1091,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chain/etc/Chain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jitae Kim (3NP653TDUD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 3NP653TDUD;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ./Chain/etc/Info.plist;

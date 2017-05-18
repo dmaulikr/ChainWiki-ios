@@ -31,6 +31,8 @@ class ArcanaViewController: UIViewController {
     
     var arcanaArray = [Arcana]()
     var originalArray = [Arcana]()
+    var arcanaDictionary = [String: Arcana]()
+    
     var filters = [String: [String]]()
     var initialLoad = true
     var selectedIndexPath: IndexPath?
@@ -420,7 +422,7 @@ class ArcanaViewController: UIViewController {
     func insertIndexPathAt(index: Int) {
 
         let indexSet = IndexSet(integer: index)
-        
+        print(indexSet)
         if horizontalSize == .compact {
             switch arcanaView {
                 
@@ -444,7 +446,6 @@ class ArcanaViewController: UIViewController {
     }
     
     func deleteIndexPathAt(index: Int) {
-        print(index)
         
         let indexSet = IndexSet(integer: index)
 

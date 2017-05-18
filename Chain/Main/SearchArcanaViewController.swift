@@ -47,6 +47,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        checkUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -174,6 +175,19 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
+    func checkUpdate() {
+        let checkUpdateRef = FIREBASE_REF.child("currentVersion")
+        checkUpdateRef.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let installedVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let newestVersion = snapshot.value as? String {
+                if installedVersion < newestVersion {
+                    // present alert to update.
+                    self.showUpdateAlert()
+                }
+            }
+        })
+    }
+    
     override func downloadArcana() {
         
         // For UI Testing.
@@ -181,11 +195,12 @@ final class SearchArcanaViewController: ArcanaViewController {
         ref.observe(.childAdded, with: { snapshot in
 
             if let arcana = Arcana(snapshot: snapshot) {
-
-                self.arcanaArray.insert(arcana, at: 0)
-                self.originalArray.insert(arcana, at: 0)
-                if self.initialLoad == false {
-                    DispatchQueue.main.async {
+                
+                DispatchQueue.main.async {
+                    self.arcanaArray.insert(arcana, at: 0)
+                    self.originalArray.insert(arcana, at: 0)
+                    
+                    if self.initialLoad == false {
                         self.insertIndexPathAt(index: 0)
                     }
                 }
@@ -195,8 +210,11 @@ final class SearchArcanaViewController: ArcanaViewController {
         })
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            self.initialLoad = false
-            self.reloadView()
+            
+            DispatchQueue.main.async {
+                self.initialLoad = false
+                self.reloadView()
+            }
         })
         
         ref.observe(.childRemoved, with: { snapshot in
@@ -206,20 +224,25 @@ final class SearchArcanaViewController: ArcanaViewController {
             for (index, arcana) in self.originalArray.enumerated() {
                 
                 if arcana.getUID() == uidToRemove {
-                    self.originalArray.remove(at: index)
+                    DispatchQueue.main.async {
+                        self.originalArray.remove(at: index)
+                    }
                     break
                 }
                 
             }
             
             for (index, arcana) in self.arcanaArray.enumerated() {
+                
                 if arcana.getUID() == uidToRemove {
-                    self.arcanaArray.remove(at: index)
+                    
                     DispatchQueue.main.async {
+                        self.arcanaArray.remove(at: index)
                         self.deleteIndexPathAt(index: index)
                     }
+                    break
                 }
-                
+            
             }
         })
         
@@ -227,30 +250,32 @@ final class SearchArcanaViewController: ArcanaViewController {
             
             let uidToChange = snapshot.key
             
-            if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
-                if let arcana = Arcana(snapshot: snapshot) {
-                    self.originalArray[index] = arcana
-                }
-                
-            }
-            
             if let index = self.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
                 
                 if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.arcanaArray[index] = arcana
 
                     DispatchQueue.main.async {
+                        self.arcanaArray[index] = arcana
                         self.reloadIndexPathAt(index)
-                        let indexPath = IndexPath(row: index, section: 0)
-                        if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
-                            self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
-                            self.selectedIndexPath = nil
-                        }
+
+                    }
+                    let indexPath = IndexPath(row: index, section: 0)
+                    if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
+                        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
+                        self.selectedIndexPath = nil
                     }
 
                 }
                 
+            }
+            
+            DispatchQueue.global().async {
+                if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
+                    if let arcana = Arcana(snapshot: snapshot) {
+                        self.originalArray[index] = arcana
+                    }
+                    
+                }
             }
             
         })
@@ -336,24 +361,53 @@ final class SearchArcanaViewController: ArcanaViewController {
             }
         }
     }
+    
+    func showUpdateAlert() {
+        
+        let alert = UIAlertController(title: "앱 업데이트", message: "새로운 버전이 출시되었습니다.", preferredStyle: .alert)
+        alert.view.tintColor = Color.salmon
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        
+        let confirmAction = UIAlertAction(title: "앱스토어 가기", style: .default) { (action) in
+            guard let url = NSURL(string: "itms-apps://itunes.apple.com/app/id1165642488") as? URL else { return }
+            UIApplication.shared.openURL(url)
+        }
+        
+        let cancelAction = UIAlertAction(title: "나중에", style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true) {
+            alert.view.tintColor = Color.salmon
+        }
+
+    }
 
 }
 
 extension SearchArcanaViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != "" {
-            showSearch = false
-            let searchArray = originalArray.filter { arcana in
-                return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
+        DispatchQueue.main.async {
+
+            if searchText != "" {
+                self.showSearch = false
+                let searchArray = self.originalArray.filter { arcana in
+                    return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
+                }
+                self.arcanaArray = searchArray
             }
-            arcanaArray = searchArray
+            else {
+                self.showSearch = true
+                self.arcanaArray = self.originalArray
+            }
+        
+            self.reloadView()
         }
-        else {
-            showSearch = true
-            arcanaArray = originalArray
-        }
-        reloadView()
 
     }
     
@@ -377,10 +431,11 @@ extension SearchArcanaViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         showSearch = false
-        arcanaArray = originalArray
-        reloadView()
+        DispatchQueue.main.async {
+            self.arcanaArray = self.originalArray
+            self.reloadView()
+        }
+        
     }
     
 }
-
-

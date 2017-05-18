@@ -110,9 +110,8 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let arcana: Arcana
-        arcana = arcanaArray[indexPath.row]
+            
+        let arcana = arcanaArray[indexPath.row]
         
         switch arcanaView {
         case .list, .main:
