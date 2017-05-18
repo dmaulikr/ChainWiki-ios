@@ -4,7 +4,7 @@
 https://goo.gl/FKMkp2 
 
 ## Website Link
-Simple website made due to popular demand from Android users.
+Simple website made due to popular demand from Android users.  
 https://chainchronicle-ea233.firebaseapp.com/
 
 ## Synopsis
