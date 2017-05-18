@@ -3,6 +3,9 @@
 ## App Store Link  
 https://goo.gl/FKMkp2 
 
+## Website Link
+Simple website made due to popular demand from Android users.
+
 ## Synopsis
 iOS App that uses data translated from Japanese in Korean.  
 Allows users to sort and filter data based on their needs.  
@@ -19,17 +22,16 @@ Compatible with both iPhone and iPad through Auto Layout.
 
 ## Screenshots
 
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewIntro.png" width="320">
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewHome.png" width="320">
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewFilter.png" width="320">
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/PreviewAbility.png" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ListPreview.jpg" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ArcanaMainPreview.jpg" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/AbilityPreview.jpg" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/iPadPreview.jpg" width="320">
 
 ## App Flow Preview
 https://www.youtube.com/watch?v=-oYQHVHKxTI
 
 ## Some Tools Used
-Firebase Authentication, Realtime Database, Storage  
+Firebase Authentication, Realtime Database, Storage, Analytics 
 Fastlane Delivery https://github.com/fastlane/fastlane  
-App Store Screenshot Generator http://www.appstorescreenshot.com/  
 Icons8 https://icons8.com/
 
