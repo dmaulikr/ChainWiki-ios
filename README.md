@@ -29,7 +29,7 @@ Compatible with both iPhone and iPad through Auto Layout.
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/AbilityPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/iPadPreview.jpg" width="320">
 
-## Some Tools Used
+## Tools Used
 Firebase Authentication, Realtime Database, Storage, Analytics   
 Fastlane  
 Icons8 https://icons8.com/
