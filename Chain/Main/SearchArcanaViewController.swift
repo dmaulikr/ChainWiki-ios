@@ -47,7 +47,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-        checkUpdate()
+//        checkUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -196,92 +196,104 @@ final class SearchArcanaViewController: ArcanaViewController {
 
             if let arcana = Arcana(snapshot: snapshot) {
                 
-                DispatchQueue.main.async {
-                    self.arcanaArray.insert(arcana, at: 0)
-                    self.originalArray.insert(arcana, at: 0)
+                self.arcanaDictionary[arcana.getUID()] = arcana
+                self.arcanaOriginalDictionary[arcana.getUID()] = arcana
+                
+                if self.initialLoad == false {
                     
-                    if self.initialLoad == false {
+                    self.arcanaArray = Array(self.arcanaDictionary.values)
+                    self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
+                        return arcana1.getUID() > arcana2.getUID()
+                    })
+                    
+                    DispatchQueue.main.async {
                         self.insertIndexPathAt(index: 0)
                     }
+                    
+                    DispatchQueue.global().async {
+                        self.originalArray = Array(self.arcanaOriginalDictionary.values)
+                        self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
+                            return arcana1.getUID() > arcana2.getUID()
+                        })
+                    }
                 }
-                
             }
             
         })
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
+            self.initialLoad = false
+            self.arcanaArray = Array(self.arcanaDictionary.values)
+            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
+                return arcana1.getUID() > arcana2.getUID()
+            })
+            
             DispatchQueue.main.async {
-                self.initialLoad = false
                 self.reloadView()
+            }
+            
+            DispatchQueue.global().async {
+                self.originalArray = Array(self.arcanaOriginalDictionary.values)
+                self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
+                    return arcana1.getUID() > arcana2.getUID()
+                })
             }
         })
         
         ref.observe(.childRemoved, with: { snapshot in
             
-            let uidToRemove = snapshot.key
+            let arcanaID = snapshot.key
             
-            for (index, arcana) in self.originalArray.enumerated() {
-                
-                if arcana.getUID() == uidToRemove {
-                    DispatchQueue.main.async {
-                        self.originalArray.remove(at: index)
-                    }
-                    break
-                }
-                
+            self.arcanaDictionary.removeValue(forKey: arcanaID)
+            self.arcanaOriginalDictionary.removeValue(forKey: arcanaID)
+            
+            self.arcanaArray = Array(self.arcanaDictionary.values)
+            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
+                return arcana1.getUID() > arcana2.getUID()
+            })
+            
+            DispatchQueue.main.async {
+                self.reloadView()
             }
             
-            for (index, arcana) in self.arcanaArray.enumerated() {
-                
-                if arcana.getUID() == uidToRemove {
-                    
-                    DispatchQueue.main.async {
-                        self.arcanaArray.remove(at: index)
-                        self.deleteIndexPathAt(index: index)
-                    }
-                    break
-                }
-            
+            DispatchQueue.global().async {
+                self.originalArray = Array(self.arcanaOriginalDictionary.values)
+                self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
+                    return arcana1.getUID() > arcana2.getUID()
+                })
             }
+            
         })
         
         ref.observe(.childChanged, with: { snapshot in
             
-            let uidToChange = snapshot.key
+            let arcanaID = snapshot.key
             
-            if let index = self.arcanaArray.index(where: {$0.getUID() == uidToChange}) {
+            if let arcana = Arcana(snapshot: snapshot) {
+                self.arcanaDictionary[arcanaID] = arcana
+                self.arcanaOriginalDictionary[arcanaID] = arcana
                 
-                if let arcana = Arcana(snapshot: snapshot) {
-
-                    DispatchQueue.main.async {
+                DispatchQueue.global().async {
+                    if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
                         self.arcanaArray[index] = arcana
-                        self.reloadIndexPathAt(index)
-
+                        DispatchQueue.main.async {
+                            self.reloadIndexPathAt(index)
+                        }
                     }
-                    let indexPath = IndexPath(row: index, section: 0)
-                    if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
-                        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
-                        self.selectedIndexPath = nil
-                    }
-
-                }
-                
-            }
-            
-            DispatchQueue.global().async {
-                if let index = self.originalArray.index(where: {$0.getUID() == uidToChange}) {
-                    if let arcana = Arcana(snapshot: snapshot) {
-                        self.originalArray[index] = arcana
-                    }
+                    
+                    self.originalArray = Array(self.arcanaOriginalDictionary.values)
+                    self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
+                        return arcana1.getUID() > arcana2.getUID()
+                    })
                     
                 }
             }
-            
+
         })
         
     }
-
+    
     override func sort(_ sender: AnyObject) {
         if searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
@@ -399,6 +411,7 @@ extension SearchArcanaViewController: UISearchBarDelegate {
                 let searchArray = self.originalArray.filter { arcana in
                     return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
                 }
+                
                 self.arcanaArray = searchArray
             }
             else {
