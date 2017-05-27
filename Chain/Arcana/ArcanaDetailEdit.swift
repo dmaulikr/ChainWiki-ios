@@ -158,7 +158,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
                 editsRef.child("uid").setValue(autoID)
                 
                 guard let nameKR = self.arcana.getNameKR() else { return }
-                FIRAnalytics.logEvent(withName: "SuccessfullyEditedArcana", parameters: [
+                Analytics.logEvent("SuccessfullyEditedArcana", parameters: [
                     "name": nameKR as NSObject,
                     "arcanaID": self.arcana.getUID() as NSObject
                     ])

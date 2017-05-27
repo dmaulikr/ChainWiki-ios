@@ -47,7 +47,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-//        checkUpdate()
+        checkUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,16 +176,21 @@ final class SearchArcanaViewController: ArcanaViewController {
     }
     
     func checkUpdate() {
-        let checkUpdateRef = FIREBASE_REF.child("currentVersion")
-        checkUpdateRef.observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let installedVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let newestVersion = snapshot.value as? String {
-                if installedVersion < newestVersion {
-                    // present alert to update.
-                    self.showUpdateAlert()
+        
+        if !defaults.getShowedUpdateAlert() {
+            let checkUpdateRef = FIREBASE_REF.child("currentVersion")
+            checkUpdateRef.observeSingleEvent(of: .value, with: { snapshot in
+                
+                if let installedVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let newestVersion = snapshot.value as? String {
+                    if installedVersion < newestVersion {
+                        // present alert to update.
+                        defaults.setShowedUpdateAlert()
+                        self.showUpdateAlert()
+                    }
                 }
-            }
-        })
+            })
+        }
+    
     }
     
     override func downloadArcana() {
@@ -201,13 +206,16 @@ final class SearchArcanaViewController: ArcanaViewController {
                 
                 if self.initialLoad == false {
                     
-                    self.arcanaArray = Array(self.arcanaDictionary.values)
-                    self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
-                        return arcana1.getUID() > arcana2.getUID()
-                    })
-                    
                     DispatchQueue.main.async {
-                        self.insertIndexPathAt(index: 0)
+
+                        if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {
+                            self.arcanaArray = Array(self.arcanaDictionary.values)
+                            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
+                                return arcana1.getUID() > arcana2.getUID()
+                            })
+                            self.insertIndexPathAt(index: 0)
+                        }
+                        
                     }
                     
                     DispatchQueue.global().async {
@@ -248,16 +256,15 @@ final class SearchArcanaViewController: ArcanaViewController {
             self.arcanaDictionary.removeValue(forKey: arcanaID)
             self.arcanaOriginalDictionary.removeValue(forKey: arcanaID)
             
-            self.arcanaArray = Array(self.arcanaDictionary.values)
-            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
-                return arcana1.getUID() > arcana2.getUID()
-            })
-            
-            DispatchQueue.main.async {
-                self.reloadView()
-            }
-            
             DispatchQueue.global().async {
+                
+                if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    DispatchQueue.main.async {
+                        self.arcanaArray.remove(at: index)
+                        self.deleteIndexPathAt(index: index)
+                    }
+                }
+                
                 self.originalArray = Array(self.arcanaOriginalDictionary.values)
                 self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
                     return arcana1.getUID() > arcana2.getUID()
@@ -382,7 +389,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         alert.view.layer.cornerRadius = 10
         
         let confirmAction = UIAlertAction(title: "앱스토어 가기", style: .default) { (action) in
-            guard let url = NSURL(string: "itms-apps://itunes.apple.com/app/id1165642488") as? URL else { return }
+            guard let url = NSURL(string: "itms-apps://itunes.apple.com/app/id1165642488") as URL? else { return }
             UIApplication.shared.openURL(url)
         }
         
@@ -404,21 +411,21 @@ final class SearchArcanaViewController: ArcanaViewController {
 extension SearchArcanaViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        DispatchQueue.main.async {
-
-            if searchText != "" {
-                self.showSearch = false
-                let searchArray = self.originalArray.filter { arcana in
-                    return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
-                }
-                
-                self.arcanaArray = searchArray
-            }
-            else {
-                self.showSearch = true
-                self.arcanaArray = self.originalArray
-            }
         
+        if searchText != "" {
+            self.showSearch = false
+            let searchArray = self.originalArray.filter { arcana in
+                return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
+            }
+            
+            self.arcanaArray = searchArray
+        }
+        else {
+            self.showSearch = true
+            self.arcanaArray = self.originalArray
+        }
+        
+        DispatchQueue.main.async {
             self.reloadView()
         }
 

@@ -91,6 +91,14 @@ extension UserDefaults {
         return string(forKey: "lastLink")
     }
     
+    func setShowedUpdateAlert() {
+        set(true, forKey: "showedUpdateAlert")
+    }
+    
+    func getShowedUpdateAlert() -> Bool {
+        return bool(forKey: "showedUpdateAlert")
+    }
+    
     func updateVersion() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             set(version, forKey: "version")
@@ -132,7 +140,7 @@ extension UserDefaults {
     func setSearchView(value: String) {
         set(value, forKey: "searchView")
         // analytics
-        FIRAnalytics.logEvent(withName: "SearchView", parameters: [
+        Analytics.logEvent("SearchView", parameters: [
             "type" : value as NSObject
             ])
         
@@ -144,7 +152,7 @@ extension UserDefaults {
     
     func setTavernView(value: String) {
         set(value, forKey: "tavernView")
-        FIRAnalytics.logEvent(withName: "TavernView", parameters: [
+        Analytics.logEvent("TavernView", parameters: [
             "type" : value as NSObject
             ])
     }
@@ -155,7 +163,7 @@ extension UserDefaults {
     
     func setFavoritesView(value: String) {
         set(value, forKey: "favoritesView")
-        FIRAnalytics.logEvent(withName: "FavoritesView", parameters: [
+        Analytics.logEvent("FavoritesView", parameters: [
             "type" : value as NSObject
             ])
     }
@@ -184,11 +192,11 @@ extension UserDefaults {
     }
     
     func hasShownRating() -> Bool {
-        return bool(forKey: "hasShownRating")
+        return bool(forKey: "hasShownRating10.3")
     }
     
     func setShownRating(value: Bool) {
-        set(value, forKey: "hasShownRating")
+        set(value, forKey: "hasShownRating10.3")
     }
     
     

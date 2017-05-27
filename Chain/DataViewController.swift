@@ -14,7 +14,7 @@ class DataViewController: UIViewController {
 
     var dataLinks = [DataLink]()
     private let ref = FIREBASE_REF.child("links")
-    private var refHandle: FIRDatabaseHandle?
+    private var refHandle: DatabaseHandle?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

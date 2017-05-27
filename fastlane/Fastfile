@@ -27,8 +27,8 @@ platform :ios do
 
     increment_build_number
     increment_version_number(
-   # bump_type: "patch" # Automatically increment patch version number
-       version_number: "2.1.5"
+    bump_type: "patch" # Automatically increment patch version number
+       #version_number: "2.1.5"
     )
     
     gym(scheme: "Chain", configuration: "Release")

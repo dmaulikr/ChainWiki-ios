@@ -78,9 +78,9 @@ class BaseCollectionViewController: UIViewController {
         self.abilityMenu = abilityMenu
         downloadArray()
  
-        FIRAnalytics.logEvent(withName: "selectedAbility", parameters: [
-            kFIRParameterItemName: "SelectAbility" as NSObject,
-            kFIRParameterValue: "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
+        Analytics.logEvent("selectedAbility", parameters: [
+            AnalyticsParameterItemName: "SelectAbility" as NSObject,
+            AnalyticsParameterValue: "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
             ])
         
     }
@@ -166,7 +166,7 @@ class BaseCollectionViewController: UIViewController {
         
         let refPrefix = abilityType
         
-        var ref: FIRDatabaseReference
+        var ref: DatabaseReference
         let updatedVersion = "2.0"
         
         if let currentVersion = defaults.getStoredVersion() {

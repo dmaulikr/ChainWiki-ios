@@ -352,7 +352,7 @@ class ArcanaEdit {
         partyAbility = arcana.getPartyAbility()
     }
     
-    init(arcanaID: String, snapshot: FIRDataSnapshot) {
+    init(arcanaID: String, snapshot: DataSnapshot) {
         
         uid = arcanaID
         

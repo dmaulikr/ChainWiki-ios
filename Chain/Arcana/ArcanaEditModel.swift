@@ -14,10 +14,10 @@ struct ArcanaEditModel {
     var arcana: ArcanaEdit!
     var editorID: String!
     var editorName: String!
-    var arcanaRef: FIRDatabaseReference!
+    var arcanaRef: DatabaseReference!
     var date: String!
     
-    init(a: ArcanaEdit, id: String, name: String, ref: FIRDatabaseReference!, d: String) {
+    init(a: ArcanaEdit, id: String, name: String, ref: DatabaseReference!, d: String) {
         
         arcana = a
         editorID = id

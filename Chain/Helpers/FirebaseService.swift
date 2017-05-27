@@ -13,19 +13,19 @@ class FirebaseService {
     
     static let dataRequest = FirebaseService()
     
-    private var FIREBASE_REF = FIRDatabase.database().reference()
-    private var ARCANA_REF = FIRDatabase.database().reference().child("arcana")
+    private var FIREBASE_REF = Database.database().reference()
+    private var ARCANA_REF = Database.database().reference().child("arcana")
 
-    private var STORAGE_REF = FIRStorage.storage().reference()
+    private var STORAGE_REF = Storage.storage().reference()
     
-    func incrementCount(ref: FIRDatabaseReference) {
+    func incrementCount(ref: DatabaseReference) {
         
-        ref.runTransactionBlock({ data -> FIRTransactionResult in
+        ref.runTransactionBlock({ data -> TransactionResult in
             
             if let chatCount = data.value as? Int {
                 data.value = chatCount + 1
             }
-            return FIRTransactionResult.success(withValue: data)
+            return TransactionResult.success(withValue: data)
             
         })
         

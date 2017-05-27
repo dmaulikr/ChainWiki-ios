@@ -24,7 +24,7 @@ enum ArcanaVC {
 
 class ArcanaViewController: UIViewController {
     
-    var ref: FIRDatabaseReference = FIREBASE_REF.child("arcana")
+    var ref: DatabaseReference = FIREBASE_REF.child("arcana")
     var filterViewController: FilterViewController?
     
     var arcanaVC: ArcanaVC = .search

@@ -202,7 +202,7 @@ class ArcanaDetail: UIViewController {
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
             self.screenShot()
             
-            FIRAnalytics.logEvent(withName: "ExportedArcana", parameters: [
+            Analytics.logEvent("ExportedArcana", parameters: [
                 "name": self.arcana.getNameKR() as NSObject,
                 "arcanaID": self.arcana.getUID() as NSObject
                 ])
@@ -288,7 +288,7 @@ class ArcanaDetail: UIViewController {
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
             navigationController?.pushViewController(vc, animated: true)
-            FIRAnalytics.logEvent(withName: "TappedEditArcana", parameters: [
+            Analytics.logEvent("TappedEditArcana", parameters: [
                 "name": self.arcana.getNameKR() as NSObject,
                 "arcanaID": self.arcana.getUID() as NSObject
                 ])

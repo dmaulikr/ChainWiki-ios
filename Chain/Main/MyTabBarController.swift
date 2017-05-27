@@ -116,7 +116,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             
         }
 
-        FIRAnalytics.logEvent(withName: tabBarItem, parameters: [
+        Analytics.logEvent(tabBarItem, parameters: [
             "name" : tabBarItem as NSObject
             ])
         

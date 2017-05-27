@@ -13,6 +13,7 @@ import Firebase
 import FirebaseAuth
 import FBSDKLoginKit
 import FacebookLogin
+import GoogleSignIn
 
 enum LoginProvider {
     case facebook
@@ -176,23 +177,23 @@ class LoginHome: UIViewController, DisplayBanner {
         if (email != "" && pw != "") {
             animateUserLogin(animated: true)
             
-            FIRAuth.auth()?.signIn(withEmail: email!, password: pw!) { (user, error) in
+            Auth.auth().signIn(withEmail: email!, password: pw!) { (user, error) in
                 if error != nil {
                     self.animateUserLogin(animated: false)
                     
-                    if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                    if let errorCode = AuthErrorCode(rawValue: error!._code) {
 
                         var formType: BannerFormType
                         
                         switch errorCode {
                             
-                        case .errorCodeUserNotFound:
+                        case .userNotFound:
                             formType = .emailNotFound
 
-                        case .errorCodeInvalidEmail:
+                        case .invalidEmail:
                             formType = .invalidEmail
                             
-                        case .errorCodeWrongPassword:
+                        case .wrongPassword:
                             formType = .incorrectPassword
                             
                         default:
@@ -228,11 +229,11 @@ class LoginHome: UIViewController, DisplayBanner {
         
     }
     
-    func firebaseLogin(loginProvider: LoginProvider, credentials: FIRAuthCredential) {
+    func firebaseLogin(loginProvider: LoginProvider, credentials: AuthCredential) {
         
         animateUserLogin(animated: true)
 
-        FIRAuth.auth()?.signIn(with: credentials, completion: { (user, error) in
+        Auth.auth().signIn(with: credentials, completion: { (user, error) in
             if let _ = error {
                 self.animateUserLogin(animated: false)
             }
@@ -275,7 +276,7 @@ class LoginHome: UIViewController, DisplayBanner {
                         
                         if err != nil { return }
                         
-                        let credentials = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+                        let credentials = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                         
                         self.firebaseLogin(loginProvider: .facebook, credentials: credentials)
                         
@@ -295,7 +296,7 @@ class LoginHome: UIViewController, DisplayBanner {
         
         animateUserLogin(animated: true)
         
-        FIRAuth.auth()?.signInAnonymously() { (user, error) in
+        Auth.auth().signInAnonymously() { (user, error) in
             
             if error != nil {
                 self.animateUserLogin(animated: false)
@@ -356,7 +357,7 @@ extension LoginHome: GIDSignInDelegate, GIDSignInUIDelegate {
         
         guard let idToken = user.authentication.idToken, let accessToken = user.authentication.accessToken else { return }
         
-        let credentials = FIRGoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
         
         firebaseLogin(loginProvider: .google, credentials: credentials)
         

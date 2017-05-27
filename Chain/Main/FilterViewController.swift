@@ -247,10 +247,11 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
                 collectionView.cellForItem(at: i)?.isHighlighted = false
             }
             
-            let clearArray = [String]()
-            for (key, _) in filterTypes {
-                filterTypes.updateValue(clearArray, forKey: key)
-            }
+//            let clearArray = [String]()
+//            for (key, _) in filterTypes {
+//                filterTypes.updateValue(clearArray, forKey: key)
+//            }
+            filterTypes.removeAll()
             hasFilter = false
         }
 

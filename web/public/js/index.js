@@ -70,10 +70,8 @@ ChainWiki.prototype.loadArcana = function() {
 
 
   // Observe festival arcana.
-  this.database.ref('festival').once('value', function(snapshot) {
+  this.database.ref('festival').orderByValue().once('value', function(snapshot) {
     if (snapshot.exists()) {
-
-      $('#festivalTable').fadeIn();
 
       snapshot.forEach(function(child) {
         const arcanaID = child.key;
@@ -83,6 +81,8 @@ ChainWiki.prototype.loadArcana = function() {
         });
 
       });
+
+      $('#festivalTable').fadeIn();
 
     }
   });
@@ -138,7 +138,8 @@ function insertFestivalCell(data) {
   const nicknameJP = val.nicknameJP || val.nickNameJP;
 
   // row is a <tr> element
-  var row = document.getElementById('festival').insertRow(0);
+  // var row = document.getElementById('festival').insertRow(0);
+  var row = document.createElement('tr');
   row.setAttribute('onclick', `location.href='/arcana?arcana=${arcanaID}'`);
   row.className = 'arcanaCell';
 
@@ -169,6 +170,8 @@ function insertFestivalCell(data) {
 
   row.appendChild(arcanaImageCell);
   row.appendChild(nameCell);
+
+  $("#festival").append(row);
 
 }
 

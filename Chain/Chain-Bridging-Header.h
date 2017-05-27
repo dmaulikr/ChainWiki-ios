@@ -1,8 +1,0 @@
-//
-//  Use this file to import your target's public headers that you would like to expose to Swift.
-//
-
-//#import "MBFingerTipWindow.h"
-//#import <POP/POP.h>
-
-#import <Google/SignIn.h>

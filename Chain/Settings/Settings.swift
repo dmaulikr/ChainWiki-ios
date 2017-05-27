@@ -111,9 +111,9 @@ class Settings: UIViewController, DisplayBanner {
             // Remove the user's uid from storage.
             defaults.setValue(nil, forKey: "uid")
             
-            let firebaseAuth = FIRAuth.auth()
+            let firebaseAuth = Auth.auth()
             do {
-                try firebaseAuth?.signOut()
+                try firebaseAuth.signOut()
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
@@ -180,9 +180,9 @@ class Settings: UIViewController, DisplayBanner {
                             
                             // upload to firebase
                             
-                            let user = FIRAuth.auth()?.currentUser
+                            let user = Auth.auth().currentUser
                             if let user = user {
-                                let changeRequest = user.profileChangeRequest()
+                                let changeRequest = user.createProfileChangeRequest()
                                 print("DISPLAYNAME WILL CHANGE TO \(nick)")
                                 changeRequest.displayName = nick
                                 changeRequest.commitChanges { error in

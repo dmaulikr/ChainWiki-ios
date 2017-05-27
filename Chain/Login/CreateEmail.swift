@@ -162,25 +162,25 @@ class CreateEmail: UIViewController, DisplayBanner {
                                 //link account to new email
 //                                print("linking to email...")
                                 
-                                let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: password)
+                                let credential = EmailAuthProvider.credential(withEmail: email, password: password)
                                 
-                                FIRAuth.auth()?.currentUser?.link(with: credential) { (user, error) in
+                                Auth.auth().currentUser?.link(with: credential) { (user, error) in
                                     
                                     self.activityIndicator.stopAnimating()
 
                                     if error != nil {
                                         print("ERROR LINKING TO EMAIL")
 
-                                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                                        if let errorCode = AuthErrorCode(rawValue: error!._code) {
                                             switch errorCode {
                                                 
-                                            case .errorCodeEmailAlreadyInUse:
+                                            case .emailAlreadyInUse:
                                                 formType = .emailAlreadyInUse
                                                 
-                                            case .errorCodeInvalidEmail:
+                                            case .invalidEmail:
                                                 formType = .invalidEmail
                                                 
-                                            case .errorCodeWeakPassword:
+                                            case .weakPassword:
                                                 formType = .weakPassword
                                                 
                                             default:
@@ -199,7 +199,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                          
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue(true)
-                                        let changeRequest = user.profileChangeRequest()
+                                        let changeRequest = user.createProfileChangeRequest()
                                         changeRequest.displayName = nickname
                                         changeRequest.commitChanges { error in
                                             if let _ = error {
@@ -224,22 +224,22 @@ class CreateEmail: UIViewController, DisplayBanner {
                             }
                             
                             else {
-                                FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+                                Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
                                     
                                     self.activityIndicator.stopAnimating()
 
                                     if error != nil {
                                         
-                                        if let errorCode = FIRAuthErrorCode(rawValue: error!._code) {
+                                        if let errorCode = AuthErrorCode(rawValue: error!._code) {
                                             switch errorCode {
                                                 
-                                            case .errorCodeEmailAlreadyInUse:
+                                            case .emailAlreadyInUse:
                                                 formType = .emailAlreadyInUse
                                                 
-                                            case .errorCodeInvalidEmail:
+                                            case .invalidEmail:
                                                 formType = .invalidEmail
                                                 
-                                            case .errorCodeWeakPassword:
+                                            case .weakPassword:
                                                 formType = .weakPassword
                                                 
                                             default:
@@ -258,7 +258,7 @@ class CreateEmail: UIViewController, DisplayBanner {
                                         
                                         let editPermissionsRef = FIREBASE_REF.child("user/\(user.uid)/edit")
                                         editPermissionsRef.setValue("true")
-                                        let changeRequest = user.profileChangeRequest()
+                                        let changeRequest = user.createProfileChangeRequest()
                                         changeRequest.displayName = nickname
                                         changeRequest.commitChanges { error in
                                             if let _ = error {

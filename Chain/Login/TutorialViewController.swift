@@ -80,14 +80,14 @@ class TutorialViewController: UIViewController {
         imageView.setContentCompressionResistancePriority(.leastNormalMagnitude, for: .vertical)
         
         descLabel.anchor(top: imageView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 20, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        descLabel.setContentHuggingPriority(.abs(752), for: .vertical)
+        descLabel.setContentHuggingPriority(752, for: .vertical)
         descLabel.setContentCompressionResistancePriority(.infinity, for: .vertical)
         
         pageControl.anchor(top: descLabel.bottomAnchor, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         pageControl.anchorCenterXToSuperview()
         
         startButton.anchor(top: pageControl.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 60)
-        startButton.setContentHuggingPriority(.abs(755), for: .vertical)
+        startButton.setContentHuggingPriority(755, for: .vertical)
         
         setupButtonBorder()
         
