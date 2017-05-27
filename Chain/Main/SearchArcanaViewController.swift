@@ -44,6 +44,11 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
     }
     
+    fileprivate lazy var festivalButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "FESTIVAL", style: .plain, target: self, action: #selector(showFestival))
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
@@ -143,7 +148,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func setupNavBar() {
         super.setupNavBar()
         navigationItem.title = "아르카나"
-//        navigationItem.leftBarButtonItem = toggleArcanaViewButton
+        navigationItem.leftBarButtonItem = festivalButton
     }
     
     func setupSearchBar() {
@@ -406,6 +411,12 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     }
 
+    func showFestival() {
+        
+        let vc = FestivalViewController()
+        navigationController?.pushViewController(vc, animated: true)
+//        present(NavigationController(vc), animated: true, completion: nil)
+    }
 }
 
 extension SearchArcanaViewController: UISearchBarDelegate {
