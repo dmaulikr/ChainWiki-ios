@@ -109,6 +109,8 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         
         selectedIndexPath = indexPath
         
+        view.endEditing(true)
+        
         let arcana: Arcana
         arcana = arcanaArray[indexPath.section]
         
@@ -174,6 +176,8 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let arcana: Arcana
         arcana = arcanaArray[indexPath.item]
+        
+        view.endEditing(true)
         
         let vc = ArcanaDetail(arcana: arcana)
         navigationController?.pushViewController(vc, animated: true)

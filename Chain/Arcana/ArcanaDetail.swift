@@ -242,7 +242,10 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         alertController.view.layer.cornerRadius = 10
         
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
-            self.screenShot()
+            
+            DispatchQueue.main.async {
+                self.screenShot()
+            }
             
             Analytics.logEvent("ExportedArcana", parameters: [
                 "name": self.arcana.getNameKR() as NSObject,
@@ -264,10 +267,11 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
     func screenShot() {
         
         let savedContentOffset = tableView.contentOffset
-        
+        tableView.scrollToRow(at: IndexPath(row: 0, section: tableView.numberOfSections-1), at: .bottom, animated: false)
         UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0)
 
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+
         guard let context = UIGraphicsGetCurrentContext() else { return }
         tableView.layer.render(in: context)
         
@@ -622,7 +626,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            return 1
+            if horizontalSize == .compact {
+                return 1
+            }
+            else {
+                return 0
+            }
         case .attribute:
             return 1
         case .skill:
@@ -685,19 +694,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 
         switch section {
         case .image:
-            if indexPath.row == 0 {
-                if horizontalSize == .compact {
-                    return UITableViewAutomaticDimension
-                }
-                else {
-                    return 0
-                }
+            if horizontalSize == .compact {
+                return UITableViewAutomaticDimension
             }
             else {
-                return 50
+                return 0
             }
         case .attribute:
-            return 331
+            return 382
 
         default:
             return UITableViewAutomaticDimension
@@ -712,9 +716,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
             
         case .image:
-            return SCREENWIDTH * 1.5
+            if horizontalSize == .compact {
+                return SCREENWIDTH * 1.5
+            }
+            else {
+                return 0
+            }
         case .attribute:
-            return 331
+            return 382
         case .ability:
             return 80
             
@@ -748,12 +757,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case .image:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            cell.preservesSuperviewLayoutMargins = false
-            cell.separatorInset = UIEdgeInsets.zero
             cell.selectionStyle = .none
 
-//                cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+//            cell.arcanaImage.addGestureRecognizer(tapImageGesture)
             cell.activityIndicator.startAnimating()
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
@@ -762,9 +768,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case .attribute:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCollectionView") as! ArcanaBaseInfoCollectionView
             cell.arcana = arcana
-            cell.layoutMargins = UIEdgeInsets.zero
-            cell.preservesSuperviewLayoutMargins = false
-            cell.separatorInset = UIEdgeInsets.zero
+            cell.arcanaDetailDelegate = self
             cell.selectionStyle = .none
             return cell
 
@@ -801,7 +805,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.selectionStyle = .none
-            cell.layoutMargins = UIEdgeInsets.zero
 
             switch row {
             case .ability1:
@@ -883,7 +886,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         }
-        
         
     }
     

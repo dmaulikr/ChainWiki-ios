@@ -26,11 +26,12 @@ class ArcanaBaseInfoCollectionView: BaseTableViewCell {
         
         collectionView.isScrollEnabled = false
         collectionView.allowsSelection = false
-        collectionView.backgroundColor = .lightGray
+        collectionView.backgroundColor = .groupTableViewBackground
         
         collectionView.register(ArcanaNameCell.self, forCellWithReuseIdentifier: "ArcanaNameCell")
         collectionView.register(ArcanaBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaBaseInfoCell")
         collectionView.register(ArcanaClassBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaClassBaseInfoCell")
+        collectionView.register(ArcanaButtonsCell.self, forCellWithReuseIdentifier: "ArcanaButtonsCell")
         
         return collectionView
     }()
@@ -254,7 +255,7 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
         
         guard let section = Section(rawValue: section) else { return UIEdgeInsets.zero }
         switch section {
-        case .name:
+        case .name, .baseInfo:
             return UIEdgeInsets(top: 0, left: 0, bottom: 1, right: 0)
         default:
             return UIEdgeInsets.zero

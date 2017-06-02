@@ -15,7 +15,7 @@ class ArcanaImageCell: BaseTableViewCell {
     
     let arcanaImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         return imageView
     }()

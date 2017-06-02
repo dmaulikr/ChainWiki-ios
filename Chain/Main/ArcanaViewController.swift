@@ -26,7 +26,13 @@ class ArcanaViewController: UIViewController {
     
     let concurrentArcanaQueue =
         DispatchQueue(
-            label: "com.jk.cckorea.arcanaQueue")
+            label: "com.jk.cckorea.arcanaArrayQueue",
+            attributes: .concurrent)
+    
+    let concurrentArcanaOriginalQueue =
+        DispatchQueue(
+            label: "com.jk.cckorea.originalArrayQueue",
+            attributes: .concurrent)
     
     var ref: DatabaseReference = FIREBASE_REF.child("arcana")
     var filterViewController: FilterViewController?
@@ -35,20 +41,34 @@ class ArcanaViewController: UIViewController {
     
     // Not thread-safe
     var _arcanaArray: [Arcana] = []
+    var _originalArray: [Arcana] = []
+    
     // Thread-safe
     var arcanaArray: [Arcana] {
         get {
-            return concurrentArcanaQueue.sync {
-                _arcanaArray
+            var arcanaCopy: [Arcana]!
+            concurrentArcanaQueue.sync {
+                arcanaCopy = self._arcanaArray
             }
+            return arcanaCopy
         }
         set {
-            concurrentArcanaQueue.sync {
-                _arcanaArray = newValue
-            }
+            _arcanaArray = newValue
         }
     }
-    var originalArray = [Arcana]()
+
+    var originalArray: [Arcana] {
+        get {
+            var arcanaCopy: [Arcana]!
+            concurrentArcanaOriginalQueue.sync {
+                arcanaCopy = self._originalArray
+            }
+            return arcanaCopy
+        }
+        set {
+            _originalArray = newValue
+        }
+    }
     
     var filters = [String: [String]]()
     var initialLoad = true

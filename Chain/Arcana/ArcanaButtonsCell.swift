@@ -48,6 +48,8 @@ class ArcanaButtonsCell: UICollectionViewCell {
 
     func setupViews() {
         
+        backgroundColor = .white
+        
         addSubview(heartButton)
         addSubview(numberOfLikesLabel)
         addSubview(favoriteButton)
