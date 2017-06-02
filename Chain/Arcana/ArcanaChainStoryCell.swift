@@ -13,8 +13,8 @@ class ArcanaChainStoryCell: BaseTableViewCell {
     let storyKeyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .white
-        label.backgroundColor = Color.lightGreen
+//        label.textColor = .white
+//        label.backgroundColor = Color.lightGreen
         label.textAlignment = .center
         return label
     }()
@@ -22,7 +22,8 @@ class ArcanaChainStoryCell: BaseTableViewCell {
     let storyAttributeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .black
+//        label.textColor = .black
+        label.numberOfLines = 0
         return label
     }()
 
@@ -31,10 +32,10 @@ class ArcanaChainStoryCell: BaseTableViewCell {
         addSubview(storyKeyLabel)
         addSubview(storyAttributeLabel)
         
-        storyKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 100, heightConstant: 40)
+        storyKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 10, widthConstant: 100, heightConstant: 0)
         storyKeyLabel.anchorCenterYToSuperview()
         
-        storyAttributeLabel.anchor(top: topAnchor, leading: storyKeyLabel.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
+        storyAttributeLabel.anchor(top: topAnchor, leading: storyKeyLabel.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
         
     }
 

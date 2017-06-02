@@ -238,7 +238,7 @@ class Settings: UIViewController, DisplayBanner {
     }
     
     func openSite() {
-        guard let url = URL(string: "https://chainchronicle-ea233.firebaseapp.com/about/") else { return }
+        guard let url = URL(string: "https://chainchronicle-ea233.firebaseapp.com/about") else { return }
         let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
         present(vc, animated: true)
     }

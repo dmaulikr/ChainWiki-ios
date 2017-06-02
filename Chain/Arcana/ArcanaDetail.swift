@@ -52,7 +52,9 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         
         tableView.register(ArcanaImageCell.self, forCellReuseIdentifier: "ArcanaImageCell")
         tableView.register(ArcanaButtonsCell.self, forCellReuseIdentifier: "ArcanaButtonsCell")
+        tableView.register(ArcanaNameCell.self, forCellReuseIdentifier: "ArcanaNameCell")
         tableView.register(ArcanaAttributeCell.self, forCellReuseIdentifier: "ArcanaAttributeCell")
+        tableView.register(ArcanaClassCell.self, forCellReuseIdentifier: "ArcanaClassCell")
         tableView.register(ArcanaSkillCell.self, forCellReuseIdentifier: "ArcanaSkillCell")
         tableView.register(ArcanaSkillAbilityDescCell.self, forCellReuseIdentifier: "ArcanaSkillAbilityDescCell")
         tableView.register(ArcanaChainStoryCell.self, forCellReuseIdentifier: "ArcanaChainStoryCell")
@@ -359,15 +361,15 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         switch string {
             
         case "5★", "5":
-            return "★★★★★SSR"
+            return "SSR ★ 5"
         case "4★", "4":
-            return "★★★★SR"
+            return "SR ★ 4"
         case "3★", "3":
-            return "★★★R"
+            return "R ★ 3"
         case "2★", "2":
-            return "★★HN"
+            return "HN ★ 2"
         case "1★", "1":
-            return "★N"
+            return "N ★ 1"
         default:
             return "업데이트 필요"
         }
@@ -495,17 +497,16 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height - frame.size.height
         
-        
+        self.tableViewBottomConstraint?.constant = 0
+
         UIView.animate(withDuration: 0.2, animations: {
             self.tabBarController?.tabBar.frame = frame
-            self.tableViewBottomConstraint?.constant = 0
             self.view.layoutIfNeeded()
             
         }, completion: { finished in
             self.isAnimatingBars = false
         })
         
-        print("Unhide")
     }
 
     func hideBars() {
@@ -516,9 +517,10 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height + frame.size.height
         
+        self.tableViewBottomConstraint?.constant = 50
+
         UIView.animate(withDuration: 0.2, animations: {
             self.tabBarController?.tabBar.frame = frame
-            self.tableViewBottomConstraint?.constant = 50
             self.view.layoutIfNeeded()
 
         }, completion: { finished in
@@ -542,7 +544,6 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
                 isAnimatingBars = true
                 self.hideBars()
                 self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-                print("Hide")
             }
             
         }
@@ -581,6 +582,23 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    private enum SkillRow: Int {
+        case skill1
+        case skill2
+        case skill3
+    }
+    
+    private enum AbilityRow: Int {
+        case ability1
+        case ability2
+        case partyAbility
+    }
+    
+    private enum ChainStoryRow: Int {
+        case chainStory
+        case chainStone
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 9
     }
@@ -600,35 +618,35 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             switch arcana.getSkillCount() {
             case "1":
-                return 2
+                return 1
             case "2":
-                return 4
-            case "3":
-                return 6
-            default:
                 return 2
+            case "3":
+                return 3
+            default:
+                return 1
             }
             
         case .ability:
             
             if let _ = arcana.getPartyAbility() {
-                return 6
+                return 3
             }
-            else if let _ = arcana.getAbilityName3() {    // 리제 롯데
-                return 6
+            else if let _ = arcana.getAbilityName3() {  // 리제 롯데
+                return 3
             }
-            else if let _ = arcana.getAbilityName2() {    // has 2 abilities
-                return 4
+            else if let _ = arcana.getAbilityName2() {  // has 2 abilities
+                return 2
             }
             else if let _ = arcana.getAbilityName1() {  // has only 1 ability
-                return 2
+                return 1
             }
             else {
                 return 0
             }
             
         case .kizuna:
-            return 2
+            return 1
             
         case .chainStory:
             var count = 0
@@ -698,7 +716,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             
         case .attribute:
-            if (indexPath as NSIndexPath).row == 0 {
+            if indexPath.row == 0 {
                 return 160
             }
             else {
@@ -784,248 +802,206 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             
         case .attribute:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            cell.selectionStyle = .none
+            
             var attributeKey = ""
             var attributeValue = ""
             
             switch indexPath.row {
                 
             case 0:
-                attributeKey = "이름"
-                if let nnKR = arcana.getNicknameKR(), let nnJP = arcana.getNicknameJP() {
-                    attributeValue = "\(nnKR) \(arcana.getNameKR())\n\(nnJP) \(arcana.getNameJP())"
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaNameCell") as! ArcanaNameCell
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.selectionStyle = .none
+                
+                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+                if let nnKR = arcana.getNicknameKR() {
+                    cell.arcanaNameKR.text = nnKR + " " + arcana.getNameKR()
                 }
                 else {
-                    attributeValue = "\(arcana.getNameKR())\n\(arcana.getNameJP())"
+                    cell.arcanaNameKR.text = arcana.getNameKR()
                 }
                 
+                if let nnJP = arcana.getNicknameJP() {
+                    cell.arcanaNameJP.text = nnJP + arcana.getNameJP()
+                }
+                else {
+                    cell.arcanaNameJP.text = arcana.getNameJP()
+                }
                 
+                return cell
                 
-            case 1:
-                attributeKey = "레어"
-                attributeValue = getRarityLong(arcana.getRarity())
             case 2:
-                attributeKey = "직업"
-                attributeValue = arcana.getGroup()
-            case 3:
-                attributeKey = "소속"
-                if let a = arcana.getAffiliation() {
-                    if a == "" {
-                        attributeValue = "정보 없음"
-                    }
-                    else {
-                        attributeValue = a
-                    }
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaClassCell") as! ArcanaClassCell
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.selectionStyle = .none
+                
+                cell.attributeKeyLabel.text = "직업"
+                cell.attributeValueLabel.text = arcana.getGroup()
+                
+                switch arcana.getGroup() {
+                case "전사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "warrior")
+                case "기사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "knight")
+                case "궁수":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "archer")
+                case "법사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "magician")
+                case "승려":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "healer")
+                default:
+                    break
                 }
-                else {
-                    attributeValue = "정보 없음"
-                }
-            case 4:
-                attributeKey = "코스트"
-                attributeValue = arcana.getCost()
-            case 5:
-                attributeKey = "무기"
-                attributeValue = arcana.getWeapon()
+                
+                return cell
                 
             default:
-                break
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.selectionStyle = .none
+                
+                switch indexPath.row {
+                    
+                case 1:
+                    attributeKey = "레어"
+                    attributeValue = getRarityLong(arcana.getRarity())
+                case 3:
+                    attributeKey = "소속"
+                    if let a = arcana.getAffiliation() {
+                        if a == "" {
+                            attributeValue = "정보 없음"
+                        }
+                        else {
+                            attributeValue = a
+                        }
+                    }
+                    else {
+                        attributeValue = "정보 없음"
+                    }
+                case 4:
+                    attributeKey = "코스트"
+                    attributeValue = arcana.getCost()
+                case 5:
+                    attributeKey = "무기"
+                    attributeValue = arcana.getWeapon()
+                    
+                default:
+                    break
+
+                }
+                
+//                cell.attributeKeyLabel.attributedText = NSAttributedString(string: attributeKey, attributes: [NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue, NSUnderlineColorAttributeName: Color.lightGreen])
+                cell.attributeKeyLabel.text = attributeKey
+                cell.attributeValueLabel.text = attributeValue
+//                cell.attributeValueLabel.setLineHeight(lineHeight: 1.2)
+                
+                return cell
                 
             }
+
             
+        case .skill:
             
-            cell.attributeKeyLabel.text = attributeKey
-            cell.attributeValueLabel.text = attributeValue
+            guard let row = SkillRow(rawValue: indexPath.row) else { return UITableViewCell() }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
+            cell.selectionStyle = .none
+            
+            switch row {
+                
+            case .skill1:
+                cell.skillNumberLabel.text = "스킬 1"
+                cell.skillManaLabel.text = "\(arcana.getSkillMana1()) 마나"
+                cell.skillDescLabel.text = arcana.getSkillDesc1()
+            case .skill2:
+                cell.skillNumberLabel.text = "스킬 2"
+                cell.skillManaLabel.text = "\(arcana.getSkillMana2()!) 마나"
+                cell.skillDescLabel.text = arcana.getSkillDesc2()
+            case .skill3:
+                cell.skillNumberLabel.text = "스킬 3"
+                cell.skillManaLabel.text = "\(arcana.getSkillMana3()!) 마나"
+                cell.skillDescLabel.text = arcana.getSkillDesc3()
+            }
+            
+            cell.skillDescLabel.setLineHeight(lineHeight: 1.2)
+
+            return cell
+            
+        case .ability:
+            
+            guard let row = AbilityRow(rawValue: indexPath.row) else { return UITableViewCell() }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
+            cell.selectionStyle = .none
+            cell.layoutMargins = UIEdgeInsets.zero
+
+            switch row {
+            case .ability1:
+                cell.attributeKeyLabel.text = "어빌 1"
+                cell.attributeValueLabel.text = arcana.getAbilityDesc1()
+            case .ability2:
+                cell.attributeKeyLabel.text = "어빌 2"
+                cell.attributeValueLabel.text = arcana.getAbilityDesc2()
+                
+            case .partyAbility:
+                if let _ = arcana.getPartyAbility() {
+                    cell.attributeKeyLabel.text = "파티 어빌"
+                    cell.attributeValueLabel.text = arcana.getPartyAbility()
+                }
+                else {
+                    // 리제 롯데
+                    cell.attributeKeyLabel.text = "어빌 3"
+                    cell.attributeValueLabel.text = arcana.getAbilityDesc3()
+                }
+            }
+            
             cell.attributeValueLabel.setLineHeight(lineHeight: 1.2)
             
             return cell
             
-        case .skill:
-            //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
-            
-            
-            // Odd rows will be the description
-            //let headerCell = tableView.dequeueReusableCellWithIdentifier("arcanaSkill") as! ArcanaSkillCell
-            //let descCell = tableView.dequeueReusableCellWithIdentifier("skillAbilityDesc") as! ArcanaSkillAbilityDescCell
-            
-            switch indexPath.row {
-                
-            case 0,2,4:
-                let headerCell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
-                headerCell.selectionStyle = .none
-                switch indexPath.row {
-                    
-                case 0:
-                    headerCell.skillNumberLabel.text = "스킬 1"
-                    headerCell.skillNameLabel.text = arcana.getSkillName1()
-                    headerCell.skillManaLabel.text = "마나"
-                    headerCell.skillManaCostLabel.text = arcana.getSkillMana1()
-                    
-                case 2:
-                    headerCell.skillNumberLabel.text = "스킬 2"
-                    headerCell.skillNameLabel.text = arcana.getSkillName2()
-                    headerCell.skillManaLabel.text = "마나"
-                    headerCell.skillManaCostLabel.text = arcana.getSkillMana2()
-                    
-                default:
-                    headerCell.skillNumberLabel.text = "스킬 3"
-                    headerCell.skillNameLabel.text = arcana.getSkillName3()
-                    headerCell.skillManaLabel.text = "마나"
-                    headerCell.skillManaCostLabel.text = arcana.getSkillMana3()
-                    
-                }
-                
-                
-                headerCell.layoutMargins = UIEdgeInsets.zero
-                return headerCell
-                
-                
-            case 1,3,5:
-                let descCell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillAbilityDescCell") as! ArcanaSkillAbilityDescCell
-                descCell.selectionStyle = .none
-                
-                switch (indexPath as NSIndexPath).row {
-                case 1:
-                    descCell.skillAbilityDescLabel.text = arcana.getSkillDesc1()
-                case 3:
-                    descCell.skillAbilityDescLabel.text = arcana.getSkillDesc2()
-                default:
-                    descCell.skillAbilityDescLabel.text = arcana.getSkillDesc3()
-                    
-                }
-                descCell.skillAbilityDescLabel.setLineHeight(lineHeight: 1.2)
-                descCell.layoutMargins = UIEdgeInsets.zero
-                return descCell
-                
-            default:
-                return tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillAbilityDescCell") as! ArcanaSkillAbilityDescCell
-                
-            }
-            
-        case .ability:
-            
-            switch indexPath.row {
-            case 0,2,4:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-                cell.selectionStyle = .none
-                switch indexPath.row {
-                case 0:
-                    cell.attributeKeyLabel.text = "어빌 1"
-                    if arcana.getAbilityName1() == "" {
-                        cell.attributeValueLabel.text = " "
-                    }
-                    else {
-                        cell.attributeValueLabel.text = arcana.getAbilityName1()
-                    }
-                case 2:
-                    cell.attributeKeyLabel.text = "어빌 2"
-                    if arcana.getAbilityName2() == "" {
-                        cell.attributeValueLabel.text = " "
-                    }
-                    else {
-                        cell.attributeValueLabel.text = arcana.getAbilityName2()
-                    }
-                default:
-                    if let _ = arcana.getPartyAbility() {
-                        cell.attributeKeyLabel.text = "파티 어빌"
-                        cell.attributeValueLabel.text = " "
-                    }
-                    else {
-                        // 리제 롯데
-                        cell.attributeKeyLabel.text = "어빌 3"
-                        cell.attributeValueLabel.text = arcana.getAbilityName3()
-                    }
-                }
-
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
-                
-                
-            default:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillAbilityDescCell") as! ArcanaSkillAbilityDescCell
-                cell.selectionStyle = .none
-                switch indexPath.row {
-                case 1:
-                    cell.skillAbilityDescLabel.text = arcana.getAbilityDesc1()
-                case 3:
-                    cell.skillAbilityDescLabel.text = arcana.getAbilityDesc2()
-                default:
-                    if let _ = arcana.getPartyAbility() {
-                        cell.skillAbilityDescLabel.text = arcana.getPartyAbility()
-                    }
-                    else {
-                        cell.skillAbilityDescLabel.text = arcana.getAbilityDesc3()
-                    }
-                    
-                }
-
-                cell.skillAbilityDescLabel.setLineHeight(lineHeight: 1.2)
-                
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
-            }
-            
         case .kizuna:
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
-                cell.selectionStyle = .none
-                cell.skillNumberLabel.text = "인연"
-                cell.skillManaLabel.text = "코스트"
-                cell.skillNameLabel.text = arcana.getKizunaName()
-                cell.skillManaCostLabel.text = arcana.getKizunaCost()
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
-                
-            }
-            else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillAbilityDescCell") as! ArcanaSkillAbilityDescCell
-                cell.selectionStyle = .none
-                cell.skillAbilityDescLabel.text = arcana.getKizunaDesc()
-                cell.skillAbilityDescLabel.setLineHeight(lineHeight: 1.2)
-                cell.layoutMargins = UIEdgeInsets.zero
-                return cell
-            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
+            cell.selectionStyle = .none
+            
+            cell.skillNumberLabel.text = "인연"
+            cell.skillManaLabel.text = "코스트 \(arcana.getKizunaCost())"
+            cell.skillDescLabel.text = arcana.getKizunaDesc()
+            
+            cell.skillDescLabel.setLineHeight(lineHeight: 1.2)
+            
+            return cell
             
         case .chainStory:
             
-            switch indexPath.row {
-            case 0:
+            guard let row = ChainStoryRow(rawValue: indexPath.row) else { return UITableViewCell() }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
+            cell.selectionStyle = .none
+
+            switch row {
+                
+            case .chainStory:
                 if let cStory = arcana.getChainStory() {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaChainStoryCell") as! ArcanaChainStoryCell
-                    cell.selectionStyle = .none
-                    cell.storyKeyLabel.text = "체인스토리"
-                    cell.storyAttributeLabel.text = cStory
-                    cell.layoutMargins = UIEdgeInsets.zero
+                    cell.attributeKeyLabel.text = "체인스토리"
+                    cell.attributeValueLabel.text = cStory
                     return cell
                 } else if let cStone = arcana.getChainStone() {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaChainStoryCell") as! ArcanaChainStoryCell
-                    cell.selectionStyle = .none
-                    cell.storyKeyLabel.text = "정령석 보상"
-                    cell.storyAttributeLabel.text = cStone
-                    cell.layoutMargins = UIEdgeInsets.zero
-                    return cell
-                }
-                else {
-                    return UITableViewCell()
+                    cell.attributeKeyLabel.text = "정령석 보상"
+                    cell.attributeValueLabel.text = cStone
                 }
                 
-            default:
+            case .chainStone:
                 if let cStone = arcana.getChainStone() {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaChainStoryCell") as! ArcanaChainStoryCell
-                    cell.selectionStyle = .none
-                    cell.storyKeyLabel.text = "정령석 보상"
-                    cell.storyAttributeLabel.text = cStone
-                    cell.layoutMargins = UIEdgeInsets.zero
-                    return cell
-                }
-                    
-                else {
-                    return UITableViewCell()
+                    cell.attributeKeyLabel.text = "정령석 보상"
+                    cell.attributeValueLabel.text = cStone
                 }
             }
+            
+            return cell
             
         case .wikiJP:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaViewEditsCell") as! ArcanaViewEditsCell

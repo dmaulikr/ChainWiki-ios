@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chain/Arcana/ArcanaDetail.swift"
-            timestampString = "518068095.356498"
+            timestampString = "518075587.065719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
             landmarkName = "viewForZooming(in:)"
             landmarkType = "7">
          </BreakpointContent>

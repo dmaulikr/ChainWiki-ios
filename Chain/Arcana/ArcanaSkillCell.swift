@@ -12,6 +12,47 @@ class ArcanaSkillCell: BaseTableViewCell {
     
     let skillNumberLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
+        label.textColor = Color.lightGreen
+        return label
+    }()
+    
+    let skillManaLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)
+        return label
+    }()
+    
+    let skillDescLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    override func setupViews() {
+        
+        addSubview(skillNumberLabel)
+        addSubview(skillManaLabel)
+        addSubview(skillDescLabel)
+        
+        skillNumberLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        skillManaLabel.anchor(top: nil, leading: skillNumberLabel.trailingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        skillManaLabel.centerYAnchor.constraint(equalTo: skillNumberLabel.centerYAnchor).isActive = true
+        
+        skillDescLabel.anchor(top: skillNumberLabel.bottomAnchor, leading: skillNumberLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
+
+        
+    }
+    
+}
+
+
+class ArcanaSkillCellOld: BaseTableViewCell {
+    
+    let skillNumberLabel: UILabel = {
+        let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
         label.textColor = .white
         label.backgroundColor = Color.lightGreen
