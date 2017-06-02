@@ -150,11 +150,12 @@ function insertFestivalCell(data) {
   firebase.storage().ref().child(`/image/arcana/${arcanaID}/icon.jpg`).getDownloadURL().then(function(url) {
     arcanaImageCell.innerHTML = `<img data-original='${url}' class='arcanaImageIcon' id='${arcanaID}_icon'/>`;
     $('#' + `${arcanaID}_icon`).lazyload({
-      placeholder: 'images/placeholder.png',
+      placeholder: 'images/logo.png',
       effect : 'fadeIn'
     });
   }).catch(function(error) {
     console.log("Image download error.");
+    arcanaImageCell.innerHTML = `<img src='/images/logo.png' width='66' height='66'>`
   });
 
   var nameCell = document.createElement('td');
@@ -203,6 +204,7 @@ ChainWiki.prototype.insertCell = function(data, index) {
     });
   }).catch(function(error) {
     console.log("Image download error.");
+    arcanaImageCell.innerHTML = `<img src='/images/logo.png' width='66' height='66'>`
   });
 
   var nameCell = document.createElement('td');

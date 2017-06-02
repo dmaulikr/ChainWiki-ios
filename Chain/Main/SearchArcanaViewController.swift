@@ -206,29 +206,18 @@ final class SearchArcanaViewController: ArcanaViewController {
 
             if let arcana = Arcana(snapshot: snapshot) {
                 
-                self.arcanaDictionary[arcana.getUID()] = arcana
-                self.arcanaOriginalDictionary[arcana.getUID()] = arcana
-                
-                if self.initialLoad == false {
-                    
-                    DispatchQueue.main.async {
+                if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {
 
-                        if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {
-                            self.arcanaArray = Array(self.arcanaDictionary.values)
-                            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
-                                return arcana1.getUID() > arcana2.getUID()
-                            })
-                            self.insertIndexPathAt(index: 0)
-                        }
-                        
-                    }
+                    self._arcanaArray.insert(arcana, at: 0)
                     
-                    DispatchQueue.global().async {
-                        self.originalArray = Array(self.arcanaOriginalDictionary.values)
-                        self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
-                            return arcana1.getUID() > arcana2.getUID()
-                        })
+                    if !self.initialLoad {
+                        DispatchQueue.main.async {
+                            self.insertIndexPathAt(index: 0)
+                            self.arcanaCountView.setText(text: "아르카나 수 \(self.arcanaArray.count)")
+                        }
                     }
+
+                    self.originalArray.insert(arcana, at: 0)
                 }
             }
             
@@ -237,43 +226,32 @@ final class SearchArcanaViewController: ArcanaViewController {
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             self.initialLoad = false
-            self.arcanaArray = Array(self.arcanaDictionary.values)
-            self.arcanaArray.sort(by: { (arcana1, arcana2) -> Bool in
-                return arcana1.getUID() > arcana2.getUID()
-            })
-            
+ 
             DispatchQueue.main.async {
                 self.reloadView()
             }
             
-            DispatchQueue.global().async {
-                self.originalArray = Array(self.arcanaOriginalDictionary.values)
-                self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
-                    return arcana1.getUID() > arcana2.getUID()
-                })
-            }
         })
         
         ref.observe(.childRemoved, with: { snapshot in
             
             let arcanaID = snapshot.key
             
-            self.arcanaDictionary.removeValue(forKey: arcanaID)
-            self.arcanaOriginalDictionary.removeValue(forKey: arcanaID)
-            
             DispatchQueue.global().async {
                 
                 if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    
+                    self._arcanaArray.remove(at: index)
+
                     DispatchQueue.main.async {
-                        self.arcanaArray.remove(at: index)
                         self.deleteIndexPathAt(index: index)
                     }
                 }
                 
-                self.originalArray = Array(self.arcanaOriginalDictionary.values)
-                self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
-                    return arcana1.getUID() > arcana2.getUID()
-                })
+                if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    self.originalArray.remove(at: index)
+                }
+                
             }
             
         })
@@ -283,21 +261,19 @@ final class SearchArcanaViewController: ArcanaViewController {
             let arcanaID = snapshot.key
             
             if let arcana = Arcana(snapshot: snapshot) {
-                self.arcanaDictionary[arcanaID] = arcana
-                self.arcanaOriginalDictionary[arcanaID] = arcana
-                
+
                 DispatchQueue.global().async {
+                    
                     if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
-                        self.arcanaArray[index] = arcana
+                        self._arcanaArray[index] = arcana
                         DispatchQueue.main.async {
                             self.reloadIndexPathAt(index)
                         }
                     }
                     
-                    self.originalArray = Array(self.arcanaOriginalDictionary.values)
-                    self.originalArray.sort(by: { (arcana1, arcana2) -> Bool in
-                        return arcana1.getUID() > arcana2.getUID()
-                    })
+                    if let index = self.originalArray.index(where: {$0.getUID() == arcanaID}) {
+                        self.originalArray[index] = arcana
+                    }
                     
                 }
             }
@@ -429,11 +405,11 @@ extension SearchArcanaViewController: UISearchBarDelegate {
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
             
-            self.arcanaArray = searchArray
+            self._arcanaArray = searchArray
         }
         else {
             self.showSearch = true
-            self.arcanaArray = self.originalArray
+            self._arcanaArray = self.originalArray
         }
         
         DispatchQueue.main.async {
@@ -462,8 +438,9 @@ extension SearchArcanaViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         showSearch = false
+        
+        _arcanaArray = originalArray
         DispatchQueue.main.async {
-            self.arcanaArray = self.originalArray
             self.reloadView()
         }
         

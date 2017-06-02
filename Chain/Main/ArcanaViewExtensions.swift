@@ -23,11 +23,11 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if arcanaView == .list {
-            return 1
+        if arcanaView == .main {
+            return 2
         }
         else {
-            return 2
+            return 1
         }
     }
     
@@ -48,7 +48,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.arcanaImage.image = nil
                 
                 cell.arcanaID = arcana.getUID()
-                print(arcana.getUID())
+
                 cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
                 
                 // check if arcana has only name, or nickname.
@@ -71,6 +71,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                     
                 }
+                
                 cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
                 
                 return cell
@@ -89,9 +90,10 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
 
         }
         else {
-            Analytics.logEvent("arcanaArrayCrash", parameters: [
+            Analytics.logEvent("arcanaArrayCrashTV", parameters: [
                 "indexPath" : indexPath.row,
-                "arcanaArrayCount" : arcanaArray.count
+                "arcanaArrayCount" : arcanaArray.count,
+                "arcanaView" : arcanaView.rawValue
                 ])
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
@@ -157,9 +159,10 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         }
         else {
-            Analytics.logEvent("arcanaArrayCrash", parameters: [
+            Analytics.logEvent("arcanaArrayCrashCV", parameters: [
                 "indexPath" : indexPath.row,
-                "arcanaArrayCount" : arcanaArray.count
+                "arcanaArrayCount" : arcanaArray.count,
+                "arcanaView" : arcanaView.rawValue
                 ])
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell

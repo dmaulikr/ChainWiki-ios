@@ -21,10 +21,11 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: UIViewController {
+class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
     
     let arcana: Arcana
     weak var presentingDelegate: LoadingArcanaViewController?
+    var isAnimatingBars = false
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,6 +34,8 @@ class ArcanaDetail: UIViewController {
         imageView.alpha = 0
         return imageView
     }()
+    
+    let imageScrollView = UIScrollView()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -66,6 +69,15 @@ class ArcanaDetail: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         return tap
     }()
+    
+    override var prefersStatusBarHidden: Bool {
+        if navigationController?.isNavigationBarHidden == true {
+            return true
+        }
+        else {
+            return false
+        }
+    }
     
     init(arcana: Arcana) {
         self.arcana = arcana
@@ -101,11 +113,12 @@ class ArcanaDetail: UIViewController {
         
         let indexPath = IndexPath(row: 1, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if let bundleID = Bundle.main.bundleIdentifier {
             if bundleID != "com.jk.cckorea.debug" {
                 let dataRequest = FirebaseService.dataRequest
@@ -113,6 +126,13 @@ class ArcanaDetail: UIViewController {
             }
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        showBars()
+    }
+    
+    var tableViewBottomConstraint: NSLayoutConstraint?
     
     func setupViews() {
 
@@ -124,7 +144,10 @@ class ArcanaDetail: UIViewController {
         view.addSubview(tableView)
         
         if horizontalSize == .compact {
-            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
+            tableViewBottomConstraint?.isActive = true
+
         }
         else {
             view.addSubview(arcanaImageView)
@@ -132,6 +155,7 @@ class ArcanaDetail: UIViewController {
             arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
             arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
             tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+            
         }
 
     }
@@ -351,23 +375,44 @@ class ArcanaDetail: UIViewController {
     }
     
     func imageTapped(_ sender: AnyObject) {
+//        
+//        if imageTapped == false {
+//            // enlarge image
+//            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaImageCell, cell.imageLoaded else { return }
+//            
+//            imageScrollView.delegate = self
+//            imageScrollView.frame = view.frame
+//            imageScrollView.backgroundColor = .black
+//            view.addSubview(imageScrollView)
+//            navigationController?.isNavigationBarHidden = true
+//            tabBarController?.tabBar.isHidden = true
+//
+//            let newImageView = UIImageView()
+//            newImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+//            newImageView.frame = imageScrollView.frame
+//            newImageView.contentMode = .scaleAspectFit
+//            newImageView.isUserInteractionEnabled = true
+//            imageScrollView.addSubview(newImageView)
+////            newImageView.frame = UIScreen.main.bounds
+////            newImageView.backgroundColor = .black
+////            newImageView.contentMode = .scaleAspectFit
+////            newImageView.isUserInteractionEnabled = true
+////            view.window?.addSubview(newImageView)
+//            
+//            addGestures(newImageView)
+//            imageTapped = true
+//            
+//        }
         
-        if imageTapped == false {
-            // enlarge image
-            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaImageCell, cell.imageLoaded else { return }
-            let newImageView = UIImageView()
-            newImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
-            newImageView.frame = UIScreen.main.bounds
-            newImageView.backgroundColor = .black
-            newImageView.contentMode = .scaleAspectFit
-            newImageView.isUserInteractionEnabled = true
-            view.window?.addSubview(newImageView)
-            
-            addGestures(newImageView)
-            imageTapped = true
-            
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        if scrollView == imageScrollView {
+            return arcanaImageView
         }
-        
+        else {
+            return nil
+        }
     }
 
     func addGestures(_ sender: UIImageView) {
@@ -440,6 +485,81 @@ class ArcanaDetail: UIViewController {
         }
         
         imageTapped = false
+    }
+    
+    func showBars() {
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        setNeedsStatusBarAppearanceUpdate()
+            
+        guard var frame = tabBarController?.tabBar.frame else { return }
+        frame.origin.y = view.frame.size.height - frame.size.height
+        
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tabBarController?.tabBar.frame = frame
+            self.tableViewBottomConstraint?.constant = 0
+            self.view.layoutIfNeeded()
+            
+        }, completion: { finished in
+            self.isAnimatingBars = false
+        })
+        
+        print("Unhide")
+    }
+
+    func hideBars() {
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        setNeedsStatusBarAppearanceUpdate()
+        
+        guard var frame = tabBarController?.tabBar.frame else { return }
+        frame.origin.y = view.frame.size.height + frame.size.height
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tabBarController?.tabBar.frame = frame
+            self.tableViewBottomConstraint?.constant = 50
+            self.view.layoutIfNeeded()
+
+        }, completion: { finished in
+            self.isAnimatingBars = false
+        })
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
+        
+        if translation.y <= 0 {
+
+            // if moving down the tableView
+            
+            if isAnimatingBars == false {
+                
+                isAnimatingBars = true
+                self.hideBars()
+                self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+                print("Hide")
+            }
+            
+        }
+
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
+        
+        if decelerate == true {
+            if translation.y > 0 {
+                showBars()
+            }
+        }
     }
 
 }

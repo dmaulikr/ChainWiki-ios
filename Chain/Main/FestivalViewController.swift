@@ -15,55 +15,96 @@ class FestivalViewController: ArcanaViewController {
         super.setupNavBar()
         
         navigationItem.title = "FESTIVAL"
-        
-//        let dismissButton = UIBarButtonItem(title: "홈", style: .plain, target: self, action: #selector(dismissView))
-//        navigationItem.leftBarButtonItem = dismissButton
-    }
-    
-    func dismissView() {
-        dismiss(animated: true, completion: nil)
     }
     
     override func downloadArcana() {
         
         ref = FIREBASE_REF.child("festival")
         
-        ref.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in
+        ref.queryOrderedByValue().observe(.childAdded, with: { snapshot in
             
-            var uid = [String]()
+            let arcanaRef = ARCANA_REF.child(snapshot.key)
             
-            for child in snapshot.children {
-                let arcanaID = (child as AnyObject).key as String
-                uid.append(arcanaID)
-            }
-            
-            let group = DispatchGroup()
-            
-            for id in uid {
-                group.enter()
+            arcanaRef.observe(.value, with: { snapshot in
                 
-                let ref = ARCANA_REF.child(id)
-                
-                ref.observeSingleEvent(of: .value, with: { snapshot in
+                DispatchQueue.global().async {
+                    
                     if let arcana = Arcana(snapshot: snapshot) {
-                        self.arcanaArray.append(arcana)
-                        self.originalArray.append(arcana)
-//                        self.arcanaDictionary[arcana.getUID()] = arcana
-//                        self.arcanaOriginalDictionary[arcana.getUID()] = arcana
-                    }
-                    group.leave()
-                })
-            }
-            
-            group.notify(queue: DispatchQueue.main, execute: {
-                
-                self.initialLoad = false
-//                self.originalArray = Array(self.arcanaOriginalDictionary.values)
-//                self.arcanaArray = Array(self.arcanaDictionary.values)
-                self.reloadView()
-            })
+                        
+                        if let index = self.arcanaArray.index(where: {$0.getUID() == snapshot.key}) {
+                            
+                            if !snapshot.exists() {
+                                // arcana was removed
+                                self._arcanaArray.remove(at: index)
+                                DispatchQueue.main.async {
+                                    self.deleteIndexPathAt(index: index)
+                                }
+                                if let index = self.originalArray.index(where: {$0.getUID() == snapshot.key}) {
+                                    self.originalArray.remove(at: index)
+                                }
+                            }
+                            else {
+                                // arcana was updated
+                                self._arcanaArray[index] = arcana
+                                DispatchQueue.main.async {
+                                    self.reloadIndexPathAt(index)
+                                }
+                                if let index = self.originalArray.index(where: {$0.getUID() == snapshot.key}) {
+                                    self.originalArray[index] = arcana
+                                }
 
+                            }
+                        }
+                        else {
+                            // add the arcana
+                            self._arcanaArray.append(arcana) 
+                            DispatchQueue.main.sync {
+                                self.initialLoad = false
+                                self.reloadView()
+                            }
+                            self.originalArray.append(arcana)
+                        }
+
+                    }
+                    
+                }
+
+            })
+            
         })
+        
+//        ref.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in
+//            
+//            var uid = [String]()
+//            
+//            for child in snapshot.children {
+//                let arcanaID = (child as AnyObject).key as String
+//                uid.append(arcanaID)
+//            }
+//            
+//            let group = DispatchGroup()
+//            
+//            for id in uid {
+//                group.enter()
+//                
+//                let ref = ARCANA_REF.child(id)
+//                
+//                ref.observeSingleEvent(of: .value, with: { snapshot in
+//                    if let arcana = Arcana(snapshot: snapshot) {
+//                        self.arcanaArray.append(arcana)
+//                        self.originalArray.append(arcana)
+//                    }
+//                    group.leave()
+//                })
+//            }
+//            
+//            group.notify(queue: DispatchQueue.main, execute: {
+//                
+//                self.initialLoad = false
+//                self.reloadView()
+//            })
+//
+//        })
     }
 
 

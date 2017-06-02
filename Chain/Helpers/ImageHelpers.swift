@@ -64,7 +64,9 @@ extension UIImageView {
             STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                 if (error != nil) {
                     
-                    // Handle any errors
+//                    DispatchQueue.main.async {
+//                        self.draw
+//                    }
                 } else {
                     
                     URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
@@ -73,7 +75,7 @@ extension UIImageView {
                             return
                         }
                         
-                        DispatchQueue.main.async(execute: {
+                        DispatchQueue.main.async {
                             
                             guard let data = data, let downloadedImage = UIImage(data: data) else { return }
                             
@@ -115,7 +117,7 @@ extension UIImageView {
                                 
                             }
                             
-                        })
+                        }
                         
                     }).resume()
                     

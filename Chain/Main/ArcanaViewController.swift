@@ -24,15 +24,31 @@ enum ArcanaVC {
 
 class ArcanaViewController: UIViewController {
     
+    let concurrentArcanaQueue =
+        DispatchQueue(
+            label: "com.jk.cckorea.arcanaQueue")
+    
     var ref: DatabaseReference = FIREBASE_REF.child("arcana")
     var filterViewController: FilterViewController?
     
     var arcanaVC: ArcanaVC = .search
     
-    var arcanaArray = [Arcana]()
+    // Not thread-safe
+    var _arcanaArray: [Arcana] = []
+    // Thread-safe
+    var arcanaArray: [Arcana] {
+        get {
+            return concurrentArcanaQueue.sync {
+                _arcanaArray
+            }
+        }
+        set {
+            concurrentArcanaQueue.sync {
+                _arcanaArray = newValue
+            }
+        }
+    }
     var originalArray = [Arcana]()
-    var arcanaDictionary = [String: Arcana]()
-    var arcanaOriginalDictionary = [String: Arcana]()
     
     var filters = [String: [String]]()
     var initialLoad = true
@@ -184,10 +200,13 @@ class ArcanaViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        showBars()
+
         guard let row = tableView.indexPathForSelectedRow else { return }
         tableView.deselectRow(at: row, animated: true)
+
     }
-        
+    
     func setupViews() {
         
         automaticallyAdjustsScrollViewInsets = false
@@ -627,6 +646,7 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
 extension ArcanaViewController: FilterDelegate {
     
     func didUpdate(_ sender: FilterViewController) {
+        
         DispatchQueue.main.async {
             
             self.filters = sender.filterTypes
@@ -643,7 +663,7 @@ extension ArcanaViewController: FilterDelegate {
                     
                     for rarity in r {
                         
-
+                        
                         let filteredRarity = Set(self.originalArray.filter({$0.getRarity() == rarity}))
                         if let _ = raritySet {
                             raritySet = raritySet?.union(filteredRarity)
@@ -660,16 +680,16 @@ extension ArcanaViewController: FilterDelegate {
                 if let g = self.filters["group"] {
                     
                     for group in g {
-
+                        
                         let filteredGroup = Set(self.originalArray.filter({$0.getGroup() == group}))
-
+                        
                         if let _ = groupSet {
                             groupSet = groupSet?.union(filteredGroup)
                         }
                         else {
                             groupSet = filteredGroup
                         }
-
+                        
                     }
                     
                 }
@@ -687,7 +707,7 @@ extension ArcanaViewController: FilterDelegate {
                         else {
                             weaponSet = filteredWeapon
                         }
-
+                        
                     }
                     
                 }
@@ -729,7 +749,7 @@ extension ArcanaViewController: FilterDelegate {
                                 finalFilter = finalFilter.union(filter)
                             }
                                 
-                            // Set already exists, so intersect
+                                // Set already exists, so intersect
                             else {
                                 finalFilter = finalFilter.intersection(filter)
                             }
@@ -739,11 +759,12 @@ extension ArcanaViewController: FilterDelegate {
                 }
                 
                 let filteredArray = Array(finalFilter).sorted(by: {($0.getUID()) > ($1.getUID())})
-                self.arcanaArray = filteredArray
+                self._arcanaArray = filteredArray
                 self.reloadView()
                 
             }
-            
+
         }
+        
     }
 }
