@@ -12,7 +12,7 @@ class ArcanaSkillCell: BaseTableViewCell {
     
     let skillNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
+        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
         label.textColor = Color.lightGreen
         return label
     }()

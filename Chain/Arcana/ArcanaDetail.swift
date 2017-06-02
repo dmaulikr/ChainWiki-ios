@@ -42,17 +42,20 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.estimatedSectionHeaderHeight = 20
-        tableView.estimatedRowHeight = 160
+        tableView.sectionFooterHeight = 0
+//        tableView.estimatedRowHeight = 160
+//        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.backgroundColor = .groupTableViewBackground
         
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.contentInset = UIEdgeInsets.zero
         
         tableView.register(ArcanaImageCell.self, forCellReuseIdentifier: "ArcanaImageCell")
-        tableView.register(ArcanaButtonsCell.self, forCellReuseIdentifier: "ArcanaButtonsCell")
-        tableView.register(ArcanaNameCell.self, forCellReuseIdentifier: "ArcanaNameCell")
+        tableView.register(ArcanaBaseInfoCollectionView.self, forCellReuseIdentifier: "ArcanaBaseInfoCollectionView")
         tableView.register(ArcanaAttributeCell.self, forCellReuseIdentifier: "ArcanaAttributeCell")
         tableView.register(ArcanaClassCell.self, forCellReuseIdentifier: "ArcanaClassCell")
         tableView.register(ArcanaSkillCell.self, forCellReuseIdentifier: "ArcanaSkillCell")
@@ -67,10 +70,16 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
     var favorite = false
     var imageTapped = false
     
-    lazy var tap: UITapGestureRecognizer = {
+    lazy var tapImageGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         return tap
     }()
+    
+//    lazy var tapShowBarGesture: UITapGestureRecognizer = {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(showBars))
+//        tap.cancelsTouchesInView = false
+//        return tap
+//    }()
     
     override var prefersStatusBarHidden: Bool {
         if navigationController?.isNavigationBarHidden == true {
@@ -104,6 +113,7 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         updateHistory()
         setupViews()
+        setupGestures()
         checkFavorites()
     }
     
@@ -160,6 +170,12 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
             
         }
 
+    }
+    
+    func setupGestures() {
+        let tapShowBarGesture = UITapGestureRecognizer(target: self, action: #selector(showBars))
+        tapShowBarGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapShowBarGesture)
     }
     
     func setupNavBar() {
@@ -569,17 +585,14 @@ class ArcanaDetail: UIViewController, UIGestureRecognizerDelegate {
 extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     private enum Section: Int {
-        
         case image
         case attribute
         case skill
         case ability
         case kizuna
         case chainStory
-        case tavern
         case wikiJP
         case edit
-        
     }
     
     private enum SkillRow: Int {
@@ -600,7 +613,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 9
+        return 8
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -609,13 +622,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            return 2
+            return 1
         case .attribute:
-            return 6
+            return 1
         case .skill:
             
             // Returning 2 * skillCount for description.
-            
             switch arcana.getSkillCount() {
             case "1":
                 return 1
@@ -658,15 +670,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             return count
-            
-        case .tavern:
-            if arcana.getTavern() == "" {
-                return 0
-            }
-            else {
-                return 1
-            }
-            
+
         case .wikiJP:
             return 1
         case .edit:
@@ -684,7 +688,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 if horizontalSize == .compact {
                     return UITableViewAutomaticDimension
-
                 }
                 else {
                     return 0
@@ -693,7 +696,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             else {
                 return 50
             }
-            
+        case .attribute:
+            return 331
+
         default:
             return UITableViewAutomaticDimension
         }
@@ -701,27 +706,15 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
 
         switch section {
             
         case .image:
-            if indexPath.row == 0 {
-                return SCREENWIDTH * 1.5
-            }
-            else {
-                return 50
-            }
-            
-            
+            return SCREENWIDTH * 1.5
         case .attribute:
-            if indexPath.row == 0 {
-                return 160
-            }
-            else {
-                return 80
-            }
+            return 331
         case .ability:
             return 80
             
@@ -736,15 +729,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             guard let section = Section(rawValue: section) else { return 0 }
 
             switch section {
-            case .image:
-                return 0
+            case .image, .attribute:
+                return CGFloat.leastNonzeroMagnitude
             default:
-                return 10
+                return 20
             }
         }
-        else {
-            return 0
-        }
+
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -755,154 +747,27 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case .image:
             
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
-                cell.layoutMargins = UIEdgeInsets.zero
-                cell.preservesSuperviewLayoutMargins = false
-                cell.separatorInset = UIEdgeInsets.zero
-                
-                cell.selectionStyle = .none
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.selectionStyle = .none
 
-                cell.arcanaImage.addGestureRecognizer(tap)
-                cell.activityIndicator.startAnimating()
-                
-                cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
-                return cell
-            }
-                
-            else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaButtonsCell") as! ArcanaButtonsCell
-                cell.layoutMargins = UIEdgeInsets.zero
-                cell.preservesSuperviewLayoutMargins = false
-                cell.separatorInset = UIEdgeInsets.zero
-                
-                cell.selectionStyle = .none
-                cell.arcanaDetailDelegate = self
-                cell.numberOfLikesLabel.text = "\(arcana.getNumberOfLikes())"
-
-                let userLikes = defaults.getLikes()
-                if !userLikes.contains(arcana.getUID()) {
-                    cell.heartButton.isSelected = false
-                }
-                else {
-                    cell.heartButton.isSelected = true
-                }
-                
-                let userFavorites = defaults.getFavorites()
-                if !userFavorites.contains(arcana.getUID()) {
-                    cell.favoriteButton.isSelected = false
-                }
-                else {
-                    cell.favoriteButton.isSelected = true
-                }
-                
-                return cell
-            }
+//                cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+            cell.activityIndicator.startAnimating()
             
-            
-            
+            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+            return cell
+                        
         case .attribute:
-            
-            var attributeKey = ""
-            var attributeValue = ""
-            
-            switch indexPath.row {
-                
-            case 0:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaNameCell") as! ArcanaNameCell
-                cell.layoutMargins = UIEdgeInsets.zero
-                cell.selectionStyle = .none
-                
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
-                if let nnKR = arcana.getNicknameKR() {
-                    cell.arcanaNameKR.text = nnKR + " " + arcana.getNameKR()
-                }
-                else {
-                    cell.arcanaNameKR.text = arcana.getNameKR()
-                }
-                
-                if let nnJP = arcana.getNicknameJP() {
-                    cell.arcanaNameJP.text = nnJP + arcana.getNameJP()
-                }
-                else {
-                    cell.arcanaNameJP.text = arcana.getNameJP()
-                }
-                
-                return cell
-                
-            case 2:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaClassCell") as! ArcanaClassCell
-                cell.layoutMargins = UIEdgeInsets.zero
-                cell.selectionStyle = .none
-                
-                cell.attributeKeyLabel.text = "직업"
-                cell.attributeValueLabel.text = arcana.getGroup()
-                
-                switch arcana.getGroup() {
-                case "전사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "warrior")
-                case "기사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "knight")
-                case "궁수":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "archer")
-                case "법사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "magician")
-                case "승려":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "healer")
-                default:
-                    break
-                }
-                
-                return cell
-                
-            default:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-                cell.layoutMargins = UIEdgeInsets.zero
-                cell.selectionStyle = .none
-                
-                switch indexPath.row {
-                    
-                case 1:
-                    attributeKey = "레어"
-                    attributeValue = getRarityLong(arcana.getRarity())
-                case 3:
-                    attributeKey = "소속"
-                    if let a = arcana.getAffiliation() {
-                        if a == "" {
-                            attributeValue = "정보 없음"
-                        }
-                        else {
-                            attributeValue = a
-                        }
-                    }
-                    else {
-                        attributeValue = "정보 없음"
-                    }
-                case 4:
-                    attributeKey = "코스트"
-                    attributeValue = arcana.getCost()
-                case 5:
-                    attributeKey = "무기"
-                    attributeValue = arcana.getWeapon()
-                    
-                default:
-                    break
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCollectionView") as! ArcanaBaseInfoCollectionView
+            cell.arcana = arcana
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.selectionStyle = .none
+            return cell
 
-                }
-                
-//                cell.attributeKeyLabel.attributedText = NSAttributedString(string: attributeKey, attributes: [NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue, NSUnderlineColorAttributeName: Color.lightGreen])
-                cell.attributeKeyLabel.text = attributeKey
-                cell.attributeValueLabel.text = attributeValue
-//                cell.attributeValueLabel.setLineHeight(lineHeight: 1.2)
-                
-                return cell
-                
-            }
-
-            
         case .skill:
             
             guard let row = SkillRow(rawValue: indexPath.row) else { return UITableViewCell() }
@@ -1008,13 +873,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.editLabel.text = "일첸 위키 가기"
             cell.arrow.image = #imageLiteral(resourceName: "go")
             cell.layoutMargins = UIEdgeInsets.zero
-            return cell
-        case .tavern:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-            cell.selectionStyle = .none
-            cell.layoutMargins = UIEdgeInsets.zero
-            cell.attributeKeyLabel.text = "출현 장소"
-            cell.attributeValueLabel.text = arcana.getTavern()
             return cell
             
         case .edit:

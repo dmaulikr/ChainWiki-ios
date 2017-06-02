@@ -356,8 +356,6 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
             return UIEdgeInsetsMake(5, 14, 5, 14)
         }
         
-
-        
     }
 
 }

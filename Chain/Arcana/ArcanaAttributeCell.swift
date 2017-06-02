@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaNameCell: BaseTableViewCell {
+class ArcanaNameCell: UICollectionViewCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -34,13 +34,24 @@ class ArcanaNameCell: BaseTableViewCell {
         return label
     }()
     
-    override func setupViews() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        
+        backgroundColor = .white
         
         addSubview(arcanaImageView)
         addSubview(arcanaNameKR)
         addSubview(arcanaNameJP)
         
-        arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 66, heightConstant: 66)
+        arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 70, heightConstant: 70)
         
         let nameStackView = UIStackView(arrangedSubviews: [arcanaNameKR, arcanaNameJP])
         nameStackView.axis = .vertical
@@ -91,6 +102,49 @@ class ArcanaAttributeCell: BaseTableViewCell {
     }
     
 }
+
+class ArcanaBaseInfoCell: UICollectionViewCell {
+    
+    let attributeKeyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
+        label.textColor = Color.lightGreen
+        return label
+    }()
+    
+    let attributeValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupViews() {
+        
+        backgroundColor = .white
+        
+        addSubview(attributeKeyLabel)
+        addSubview(attributeValueLabel)
+        
+        attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        attributeValueLabel.anchor(top: attributeKeyLabel.bottomAnchor, leading: attributeKeyLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
+        
+        
+    }
+    
+}
+
 class ArcanaAttributeCellOld: BaseTableViewCell {
 
     let attributeKeyLabel: UILabel = {

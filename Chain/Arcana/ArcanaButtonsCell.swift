@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaButtonsCell: BaseTableViewCell {
+class ArcanaButtonsCell: UICollectionViewCell {
     
     weak var arcanaDetailDelegate: ArcanaDetail?
     
@@ -37,7 +37,16 @@ class ArcanaButtonsCell: BaseTableViewCell {
         return label
     }()
     
-    override func setupViews() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupViews() {
         
         addSubview(heartButton)
         addSubview(numberOfLikesLabel)
@@ -81,7 +90,7 @@ class ArcanaButtonsCell: BaseTableViewCell {
     }
     
     func toggleFavorite(_ sender: UIButton!) {
-        if (sender.isSelected) {
+        if sender.isSelected {
             sender.isSelected = false
         }
         else {
@@ -89,5 +98,5 @@ class ArcanaButtonsCell: BaseTableViewCell {
             sender.bounceAnimate()
         }
     }
-
+    
 }
