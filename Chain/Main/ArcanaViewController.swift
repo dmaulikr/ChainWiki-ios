@@ -22,7 +22,13 @@ enum ArcanaVC {
     case favorites
 }
 
+private let _sharedManager = ArcanaViewController()
+
 class ArcanaViewController: UIViewController {
+    
+    class var sharedManager: ArcanaViewController {
+        return _sharedManager
+    }
     
     let concurrentArcanaQueue =
         DispatchQueue(

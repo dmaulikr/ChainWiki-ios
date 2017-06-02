@@ -35,34 +35,51 @@ class FestivalViewController: ArcanaViewController {
                             
                             if !snapshot.exists() {
                                 // arcana was removed
-                                self._arcanaArray.remove(at: index)
-                                DispatchQueue.main.async {
-                                    self.deleteIndexPathAt(index: index)
+                                self.concurrentArcanaQueue.async(flags: .barrier) {
+                                    self._arcanaArray.remove(at: index)
+                                    DispatchQueue.main.async {
+                                        self.deleteIndexPathAt(index: index)
+                                    }
                                 }
+                                
                                 if let index = self.originalArray.index(where: {$0.getUID() == snapshot.key}) {
-                                    self.originalArray.remove(at: index)
+                                    self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
+                                        self._originalArray.remove(at: index)
+                                    }
                                 }
                             }
                             else {
                                 // arcana was updated
-                                self._arcanaArray[index] = arcana
-                                DispatchQueue.main.async {
-                                    self.reloadIndexPathAt(index)
+                                self.concurrentArcanaQueue.async(flags: .barrier) {
+                                    self._arcanaArray[index] = arcana
+                                    DispatchQueue.main.async {
+                                        self.reloadIndexPathAt(index)
+                                    }
+
                                 }
+                                
                                 if let index = self.originalArray.index(where: {$0.getUID() == snapshot.key}) {
-                                    self.originalArray[index] = arcana
+                                    self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
+                                        self.originalArray[index] = arcana
+                                    }
                                 }
 
                             }
                         }
                         else {
                             // add the arcana
-                            self._arcanaArray.append(arcana) 
-                            DispatchQueue.main.sync {
-                                self.initialLoad = false
-                                self.reloadView()
+                            self.concurrentArcanaQueue.async(flags: .barrier) {
+                                self._arcanaArray.append(arcana)
+                                DispatchQueue.main.sync {
+                                    self.initialLoad = false
+                                    self.reloadView()
+                                }
+
                             }
-                            self.originalArray.append(arcana)
+                            
+                            self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
+                                self.originalArray.append(arcana)
+                            }
                         }
 
                     }
@@ -71,6 +88,13 @@ class FestivalViewController: ArcanaViewController {
 
             })
             
+        })
+        
+        ref.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in
+            self.initialLoad = false
+            DispatchQueue.main.async {
+                self.reloadView()
+            }
         })
         
 //        ref.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in

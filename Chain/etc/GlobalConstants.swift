@@ -50,6 +50,7 @@ var ISIPADPRO: Bool {
 let FIREBASE_REF = Database.database().reference()
 let ARCANA_REF = FIREBASE_REF.child("arcana")
 let STORAGE_REF = Storage.storage().reference()
+let USERS_REF = FIREBASE_REF.child("user")
 let storage = Storage.storage()
 
 // Colors

@@ -208,7 +208,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 
                 if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {
 
-                    self.concurrentArcanaQueue.async {
+                    self.concurrentArcanaQueue.async(flags: .barrier) {
                         self._arcanaArray.insert(arcana, at: 0)
                         if !self.initialLoad {
                             DispatchQueue.main.async {
@@ -218,7 +218,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                         }
                     }
                     
-                    self.concurrentArcanaOriginalQueue.async {
+                    self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
                         self._originalArray.insert(arcana, at: 0)
                     }
                 }
@@ -228,7 +228,9 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            self.initialLoad = false
+            self.concurrentArcanaQueue.async(flags: .barrier) {
+                self.initialLoad = false
+            }
 
             DispatchQueue.main.async {
                 self.reloadView()
@@ -244,7 +246,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 
                 if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
                     
-                    self.concurrentArcanaQueue.async {
+                    self.concurrentArcanaQueue.async(flags: .barrier) {
                         self._arcanaArray.remove(at: index)
                         DispatchQueue.main.async {
                             self.deleteIndexPathAt(index: index)
@@ -253,7 +255,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 }
                 
                 if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
-                    self.concurrentArcanaOriginalQueue.async {
+                    self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
                         self._originalArray.remove(at: index)
                     }
                 }
@@ -271,7 +273,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                 DispatchQueue.global().async {
                     
                     if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
-                        self.concurrentArcanaQueue.async {
+                        self.concurrentArcanaQueue.async(flags: .barrier) {
                             self._arcanaArray[index] = arcana
                             DispatchQueue.main.async {
                                 self.reloadIndexPathAt(index)
@@ -280,7 +282,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                     }
                     
                     if let index = self.originalArray.index(where: {$0.getUID() == arcanaID}) {
-                        self.concurrentArcanaOriginalQueue.async {
+                        self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
                             self._originalArray[index] = arcana
                         }
                     }

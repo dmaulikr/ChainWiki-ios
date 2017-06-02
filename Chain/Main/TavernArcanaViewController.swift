@@ -46,7 +46,7 @@ class TavernArcanaViewController: ArcanaViewController {
             for id in uid {
                 group.enter()
                 
-                let ref = FIREBASE_REF.child("arcana").child(id)
+                let ref = ARCANA_REF.child(id)
                 
                 ref.observeSingleEvent(of: .value, with: { snapshot in
                     if let arcana = Arcana(snapshot: snapshot) {

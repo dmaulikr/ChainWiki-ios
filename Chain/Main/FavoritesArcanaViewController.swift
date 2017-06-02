@@ -55,7 +55,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
         for id in uids {
             group.enter()
             
-            let ref = FIREBASE_REF.child("arcana").child(id)
+            let ref = ARCANA_REF.child(id)
             
             ref.observeSingleEvent(of: .value, with: { snapshot in
                 if let arcana = Arcana(snapshot: snapshot) {
@@ -101,7 +101,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 if uids != userFavorites {
                     // made changes, upload to firebase
                     if let id = defaults.getUID() {
-                        let ref = FIREBASE_REF.child("user").child(id).child("favorites")
+                        let ref = USERS_REF.child(id).child("favorites")
                         ref.setValue(favoritesDict)
                         defaults.setFavorites(value: uids)
                     }
@@ -147,7 +147,9 @@ class FavoritesArcanaViewController: ArcanaViewController {
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { (action, indexPath) in
             // delete item at indexPath
             let idToRemove = self.arcanaArray[indexPath.section].uid
-            self.arcanaArray.remove(at: indexPath.section)
+            self.concurrentArcanaQueue.async {
+                self.arcanaArray.remove(at: indexPath.section)
+            }
             
             var userFavorites = defaults.getFavorites()
             
@@ -156,7 +158,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
                 if i == idToRemove {
                     userFavorites.remove(at: index)
                     if let userID = defaults.getUID() {
-                        let ref = FIREBASE_REF.child("user").child(userID).child("favorites").child(i)
+                        let ref = USERS_REF.child(userID).child("favorites").child(i)
                         ref.removeValue()
                         defaults.setFavorites(value: userFavorites)
                     }
