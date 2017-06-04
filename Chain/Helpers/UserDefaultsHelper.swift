@@ -184,11 +184,11 @@ extension UserDefaults {
     
     // MARK - App Rating
     func getAppLaunchCount() -> Int {
-        return integer(forKey: "numberOfLaunches")
+        return integer(forKey: "launchCount")
     }
     
     func setAppLaunches(value: Int) {
-        set(value, forKey: "numberOfLaunches")
+        set(value, forKey: "launchCount")
     }
     
     func hasShownRating() -> Bool {
@@ -199,6 +199,21 @@ extension UserDefaults {
         set(value, forKey: "hasShownRating10.3")
     }
     
+    func getArcanaDetailViewCount() -> Int {
+        return integer(forKey: "arcanaDetailViewCount")
+    }
+    
+    func setArcanaDetailViews(value: Int) {
+        set(value, forKey: "arcanaDetailViewCount")
+    }
+    
+    func hasViewedSurvey() -> Bool {
+        return bool(forKey: "hasViewedSurvey")
+    }
+    
+    func setViewedSurvey() {
+        set(true, forKey: "hasViewedSurvey")
+    }
     
 }
 

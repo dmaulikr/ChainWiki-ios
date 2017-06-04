@@ -138,6 +138,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
                 cell.abilityLabel.text = arcana.getKizunaDesc()
             }
             
+            cell.layoutIfNeeded()
             return cell
         }
         

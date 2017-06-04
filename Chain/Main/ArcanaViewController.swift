@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseDatabase
 
 enum ArcanaView: String {
     case list
@@ -25,10 +25,6 @@ enum ArcanaVC {
 private let _sharedManager = ArcanaViewController()
 
 class ArcanaViewController: UIViewController {
-    
-    class var sharedManager: ArcanaViewController {
-        return _sharedManager
-    }
     
     let concurrentArcanaQueue =
         DispatchQueue(
@@ -226,8 +222,6 @@ class ArcanaViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        showBars()
-
         guard let row = tableView.indexPathForSelectedRow else { return }
         tableView.deselectRow(at: row, animated: true)
 
@@ -244,6 +238,8 @@ class ArcanaViewController: UIViewController {
         view.addSubview(filterView)
 
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+//        tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
+//        tableViewBottomConstraint?.isActive = true
         
         collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
 
@@ -297,7 +293,7 @@ class ArcanaViewController: UIViewController {
     }
 
     func setupGestures() {
-        
+
         if UIDevice.current.userInterfaceIdiom == .phone {
             gesture = UITapGestureRecognizer(target: self, action: #selector(dismissFilter))
             view.addGestureRecognizer(gesture)
@@ -318,7 +314,7 @@ class ArcanaViewController: UIViewController {
     }
     
     let pannableFrame = CGRect(x: 100, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-    
+
     func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
 
         let translation = gestureRecognizer.translation(in: self.view)

@@ -140,7 +140,7 @@ function insertFestivalCell(data) {
   // row is a <tr> element
   // var row = document.getElementById('festival').insertRow(0);
   var row = document.createElement('tr');
-  row.setAttribute('onclick', `location.href='/arcana?arcana=${arcanaID}'`);
+  row.setAttribute('data-href', '/arcana?arcana=${arcanaID}');
   row.className = 'arcanaCell';
 
   var arcanaImageCell = document.createElement('td');

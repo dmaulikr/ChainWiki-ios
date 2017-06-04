@@ -9,20 +9,94 @@
 import Foundation
 import UIKit
 
-extension UIViewController {
+class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    var tableViewBottomConstraint: NSLayoutConstraint?
     
+    func handleBars() {
+        if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
+            hideBars()
+        }
+        else {
+            showBars()
+        }
+    }
     
+    func showBars() {
+        
+        if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
+            return
+        }
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        setNeedsStatusBarAppearanceUpdate()
+        
+        guard var frame = tabBarController?.tabBar.frame else { return }
+        frame.origin.y = view.frame.size.height - frame.size.height
+        
+        self.tableViewBottomConstraint?.constant = 0
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tabBarController?.tabBar.frame = frame
+            self.view.layoutIfNeeded()
+            
+        }, completion: nil)
+        
+    }
     
-//    func showBars() {
-//        
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.setNeedsStatusBarAppearanceUpdate()
-//
-//        UIView.animate(withDuration: 5, animations: {
-//            self.tabBarController?.tabBar.isHidden = false
-//        })
-//        
-//        print("Unhide")
-//    }
+    func hideBars() {
+        
+        if let hidden = navigationController?.isNavigationBarHidden, hidden == true {
+            return
+        }
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        setNeedsStatusBarAppearanceUpdate()
+        
+        guard var frame = tabBarController?.tabBar.frame else { return }
+        frame.origin.y = view.frame.size.height + frame.size.height
+        
+        self.tableViewBottomConstraint?.constant = 50
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tabBarController?.tabBar.frame = frame
+            self.view.layoutIfNeeded()
+            
+        }, completion: nil )
+        
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        showBars()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
+        
+        if translation.y <= 0 {
+            
+            // if moving down the tableView
+            self.hideBars()
+            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+            
+        }
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
+        
+        if decelerate == true {
+            if translation.y > 0 {
+                showBars()
+            }
+        }
+    }
+    
 }

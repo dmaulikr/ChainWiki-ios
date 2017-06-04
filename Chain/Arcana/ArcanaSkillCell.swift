@@ -10,12 +10,7 @@ import UIKit
 
 class ArcanaSkillCell: BaseTableViewCell {
     
-    let skillNumberLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
-        label.textColor = Color.lightGreen
-        return label
-    }()
+    let skillNumberLabel = ArcanaAttributeHeaderLabel()
     
     let skillManaLabel: UILabel = {
         let label = UILabel()
@@ -23,12 +18,7 @@ class ArcanaSkillCell: BaseTableViewCell {
         return label
     }()
     
-    let skillDescLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.numberOfLines = 0
-        return label
-    }()
+    let skillDescLabel = KRLabel()
     
     override func setupViews() {
         
@@ -43,64 +33,6 @@ class ArcanaSkillCell: BaseTableViewCell {
         
         skillDescLabel.anchor(top: skillNumberLabel.bottomAnchor, leading: skillNumberLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
 
-        
     }
     
-}
-
-
-class ArcanaSkillCellOld: BaseTableViewCell {
-    
-    let skillNumberLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .white
-        label.backgroundColor = Color.lightGreen
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let skillNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    let skillManaLabel: UILabel = {
-        let label = UILabel()
-        label.text = "마나"
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .white
-        label.backgroundColor = Color.lightGreen
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let skillManaCostLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    override func setupViews() {
-        
-        addSubview(skillNumberLabel)
-        addSubview(skillNameLabel)
-        addSubview(skillManaLabel)
-        addSubview(skillManaCostLabel)
-        
-        skillNumberLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 66, heightConstant: 40)
-        skillNumberLabel.anchorCenterYToSuperview()
-        
-        skillNameLabel.anchor(top: topAnchor, leading: skillNumberLabel.trailingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
-        
-        skillManaLabel.anchor(top: topAnchor, leading: skillNameLabel.trailingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 0)
-        
-        skillManaCostLabel.anchor(top: nil, leading: skillManaLabel.trailingAnchor, trailing: trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 10, bottomConstant: 0, widthConstant: 11, heightConstant: 30)
-        skillManaCostLabel.anchorCenterYToSuperview()
-        
-    }
-
 }

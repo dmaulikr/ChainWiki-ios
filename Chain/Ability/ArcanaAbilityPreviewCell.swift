@@ -10,11 +10,9 @@ import UIKit
 
 class ArcanaAbilityPreviewCell: BaseTableViewCell {
 
-    let abilityLabel: UILabel = {
-        let label = UILabel()
+    let abilityLabel: KRLabel = {
+        let label = KRLabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
-        label.textColor = .black
-        label.numberOfLines = 0
         return label
     }()
     

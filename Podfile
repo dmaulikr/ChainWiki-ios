@@ -16,7 +16,8 @@ target 'Chain' do
     pod 'Firebase/Crash'
     pod 'Firebase/Performance'
     pod 'GoogleSignIn'
-    
+
+    pod 'KRWordWrapLabel'    
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
     pod 'SkyFloatingLabelTextField'
     pod 'LicensesViewController', '~> 0.6.0'

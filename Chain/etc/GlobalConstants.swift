@@ -48,10 +48,17 @@ var ISIPADPRO: Bool {
 
 
 let FIREBASE_REF = Database.database().reference()
-let ARCANA_REF = FIREBASE_REF.child("arcana")
 let STORAGE_REF = Storage.storage().reference()
-let USERS_REF = FIREBASE_REF.child("user")
 let storage = Storage.storage()
+
+let ARCANA_REF = FIREBASE_REF.child("arcana")
+let USERS_REF = FIREBASE_REF.child("user")
+let FESTIVAL_REF = FIREBASE_REF.child("festival")
+
+
+
+// Fonts
+let APPLEGOTHIC_17 = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
 
 // Colors
 extension UIColor {

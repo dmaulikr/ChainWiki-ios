@@ -68,26 +68,15 @@ class ArcanaNameCell: UICollectionViewCell {
 //        
 //        arcanaNameJP.anchor(top: nil, leading: arcanaNameKR.leadingAnchor, trailing: arcanaNameKR.trailingAnchor, bottom: arcanaImageView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        
     }
 
 }
 
 class ArcanaAttributeCell: BaseTableViewCell {
     
-    let attributeKeyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
-        label.textColor = Color.lightGreen
-        return label
-    }()
+    let attributeKeyLabel = ArcanaAttributeHeaderLabel()
     
-    let attributeValueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.numberOfLines = 0
-        return label
-    }()
+    let attributeValueLabel = KRLabel()
     
     override func setupViews() {
         
@@ -95,9 +84,8 @@ class ArcanaAttributeCell: BaseTableViewCell {
         addSubview(attributeValueLabel)
         
         attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        
+        attributeKeyLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .vertical)
         attributeValueLabel.anchor(top: attributeKeyLabel.bottomAnchor, leading: attributeKeyLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
-        
         
     }
     
@@ -105,20 +93,9 @@ class ArcanaAttributeCell: BaseTableViewCell {
 
 class ArcanaBaseInfoCell: UICollectionViewCell {
     
-    let attributeKeyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
-        label.textColor = Color.lightGreen
-        return label
-    }()
+    let attributeKeyLabel = ArcanaAttributeHeaderLabel()
     
-    let attributeValueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        return label
-    }()
+    let attributeValueLabel = ArcanaAttributeDescLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -137,44 +114,46 @@ class ArcanaBaseInfoCell: UICollectionViewCell {
         addSubview(attributeValueLabel)
         
         attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        attributeKeyLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .vertical)
         
         attributeValueLabel.anchor(top: attributeKeyLabel.bottomAnchor, leading: attributeKeyLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
-        
-        
     }
     
 }
 
-class ArcanaAttributeCellOld: BaseTableViewCell {
-
-    let attributeKeyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
-        label.textColor = Color.lightGreen
-//        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-//        label.textColor = .white
-//        label.backgroundColor = Color.lightGreen
-        label.textAlignment = .center
-        return label
-    }()
+class ArcanaAttributeHeaderLabel: UILabel {
     
-    let attributeValueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
-//        label.textColor = .black
-        label.numberOfLines = 0
-        
-        return label
-    }()
-    
-    override func setupViews() {
-
-        addSubview(attributeKeyLabel)
-        addSubview(attributeValueLabel)
-        
-        attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 0, bottomConstant: 10, widthConstant: 66, heightConstant: 0)
-        attributeValueLabel.anchor(top: topAnchor, leading: attributeKeyLabel.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
-
-        
+    init() {
+        super.init(frame: .zero)
+        setupViews()
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 17)
+        textColor = Color.lightGreen
+    }
+    
+}
+
+class ArcanaAttributeDescLabel: UILabel {
+    
+    init() {
+        super.init(frame: .zero)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        font = APPLEGOTHIC_17
+        adjustsFontSizeToFitWidth = true
+        minimumScaleFactor = 0.5
+    }
+    
 }

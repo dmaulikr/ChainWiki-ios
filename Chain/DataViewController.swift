@@ -8,7 +8,8 @@
 
 import UIKit
 import SafariServices
-import Firebase
+import FirebaseDatabase
+import FirebaseAnalytics
 
 class DataViewController: UIViewController {
 
@@ -40,6 +41,7 @@ class DataViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Analytics.setScreenName("DataView", screenClass: nil)
         guard let row = tableView.indexPathForSelectedRow else { return }
         tableView.deselectRow(at: row, animated: true)
         

@@ -27,6 +27,8 @@ class ArcanaBaseInfoCollectionView: BaseTableViewCell {
         collectionView.isScrollEnabled = false
         collectionView.allowsSelection = false
         collectionView.backgroundColor = .groupTableViewBackground
+        collectionView.alpha = 0
+        collectionView.fadeIn()
         
         collectionView.register(ArcanaNameCell.self, forCellWithReuseIdentifier: "ArcanaNameCell")
         collectionView.register(ArcanaBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaBaseInfoCell")

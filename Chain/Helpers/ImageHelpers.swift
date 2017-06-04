@@ -126,6 +126,11 @@ extension UIImageView {
             }
 
         }
+        else {
+            if let imageCell = sender as? ArcanaImageCell {
+                imageCell.activityIndicator.stopAnimating()
+            }
+        }
     }
 }
 

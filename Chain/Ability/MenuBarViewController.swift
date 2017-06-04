@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class MenuBarViewController: UIViewController {
 
@@ -88,12 +89,15 @@ class MenuBarViewController: UIViewController {
         case .abilityList:
             numberOfMenuTabs = 2
             title = "어빌리티"
+            Analytics.setScreenName("AbilityList", screenClass: nil)
         case .abilityView:
             numberOfMenuTabs = 5
             setupNavBar()
+            Analytics.setScreenName("AbilityView", screenClass: nil)
         case .tavernList:
             numberOfMenuTabs = 3
             title = "주점"
+            Analytics.setScreenName("TavernList", screenClass: nil)
         }
         
     }

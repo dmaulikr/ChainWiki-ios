@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 final class SearchArcanaViewController: ArcanaViewController {
     
@@ -58,14 +59,17 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.getShowedArcanaViewSelection() == false {
-            
             let vc = ArcanaViewTypePageViewController(selectedArcanaViews: [.all], showTip: true)
             present(vc, animated: true, completion: nil)
-            
         }
         else {
             getArcanaView()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("SearchArcanaView", screenClass: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,6 +100,8 @@ final class SearchArcanaViewController: ArcanaViewController {
             headerViewHeight = 70
 
             tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+//            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
+//            tableViewBottomConstraint?.isActive = true
             
             collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
@@ -148,7 +154,19 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func setupNavBar() {
         super.setupNavBar()
         navigationItem.title = "아르카나"
-        navigationItem.leftBarButtonItem = festivalButton
+        
+        FESTIVAL_REF.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() {
+                DispatchQueue.main.async {
+                    self.navigationItem.leftBarButtonItem = self.festivalButton
+                }
+            }
+            else {
+                self.navigationItem.leftBarButtonItem = nil
+            }
+            
+        })
     }
     
     func setupSearchBar() {
@@ -182,25 +200,22 @@ final class SearchArcanaViewController: ArcanaViewController {
     
     func checkUpdate() {
         
-        if !defaults.getShowedUpdateAlert() {
-            let checkUpdateRef = FIREBASE_REF.child("currentVersion")
-            checkUpdateRef.observeSingleEvent(of: .value, with: { snapshot in
-                
-                if let installedVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let newestVersion = snapshot.value as? String {
-                    if installedVersion < newestVersion {
-                        // present alert to update.
-                        defaults.setShowedUpdateAlert()
-                        self.showUpdateAlert()
-                    }
-                }
-            })
-        }
-    
+        let checkUpdateRef = FIREBASE_REF.child("update")
+        checkUpdateRef.observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let installedVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let updateDict = snapshot.value as? [String:String], let newestVersion = updateDict["currentVersion"], let info = updateDict["info"] else { return }
+            
+            if installedVersion < newestVersion {
+                // present alert to update.
+                self.showUpdateAlert(text: info)
+            }
+        })
     }
     
     override func downloadArcana() {
         
         // For UI Testing.
+//        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
 //         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
         ref.observe(.childAdded, with: { snapshot in
 
@@ -212,8 +227,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                         self._arcanaArray.insert(arcana, at: 0)
                         if !self.initialLoad {
                             DispatchQueue.main.async {
-                                self.insertIndexPathAt(index: 0)
-                                self.arcanaCountView.setText(text: "아르카나 수 \(self.arcanaArray.count)")
+                                self.reloadView()
                             }
                         }
                     }
@@ -331,20 +345,34 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     }
     
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        showSearchBar(true)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
         guard let superview = scrollView.superview else { return }
         
         let translation = scrollView.panGestureRecognizer.translation(in: superview)
 
-        if translation.y > 0 {
-            // if moving up the tableView
-            showSearchBar(true)
-        } else {
+        if translation.y <= 0 {
             // if moving down the tableView
             showSearchBar(false)
         }
  
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+        guard let superview = scrollView.superview else { return }
+        
+        let translation = scrollView.panGestureRecognizer.translation(in: superview)
+        
+        if decelerate == true {
+            if translation.y > 0 {
+                showSearchBar(true)
+            }
+        }
     }
 
     func showSearchBar(_ show: Bool) {
@@ -374,9 +402,9 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
     }
     
-    func showUpdateAlert() {
+    func showUpdateAlert(text: String) {
         
-        let alert = UIAlertController(title: "앱 업데이트", message: "새로운 버전이 출시되었습니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "새로운 버전이 출시되었습니다.", message: text, preferredStyle: .alert)
         alert.view.tintColor = Color.salmon
         alert.view.backgroundColor = .white
         alert.view.layer.cornerRadius = 10
@@ -403,7 +431,6 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         let vc = FestivalViewController()
         navigationController?.pushViewController(vc, animated: true)
-//        present(NavigationController(vc), animated: true, completion: nil)
     }
 }
 
@@ -416,16 +443,21 @@ extension SearchArcanaViewController: UISearchBarDelegate {
             let searchArray = self.originalArray.filter { arcana in
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
-            
-            self._arcanaArray = searchArray
+            concurrentArcanaQueue.async {
+                self._arcanaArray = searchArray
+                DispatchQueue.main.async {
+                    self.reloadView()
+                }
+            }
         }
         else {
             self.showSearch = true
+            concurrentArcanaQueue.async {
             self._arcanaArray = self.originalArray
-        }
-        
-        DispatchQueue.main.async {
-            self.reloadView()
+                DispatchQueue.main.async {
+                    self.reloadView()
+                }
+            }
         }
 
     }
@@ -451,9 +483,11 @@ extension SearchArcanaViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         showSearch = false
         
-        _arcanaArray = originalArray
-        DispatchQueue.main.async {
-            self.reloadView()
+        concurrentArcanaQueue.async {
+            self.arcanaArray = self.originalArray
+            DispatchQueue.main.async {
+                self.reloadView()
+            }
         }
         
     }

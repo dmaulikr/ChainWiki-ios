@@ -29,7 +29,7 @@ extension UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.0
         paragraphStyle.lineHeightMultiple = lineHeight
-        paragraphStyle.alignment = self.textAlignment
+        paragraphStyle.alignment = textAlignment
         
         if let a = self.text  {
             let attrString = NSMutableAttributedString(string: a)

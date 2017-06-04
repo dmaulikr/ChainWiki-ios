@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class FavoritesArcanaViewController: ArcanaViewController {
 
@@ -31,6 +32,11 @@ class FavoritesArcanaViewController: ArcanaViewController {
         super.viewWillAppear(animated)
         downloadArcana()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("FavoritesArcanaView", screenClass: nil)
     }
     
     override func setupNavBar() {

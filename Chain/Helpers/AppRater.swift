@@ -29,6 +29,11 @@ class AppRater {
         defaults.setAppLaunches(value: count + 1)
     }
     
+    func incrementArcanaDetailViews() {
+        let count = defaults.getArcanaDetailViewCount()
+        defaults.setArcanaDetailViews(value: count + 1)
+    }
+    
     func displayAlert() {
         
         let alert = UIAlertController(title: "리뷰 작성", message: "앱 경험을 리뷰로 작성해 주세요!", preferredStyle: .alert)

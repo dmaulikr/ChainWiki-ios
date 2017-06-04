@@ -17,6 +17,11 @@ class FestivalViewController: ArcanaViewController {
         navigationItem.title = "FESTIVAL"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("FestivalArcanaView", screenClass: nil)
+    }
+    
     override func downloadArcana() {
         
         ref = FIREBASE_REF.child("festival")
