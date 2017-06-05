@@ -55,7 +55,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -132,7 +132,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         updateHistory()
         setupViews()
-        setupGestures()
         checkFavorites()
     }
     
@@ -179,8 +178,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         view.backgroundColor = .white
         
         view.addSubview(tableView)
-        
+
         if horizontalSize == .compact {
+            tableView.addGestureRecognizer(tapShowBarGesture)
             tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
             let constant: CGFloat
@@ -195,18 +195,17 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
         }
         else {
-            view.addSubview(arcanaImageView)
+
             view.backgroundColor = .groupTableViewBackground
+            
+            view.addSubview(arcanaImageView)
+            
             arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
             arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
             tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-            
+
         }
 
-    }
-    
-    func setupGestures() {
-        tableView.addGestureRecognizer(tapShowBarGesture)
     }
     
     func setupNavBar() {
@@ -671,19 +670,18 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             return count
-
+            
         case .wikiJP:
             return 1
         case .edit:
             return 1
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
-
+        
         switch section {
         case .image:
             if horizontalSize == .compact {
@@ -694,7 +692,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
         case .attribute:
             return 382
-
+            
         default:
             return UITableViewAutomaticDimension
         }
@@ -704,7 +702,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
-
+        
         switch section {
             
         case .image:
@@ -720,13 +718,14 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         default:
             return UITableViewAutomaticDimension
         }
+        
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if tableView.numberOfRows(inSection: section) != 0 {
             guard let section = Section(rawValue: section) else { return 0 }
-
+            
             switch section {
             case .image, .attribute:
                 return CGFloat.leastNonzeroMagnitude
@@ -734,34 +733,34 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 return 20
             }
         }
-
+        
         return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
-
+        
         switch section {
             
         case .image:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
             cell.selectionStyle = .none
-
+            
             cell.arcanaImage.addGestureRecognizer(tapImageGesture)
             cell.activityIndicator.startAnimating()
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
             return cell
-                        
+            
         case .attribute:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCollectionView") as! ArcanaBaseInfoCollectionView
             cell.arcana = arcana
             cell.arcanaDetailDelegate = self
             cell.selectionStyle = .none
             return cell
-
+            
         case .skill:
             
             guard let row = SkillRow(rawValue: indexPath.row) else { return UITableViewCell() }
@@ -786,7 +785,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.skillDescLabel.setLineHeight(lineHeight: 1.2)
-
+            
             return cell
             
         case .ability:
@@ -795,7 +794,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.selectionStyle = .none
-
+            
             switch row {
             case .ability1:
                 cell.attributeKeyLabel.text = "어빌 1"
@@ -817,7 +816,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.attributeValueLabel.setLineHeight(lineHeight: 1.2)
-            cell.attributeValueLabel.layoutIfNeeded()
+            //            cell.attributeValueLabel.layoutIfNeeded()
             return cell
             
         case .kizuna:
@@ -839,7 +838,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
             cell.selectionStyle = .none
-
+            
             switch row {
                 
             case .chainStory:
@@ -983,3 +982,4 @@ extension ArcanaDetail: ArcanaDetailProtocol {
     }
     
 }
+

@@ -10,12 +10,13 @@ import UIKit
 
 class ArcanaAbilityPreviewCell: BaseTableViewCell {
 
-    let abilityLabel: KRLabel = {
-        let label = KRLabel()
+    let abilityLabel: UILabel = {
+        let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
+        label.numberOfLines = 0
         return label
     }()
-    
+
     override func setupViews() {
         
         addSubview(abilityLabel)

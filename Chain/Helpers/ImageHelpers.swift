@@ -55,8 +55,9 @@ extension UIImageView {
                         // ipad image
                     }
                     self.image = cachedImage
-                    self.fadeIn(withDuration: 0.2)
                 }
+                self.fadeIn(withDuration: 0.2)
+
                 return
             }
             
@@ -67,6 +68,7 @@ extension UIImageView {
                     let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
                     self.image = placeholder
                     imageCache.setObject(placeholder, forKey: imageRef as NSString)
+                    self.fadeIn()
 
                 } else {
 
@@ -83,22 +85,17 @@ extension UIImageView {
                             imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
                             
                             if let cell = sender as? ArcanaImageIDCell {
-                                // Only set the image if the cell is one that requested the download
+
                                 if cell.arcanaID == arcanaID {
-                                    
                                     self.image = downloadedImage
                                     self.alpha = 0
-                                    self.fadeIn(withDuration: 0.2)
-
                                 }
                             }
                             else if let cell = sender as? ArcanaIconCell {
+                                
                                 if cell.arcanaID == arcanaID {
-                                    
                                     cell.arcanaImage.image = downloadedImage
                                     self.alpha = 0
-                                    self.fadeIn(withDuration: 0.2)
-                                    
                                 }
 
                             }
@@ -113,11 +110,10 @@ extension UIImageView {
                                 }
                                 else {
                                     self.image = downloadedImage
-                                    self.fadeIn(withDuration: 0.2)
                                 }
-                                
-                            }
                             
+                            }
+                            self.fadeIn(withDuration: 0.2)
                         }
                         
                     }).resume()

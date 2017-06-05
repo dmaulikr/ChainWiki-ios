@@ -14,6 +14,8 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
     var tableViewBottomConstraint: NSLayoutConstraint?
     
     func handleBars() {
+        
+        if horizontalSize != .compact { return }
         if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
             hideBars()
         }
@@ -23,6 +25,8 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func showBars() {
+        
+        if horizontalSize != .compact { return }
         
         if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
             return
@@ -45,6 +49,8 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func hideBars() {
+        
+        if horizontalSize != .compact { return }
         
         if let hidden = navigationController?.isNavigationBarHidden, hidden == true {
             return

@@ -18,8 +18,13 @@ class ArcanaSkillCell: BaseTableViewCell {
         return label
     }()
     
-    let skillDescLabel = KRLabel()
-    
+    let skillDescLabel: UILabel = {
+        let label = UILabel()
+        label.font = APPLEGOTHIC_17
+        label.numberOfLines = 0
+        return label
+    }()
+
     override func setupViews() {
         
         addSubview(skillNumberLabel)

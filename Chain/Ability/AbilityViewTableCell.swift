@@ -34,6 +34,7 @@ class AbilityViewTableCell: BaseCollectionViewCell {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         tableView.register(ArcanaAbilityPreviewCell.self, forCellReuseIdentifier: "ArcanaAbilityPreviewCell")
+
     }
     
 }
@@ -67,6 +68,10 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
         else {
             return 0
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -123,7 +128,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
 
         case .ability:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAbilityPreviewCell") as! ArcanaAbilityPreviewCell
-            
+
             switch abilityMenu {
             case .ability:
                 var abilityText = ""
@@ -138,7 +143,6 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
                 cell.abilityLabel.text = arcana.getKizunaDesc()
             }
             
-            cell.layoutIfNeeded()
             return cell
         }
         
