@@ -63,12 +63,13 @@ extension UIImageView {
             // image not in cache, download from firebase
             STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                 if (error != nil) {
-                    
-//                    DispatchQueue.main.async {
-//                        self.draw
-//                    }
+                    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+                    let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+                    self.image = placeholder
+                    imageCache.setObject(placeholder, forKey: imageRef as NSString)
+
                 } else {
-                    
+
                     URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
                         
                         if error != nil {
@@ -121,8 +122,8 @@ extension UIImageView {
                         
                     }).resume()
                     
-                    
                 }
+ 
             }
 
         }

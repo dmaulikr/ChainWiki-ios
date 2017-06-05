@@ -53,9 +53,9 @@
                         <color key="textColor" red="0.40784313729999999" green="0.63529411759999999" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="701" verticalCompressionResistancePriority="700" placeholderIntrinsicWidth="75" placeholderIntrinsicHeight="75" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="UrK-1F-vGc">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalCompressionResistancePriority="701" verticalCompressionResistancePriority="700" placeholderIntrinsicWidth="75" placeholderIntrinsicHeight="75" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="UrK-1F-vGc" customClass="DrawImageView" customModule="Chain" customModuleProvider="target">
                         <rect key="frame" x="10" y="12" width="65" height="65"/>
-                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="UrK-1F-vGc" secondAttribute="height" multiplier="1:1" id="pfo-9t-5cn"/>
                             <constraint firstAttribute="height" priority="999" constant="66" id="uNj-iZ-jBI"/>

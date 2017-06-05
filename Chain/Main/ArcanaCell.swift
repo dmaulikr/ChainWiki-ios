@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 class ArcanaCell: ArcanaImageIDCell {
 
 
-    @IBOutlet weak var arcanaImage: UIImageView!
+    @IBOutlet weak var arcanaImage: DrawImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
     @IBOutlet weak var arcanaNickKR: UILabel!
     @IBOutlet weak var arcanaNameJP: UILabel!
@@ -44,4 +44,12 @@ class ArcanaCell: ArcanaImageIDCell {
         }
     }
 
+}
+
+class DrawImageView: UIImageView {
+    
+    override func draw(_ rect: CGRect) {
+        UIGraphicsBeginImageContext(self.frame.size)
+        ChainLogo.drawLogo()
+    }
 }
