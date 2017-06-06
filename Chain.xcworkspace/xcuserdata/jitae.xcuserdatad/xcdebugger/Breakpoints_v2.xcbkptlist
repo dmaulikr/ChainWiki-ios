@@ -42,7 +42,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518408664.075922"
+                  timestampString = "518409705.89047"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -57,7 +57,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518408664.077688"
+                  timestampString = "518409705.892947"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "283"
@@ -65,6 +65,22 @@
                   offsetFromSymbolStart = "15">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chain/Arcana/ArcanaDetail.swift"
+            timestampString = "518409455.61444"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "updateCompactViews()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

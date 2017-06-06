@@ -45,6 +45,11 @@ let verticalSize = UIScreen.main.traitCollection.verticalSizeClass
 var ISIPADPRO: Bool {
     return SCREENHEIGHT == 1366.0
 }
+enum UIUserInterfaceIdiom : Int {
+    case unspecified
+    case phone // iPhone and iPod touch style UI
+    case pad // iPad style UI
+}
 
 
 let FIREBASE_REF = Database.database().reference()

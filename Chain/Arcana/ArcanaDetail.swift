@@ -173,33 +173,27 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     func setupViews() {
 
         title = arcana.getNameKR()
-        
         automaticallyAdjustsScrollViewInsets = false
-        
         
         view.addSubview(tableView)
 
         if traitCollection.horizontalSizeClass == .compact {
-            view.backgroundColor = .white
-            tableView.addGestureRecognizer(tapShowBarGesture)
             updateCompactViews()
         }
         else {
-
-            view.backgroundColor = .groupTableViewBackground
-            
-            view.addSubview(arcanaImageView)
-            
-            arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
-            arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
-            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-
+            updateRegularViews()
         }
 
     }
     
     func updateCompactViews() {
         
+        view.backgroundColor = .white
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            tableView.addGestureRecognizer(tapShowBarGesture)
+        }
+
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         let constant: CGFloat
@@ -213,16 +207,24 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         tableViewBottomConstraint?.isActive = true
         
         arcanaImageView.removeFromSuperview()
-        
     }
     
     func updateRegularViews() {
         
+        view.backgroundColor = .groupTableViewBackground
+        
+        view.addSubview(arcanaImageView)
+        
+        arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
+        arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }
     
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
+        tableView.removeFromSuperview()
+        view.addSubview(tableView)
         if newCollection.horizontalSizeClass == .compact {
             updateCompactViews()
         } else {
@@ -238,6 +240,11 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         tableView.reloadData()
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableView.reloadData()
+    }
+    
     func setupNavBar() {
         
         let shareButton = UIButton(type: .custom)
@@ -790,6 +797,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.arcana = arcana
             cell.arcanaDetailDelegate = self
             cell.selectionStyle = .none
+            cell.collectionView.reloadData()
+
             return cell
             
         case .skill:
