@@ -175,24 +175,14 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         title = arcana.getNameKR()
         
         automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = .white
+        
         
         view.addSubview(tableView)
 
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
+            view.backgroundColor = .white
             tableView.addGestureRecognizer(tapShowBarGesture)
-            tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-            
-            let constant: CGFloat
-            if let hidden = navigationController?.isNavigationBarHidden, hidden == true {
-                constant = 50
-            }
-            else {
-                constant = 0
-            }
-            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: constant)
-            tableViewBottomConstraint?.isActive = true
-
+            updateCompactViews()
         }
         else {
 
@@ -208,6 +198,46 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
     }
     
+    func updateCompactViews() {
+        
+        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        let constant: CGFloat
+        if let hidden = navigationController?.isNavigationBarHidden, hidden == true {
+            constant = 50
+        }
+        else {
+            constant = 0
+        }
+        tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: constant)
+        tableViewBottomConstraint?.isActive = true
+        
+        arcanaImageView.removeFromSuperview()
+        
+    }
+    
+    func updateRegularViews() {
+        
+    }
+    
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        if newCollection.horizontalSizeClass == .compact {
+            updateCompactViews()
+        } else {
+            updateRegularViews()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.horizontalSizeClass == .compact {
+            print("COMPACT")
+        }
+        tableView.reloadData()
+    }
+
     func setupNavBar() {
         
         let shareButton = UIButton(type: .custom)
@@ -617,7 +647,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            if horizontalSize == .compact {
+            if traitCollection.horizontalSizeClass == .compact {
                 return 1
             }
             else {
@@ -684,8 +714,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            if horizontalSize == .compact {
-                return UITableViewAutomaticDimension
+            if traitCollection.horizontalSizeClass == .compact {
+                return tableView.frame.width * 1.5
             }
             else {
                 return 0
@@ -706,8 +736,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
             
         case .image:
-            if horizontalSize == .compact {
-                return SCREENWIDTH * 1.5
+            if traitCollection.horizontalSizeClass == .compact {
+                return tableView.frame.width * 1.5
             }
             else {
                 return 0
@@ -752,6 +782,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.activityIndicator.startAnimating()
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+
             return cell
             
         case .attribute:
