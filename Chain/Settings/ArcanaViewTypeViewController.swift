@@ -150,6 +150,7 @@ class ArcanaViewTypeViewController: UIViewController {
         
         defaults.setShowedArcanaViewSelection(value: true)
         
+        NotificationCenter.default.post(name: ARCANAVIEWUPDATENOTIFICATIONNAME, object: nil)
         
         dismiss(animated: true, completion: nil)
         

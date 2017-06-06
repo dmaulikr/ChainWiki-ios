@@ -75,27 +75,7 @@ class ArcanaViewController: UIViewController {
     var filters = [String: [String]]()
     var initialLoad = true
     var selectedIndexPath: IndexPath?
-    var arcanaView: ArcanaView = .list {
-        didSet {
-            if horizontalSize == .compact {
-                switch arcanaView {
-                case .list, .main:
-                    tableView.isScrollEnabled = true
-                    collectionView.isScrollEnabled = false
-                case .profile, .mainGrid:
-                    tableView.isScrollEnabled = false
-                    collectionView.isScrollEnabled = true
-                }
-            }
-            else {
-                // iPad width, switch to collectionViews only
-                tableView.isScrollEnabled = false
-                collectionView.isScrollEnabled = true
-            }
-            
-            reloadView()
-        }
-    }
+    var arcanaView: ArcanaView = .list
 
     var numberOfProfileImageColumns: CGFloat = 4
     var numberOfListColumns: CGFloat = 2
@@ -188,15 +168,6 @@ class ArcanaViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        if horizontalSize == .compact {
-            numberOfProfileImageColumns = 4
-        }
-        else {
-            numberOfProfileImageColumns = 8
-            if ISIPADPRO {
-                numberOfListColumns = 3
-            }
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -205,29 +176,27 @@ class ArcanaViewController: UIViewController {
     
     deinit {
         ref.removeAllObservers()
+        NotificationCenter.default.removeObserver(self, name: ARCANAVIEWUPDATENOTIFICATIONNAME, object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupArcanaViewTypeObserver()
         setupViews()
         setupNavBar()
         setupGestures()
         downloadArcana()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getArcanaView()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let row = tableView.indexPathForSelectedRow else { return }
         tableView.deselectRow(at: row, animated: true)
-
     }
     
     func setupViews() {
+        
+        setupColumns()
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -255,9 +224,43 @@ class ArcanaViewController: UIViewController {
 
     }
     
+    func setupColumns() {
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            numberOfProfileImageColumns = 4
+        }
+        else {
+            if traitCollection.horizontalSizeClass == .compact {
+                numberOfListColumns = 1
+                numberOfProfileImageColumns = 4
+            }
+            else {
+                numberOfListColumns = 2
+                numberOfProfileImageColumns = 8
+                if ISIPADPRO {
+                    numberOfListColumns = 3
+                }
+            }
+        }
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if !initialLoad {
+            reloadView()
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if !initialLoad {
+            reloadView()
+        }
+    }
+    
     func setupChildViews() {
         
-        // Setup FilterView
         filterViewController = FilterViewController()
         
         guard let filterViewController = filterViewController else { return }
@@ -311,6 +314,15 @@ class ArcanaViewController: UIViewController {
         // Pan Filter gesture
 //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
 //        view.addGestureRecognizer(panGesture)
+    }
+    
+    func setupArcanaViewTypeObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateArcanaView), name: ARCANAVIEWUPDATENOTIFICATIONNAME, object: nil)
+    }
+    
+    func updateArcanaView() {
+        getArcanaView()
+        reloadView()
     }
     
     let pannableFrame = CGRect(x: 100, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
@@ -367,57 +379,58 @@ class ArcanaViewController: UIViewController {
     
     func reloadView() {
         
-        if initialLoad == false {
-            arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
-            
-            if horizontalSize == .compact {
-                switch arcanaView {
-                case .list, .main:
-                    if arcanaArray.count == 0 {
-                        tableView.alpha = 0
-                        tipLabel.fadeIn(withDuration: 0.5)
-                        
-                    }
-                    else {
-                        collectionView.alpha = 0
-                        tableView.reloadData()
-                        tipLabel.fadeOut(withDuration: 0.2)
-                        tableView.fadeIn(withDuration: 0.5)
-                    }
-                    
-                case .profile, .mainGrid:
-                    if arcanaArray.count == 0 {
-                        collectionView.alpha = 0
-                        tipLabel.fadeIn(withDuration: 0.5)
-                        
-                    }
-                    else {
-                        tableView.alpha = 0
-                        collectionView.reloadData()
-                        tipLabel.fadeOut(withDuration: 0.2)
-                        collectionView.fadeIn(withDuration: 0.5)
-                    }
-                    
+        setupColumns()
+        arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            switch arcanaView {
+            case .list, .main:
+                tableView.isScrollEnabled = true
+                collectionView.isScrollEnabled = false
+                if arcanaArray.count == 0 {
+                    tableView.alpha = 0
                 }
-
-            }
-            
-            else {
-
+                else {
+                    collectionView.alpha = 0
+                    tableView.reloadData()
+                    tableView.fadeIn(withDuration: 0.5)
+                }
+                
+            case .profile, .mainGrid:
+                tableView.isScrollEnabled = false
+                collectionView.isScrollEnabled = true
                 if arcanaArray.count == 0 {
                     collectionView.alpha = 0
-                    tipLabel.fadeIn(withDuration: 0.5)
-                    
                 }
                 else {
                     tableView.alpha = 0
                     collectionView.reloadData()
-                    tipLabel.fadeOut(withDuration: 0.2)
                     collectionView.fadeIn(withDuration: 0.5)
                 }
-
+                
             }
+
+        }
             
+        else {
+            tableView.isScrollEnabled = false
+            collectionView.isScrollEnabled = true
+            if arcanaArray.count == 0 {
+                collectionView.alpha = 0
+            }
+            else {
+                tableView.alpha = 0
+                collectionView.reloadData()
+                collectionView.fadeIn(withDuration: 0.5)
+            }
+
+        }
+        
+        if arcanaArray.count == 0 {
+            tipLabel.fadeIn(withDuration: 0.5)
+        }
+        else {
+            tipLabel.fadeOut(withDuration: 0.2)
         }
         
     }
@@ -425,7 +438,7 @@ class ArcanaViewController: UIViewController {
     func reloadIndexPathAt(_ index: Int) {
         
         var indexPath: IndexPath
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             
             switch arcanaView {
                 
@@ -465,7 +478,7 @@ class ArcanaViewController: UIViewController {
 
         let indexSet = IndexSet(integer: index)
 
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             switch arcanaView {
                 
             case .list, .main:
@@ -491,7 +504,7 @@ class ArcanaViewController: UIViewController {
         
         let indexSet = IndexSet(integer: index)
 
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             switch arcanaView {
                 
             case .list, .main:
@@ -605,19 +618,23 @@ class ArcanaViewController: UIViewController {
             
         case .search:
             if let userPref = defaults.getSearchView(), let arcanaView = ArcanaView(rawValue: userPref) {
-                self.arcanaView = arcanaView
+                if self.arcanaView != arcanaView {
+                    self.arcanaView = arcanaView
+                }
             }
         case .tavern:
             if let userPref = defaults.getTavernView(), let arcanaView = ArcanaView(rawValue: userPref) {
-                self.arcanaView = arcanaView
+                if self.arcanaView != arcanaView {
+                    self.arcanaView = arcanaView
+                }
             }
         case .favorites:
             if let userPref = defaults.getFavoritesView(), let arcanaView = ArcanaView(rawValue: userPref) {
-                self.arcanaView = arcanaView
+                if self.arcanaView != arcanaView {
+                    self.arcanaView = arcanaView
+                }
             }
-            
         }
-        
     }
 }
 

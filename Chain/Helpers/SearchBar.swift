@@ -30,7 +30,7 @@ class SearchBar: UISearchBar {
         if let searchTextField = value(forKey: "searchField") as? UITextField, let searchIcon = searchTextField.leftView as? UIImageView {
             
             let fontSize: CGFloat
-            if horizontalSize == .compact {
+            if traitCollection.horizontalSizeClass != .regular {
                 fontSize = 13
             }
             else {

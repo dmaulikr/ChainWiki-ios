@@ -11,7 +11,7 @@ import UIKit
 class MainListTableView: UICollectionViewCell {
 
     weak var collectionViewDelegate: ArcanaViewController?
-    
+    var numberOfColumns = 2
     var arcana: Arcana?
 
     var arcanaView: ArcanaView? {
@@ -55,7 +55,6 @@ class MainListTableView: UICollectionViewCell {
         tableView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }
 
-
 }
 
 extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
@@ -74,6 +73,13 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if arcanaView == .main && indexPath.row == 0 {
+            return tableView.frame.width * 1.5
+        }
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let row = Row(rawValue: indexPath.row), let arcana = arcana else { return UITableViewCell() }
@@ -90,7 +96,7 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaImage.image = nil
             
             cell.arcanaID = arcana.getUID()
-            print(arcana.getUID())
+            
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
             
             // check if arcana has only name, or nickname.
@@ -116,7 +122,6 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
             cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
             
             return cell
-            
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCollectionViewCell") as! ArcanaMainImageCollectionViewCell
@@ -126,9 +131,7 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
             
             return cell
-
         }
-
         
     }
     

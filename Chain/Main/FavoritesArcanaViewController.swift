@@ -31,7 +31,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         downloadArcana()
-        
+        updateArcanaView()
     }
     
     override func viewDidAppear(_ animated: Bool) {

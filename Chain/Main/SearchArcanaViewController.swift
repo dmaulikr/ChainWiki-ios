@@ -86,6 +86,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         
+        setupColumns()
+        
         view.addSubview(tableView)
         view.addSubview(collectionView)
         view.addSubview(headerView)
@@ -94,34 +96,25 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
+        tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
         let headerViewHeight: CGFloat
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             
             headerViewHeight = 70
 
-            tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
 //            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
 //            tableViewBottomConstraint?.isActive = true
-            
-            collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
             
             filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         }
         else {
             headerViewHeight = 100
             
-//            if ISIPADPRO {
-//                showFilter = true
-//                collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-//
-//                filterView.anchor(top: headerView.bottomAnchor, leading: collectionView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 367, heightConstant: 0)
-//            }
-//            else {
-                collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-
-                filterView.anchor(top: headerView.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
-//            }
-
+            filterView.anchor(top: headerView.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
+            
         }
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerViewHeight)
         headerViewHeightConstraint?.isActive = true
@@ -130,6 +123,16 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         setupChildViews()
         
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        searchBar.layoutIfNeeded()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        searchBar.layoutIfNeeded()
     }
     
     override func setupChildViews() {
@@ -181,7 +184,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         let searchBarHeight: CGFloat
         let arcanaCountViewHeight: CGFloat
 
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             searchBarHeight = 40
             arcanaCountViewHeight = 30
         }
@@ -378,7 +381,7 @@ final class SearchArcanaViewController: ArcanaViewController {
     func showSearchBar(_ show: Bool) {
         
         let headerViewHeight: CGFloat
-        if horizontalSize == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             headerViewHeight = 70
         }
         else {

@@ -60,7 +60,8 @@ let ARCANA_REF = FIREBASE_REF.child("arcana")
 let USERS_REF = FIREBASE_REF.child("user")
 let FESTIVAL_REF = FIREBASE_REF.child("festival")
 
-
+// NotificationCenter
+let ARCANAVIEWUPDATENOTIFICATIONNAME = Notification.Name("ArcanaViewUpdate")
 
 // Fonts
 let APPLEGOTHIC_17 = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)

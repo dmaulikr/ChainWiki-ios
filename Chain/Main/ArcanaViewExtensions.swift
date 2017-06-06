@@ -31,6 +31,14 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if arcanaView == .main && indexPath.row == 0 {
+            return tableView.frame.width * 1.5
+        }
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let row = Row(rawValue: indexPath.row) else { return UITableViewCell() }
@@ -141,6 +149,14 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             case .list, .main:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
                 cell.collectionViewDelegate = self
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if traitCollection.horizontalSizeClass == .compact {
+                        cell.numberOfColumns = 1
+                    }
+                    else {
+                        cell.numberOfColumns = 2
+                    }
+                }
                 cell.arcana = arcana
                 cell.arcanaView = arcanaView
                 return cell
@@ -207,12 +223,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .main:
             let cellSize: CGFloat
             
-//            if !ISIPADPRO {
-//                cellSize = ((collectionView.frame.width - 10)/2)
-//            }
-//            else {
-                cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
-//            }
+            cellSize = (collectionView.frame.width - (sectionInsets.left * numberOfListColumns + 5))/numberOfListColumns
             
             return CGSize(width: cellSize, height: cellSize * 1.5 + 90)
             
