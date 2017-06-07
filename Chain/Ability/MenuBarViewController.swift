@@ -102,6 +102,12 @@ class MenuBarViewController: UIViewController {
         
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        menuBar?.collectionView.reloadData()
+//        childViewController?.collectionView.reloadData()
+    }
+    
     func setupChildViewController() {
         
         if menuType == .abilityView {
@@ -119,13 +125,12 @@ class MenuBarViewController: UIViewController {
         addChildViewController(childViewController)
         
         containerView.addSubview(childViewController.view)
-        
-        childViewController.view.frame = containerView.frame
+        childViewController.view.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, trailing: containerView.trailingAnchor, bottom: containerView.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+//        childViewController.view.frame = containerView.frame
         
 //        childViewController.didMove(toParentViewController: self)
 
     }
-    
     
     private func setupNavBar() {
         navigationItem.rightBarButtonItem = previewButton

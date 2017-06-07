@@ -51,10 +51,6 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
-                cell.arcanaNickKR.text = nil
-                cell.arcanaNickJP.text = nil
-                cell.arcanaImage.image = nil
-                
                 cell.arcanaID = arcana.getUID()
 
                 cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
@@ -88,8 +84,6 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
-                cell.arcanaImageView.image = nil
-                
                 cell.arcanaID = arcana.getUID()
                 cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
                 
@@ -162,9 +156,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 return cell
                 
             default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
-                cell.arcanaImage.image = nil
-                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
                 cell.arcanaID = arcana.getUID()
                 
                 switch arcanaView {
@@ -240,7 +232,6 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
             
             return CGSize(width: cellSize, height: cellSize * 1.5)
-
         }
         
     }

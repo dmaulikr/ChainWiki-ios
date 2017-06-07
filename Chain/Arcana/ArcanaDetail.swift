@@ -815,11 +815,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.skillDescLabel.text = arcana.getSkillDesc1()
             case .skill2:
                 cell.skillNumberLabel.text = "스킬 2"
-                cell.skillManaLabel.text = "\(arcana.getSkillMana2()!) 마나"
+                let skillMana2 = arcana.getSkillMana2() ?? "1"
+                cell.skillManaLabel.text = skillMana2 + " 마나"
                 cell.skillDescLabel.text = arcana.getSkillDesc2()
             case .skill3:
                 cell.skillNumberLabel.text = "스킬 3"
-                cell.skillManaLabel.text = "\(arcana.getSkillMana3()!) 마나"
+                let skillMana3 = arcana.getSkillMana3() ?? "1"
+                cell.skillManaLabel.text = skillMana3 + " 마나"
                 cell.skillDescLabel.text = arcana.getSkillDesc3()
             }
             

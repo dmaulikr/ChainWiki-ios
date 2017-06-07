@@ -82,7 +82,7 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let translation = scrollView.panGestureRecognizer.translation(in: superview)
         
-        if translation.y <= 0 {
+        if translation.y < 0 {
             
             // if moving down the tableView
             self.hideBars()

@@ -64,6 +64,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>아르카나 정보가 포토에 저장됩니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>아르카나 정보가 포토에 저장됩니다.</string>
 	<key>UIAppFonts</key>

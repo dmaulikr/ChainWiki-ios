@@ -121,7 +121,6 @@ class BaseCollectionViewController: UIViewController {
         if let iPadThirdTable = collectionView.cellForItem(at: IndexPath(row: 2, section: 0)) as? BaseCollectionViewCell, let selectedIndexPath = iPadThirdTable.tableView.indexPathForSelectedRow {
             iPadThirdTable.tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
-        
     }
     
     func setupViews() {
@@ -131,11 +130,33 @@ class BaseCollectionViewController: UIViewController {
         
         view.addSubview(collectionView)
         
-        collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        coordinator.animate(alongsideTransition: nil) { _ in
+            self.menuBarDelegate?.menuBar?.horizontalBarView.alpha = 1
+            self.scrollToMenuIndex(0)
+            print(self.collectionView.bounds.width)
+            print(self.collectionView.bounds.height)
+            self.collectionView.reloadData()
+        }
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.horizontalSizeClass == .regular && menuType != .abilityView {
+            menuBarDelegate?.menuBar?.horizontalBarView.alpha = 0
+        }
+        else {
+            menuBarDelegate?.menuBar?.horizontalBarView.alpha = 1
+        }
     }
 
     func setupAbilityList() {
@@ -163,7 +184,6 @@ class BaseCollectionViewController: UIViewController {
         }
         
         // Then check ability type
-        
         let refPrefix = abilityType
         
         var ref: DatabaseReference
@@ -207,7 +227,6 @@ class BaseCollectionViewController: UIViewController {
                     group.leave()
                     
                 })
-                
             }
             
             group.notify(queue: DispatchQueue.main, execute: {
@@ -219,7 +238,6 @@ class BaseCollectionViewController: UIViewController {
                 self.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition())
             })
             
-            
         })
         
     }
@@ -230,14 +248,14 @@ class BaseCollectionViewController: UIViewController {
         collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
         selectedIndex = menuIndex
         
-        if horizontalSize == .regular && menuType != .abilityView {
+        if traitCollection.horizontalSizeClass == .regular && menuType != .abilityView {
+            
             let numberOfMenuTabs = menuBarDelegate?.numberOfMenuTabs ?? 2
             switch selectedIndex {
             case 0:
                 self.menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = 10
             default:
-                self.menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = (SCREENWIDTH/CGFloat(numberOfMenuTabs)) * CGFloat(selectedIndex) + CGFloat(10)
-                
+                self.menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = (view.frame.width/CGFloat(numberOfMenuTabs)) * CGFloat(selectedIndex) + CGFloat(10)
             }
             
             UIView.animate(withDuration: 0.5, animations: {
@@ -296,6 +314,7 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
             cell.collectionViewDelegate = self
             cell.showAbilityPreview = showAbilityPreview
             cell.abilityMenu = abilityMenu
+            cell.tableView.reloadData()
             if let datasource = datasource {
                 cell.arcanaArray = datasource.getCurrentArray(index: indexPath.row)
             }
@@ -315,18 +334,22 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
         switch menuType {
             
         case .abilityList:
-            if horizontalSize == .regular {
-                return CGSize(width: SCREENWIDTH/2, height: collectionView.frame.height)
+            if traitCollection.horizontalSizeClass == .regular {
+                return CGSize(width: collectionView.bounds.width/2, height: collectionView.bounds.height)
+            }
+            else {
+                
             }
             
         case .tavernList:
-            if horizontalSize == .regular {
-                return CGSize(width: SCREENWIDTH/3, height: collectionView.frame.height)
+            if traitCollection.horizontalSizeClass == .regular {
+                return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height)
             }
         default:
             break
         }
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
 
     }
     
