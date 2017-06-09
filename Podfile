@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 target 'Chain' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
@@ -18,7 +18,7 @@ target 'Chain' do
     pod 'GoogleSignIn'
 
     pod 'KRWordWrapLabel'    
-    pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'master'
+    pod 'NVActivityIndicatorView'
     pod 'SkyFloatingLabelTextField'
     pod 'LicensesViewController', '~> 0.6.0'
     pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'

@@ -16,10 +16,9 @@
 'use strict';
 
 var arcanaID;
-
+var edit;
 window.onload = function() {
   window.ChainWiki = new ChainWiki();
-  authListener()
 };
 
 // Initializes ChainWiki.
@@ -28,7 +27,13 @@ function ChainWiki() {
   this.arcanaList = document.getElementById('arcana');
   this.initFirebase();
   arcanaID = getParameterByName('arcana');
-  this.loadArcana();
+  edit = getParameterByName('edit');
+  if (edit) {
+    // set up edit UI
+  }
+  else {
+      this.loadArcana();
+  }
   if (location.hostname !== "localhost" && location.hostname != "172.91.86.210") {
     incrementViewCount();
   }
@@ -133,7 +138,7 @@ ChainWiki.prototype.setupBaseInfo = function(val) {
   linkJP += val.nameJP;
 
   $('#wikiJPLink').attr('href', linkJP);
-  // $('#arcanaEditLink').attr('href', '/');
+  $('#arcanaEditLink').attr('href', '/');
 
 };
 
@@ -258,6 +263,7 @@ function addAbility(abilityName, abilityDesc, type) {
       insertAfter(table, abilityDescDiv);
     }
 }
+
 ChainWiki.prototype.loadImage = function(arcanaID) {
 
   const arcanaImage = document.getElementById('arcanaImage');
@@ -282,18 +288,4 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function authListener() {
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log('user is signed in');
-    window.ChainWiki = new ChainWiki();
-  } else {
-    console.log('user is not signed in');
-    firebase.auth().signInAnonymously().catch(function(error) {
-      window.ChainWiki = new ChainWiki();
-    });
-  }
-});
 }
