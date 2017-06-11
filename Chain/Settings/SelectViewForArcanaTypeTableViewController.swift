@@ -70,7 +70,7 @@ class SelectViewForArcanaTypeViewController: UIViewController {
 
     }
     
-    func completeView() {
+    @objc func completeView() {
         
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
             var selectedArcanaViews = [SelectedArcanaView]()
@@ -88,7 +88,7 @@ class SelectViewForArcanaTypeViewController: UIViewController {
         
     }
     
-    func cancel() {
+    @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
 

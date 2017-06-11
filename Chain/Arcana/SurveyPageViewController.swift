@@ -95,7 +95,7 @@ class SurveyPageViewController: UIPageViewController, UIPageViewControllerDataSo
         
     }
     
-    func cancel() {
+    @objc func cancel() {
         dismiss(animated: true, completion: {
             // some analytics
             Analytics.logEvent("Survey cancelled", parameters: nil)

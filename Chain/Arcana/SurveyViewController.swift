@@ -98,12 +98,12 @@ class SurveyViewController: UIViewController {
         setupViews()
     }
     
-    func back() {
+    @objc func back() {
         guard index > 0, let pageVC = pageViewDelegate else { return }
         pageVC.setViewControllers([pageVC.viewControllerList[index-1]], direction: .reverse, animated: true, completion: nil)
     }
     
-    func showNext() {
+    @objc func showNext() {
         guard index < 2, let pageVC = pageViewDelegate else { return }
         pageVC.setViewControllers([pageVC.viewControllerList[index+1]], direction: .forward, animated: true, completion: nil)
     }

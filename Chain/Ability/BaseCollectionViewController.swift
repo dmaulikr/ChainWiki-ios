@@ -12,7 +12,8 @@ import Firebase
 class BaseCollectionViewController: UIViewController {
 
     weak var menuBarDelegate: MenuBarViewController?
-
+    var updatedSize: CGSize!
+    
     let menuType: MenuType
     var abilityMenu: AbilityMenu = .ability
     var selectedIndex: Int = 0 {
@@ -106,6 +107,13 @@ class BaseCollectionViewController: UIViewController {
 
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updatedSize = view.frame.size
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -135,18 +143,6 @@ class BaseCollectionViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "어빌", style:.plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
         
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        coordinator.animate(alongsideTransition: nil) { _ in
-            self.menuBarDelegate?.menuBar?.horizontalBarView.alpha = 1
-            self.scrollToMenuIndex(0)
-            print(self.collectionView.bounds.width)
-            print(self.collectionView.bounds.height)
-            self.collectionView.reloadData()
-        }
-        super.viewWillTransition(to: size, with: coordinator)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -314,7 +310,7 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
             cell.collectionViewDelegate = self
             cell.showAbilityPreview = showAbilityPreview
             cell.abilityMenu = abilityMenu
-            cell.tableView.reloadData()
+            
             if let datasource = datasource {
                 cell.arcanaArray = datasource.getCurrentArray(index: indexPath.row)
             }
@@ -322,6 +318,7 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
             
         case .tavernList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TavernListTableCell", for: indexPath) as! TavernListTableCell
+            
             cell.pageIndex = indexPath.row
             cell.collectionViewDelegate = self
             return cell
@@ -331,26 +328,34 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        print(collectionView.frame.height)
+        if updatedSize == nil {
+            updatedSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
+        print(updatedSize.height)
+        
+        
         switch menuType {
             
         case .abilityList:
+            
             if traitCollection.horizontalSizeClass == .regular {
-                return CGSize(width: collectionView.bounds.width/2, height: collectionView.bounds.height)
+                return CGSize(width: updatedSize.width / 2, height: updatedSize.height)
             }
-            else {
-                
+            
+        case .abilityView:
+            if view.frame.width == 1366 {
+                return CGSize(width: updatedSize.width / 5, height: updatedSize.height)
             }
+            break
             
         case .tavernList:
             if traitCollection.horizontalSizeClass == .regular {
-                return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height)
+                return CGSize(width: updatedSize.width / 3, height: updatedSize.height)
             }
-        default:
-            break
         }
         
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-
+        return updatedSize
     }
     
 }

@@ -65,7 +65,7 @@ class ArcanaButtonsCell: UICollectionViewCell {
         
     }
     
-    func toggleButton(_ sender: UIButton) {
+    @objc func toggleButton(_ sender: UIButton) {
         
         if !sender.isSelected {
             sender.bounceAnimate()

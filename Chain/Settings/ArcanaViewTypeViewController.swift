@@ -73,7 +73,7 @@ class ArcanaViewTypeViewController: UIViewController {
         pageControl.anchorCenterXToSuperview()
         
         selectButton.anchor(top: pageControl.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 60)
-        selectButton.setContentHuggingPriority(755, for: .vertical)
+        selectButton.setContentHuggingPriority(.init(755), for: .vertical)
         
         setupButtonBorder()
         
@@ -86,7 +86,7 @@ class ArcanaViewTypeViewController: UIViewController {
     }
 
 
-    func selectView() {
+    @objc func selectView() {
         
         guard let selectedArcanaViews = selectedArcanaViews else { return }
         

@@ -22,7 +22,7 @@ class AbilityListTableCell: BaseCollectionViewCell {
     
     override func setupViews() {
         super.setupViews()
-        
+                
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AbilityListCell")

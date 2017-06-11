@@ -107,14 +107,7 @@ class ArcanaViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-        
-        if horizontalSize == .regular && !ISIPADPRO {
-            layout.minimumInteritemSpacing = 0
-//            layout.minimumLineSpacing = 0
-        }
-        else {
-            layout.minimumInteritemSpacing = 5
-        }
+        layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -194,6 +187,17 @@ class ArcanaViewController: UIViewController {
         tableView.deselectRow(at: row, animated: true)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if !initialLoad {
+                setupColumns()
+                reloadView()
+            }
+        }
+        
+    }
+    
     func setupViews() {
         
         setupColumns()
@@ -237,27 +241,29 @@ class ArcanaViewController: UIViewController {
             else {
                 numberOfListColumns = 2
                 numberOfProfileImageColumns = 8
-                if ISIPADPRO {
-                    numberOfListColumns = 3
-                }
+//                if ISIPADPRO {
+//                    numberOfListColumns = 3
+//                }
             }
         }
         
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if !initialLoad {
-            reloadView()
-        }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        if !initialLoad {
-            reloadView()
-        }
-    }
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        if !initialLoad {
+//            setupColumns()
+//            reloadView()
+//        }
+//    }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        if !initialLoad {
+//            setupColumns()
+//            reloadView()
+//        }
+//    }
     
     func setupChildViews() {
         
@@ -320,7 +326,7 @@ class ArcanaViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateArcanaView), name: ARCANAVIEWUPDATENOTIFICATIONNAME, object: nil)
     }
     
-    func updateArcanaView() {
+    @objc func updateArcanaView() {
         getArcanaView()
         reloadView()
     }
@@ -546,14 +552,14 @@ class ArcanaViewController: UIViewController {
         reloadView()
     }
 
-    func sort(_ sender: AnyObject) {
+    @objc func sort(_ sender: AnyObject) {
         
         guard let button = sender as? UIView else { return }
         
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
+            "정렬", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName: UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { action in
             self.sortArcanaByName()
@@ -582,7 +588,7 @@ class ArcanaViewController: UIViewController {
         })
     }
     
-    func toggleFilterView() {
+    @objc func toggleFilterView() {
         showFilter = !showFilter
     }
     
@@ -599,7 +605,7 @@ class ArcanaViewController: UIViewController {
 //        }
 //    }
 
-    func dismissFilter() {
+    @objc func dismissFilter() {
 
         // If filter is open and user presses on left column, dismiss filter.
         if showFilter && gesture.location(in: self.view).x < 95 {

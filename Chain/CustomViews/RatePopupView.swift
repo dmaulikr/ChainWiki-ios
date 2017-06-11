@@ -86,7 +86,7 @@ class RatePopupView: UIView {
         
     }
     
-    func like() {
+    @objc func like() {
 //        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
 //            AnalyticsParameterItemID:
 //            ])
@@ -117,12 +117,12 @@ class RatePopupView: UIView {
         }
     }
     
-    func survey() {
+    @objc func survey() {
         let vc = SurveyPageViewController()
         arcanaDetailDelegate?.present(NavigationController(vc), animated: true, completion: nil)
     }
     
-    func hidePopup() {
+    @objc func hidePopup() {
         defaults.setViewedSurvey()
         removeFromSuperview()
     }

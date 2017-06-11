@@ -134,7 +134,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         setupViews()
         checkFavorites()
     }
-    
+    @objc 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -162,6 +162,23 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 //            showSurvey()
 //        }
 //        showSurvey()
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        
+        arcanaImageView.removeFromSuperview()
+        tableView.removeFromSuperview()
+        view.addSubview(tableView)
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            updateCompactViews()
+        } else {
+            updateRegularViews()
+        }
         
     }
     
@@ -215,32 +232,24 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
         view.addSubview(arcanaImageView)
         
-        arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: SCREENWIDTH/2, heightConstant: (SCREENWIDTH/2)*1.5)
+        print(view.frame.width)
+        
+        arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: view.frame.width/2, heightConstant: (view.frame.width/2)*1.5)
         arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        tableView.removeFromSuperview()
-        view.addSubview(tableView)
-        if newCollection.horizontalSizeClass == .compact {
-            updateCompactViews()
-        } else {
-            updateRegularViews()
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.horizontalSizeClass == .compact {
-            print("COMPACT")
-        }
-        tableView.reloadData()
-    }
-
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        if traitCollection.horizontalSizeClass == .compact {
+//            print("COMPACT")
+//        }
+//        tableView.reloadData()
+//    }
+//
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        arcanaImageView.removeFromSuperview()
         tableView.reloadData()
     }
     
@@ -293,14 +302,14 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    func cancel() {
+    @objc func cancel() {
         dismiss(animated: true, completion: {
             self.presentingDelegate?.dismiss(animated: true, completion: nil)
         })
     }
 
     
-    func exportArcana() {
+    @objc func exportArcana() {
         
         if imageTapped == true {
             
@@ -404,7 +413,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
     }
 
-    func edit() {
+    @objc func edit() {
         
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
@@ -461,7 +470,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    func tappedImage() {
+    @objc func tappedImage() {
         
         if imageTapped == false {
             
@@ -495,7 +504,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
     func addGestures(_ sender: UIView) {
         
-        let closeImage = UITapGestureRecognizer(target: self, action: #selector(self.dismissImage(_:)))
+        let closeImage = UITapGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
         sender.addGestureRecognizer(closeImage)
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(dismissImage(_:)))
@@ -518,7 +527,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         sender.addGestureRecognizer(longPress)
     }
     
-    func dismissImage(_ gesture: UIGestureRecognizer) {
+    @objc func dismissImage(_ gesture: UIGestureRecognizer) {
         
         // gesture view is the background view for the image
         guard let gestureView = gesture.view else {

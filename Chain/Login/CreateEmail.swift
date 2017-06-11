@@ -122,11 +122,11 @@ class CreateEmail: UIViewController, DisplayBanner {
         
     }
     
-    func cancel() {
+    @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
     
-    func createEmail() {
+    @objc func createEmail() {
 
         view.endEditing(true)
         var formType: BannerFormType?

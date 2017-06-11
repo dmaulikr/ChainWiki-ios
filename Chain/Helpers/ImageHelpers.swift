@@ -134,7 +134,7 @@ extension UIImageView {
 
 extension UIViewController {
     
-    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             showAlert(title: "저장 실패.", message: error.localizedDescription)
         } else {

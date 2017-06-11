@@ -96,7 +96,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func save() {
+    @objc func save() {
 
         let alertController = UIAlertController(title: "수정 확인", message: "수정하시겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon
@@ -182,7 +182,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     
     var tableViewBottomAnchor: NSLayoutConstraint?
     
-    func handleKeyboardWillShow(_ notification: Notification) {
+    @objc func handleKeyboardWillShow(_ notification: Notification) {
         guard let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else { return }
         
         tableViewBottomAnchor?.constant = -keyboardFrame.height
@@ -191,7 +191,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         })
     }
     
-    func handleKeyboardWillHide(_ notification: Notification) {
+    @objc func handleKeyboardWillHide(_ notification: Notification) {
         guard let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else { return }
         
         tableViewBottomAnchor?.constant = 0

@@ -23,6 +23,7 @@ var NICKNAME: String? {
 // Size Classes and Devices
 
 var SCREENWIDTH: CGFloat {
+//    return UIScreen.main.bounds.size.width
     if UIInterfaceOrientationIsPortrait(SCREENORIENTATION) {
         return UIScreen.main.bounds.size.width
     } else {
@@ -43,14 +44,13 @@ var SCREENORIENTATION: UIInterfaceOrientation {
 let horizontalSize = UIScreen.main.traitCollection.horizontalSizeClass
 let verticalSize = UIScreen.main.traitCollection.verticalSizeClass
 var ISIPADPRO: Bool {
-    return SCREENHEIGHT == 1366.0
+    return SCREENWIDTH == 1366.0
 }
 enum UIUserInterfaceIdiom : Int {
     case unspecified
     case phone // iPhone and iPod touch style UI
     case pad // iPad style UI
 }
-
 
 let FIREBASE_REF = Database.database().reference()
 let STORAGE_REF = Storage.storage().reference()

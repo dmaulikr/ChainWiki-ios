@@ -31,7 +31,7 @@ class FavoritesArcanaViewController: ArcanaViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         downloadArcana()
-        updateArcanaView()
+//        updateArcanaView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,12 +80,12 @@ class FavoritesArcanaViewController: ArcanaViewController {
         
     }
     
-    func openSettings() {
+    @objc func openSettings() {
         let vc = Settings()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func editFavorites() {
+    @objc func editFavorites() {
         
         if arcanaArray.count != 0 {
             

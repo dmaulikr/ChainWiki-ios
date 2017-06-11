@@ -60,7 +60,7 @@ class LinkViewController: SFSafariViewController, SFSafariViewControllerDelegate
         navigationItem.rightBarButtonItem = browserButton
     }
 
-    func openBrowser() {
+    @objc func openBrowser() {
         
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon

@@ -52,7 +52,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
                 cell.arcanaID = arcana.getUID()
-
+                cell.arcanaImage.image = nil
                 cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
                 
                 // check if arcana has only name, or nickname.
@@ -85,6 +85,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
                 cell.arcanaID = arcana.getUID()
+                cell.arcanaImageView.image = nil
                 cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
                 
                 return cell
@@ -158,7 +159,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
                 cell.arcanaID = arcana.getUID()
-                
+                cell.arcanaImage.image = nil
                 switch arcanaView {
                     
                 case .mainGrid:
@@ -203,12 +204,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .list:
             let cellSize: CGFloat
             
-            if !ISIPADPRO {
-                cellSize = ((collectionView.frame.width - 5)/2)
-            }
-            else {
-                cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
-            }
+            cellSize = ((collectionView.frame.width - 5)/2)
             
             return CGSize(width: cellSize, height: 90)
 
@@ -237,7 +233,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if horizontalSize == .regular && !ISIPADPRO && arcanaView == .list {
+        if horizontalSize == .regular && arcanaView == .list {
             return .zero
         }
         

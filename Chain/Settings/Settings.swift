@@ -100,7 +100,7 @@ class Settings: UIViewController, DisplayBanner {
         navigationItem.rightBarButtonItem = logoutButton
     }
     
-    func logout() {
+    @objc func logout() {
         
         let alert = UIAlertController(title: "잠깐!", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         alert.view.tintColor = Color.salmon

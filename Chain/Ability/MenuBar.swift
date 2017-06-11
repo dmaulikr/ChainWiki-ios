@@ -21,6 +21,7 @@ class MenuBar: UIView {
     let menuType: MenuType
     let menuHeight : CGFloat = 40
     let numberOfItems: Int
+    var updatedSize: CGSize!
 
     var menuTitles = [String]()
     
@@ -113,6 +114,7 @@ class MenuBar: UIView {
             
         }
     }
+    
 }
 
 
@@ -135,7 +137,11 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width / CGFloat(numberOfItems), height: frame.height)
+        
+        if updatedSize == nil {
+            updatedSize = CGSize(width: frame.width, height: frame.height)
+        }
+        return CGSize(width: updatedSize.width / CGFloat(numberOfItems), height: frame.height)
     }
     
 }

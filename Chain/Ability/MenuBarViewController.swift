@@ -65,6 +65,15 @@ class MenuBarViewController: UIViewController {
         setupViews()
         setupChildViewController()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        menuBar?.updatedSize = CGSize(width: view.frame.width, height: 40)
+        menuBar?.collectionView.collectionViewLayout.invalidateLayout()
+        menuBar?.horizontalBarLeadingAnchorConstraint?.constant = 10
+        menuBar?.layoutIfNeeded()
+    }
 
     func setupViews() {
         
@@ -102,11 +111,16 @@ class MenuBarViewController: UIViewController {
         
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        menuBar?.collectionView.reloadData()
-//        childViewController?.collectionView.reloadData()
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//
+//        super.viewWillTransition(to: size, with: coordinator)
+//
+//        menuBar?.updatedSize = CGSize(width: size.width, height: 40)
+//        menuBar?.collectionView.collectionViewLayout.invalidateLayout()
+//        menuBar?.horizontalBarLeadingAnchorConstraint?.constant = 10
+//        menuBar?.layoutIfNeeded()
+//
+//    }
     
     func setupChildViewController() {
         
@@ -136,7 +150,7 @@ class MenuBarViewController: UIViewController {
         navigationItem.rightBarButtonItem = previewButton
     }
     
-    func toggleAbilityPreview() {
+    @objc func toggleAbilityPreview() {
         
         guard let showAbilityPreview = childViewController?.showAbilityPreview else { return }
         

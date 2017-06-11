@@ -13,7 +13,7 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var tableViewBottomConstraint: NSLayoutConstraint?
     
-    func handleBars() {
+    @objc func handleBars() {
         
         if horizontalSize != .compact { return }
         if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
@@ -92,7 +92,7 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    @objc func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         guard let superview = scrollView.superview else { return }
         

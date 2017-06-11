@@ -169,7 +169,7 @@ class LoginHome: UIViewController, DisplayBanner {
         
     }
     
-    func emailLogin() {
+    @objc func emailLogin() {
         view.endEditing(true)
         let email = self.emailTextField.text
         let pw = passwordTextField.text
@@ -255,11 +255,11 @@ class LoginHome: UIViewController, DisplayBanner {
         })
     }
     
-    func googleLogin() {
+    @objc func googleLogin() {
         GIDSignIn.sharedInstance().signIn()
     }
     
-    func facebookLogin() {
+    @objc func facebookLogin() {
         
         let loginManager = LoginManager()
         loginManager.logIn([ .publicProfile ], viewController: self) { loginResult in
@@ -287,12 +287,12 @@ class LoginHome: UIViewController, DisplayBanner {
         
     }
     
-    func createEmail(_ sender: AnyObject) {
+    @objc func createEmail(_ sender: AnyObject) {
         let vc = CreateEmail()
         present(NavigationController(vc), animated: true, completion: nil)
     }
     
-    func guestLogin(_ sender: Any) {
+    @objc func guestLogin(_ sender: Any) {
         
         animateUserLogin(animated: true)
         

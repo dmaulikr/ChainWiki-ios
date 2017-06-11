@@ -64,7 +64,7 @@ class ArcanaEditHistory: UIViewController {
         navigationItem.rightBarButtonItem = reportButton
     }
     
-    func report() {
+    @objc func report() {
         
         let alertController = UIAlertController(title: "악용 신고", message: "유저를 신고하시겠습니까?", preferredStyle: .alert)
         alertController.view.tintColor = Color.salmon

@@ -72,6 +72,11 @@ final class SearchArcanaViewController: ArcanaViewController {
         Analytics.setScreenName("SearchArcanaView", screenClass: nil)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if searchBar.isFirstResponder && searchBar.text == "" {
@@ -125,16 +130,16 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        searchBar.layoutIfNeeded()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        searchBar.layoutIfNeeded()
-    }
-    
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        searchBar.layoutIfNeeded()
+//    }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        searchBar.layoutIfNeeded()
+//    }
+//
     override func setupChildViews() {
         
         super.setupChildViews()
@@ -430,7 +435,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     }
 
-    func showFestival() {
+    @objc func showFestival() {
         
         let vc = FestivalViewController()
         navigationController?.pushViewController(vc, animated: true)

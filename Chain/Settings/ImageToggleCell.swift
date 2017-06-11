@@ -17,7 +17,7 @@ class ImageToggleCell: SettingsCell {
         return toggle
     }()
     
-    func toggleImage() {
+    @objc func toggleImage() {
         
         if defaults.getImagePermissions() {
             defaults.setImagePermissions(value: false)
