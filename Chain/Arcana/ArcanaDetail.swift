@@ -231,9 +231,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         view.backgroundColor = .groupTableViewBackground
         
         view.addSubview(arcanaImageView)
-        
-        print(view.frame.width)
-        
+                
         arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: view.frame.width/2, heightConstant: (view.frame.width/2)*1.5)
         arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -793,7 +791,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
             cell.selectionStyle = .none
             
-            cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+            }
             cell.activityIndicator.startAnimating()
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)

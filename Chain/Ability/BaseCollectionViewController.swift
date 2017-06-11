@@ -328,12 +328,9 @@ extension BaseCollectionViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        print(collectionView.frame.height)
         if updatedSize == nil {
             updatedSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-        }
-        print(updatedSize.height)
-        
+        }        
         
         switch menuType {
             
