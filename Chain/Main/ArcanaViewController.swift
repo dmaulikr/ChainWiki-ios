@@ -389,7 +389,9 @@ class ArcanaViewController: UIViewController {
         arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
         
         if traitCollection.horizontalSizeClass == .compact {
+            
             switch arcanaView {
+                
             case .list, .main:
                 tableView.isScrollEnabled = true
                 collectionView.isScrollEnabled = false
