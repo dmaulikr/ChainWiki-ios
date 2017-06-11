@@ -23,7 +23,61 @@ const gcs = require('@google-cloud/storage')();
 const exec = require('child-process-promise').exec;
 const LOCAL_TMP_FOLDER = '/tmp/';
 
+exports.createUser = functions.auth.user().onCreate(event => {
 
+  const user = event.data; // The Firebase user.
+  const email = user.email; // The email of the user.
+  const name = user.displayName; // The user's real name. Set automatically with login providers.
+
+  // Set up initial user data.
+  const userID = user.uid;
+  console.log(userID);
+
+  admin.database().ref(`/users/${userID}`).set({
+
+    edit: true,
+    editsCount: 0,
+    email: email,
+    joined: admin.database.ServerValue.TIMESTAMP,
+    name: name
+
+  });
+
+  // sendWelcomeEmail(email, name);
+  
+});
+
+function sendWelcomeEmail(email, displayName) {
+  const mailOptions = {
+    from: '"dtto" <noreply@firebase.com>',
+    to: email
+  };
+
+  // The user unsubscribed to the newsletter.
+  mailOptions.subject = `Welcome to ${APP_NAME}!`;
+  mailOptions.text = `Hey ${displayName}!, Welcome to ${APP_NAME}. I hope you will enjoy our service.`;
+  return mailTransport.sendMail(mailOptions).then(() => {
+    console.log('New welcome email sent to:', email);
+  });
+}
+
+exports.deleteUser = functions.auth.user().onDelete(event => {
+
+  const user = event.data;
+  const userID = user.uid;
+  const email = user.email;
+  const escapedEmail = email.replace(/\./g, ',');
+  const name = user.displayName;  // TODO: name vs username.
+
+  admin.database().ref(`/users/${userID}`).remove();
+  // admin.database().ref(`/profiles/${userID}`).remove();
+  // admin.database().ref(`/userEmails/${escapedEmail}`).remove();
+
+  // TODO: Handle posts + comments
+
+  // sendGoodbyEmail(email, name);
+
+});
 
 // exports.exportArcanaPreview = functions.database.ref('/loadFunction/{function}').onWrite(event => {
   
@@ -76,46 +130,46 @@ exports.removeArcanaName = functions.database.ref('/arcana/{arcanaID}').onWrite(
   }
 });
 
-exports.updateAllArcanaName = functions.database.ref('/loadFunction/{function}').onWrite(event => {
+// exports.updateAllArcanaName = functions.database.ref('/loadFunction/{function}').onWrite(event => {
   
-  admin.database().ref(`/arcana`).once('value').then(snapshot => {
+//   admin.database().ref(`/arcana`).once('value').then(snapshot => {
 
-    snapshot.forEach(function(child) {
-      const arcanaID = child.key;
-      // console.log(arcanaID);
-      var nicknameKR;
-      if (child.val().nicknameKR) {
-        nicknameKR = child.val().nicknameKR;
-      } else if (child.val().nickNameKR) {
-        nicknameKR = child.val().nickNameKR;
-      }
+//     snapshot.forEach(function(child) {
+//       const arcanaID = child.key;
+//       // console.log(arcanaID);
+//       var nicknameKR;
+//       if (child.val().nicknameKR) {
+//         nicknameKR = child.val().nicknameKR;
+//       } else if (child.val().nickNameKR) {
+//         nicknameKR = child.val().nickNameKR;
+//       }
 
-      var nicknameJP;
-      if (child.val().nicknameJP) {
-        nicknameJP = child.val().nicknameJP;
-      } else if (child.val().nickNameJP) {
-        nicknameJP = child.val().nickNameJP;
-      }
+//       var nicknameJP;
+//       if (child.val().nicknameJP) {
+//         nicknameJP = child.val().nicknameJP;
+//       } else if (child.val().nickNameJP) {
+//         nicknameJP = child.val().nickNameJP;
+//       }
 
-      if (nicknameKR) {
-        admin.database().ref(`/arcana/${arcanaID}/nicknameKR`).set(nicknameKR);
-        admin.database().ref(`/arcana/${arcanaID}/nickNameKR`).remove();
+//       if (nicknameKR) {
+//         admin.database().ref(`/arcana/${arcanaID}/nicknameKR`).set(nicknameKR);
+//         admin.database().ref(`/arcana/${arcanaID}/nickNameKR`).remove();
 
-      }
-      else {
-        console.log(`no nicknameKR for ${arcanaID}`);
-      }
-      if (nicknameJP) {
-        admin.database().ref(`/arcana/${arcanaID}/nicknameJP`).set(nicknameJP);
-        admin.database().ref(`/arcana/${arcanaID}/nickNameJP`).remove();
-      }
-      else {
-        console.log(`no nicknameJP for ${arcanaID}`);
-      }
+//       }
+//       else {
+//         console.log(`no nicknameKR for ${arcanaID}`);
+//       }
+//       if (nicknameJP) {
+//         admin.database().ref(`/arcana/${arcanaID}/nicknameJP`).set(nicknameJP);
+//         admin.database().ref(`/arcana/${arcanaID}/nickNameJP`).remove();
+//       }
+//       else {
+//         console.log(`no nicknameJP for ${arcanaID}`);
+//       }
           
-    });
-  });
-});
+//     });
+//   });
+// });
 
 
 // exports.fixWhiteSpaces = functions.database.ref('/loadFunction/{function}').onWrite(event => {

@@ -120,24 +120,18 @@ DEPENDENCIES:
   - KRWordWrapLabel
   - LicensesViewController (~> 0.6.0)
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
-  - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `master`)
+  - NVActivityIndicatorView
   - SkyFloatingLabelTextField
 
 EXTERNAL SOURCES:
   MIBadgeButton-Swift:
     :branch: master
     :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
-  NVActivityIndicatorView:
-    :branch: master
-    :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 CHECKOUT OPTIONS:
   MIBadgeButton-Swift:
     :commit: 3c2638d2e6e46ec2e6dd978d8ada8863df3df5e6
     :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
-  NVActivityIndicatorView:
-    :commit: 754250ef427d5a07f331fcb7501713f4ba0db5be
-    :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -163,10 +157,10 @@ SPEC CHECKSUMS:
   KRWordWrapLabel: a70d0e2c2baaab6e39bda828b9e83d47dab853e1
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
-  NVActivityIndicatorView: '09a1085f3caf939fe18cdb33684a7635291004e6'
+  NVActivityIndicatorView: 9f52a7f84bf5c6a798722c450fe3c198e01c56ed
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   SkyFloatingLabelTextField: 26a92ad407044dd5a7c3e4e348738ff0991514fe
 
-PODFILE CHECKSUM: e77b23437a21150058f9079b66a0a2a0d5578980
+PODFILE CHECKSUM: d28f6fe13e3dea5784228c2fe6d636c17ec83383
 
 COCOAPODS: 1.2.1
