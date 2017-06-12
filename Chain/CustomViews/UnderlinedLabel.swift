@@ -33,7 +33,7 @@ extension UILabel {
         
         if let a = self.text  {
             let attrString = NSMutableAttributedString(string: a)
-            attrString.addAttribute(NSAttributedStringKey.foregroundColor, value: self.font, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.font, value: self.font, range: NSMakeRange(0, attrString.length))
             attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
             self.attributedText = attrString
         }

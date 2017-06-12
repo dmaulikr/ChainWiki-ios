@@ -12,10 +12,16 @@ extension ArcanaDetail: UIDragInteractionDelegate {
     
     @available(iOS 11.0, *)
     func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-        let stringItemProvider = NSItemProvider(object: "Hello World" as NSString)
-        return [
-            UIDragItem(itemProvider: stringItemProvider)
-        ]
+        
+        if let image = screenShot() {
+            let provider = NSItemProvider(object: image)
+            return [
+                UIDragItem(itemProvider: provider)
+            ]
+        }
+        
+        return []
+        
     }
     
 }
@@ -27,3 +33,4 @@ func customEnableDragging(on view: UIView, dragInteractionDelegate: UIDragIntera
     let dragInteraction = UIDragInteraction(delegate: dragInteractionDelegate)
     view.addInteraction(dragInteraction)
 }
+

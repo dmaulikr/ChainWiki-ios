@@ -561,7 +561,7 @@ class ArcanaViewController: UIViewController {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSAttributedStringKey.foregroundColor: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.black]), forKey: "attributedTitle")
+            "정렬", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { action in
             self.sortArcanaByName()

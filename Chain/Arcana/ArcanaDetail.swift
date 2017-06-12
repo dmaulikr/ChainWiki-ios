@@ -61,8 +61,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
         tableView.estimatedSectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0
-//        tableView.estimatedRowHeight = 160
-//        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.backgroundColor = .groupTableViewBackground
         
@@ -130,11 +130,11 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if #available(iOS 11.0, *) {
-//            customEnableDragging(on: tableView, dragInteractionDelegate: self)
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        if #available(iOS 11.0, *) {
+            customEnableDragging(on: view, dragInteractionDelegate: self)
+        } else {
+            // Fallback on earlier versions
+        }
         updateHistory()
         setupViews()
         checkFavorites()
@@ -332,7 +332,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
             
             DispatchQueue.main.async {
-                self.screenShot()
+                if let image = self.screenShot() {
+                    UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
             }
             
             Analytics.logEvent("ExportedArcana", parameters: [
@@ -352,7 +354,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    func screenShot() {
+    func screenShot() -> UIImage? {
         
         let savedContentOffset = tableView.contentOffset
         tableView.scrollToRow(at: IndexPath(row: 0, section: tableView.numberOfSections-1), at: .bottom, animated: false)
@@ -360,23 +362,25 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
 //        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         tableView.layer.render(in: context)
         
         for i in 0 ..< tableView.numberOfSections  {
             if tableView.numberOfRows(inSection: i) > 0 {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: i), at: .bottom, animated: false)
-                guard let context = UIGraphicsGetCurrentContext() else { return }
+                guard let context = UIGraphicsGetCurrentContext() else { return nil }
                 tableView.layer.render(in: context)
             }
         }
         
         if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            UIGraphicsEndImageContext()
+            tableView.contentOffset = savedContentOffset
+            return image
         }
         
-        UIGraphicsEndImageContext()
-        tableView.contentOffset = savedContentOffset
+        return nil
+        
     }
 
     func updateHistory() {
@@ -817,9 +821,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case .skill:
             
-            guard let row = SkillRow(rawValue: indexPath.row) else { return UITableViewCell() }
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
+            
+            guard let row = SkillRow(rawValue: indexPath.row) else { return cell }
+            
             cell.selectionStyle = .none
             
             switch row {
