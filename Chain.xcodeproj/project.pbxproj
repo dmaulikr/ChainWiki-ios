@@ -31,6 +31,7 @@
 		04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */; };
 		04180D2E1DEC0CD500E4303D /* AbilityListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */; };
 		041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FD5681DB9A6F50068657F /* FirebaseService.swift */; };
+		042071C31EEE3C60007B7B6E /* ArcanaViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */; };
 		0425D4921E7893690030BF4A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4911E7893690030BF4A /* NavigationController.swift */; };
 		0425D4961E78C0D40030BF4A /* ArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */; };
 		0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */; };
@@ -172,6 +173,7 @@
 		04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListDataSource.swift; sourceTree = "<group>"; };
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		041FD5681DB9A6F50068657F /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaViewController+Drag.swift"; sourceTree = "<group>"; };
 		0425D4911E7893690030BF4A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewController.swift; sourceTree = "<group>"; };
 		0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernArcanaViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				0425D4911E7893690030BF4A /* NavigationController.swift */,
 				0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */,
 				0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */,
+				042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */,
 				040FA9A71E88999E00C315CD /* ArcanaViewExtensions.swift */,
 				0425D4991E78E8700030BF4A /* SearchArcanaViewController.swift */,
 				0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */,
@@ -881,6 +884,7 @@
 				04AE0E261D7A2C23008902A8 /* FilterViewController.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
 				04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */,
+				042071C31EEE3C60007B7B6E /* ArcanaViewController+Drag.swift in Sources */,
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,
 				04E03D211E79DDA500432F10 /* ImageToggleCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,

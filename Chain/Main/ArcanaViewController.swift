@@ -91,6 +91,9 @@ class ArcanaViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
         
         tableView.backgroundColor = .white
         tableView.alpha = 0
@@ -114,6 +117,10 @@ class ArcanaViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        if #available(iOS 11.0, *) {
+            collectionView.dragDelegate = self
+        }
+        
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.alpha = 0

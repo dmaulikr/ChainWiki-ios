@@ -26,8 +26,6 @@ extension ArcanaDetail: UIDragInteractionDelegate {
     
 }
 
-
-
 @available(iOS 11.0, *)
 func customEnableDragging(on view: UIView, dragInteractionDelegate: UIDragInteractionDelegate) {
     let dragInteraction = UIDragInteraction(delegate: dragInteractionDelegate)
