@@ -130,10 +130,16 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        if #available(iOS 11.0, *) {
+//            customEnableDragging(on: tableView, dragInteractionDelegate: self)
+//        } else {
+//            // Fallback on earlier versions
+//        }
         updateHistory()
         setupViews()
         checkFavorites()
     }
+    
     @objc 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
