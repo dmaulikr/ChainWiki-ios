@@ -27,7 +27,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         setupTabBar()
         tabBar.tintColor = Color.lightGreen
-        
     }
     
     func setupTabBar() {

@@ -40,7 +40,7 @@ class SearchController: UISearchController {
             searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
             searchIcon.tintColor = Color.lightGreen
             searchTextField.tintColor = Color.lightGreen
-            let attributeColor = [NSForegroundColorAttributeName: Color.lightGreen]
+            let attributeColor = [NSAttributedStringKey.foregroundColor: Color.lightGreen]
             searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
             searchTextField.textColor = Color.lightGreen
             if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {

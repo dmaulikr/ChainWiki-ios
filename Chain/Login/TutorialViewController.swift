@@ -77,11 +77,11 @@ class TutorialViewController: UIViewController {
         view.addSubview(startButton)
         
         imageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        imageView.setContentCompressionResistancePriority(.leastNormalMagnitude, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         descLabel.anchor(top: imageView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 20, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         descLabel.setContentHuggingPriority(.init(752), for: .vertical)
-        descLabel.setContentCompressionResistancePriority(.greatestFiniteMagnitude, for: .vertical)
+        descLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
         pageControl.anchor(top: descLabel.bottomAnchor, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         pageControl.anchorCenterXToSuperview()

@@ -16,7 +16,7 @@ class UnderlinedLabel: UILabel {
             // swift < 2. : let textRange = NSMakeRange(0, count(text))
             let textRange = NSMakeRange(0, text.characters.count)
             let attributedText = NSMutableAttributedString(string: text)
-            attributedText.addAttribute(NSUnderlineStyleAttributeName, value:NSUnderlineStyle.styleSingle.rawValue, range: textRange)
+            attributedText.addAttribute(NSAttributedStringKey.underlineStyle, value:NSUnderlineStyle.styleSingle.rawValue, range: textRange)
             // Add other attributes if needed
             
             self.attributedText = attributedText
@@ -33,8 +33,8 @@ extension UILabel {
         
         if let a = self.text  {
             let attrString = NSMutableAttributedString(string: a)
-            attrString.addAttribute(NSFontAttributeName, value: self.font, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.foregroundColor, value: self.font, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
             self.attributedText = attrString
         }
  
