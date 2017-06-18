@@ -31,6 +31,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.alpha = 0
+        if #available(iOS 11.0, *) {
+            customEnableDropping(on: imageView, dropInteractionDelegate: self)
+        }
         return imageView
     }()
     
@@ -43,6 +46,18 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         scrollView.bounces = false
         scrollView.delegate = self
         return scrollView
+    }()
+    
+    let animatedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0
+        return view
+    }()
+    
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotateMultiple, color: Color.lightGreen, padding: 0)
+        return spinner
     }()
     
     let backgroundView: UIView = {
@@ -132,8 +147,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         if #available(iOS 11.0, *) {
             customEnableDragging(on: view, dragInteractionDelegate: self)
-        } else {
-            // Fallback on earlier versions
         }
         updateHistory()
         setupViews()
@@ -175,10 +188,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         super.viewWillLayoutSubviews()
         
         guard UIDevice.current.userInterfaceIdiom == .pad else { return }
-        
-        arcanaImageView.removeFromSuperview()
-        tableView.removeFromSuperview()
-        view.addSubview(tableView)
         
         if traitCollection.horizontalSizeClass == .compact {
             updateCompactViews()
@@ -236,11 +245,67 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
         view.backgroundColor = .groupTableViewBackground
         
-        view.addSubview(arcanaImageView)
-                
+        if !arcanaImageView.isDescendant(of: view) {
+            view.addSubview(arcanaImageView)
+        }
+        
         arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: view.frame.width/2, heightConstant: (view.frame.width/2)*1.5)
         arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+    }
+    
+    func animateUpload() {
+        
+        view.addSubview(animatedView)
+        animatedView.anchorCenterYToSuperview()
+        animatedView.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 20, trailingConstant: 20, bottomConstant: 0, widthConstant: 0, heightConstant: 100)
+        animatedView.addSubview(activityIndicator)
+        
+        activityIndicator.anchorCenterSuperview()
+        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.layoutIfNeeded()
+        view.bringSubview(toFront: animatedView)
+        activityIndicator.startAnimating()
+        
+        UIView.animate(withDuration: 0.2) {
+            self.animatedView.fadeIn()
+        }
+        
+    }
+    
+    func animateLabel(success: Bool) {
+        
+        activityIndicator.removeFromSuperview()
+        
+        let label = UILabel()
+        label.font = APPLEGOTHIC_17
+        label.alpha = 0
+        
+        if success {
+            label.text = "업로드 완료!"
+        }
+        else {
+            label.text = "업로드 실패."
+        }
+        
+        animatedView.addSubview(label)
+        label.anchorCenterSuperview()
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            label.fadeIn()
+        }) { finished in
+            let when = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.animatedView.fadeOut()
+                }, completion: { finished in
+                    label.removeFromSuperview()
+                    self.animatedView.removeFromSuperview()
+                })
+            }
+        }
     }
     
 //    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -251,12 +316,12 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 //        tableView.reloadData()
 //    }
 //
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        arcanaImageView.removeFromSuperview()
-        tableView.reloadData()
-    }
-    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        arcanaImageView.removeFromSuperview()
+//        tableView.reloadData()
+//    }
+//
     func setupNavBar() {
         
         let shareButton = UIButton(type: .custom)
@@ -803,6 +868,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
             if UIDevice.current.userInterfaceIdiom == .phone {
                 cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+            }
+            if #available(iOS 11.0, *) {
+                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
             }
             cell.activityIndicator.startAnimating()
             

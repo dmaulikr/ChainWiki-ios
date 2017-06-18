@@ -220,7 +220,6 @@ class LoginHome: UIViewController, DisplayBanner {
                     getFavorites()
                     
                     self.changeRootVC(vc: .home)
-                    
 
                 }
                 self.activityIndicator.stopAnimating()

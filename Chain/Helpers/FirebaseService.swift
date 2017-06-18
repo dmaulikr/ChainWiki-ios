@@ -51,5 +51,25 @@ class FirebaseService {
         })
     }
     
+    func uploadArcanaImage(arcanaID: String, image: UIImage, imageType: ImageType, completion: @escaping (Bool) -> ()) {
+        
+        guard let data = UIImageJPEGRepresentation(image, 1) else {
+            completion(false)
+            return
+        }
+        // upload to firebase storage.
+        // start activity indicator
+        let arcanaImageRef = STORAGE_REF.child("image/arcana").child(arcanaID).child("\(imageType).jpg")
+        arcanaImageRef.putData(NSData(data: data) as Data, metadata: nil) { metadata, error in
+            if (error != nil) {
+                print("ERROR OCCURED WHILE UPLOADING \(imageType)")
+                completion(false)
+            } else {
+                print("UPLOADED \(imageType) FOR \(arcanaID)")
+                completion(true)
+            }
+        }
+        
+    }
     
 }

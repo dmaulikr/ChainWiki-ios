@@ -26,12 +26,12 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518931291.926736"
+                  timestampString = "519440973.575508"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
                   endingLineNumber = "282"
-                  offsetFromSymbolStart = "438">
+                  offsetFromSymbolStart = "408">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518931291.929902"
+                  timestampString = "519440973.577347"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "283"
                   endingLineNumber = "283"
-                  offsetFromSymbolStart = "14">
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -58,59 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chain/Login/LoginHome.swift"
-            timestampString = "518738792.697094"
+            timestampString = "519440973.403567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "firebaseLogin(loginProvider:credentials:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chain.LoginHome.firebaseLogin(loginProvider: Chain.LoginProvider, credentials: __C.AuthCredential) -&gt; ()"
-                  moduleName = "Chain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518931292.000112"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "236"
-                  endingLineNumber = "236"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.User&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Chain.LoginHome.firebaseLogin(loginProvider: Chain.LoginProvider, credentials: __C.AuthCredential) -&gt; ()"
-                  moduleName = "Chain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518931292.004329"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "237"
-                  endingLineNumber = "237"
-                  offsetFromSymbolStart = "25">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chain/Login/LoginHome.swift"
-            timestampString = "518738792.697146"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "facebookLogin()"
             landmarkType = "7">
             <Locations>
@@ -122,12 +74,12 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518931292.025908"
+                  timestampString = "519440973.586995"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "275"
-                  endingLineNumber = "275"
-                  offsetFromSymbolStart = "2138">
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "1592">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -137,14 +89,30 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518931292.029211"
+                  timestampString = "519440973.588538"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "277"
-                  endingLineNumber = "277"
-                  offsetFromSymbolStart = "262">
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "188">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chain/Main/ArcanaViewController.swift"
+            timestampString = "519456736.966762"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "viewWillLayoutSubviews()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -13,7 +13,7 @@ import Firebase
 
 let imageCache = NSCache<NSString, UIImage>()
 
-enum ImageType {
+enum ImageType: String {
     case profile
     case main
 }
@@ -164,3 +164,4 @@ extension UIViewController {
     }
 
 }
+
