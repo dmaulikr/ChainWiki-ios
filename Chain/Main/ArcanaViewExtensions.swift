@@ -52,7 +52,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
                 cell.arcanaID = arcana.getUID()
-                cell.arcanaImage.image = nil
+//                cell.arcanaImage.image = nil
                 cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
                 
                 // check if arcana has only name, or nickname.
@@ -159,7 +159,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
                 cell.arcanaID = arcana.getUID()
-                cell.arcanaImage.image = nil
+//                cell.arcanaImage.image = nil
                 switch arcanaView {
                     
                 case .mainGrid:

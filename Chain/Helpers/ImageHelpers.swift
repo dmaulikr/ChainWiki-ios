@@ -37,12 +37,12 @@ extension UIImageView {
             if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
                 if let cell = sender as? ArcanaImageIDCell {
                     if cell.arcanaID == arcanaID {
-                        self.image = cachedImage
+//                        self.image = cachedImage
                     }
                 }
                 else if let cell = sender as? ArcanaIconCell {
                     if cell.arcanaID == arcanaID {
-                        self.image = cachedImage
+//                        self.image = cachedImage
                     }
                 }
                 else {
@@ -54,10 +54,13 @@ extension UIImageView {
                     else {
                         // ipad image
                     }
-                    self.image = cachedImage
+//                    self.image = cachedImage
                 }
-                self.fadeIn(withDuration: 0.2)
-
+                
+                UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                    self.image = cachedImage
+                }, completion: nil)
+                
                 return
             }
             
@@ -66,10 +69,12 @@ extension UIImageView {
                 if (error != nil) {
                     UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
                     let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
-                    self.image = placeholder
+                    
                     imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                    self.fadeIn()
-
+                    UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                        self.image = placeholder
+                    }, completion: nil)
+                    
                 } else {
 
                     URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
@@ -87,15 +92,13 @@ extension UIImageView {
                             if let cell = sender as? ArcanaImageIDCell {
 
                                 if cell.arcanaID == arcanaID {
-                                    self.image = downloadedImage
-                                    self.alpha = 0
+//                                    self.image = downloadedImage
                                 }
                             }
                             else if let cell = sender as? ArcanaIconCell {
                                 
                                 if cell.arcanaID == arcanaID {
-                                    cell.arcanaImage.image = downloadedImage
-                                    self.alpha = 0
+//                                    cell.arcanaImage.image = downloadedImage
                                 }
 
                             }
@@ -104,16 +107,18 @@ extension UIImageView {
                                     // Main image requested, just set the image.
                                     cell.imageLoaded = true
                                     cell.arcanaImage.image = downloadedImage
-                                    self.alpha = 0
-                                    self.fadeIn(withDuration: 0.2)
                                     cell.activityIndicator.stopAnimating()
                                 }
                                 else {
-                                    self.image = downloadedImage
+//                                    self.image = downloadedImage
                                 }
                             
                             }
-                            self.fadeIn(withDuration: 0.2)
+                            
+                            UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                                self.image = downloadedImage
+                            }, completion: nil)
+                            
                         }
                         
                     }).resume()

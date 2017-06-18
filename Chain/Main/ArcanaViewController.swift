@@ -194,17 +194,17 @@ class ArcanaViewController: UIViewController {
         tableView.deselectRow(at: row, animated: true)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if !initialLoad {
-                setupColumns()
-                reloadView()
-            }
-        }
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            if !initialLoad {
+//                setupColumns()
+//                reloadView()
+//            }
+//        }
+//
+//    }
         
-    }
-    
     func setupViews() {
         
         setupColumns()
@@ -264,13 +264,13 @@ class ArcanaViewController: UIViewController {
 //        }
 //    }
 //
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        if !initialLoad {
-//            setupColumns()
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if !initialLoad {
+            setupColumns()
 //            reloadView()
-//        }
-//    }
+        }
+    }
     
     func setupChildViews() {
         
@@ -408,7 +408,9 @@ class ArcanaViewController: UIViewController {
                 else {
                     collectionView.alpha = 0
                     tableView.reloadData()
-                    tableView.fadeIn(withDuration: 0.5)
+                    if tableView.alpha == 0 {
+                        tableView.fadeIn(withDuration: 0.5)
+                    }
                 }
                 
             case .profile, .mainGrid:
@@ -420,7 +422,9 @@ class ArcanaViewController: UIViewController {
                 else {
                     tableView.alpha = 0
                     collectionView.reloadData()
-                    collectionView.fadeIn(withDuration: 0.5)
+                    if collectionView.alpha == 0 {
+                        collectionView.fadeIn(withDuration: 0.5)
+                    }
                 }
                 
             }
