@@ -58,6 +58,7 @@ extension UIImageView {
                 }
                 
                 UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                    self.alpha = 1
                     self.image = cachedImage
                 }, completion: nil)
                 
@@ -116,6 +117,7 @@ extension UIImageView {
                             }
                             
                             UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                                self.alpha = 1
                                 self.image = downloadedImage
                             }, completion: nil)
                             

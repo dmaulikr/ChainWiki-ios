@@ -114,11 +114,24 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         
         view.endEditing(true)
         
-        let arcana: Arcana
-        arcana = arcanaArray[indexPath.section]
+        let arcana = arcanaArray[indexPath.section]
+        delegate?.arcanaSelected(arcana: arcana)
+        if let detailViewController = delegate as? ArcanaDetail {
+            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+        }
+            
+        else {
+            // welcome screen
+            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
+            
+            self.delegate = arcanaDetailVC
+            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        }
         
-        let vc = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = ArcanaDetail(arcana: arcana)
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -145,11 +158,13 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
                 cell.collectionViewDelegate = self
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    if traitCollection.horizontalSizeClass == .compact {
-                        cell.numberOfColumns = 1
-                    }
-                    else {
-                        cell.numberOfColumns = 2
+                    if let splitVC = splitViewController {
+                        if splitVC.primaryColumnWidth <= 320 {
+                            cell.numberOfColumns = 1
+                        }
+                        else {
+                            cell.numberOfColumns = 2
+                        }
                     }
                 }
                 cell.arcana = arcana
@@ -187,13 +202,22 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let arcana: Arcana
-        arcana = arcanaArray[indexPath.item]
-        
         view.endEditing(true)
         
-        let vc = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(vc, animated: true)
+        let arcana = arcanaArray[indexPath.item]
+        
+        if let arcanaDetailVC = delegate {
+            arcanaDetailVC.arcanaSelected(arcana: arcana)
+        }
+        else {
+            // welcome screen
+            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+            self.delegate = arcanaDetailVC
+            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        }
+        
+//        let vc = ArcanaDetail(arcana: arcana)
+//        navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -204,7 +228,19 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .list:
             let cellSize: CGFloat
             
-            cellSize = ((collectionView.frame.width - 5)/2)
+//            if UIDevice.current.userInterfaceIdiom == .pad {
+                if let splitVC = splitViewController {
+                    if splitVC.primaryColumnWidth <= 320 {
+                        cellSize = ((collectionView.frame.width - 5))
+                    }
+                    else {
+                        cellSize = ((collectionView.frame.width - 5)/2)
+                    }
+                }
+//            }
+            else {
+                cellSize = ((collectionView.frame.width - 5)/2)
+            }
             
             return CGSize(width: cellSize, height: 90)
 
