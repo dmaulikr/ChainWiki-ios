@@ -110,7 +110,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            return tableView.frame.width * 1.5
+            return min(tableView.frame.width * 1.5, 500)
+//            return tableView.frame.width * 1.5
         case .attribute:
             return 382
             
@@ -120,23 +121,23 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        guard let section = Section(rawValue: indexPath.section) else { return 0 }
-        
-        switch section {
-            
-        case .image:
-            return tableView.frame.width * 1.5
-        case .attribute:
-            return 382
-            
-        default:
-            return UITableViewAutomaticDimension
-        }
-        
-    }
-    
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        guard let section = Section(rawValue: indexPath.section) else { return 0 }
+//
+//        switch section {
+//
+//        case .image:
+//            return tableView.frame.width * 1.5
+//        case .attribute:
+//            return 382
+//
+//        default:
+//            return UITableViewAutomaticDimension
+//        }
+//
+//    }
+//
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if tableView.numberOfRows(inSection: section) != 0 {
@@ -170,7 +171,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             if #available(iOS 11.0, *) {
                 customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
             }
-            cell.activityIndicator.startAnimating()
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
             
@@ -181,9 +181,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.arcana = arcana
             cell.arcanaDetailDelegate = self
             cell.selectionStyle = .none
-            //            cell.collectionView.collectionViewLayout.invalidateLayout()
             cell.collectionView.reloadData()
-            
             return cell
             
         case .skill:

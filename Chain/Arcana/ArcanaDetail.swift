@@ -25,8 +25,11 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
     
     var arcana: Arcana {
         didSet {
-//            arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
+            title = arcana.getNameKR()
             tableView.reloadData()
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+            
         }
     }
     var initialLoad = true
@@ -37,9 +40,9 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.alpha = 0
-        if #available(iOS 11.0, *) {
-            customEnableDropping(on: imageView, dropInteractionDelegate: self)
-        }
+//        if #available(iOS 11.0, *) {
+//            customEnableDropping(on: imageView, dropInteractionDelegate: self)
+//        }
         return imageView
     }()
     
@@ -208,7 +211,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         
     func setupViews() {
 
-        title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         

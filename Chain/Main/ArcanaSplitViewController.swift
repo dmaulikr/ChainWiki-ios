@@ -28,8 +28,19 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         viewControllers = viewControllerList
         delegate = self
         view.backgroundColor = .white
-        preferredDisplayMode = UISplitViewControllerDisplayMode.automatic
+        preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         maximumPrimaryColumnWidth = 300
     }
-
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if size.width < UIScreen.main.bounds.width {
+            maximumPrimaryColumnWidth = 300
+        }
+        else {
+            maximumPrimaryColumnWidth = 600
+        }
+    }
+    
 }

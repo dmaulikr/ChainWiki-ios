@@ -115,8 +115,9 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         view.endEditing(true)
         
         let arcana = arcanaArray[indexPath.section]
-        delegate?.arcanaSelected(arcana: arcana)
+        
         if let detailViewController = delegate as? ArcanaDetail {
+            detailViewController.arcanaSelected(arcana: arcana)
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
             

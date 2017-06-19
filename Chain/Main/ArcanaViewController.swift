@@ -259,22 +259,6 @@ class ArcanaViewController: UIViewController {
         
     }
     
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        if !initialLoad {
-//            setupColumns()
-//            reloadView()
-//        }
-//    }
-//
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        if !initialLoad {
-            setupColumns()
-//            reloadView()
-        }
-    }
-    
     func setupChildViews() {
         
         filterViewController = FilterViewController()

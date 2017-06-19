@@ -48,7 +48,6 @@ extension UIImageView {
                 else {
                     // sender is main arcana image
                     if let cell = sender as? ArcanaImageCell {
-                        cell.activityIndicator.stopAnimating()
                         cell.imageLoaded = true
                     }
                     else {
@@ -108,7 +107,6 @@ extension UIImageView {
                                     // Main image requested, just set the image.
                                     cell.imageLoaded = true
                                     cell.arcanaImage.image = downloadedImage
-                                    cell.activityIndicator.stopAnimating()
                                 }
                                 else {
 //                                    self.image = downloadedImage
@@ -130,11 +128,7 @@ extension UIImageView {
             }
 
         }
-        else {
-            if let imageCell = sender as? ArcanaImageCell {
-                imageCell.activityIndicator.stopAnimating()
-            }
-        }
+
     }
 }
 

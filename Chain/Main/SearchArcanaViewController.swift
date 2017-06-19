@@ -130,16 +130,19 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        searchBar.layoutIfNeeded()
-//    }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        searchBar.layoutIfNeeded()
-//    }
-//
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            
+            if !initialLoad {
+                setupColumns()
+            }
+            
+        }
+        
+    }
+    
     override func setupChildViews() {
         
         super.setupChildViews()

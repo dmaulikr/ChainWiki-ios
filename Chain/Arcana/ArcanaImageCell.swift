@@ -15,25 +15,17 @@ class ArcanaImageCell: BaseTableViewCell {
     
     let arcanaImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         return imageView
-    }()
-    
-    let activityIndicator: NVActivityIndicatorView = {
-        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotate, color: Color.darkSalmon, padding: 0)
-        return spinner
     }()
 
     override func setupViews() {
         
         addSubview(arcanaImage)
-        addSubview(activityIndicator)
         
         arcanaImage.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        
-        activityIndicator.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 50, heightConstant: 50)
-        activityIndicator.anchorCenterSuperview()
+
     }
     
 }
