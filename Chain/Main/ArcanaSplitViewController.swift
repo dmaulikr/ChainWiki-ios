@@ -11,23 +11,35 @@ import Firebase
 
 class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
-    lazy var viewControllerList: [UIViewController] = {
+//    lazy var viewControllerList: [UIViewController] = {
+//
+//        let searchArcanaVC = SearchArcanaViewController()
+//        let arcanaDetailVC = WelcomeViewController()
+//
+//        let rootViewController = NavigationController(searchArcanaVC)
+//        let detailViewController = NavigationController(arcanaDetailVC)
+//
+//        return [rootViewController, detailViewController]
+//
+//    }()
+    
+    var viewControllerList = [UIViewController]()
+    
+    init(arcanaVC: ArcanaVC) {
+        super.init(nibName: nil, bundle: nil)
+        setupControllers(arcanaVC)
         
-        let searchArcanaVC = SearchArcanaViewController()
-        let arcanaDetailVC = WelcomeViewController()
-        
-        let rootViewController = NavigationController(searchArcanaVC)
-        let detailViewController = NavigationController(arcanaDetailVC)
-        
-        return [rootViewController, detailViewController]
-        
-    }()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = viewControllerList
         delegate = self
-        view.backgroundColor = .white
+        view.backgroundColor = .gray
         preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         maximumPrimaryColumnWidth = 300
     }
@@ -43,4 +55,26 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         }
     }
     
+    func setupControllers(_ arcanaVC: ArcanaVC) {
+        
+        let masterVC: ArcanaViewController
+        let arcanaDetailVC = WelcomeViewController()
+        let detailViewController = NavigationController(arcanaDetailVC)
+        
+        switch arcanaVC {
+            
+        case .search:
+            masterVC = SearchArcanaViewController()
+            
+        case .tavern:
+            masterVC = SearchArcanaViewController()
+            
+        case .favorites:
+            masterVC = FavoritesArcanaViewController()
+            
+        }
+        
+        viewControllerList = [NavigationController(masterVC), detailViewController]
+        
+    }
 }

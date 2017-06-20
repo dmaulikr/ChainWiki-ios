@@ -30,7 +30,7 @@
 		040FA9A21E886B2200C315CD /* ArcanaAbilityPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A11E886B2200C315CD /* ArcanaAbilityPreviewCell.swift */; };
 		040FA9A41E886B7500C315CD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */; };
 		040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A51E88952000C315CD /* ArcanaIconCell.swift */; };
-		040FA9A81E88999E00C315CD /* ArcanaViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A71E88999E00C315CD /* ArcanaViewExtensions.swift */; };
+		040FA9A81E88999E00C315CD /* ArcanaViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A71E88999E00C315CD /* ArcanaViewController+TableView.swift */; };
 		040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */; };
 		041729071E7297D50090E634 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041729061E7297D50090E634 /* FloatingTextField.swift */; };
 		04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */; };
@@ -183,7 +183,7 @@
 		040FA9A11E886B2200C315CD /* ArcanaAbilityPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityPreviewCell.swift; sourceTree = "<group>"; };
 		040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		040FA9A51E88952000C315CD /* ArcanaIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconCell.swift; sourceTree = "<group>"; };
-		040FA9A71E88999E00C315CD /* ArcanaViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewExtensions.swift; sourceTree = "<group>"; };
+		040FA9A71E88999E00C315CD /* ArcanaViewController+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArcanaViewController+TableView.swift"; sourceTree = "<group>"; };
 		040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconLabelCell.swift; sourceTree = "<group>"; };
 		041729061E7297D50090E634 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
 		04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -438,8 +438,8 @@
 				04E78B0B1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift */,
 				04E78B0D1EF6E6B400B4F0FE /* WelcomeViewController.swift */,
 				0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */,
+				040FA9A71E88999E00C315CD /* ArcanaViewController+TableView.swift */,
 				042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */,
-				040FA9A71E88999E00C315CD /* ArcanaViewExtensions.swift */,
 				0425D4991E78E8700030BF4A /* SearchArcanaViewController.swift */,
 				0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */,
 				0425D49B1E78FBC00030BF4A /* FavoritesArcanaViewController.swift */,
@@ -866,7 +866,7 @@
 				04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */,
 				0465F9851EE3449800282014 /* KRLabel.swift in Sources */,
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
-				040FA9A81E88999E00C315CD /* ArcanaViewExtensions.swift in Sources */,
+				040FA9A81E88999E00C315CD /* ArcanaViewController+TableView.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
 				04F87D631E763C4000E318F7 /* BaseCollectionViewController.swift in Sources */,
 				040454951DFB981500A1F74E /* Ability.swift in Sources */,

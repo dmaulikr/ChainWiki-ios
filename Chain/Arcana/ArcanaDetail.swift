@@ -609,7 +609,8 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
                 }
                 
                 }) {_ in
-
+                    self.arcanaImageView.removeFromSuperview()
+                    self.backgroundView.removeFromSuperview()
                     self.imageScrollView.removeFromSuperview()
             }
             
@@ -618,6 +619,8 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         else {
             UIView.animate(withDuration: 0.2, animations: {
                 gestureView.alpha = 0
+                self.arcanaImageView.removeFromSuperview()
+                self.backgroundView.removeFromSuperview()
                 self.imageScrollView.removeFromSuperview()
 
             })

@@ -165,12 +165,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
             cell.selectionStyle = .none
             
-            if UIDevice.current.userInterfaceIdiom == .phone {
+//            if UIDevice.current.userInterfaceIdiom == .phone {
                 cell.arcanaImage.addGestureRecognizer(tapImageGesture)
-            }
-            if #available(iOS 11.0, *) {
-                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
-            }
+//            }
+//            if #available(iOS 11.0, *) {
+//                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
+//            }
             
             cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
             

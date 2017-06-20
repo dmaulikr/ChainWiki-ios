@@ -27,12 +27,13 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         setupTabBar()
         tabBar.tintColor = Color.lightGreen
+        tabBar.barTintColor = .white
     }
     
     func setupTabBar() {
 //        let arcanaTab = SearchArcanaPageViewController()
 //        let arcanaTab = SearchArcanaViewController()
-        let arcanaTab = ArcanaSplitViewController()
+        let arcanaTab = ArcanaSplitViewController(arcanaVC: .search)
 //        let arcanaTab = NavigationController(SearchArcanaViewController())
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         
@@ -45,7 +46,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         let dataTab = NavigationController(DataViewController())
         dataTab.tabBarItem = UITabBarItem(title: "자료", image: #imageLiteral(resourceName: "openSite"), tag: 3)
         
-        let favoritesTab = NavigationController(FavoritesArcanaViewController())
+//        let favoritesTab = NavigationController(FavoritesArcanaViewController())
+        let favoritesTab = ArcanaSplitViewController(arcanaVC: .favorites)
         favoritesTab.tabBarItem = UITabBarItem(title: "즐겨찾기", image: #imageLiteral(resourceName: "favorites"), tag: 4)
         
         viewControllers = [arcanaTab, abilityTab, tavernTab, dataTab, favoritesTab]

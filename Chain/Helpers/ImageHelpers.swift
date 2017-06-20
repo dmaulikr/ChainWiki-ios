@@ -35,26 +35,6 @@ extension UIImageView {
 
             // check cache for image first
             if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
-                if let cell = sender as? ArcanaImageIDCell {
-                    if cell.arcanaID == arcanaID {
-//                        self.image = cachedImage
-                    }
-                }
-                else if let cell = sender as? ArcanaIconCell {
-                    if cell.arcanaID == arcanaID {
-//                        self.image = cachedImage
-                    }
-                }
-                else {
-                    // sender is main arcana image
-                    if let cell = sender as? ArcanaImageCell {
-                        cell.imageLoaded = true
-                    }
-                    else {
-                        // ipad image
-                    }
-//                    self.image = cachedImage
-                }
                 
                 UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
                     self.alpha = 1
@@ -71,7 +51,7 @@ extension UIImageView {
                     let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
                     
                     imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                    UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
                         self.image = placeholder
                     }, completion: nil)
                     
@@ -83,36 +63,11 @@ extension UIImageView {
                             return
                         }
                         
+                        guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                        
+                        imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
+                        
                         DispatchQueue.main.async {
-                            
-                            guard let data = data, let downloadedImage = UIImage(data: data) else { return }
-                            
-                            imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
-                            
-                            if let cell = sender as? ArcanaImageIDCell {
-
-                                if cell.arcanaID == arcanaID {
-//                                    self.image = downloadedImage
-                                }
-                            }
-                            else if let cell = sender as? ArcanaIconCell {
-                                
-                                if cell.arcanaID == arcanaID {
-//                                    cell.arcanaImage.image = downloadedImage
-                                }
-
-                            }
-                            else {
-                                if let cell = sender as? ArcanaImageCell {
-                                    // Main image requested, just set the image.
-                                    cell.imageLoaded = true
-                                    cell.arcanaImage.image = downloadedImage
-                                }
-                                else {
-//                                    self.image = downloadedImage
-                                }
-                            
-                            }
                             
                             UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
                                 self.alpha = 1
