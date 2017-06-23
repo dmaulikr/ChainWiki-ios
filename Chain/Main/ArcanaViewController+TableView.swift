@@ -51,32 +51,16 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
-                cell.arcanaID = arcana.getUID()
-//                cell.arcanaImage.image = nil
-                cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
-                
-                // check if arcana has only name, or nickname.
-                if let nnKR = arcana.getNicknameKR() {
-                    cell.arcanaNickKR.text = nnKR
-                }
-                if let nnJP = arcana.getNicknameJP() {
-                    cell.arcanaNickJP.text = nnJP
-                }
-                cell.arcanaNameKR.text = arcana.getNameKR()
-                cell.arcanaNameJP.text = arcana.getNameJP()
-                
-                cell.arcanaRarity.text = "#\(arcana.getRarity())★"
-                cell.arcanaGroup.text = "#\(arcana.getGroup())"
-                cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
-                
-                if let a = arcana.getAffiliation() {
-                    if a != "" {
-                        cell.arcanaAffiliation.text = "#\(a)"
-                    }
+                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
                     
-                }
+                    DispatchQueue.main.async {
+                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
+                            imageCell.arcanaImageView.animateImage(arcanaImage)
+                        }
+                    }
+                })
                 
-                cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+                cell.setupCell(arcana: arcana)
                 
                 return cell
                 
@@ -84,9 +68,15 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
-                cell.arcanaID = arcana.getUID()
-                cell.arcanaImageView.image = nil
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+
+                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                    
+                    DispatchQueue.main.async {
+                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaMainImageCell {
+                            imageCell.arcanaImageView.animateImage(arcanaImage)
+                        }
+                    }
+                })
                 
                 return cell
             }
@@ -174,14 +164,27 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
-                cell.arcanaID = arcana.getUID()
-//                cell.arcanaImage.image = nil
+
                 switch arcanaView {
                     
                 case .mainGrid:
-                    cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+                    cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                        
+                        DispatchQueue.main.async {
+                            if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell {
+                                imageCell.arcanaImageView.animateImage(arcanaImage)
+                            }
+                        }
+                    })
                 default:
-                    cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+                    cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
+                        
+                        DispatchQueue.main.async {
+                            if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell {
+                                imageCell.arcanaImageView.animateImage(arcanaImage)
+                            }
+                        }
+                    })
                     
                 }
                 return cell
@@ -207,18 +210,22 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let arcana = arcanaArray[indexPath.item]
         
-        if let arcanaDetailVC = delegate {
-            arcanaDetailVC.arcanaSelected(arcana: arcana)
+
+        if let detailViewController = delegate as? ArcanaDetail {
+            detailViewController.arcanaSelected(arcana: arcana)
+            splitViewController?.showDetailViewController(detailViewController, sender: nil)
         }
+            
         else {
             // welcome screen
             let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
+            
             self.delegate = arcanaDetailVC
             splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         }
-        
-//        let vc = ArcanaDetail(arcana: arcana)
-//        navigationController?.pushViewController(vc, animated: true)
+
         
     }
     

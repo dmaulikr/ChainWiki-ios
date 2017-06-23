@@ -20,9 +20,17 @@ enum ImageType: String {
 
 extension UIImageView {
     
-    func loadArcanaImage(_ arcanaID: String, imageType: ImageType, sender: AnyObject?) {
+    func animateImage(_ image: UIImage) {
+        
+        UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.image = image
+        }, completion: nil)
+        
+    }
+    
+    func loadArcanaImage(_ arcanaID: String, imageType: ImageType, completion: @escaping (UIImage) -> ()) {
 
-        var imageRef = ""
+        let imageRef: String
         
         switch imageType {
         case .profile:
@@ -35,53 +43,52 @@ extension UIImageView {
 
             // check cache for image first
             if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
-                
-                UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                    self.alpha = 1
-                    self.image = cachedImage
-                }, completion: nil)
-                
-                return
+                completion(cachedImage)
             }
             
-            // image not in cache, download from firebase
-            STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
-                if (error != nil) {
-                    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-                    let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+            else {
+                
+                image = nil
+                
+                STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                     
-                    imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                    UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                        self.image = placeholder
-                    }, completion: nil)
-                    
-                } else {
-
-                    URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
-                        
-                        if error != nil {
-                            return
-                        }
-                        
-                        guard let data = data, let downloadedImage = UIImage(data: data) else { return }
-                        
-                        imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
+                    if (error != nil) {
                         
                         DispatchQueue.main.async {
-                            
-                            UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                                self.alpha = 1
-                                self.image = downloadedImage
-                            }, completion: nil)
-                            
+                            UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+                            let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+                            imageCache.setObject(placeholder, forKey: imageRef as NSString)
+                            completion(placeholder)
                         }
                         
-                    }).resume()
+                    } else {
+                        
+                        URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                            
+                            if error != nil {
+                                
+                                DispatchQueue.main.async {
+                                    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+                                    let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+                                    imageCache.setObject(placeholder, forKey: imageRef as NSString)
+                                    completion(placeholder)
+                                }
+                                
+                            }
+                            
+                            guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                            
+                            imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
+                            completion(downloadedImage)
+                            
+                        }).resume()
+                        
+                    }
                     
                 }
- 
-            }
 
+            }
+            
         }
 
     }
