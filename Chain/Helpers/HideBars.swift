@@ -76,6 +76,7 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         showBars()
     }
     
+    @objc
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         guard let superview = scrollView.superview else { return }

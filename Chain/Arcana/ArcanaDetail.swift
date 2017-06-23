@@ -26,10 +26,7 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
     var arcana: Arcana {
         didSet {
             title = arcana.getNameKR()
-            tableView.setContentOffset(.zero, animated: false)
             tableView.reloadData()
-//            let indexPath = IndexPath(row: 0, section: 0)
-//            self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
     var initialLoad = true
@@ -161,6 +158,9 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        if #available(iOS 11.0, *) {
+            customEnableDragging(on: view, dragInteractionDelegate: self)
+        }
         updateHistory()
         checkFavorites()
     }
@@ -208,7 +208,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         
     func setupViews() {
 
-        title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         

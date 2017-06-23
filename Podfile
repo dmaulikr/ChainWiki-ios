@@ -17,8 +17,10 @@ target 'Chain' do
     pod 'Firebase/Performance'
     pod 'GoogleSignIn'
 
+    pod 'Kanna', '~> 2.1.0'
+    pod 'SwiftyJSON'
     pod 'KRWordWrapLabel'    
-    pod 'NVActivityIndicatorView'
+    pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'swift4'
     pod 'SkyFloatingLabelTextField'
     pod 'LicensesViewController', '~> 0.6.0'
     pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'

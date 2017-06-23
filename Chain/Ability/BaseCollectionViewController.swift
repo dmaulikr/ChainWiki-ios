@@ -261,6 +261,7 @@ class BaseCollectionViewController: UIViewController {
         }
     }
     
+    @objc
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let numberOfMenuTabs = menuBarDelegate?.numberOfMenuTabs ?? 2
         menuBarDelegate?.menuBar.horizontalBarLeadingAnchorConstraint?.constant = (scrollView.contentOffset.x)/CGFloat(numberOfMenuTabs) + CGFloat(10)

@@ -66,6 +66,50 @@ let ARCANAVIEWUPDATENOTIFICATIONNAME = Notification.Name("ArcanaViewUpdate")
 // Fonts
 let APPLEGOTHIC_17 = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
 
+enum ArcanaAttribute: String {
+    
+    case nameKR
+    case nicknameKR
+    case nameJP
+    case nicknameJP
+    case rarity
+    case group
+    case tavern
+    case affiliation
+    case cost
+    case weapon
+    
+    case kizunaName
+    case kizunaCost
+    case kizunaDesc
+    
+    case skillCount
+    case skillName1
+    case skillMana1
+    case skillDesc1
+    
+    case skillName2
+    case skillMana2
+    case skillDesc2
+    
+    case skillName3
+    case skillMana3
+    case skillDesc3
+    
+    case abilityName1
+    case abilityDesc1
+    
+    case abilityName2
+    case abilityDesc2
+    
+    case abilityName3
+    case abilityDesc3
+    
+    case partyAbility
+    
+    case chainStory
+}
+
 // Colors
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {

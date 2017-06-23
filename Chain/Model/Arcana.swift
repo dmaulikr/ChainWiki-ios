@@ -171,9 +171,118 @@ class Arcana: Equatable, Hashable {
         if let pA = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
             partyAbility = pA
         }
-
-        
   
+    }
+    
+    init?(arcanaDict: [String: String]) {
+        
+        guard let u = arcanaDict["uid"],let nKR = arcanaDict["nameKR"], let nJP = arcanaDict["nameJP"], let r = arcanaDict["rarity"], let g = arcanaDict["group"], let t = arcanaDict["tavern"], let a = arcanaDict["affiliation"], let c = arcanaDict["cost"], let w = arcanaDict["weapon"], let kN = arcanaDict["kizunaName"], let kC = arcanaDict["kizunaCost"], let kD = arcanaDict["kizunaDesc"], let sC = arcanaDict["skillCount"], let sN1 = arcanaDict["skillName1"], let sM1 = arcanaDict["skillMana1"], let sD1 = arcanaDict["skillDesc1"] else {
+            
+            print("ARCANA DICIONARY VALUE IS NIL")
+            return nil
+        }
+        
+        uid = u
+        nameKR = nKR
+        nameJP = nJP
+        rarity = r
+        group = g
+        tavern = t
+        affiliation = a
+        
+        cost = c
+        weapon = w
+        
+        kizunaName  = kN
+        kizunaCost = kC
+        kizunaDesc = kD
+        
+        skillCount = sC
+        
+        skillName1 = sN1
+        skillMana1 = sM1
+        skillDesc1 = sD1
+        
+        numberOfViews = 0
+        numberOfLikes = 0
+        
+        if let nnKR = arcanaDict["nicknameKR"] {
+            nicknameKR = nnKR
+        }
+        else if let nnKR = arcanaDict["nickNameKR"] {
+            nicknameKR = nnKR
+        }
+        if let nnJP = arcanaDict["nicknameJP"] {
+            nicknameJP = nnJP
+        }
+        else if let nnJP = arcanaDict["nickNameJP"] {
+            nicknameJP = nnJP
+        }
+        
+        if let aN1 = arcanaDict["abilityName1"] {
+            abilityName1 = aN1
+        }
+        
+        if let aD1 = arcanaDict["abilityDesc1"] {
+            abilityDesc1 = aD1
+        }
+        
+        if let aN2 = arcanaDict["abilityName2"] {
+            abilityName2 = aN2
+        }
+        
+        if let aD2 = arcanaDict["abilityDesc2"] {
+            abilityDesc2 = aD2
+        }
+        
+        if let aN3 = arcanaDict["abilityName3"] {
+            abilityName3 = aN3
+        }
+        
+        if let aD3 = arcanaDict["abilityDesc3"] {
+            abilityDesc3 = aD3
+        }
+        
+        if let sN2 = arcanaDict["skillName2"] {
+            skillName2 = sN2
+        }
+        
+        if let sM2 = arcanaDict["skillMana2"] {
+            skillMana2 = sM2
+        }
+        
+        if let sD2 = arcanaDict["skillDesc2"] {
+            skillDesc2 = sD2
+        }
+        
+        if let sN3 = arcanaDict["skillName3"] {
+            skillName3 = sN3
+        }
+        
+        if let sM3 = arcanaDict["skillMana3"] {
+            skillMana3 = sM3
+        }
+        
+        if let sD3 = arcanaDict["skillDesc3"] {
+            skillDesc3 = sD3
+        }
+        
+        if let d = arcanaDict["dateAdded"] {
+            dateAdded = d
+        }
+        
+        if let cStory = arcanaDict["chainStory"] {
+            chainStory = cStory
+        }
+        
+        if let cStone = arcanaDict["chainStone"] {
+            chainStone = cStone
+        }
+        
+        if let pA = arcanaDict["partyAbility"] {
+            partyAbility = pA
+        }
+        
     }
     
     func populateArray() -> [String] {

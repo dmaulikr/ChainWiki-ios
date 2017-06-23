@@ -25,7 +25,7 @@ public extension UIView {
     
     func fadeViewInThenOut(delay: TimeInterval) {
         
-        let animationDuration = 1.0
+        let animationDuration = 0.2
         
         // Fade in the view
         UIView.animate(withDuration: animationDuration, animations: { () -> Void in

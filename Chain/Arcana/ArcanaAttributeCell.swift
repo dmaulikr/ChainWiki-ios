@@ -89,7 +89,7 @@ class ArcanaAttributeCell: BaseTableViewCell {
         addSubview(attributeValueLabel)
         
         attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        attributeKeyLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .vertical)
+        attributeKeyLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         attributeValueLabel.anchor(top: attributeKeyLabel.bottomAnchor, leading: attributeKeyLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
         
     }
@@ -119,7 +119,7 @@ class ArcanaBaseInfoCell: UICollectionViewCell {
         addSubview(attributeValueLabel)
         
         attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        attributeKeyLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .vertical)
+        attributeKeyLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         attributeValueLabel.anchor(top: attributeKeyLabel.bottomAnchor, leading: attributeKeyLabel.leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 10, widthConstant: 0, heightConstant: 30)
     }
@@ -143,7 +143,7 @@ class ArcanaClassBaseInfoCell: ArcanaBaseInfoCell {
         addSubview(attributeValueLabel)
         
         attributeKeyLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        attributeKeyLabel.setContentHuggingPriority(.greatestFiniteMagnitude, for: .vertical)
+        attributeKeyLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         arcanaClassImageView.anchor(top: nil, leading: attributeKeyLabel.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 25, heightConstant: 20)
         arcanaClassImageView.centerYAnchor.constraint(equalTo: attributeValueLabel.centerYAnchor).isActive = true
         

@@ -23,7 +23,10 @@ class DataViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.cellLayoutMarginsFollowReadableWidth = false
+        tableView.tableFooterView = UIView(frame: .zero)
+        
         tableView.register(DataCell.self, forCellReuseIdentifier: "DataCell")
+        
         return tableView
     }()
 
@@ -36,6 +39,7 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
         observeLinks()
         setupViews()
+        setupNavBar()
 //        downloadArcanaCount()
     }
     
@@ -64,6 +68,11 @@ class DataViewController: UIViewController {
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }
     
+    func setupNavBar() {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showUploadArcana))
+        navigationItem.rightBarButtonItem = button
+    }
+    
     func observeLinks() {
         
         refHandle = ref.observe(.childAdded, with: { snapshot in
@@ -87,14 +96,12 @@ class DataViewController: UIViewController {
         })
     }
     
-    func downloadArcanaCount() {
-        
-        FIREBASE_REF.child("arcana").observeSingleEvent(of: .value, with: { snapshot in
-            print(snapshot.childrenCount)
-            let arcanaCountButton = UIBarButtonItem(title: "아르카나 갯수: \(snapshot.childrenCount)", style: .plain, target: nil, action: nil)
-            self.navigationItem.rightBarButtonItem = arcanaCountButton
-        })
+    @objc
+    func showUploadArcana() {
+        let vc = UploadArcanaViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
+    
 
 }
 

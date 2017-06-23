@@ -105,18 +105,18 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        let headerViewHeight: CGFloat
+        let headerViewHeight: CGFloat = 70
         if traitCollection.horizontalSizeClass == .compact {
             
-            headerViewHeight = 70
-
+//            headerViewHeight = 70
+            
 //            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
 //            tableViewBottomConstraint?.isActive = true
             
             filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         }
         else {
-            headerViewHeight = 100
+//            headerViewHeight = 100
             
             filterView.anchor(top: headerView.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
             
@@ -130,16 +130,19 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        searchBar.layoutIfNeeded()
-//    }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        searchBar.layoutIfNeeded()
-//    }
-//
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            
+            if !initialLoad {
+                setupColumns()
+            }
+            
+        }
+        
+    }
+    
     override func setupChildViews() {
         
         super.setupChildViews()
@@ -161,7 +164,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func setupNavBar() {
         super.setupNavBar()
-        navigationItem.title = "아르카나"
+        title = "아르카나"
         
         FESTIVAL_REF.observeSingleEvent(of: .value, with: { snapshot in
             
@@ -224,9 +227,9 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         // For UI Testing.
 //        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
-//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-        ref.observe(.childAdded, with: { snapshot in
-
+         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+//        ref.observe(.childAdded, with: { snapshot in
+            
             if let arcana = Arcana(snapshot: snapshot) {
                 
                 if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {
@@ -385,13 +388,13 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     func showSearchBar(_ show: Bool) {
         
-        let headerViewHeight: CGFloat
-        if traitCollection.horizontalSizeClass == .compact {
-            headerViewHeight = 70
-        }
-        else {
-            headerViewHeight = 100
-        }
+        let headerViewHeight: CGFloat = 70
+//        if traitCollection.horizontalSizeClass == .compact {
+//            headerViewHeight = 70
+//        }
+//        else {
+//            headerViewHeight = 100
+//        }
         if show {
             if headerViewHeightConstraint?.constant != headerViewHeight {
                 headerViewHeightConstraint?.constant = headerViewHeight

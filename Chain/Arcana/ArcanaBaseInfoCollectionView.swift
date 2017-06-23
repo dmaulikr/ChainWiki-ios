@@ -246,14 +246,14 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         guard let section = Section(rawValue: indexPath.section) else { return CGSize() }
-        
+        print(collectionView.bounds.width)
         switch section {
         case .name:
-            return CGSize(width: collectionView.frame.width, height: 90)
+            return CGSize(width: collectionView.bounds.width, height: 90)
         case .baseInfo:
-            return CGSize(width: (collectionView.frame.width - 1) / 2, height: 80)
+            return CGSize(width: (collectionView.bounds.width - 1) / 2, height: 80)
         case .likes:
-            return CGSize(width: collectionView.frame.width, height: 50)
+            return CGSize(width: collectionView.bounds.width, height: 50)
         }
 
     }

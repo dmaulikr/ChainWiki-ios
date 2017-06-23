@@ -29,7 +29,7 @@ protocol ArcanaSelectionDelegate: class {
 class ArcanaViewController: UIViewController {
     
     weak var delegate: ArcanaSelectionDelegate?
-    
+
     let concurrentArcanaQueue =
         DispatchQueue(
             label: "com.jk.cckorea.arcanaArrayQueue",
@@ -95,6 +95,9 @@ class ArcanaViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
         
         tableView.backgroundColor = .white
         tableView.alpha = 0
@@ -118,6 +121,10 @@ class ArcanaViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        if #available(iOS 11.0, *) {
+            collectionView.dragDelegate = self
+        }
+        
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.alpha = 0
@@ -191,17 +198,17 @@ class ArcanaViewController: UIViewController {
         tableView.deselectRow(at: row, animated: true)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if !initialLoad {
-                setupColumns()
-                reloadView()
-            }
-        }
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            if !initialLoad {
+//                setupColumns()
+//                reloadView()
+//            }
+//        }
+//
+//    }
         
-    }
-    
     func setupViews() {
         
         setupColumns()
@@ -252,22 +259,6 @@ class ArcanaViewController: UIViewController {
         }
         
     }
-    
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        if !initialLoad {
-//            setupColumns()
-//            reloadView()
-//        }
-//    }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        if !initialLoad {
-//            setupColumns()
-//            reloadView()
-//        }
-//    }
     
     func setupChildViews() {
         
@@ -405,7 +396,9 @@ class ArcanaViewController: UIViewController {
                 else {
                     collectionView.alpha = 0
                     tableView.reloadData()
-                    tableView.fadeIn(withDuration: 0.5)
+                    if tableView.alpha == 0 {
+                        tableView.fadeIn(withDuration: 0.5)
+                    }
                 }
                 
             case .profile, .mainGrid:
@@ -417,7 +410,9 @@ class ArcanaViewController: UIViewController {
                 else {
                     tableView.alpha = 0
                     collectionView.reloadData()
-                    collectionView.fadeIn(withDuration: 0.5)
+                    if collectionView.alpha == 0 {
+                        collectionView.fadeIn(withDuration: 0.5)
+                    }
                 }
                 
             }
@@ -565,7 +560,7 @@ class ArcanaViewController: UIViewController {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName: UIColor.black]), forKey: "attributedTitle")
+            "정렬", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { action in
             self.sortArcanaByName()

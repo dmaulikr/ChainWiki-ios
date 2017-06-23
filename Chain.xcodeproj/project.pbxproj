@@ -11,8 +11,16 @@
 		0400A3081E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A3071E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift */; };
 		0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A30B1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift */; };
 		0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A30F1E76333700B195E9 /* MenuBarViewController.swift */; };
+		040133401EF0EF100050ED32 /* ArcanaUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401333F1EF0EF100050ED32 /* ArcanaUploader.swift */; };
+		040133421EF0F3950050ED32 /* ArcanaUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040133411EF0F3950050ED32 /* ArcanaUpload.swift */; };
+		040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040133431EF0F9F10050ED32 /* GoogleTranslator.swift */; };
+		040133461EF10F700050ED32 /* ArcanaAttributeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040133451EF10F700050ED32 /* ArcanaAttributeConverter.swift */; };
+		040133491EF111AA0050ED32 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040133481EF1117B0050ED32 /* Weapon.swift */; };
+		0401B2881D75386C00A0A728 /* ArcanaDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2871D75386C00A0A728 /* ArcanaDetail.swift */; };
+		0401B28B1D75392F00A0A728 /* ArcanaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */; };
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
 		040454951DFB981500A1F74E /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040454941DFB981500A1F74E /* Ability.swift */; };
+		0409F2D91EF501E8006DC6A9 /* AnimateUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */; };
 		040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */; };
 		040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1751DB87A5E00193363 /* ChangeRootVC.swift */; };
 		040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1771DB8940E00193363 /* FadeAnimation.swift */; };
@@ -27,6 +35,8 @@
 		04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */; };
 		04180D2E1DEC0CD500E4303D /* AbilityListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */; };
 		041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FD5681DB9A6F50068657F /* FirebaseService.swift */; };
+		042071C31EEE3C60007B7B6E /* ArcanaViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */; };
+		042071C51EEE4701007B7B6E /* ArcanaDetail+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042071C41EEE4701007B7B6E /* ArcanaDetail+Drop.swift */; };
 		0425D4921E7893690030BF4A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4911E7893690030BF4A /* NavigationController.swift */; };
 		0425D4961E78C0D40030BF4A /* ArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */; };
 		0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */; };
@@ -55,6 +65,9 @@
 		0449168B1EE286DF00123FF5 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449168A1EE286DF00123FF5 /* SurveyViewController.swift */; };
 		0449168D1EE28B8000123FF5 /* SurveyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449168C1EE28B8000123FF5 /* SurveyPageViewController.swift */; };
 		0449168F1EE3325D00123FF5 /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449168E1EE3325D00123FF5 /* SurveyCell.swift */; };
+		044AFD2A1EF64C81006DA5B2 /* UploadArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AFD271EF64C1A006DA5B2 /* UploadArcanaViewController.swift */; };
+		044AFD2B1EF64C85006DA5B2 /* UploadArcanaViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AFD281EF64C1A006DA5B2 /* UploadArcanaViewController+Drop.swift */; };
+		044AFD2C1EF64C88006DA5B2 /* UploadArcanaViewController+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AFD291EF64C1A006DA5B2 /* UploadArcanaViewController+UITextField.swift */; };
 		045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E4D0D1DB9D8A400EBC793 /* SearchController.swift */; };
 		045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A91DAB5DEE002148DD /* Settings.swift */; };
 		0465F9851EE3449800282014 /* KRLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465F9841EE3449800282014 /* KRLabel.swift */; };
@@ -97,6 +110,7 @@
 		04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */; };
 		04CBBD431E2B4938009D5E5F /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD421E2B4938009D5E5F /* SectionHeader.swift */; };
 		04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */; };
+		04D145531EEE293B00D11008 /* ArcanaDetail+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D145521EEE293B00D11008 /* ArcanaDetail+Drag.swift */; };
 		04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D226661DBB29FA00802EFF /* GoogleService-Info.plist */; };
 		04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F401DEC255D00F55D3F /* MenuBar.swift */; };
 		04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */; };
@@ -106,6 +120,9 @@
 		04DFF8DA1EE13324002C7D05 /* ArcanaClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DFF8D91EE13324002C7D05 /* ArcanaClassCell.swift */; };
 		04DFF8DC1EE148AB002C7D05 /* ArcanaBaseInfoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DFF8DB1EE148AB002C7D05 /* ArcanaBaseInfoCollectionView.swift */; };
 		04E03D211E79DDA500432F10 /* ImageToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E03D201E79DDA500432F10 /* ImageToggleCell.swift */; };
+		04E78B0C1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E78B0B1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift */; };
+		04E78B0E1EF6E6B400B4F0FE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E78B0D1EF6E6B400B4F0FE /* WelcomeViewController.swift */; };
+		04E78B101EF758F000B4F0FE /* ArcanaDetail+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */; };
 		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EC93021E83B13E000CDA7B /* BannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049926E61DF7590C00FD9889 /* BannerAlert.swift */; };
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
@@ -151,9 +168,17 @@
 		0400A3071E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPeekPreviewSectionHeaderCell.swift; sourceTree = "<group>"; };
 		0400A30B1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPeekTableViewHeader.swift; sourceTree = "<group>"; };
 		0400A30F1E76333700B195E9 /* MenuBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarViewController.swift; sourceTree = "<group>"; };
+		0401333F1EF0EF100050ED32 /* ArcanaUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaUploader.swift; sourceTree = "<group>"; };
+		040133411EF0F3950050ED32 /* ArcanaUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaUpload.swift; sourceTree = "<group>"; };
+		040133431EF0F9F10050ED32 /* GoogleTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleTranslator.swift; sourceTree = "<group>"; };
+		040133451EF10F700050ED32 /* ArcanaAttributeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeConverter.swift; sourceTree = "<group>"; };
+		040133481EF1117B0050ED32 /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
+		0401B2871D75386C00A0A728 /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
+		0401B28A1D75392F00A0A728 /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAttributeCell.swift; sourceTree = "<group>"; };
 		040454941DFB981500A1F74E /* Ability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateUploadView.swift; sourceTree = "<group>"; };
 		040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		040EA1751DB87A5E00193363 /* ChangeRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeRootVC.swift; sourceTree = "<group>"; };
 		040EA1771DB8940E00193363 /* FadeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeAnimation.swift; sourceTree = "<group>"; };
@@ -169,6 +194,8 @@
 		04180D2D1DEC0CD500E4303D /* AbilityListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListDataSource.swift; sourceTree = "<group>"; };
 		041B691C1D8A4933008B5771 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		041FD5681DB9A6F50068657F /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaViewController+Drag.swift"; sourceTree = "<group>"; };
+		042071C41EEE4701007B7B6E /* ArcanaDetail+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+Drop.swift"; sourceTree = "<group>"; };
 		0425D4911E7893690030BF4A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewController.swift; sourceTree = "<group>"; };
 		0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TavernArcanaViewController.swift; sourceTree = "<group>"; };
@@ -192,14 +219,14 @@
 		043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewPageController.swift; sourceTree = "<group>"; };
 		043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCell.swift; sourceTree = "<group>"; };
 		043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageCell.swift; sourceTree = "<group>"; };
-		043F4CC41EF8D1FF0007A3A4 /* ArcanaSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaSplitViewController.swift; sourceTree = "<group>"; };
-		043F4CC51EF8D35E0007A3A4 /* ArcanaViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaViewController+TableView.swift"; sourceTree = "<group>"; };
-		0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchArcanaPageViewController.swift; sourceTree = "<group>"; };
 		044725591DAA2D6D0013EC13 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		044916881EE264CE00123FF5 /* RatePopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatePopupView.swift; sourceTree = "<group>"; };
 		0449168A1EE286DF00123FF5 /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		0449168C1EE28B8000123FF5 /* SurveyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyPageViewController.swift; sourceTree = "<group>"; };
 		0449168E1EE3325D00123FF5 /* SurveyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
+		044AFD271EF64C1A006DA5B2 /* UploadArcanaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadArcanaViewController.swift; sourceTree = "<group>"; };
+		044AFD281EF64C1A006DA5B2 /* UploadArcanaViewController+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadArcanaViewController+Drop.swift"; sourceTree = "<group>"; };
+		044AFD291EF64C1A006DA5B2 /* UploadArcanaViewController+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadArcanaViewController+UITextField.swift"; sourceTree = "<group>"; };
 		045E4D0D1DB9D8A400EBC793 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		045EF6A91DAB5DEE002148DD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0465F9841EE3449800282014 /* KRLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRLabel.swift; sourceTree = "<group>"; };
@@ -246,6 +273,7 @@
 		04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		04CBBD421E2B4938009D5E5F /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		04CBBD441E2B497D009D5E5F /* HorizontalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalBar.swift; sourceTree = "<group>"; };
+		04D145521EEE293B00D11008 /* ArcanaDetail+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+Drag.swift"; sourceTree = "<group>"; };
 		04D226661DBB29FA00802EFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04D28F401DEC255D00F55D3F /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		04D28F441DEC2AAC00F55D3F /* AbilityListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityListTableCell.swift; sourceTree = "<group>"; };
@@ -255,6 +283,9 @@
 		04DFF8D91EE13324002C7D05 /* ArcanaClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaClassCell.swift; sourceTree = "<group>"; };
 		04DFF8DB1EE148AB002C7D05 /* ArcanaBaseInfoCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaBaseInfoCollectionView.swift; sourceTree = "<group>"; };
 		04E03D201E79DDA500432F10 /* ImageToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageToggleCell.swift; sourceTree = "<group>"; };
+		04E78B0B1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaSplitViewController.swift; sourceTree = "<group>"; };
+		04E78B0D1EF6E6B400B4F0FE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+TableView.swift"; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04EDE6F41D937AF2005731B9 /* CreateEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEmail.swift; sourceTree = "<group>"; };
 		04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEdit.swift; sourceTree = "<group>"; };
@@ -314,6 +345,7 @@
 				04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */,
 				047B57731EF8EDAA0077FAFB /* ImageHelpers.swift */,
 				04DFF8D71EE0ED54002C7D05 /* HideBars.swift */,
+				040133431EF0F9F10050ED32 /* GoogleTranslator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -377,8 +409,10 @@
 		046C93351D7582D6000E3FBD /* Arcana */ = {
 			isa = PBXGroup;
 			children = (
-				047B576D1EF8EC8F0077FAFB /* ArcanaDetail.swift */,
-				047B576E1EF8EC8F0077FAFB /* ArcanaDetail+TableView.swift */,
+				0401B2871D75386C00A0A728 /* ArcanaDetail.swift */,
+				04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */,
+				04D145521EEE293B00D11008 /* ArcanaDetail+Drag.swift */,
+				042071C41EEE4701007B7B6E /* ArcanaDetail+Drop.swift */,
 				04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */,
 				040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */,
 				047B57711EF8ED480077FAFB /* ArcanaImageCell.swift */,
@@ -408,11 +442,11 @@
 			children = (
 				046FDD3B1D738060001E955B /* MyTabBarController.swift */,
 				0425D4911E7893690030BF4A /* NavigationController.swift */,
-				043F4CC41EF8D1FF0007A3A4 /* ArcanaSplitViewController.swift */,
-				04970C0A1EF8D7AE00BB49CE /* WelcomeViewController.swift */,
-				0443FA961E9847FE00F6CD4E /* SearchArcanaPageViewController.swift */,
+				04E78B0B1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift */,
+				04E78B0D1EF6E6B400B4F0FE /* WelcomeViewController.swift */,
 				0425D4951E78C0D40030BF4A /* ArcanaViewController.swift */,
-				043F4CC51EF8D35E0007A3A4 /* ArcanaViewController+TableView.swift */,
+				040FA9A71E88999E00C315CD /* ArcanaViewController+TableView.swift */,
+				042071C21EEE3C60007B7B6E /* ArcanaViewController+Drag.swift */,
 				0425D4991E78E8700030BF4A /* SearchArcanaViewController.swift */,
 				0425D4971E78D3010030BF4A /* TavernArcanaViewController.swift */,
 				0425D49B1E78FBC00030BF4A /* FavoritesArcanaViewController.swift */,
@@ -491,6 +525,7 @@
 				04F3CD881DA31E620026D5AF /* CopyableLabel.swift */,
 				044916881EE264CE00123FF5 /* RatePopupView.swift */,
 				0465F9841EE3449800282014 /* KRLabel.swift */,
+				0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */,
 			);
 			name = "Custom Views";
 			path = CustomViews;
@@ -512,7 +547,9 @@
 			isa = PBXGroup;
 			children = (
 				04A2ECC81D6F80EB00189142 /* Arcana.swift */,
+				040133411EF0F3950050ED32 /* ArcanaUpload.swift */,
 				0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */,
+				040133481EF1117B0050ED32 /* Weapon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -532,6 +569,11 @@
 				04FAA20F1E6F99A200E848B4 /* DataViewController.swift */,
 				0434BD321E9362D900DF840E /* DataCell.swift */,
 				04FAA2141E6FA2F800E848B4 /* LinkViewController.swift */,
+				0401333F1EF0EF100050ED32 /* ArcanaUploader.swift */,
+				044AFD271EF64C1A006DA5B2 /* UploadArcanaViewController.swift */,
+				044AFD281EF64C1A006DA5B2 /* UploadArcanaViewController+Drop.swift */,
+				044AFD291EF64C1A006DA5B2 /* UploadArcanaViewController+UITextField.swift */,
+				040133451EF10F700050ED32 /* ArcanaAttributeConverter.swift */,
 			);
 			name = Data;
 			path = Tavern;
@@ -818,9 +860,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04970C0B1EF8D7C000BB49CE /* WelcomeViewController.swift in Sources */,
-				043F4CC71EF8D3DA0007A3A4 /* ArcanaSplitViewController.swift in Sources */,
-				043F4CC61EF8D3D60007A3A4 /* ArcanaViewController+TableView.swift in Sources */,
+				044AFD2C1EF64C88006DA5B2 /* UploadArcanaViewController+UITextField.swift in Sources */,
+				044AFD2B1EF64C85006DA5B2 /* UploadArcanaViewController+Drop.swift in Sources */,
+				044AFD2A1EF64C81006DA5B2 /* UploadArcanaViewController.swift in Sources */,
+				040133491EF111AA0050ED32 /* Weapon.swift in Sources */,
 				04EC93021E83B13E000CDA7B /* BannerAlert.swift in Sources */,
 				04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */,
 				043EEFBF1E8B525500650B28 /* ArcanaMainImageCell.swift in Sources */,
@@ -828,6 +871,7 @@
 				04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */,
 				0465F9851EE3449800282014 /* KRLabel.swift in Sources */,
 				0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */,
+				040FA9A81E88999E00C315CD /* ArcanaViewController+TableView.swift in Sources */,
 				04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */,
 				04F87D631E763C4000E318F7 /* BaseCollectionViewController.swift in Sources */,
 				040454951DFB981500A1F74E /* Ability.swift in Sources */,
@@ -841,6 +885,7 @@
 				040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */,
 				04B2B22C1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
+				040133421EF0F3950050ED32 /* ArcanaUpload.swift in Sources */,
 				0425D49C1E78FBC00030BF4A /* FavoritesArcanaViewController.swift in Sources */,
 				0449168B1EE286DF00123FF5 /* SurveyViewController.swift in Sources */,
 				043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */,
@@ -851,11 +896,11 @@
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				04DFF8D81EE0ED54002C7D05 /* HideBars.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
-				0443FA971E9847FE00F6CD4E /* SearchArcanaPageViewController.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
 				04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */,
 				0490A8231E68F701000E3E4D /* FilterCell.swift in Sources */,
+				04D145531EEE293B00D11008 /* ArcanaDetail+Drag.swift in Sources */,
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,
@@ -865,6 +910,7 @@
 				04180D2E1DEC0CD500E4303D /* AbilityListDataSource.swift in Sources */,
 				0425D4961E78C0D40030BF4A /* ArcanaViewController.swift in Sources */,
 				04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */,
+				04E78B101EF758F000B4F0FE /* ArcanaDetail+TableView.swift in Sources */,
 				0434BD331E9362D900DF840E /* DataCell.swift in Sources */,
 				041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */,
 				0425D4921E7893690030BF4A /* NavigationController.swift in Sources */,
@@ -874,14 +920,21 @@
 				047B57701EF8EC8F0077FAFB /* ArcanaDetail+TableView.swift in Sources */,
 				040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */,
 				045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */,
+				040133401EF0EF100050ED32 /* ArcanaUploader.swift in Sources */,
 				040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */,
+				040133461EF10F700050ED32 /* ArcanaAttributeConverter.swift in Sources */,
 				047C0D4D1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift in Sources */,
 				0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */,
 				04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */,
 				043EEFBD1E8B4AEB00650B28 /* ImageTypeCell.swift in Sources */,
+				04E78B0C1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift in Sources */,
+				0400A30A1E75233E00B195E9 /* ImageHelpers.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* FilterViewController.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
 				04D28F461DEC2AAC00F55D3F /* AbilityListTableCell.swift in Sources */,
+				042071C31EEE3C60007B7B6E /* ArcanaViewController+Drag.swift in Sources */,
+				042071C51EEE4701007B7B6E /* ArcanaDetail+Drop.swift in Sources */,
+				04E78B0E1EF6E6B400B4F0FE /* WelcomeViewController.swift in Sources */,
 				04349D0F1DAC333400216141 /* ArcanaButtonsCell.swift in Sources */,
 				04E03D211E79DDA500432F10 /* ImageToggleCell.swift in Sources */,
 				0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */,
@@ -903,6 +956,7 @@
 				04DFF8DA1EE13324002C7D05 /* ArcanaClassCell.swift in Sources */,
 				0475D2851E8DF0AA00F0D03A /* MainListTableView.swift in Sources */,
 				04FAA2151E6FA2F800E848B4 /* LinkViewController.swift in Sources */,
+				0409F2D91EF501E8006DC6A9 /* AnimateUploadView.swift in Sources */,
 				04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */,
 				04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */,
 				0449168F1EE3325D00123FF5 /* SurveyCell.swift in Sources */,
@@ -910,6 +964,7 @@
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
+				040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */,
 				04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
 				041729071E7297D50090E634 /* FloatingTextField.swift in Sources */,
@@ -964,7 +1019,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Chain;
 			};
 			name = Debug;
@@ -985,7 +1040,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Chain;
 			};
 			name = Release;
@@ -1045,7 +1100,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1098,7 +1153,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1129,7 +1184,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1160,7 +1215,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

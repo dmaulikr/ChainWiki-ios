@@ -77,6 +77,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
+
                 
                 return cell
             }
@@ -210,7 +211,6 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let arcana = arcanaArray[indexPath.item]
         
-
         if let detailViewController = delegate as? ArcanaDetail {
             detailViewController.arcanaSelected(arcana: arcana)
             splitViewController?.showDetailViewController(detailViewController, sender: nil)
@@ -225,8 +225,6 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             self.delegate = arcanaDetailVC
             splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         }
-
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
