@@ -1,0 +1,7 @@
+Pods
+Chain.app*
+.idea*
+*.cer
+*.mobileprovision
+*.ipa
+*.json
