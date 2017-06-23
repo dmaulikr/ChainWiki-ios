@@ -39,7 +39,7 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
         observeLinks()
         setupViews()
-        setupNavBar()
+//        setupNavBar()
 //        downloadArcanaCount()
     }
     

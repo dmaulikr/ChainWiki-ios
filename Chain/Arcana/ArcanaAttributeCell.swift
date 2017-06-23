@@ -13,7 +13,6 @@ class ArcanaNameCell: UICollectionViewCell {
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.alpha = 0
         return imageView
     }()
     

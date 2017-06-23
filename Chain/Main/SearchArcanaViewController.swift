@@ -227,8 +227,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         // For UI Testing.
 //        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
-         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-//        ref.observe(.childAdded, with: { snapshot in
+//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
             
             if let arcana = Arcana(snapshot: snapshot) {
                 

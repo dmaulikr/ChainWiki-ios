@@ -77,4 +77,8 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         viewControllerList = [NavigationController(masterVC), detailViewController]
         
     }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
 }

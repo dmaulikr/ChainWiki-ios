@@ -11,7 +11,6 @@ import NVActivityIndicatorView
 
 class ArcanaCell: UITableViewCell {
 
-
     @IBOutlet weak var arcanaImageView: UIImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
     @IBOutlet weak var arcanaNickKR: UILabel!

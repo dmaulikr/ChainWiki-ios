@@ -115,9 +115,9 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
             cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
                 
                 DispatchQueue.main.async {
-//                    if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaNameCell {
-                        cell.arcanaImageView.animateImage(arcanaImage)
-//                    }
+                    if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaNameCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
+                    }
                 }
             })
             
