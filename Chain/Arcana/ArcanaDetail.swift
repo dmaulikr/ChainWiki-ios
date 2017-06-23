@@ -21,9 +21,18 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
+class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollViewDelegate {
     
-    let arcana: Arcana
+    var arcana: Arcana {
+        didSet {
+            title = arcana.getNameKR()
+            tableView.reloadData()
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+            
+        }
+    }
+    var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
     
     lazy var arcanaImageView: UIImageView = {
@@ -31,6 +40,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.alpha = 0
+//        if #available(iOS 11.0, *) {
+//            customEnableDropping(on: imageView, dropInteractionDelegate: self)
+//        }
         return imageView
     }()
     
@@ -43,6 +55,18 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         scrollView.bounces = false
         scrollView.delegate = self
         return scrollView
+    }()
+    
+    let animatedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0
+        return view
+    }()
+    
+    let activityIndicator: NVActivityIndicatorView = {
+        let spinner = NVActivityIndicatorView(frame: .zero, type: .ballClipRotateMultiple, color: Color.lightGreen, padding: 0)
+        return spinner
     }()
     
     let backgroundView: UIView = {
@@ -61,8 +85,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
         tableView.estimatedSectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0
-//        tableView.estimatedRowHeight = 160
-//        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.backgroundColor = .groupTableViewBackground
         
@@ -81,6 +105,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
         return tableView
     }()
+    
+    
     
     var heart = false
     var favorite = false
@@ -127,13 +153,26 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func arcanaSelected(arcana: Arcana) {
+        self.arcana = arcana
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateHistory()
         setupViews()
+        if #available(iOS 11.0, *) {
+            customEnableDragging(on: view, dragInteractionDelegate: self)
+        }
+        updateHistory()
         checkFavorites()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.reloadData()
+    }
+    
     @objc 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -165,23 +204,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
-        
-        arcanaImageView.removeFromSuperview()
-        tableView.removeFromSuperview()
-        view.addSubview(tableView)
-        
-        if traitCollection.horizontalSizeClass == .compact {
-            updateCompactViews()
-        } else {
-            updateRegularViews()
-        }
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showBars()
@@ -189,28 +211,18 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     func setupViews() {
 
-        title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = .white
         
         view.addSubview(tableView)
-
-        if traitCollection.horizontalSizeClass == .compact {
-            updateCompactViews()
-        }
-        else {
-            updateRegularViews()
-        }
-
+        tableView.addGestureRecognizer(tapShowBarGesture)
+        
+        updateCompactViews()
+        
     }
     
     func updateCompactViews() {
         
-        view.backgroundColor = .white
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            tableView.addGestureRecognizer(tapShowBarGesture)
-        }
-
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
         let constant: CGFloat
@@ -223,18 +235,60 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: constant)
         tableViewBottomConstraint?.isActive = true
         
-        arcanaImageView.removeFromSuperview()
     }
     
-    func updateRegularViews() {
+    func animateUpload() {
         
-        view.backgroundColor = .groupTableViewBackground
+        view.addSubview(animatedView)
+        animatedView.anchorCenterYToSuperview()
+        animatedView.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 20, trailingConstant: 20, bottomConstant: 0, widthConstant: 0, heightConstant: 100)
+        animatedView.addSubview(activityIndicator)
         
-        view.addSubview(arcanaImageView)
+        activityIndicator.anchorCenterSuperview()
+        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.layoutIfNeeded()
+        view.bringSubview(toFront: animatedView)
+        activityIndicator.startAnimating()
+        
+        UIView.animate(withDuration: 0.2) {
+            self.animatedView.fadeIn()
+        }
+        
+    }
+    
+    func animateLabel(success: Bool) {
+        
+        activityIndicator.removeFromSuperview()
+        
+        let label = UILabel()
+        label.font = APPLEGOTHIC_17
+        label.alpha = 0
+        
+        if success {
+            label.text = "업로드 완료!"
+        }
+        else {
+            label.text = "업로드 실패."
+        }
+        
+        animatedView.addSubview(label)
+        label.anchorCenterSuperview()
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            label.fadeIn()
+        }) { finished in
+            let when = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline: when) {
                 
-        arcanaImageView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: view.frame.width/2, heightConstant: (view.frame.width/2)*1.5)
-        arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, sender: nil)
-        tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: arcanaImageView.trailingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.animatedView.fadeOut()
+                }, completion: { finished in
+                    label.removeFromSuperview()
+                    self.animatedView.removeFromSuperview()
+                })
+            }
+        }
     }
     
 //    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -245,11 +299,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 //        tableView.reloadData()
 //    }
 //
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        arcanaImageView.removeFromSuperview()
-        tableView.reloadData()
-    }
     
     func setupNavBar() {
         
@@ -326,7 +375,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         let save = UIAlertAction(title: "확인", style: .default, handler: { action in
             
             DispatchQueue.main.async {
-                self.screenShot()
+                if let image = self.screenShot() {
+                    UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
             }
             
             Analytics.logEvent("ExportedArcana", parameters: [
@@ -346,7 +397,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    func screenShot() {
+    func screenShot() -> UIImage? {
         
         let savedContentOffset = tableView.contentOffset
         tableView.scrollToRow(at: IndexPath(row: 0, section: tableView.numberOfSections-1), at: .bottom, animated: false)
@@ -354,23 +405,25 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 
 //        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         tableView.layer.render(in: context)
         
         for i in 0 ..< tableView.numberOfSections  {
             if tableView.numberOfRows(inSection: i) > 0 {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: i), at: .bottom, animated: false)
-                guard let context = UIGraphicsGetCurrentContext() else { return }
+                guard let context = UIGraphicsGetCurrentContext() else { return nil }
                 tableView.layer.render(in: context)
             }
         }
         
         if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            UIGraphicsEndImageContext()
+            tableView.contentOffset = savedContentOffset
+            return image
         }
         
-        UIGraphicsEndImageContext()
-        tableView.contentOffset = savedContentOffset
+        return nil
+        
     }
 
     func updateHistory() {
@@ -556,7 +609,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
                 }
                 
                 }) {_ in
-
+                    self.arcanaImageView.removeFromSuperview()
+                    self.backgroundView.removeFromSuperview()
                     self.imageScrollView.removeFromSuperview()
             }
             
@@ -565,6 +619,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         else {
             UIView.animate(withDuration: 0.2, animations: {
                 gestureView.alpha = 0
+                self.arcanaImageView.removeFromSuperview()
+                self.backgroundView.removeFromSuperview()
                 self.imageScrollView.removeFromSuperview()
 
             })
@@ -617,346 +673,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         }, completion: nil )
         
     }
-}
-
-// MARK - UITableViewDelegate, UITableViewDataSource
-extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
-    
-    private enum Section: Int {
-        case image
-        case attribute
-        case skill
-        case ability
-        case kizuna
-        case chainStory
-        case wikiJP
-        case edit
-    }
-    
-    private enum SkillRow: Int {
-        case skill1
-        case skill2
-        case skill3
-    }
-    
-    private enum AbilityRow: Int {
-        case ability1
-        case ability2
-        case partyAbility
-    }
-    
-    private enum ChainStoryRow: Int {
-        case chainStory
-        case chainStone
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        guard let section = Section(rawValue: section) else { return 0 }
-        
-        switch section {
-        case .image:
-            if traitCollection.horizontalSizeClass == .compact {
-                return 1
-            }
-            else {
-                return 0
-            }
-        case .attribute:
-            return 1
-        case .skill:
-            
-            // Returning 2 * skillCount for description.
-            switch arcana.getSkillCount() {
-            case "1":
-                return 1
-            case "2":
-                return 2
-            case "3":
-                return 3
-            default:
-                return 1
-            }
-            
-        case .ability:
-            
-            if let _ = arcana.getPartyAbility() {
-                return 3
-            }
-            else if let _ = arcana.getAbilityName3() {  // 리제 롯데
-                return 3
-            }
-            else if let _ = arcana.getAbilityName2() {  // has 2 abilities
-                return 2
-            }
-            else if let _ = arcana.getAbilityName1() {  // has only 1 ability
-                return 1
-            }
-            else {
-                return 0
-            }
-            
-        case .kizuna:
-            return 1
-            
-        case .chainStory:
-            var count = 0
-            if let _ = arcana.getChainStory() {
-                count += 1
-            }
-            if let _ = arcana.getChainStone() {
-                count += 1
-            }
-            
-            return count
-            
-        case .wikiJP:
-            return 1
-        case .edit:
-            return 1
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        guard let section = Section(rawValue: indexPath.section) else { return 0 }
-        
-        switch section {
-        case .image:
-            if traitCollection.horizontalSizeClass == .compact {
-                return tableView.frame.width * 1.5
-            }
-            else {
-                return 0
-            }
-        case .attribute:
-            return 382
-            
-        default:
-            return UITableViewAutomaticDimension
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        guard let section = Section(rawValue: indexPath.section) else { return 0 }
-        
-        switch section {
-            
-        case .image:
-            if traitCollection.horizontalSizeClass == .compact {
-                return tableView.frame.width * 1.5
-            }
-            else {
-                return 0
-            }
-        case .attribute:
-            return 382
-            
-        default:
-            return UITableViewAutomaticDimension
-        }
-        
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        if tableView.numberOfRows(inSection: section) != 0 {
-            guard let section = Section(rawValue: section) else { return 0 }
-            
-            switch section {
-            case .image, .attribute:
-                return CGFloat.leastNonzeroMagnitude
-            default:
-                return 20
-            }
-        }
-        
-        return CGFloat.leastNonzeroMagnitude
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let section = Section(rawValue: indexPath.section) else { return UITableViewCell() }
-        
-        switch section {
-            
-        case .image:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
-            cell.selectionStyle = .none
-            
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                cell.arcanaImage.addGestureRecognizer(tapImageGesture)
-            }
-            cell.activityIndicator.startAnimating()
-            
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
-
-            return cell
-            
-        case .attribute:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCollectionView") as! ArcanaBaseInfoCollectionView
-            cell.arcana = arcana
-            cell.arcanaDetailDelegate = self
-            cell.selectionStyle = .none
-            cell.collectionView.reloadData()
-
-            return cell
-            
-        case .skill:
-            
-            guard let row = SkillRow(rawValue: indexPath.row) else { return UITableViewCell() }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
-            cell.selectionStyle = .none
-            
-            switch row {
-                
-            case .skill1:
-                cell.skillNumberLabel.text = "스킬 1"
-                cell.skillManaLabel.text = "\(arcana.getSkillMana1()) 마나"
-                cell.skillDescLabel.text = arcana.getSkillDesc1()
-            case .skill2:
-                cell.skillNumberLabel.text = "스킬 2"
-                let skillMana2 = arcana.getSkillMana2() ?? "1"
-                cell.skillManaLabel.text = skillMana2 + " 마나"
-                cell.skillDescLabel.text = arcana.getSkillDesc2()
-            case .skill3:
-                cell.skillNumberLabel.text = "스킬 3"
-                let skillMana3 = arcana.getSkillMana3() ?? "1"
-                cell.skillManaLabel.text = skillMana3 + " 마나"
-                cell.skillDescLabel.text = arcana.getSkillDesc3()
-            }
-            
-            cell.skillDescLabel.setLineHeight(lineHeight: 1.2)
-            
-            return cell
-            
-        case .ability:
-            
-            guard let row = AbilityRow(rawValue: indexPath.row) else { return UITableViewCell() }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-            cell.selectionStyle = .none
-            
-            switch row {
-            case .ability1:
-                cell.attributeKeyLabel.text = "어빌 1"
-                cell.attributeValueLabel.text = arcana.getAbilityDesc1()
-            case .ability2:
-                cell.attributeKeyLabel.text = "어빌 2"
-                cell.attributeValueLabel.text = arcana.getAbilityDesc2()
-                
-            case .partyAbility:
-                if let _ = arcana.getPartyAbility() {
-                    cell.attributeKeyLabel.text = "파티 어빌"
-                    cell.attributeValueLabel.text = arcana.getPartyAbility()
-                }
-                else {
-                    // 리제 롯데
-                    cell.attributeKeyLabel.text = "어빌 3"
-                    cell.attributeValueLabel.text = arcana.getAbilityDesc3()
-                }
-            }
-            
-            cell.attributeValueLabel.setLineHeight(lineHeight: 1.2)
-            //            cell.attributeValueLabel.layoutIfNeeded()
-            return cell
-            
-        case .kizuna:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaSkillCell") as! ArcanaSkillCell
-            cell.selectionStyle = .none
-            
-            cell.skillNumberLabel.text = "인연"
-            cell.skillManaLabel.text = "코스트 \(arcana.getKizunaCost())"
-            cell.skillDescLabel.text = arcana.getKizunaDesc()
-            
-            cell.skillDescLabel.setLineHeight(lineHeight: 1.2)
-            
-            return cell
-            
-        case .chainStory:
-            
-            guard let row = ChainStoryRow(rawValue: indexPath.row) else { return UITableViewCell() }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaAttributeCell") as! ArcanaAttributeCell
-            cell.selectionStyle = .none
-            
-            switch row {
-                
-            case .chainStory:
-                if let cStory = arcana.getChainStory() {
-                    cell.attributeKeyLabel.text = "체인스토리"
-                    cell.attributeValueLabel.text = cStory
-                    return cell
-                } else if let cStone = arcana.getChainStone() {
-                    cell.attributeKeyLabel.text = "정령석 보상"
-                    cell.attributeValueLabel.text = cStone
-                }
-                
-            case .chainStone:
-                if let cStone = arcana.getChainStone() {
-                    cell.attributeKeyLabel.text = "정령석 보상"
-                    cell.attributeValueLabel.text = cStone
-                }
-            }
-            
-            return cell
-            
-        case .wikiJP:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaViewEditsCell") as! ArcanaViewEditsCell
-            cell.editLabel.text = "일첸 위키 가기"
-            cell.arrow.image = #imageLiteral(resourceName: "go")
-            cell.layoutMargins = UIEdgeInsets.zero
-            return cell
-            
-        case .edit:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaViewEditsCell") as! ArcanaViewEditsCell
-            cell.editLabel.text = "편집 기록 보기"
-            cell.arrow.image = #imageLiteral(resourceName: "go")
-            cell.layoutMargins = UIEdgeInsets.zero
-            return cell
-            
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let section = Section(rawValue: indexPath.section) else { return }
-        
-        switch section {
-        case .wikiJP:
-            
-            let baseURL = "https://xn--eckfza0gxcvmna6c.gamerch.com/"
-
-            var arcanaURL = ""
-            if let nicknameJP = arcana.getNicknameJP() {
-                arcanaURL = nicknameJP + arcana.getNameJP()
-            }
-            else {
-                arcanaURL = arcana.getNameJP()
-            }
-            guard let encodedURL = arcanaURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed), let url = URL(string: (baseURL + encodedURL)) else { return }
-            let vc = LinkViewController(url: url)
-            navigationController?.pushViewController(vc, animated: true)
-        case .edit:
-            let vc = ArcanaEditList(arcanaID: arcana.getUID())
-            navigationController?.pushViewController(vc, animated: true)
-        default:
-            break
-        }
-        
-
-    }
-
 }
 
 extension ArcanaDetail: ArcanaDetailProtocol {

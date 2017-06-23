@@ -13,7 +13,7 @@ import Firebase
 
 let imageCache = NSCache<NSString, UIImage>()
 
-enum ImageType {
+enum ImageType: String {
     case profile
     case main
 }
@@ -35,29 +35,12 @@ extension UIImageView {
 
             // check cache for image first
             if let cachedImage = imageCache.object(forKey: imageRef as NSString) {
-                if let cell = sender as? ArcanaImageIDCell {
-                    if cell.arcanaID == arcanaID {
-                        self.image = cachedImage
-                    }
-                }
-                else if let cell = sender as? ArcanaIconCell {
-                    if cell.arcanaID == arcanaID {
-                        self.image = cachedImage
-                    }
-                }
-                else {
-                    // sender is main arcana image
-                    if let cell = sender as? ArcanaImageCell {
-                        cell.activityIndicator.stopAnimating()
-                        cell.imageLoaded = true
-                    }
-                    else {
-                        // ipad image
-                    }
+                
+                UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                    self.alpha = 1
                     self.image = cachedImage
-                }
-                self.fadeIn(withDuration: 0.2)
-
+                }, completion: nil)
+                
                 return
             }
             
@@ -66,10 +49,12 @@ extension UIImageView {
                 if (error != nil) {
                     UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
                     let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
-                    self.image = placeholder
+                    
                     imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                    self.fadeIn()
-
+                    UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                        self.image = placeholder
+                    }, completion: nil)
+                    
                 } else {
 
                     URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
@@ -78,42 +63,17 @@ extension UIImageView {
                             return
                         }
                         
+                        guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                        
+                        imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
+                        
                         DispatchQueue.main.async {
                             
-                            guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                            UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                                self.alpha = 1
+                                self.image = downloadedImage
+                            }, completion: nil)
                             
-                            imageCache.setObject(downloadedImage, forKey: imageRef as NSString)
-                            
-                            if let cell = sender as? ArcanaImageIDCell {
-
-                                if cell.arcanaID == arcanaID {
-                                    self.image = downloadedImage
-                                    self.alpha = 0
-                                }
-                            }
-                            else if let cell = sender as? ArcanaIconCell {
-                                
-                                if cell.arcanaID == arcanaID {
-                                    cell.arcanaImage.image = downloadedImage
-                                    self.alpha = 0
-                                }
-
-                            }
-                            else {
-                                if let cell = sender as? ArcanaImageCell {
-                                    // Main image requested, just set the image.
-                                    cell.imageLoaded = true
-                                    cell.arcanaImage.image = downloadedImage
-                                    self.alpha = 0
-                                    self.fadeIn(withDuration: 0.2)
-                                    cell.activityIndicator.stopAnimating()
-                                }
-                                else {
-                                    self.image = downloadedImage
-                                }
-                            
-                            }
-                            self.fadeIn(withDuration: 0.2)
                         }
                         
                     }).resume()
@@ -123,11 +83,7 @@ extension UIImageView {
             }
 
         }
-        else {
-            if let imageCell = sender as? ArcanaImageCell {
-                imageCell.activityIndicator.stopAnimating()
-            }
-        }
+
     }
 }
 
@@ -164,3 +120,4 @@ extension UIViewController {
     }
 
 }
+
