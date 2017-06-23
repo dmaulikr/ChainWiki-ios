@@ -96,32 +96,17 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
             cell.arcanaNickKR.text = nil
             cell.arcanaNickJP.text = nil
-            cell.arcanaImage.image = nil
             
-            cell.arcanaID = arcana.getUID()
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
-            
-            // check if arcana has only name, or nickname.
-            if let nnKR = arcana.getNicknameKR() {
-                cell.arcanaNickKR.text = nnKR
-            }
-            if let nnJP = arcana.getNicknameJP() {
-                cell.arcanaNickJP.text = nnJP
-            }
-            cell.arcanaNameKR.text = arcana.getNameKR()
-            cell.arcanaNameJP.text = arcana.getNameJP()
-            
-            cell.arcanaRarity.text = "#\(arcana.getRarity())★"
-            cell.arcanaGroup.text = "#\(arcana.getGroup())"
-            cell.arcanaWeapon.text = "#\(arcana.getWeapon())"
-            
-            if let a = arcana.getAffiliation() {
-                if a != "" {
-                    cell.arcanaAffiliation.text = "#\(a)"
-                }
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
                 
-            }
-            cell.numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
+                DispatchQueue.main.async {
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
+                    }
+                }
+            })
+            
+            cell.setupCell(arcana: arcana)
             
             return cell
 

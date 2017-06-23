@@ -1,5 +1,5 @@
 //
-//  HomeCell.swift
+//  Homeswift
 //  Chain
 //
 //  Created by Jitae Kim on 8/25/16.
@@ -9,10 +9,10 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ArcanaCell: ArcanaImageIDCell {
+class ArcanaCell: UITableViewCell {
 
 
-    @IBOutlet weak var arcanaImage: DrawImageView!
+    @IBOutlet weak var arcanaImageView: UIImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
     @IBOutlet weak var arcanaNickKR: UILabel!
     @IBOutlet weak var arcanaNameJP: UILabel!
@@ -25,16 +25,11 @@ class ArcanaCell: ArcanaImageIDCell {
     @IBOutlet weak var imageSpinner: NVActivityIndicatorView!
         
     @IBOutlet var labelCollection: [UILabel]!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         layoutIfNeeded()
         // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {
@@ -43,13 +38,30 @@ class ArcanaCell: ArcanaImageIDCell {
             label.text = nil
         }
     }
-
-}
-
-class DrawImageView: UIImageView {
     
-    override func draw(_ rect: CGRect) {
-        UIGraphicsBeginImageContext(self.frame.size)
-        ChainLogo.drawLogo()
+    func setupCell(arcana: Arcana) {
+
+        if let nnKR = arcana.getNicknameKR() {
+            arcanaNickKR.text = nnKR
+        }
+        if let nnJP = arcana.getNicknameJP() {
+            arcanaNickJP.text = nnJP
+        }
+        arcanaNameKR.text = arcana.getNameKR()
+        arcanaNameJP.text = arcana.getNameJP()
+        
+        arcanaRarity.text = "#\(arcana.getRarity())★"
+        arcanaGroup.text = "#\(arcana.getGroup())"
+        arcanaWeapon.text = "#\(arcana.getWeapon())"
+        
+        if let a = arcana.getAffiliation() {
+            if a != "" {
+                arcanaAffiliation.text = "#\(a)"
+            }
+        }
+        
+        numberOfViews.text = "조회 \(arcana.getNumberOfViews())"
     }
+
 }
+

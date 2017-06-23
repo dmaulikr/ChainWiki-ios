@@ -22,9 +22,13 @@ enum ArcanaVC {
     case favorites
 }
 
-private let _sharedManager = ArcanaViewController()
+protocol ArcanaSelectionDelegate: class {
+    func arcanaSelected(arcana: Arcana)
+}
 
 class ArcanaViewController: UIViewController {
+    
+    weak var delegate: ArcanaSelectionDelegate?
     
     let concurrentArcanaQueue =
         DispatchQueue(

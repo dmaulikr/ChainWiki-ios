@@ -9,10 +9,8 @@
 import UIKit
 
 class ArcanaIconCell: UICollectionViewCell {
-
-    var arcanaID: String!
     
-    let arcanaImage: UIImageView = {
+    let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
@@ -20,7 +18,6 @@ class ArcanaIconCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,9 +28,9 @@ class ArcanaIconCell: UICollectionViewCell {
 
         backgroundColor = .white
         
-        addSubview(arcanaImage)
+        addSubview(arcanaImageView)
         
-        arcanaImage.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }
 
 }

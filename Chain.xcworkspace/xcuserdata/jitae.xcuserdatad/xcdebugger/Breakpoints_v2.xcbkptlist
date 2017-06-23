@@ -22,31 +22,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Chain.SurveyViewController.tableView(__C.UITableView, didDeselectRowAt: Foundation.IndexPath) -&gt; ()"
+                  symbolName = "Chain.SurveyViewController.tableView (__ObjC.UITableView, didDeselectRowAt : Foundation.IndexPath) -&gt; ()"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518914110.359582"
+                  timestampString = "519721572.01611"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
                   endingLineNumber = "282"
-                  offsetFromSymbolStart = "438">
+                  offsetFromSymbolStart = "344">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Chain.SurveyViewController.tableView(__C.UITableView, didDeselectRowAt: Foundation.IndexPath) -&gt; ()"
+                  symbolName = "Chain.SurveyViewController.(tableView (__ObjC.UITableView, didDeselectRowAt : Foundation.IndexPath) -&gt; ()).(closure #1)"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "518914110.361351"
+                  timestampString = "519721572.017847"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "283"
                   endingLineNumber = "283"
-                  offsetFromSymbolStart = "14">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -70,31 +70,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Chain.LoginHome.firebaseLogin(loginProvider: Chain.LoginProvider, credentials: __C.AuthCredential) -&gt; ()"
+                  symbolName = "Chain.LoginHome.firebaseLogin (loginProvider : Chain.LoginProvider, credentials : __ObjC.AuthCredential) -&gt; ()"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518914110.365792"
+                  timestampString = "519721572.038408"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "236"
                   endingLineNumber = "236"
-                  offsetFromSymbolStart = "60">
+                  offsetFromSymbolStart = "76">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.User&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Chain.LoginHome.firebaseLogin(loginProvider: Chain.LoginProvider, credentials: __C.AuthCredential) -&gt; ()"
+                  symbolName = "Chain.LoginHome.(firebaseLogin (loginProvider : Chain.LoginProvider, credentials : __ObjC.AuthCredential) -&gt; ()).(closure #1)"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518914110.36739"
+                  timestampString = "519721572.039982"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "237"
                   endingLineNumber = "237"
-                  offsetFromSymbolStart = "25">
+                  offsetFromSymbolStart = "28">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -118,33 +118,49 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FacebookLogin.LoginResult) -&gt; () in Chain.LoginHome.facebookLogin() -&gt; ()"
+                  symbolName = "Chain.LoginHome.(facebookLogin () -&gt; ()).(closure #1)"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518914110.37145"
+                  timestampString = "519721572.043376"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "275"
                   endingLineNumber = "275"
-                  offsetFromSymbolStart = "2138">
+                  offsetFromSymbolStart = "1536">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FBSDKGraphRequestConnection&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (FacebookLogin.LoginResult) -&gt; () in Chain.LoginHome.facebookLogin() -&gt; ()"
+                  symbolName = "Chain.LoginHome.(facebookLogin () -&gt; ()).(closure #1).(closure #1)"
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "518914110.37433"
+                  timestampString = "519721572.044699"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "277"
                   endingLineNumber = "277"
-                  offsetFromSymbolStart = "262">
+                  offsetFromSymbolStart = "188">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chain/Main/ArcanaViewController+TableView.swift"
+            timestampString = "519720084.46279"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

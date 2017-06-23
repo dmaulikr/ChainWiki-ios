@@ -112,7 +112,14 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
         case .name:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
             
-            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, sender: cell)
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
+                
+                DispatchQueue.main.async {
+//                    if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaNameCell {
+                        cell.arcanaImageView.animateImage(arcanaImage)
+//                    }
+                }
+            })
             
             if let nnKR = arcana.getNicknameKR() {
                 cell.arcanaNameKR.text = nnKR + " " + arcana.getNameKR()
