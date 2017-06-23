@@ -166,13 +166,20 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             
 //            if UIDevice.current.userInterfaceIdiom == .phone {
-                cell.arcanaImage.addGestureRecognizer(tapImageGesture)
+                cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
 //            }
 //            if #available(iOS 11.0, *) {
 //                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
 //            }
             
-            cell.arcanaImage.loadArcanaImage(arcana.getUID(), imageType: .main, sender: cell)
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                
+                DispatchQueue.main.async {
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaImageCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
+                    }
+                }
+            })
             
             return cell
             
