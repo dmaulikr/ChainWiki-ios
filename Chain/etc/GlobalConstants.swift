@@ -66,48 +66,52 @@ let ARCANAVIEWUPDATENOTIFICATIONNAME = Notification.Name("ArcanaViewUpdate")
 // Fonts
 let APPLEGOTHIC_17 = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
 
-enum ArcanaAttribute: String {
+enum ArcanaAttribute {
     
-    case nameKR
-    case nicknameKR
-    case nameJP
-    case nicknameJP
-    case rarity
-    case group
-    case tavern
-    case affiliation
-    case cost
-    case weapon
+    static let arcanaID = "arcanaID"
+    static let nameKR = "nameKR"
+    static let nicknameKR = "nicknameKR"
+    static let nameJP = "nameJP"
+    static let nicknameJP = "nicknameJP"
     
-    case kizunaName
-    case kizunaCost
-    case kizunaDesc
+    static let rarity = "rarity"
+    static let group = "group"
+    static let weapon = "weapon"
+    static let affiliation = "affiliation"
     
-    case skillCount
-    case skillName1
-    case skillMana1
-    case skillDesc1
+    static let cost = "cost"
+    static let tavern = "tavern"
     
-    case skillName2
-    case skillMana2
-    case skillDesc2
+    static let kizunaName = "kizunaName"
+    static let kizunaCost = "kizunaCost"
+    static let kizunaDesc = "kizunaDesc"
     
-    case skillName3
-    case skillMana3
-    case skillDesc3
+    static let skillCount = "skillCount"
+    static let skillName1 = "skillName1"
+    static let skillMana1 = "skillMana1"
+    static let skillDesc1 = "skillDesc1"
     
-    case abilityName1
-    case abilityDesc1
+    static let skillName2 = "skillName2"
+    static let skillMana2 = "skillMana2"
+    static let skillDesc2 = "skillDesc2"
     
-    case abilityName2
-    case abilityDesc2
+    static let skillName3 = "skillName3"
+    static let skillMana3 = "skillMana3"
+    static let skillDesc3 = "skillDesc3"
     
-    case abilityName3
-    case abilityDesc3
+    static let abilityName1 = "abilityName1"
+    static let abilityDesc1 = "abilityDesc1"
     
-    case partyAbility
+    static let abilityName2 = "abilityName2"
+    static let abilityDesc2 = "abilityDesc2"
     
-    case chainStory
+    static let abilityName3 = "abilityName3"
+    static let abilityDesc3 = "abilityDesc3"
+    
+    static let partyAbility = "partyAbility"
+    
+    static let chainStory = "chainStory"
+    
 }
 
 // Colors

@@ -164,7 +164,7 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
-
+                cell.arcanaImageView.image = nil
                 switch arcanaView {
                     
                 case .mainGrid:

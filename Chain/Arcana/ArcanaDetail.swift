@@ -170,7 +170,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         tableView.reloadData()
     }
     
-    @objc 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

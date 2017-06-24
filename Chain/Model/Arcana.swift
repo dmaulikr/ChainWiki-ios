@@ -58,12 +58,20 @@ class Arcana: Equatable, Hashable {
     private var chainStone: String?
     private var numberOfLikes: Int
     
+    var imageURL: String?
+    var iconURL: String?
+    
     var hashValue: Int {
         return uid.hashValue
     }
 
     init?(snapshot: DataSnapshot) {
-
+        
+        guard let dict = snapshot.value as? [String:Any] else { return nil }
+        let arcanaID = snapshot.key
+        
+//        guard let nameKR = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameJP], let rarity = dict[ArcanaAttribute.rarity], let group = dict["class"], let tavern = dict[ArcanaAttribute.tavern], let affiliation = dict[ArcanaAttribute.affiliation], let cost = dict[ArcanaAttribute.cost], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], else { return nil }
+        
         guard let u = (snapshot.value as? NSDictionary)?["uid"] as? String, let nKR = (snapshot.value as? NSDictionary)?["nameKR"] as? String, let nJP = (snapshot.value as? NSDictionary)?["nameJP"] as? String, let r = (snapshot.value as? NSDictionary)?["rarity"] as? String, let g = (snapshot.value as? NSDictionary)?["class"] as? String, let t = (snapshot.value as? NSDictionary)?["tavern"] as? String, let a = (snapshot.value as? NSDictionary)?["affiliation"] as? String, let c = (snapshot.value as? NSDictionary)?["cost"] as? String, let w = (snapshot.value as? NSDictionary)?["weapon"] as? String, let kN = (snapshot.value as? NSDictionary)?["kizunaName"] as? String, let kC = (snapshot.value as? NSDictionary)?["kizunaCost"] as? String, let kD = (snapshot.value as? NSDictionary)?["kizunaDesc"] as? String, let sC = (snapshot.value as? NSDictionary)?["skillCount"] as? String, let sN1 = (snapshot.value as? NSDictionary)?["skillName1"] as? String, let sM1 = (snapshot.value as? NSDictionary)?["skillMana1"] as? String, let sD1 = (snapshot.value as? NSDictionary)?["skillDesc1"] as? String, let v = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int else {
                 print("COULD NOT GET SNAPSHOT OF 1 SKILL ARCANA")
             print(snapshot.ref)
@@ -170,6 +178,10 @@ class Arcana: Equatable, Hashable {
         
         if let pA = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
             partyAbility = pA
+        }
+        
+        if let imageURL = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
+            self.imageURL = imageURL
         }
   
     }
@@ -282,29 +294,6 @@ class Arcana: Equatable, Hashable {
         if let pA = arcanaDict["partyAbility"] {
             partyAbility = pA
         }
-        
-    }
-    
-    func populateArray() -> [String] {
-        
-        let editKeys = ["nameKR", "nickNameKR", "nameJP", "nickNameJP", "skillName1", "skillMana1", "skillDesc1", "skillName2", "skillMana2", "skillDesc2", "skillName3", "skillMana3", "skillDesc3", "abilityName1", "abilityDesc1", "abilityName1", "abilityDesc1", "kizunaName", "kizunaCost", "kizunaDesc"]
-        var arcanaDict = [String]()
-        
-        let arcana = self
-        
-        let mirrored_object = Mirror(reflecting: arcana)
-        
-        for att in mirrored_object.children {
-            if let property_name = att.label as String! {
-                if editKeys.contains(property_name) {
-                    arcanaDict.append(att.value as? String ?? "")
-                }
-                
-                
-            }
-        }
-        
-        return arcanaDict
         
     }
     
@@ -456,4 +445,56 @@ class Arcana: Equatable, Hashable {
 
 func ==(lhs: Arcana, rhs: Arcana) -> Bool {
     return lhs.uid == rhs.uid
+}
+
+class ArcanaPreview {
+    
+    private let arcanaID: String
+    private let nameKR: String
+    private var nicknameKR: String?
+    private let nameJP: String
+    private var nicknameJP: String?
+    private let rarity: String
+    private let group: String  // Class, 직업
+    private let weapon: String
+    private let affiliation: String // 소속
+    private var numberOfViews: Int
+    
+    init?(snapshot: DataSnapshot) {
+        
+        guard let dict = snapshot.value as? [String:String] else { return nil }
+        
+        guard let nameKR = dict[ArcanaAttribute.nameKR],
+            let nameJP = dict[ArcanaAttribute.nameJP],
+            let rarity = dict[ArcanaAttribute.rarity],
+            let group = dict["class"],
+            let weapon = dict[ArcanaAttribute.weapon],
+            let affiliation = dict[ArcanaAttribute.affiliation] else { return nil }
+        
+        let arcanaID = snapshot.key
+        
+        self.arcanaID = arcanaID
+        self.nameKR = nameKR
+        self.nameJP = nameJP
+        
+        if let nnKR = dict[ArcanaAttribute.nicknameKR] {
+            nicknameKR = nnKR
+        }
+        else if let nnKR = dict["nickNameKR"] {
+            nicknameKR = nnKR
+        }
+        if let nnJP = dict[ArcanaAttribute.nicknameJP] {
+            nicknameJP = nnJP
+        }
+        else if let nnJP = dict["nickNameJP"] {
+            nicknameJP = nnJP
+        }
+        
+        self.rarity = rarity
+        self.group = group
+        self.weapon = weapon
+        self.affiliation = affiliation
+        
+        self.numberOfViews = (snapshot.value as? NSDictionary)?["numberOfViews"] as? Int ?? 0
+    }
 }

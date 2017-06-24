@@ -110,7 +110,7 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
                 
                 DispatchQueue.main.async {
-                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaMainImageCollectionViewCell {
                         imageCell.arcanaImageView.animateImage(arcanaImage)
                     }
                 }

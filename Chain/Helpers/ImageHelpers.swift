@@ -48,7 +48,9 @@ extension UIImageView {
             
             else {
                 
-                image = nil
+                DispatchQueue.main.async {
+                    self.image = nil
+                }
                 
                 STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                     

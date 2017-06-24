@@ -26,7 +26,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "519621393.384555"
+                  timestampString = "520029529.452753"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -41,7 +41,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "519621393.386267"
+                  timestampString = "520029529.454341"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "283"
@@ -74,7 +74,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "519621393.389644"
+                  timestampString = "520029529.458444"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "274"
@@ -89,7 +89,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "519621393.391228"
+                  timestampString = "520029529.45989"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "276"
@@ -97,6 +97,22 @@
                   offsetFromSymbolStart = "188">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chain/Helpers/ImageHelpers.swift"
+            timestampString = "520029579.706492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "loadArcanaImage(_:imageType:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
