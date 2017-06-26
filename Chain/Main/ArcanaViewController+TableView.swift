@@ -50,14 +50,13 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             if arcanaView == .list || (arcanaView == .main && row == .arcana) {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-                
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
-                    
+                cell.arcanaImageView.loadArcanaImageWithURL(arcana.iconURL, completion: { (arcanaImage) in
                     DispatchQueue.main.async {
                         if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
                             imageCell.arcanaImageView.animateImage(arcanaImage)
                         }
                     }
+                    
                 })
                 
                 cell.setupCell(arcana: arcana)
@@ -69,13 +68,13 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
 
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
-                    
+                cell.arcanaImageView.loadArcanaImageWithURL(arcana.imageURL, completion: { (arcanaImage) in
                     DispatchQueue.main.async {
-                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaMainImageCell {
+                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
                             imageCell.arcanaImageView.animateImage(arcanaImage)
                         }
                     }
+                    
                 })
                 
                 return cell

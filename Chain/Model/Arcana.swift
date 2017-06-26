@@ -66,9 +66,19 @@ class Arcana: Equatable, Hashable {
     }
 
     init?(snapshot: DataSnapshot) {
+//
+//        guard let dict = snapshot.value as? [String:Any] else { return nil }
+//        let arcanaID = snapshot.key
+//
+//        guard let nameKR = dict[ArcanaAttribute.nameKR],
+//        let nameJP = dict[ArcanaAttribute.nameJP],
+//        let rarity = dict[ArcanaAttribute.rarity],
+//        let group = dict["class"],
+//        let affiliation = dict[ArcanaAttribute.affiliation],
+//        let weapon = dict[ArcanaAttribute.weapon],
+//        let cost = dict[ArcanaAttribute.cost],
+//        let kizunaName = dict[ArcanaAttribute.kizunaName],
         
-        guard let dict = snapshot.value as? [String:Any] else { return nil }
-        let arcanaID = snapshot.key
         
 //        guard let nameKR = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameJP], let rarity = dict[ArcanaAttribute.rarity], let group = dict["class"], let tavern = dict[ArcanaAttribute.tavern], let affiliation = dict[ArcanaAttribute.affiliation], let cost = dict[ArcanaAttribute.cost], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], let nameJP = dict[ArcanaAttribute.nameKR], else { return nil }
         
@@ -102,7 +112,13 @@ class Arcana: Equatable, Hashable {
             
             numberOfViews = v
             numberOfLikes = (snapshot.value as? NSDictionary)?["numberOfLikes"] as? Int ?? 0
-
+        
+        if let imageURL = (snapshot.value as? NSDictionary)?["imageURL"] as? String {
+            self.imageURL = imageURL
+        }
+        if let iconURL = (snapshot.value as? NSDictionary)?["iconURL"] as? String {
+            self.iconURL = iconURL
+        }
         if let nnKR = (snapshot.value as? NSDictionary)?["nicknameKR"] as? String {
             nicknameKR = nnKR
         }

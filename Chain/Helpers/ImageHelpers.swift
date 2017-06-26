@@ -28,6 +28,62 @@ extension UIImageView {
         
     }
     
+    func loadArcanaImageWithURL(_ urlString: String?, completion: @escaping (UIImage) -> ()) {
+        
+        self.image = nil
+        
+        if defaults.getImagePermissions() {
+            
+            if let urlString = urlString, let url = URL(string: urlString) {
+                
+                // check cache for image first
+                if let cachedImage = imageCache.object(forKey: urlString as NSString) {
+                    completion(cachedImage)
+                    return
+                }
+                
+                URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                    
+                    if error != nil {
+                        
+                        if let cachedPlaceholder = imageCache.object(forKey: "placeHolder") {
+                            completion(cachedPlaceholder)
+                        }
+                        else {
+                            DispatchQueue.main.async {
+                                UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+                                let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+                                imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
+                                completion(placeholder)
+                            }
+                        }
+                        
+                    }
+                    
+                    guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                    
+                    imageCache.setObject(downloadedImage, forKey: urlString as NSString)
+                    completion(downloadedImage)
+                    
+                }).resume()
+            }
+            else {
+                
+                if let cachedPlaceholder = imageCache.object(forKey: "placeHolder") {
+                    completion(cachedPlaceholder)
+                }
+                else {
+                    DispatchQueue.main.async {
+                        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+                        let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+                        imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
+                        completion(placeholder)
+                    }
+                }
+            }
+        }
+    }
+    
     func loadArcanaImage(_ arcanaID: String, imageType: ImageType, completion: @escaping (UIImage) -> ()) {
 
         let imageRef: String
