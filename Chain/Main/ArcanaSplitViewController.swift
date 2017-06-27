@@ -73,7 +73,7 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
             
         }
         
-        viewControllerList = [NavigationController(masterVC), welcomeVC]
+        viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]
         
     }
     

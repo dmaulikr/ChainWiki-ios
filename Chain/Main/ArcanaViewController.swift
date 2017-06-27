@@ -320,57 +320,57 @@ class ArcanaViewController: UIViewController {
         reloadView()
     }
     
-    let pannableFrame = CGRect(x: 100, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-
-    func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-
-        let translation = gestureRecognizer.translation(in: self.view)
-
-        switch gestureRecognizer.state {
-
-        case .began, .changed:
-
-            if !showFilter {
-                showFilter = true
-            }
-            
-            if !pannableFrame.contains(gestureRecognizer.location(in: view)) {
-                
-            }
-            
-            if gestureRecognizer.velocity(in: view).x < 0 {
-                if filterView.center.x >= (SCREENWIDTH+100)/2 {
-                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
-                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
-                }
-                else {
-                    return
-                    
-                }
-            }
-            else {
-                print("positive")
-                if filterView.center.x >= (SCREENWIDTH+100)/2 && filterView.center.x < (SCREENWIDTH * 1.5){
-//                if filterView.frame.minX < SCREENWIDTH {
-                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
-                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
-                }
-                else {
-                    return
-                }
-            }
-
-        case .ended:
-            if filterView.frame.minX < 100 {
-                filterView.center = CGPoint(x: (SCREENWIDTH + 100)/2, y: filterView.center.y)
-//                gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
-            }
-        default:
-            break
-        }
-
-
-    }
+//    let pannableFrame = CGRect(x: 100, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
+//
+//    func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+//
+//        let translation = gestureRecognizer.translation(in: self.view)
+//
+//        switch gestureRecognizer.state {
+//
+//        case .began, .changed:
+//
+//            if !showFilter {
+//                showFilter = true
+//            }
+//            
+//            if !pannableFrame.contains(gestureRecognizer.location(in: view)) {
+//                
+//            }
+//            
+//            if gestureRecognizer.velocity(in: view).x < 0 {
+//                if filterView.center.x >= (SCREENWIDTH+100)/2 {
+//                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
+//                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+//                }
+//                else {
+//                    return
+//                    
+//                }
+//            }
+//            else {
+//                print("positive")
+//                if filterView.center.x >= (SCREENWIDTH+100)/2 && filterView.center.x < (SCREENWIDTH * 1.5){
+////                if filterView.frame.minX < SCREENWIDTH {
+//                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
+//                    gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+//                }
+//                else {
+//                    return
+//                }
+//            }
+//
+//        case .ended:
+//            if filterView.frame.minX < 100 {
+//                filterView.center = CGPoint(x: (SCREENWIDTH + 100)/2, y: filterView.center.y)
+////                gestureRecognizer.setTranslation(CGPoint.zero, in: filterView)
+//            }
+//        default:
+//            break
+//        }
+//
+//
+//    }
     
     func reloadView() {
         
