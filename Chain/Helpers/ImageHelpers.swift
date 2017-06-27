@@ -28,7 +28,7 @@ extension UIImageView {
         
     }
     
-    func loadArcanaImageWithURL(_ urlString: String?, completion: @escaping (UIImage) -> ()) {
+    func loadArcanaImage(arcanaID: String, urlString: String?, completion: @escaping (String, UIImage) -> ()) {
         
         self.image = nil
         
@@ -38,7 +38,7 @@ extension UIImageView {
                 
                 // check cache for image first
                 if let cachedImage = imageCache.object(forKey: urlString as NSString) {
-                    completion(cachedImage)
+                    completion(arcanaID, cachedImage)
                     return
                 }
                 
@@ -47,14 +47,14 @@ extension UIImageView {
                     if error != nil {
                         
                         if let cachedPlaceholder = imageCache.object(forKey: "placeHolder") {
-                            completion(cachedPlaceholder)
+                            completion(arcanaID, cachedPlaceholder)
                         }
                         else {
                             DispatchQueue.main.async {
                                 UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
                                 let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
                                 imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
-                                completion(placeholder)
+                                completion(arcanaID, placeholder)
                             }
                         }
                         
@@ -63,21 +63,21 @@ extension UIImageView {
                     guard let data = data, let downloadedImage = UIImage(data: data) else { return }
                     
                     imageCache.setObject(downloadedImage, forKey: urlString as NSString)
-                    completion(downloadedImage)
+                    completion(arcanaID, downloadedImage)
                     
                 }).resume()
             }
             else {
                 
                 if let cachedPlaceholder = imageCache.object(forKey: "placeHolder") {
-                    completion(cachedPlaceholder)
+                    completion(arcanaID, cachedPlaceholder)
                 }
                 else {
                     DispatchQueue.main.async {
                         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
                         let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
                         imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
-                        completion(placeholder)
+                        completion(arcanaID, placeholder)
                     }
                 }
             }

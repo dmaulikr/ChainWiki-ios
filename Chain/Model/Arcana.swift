@@ -195,10 +195,6 @@ class Arcana: Equatable, Hashable {
         if let pA = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
             partyAbility = pA
         }
-        
-        if let imageURL = (snapshot.value as? NSDictionary)?["partyAbility"] as? String {
-            self.imageURL = imageURL
-        }
   
     }
     
