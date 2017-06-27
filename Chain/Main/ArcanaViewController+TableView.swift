@@ -110,25 +110,12 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         
         let arcana = arcanaArray[indexPath.section]
         
-        if let detailViewController = delegate as? ArcanaDetail {
-            detailViewController.arcanaSelected(arcana: arcana)
-            splitViewController?.showDetailViewController(NavigationController(detailViewController), sender: nil)
-        }
-            
-        else {
-            // welcome screen
-            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
-            
-            self.delegate = arcanaDetailVC
-            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
-        }
+        let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
-//        let vc = ArcanaDetail(arcana: arcana)
-//        navigationController?.pushViewController(vc, animated: true)
     }
-    
     
 }
 
@@ -214,22 +201,10 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let arcana = arcanaArray[indexPath.item]
         
-
-        if let detailViewController = delegate as? ArcanaDetail {
-            detailViewController.arcanaSelected(arcana: arcana)
-            splitViewController?.showDetailViewController(NavigationController(detailViewController), sender: nil)
-        }
-            
-        else {
-            // welcome screen
-            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
-            
-            self.delegate = arcanaDetailVC
-            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
-        }
-
+        let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
     }
     

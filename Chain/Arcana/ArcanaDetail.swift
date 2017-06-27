@@ -21,17 +21,9 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollViewDelegate {
+class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
-    var arcana: Arcana {
-        didSet {
-            title = arcana.getNameKR()
-            tableView.setContentOffset(.zero, animated: false)
-            tableView.reloadData()
-//            let indexPath = IndexPath(row: 0, section: 0)
-//            self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
-        }
-    }
+    var arcana: Arcana
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
     
@@ -106,8 +98,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         return tableView
     }()
     
-    
-    
     var heart = false
     var favorite = false
     var imageTapped = false
@@ -154,10 +144,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         fatalError("init(coder:) has not been implemented")
     }
     
-    func arcanaSelected(arcana: Arcana) {
-        self.arcana = arcana
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -172,7 +158,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
@@ -204,7 +189,7 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         super.viewWillDisappear(animated)
         showBars()
     }
-        
+    
     func setupViews() {
 
         title = arcana.getNameKR()

@@ -22,13 +22,8 @@ enum ArcanaVC {
     case favorites
 }
 
-protocol ArcanaSelectionDelegate: class {
-    func arcanaSelected(arcana: Arcana)
-}
-
 class ArcanaViewController: UIViewController {
     
-    weak var delegate: ArcanaSelectionDelegate?
     let concurrentArcanaQueue =
         DispatchQueue(
             label: "com.jk.cckorea.arcanaArrayQueue",

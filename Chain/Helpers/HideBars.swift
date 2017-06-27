@@ -38,9 +38,9 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height - frame.size.height
         
-        self.tableViewBottomConstraint?.constant = 0
         
         UIView.animate(withDuration: 0.2, animations: {
+            self.tableViewBottomConstraint?.constant = 0
             self.tabBarController?.tabBar.frame = frame
             self.view.layoutIfNeeded()
             
@@ -62,9 +62,9 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height + frame.size.height
         
-        self.tableViewBottomConstraint?.constant = 50
         
         UIView.animate(withDuration: 0.2, animations: {
+            self.tableViewBottomConstraint?.constant = 50
             self.tabBarController?.tabBar.frame = frame
             self.view.layoutIfNeeded()
             
@@ -72,6 +72,7 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    @objc
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         showBars()
     }
