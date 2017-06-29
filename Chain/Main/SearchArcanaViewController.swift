@@ -130,18 +130,18 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            
-            if !initialLoad {
-                setupColumns()
-            }
-            
-        }
-        
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            
+//            if !initialLoad {
+//                setupColumns()
+//            }
+//            
+//        }
+//        
+//    }
     
     override func setupChildViews() {
         

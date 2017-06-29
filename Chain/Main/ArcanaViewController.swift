@@ -192,16 +192,18 @@ class ArcanaViewController: UIViewController {
         tableView.deselectRow(at: row, animated: true)
     }
     
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        if UIDevice.current.userInterfaceIdiom == .pad {
-//            if !initialLoad {
-//                setupColumns()
-//                reloadView()
-//            }
-//        }
-//
-//    }
+    var updatedSize: CGSize!
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return
+        }
+        updatedSize = size
+        
+//        print(updatedSize)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
         
     func setupViews() {
         
@@ -333,11 +335,11 @@ class ArcanaViewController: UIViewController {
 //            if !showFilter {
 //                showFilter = true
 //            }
-//            
+//
 //            if !pannableFrame.contains(gestureRecognizer.location(in: view)) {
-//                
+//
 //            }
-//            
+//
 //            if gestureRecognizer.velocity(in: view).x < 0 {
 //                if filterView.center.x >= (SCREENWIDTH+100)/2 {
 //                    filterView.center = CGPoint(x: filterView.center.x + translation.x, y: filterView.center.y)
@@ -345,7 +347,7 @@ class ArcanaViewController: UIViewController {
 //                }
 //                else {
 //                    return
-//                    
+//
 //                }
 //            }
 //            else {

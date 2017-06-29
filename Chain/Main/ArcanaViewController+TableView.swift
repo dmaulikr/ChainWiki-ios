@@ -210,6 +210,10 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        if updatedSize == nil {
+            updatedSize = view.frame.size
+        }
+        
         switch arcanaView {
             
         case .list:
@@ -248,7 +252,12 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .mainGrid:
             let cellSize: CGFloat
             
-            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            if let splitVC = splitViewController {
+                cellSize = (splitVC.primaryColumnWidth - (sectionInsets.left * 2 + 5))/2
+            }
+            else {
+                cellSize = (updatedSize.width - (sectionInsets.left * 2 + 5))/2
+            }
             
             return CGSize(width: cellSize, height: cellSize * 1.5)
         }
