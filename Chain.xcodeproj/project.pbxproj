@@ -55,6 +55,7 @@
 		043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 043616011DBC974B00BFFB64 /* FontAwesome.otf */; };
 		043A7CB61E8FB1DA0061EDD8 /* ChainUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A7CB51E8FB1DA0061EDD8 /* ChainUITests.swift */; };
 		043A7CBE1E8FB2500061EDD8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A7CBD1E8FB2500061EDD8 /* SnapshotHelper.swift */; };
+		043D2DB41F04CF3300FD3982 /* AnimatedLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D2DB31F04CF3300FD3982 /* AnimatedLogoView.swift */; };
 		043EEFB31E89DCDC00650B28 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFB21E89DCDC00650B28 /* SearchBar.swift */; };
 		043EEFB91E8B172500650B28 /* ArcanaViewPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */; };
 		043EEFBD1E8B4AEB00650B28 /* ImageTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */; };
@@ -212,6 +213,7 @@
 		043A7CB51E8FB1DA0061EDD8 /* ChainUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainUITests.swift; sourceTree = "<group>"; };
 		043A7CB71E8FB1DA0061EDD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		043A7CBD1E8FB2500061EDD8 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		043D2DB31F04CF3300FD3982 /* AnimatedLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLogoView.swift; sourceTree = "<group>"; };
 		043EEFB21E89DCDC00650B28 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewPageController.swift; sourceTree = "<group>"; };
 		043EEFBC1E8B4AEB00650B28 /* ImageTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCell.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */,
+				043D2DB31F04CF3300FD3982 /* AnimatedLogoView.swift */,
 				049926E61DF7590C00FD9889 /* BannerAlert.swift */,
 				04BF5B001DF214CF00AE8CD8 /* PCView.swift */,
 				047561561D946BB1004886BF /* RoundedButton.swift */,
@@ -938,6 +941,7 @@
 				042834FA1D91E10D0043BE6E /* ArcanaChainStoryCell.swift in Sources */,
 				04FAA2131E6F9D1B00E848B4 /* DataLink.swift in Sources */,
 				04FAF3571D948ADD0061726F /* UnderlinedLabel.swift in Sources */,
+				043D2DB41F04CF3300FD3982 /* AnimatedLogoView.swift in Sources */,
 				046710C21D97D011000CF487 /* SearchHistory.swift in Sources */,
 				044916891EE264CE00123FF5 /* RatePopupView.swift in Sources */,
 				04D6594D1DB60A1200D30C21 /* PageViewController.swift in Sources */,

@@ -41,7 +41,6 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         delegate = self
         view.backgroundColor = .gray
         preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-//        maximumPrimaryColumnWidth = 300
     }
     
     func setupControllers(_ arcanaVC: ArcanaVC) {
@@ -61,6 +60,8 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
             masterVC = FavoritesArcanaViewController()
             
         }
+        
+        masterVC.welcomeDelegate = welcomeVC
         
         viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]
         

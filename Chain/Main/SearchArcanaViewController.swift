@@ -258,6 +258,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             }
 
             DispatchQueue.main.async {
+                self.welcomeDelegate?.animatedLogoView.finishAnimation()
                 self.reloadView()
             }
             

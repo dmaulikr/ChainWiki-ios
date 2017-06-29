@@ -151,11 +151,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         checkFavorites()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.reloadData()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedRow = tableView.indexPathForSelectedRow {
@@ -188,6 +183,15 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showBars()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.tableView.reloadData()
+
+        }) { (_) in
+        }
     }
     
     func setupViews() {
