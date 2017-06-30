@@ -25,6 +25,7 @@ enum ArcanaVC {
 class ArcanaViewController: UIViewController {
     
     weak var welcomeDelegate: WelcomeViewController?
+
     let concurrentArcanaQueue =
         DispatchQueue(
             label: "com.jk.cckorea.arcanaArrayQueue",

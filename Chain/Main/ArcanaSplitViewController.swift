@@ -30,6 +30,10 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
     }
     
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
         let masterVC: ArcanaViewController

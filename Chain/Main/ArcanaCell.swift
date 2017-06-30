@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ArcanaCell: ArcanaImageIDCell {
+class ArcanaCell: UITableViewCell {
 
     @IBOutlet weak var arcanaImageView: UIImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
@@ -41,7 +41,7 @@ class ArcanaCell: ArcanaImageIDCell {
     func setupCell(arcana: Arcana) {
         
         arcanaID = arcana.getUID()
-        
+
         if let nnKR = arcana.getNicknameKR() {
             arcanaNickKR.text = nnKR
         }

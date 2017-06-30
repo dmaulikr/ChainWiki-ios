@@ -107,7 +107,7 @@ extension UIImageView {
                 DispatchQueue.main.async {
                     self.image = nil
                 }
-                
+
                 STORAGE_REF.child("image/arcana").child(imageRef).downloadURL { (URL, error) -> Void in
                     
                     if (error != nil) {

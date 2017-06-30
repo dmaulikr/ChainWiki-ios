@@ -8,15 +8,24 @@
 
 import UIKit
 
-class ArcanaMainImageCell: ArcanaImageIDCell {
+class ArcanaMainImageCell: UITableViewCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
         
-    override func setupViews() {
+    func setupViews() {
         
         addSubview(arcanaImageView)
         
@@ -25,7 +34,7 @@ class ArcanaMainImageCell: ArcanaImageIDCell {
 
 }
 
-class ArcanaMainImageCollectionViewCell: ArcanaImageIDCell {
+class ArcanaMainImageCollectionViewCell: UITableViewCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,7 +42,7 @@ class ArcanaMainImageCollectionViewCell: ArcanaImageIDCell {
         return imageView
     }()
     
-    override func setupViews() {
+    func setupViews() {
         
         addSubview(arcanaImageView)
         

@@ -28,13 +28,14 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         setupTabBar()
         tabBar.tintColor = Color.lightGreen
         tabBar.barTintColor = .white
+
     }
     
     func setupTabBar() {
 //        let arcanaTab = SearchArcanaPageViewController()
 //        let arcanaTab = SearchArcanaViewController()
-        let arcanaTab = ArcanaSplitViewController(arcanaVC: .search)
 //        let arcanaTab = NavigationController(SearchArcanaViewController())
+        let arcanaTab = ArcanaSplitViewController(arcanaVC: .search)
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         
         let abilityTab = NavigationController(MenuBarViewController(menuType: .abilityList))
