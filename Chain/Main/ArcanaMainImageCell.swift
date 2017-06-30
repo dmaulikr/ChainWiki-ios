@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaMainImageCell: UITableViewCell {
+class ArcanaMainImageCell: ArcanaImageIDCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -25,7 +25,7 @@ class ArcanaMainImageCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
         
-    func setupViews() {
+    override func setupViews() {
         
         addSubview(arcanaImageView)
         

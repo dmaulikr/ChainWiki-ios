@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ArcanaCell: UITableViewCell {
+class ArcanaCell: ArcanaImageIDCell {
 
     @IBOutlet weak var arcanaImageView: UIImageView!
     @IBOutlet weak var arcanaNameKR: UILabel!
