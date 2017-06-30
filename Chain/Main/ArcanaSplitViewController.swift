@@ -58,10 +58,6 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         
     }
     
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return true
-    }
-    
     func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
         // reload tableview
         guard viewControllers.count >= 2 else { return }
