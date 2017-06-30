@@ -95,5 +95,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>firebase_crash_enabled</key>
+	<false/>
 </dict>
 </plist>
