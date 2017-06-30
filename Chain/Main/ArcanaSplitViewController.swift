@@ -11,24 +11,11 @@ import Firebase
 
 class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
-//    lazy var viewControllerList: [UIViewController] = {
-//
-//        let searchArcanaVC = SearchArcanaViewController()
-//        let arcanaDetailVC = WelcomeViewController()
-//
-//        let rootViewController = NavigationController(searchArcanaVC)
-//        let detailViewController = NavigationController(arcanaDetailVC)
-//
-//        return [rootViewController, detailViewController]
-//
-//    }()
-    
     var viewControllerList = [UIViewController]()
     
     init(arcanaVC: ArcanaVC) {
         super.init(nibName: nil, bundle: nil)
         setupControllers(arcanaVC)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,5 +56,16 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
+    }
+    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        // reload tableview
+        guard viewControllers.count >= 2 else { return }
+        
+        guard let arcanaNavVC = viewControllers[1] as? NavigationController else { return }
+        if let arcanaVC = arcanaNavVC.topViewController as? ArcanaDetail {
+            arcanaVC.tableView.setNeedsLayout()
+        }
+        
     }
 }
