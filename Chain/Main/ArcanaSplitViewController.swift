@@ -11,24 +11,11 @@ import Firebase
 
 class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
-//    lazy var viewControllerList: [UIViewController] = {
-//
-//        let searchArcanaVC = SearchArcanaViewController()
-//        let arcanaDetailVC = WelcomeViewController()
-//
-//        let rootViewController = NavigationController(searchArcanaVC)
-//        let detailViewController = NavigationController(arcanaDetailVC)
-//
-//        return [rootViewController, detailViewController]
-//
-//    }()
-    
     var viewControllerList = [UIViewController]()
     
     init(arcanaVC: ArcanaVC) {
         super.init(nibName: nil, bundle: nil)
         setupControllers(arcanaVC)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,18 +28,6 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         delegate = self
         view.backgroundColor = .gray
         preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-        maximumPrimaryColumnWidth = 300
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        if size.width < UIScreen.main.bounds.width {
-            maximumPrimaryColumnWidth = 300
-        }
-        else {
-            maximumPrimaryColumnWidth = 600
-        }
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
@@ -62,8 +37,7 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
         let masterVC: ArcanaViewController
-        let arcanaDetailVC = WelcomeViewController()
-        let detailViewController = NavigationController(arcanaDetailVC)
+        let welcomeVC = WelcomeViewController()
         
         switch arcanaVC {
             
@@ -78,7 +52,24 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
             
         }
         
-        viewControllerList = [NavigationController(masterVC), detailViewController]
+        masterVC.welcomeDelegate = welcomeVC
+        
+        viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]
+        
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        // reload tableview
+        guard viewControllers.count >= 2 else { return }
+        
+        guard let arcanaNavVC = viewControllers[1] as? NavigationController else { return }
+        if let arcanaVC = arcanaNavVC.topViewController as? ArcanaDetail {
+            arcanaVC.tableView.setNeedsLayout()
+        }
         
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class ArcanaIconCell: UICollectionViewCell {
     
+    var arcanaID: String!
+
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView

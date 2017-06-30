@@ -145,7 +145,7 @@ class ArcanaUploader: NSObject {
                             arcanaDict.updateValue(attribute, forKey: "nameJP")
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.nameKR.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.nameKR)
                                 }
                             })
                             
@@ -174,15 +174,15 @@ class ArcanaUploader: NSObject {
                         case 1:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.kizunaName.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.kizunaName)
                                 }
                             })
                         case 2:
-                            self.arcanaDict.updateValue(attribute, forKey: ArcanaAttribute.kizunaCost.rawValue)
+                            self.arcanaDict.updateValue(attribute, forKey: ArcanaAttribute.kizunaCost)
                         case 3:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.kizunaDesc.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.kizunaDesc)
                                 }
                             })
                         default:
@@ -198,7 +198,7 @@ class ArcanaUploader: NSObject {
                         let attribute = link.text!
                         
                         if index == 0 {
-                            arcanaDict.updateValue(getWeaponJPKR(string: attribute.trimmingCharacters(in: .whitespacesAndNewlines)), forKey: ArcanaAttribute.weapon.rawValue)
+                            arcanaDict.updateValue(getWeaponJPKR(string: attribute.trimmingCharacters(in: .whitespacesAndNewlines)), forKey: ArcanaAttribute.weapon)
                         }
                         else {
                             break
@@ -215,15 +215,15 @@ class ArcanaUploader: NSObject {
                         case 0:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName1.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName1)
                                 }
                             })
                         case 1:
-                            self.arcanaDict.updateValue(attribute, forKey: ArcanaAttribute.skillMana1.rawValue)
+                            self.arcanaDict.updateValue(attribute, forKey: ArcanaAttribute.skillMana1)
                         case 2:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc1.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc1)
                                 }
                             })
                         default:
@@ -242,19 +242,19 @@ class ArcanaUploader: NSObject {
                         case 0:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName2.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName2)
                                 }
                             })
                         case 1:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillMana2.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillMana2)
                                 }
                             })
                         case 2:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc2.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc2)
                                 }
                             })
                         default:
@@ -273,19 +273,19 @@ class ArcanaUploader: NSObject {
                         case 0:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName3.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillName3)
                                 }
                             })
                         case 1:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillMana3.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillMana3)
                                 }
                             })
                         case 2:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc3.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.skillDesc3)
                                 }
                             })
                         default:
@@ -304,13 +304,13 @@ class ArcanaUploader: NSObject {
                         case 0:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityName1.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityName1)
                                 }
                             })
                         case 1:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityDesc1.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityDesc1)
                                 }
                             })
                         default:
@@ -330,13 +330,13 @@ class ArcanaUploader: NSObject {
                         case 0:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityName2.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityName2)
                                 }
                             })
                         case 1:
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityDesc2.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.abilityDesc2)
                                 }
                             })
                         default:
@@ -355,7 +355,7 @@ class ArcanaUploader: NSObject {
                             if attribute != "" {
                                 translator.translate(attribute, group: group, completion: { translation in
                                     if let text = translation {
-                                        self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.partyAbility.rawValue)
+                                        self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.partyAbility)
                                     }
                                 })
                             }
@@ -417,7 +417,7 @@ class ArcanaUploader: NSObject {
                         if attribute.contains("章") && attribute.contains("】") {
                             translator.translate(attribute, group: group, completion: { translation in
                                 if let text = translation {
-                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.chainStory.rawValue)
+                                    self.arcanaDict.updateValue(text, forKey: ArcanaAttribute.chainStory)
                                 }
                             })
                             break
@@ -535,8 +535,8 @@ class ArcanaUploader: NSObject {
         arcanaDict["uid"] = arcanaID
         
         // Base Case: only 1 skill, 1 ability. Does not have nickname.
-        if arcanaDict[ArcanaAttribute.affiliation.rawValue] == nil {
-            arcanaDict[ArcanaAttribute.affiliation.rawValue] = ""
+        if arcanaDict[ArcanaAttribute.affiliation] == nil {
+            arcanaDict[ArcanaAttribute.affiliation] = ""
         }
         
         // TODO: Change base case to 1 skill 0 ability...

@@ -112,12 +112,9 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
         case .name:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
             
-            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
-                
+            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
                 DispatchQueue.main.async {
-//                    if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaNameCell {
-                        cell.arcanaImageView.animateImage(arcanaImage)
-//                    }
+                    cell.arcanaImageView.animateImage(arcanaImage)
                 }
             })
             
@@ -246,14 +243,14 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         guard let section = Section(rawValue: indexPath.section) else { return CGSize() }
-        print(collectionView.bounds.width)
+        
         switch section {
         case .name:
-            return CGSize(width: collectionView.bounds.width, height: 90)
+            return CGSize(width: collectionView.frame.width, height: 90)
         case .baseInfo:
-            return CGSize(width: (collectionView.bounds.width - 1) / 2, height: 80)
+            return CGSize(width: (collectionView.frame.width - 1) / 2, height: 80)
         case .likes:
-            return CGSize(width: collectionView.bounds.width, height: 50)
+            return CGSize(width: collectionView.frame.width, height: 50)
         }
 
     }

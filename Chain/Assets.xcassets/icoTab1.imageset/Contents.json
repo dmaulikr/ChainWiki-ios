@@ -11,6 +11,8 @@
     "author" : "xcode"
   },
   "properties" : {
-    "compression-type" : "lossless"
+    "compression-type" : "lossless",
+    "template-rendering-intent" : "template",
+    "preserves-vector-representation" : true
   }
 }

@@ -51,16 +51,17 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
+                cell.setupCell(arcana: arcana)
+                
+                cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
                     
-                    DispatchQueue.main.async {
-                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
-                            imageCell.arcanaImageView.animateImage(arcanaImage)
+                    if arcanaID == cell.arcanaID {
+                        DispatchQueue.main.async {
+                            cell.arcanaImageView.animateImage(arcanaImage)
                         }
                     }
+                    
                 })
-                
-                cell.setupCell(arcana: arcana)
                 
                 return cell
                 
@@ -68,16 +69,18 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCell") as! ArcanaMainImageCell
-
-                cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                
+                cell.arcanaID = arcana.getUID()
+                
+                cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
                     
-                    DispatchQueue.main.async {
-                        if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaMainImageCell {
-                            imageCell.arcanaImageView.animateImage(arcanaImage)
+                    if arcanaID == cell.arcanaID {
+                        DispatchQueue.main.async {
+                            cell.arcanaImageView.animateImage(arcanaImage)
                         }
                     }
+                    
                 })
-
                 
                 return cell
             }
@@ -107,25 +110,12 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         
         let arcana = arcanaArray[indexPath.section]
         
-        if let detailViewController = delegate as? ArcanaDetail {
-            detailViewController.arcanaSelected(arcana: arcana)
-            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
-        }
-            
-        else {
-            // welcome screen
-            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
-            
-            self.delegate = arcanaDetailVC
-            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
-        }
+        let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
-//        let vc = ArcanaDetail(arcana: arcana)
-//        navigationController?.pushViewController(vc, animated: true)
     }
-    
     
 }
 
@@ -165,28 +155,28 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                
-
+                cell.arcanaImageView.image = nil
+                cell.arcanaID = arcana.getUID()
+                
                 switch arcanaView {
                     
                 case .mainGrid:
-                    cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
-                        
-                        DispatchQueue.main.async {
-                            if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell {
-                                imageCell.arcanaImageView.animateImage(arcanaImage)
-                            }
-                        }
-                    })
-                default:
-                    cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
-                        
-                        DispatchQueue.main.async {
-                            if let imageCell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell {
-                                imageCell.arcanaImageView.animateImage(arcanaImage)
+                    cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
+                        if arcanaID == cell.arcanaID {
+                            DispatchQueue.main.async {
+                                cell.arcanaImageView.animateImage(arcanaImage)
                             }
                         }
                     })
                     
+                default:
+                    cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+                        if arcanaID == cell.arcanaID {
+                            DispatchQueue.main.async {
+                                cell.arcanaImageView.animateImage(arcanaImage)
+                            }
+                        }
+                    })
                 }
                 return cell
                 
@@ -211,23 +201,18 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let arcana = arcanaArray[indexPath.item]
         
-        if let detailViewController = delegate as? ArcanaDetail {
-            detailViewController.arcanaSelected(arcana: arcana)
-            splitViewController?.showDetailViewController(detailViewController, sender: nil)
-        }
-            
-        else {
-            // welcome screen
-            let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-            arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
-            
-            self.delegate = arcanaDetailVC
-            splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
-        }
+        let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if updatedSize == nil {
+            updatedSize = view.frame.size
+        }
         
         switch arcanaView {
             
@@ -267,7 +252,12 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .mainGrid:
             let cellSize: CGFloat
             
-            cellSize = (collectionView.frame.width - (sectionInsets.left * 2 + 5))/2
+            if let splitVC = splitViewController {
+                cellSize = (splitVC.primaryColumnWidth - (sectionInsets.left * 2 + 5))/2
+            }
+            else {
+                cellSize = (updatedSize.width - (sectionInsets.left * 2 + 5))/2
+            }
             
             return CGSize(width: cellSize, height: cellSize * 1.5)
         }

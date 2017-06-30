@@ -171,16 +171,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 //            if #available(iOS 11.0, *) {
 //                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
 //            }
-            
-            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
-                
+            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
                 DispatchQueue.main.async {
-                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaImageCell {
-                        imageCell.arcanaImageView.animateImage(arcanaImage)
-                    }
+                    cell.arcanaImageView.animateImage(arcanaImage)
                 }
             })
-            
             return cell
             
         case .attribute:

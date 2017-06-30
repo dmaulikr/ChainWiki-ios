@@ -17,6 +17,12 @@ class PCView: UIView {
         // Drawing code
         ChainLogo.drawLogo()
     }
- 
+    
+}
 
+class WelcomeLogoView: UIView {
+    
+    override func draw(_ rect: CGRect) {
+        ChainLogo.drawWelcomeLogo()
+    }
 }

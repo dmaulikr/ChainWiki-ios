@@ -130,18 +130,18 @@ final class SearchArcanaViewController: ArcanaViewController {
         
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            
-            if !initialLoad {
-                setupColumns()
-            }
-            
-        }
-        
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            
+//            if !initialLoad {
+//                setupColumns()
+//            }
+//            
+//        }
+//        
+//    }
     
     override func setupChildViews() {
         
@@ -227,8 +227,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         // For UI Testing.
 //        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
-         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-//        ref.observe(.childAdded, with: { snapshot in
+//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+        ref.observe(.childAdded, with: { snapshot in
             
             if let arcana = Arcana(snapshot: snapshot) {
                 
@@ -258,6 +258,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             }
 
             DispatchQueue.main.async {
+                self.welcomeDelegate?.animatedLogoView.finishAnimation()
                 self.reloadView()
             }
             

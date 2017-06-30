@@ -21,14 +21,9 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollViewDelegate {
+class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
-    var arcana: Arcana {
-        didSet {
-            title = arcana.getNameKR()
-            tableView.reloadData()
-        }
-    }
+    var arcana: Arcana
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
     
@@ -103,8 +98,6 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         return tableView
     }()
     
-    
-    
     var heart = false
     var favorite = false
     var imageTapped = false
@@ -151,29 +144,15 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         fatalError("init(coder:) has not been implemented")
     }
     
-    func arcanaSelected(arcana: Arcana) {
-        self.arcana = arcana
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        if #available(iOS 11.0, *) {
-            customEnableDragging(on: view, dragInteractionDelegate: self)
-        }
         updateHistory()
         checkFavorites()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.reloadData()
-    }
-    
-    @objc 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
@@ -205,9 +184,19 @@ class ArcanaDetail: HideBarsViewController, ArcanaSelectionDelegate, UIScrollVie
         super.viewWillDisappear(animated)
         showBars()
     }
-        
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.tableView.reloadData()
+
+        }) { (_) in
+        }
+    }
+    
     func setupViews() {
 
+        title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         

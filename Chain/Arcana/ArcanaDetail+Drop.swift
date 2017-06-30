@@ -30,7 +30,7 @@ extension ArcanaDetail: UIDropInteractionDelegate {
             let imageView: UIImageView
             
             if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaImageCell {
-                imageView = cell.arcanaImage
+                imageView = cell.arcanaImageView
             }
             else {
                 imageView = self.arcanaImageView
@@ -43,7 +43,12 @@ extension ArcanaDetail: UIDropInteractionDelegate {
                 
                 self.animateLabel(success: success)
                 if !success {
-                    imageView.loadArcanaImage(self.arcana.getUID(), imageType: .main, sender: self.arcanaImageView)
+                    imageView.loadArcanaImage(self.arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                        
+                        DispatchQueue.main.async {
+                            imageView.animateImage(arcanaImage)
+                        }
+                    })
                 }
 //                UIView.animate(withDuration: 0.2, animations: {
 //                    self.animatedView.fadeOut()
