@@ -182,6 +182,14 @@ extension UserDefaults {
         return bool(forKey: "imageType")
     }
     
+    func setPushShown() {
+        set(true, forKey: "pushShown")
+    }
+    
+    func pushShown() -> Bool {
+        return bool(forKey: "pushShown")
+    }
+    
     // MARK - App Rating
     func getAppLaunchCount() -> Int {
         return integer(forKey: "launchCount")

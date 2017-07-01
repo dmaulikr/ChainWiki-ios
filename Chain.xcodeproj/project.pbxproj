@@ -27,6 +27,8 @@
 		040F09091F0705B500B9A319 /* ArcanaDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B2871D75386C00A0A728 /* ArcanaDetail.swift */; };
 		040F090B1F07060B00B9A319 /* ArcanaViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F090A1F07060300B9A319 /* ArcanaViewController+TableView.swift */; };
 		040F090D1F07072A00B9A319 /* ArcanaImageIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F090C1F07072700B9A319 /* ArcanaImageIDCell.swift */; };
+		040F090F1F070A9800B9A319 /* NotificationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F090E1F070A9800B9A319 /* NotificationAlert.swift */; };
+		040F09141F0712EE00B9A319 /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F09121F0712EE00B9A319 /* PushNotificationViewController.swift */; };
 		040FA9A21E886B2200C315CD /* ArcanaAbilityPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A11E886B2200C315CD /* ArcanaAbilityPreviewCell.swift */; };
 		040FA9A41E886B7500C315CD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */; };
 		040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A51E88952000C315CD /* ArcanaIconCell.swift */; };
@@ -84,6 +86,7 @@
 		047C0D4F1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */; };
 		047C0D511E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D501E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift */; };
 		047FCE801E8F80C200D9B832 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047FCE7F1E8F80C200D9B832 /* AppRater.swift */; };
+		0486C0091F072F7F00B6A7D8 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486C0081F072F7F00B6A7D8 /* AppDelegate+Messaging.swift */; };
 		0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */; };
 		0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */; };
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
@@ -98,6 +101,8 @@
 		04A2ECC91D6F80EB00189142 /* Arcana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2ECC81D6F80EB00189142 /* Arcana.swift */; };
 		04AE0E261D7A2C23008902A8 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE0E251D7A2C23008902A8 /* FilterViewController.swift */; };
 		04B2B22C1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2B22B1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift */; };
+		04BE11831F07199600030F8D /* PushNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BE11821F07199600030F8D /* PushNotificationViewController.xib */; };
+		04BE11851F07219A00030F8D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE11841F07219A00030F8D /* RoundButton.swift */; };
 		04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */; };
 		04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */; };
 		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
@@ -181,6 +186,8 @@
 		040EA17B1DB8955200193363 /* DismissKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyboard.swift; sourceTree = "<group>"; };
 		040F090A1F07060300B9A319 /* ArcanaViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaViewController+TableView.swift"; sourceTree = "<group>"; };
 		040F090C1F07072700B9A319 /* ArcanaImageIDCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaImageIDCell.swift; sourceTree = "<group>"; };
+		040F090E1F070A9800B9A319 /* NotificationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAlert.swift; sourceTree = "<group>"; };
+		040F09121F0712EE00B9A319 /* PushNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
 		040FA9A11E886B2200C315CD /* ArcanaAbilityPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaAbilityPreviewCell.swift; sourceTree = "<group>"; };
 		040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		040FA9A51E88952000C315CD /* ArcanaIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconCell.swift; sourceTree = "<group>"; };
@@ -244,6 +251,7 @@
 		047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypeViewController.swift; sourceTree = "<group>"; };
 		047C0D501E8CDD68008F83F3 /* SelectViewForArcanaTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewForArcanaTypeTableViewController.swift; sourceTree = "<group>"; };
 		047FCE7F1E8F80C200D9B832 /* AppRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
+		0486C0081F072F7F00B6A7D8 /* AppDelegate+Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Messaging.swift"; sourceTree = "<group>"; };
 		0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewEditsCell.swift; sourceTree = "<group>"; };
 		0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEdit.swift; sourceTree = "<group>"; };
 		04885B871D926EA800A69992 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
@@ -262,6 +270,8 @@
 		04A2ECC81D6F80EB00189142 /* Arcana.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arcana.swift; sourceTree = "<group>"; };
 		04AE0E251D7A2C23008902A8 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		04B2B22B1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewTableCell.swift; sourceTree = "<group>"; };
+		04BE11821F07199600030F8D /* PushNotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushNotificationViewController.xib; sourceTree = "<group>"; };
+		04BE11841F07219A00030F8D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditModel.swift; sourceTree = "<group>"; };
 		04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainLogo.swift; sourceTree = "<group>"; };
 		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
@@ -343,6 +353,7 @@
 				047B57731EF8EDAA0077FAFB /* ImageHelpers.swift */,
 				04DFF8D71EE0ED54002C7D05 /* HideBars.swift */,
 				040133431EF0F9F10050ED32 /* GoogleTranslator.swift */,
+				040F090E1F070A9800B9A319 /* NotificationAlert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -502,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				04A2EC941D6F7FA300189142 /* AppDelegate.swift */,
+				0486C0081F072F7F00B6A7D8 /* AppDelegate+Messaging.swift */,
 				048E6E541D729A7D00687513 /* GlobalConstants.swift */,
 				040EA1721DB8787E00193363 /* Helpers */,
 				042834FC1D91EA1E0043BE6E /* Login */,
@@ -535,6 +547,9 @@
 				044916881EE264CE00123FF5 /* RatePopupView.swift */,
 				0465F9841EE3449800282014 /* KRLabel.swift */,
 				0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */,
+				04BE11841F07219A00030F8D /* RoundButton.swift */,
+				040F09121F0712EE00B9A319 /* PushNotificationViewController.swift */,
+				04BE11821F07199600030F8D /* PushNotificationViewController.xib */,
 			);
 			name = "Custom Views";
 			path = CustomViews;
@@ -685,6 +700,9 @@
 							com.apple.Keychain = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -727,6 +745,7 @@
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
 				0435239B1DB461CA004D96A3 /* Credits.plist in Resources */,
+				04BE11831F07199600030F8D /* PushNotificationViewController.xib in Resources */,
 				043523971DB45CAF004D96A3 /* credits.py in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
 			);
@@ -895,6 +914,8 @@
 				045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */,
 				040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */,
 				04B2B22C1DEFC3BF00C7BD1A /* AbilityViewTableCell.swift in Sources */,
+				040F090F1F070A9800B9A319 /* NotificationAlert.swift in Sources */,
+				0486C0091F072F7F00B6A7D8 /* AppDelegate+Messaging.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
 				040133421EF0F3950050ED32 /* ArcanaUpload.swift in Sources */,
 				0425D49C1E78FBC00030BF4A /* FavoritesArcanaViewController.swift in Sources */,
@@ -933,6 +954,7 @@
 				040133401EF0EF100050ED32 /* ArcanaUploader.swift in Sources */,
 				040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */,
 				040133461EF10F700050ED32 /* ArcanaAttributeConverter.swift in Sources */,
+				04BE11851F07219A00030F8D /* RoundButton.swift in Sources */,
 				047C0D4D1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift in Sources */,
 				0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */,
 				04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */,
@@ -971,6 +993,7 @@
 				0449168F1EE3325D00123FF5 /* SurveyCell.swift in Sources */,
 				0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
+				040F09141F0712EE00B9A319 /* PushNotificationViewController.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */,

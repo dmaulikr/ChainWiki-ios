@@ -15,6 +15,7 @@ target 'Chain' do
     pod 'Firebase/Storage'
     pod 'Firebase/Crash'
     pod 'Firebase/Performance'
+    pod 'Firebase/Messaging'
     pod 'GoogleSignIn'
 
     pod 'Kanna', '~> 2.1.0'

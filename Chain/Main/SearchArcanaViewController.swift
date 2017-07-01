@@ -70,11 +70,12 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.setScreenName("SearchArcanaView", screenClass: nil)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
+        if !defaults.pushShown() {
+            defaults.setPushShown()
+            let vc = PushNotificationViewController(nibName: "PushNotificationViewController", bundle: nil)
+            present(NavigationController(vc), animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
