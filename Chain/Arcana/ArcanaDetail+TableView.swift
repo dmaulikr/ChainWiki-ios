@@ -12,7 +12,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     private enum Section: Int {
         case image
-        case name
         case attribute
         case skill
         case ability
@@ -23,6 +22,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     }
     
     private enum AttributeRow: Int {
+        case name
         case rarityCost
         case classWeapon
         case affiliationTavern
@@ -56,10 +56,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
             return 1
-        case .name:
-            return 1
         case .attribute:
-            return 3
+            return 4
         case .skill:
             
             // Returning 2 * skillCount for description.
@@ -168,41 +166,39 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             })
             return cell
             
-        case .name:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
-            cell.selectionStyle = .none
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
-                DispatchQueue.main.async {
-                    cell.arcanaImageView.animateImage(arcanaImage)
-                }
-            })
-            
-            if let nnKR = arcana.getNicknameKR() {
-                cell.arcanaNameKRLabel.text = nnKR + " " + arcana.getNameKR()
-            }
-            else {
-                cell.arcanaNameKRLabel.text = arcana.getNameKR()
-            }
-            
-            if let nnJP = arcana.getNicknameJP() {
-                cell.arcanaNameJPLabel.text = nnJP + arcana.getNameJP()
-            }
-            else {
-                cell.arcanaNameJPLabel.text = arcana.getNameJP()
-            }
-            
-            return cell
-            
         case .attribute:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
-            cell.selectionStyle = .none
-            
-            guard let row = AttributeRow(rawValue: indexPath.row) else { return cell }
+            guard let row = AttributeRow(rawValue: indexPath.row) else { return UITableViewCell() }
             
             switch row {
                 
+            case .name:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
+                cell.selectionStyle = .none
+                cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+                    DispatchQueue.main.async {
+                        cell.arcanaImageView.animateImage(arcanaImage)
+                    }
+                })
+                
+                if let nnKR = arcana.getNicknameKR() {
+                    cell.arcanaNameKRLabel.text = nnKR + " " + arcana.getNameKR()
+                }
+                else {
+                    cell.arcanaNameKRLabel.text = arcana.getNameKR()
+                }
+                
+                if let nnJP = arcana.getNicknameJP() {
+                    cell.arcanaNameJPLabel.text = nnJP + arcana.getNameJP()
+                }
+                else {
+                    cell.arcanaNameJPLabel.text = arcana.getNameJP()
+                }
+                
+                return cell
             case .rarityCost:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
+                cell.selectionStyle = .none
                 cell.arcanaClassImageView.isHidden = true
                 
                 cell.attributeKeyFirstLabel.text = "레어"
@@ -211,7 +207,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.attributeKeySecondLabel.text = "코스트"
                 cell.attributeDescSecondLabel.text = arcana.getCost()
                 
+                return cell
+                
             case .classWeapon:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
+                cell.selectionStyle = .none
+                
                 cell.arcanaClassImageView.isHidden = false
                 
                 switch arcana.getGroup() {
@@ -235,7 +236,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.attributeKeySecondLabel.text = "무기"
                 cell.attributeDescSecondLabel.text = arcana.getWeapon()
                 
+                return cell
+                
             case .affiliationTavern:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
+                cell.selectionStyle = .none
                 cell.arcanaClassImageView.isHidden = true
                 
                 cell.attributeKeyFirstLabel.text = "소속"
@@ -244,9 +249,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.attributeKeySecondLabel.text = "출현 장소"
                 cell.attributeDescSecondLabel.text = arcana.getTavern()
                 
+                return cell
             }
-            
-            return cell
             
         case .skill:
             
