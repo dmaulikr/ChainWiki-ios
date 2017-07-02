@@ -52,14 +52,6 @@ class FilterViewController: UIViewController {
     fileprivate let affiliation = ["여행자", "마신", "부도", "성도", "현탑", "미궁", "호도", "정령섬", "구령", "대해", "수인", "죄", "박명", "철연", "연대기", "레무", "의용군", "화격단"]
     
     var filterTypes = [String : [String]]()
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,13 +71,11 @@ class FilterViewController: UIViewController {
 extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private enum Section: Int {
-        
         case rarity
         case group
         case weapon
         case affiliation
         case clear
-        
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -99,11 +89,11 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
         switch section {
             
         case .rarity:
-            return 5
+            return rarity.count
         case .group:
-            return 5
+            return group.count
         case .weapon:
-            return 9
+            return weapon.count
         case .affiliation:
             return affiliation.count
         case .clear:
@@ -119,22 +109,22 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
             
         case .rarity:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RarityCell", for: indexPath) as! RarityCell
-            cell.rarityLabel.text = rarity[(indexPath as NSIndexPath).row]
+            cell.rarityLabel.text = rarity[indexPath.row]
             return cell
             
         case .group:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
-            cell.filterLabel.text = group[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = group[indexPath.row]
             return cell
             
         case .weapon:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
-            cell.filterLabel.text = weapon[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = weapon[indexPath.row]
             return cell
             
         case .affiliation:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
-            cell.filterLabel.text = affiliation[(indexPath as NSIndexPath).row]
+            cell.filterLabel.text = affiliation[indexPath.row]
             return cell
             
         case .clear:
@@ -149,17 +139,12 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let section = Section(rawValue: indexPath.section) else { return }
-
-        // TODO: Add to filterTypes based on section
-        // Hold an array to be updated after selection
-        //        var filteredArray = [Arcana]()
         
         switch section {
             
         case .rarity:
             let cell = collectionView.cellForItem(at: indexPath) as! RarityCell
             cell.cellAnimate()
-            print("SELECTED RARITY \(cell.rarityLabel.text!)")
             
             var rarityArray = [String]()
             
@@ -168,7 +153,7 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
                 rarityArray = rarityDict
             }
                 
-                // Else make a new one
+            // Else make a new one
             else {
                 rarityArray = [String]()
             }
@@ -181,7 +166,6 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED GROUP \(cell.filterLabel.text!)")
             
             var groupArray = [String]()
             
@@ -199,7 +183,6 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED WEAPON \(cell.filterLabel.text!)")
             
             var weaponArray = [String]()
             
@@ -217,7 +200,6 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
             let cell = collectionView.cellForItem(at: indexPath) as! FilterCell
             cell.cellAnimate()
             cell.isHighlighted = true
-            print("SELECTED AFFILIATION \(cell.filterLabel.text!)")
             
             var affiliationArray = [String]()
             
@@ -241,16 +223,12 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func clearFilters() {
+        
         if let selectedFilters = collectionView.indexPathsForSelectedItems {
             for i in selectedFilters {
                 collectionView.deselectItem(at: i, animated: true)
                 collectionView.cellForItem(at: i)?.isHighlighted = false
             }
-            
-//            let clearArray = [String]()
-//            for (key, _) in filterTypes {
-//                filterTypes.updateValue(clearArray, forKey: key)
-//            }
             filterTypes.removeAll()
             hasFilter = false
         }
