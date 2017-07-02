@@ -95,6 +95,8 @@
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
 		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
+		049FAA3D1F082E79009F45D9 /* ArcanaBaseInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049FAA3B1F082E79009F45D9 /* ArcanaBaseInfoCell.swift */; };
+		049FAA3E1F082E79009F45D9 /* ArcanaBaseInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049FAA3C1F082E79009F45D9 /* ArcanaBaseInfoCell.xib */; };
 		04A2EC951D6F7FA300189142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2EC941D6F7FA300189142 /* AppDelegate.swift */; };
 		04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A2EC9E1D6F7FA300189142 /* Assets.xcassets */; };
 		04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2ECA01D6F7FA300189142 /* LaunchScreen.storyboard */; };
@@ -126,6 +128,8 @@
 		04E78B101EF758F000B4F0FE /* ArcanaDetail+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */; };
 		04EA719D1DB21C8C004E9A97 /* RarityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED6FD41D813F4800C87B17 /* RarityCell.swift */; };
 		04EC93021E83B13E000CDA7B /* BannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049926E61DF7590C00FD9889 /* BannerAlert.swift */; };
+		04ECE01B1F077FD40005F013 /* ArcanaNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE0191F077FD40005F013 /* ArcanaNameCell.swift */; };
+		04ECE01C1F077FD40005F013 /* ArcanaNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04ECE01A1F077FD40005F013 /* ArcanaNameCell.xib */; };
 		04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6F41D937AF2005731B9 /* CreateEmail.swift */; };
 		04EDE7001D9391F1005731B9 /* ArcanaDetailEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */; };
 		04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EDE7011D93954A005731B9 /* ArcanaDetailEditCell.swift */; };
@@ -262,6 +266,8 @@
 		049926E61DF7590C00FD9889 /* BannerAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAlert.swift; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
+		049FAA3B1F082E79009F45D9 /* ArcanaBaseInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaBaseInfoCell.swift; sourceTree = "<group>"; };
+		049FAA3C1F082E79009F45D9 /* ArcanaBaseInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArcanaBaseInfoCell.xib; sourceTree = "<group>"; };
 		04A2EC911D6F7FA300189142 /* Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A2EC941D6F7FA300189142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A2EC9E1D6F7FA300189142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -293,6 +299,8 @@
 		04E78B0B1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaSplitViewController.swift; sourceTree = "<group>"; };
 		04E78B0D1EF6E6B400B4F0FE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+TableView.swift"; sourceTree = "<group>"; };
+		04ECE0191F077FD40005F013 /* ArcanaNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaNameCell.swift; sourceTree = "<group>"; };
+		04ECE01A1F077FD40005F013 /* ArcanaNameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArcanaNameCell.xib; sourceTree = "<group>"; };
 		04ED6FD41D813F4800C87B17 /* RarityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RarityCell.swift; sourceTree = "<group>"; };
 		04EDE6F41D937AF2005731B9 /* CreateEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEmail.swift; sourceTree = "<group>"; };
 		04EDE6FF1D9391F1005731B9 /* ArcanaDetailEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetailEdit.swift; sourceTree = "<group>"; };
@@ -435,7 +443,11 @@
 				047B57711EF8ED480077FAFB /* ArcanaImageCell.swift */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
+				04ECE0191F077FD40005F013 /* ArcanaNameCell.swift */,
+				04ECE01A1F077FD40005F013 /* ArcanaNameCell.xib */,
 				04DFF8DB1EE148AB002C7D05 /* ArcanaBaseInfoCollectionView.swift */,
+				049FAA3B1F082E79009F45D9 /* ArcanaBaseInfoCell.swift */,
+				049FAA3C1F082E79009F45D9 /* ArcanaBaseInfoCell.xib */,
 				04DFF8D91EE13324002C7D05 /* ArcanaClassCell.swift */,
 				046C93361D7582E9000E3FBD /* ArcanaSkillCell.swift */,
 				048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */,
@@ -747,7 +759,9 @@
 				0435239B1DB461CA004D96A3 /* Credits.plist in Resources */,
 				04BE11831F07199600030F8D /* PushNotificationViewController.xib in Resources */,
 				043523971DB45CAF004D96A3 /* credits.py in Resources */,
+				04ECE01C1F077FD40005F013 /* ArcanaNameCell.xib in Resources */,
 				04691E8F1D97A87300E15C5F /* ArcanaCell.xib in Resources */,
+				049FAA3E1F082E79009F45D9 /* ArcanaBaseInfoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,6 +973,7 @@
 				0425D4981E78D3010030BF4A /* TavernArcanaViewController.swift in Sources */,
 				04349D151DACDA1F00216141 /* ArcanaEditListCell.swift in Sources */,
 				043EEFBD1E8B4AEB00650B28 /* ImageTypeCell.swift in Sources */,
+				04ECE01B1F077FD40005F013 /* ArcanaNameCell.swift in Sources */,
 				04E78B0C1EF6E54C00B4F0FE /* ArcanaSplitViewController.swift in Sources */,
 				04AE0E261D7A2C23008902A8 /* FilterViewController.swift in Sources */,
 				0447255A1DAA2D6D0013EC13 /* LaunchScreenView.swift in Sources */,
@@ -999,6 +1014,7 @@
 				040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */,
 				04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */,
 				04EDE7021D93954A005731B9 /* ArcanaDetailEditCell.swift in Sources */,
+				049FAA3D1F082E79009F45D9 /* ArcanaBaseInfoCell.swift in Sources */,
 				041729071E7297D50090E634 /* FloatingTextField.swift in Sources */,
 				043EEFB31E89DCDC00650B28 /* SearchBar.swift in Sources */,
 				04EDE6F51D937AF2005731B9 /* CreateEmail.swift in Sources */,

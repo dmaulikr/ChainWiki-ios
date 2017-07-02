@@ -31,8 +31,8 @@ class ArcanaBaseInfoCollectionView: BaseTableViewCell {
         collectionView.fadeIn()
         
         collectionView.register(ArcanaNameCell.self, forCellWithReuseIdentifier: "ArcanaNameCell")
-        collectionView.register(ArcanaBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaBaseInfoCell")
-        collectionView.register(ArcanaClassBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaClassBaseInfoCell")
+//        collectionView.register(ArcanaBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaBaseInfoCell")
+//        collectionView.register(ArcanaClassBaseInfoCell.self, forCellWithReuseIdentifier: "ArcanaClassBaseInfoCell")
         collectionView.register(ArcanaButtonsCell.self, forCellWithReuseIdentifier: "ArcanaButtonsCell")
         
         return collectionView
@@ -105,138 +105,138 @@ extension ArcanaBaseInfoCollectionView: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let section = Section(rawValue: indexPath.section), let arcana = arcana else { return collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell }
+//        guard let section = Section(rawValue: indexPath.section), let arcana = arcana else { return collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell }
+//
+//        switch section {
         
-        switch section {
+//        case .name:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
+//
+//            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+//                DispatchQueue.main.async {
+//                    cell.arcanaImageView.animateImage(arcanaImage)
+//                }
+//            })
+//
+//            if let nnKR = arcana.getNicknameKR() {
+//                cell.arcanaNameKR.text = nnKR + " " + arcana.getNameKR()
+//            }
+//            else {
+//                cell.arcanaNameKR.text = arcana.getNameKR()
+//            }
+//
+//            if let nnJP = arcana.getNicknameJP() {
+//                cell.arcanaNameJP.text = nnJP + arcana.getNameJP()
+//            }
+//            else {
+//                cell.arcanaNameJP.text = arcana.getNameJP()
+//            }
+//
+//            return cell
             
-        case .name:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
-            
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
-                DispatchQueue.main.async {
-                    cell.arcanaImageView.animateImage(arcanaImage)
-                }
-            })
-            
-            if let nnKR = arcana.getNicknameKR() {
-                cell.arcanaNameKR.text = nnKR + " " + arcana.getNameKR()
-            }
-            else {
-                cell.arcanaNameKR.text = arcana.getNameKR()
-            }
-            
-            if let nnJP = arcana.getNicknameJP() {
-                cell.arcanaNameJP.text = nnJP + arcana.getNameJP()
-            }
-            else {
-                cell.arcanaNameJP.text = arcana.getNameJP()
-            }
-            
-            return cell
-
-        case .baseInfo:
-            guard let row = Row(rawValue: indexPath.row) else { return collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell }
-
-            var attributeKey = ""
-            var attributeValue = ""
-            
-            switch row {
-                
-            case .group:
-                
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell
-                
-                cell.attributeKeyLabel.text = "직업"
-                cell.attributeValueLabel.text = arcana.getGroup()
-                
-                switch arcana.getGroup() {
-                case "전사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "warrior")
-                case "기사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "knight")
-                case "궁수":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "archer")
-                case "법사":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "magician")
-                case "승려":
-                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "healer")
-                default:
-                    break
-                }
-                
-                return cell
-                
-            default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
-                
-                guard let row = Row(rawValue: indexPath.row) else { return cell }
-                
-                switch row {
-                    
-                case .rarity:
-                    attributeKey = "레어"
-                    attributeValue = getRarityLong(arcana.getRarity())
-                case .cost:
-                    attributeKey = "코스트"
-                    attributeValue = arcana.getCost()
-                case .weapon:
-                    attributeKey = "무기"
-                    attributeValue = arcana.getWeapon()
-                case .affiliation:
-                    attributeKey = "소속"
-                    if let a = arcana.getAffiliation() {
-                        if a == "" {
-                            attributeValue = "정보 없음"
-                        }
-                        else {
-                            attributeValue = a
-                        }
-                    }
-                    else {
-                        attributeValue = "정보 없음"
-                    }
-                    
-                case .tavern:
-                    attributeKey = "출현 장소"
-                    attributeValue = arcana.getTavern()
-                    
-                default:
-                    break
-                    
-                }
-                
-                cell.attributeKeyLabel.text = attributeKey
-                cell.attributeValueLabel.text = attributeValue
-                
-                return cell
-                
-            }
-
-        case .likes:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaButtonsCell", for: indexPath) as! ArcanaButtonsCell
-
-            cell.arcanaDetailDelegate = arcanaDetailDelegate
-            cell.numberOfLikesLabel.text = "\(arcana.getNumberOfLikes())"
-            
-            let userLikes = defaults.getLikes()
-            if !userLikes.contains(arcana.getUID()) {
-                cell.heartButton.isSelected = false
-            }
-            else {
-                cell.heartButton.isSelected = true
-            }
-            
-            let userFavorites = defaults.getFavorites()
-            if !userFavorites.contains(arcana.getUID()) {
-                cell.favoriteButton.isSelected = false
-            }
-            else {
-                cell.favoriteButton.isSelected = true
-            }
-            
-            return cell
-        }
-        
+//        case .name,.baseInfo:
+//            guard let row = Row(rawValue: indexPath.row) else { return collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell }
+//
+//            var attributeKey = ""
+//            var attributeValue = ""
+//
+//            switch row {
+//
+//            case .group:
+//
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaClassBaseInfoCell", for: indexPath) as! ArcanaClassBaseInfoCell
+//
+//                cell.attributeKeyLabel.text = "직업"
+//                cell.attributeValueLabel.text = arcana.getGroup()
+//
+//                switch arcana.getGroup() {
+//                case "전사":
+//                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "warrior")
+//                case "기사":
+//                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "knight")
+//                case "궁수":
+//                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "archer")
+//                case "법사":
+//                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "magician")
+//                case "승려":
+//                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "healer")
+//                default:
+//                    break
+//                }
+//
+//                return cell
+//
+//            default:
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
+//
+//                guard let row = Row(rawValue: indexPath.row) else { return cell }
+//
+//                switch row {
+//
+//                case .rarity:
+//                    attributeKey = "레어"
+//                    attributeValue = getRarityLong(arcana.getRarity())
+//                case .cost:
+//                    attributeKey = "코스트"
+//                    attributeValue = arcana.getCost()
+//                case .weapon:
+//                    attributeKey = "무기"
+//                    attributeValue = arcana.getWeapon()
+//                case .affiliation:
+//                    attributeKey = "소속"
+//                    if let a = arcana.getAffiliation() {
+//                        if a == "" {
+//                            attributeValue = "정보 없음"
+//                        }
+//                        else {
+//                            attributeValue = a
+//                        }
+//                    }
+//                    else {
+//                        attributeValue = "정보 없음"
+//                    }
+//
+//                case .tavern:
+//                    attributeKey = "출현 장소"
+//                    attributeValue = arcana.getTavern()
+//
+//                default:
+//                    break
+//
+//                }
+//
+//                cell.attributeKeyLabel.text = attributeKey
+//                cell.attributeValueLabel.text = attributeValue
+//
+//                return cell
+//
+//            }
+//
+//        case .likes:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaButtonsCell", for: indexPath) as! ArcanaButtonsCell
+//
+//            cell.arcanaDetailDelegate = arcanaDetailDelegate
+//            cell.numberOfLikesLabel.text = "\(arcana.getNumberOfLikes())"
+//
+//            let userLikes = defaults.getLikes()
+//            if !userLikes.contains(arcana.getUID()) {
+//                cell.heartButton.isSelected = false
+//            }
+//            else {
+//                cell.heartButton.isSelected = true
+//            }
+//
+//            let userFavorites = defaults.getFavorites()
+//            if !userFavorites.contains(arcana.getUID()) {
+//                cell.favoriteButton.isSelected = false
+//            }
+//            else {
+//                cell.favoriteButton.isSelected = true
+//            }
+//
+//            return cell
+//        }
+        return UICollectionViewCell()
         
     }
     

@@ -87,7 +87,8 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         tableView.contentInset = UIEdgeInsets.zero
         
         tableView.register(ArcanaImageCell.self, forCellReuseIdentifier: "ArcanaImageCell")
-        tableView.register(ArcanaBaseInfoCollectionView.self, forCellReuseIdentifier: "ArcanaBaseInfoCollectionView")
+        tableView.register(UINib(nibName: "ArcanaNameCell", bundle: nil), forCellReuseIdentifier: "ArcanaNameCell")
+        tableView.register(UINib(nibName: "ArcanaBaseInfoCell", bundle: nil), forCellReuseIdentifier: "ArcanaBaseInfoCell")
         tableView.register(ArcanaAttributeCell.self, forCellReuseIdentifier: "ArcanaAttributeCell")
         tableView.register(ArcanaClassCell.self, forCellReuseIdentifier: "ArcanaClassCell")
         tableView.register(ArcanaSkillCell.self, forCellReuseIdentifier: "ArcanaSkillCell")

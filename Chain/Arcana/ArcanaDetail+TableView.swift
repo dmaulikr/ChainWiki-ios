@@ -12,6 +12,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
     
     private enum Section: Int {
         case image
+        case name
         case attribute
         case skill
         case ability
@@ -19,6 +20,12 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         case chainStory
         case wikiJP
         case edit
+    }
+    
+    private enum AttributeRow: Int {
+        case rarityCost
+        case classWeapon
+        case affiliationTavern
     }
     
     private enum SkillRow: Int {
@@ -49,8 +56,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
             return 1
-        case .attribute:
+        case .name:
             return 1
+        case .attribute:
+            return 3
         case .skill:
             
             // Returning 2 * skillCount for description.
@@ -111,40 +120,21 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
             return min(tableView.frame.width * 1.5, 500)
-//            return tableView.frame.width * 1.5
         case .attribute:
-            return 382
-            
+            return 90
         default:
             return UITableViewAutomaticDimension
         }
         
     }
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        guard let section = Section(rawValue: indexPath.section) else { return 0 }
-//
-//        switch section {
-//
-//        case .image:
-//            return tableView.frame.width * 1.5
-//        case .attribute:
-//            return 382
-//
-//        default:
-//            return UITableViewAutomaticDimension
-//        }
-//
-//    }
-//
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if tableView.numberOfRows(inSection: section) != 0 {
             guard let section = Section(rawValue: section) else { return 0 }
             
             switch section {
-            case .image, .attribute:
+            case .image:
                 return CGFloat.leastNonzeroMagnitude
             default:
                 return 20
@@ -178,12 +168,84 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             })
             return cell
             
-        case .attribute:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCollectionView") as! ArcanaBaseInfoCollectionView
-            cell.arcana = arcana
-            cell.arcanaDetailDelegate = self
+        case .name:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaNameCell", for: indexPath) as! ArcanaNameCell
             cell.selectionStyle = .none
-            cell.collectionView.reloadData()
+            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+                DispatchQueue.main.async {
+                    cell.arcanaImageView.animateImage(arcanaImage)
+                }
+            })
+            
+            if let nnKR = arcana.getNicknameKR() {
+                cell.arcanaNameKRLabel.text = nnKR + " " + arcana.getNameKR()
+            }
+            else {
+                cell.arcanaNameKRLabel.text = arcana.getNameKR()
+            }
+            
+            if let nnJP = arcana.getNicknameJP() {
+                cell.arcanaNameJPLabel.text = nnJP + arcana.getNameJP()
+            }
+            else {
+                cell.arcanaNameJPLabel.text = arcana.getNameJP()
+            }
+            
+            return cell
+            
+        case .attribute:
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaBaseInfoCell", for: indexPath) as! ArcanaBaseInfoCell
+            cell.selectionStyle = .none
+            
+            guard let row = AttributeRow(rawValue: indexPath.row) else { return cell }
+            
+            switch row {
+                
+            case .rarityCost:
+                cell.arcanaClassImageView.isHidden = true
+                
+                cell.attributeKeyFirstLabel.text = "레어"
+                cell.attributeDescFirstLabel.text = getRarityLong(arcana.getRarity())
+                
+                cell.attributeKeySecondLabel.text = "코스트"
+                cell.attributeDescSecondLabel.text = arcana.getCost()
+                
+            case .classWeapon:
+                cell.arcanaClassImageView.isHidden = false
+                
+                switch arcana.getGroup() {
+                case "전사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "warrior")
+                case "기사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "knight")
+                case "궁수":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "archer")
+                case "법사":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "magician")
+                case "승려":
+                    cell.arcanaClassImageView.image = #imageLiteral(resourceName: "healer")
+                default:
+                    break
+                }
+                
+                cell.attributeKeyFirstLabel.text = "직업"
+                cell.attributeDescFirstLabel.text = arcana.getGroup()
+                
+                cell.attributeKeySecondLabel.text = "무기"
+                cell.attributeDescSecondLabel.text = arcana.getWeapon()
+                
+            case .affiliationTavern:
+                cell.arcanaClassImageView.isHidden = true
+                
+                cell.attributeKeyFirstLabel.text = "소속"
+                cell.attributeDescFirstLabel.text = arcana.getAffiliation()
+                
+                cell.attributeKeySecondLabel.text = "출현 장소"
+                cell.attributeDescSecondLabel.text = arcana.getTavern()
+                
+            }
+            
             return cell
             
         case .skill:

@@ -58,14 +58,4 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         
     }
     
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
-        // reload tableview
-        guard viewControllers.count >= 2 else { return }
-        
-        guard let arcanaNavVC = viewControllers[1] as? NavigationController else { return }
-        if let arcanaVC = arcanaNavVC.topViewController as? ArcanaDetail {
-            arcanaVC.tableView.setNeedsLayout()
-        }
-        
-    }
 }
