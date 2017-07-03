@@ -281,7 +281,7 @@ final class SearchArcanaViewController: ArcanaViewController {
                     }
                 }
                 
-                if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                if let index = self.originalArray.index(where: {$0.getUID() == arcanaID}) {
                     self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
                         self._originalArray.remove(at: index)
                     }
@@ -456,7 +456,7 @@ extension SearchArcanaViewController: UISearchBarDelegate {
             let searchArray = self.originalArray.filter { arcana in
                 return arcana.getNameKR().contains(searchText) || arcana.getNameJP().contains(searchText)
             }
-            concurrentArcanaQueue.async {
+            concurrentArcanaQueue.async(flags: .barrier) {
                 self._arcanaArray = searchArray
                 DispatchQueue.main.async {
                     self.reloadView()
@@ -465,7 +465,7 @@ extension SearchArcanaViewController: UISearchBarDelegate {
         }
         else {
             self.showSearch = true
-            concurrentArcanaQueue.async {
+            concurrentArcanaQueue.async(flags: .barrier) {
             self._arcanaArray = self.originalArray
                 DispatchQueue.main.async {
                     self.reloadView()
@@ -496,7 +496,7 @@ extension SearchArcanaViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         showSearch = false
         
-        concurrentArcanaQueue.async {
+        concurrentArcanaQueue.async(flags: .barrier) {
             self.arcanaArray = self.originalArray
             DispatchQueue.main.async {
                 self.reloadView()
