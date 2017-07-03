@@ -54,12 +54,17 @@ class PushNotificationViewController: UIViewController {
     }
     
     @IBAction func declinePush(_ sender: Any) {
-        Messaging.messaging().unsubscribe(fromTopic: "addArcana")
-        Messaging.messaging().unsubscribe(fromTopic: "updateArcana")
+        
+        // do nothing if user selected cancel in nav bar
+        if let _ = sender as? UIButton {
+            Messaging.messaging().unsubscribe(fromTopic: "addArcana")
+            Messaging.messaging().unsubscribe(fromTopic: "updateArcana")
+            Analytics.logEvent("PushNotifications", parameters: [
+                "type" : "Declined" as NSObject
+                ])
+        }
         dismiss(animated: true, completion: nil)
-        Analytics.logEvent("PushNotifications", parameters: [
-            "type" : "Declined" as NSObject
-            ])
+        
     }
     
     override func viewDidLoad() {

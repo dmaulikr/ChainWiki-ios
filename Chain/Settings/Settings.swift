@@ -393,9 +393,18 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         switch section {
             
         case .app:
-            if indexPath.row == 1 {
-//                showArcanaViewSelection(showTip: false)
+            
+            guard let row = AppRow(rawValue: indexPath.row) else { return }
+            
+            switch row {
+                
+            case .imageToggle:
+                break
+            case .viewPref:
                 let vc = SelectViewForArcanaTypeViewController()
+                present(NavigationController(vc), animated: true, completion: nil)
+            case .notifications:
+                let vc = PushNotificationViewController(nibName: "PushNotificationViewController", bundle: nil)
                 present(NavigationController(vc), animated: true, completion: nil)
             }
             
