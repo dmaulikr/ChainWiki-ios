@@ -26,18 +26,20 @@ class PushNotificationViewController: UIViewController {
         switch sender {
         case addOnlyButton:
             Messaging.messaging().subscribe(toTopic: "addArcana")
-            Analytics.logEvent("Push Notifications", parameters: [
+            Messaging.messaging().unsubscribe(fromTopic: "updateArcana")
+            Analytics.logEvent("PushNotifications", parameters: [
                 "type" : "Add" as NSObject
                 ])
         case editOnlyButton:
+            Messaging.messaging().unsubscribe(fromTopic: "addArcana")
             Messaging.messaging().subscribe(toTopic: "updateArcana")
-            Analytics.logEvent("Push Notifications", parameters: [
+            Analytics.logEvent("PushNotifications", parameters: [
                 "type" : "Update" as NSObject
                 ])
         case receiveAllButton:
             Messaging.messaging().subscribe(toTopic: "addArcana")
             Messaging.messaging().subscribe(toTopic: "updateArcana")
-            Analytics.logEvent("Push Notifications", parameters: [
+            Analytics.logEvent("PushNotifications", parameters: [
                 "type" : "Add & Update" as NSObject
                 ])
         default:
@@ -52,8 +54,10 @@ class PushNotificationViewController: UIViewController {
     }
     
     @IBAction func declinePush(_ sender: Any) {
+        Messaging.messaging().unsubscribe(fromTopic: "addArcana")
+        Messaging.messaging().unsubscribe(fromTopic: "updateArcana")
         dismiss(animated: true, completion: nil)
-        Analytics.logEvent("Push Notifications", parameters: [
+        Analytics.logEvent("PushNotifications", parameters: [
             "type" : "Declined" as NSObject
             ])
     }

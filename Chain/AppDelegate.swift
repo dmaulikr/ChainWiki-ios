@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseMessaging
 import FBSDKLoginKit
 import GoogleSignIn
 
@@ -21,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        application.registerForRemoteNotifications()
         Database.database().isPersistenceEnabled = true
         Database.database().reference().keepSynced(true)
         
@@ -95,5 +98,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return false
     }
-
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        
+        // Print full message.
+        print(userInfo)
+    }
 }

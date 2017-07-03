@@ -176,7 +176,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
     func backTwo() {
         
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
-        _ = navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
+        navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
         
     }
     

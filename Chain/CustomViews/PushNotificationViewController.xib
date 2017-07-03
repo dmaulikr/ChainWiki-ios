@@ -23,22 +23,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BOK-Ks-hvu">
-                    <rect key="frame" x="20" y="192.5" width="335" height="282"/>
+                    <rect key="frame" x="20" y="192.5" width="375" height="282"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새로운 아르카나가 업데이트 되었을 때 알림을 받으시겠습니까?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbH-FK-d2e">
-                            <rect key="frame" x="0.0" y="0.0" width="335" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새로운 아르카나가 업데이트 되었을 때 알림을 받으시겠습니까?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbH-FK-d2e">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="페스티벌 1회에 푸시를 한번 보냅니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3N-vO-cud">
-                            <rect key="frame" x="0.0" y="26" width="335" height="16"/>
+                            <rect key="frame" x="0.0" y="26" width="375" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DE1-jG-TL6" customClass="RoundButton" customModule="Chain" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="52" width="335" height="50"/>
+                            <rect key="frame" x="0.0" y="52" width="375" height="50"/>
                             <color key="backgroundColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="VbO-Ke-qfa"/>
@@ -52,7 +52,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP0-ig-mlp" customClass="RoundButton" customModule="Chain" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="112" width="335" height="50"/>
+                            <rect key="frame" x="0.0" y="112" width="375" height="50"/>
                             <color key="backgroundColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="oNe-Sn-2ji"/>
@@ -66,7 +66,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16y-9w-55f" customClass="RoundButton" customModule="Chain" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="172" width="335" height="50"/>
+                            <rect key="frame" x="0.0" y="172" width="375" height="50"/>
                             <color key="backgroundColor" red="0.40784313725490196" green="0.63529411764705879" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="zsm-3q-Uhl"/>
@@ -80,7 +80,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bcg-Ye-puc">
-                            <rect key="frame" x="0.0" y="232" width="335" height="50"/>
+                            <rect key="frame" x="0.0" y="232" width="375" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="DLL-jk-HZq"/>
                             </constraints>

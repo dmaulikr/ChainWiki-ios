@@ -161,6 +161,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 //            }
             cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
                 DispatchQueue.main.async {
+                    cell.imageLoaded = true
                     cell.arcanaImageView.animateImage(arcanaImage)
                 }
             })
