@@ -38,12 +38,10 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height - frame.size.height
         
-        
         UIView.animate(withDuration: 0.2, animations: {
             self.tableViewBottomConstraint?.constant = 0
             self.tabBarController?.tabBar.frame = frame
             self.view.layoutIfNeeded()
-            
         }, completion: nil)
         
     }
@@ -57,11 +55,11 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         setNeedsStatusBarAppearanceUpdate()
         
         guard var frame = tabBarController?.tabBar.frame else { return }
         frame.origin.y = view.frame.size.height + frame.size.height
-        
         
         UIView.animate(withDuration: 0.2, animations: {
             self.tableViewBottomConstraint?.constant = 50

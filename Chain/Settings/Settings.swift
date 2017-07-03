@@ -117,7 +117,6 @@ class Settings: UIViewController, DisplayBanner {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-            //            try! FIRAuth.auth()!.signOut()
             
             defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             defaults.synchronize()
@@ -260,6 +259,12 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         case support
     }
     
+    private enum AppRow: Int {
+        case imageToggle
+        case viewPref
+        case notifications
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         guard let section = Section(rawValue: section) else { return nil }
@@ -288,7 +293,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .app:
-            return 2
+            return 3
         case .account:
             return accountSection.count
         case .about:
@@ -306,7 +311,12 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         switch section {
             
         case .app:
-            if indexPath.row == 0 {
+            
+            guard let row = AppRow(rawValue: indexPath.row) else { return UITableViewCell() }
+            
+            switch row {
+                
+            case .imageToggle:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ImageToggleCell") as! ImageToggleCell
                 
                 // have a toggle for image downloads. should be a different cell
@@ -322,15 +332,20 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
                 cell.icon.image = #imageLiteral(resourceName: "imageDownload")
                 
                 return cell
-            }
-            else {
                 
+            case .viewPref:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
                 cell.icon.image = #imageLiteral(resourceName: "imageDownload")
                 cell.titleLabel.text = "아르카나 이미지 유형 선택"
                 return cell
                 
+            case .notifications:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
+                cell.icon.image = #imageLiteral(resourceName: "notification")
+                cell.titleLabel.text = "푸시 알림 설정"
+                return cell
             }
+            
             
         case .account, .about, .support:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") as! SettingsCell
