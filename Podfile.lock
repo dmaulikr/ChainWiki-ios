@@ -114,7 +114,7 @@ PODS:
   - MIBadgeButton-Swift (0.5)
   - NVActivityIndicatorView (3.6.1)
   - Protobuf (3.3.0)
-  - SkyFloatingLabelTextField (3.1.0)
+  - SkyFloatingLabelTextField (3.2.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -181,7 +181,7 @@ SPEC CHECKSUMS:
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   NVActivityIndicatorView: '09a1085f3caf939fe18cdb33684a7635291004e6'
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
-  SkyFloatingLabelTextField: 26a92ad407044dd5a7c3e4e348738ff0991514fe
+  SkyFloatingLabelTextField: 4e2d2f7160af660ed1da6bb9d0027b5c474b4b79
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: 253a128c4030d4378e05ec19227ceb0c87756919

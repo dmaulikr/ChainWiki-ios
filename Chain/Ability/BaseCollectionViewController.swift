@@ -79,9 +79,8 @@ class BaseCollectionViewController: UIViewController {
         self.abilityMenu = abilityMenu
         downloadArray()
  
-        Analytics.logEvent("selectedAbility", parameters: [
-            AnalyticsParameterItemName: "SelectAbility" as NSObject,
-            AnalyticsParameterValue: "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
+        Analytics.logEvent("SelectedAbility", parameters: [
+            "AbilityType": "\(abilityType.0) \(abilityMenu.rawValue)" as NSObject
             ])
         
     }
