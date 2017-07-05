@@ -49,8 +49,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             initialViewController = PageViewController()
         }
         
-        self.window!.rootViewController = initialViewController
-        self.window!.makeKeyAndVisible()
+        // log user's view preferences for all views.
+        if !defaults.hasLoggedViewPref() {
+            defaults.setLoggedViewPref()
+            
+            if let searchView = defaults.getSearchView() {
+                Analytics.logEvent("ArcanaViewPref", parameters: [
+                    "viewPref": searchView as NSObject,
+                    ])
+            }
+            
+        }
+        
+        window!.rootViewController = initialViewController
+        window!.makeKeyAndVisible()
 
         return true
         

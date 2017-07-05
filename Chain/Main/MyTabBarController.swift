@@ -98,30 +98,18 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         imageViews[item.tag].bounceAnimate()
-
-        var tabBarItem = ""
         
         guard let tab = Tab(rawValue: item.tag) else { return }
         
         switch tab {
-        case .arcana:
-            tabBarItem = "Arcana"
-        case .ability:
-            tabBarItem = "Ability"
-        case .tavern:
-            tabBarItem = "Tavern"
+            
         case .dataLink:
-            tabBarItem = "Data"
             // get rid of badge if it has it
             badge?.removeFromSuperview()
-        case .favorites:
-            tabBarItem = "Favorites"
+        default:
+            break
             
         }
-
-        Analytics.logEvent(tabBarItem, parameters: [
-            "name" : tabBarItem as NSObject
-            ])
         
     }
 

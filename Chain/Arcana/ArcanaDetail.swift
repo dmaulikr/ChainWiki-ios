@@ -166,7 +166,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Analytics.setScreenName("TavernArcanaView", screenClass: nil)
+        Analytics.setScreenName("ArcanaView", screenClass: nil)
 
         if let bundleID = Bundle.main.bundleIdentifier {
             if bundleID != "com.jk.cckorea.debug" {

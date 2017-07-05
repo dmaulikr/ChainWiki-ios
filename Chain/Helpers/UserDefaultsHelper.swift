@@ -139,11 +139,9 @@ extension UserDefaults {
     
     func setSearchView(value: String) {
         set(value, forKey: "searchView")
-        // analytics
-        Analytics.logEvent("SearchView", parameters: [
-            "type" : value as NSObject
+        Analytics.logEvent("ArcanaViewPref", parameters: [
+            "viewPref": value as NSObject,
             ])
-        
     }
     
     func getSearchView() -> String? {
@@ -152,9 +150,6 @@ extension UserDefaults {
     
     func setTavernView(value: String) {
         set(value, forKey: "tavernView")
-        Analytics.logEvent("TavernView", parameters: [
-            "type" : value as NSObject
-            ])
     }
     
     func getTavernView() -> String? {
@@ -163,9 +158,6 @@ extension UserDefaults {
     
     func setFavoritesView(value: String) {
         set(value, forKey: "favoritesView")
-        Analytics.logEvent("FavoritesView", parameters: [
-            "type" : value as NSObject
-            ])
     }
     
     func getFavoritesView() -> String? {
@@ -221,6 +213,14 @@ extension UserDefaults {
     
     func setViewedSurvey() {
         set(true, forKey: "hasViewedSurvey")
+    }
+    
+    func hasLoggedViewPref() -> Bool {
+        return bool(forKey: "loggedViewPref")
+    }
+    
+    func setLoggedViewPref() {
+        set(true, forKey: "loggedViewPref")
     }
     
 }
