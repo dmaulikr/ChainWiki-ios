@@ -107,7 +107,7 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         selectedIndexPath = indexPath
         
         view.endEditing(true)
-        
+                
         let arcana = arcanaArray[indexPath.section]
         
         let arcanaDetailVC = ArcanaDetail(arcana: arcana)

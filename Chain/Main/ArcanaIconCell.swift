@@ -33,6 +33,10 @@ class ArcanaIconCell: UICollectionViewCell {
         addSubview(arcanaImageView)
         
         arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        arcanaImageView.layer.cornerRadius = 5
+        arcanaImageView.layer.borderWidth = 1
+        arcanaImageView.layer.borderColor = UIColor.clear.cgColor
+        arcanaImageView.clipsToBounds = true
     }
 
 }

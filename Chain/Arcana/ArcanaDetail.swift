@@ -21,11 +21,12 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
+class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     var arcana: Arcana
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
+    var tableViewBottomConstraint: NSLayoutConstraint?
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -103,13 +104,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     var favorite = false
     var imageTapped = false
     
-    lazy var tapShowBarGesture: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBars))
-        tap.cancelsTouchesInView = false
-        tap.delegate = self
-        return tap
-    }()
-    
     lazy var tapImageGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImage))
         tap.cancelsTouchesInView = false
@@ -181,11 +175,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        showBars()
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
@@ -202,7 +191,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         view.backgroundColor = .white
         
         view.addSubview(tableView)
-        tableView.addGestureRecognizer(tapShowBarGesture)
         
         updateCompactViews()
         
@@ -619,35 +607,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         }
         
         imageTapped = false
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        // cancel tap gesture if user is taps the image, selects a button, or calls didSelect.
-        if gestureRecognizer == tapShowBarGesture {
-
-            let location = touch.location(in: tableView)
-            
-            if location.x < 25 {
-                return false
-            }
-            
-            if let indexPath = tableView.indexPathForRow(at: location) {
-                
-                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaImageCell {
-                    return false
-                }
-                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaViewEditsCell {
-                    return false
-                }
-            }
-
-            if touch.view!.isKind(of: UIButton.self) {
-                return false
-            }
-        }
-
-        return true
     }
     
     func showSurvey() {

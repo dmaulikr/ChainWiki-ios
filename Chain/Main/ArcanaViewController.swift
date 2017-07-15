@@ -121,6 +121,7 @@ class ArcanaViewController: UIViewController {
             collectionView.dragDelegate = self
         }
         
+        collectionView.allowsMultipleSelection = false
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.alpha = 0

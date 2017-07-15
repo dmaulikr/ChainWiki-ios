@@ -18,6 +18,38 @@ enum ImageType: String {
     case main
 }
 
+class ImageHelper {
+    
+    static let shared = ImageHelper()
+    
+    func prefetchImages(arcanaID: String, urlString: String?) {
+        
+        if defaults.getImagePermissions() {
+            
+            if let urlString = urlString, let url = URL(string: urlString) {
+                
+                // check cache for image first
+                if let _ = imageCache.object(forKey: urlString as NSString) {
+                    return
+                }
+                
+                URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                    
+                    if error != nil {
+                        
+                        
+                    }
+                    
+                    guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+                    
+                    imageCache.setObject(downloadedImage, forKey: urlString as NSString)
+                    
+                }).resume()
+            }
+        }
+    }
+}
+
 extension UIImageView {
     
     func animateImage(_ image: UIImage) {
@@ -150,6 +182,7 @@ extension UIImageView {
         }
 
     }
+    
 }
 
 

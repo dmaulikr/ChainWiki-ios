@@ -32,9 +32,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func setupTabBar() {
-//        let arcanaTab = SearchArcanaPageViewController()
-//        let arcanaTab = SearchArcanaViewController()
-//        let arcanaTab = NavigationController(SearchArcanaViewController())
+        
+//        let arcanaTab = NavigationController(HomeViewController())
         let arcanaTab = ArcanaSplitViewController(arcanaVC: .search)
         arcanaTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
         

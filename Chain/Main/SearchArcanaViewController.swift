@@ -89,7 +89,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func setupViews() {
         
-        automaticallyAdjustsScrollViewInsets = false
+//        automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         
         setupColumns()
@@ -100,7 +100,11 @@ final class SearchArcanaViewController: ArcanaViewController {
         view.addSubview(tipLabel)
         view.addSubview(filterView)
         
-        headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        } else {
+            headerView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        }
         
         tableView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
@@ -228,9 +232,9 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         // For UI Testing.
 //        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
-//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-        ref.observe(.childAdded, with: { snapshot in
-            
+         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+//        ref.observe(.childAdded, with: { snapshot in
+        
             if let arcana = Arcana(snapshot: snapshot) {
                 
                 if !self.showFilter && self.searchBar.text == "" && self.filters.count == 0 {

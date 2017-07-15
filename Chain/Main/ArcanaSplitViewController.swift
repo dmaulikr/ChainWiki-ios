@@ -27,7 +27,8 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         viewControllers = viewControllerList
         delegate = self
         view.backgroundColor = .gray
-        preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
+        maximumPrimaryColumnWidth = 300
+        preferredDisplayMode = .allVisible
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
@@ -37,6 +38,7 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
         let masterVC: ArcanaViewController
+        let homeVC = HomeViewController()
         let welcomeVC = WelcomeViewController()
         
         switch arcanaVC {
@@ -52,9 +54,11 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
             
         }
         
-        masterVC.welcomeDelegate = welcomeVC
+//        let masterVC = HomeViewController()
+//        masterVC.welcomeDelegate = welcomeVC
         
-        viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]
+//        viewControllerList = [NavigationController(masterVC), NavigationController(homeVC)]
+        viewControllerList = [NavigationController(homeVC), NavigationController(welcomeVC)]
         
     }
     
