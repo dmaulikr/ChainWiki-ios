@@ -66,7 +66,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        return UITableViewAutomaticDimension
+        return 50
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

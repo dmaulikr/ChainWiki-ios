@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class NavigationController: UINavigationController {
 
@@ -25,7 +26,10 @@ class NavigationController: UINavigationController {
     }
     
     func setupviews() {
-
+        
+        isHeroEnabled = true
+        heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
+            
         let fontSize: CGFloat
         if horizontalSize == .compact {
             fontSize = 17

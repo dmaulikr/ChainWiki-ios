@@ -47,6 +47,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         cell.arcanaID = arcana.getUID()
+        cell.heroID = arcana.getUID()
 //        cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
         cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
             if arcanaID == cell.arcanaID {
@@ -91,7 +92,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let section = collectionView.arcanaSection
         
-        setTransitionThumbnail(imageView: cell.arcanaImageView)
         pushView(arcanaSection: section, index: indexPath.item)
     }
     

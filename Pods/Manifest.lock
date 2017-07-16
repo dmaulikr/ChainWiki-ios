@@ -108,6 +108,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.10)
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
+  - Hero (0.3.6)
   - Kanna (2.1.1)
   - KRWordWrapLabel (2.0.1)
   - LicensesViewController (0.6.0)
@@ -129,6 +130,7 @@ DEPENDENCIES:
   - Firebase/Performance
   - Firebase/Storage
   - GoogleSignIn
+  - Hero
   - Kanna (~> 2.1.0)
   - KRWordWrapLabel
   - LicensesViewController (~> 0.6.0)
@@ -175,6 +177,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  Hero: d3c6f4dd80cdcdbb339be64e57ae3b5c3ab9938c
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   KRWordWrapLabel: a70d0e2c2baaab6e39bda828b9e83d47dab853e1
   LicensesViewController: ec86d04b17d599a84ddb80bcc7c7d25d73a5d6cb
@@ -184,6 +187,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 4e2d2f7160af660ed1da6bb9d0027b5c474b4b79
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 253a128c4030d4378e05ec19227ceb0c87756919
+PODFILE CHECKSUM: 0474b641d81bba3c6367d8b9221d66348ba96c86
 
 COCOAPODS: 1.2.1

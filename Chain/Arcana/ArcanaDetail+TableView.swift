@@ -155,6 +155,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
 //            if UIDevice.current.userInterfaceIdiom == .phone {
                 cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
+            cell.arcanaImageView.heroID = arcana.getUID()
 //            }
 //            if #available(iOS 11.0, *) {
 //                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)

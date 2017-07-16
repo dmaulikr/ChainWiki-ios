@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import NVActivityIndicatorView
 import FirebaseAnalytics
+import Hero
 
 enum ArcanaButton {
     case heart
@@ -27,6 +28,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
     var tableViewBottomConstraint: NSLayoutConstraint?
+    var panDismissGesture: UIPanGestureRecognizer!
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -80,7 +82,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         tableView.sectionFooterHeight = 0
         tableView.estimatedRowHeight = 160
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        tableView.bounces = false
         tableView.backgroundColor = .groupTableViewBackground
         
         tableView.layoutMargins = UIEdgeInsets.zero
@@ -142,6 +144,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupGestures()
         updateHistory()
         checkFavorites()
     }
@@ -175,17 +178,19 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { _ in
-            self.tableView.reloadData()
-
-        }) { (_) in
-        }
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        coordinator.animate(alongsideTransition: { _ in
+//            self.tableView.reloadData()
+//
+//        }) { (_) in
+//        }
+//    }
     
     func setupViews() {
-
+        
+        isHeroEnabled = true
+        view.heroID = "arcanaCellImage"
         title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -210,6 +215,57 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: constant)
         tableViewBottomConstraint?.isActive = true
         
+    }
+    
+    func setupGestures() {
+        panDismissGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
+        panDismissGesture.delegate = self
+        tableView.addGestureRecognizer(panDismissGesture)
+    }
+    
+    @objc
+    func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
+        // calculate the progress based on how far the user moved
+        let translation = panDismissGesture.translation(in: nil)
+        let progress = translation.y / 2 / view.bounds.height
+        
+        switch panDismissGesture.state {
+        case .began:
+            // begin the transition as normal
+//            dismiss(animated: true, completion: nil)
+            hero_dismissViewController()
+        case .changed:
+            Hero.shared.update(progress: Double(progress))
+            
+            // update views' position (limited to only vertical scroll)
+            Hero.shared.apply(modifiers: [.position(CGPoint(x: view.center.x, y:translation.y + view.center.y))], to: view)
+            
+        default:
+            // end or cancel the transition based on the progress and user's touch velocity
+            if progress + panDismissGesture.velocity(in: nil).y / view.bounds.height > 0.3 || panDismissGesture.velocity(in: nil).x < 0 {
+                Hero.shared.end()
+            } else {
+                Hero.shared.cancel()
+            }
+        }
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
+            if panGesture == panDismissGesture {
+                if tableView.contentOffset.y > 0 {
+                    return false
+                }
+                else {
+                    if panGesture.velocity(in: nil).y < 0 {
+                        return false
+                    }
+                }
+            }
+        }
+        
+        return true
     }
     
     func animateUpload() {

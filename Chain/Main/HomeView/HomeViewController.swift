@@ -10,12 +10,11 @@ import UIKit
 import Firebase
 
 protocol HomeViewProtocol: class {
-    func setTransitionThumbnail(imageView: UIImageView)
     func pushView(arcanaSection: ArcanaSection, index: Int)
     func viewMore(arcanaSection: ArcanaSection)
 }
 
-class HomeViewController: UIViewController, HomeViewProtocol, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, HomeViewProtocol {
     
     weak var welcomeDelegate: WelcomeViewController?
     var thumbnailZoomTransitionAnimator: ZoomingTransitionAnimator?
@@ -123,7 +122,6 @@ class HomeViewController: UIViewController, HomeViewProtocol, UINavigationContro
         super.viewDidLoad()
         setupViews()
         downloadArcana()
-        navigationController?.delegate = self
     }
     
     func setupViews() {
@@ -138,10 +136,6 @@ class HomeViewController: UIViewController, HomeViewProtocol, UINavigationContro
         
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-    }
-    
-    func setTransitionThumbnail(imageView: UIImageView) {
-        transitionThumbnail = imageView
     }
     
     func pushView(arcanaSection: ArcanaSection, index: Int) {
@@ -160,28 +154,16 @@ class HomeViewController: UIViewController, HomeViewProtocol, UINavigationContro
         }
         
         let detailVC = ArcanaDetail(arcana: arcana)
+//        detailVC.view.heroID = arcana.getUID()
         navigationController?.pushViewController(detailVC, animated: true)
         
     }
     
     func viewMore(arcanaSection: ArcanaSection) {
         
+        navigationController?.delegate = nil
         let vc = SearchArcanaViewController()
-        splitViewController?.show(vc, sender: nil)
-        // show Master
-        // replace detail with welcome/Arcana Detail
-        
-//        let welcomeVC = WelcomeViewController()
-//        let masterNavVC = splitViewController!.viewControllers.first as! NavigationController
-//        let masterVC = masterNavVC.topViewController as! SearchArcanaViewController
-//
-//        masterVC.welcomeDelegate = welcomeVC
-//
-//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//        splitViewController!.preferredDisplayMode = .allVisible
-//        splitViewController?.showDetailViewController(NavigationController(welcomeVC), sender: nil)
-        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func downloadArcana() {
@@ -237,6 +219,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UINavigationContro
             
         })
         
+        /*
         LEGEND_REF.observe(.childAdded) { (snapshot) in
             
             let arcanaID = snapshot.key
@@ -274,23 +257,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UINavigationContro
                 }
             })
         }
-        
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push {
-            // Pass the thumbnail frame to the transition animator.
-            guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
-            thumbnailZoomTransitionAnimator = ZoomingTransitionAnimator()
-            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
-        }
-        thumbnailZoomTransitionAnimator?.operation = operation
-        
-        return thumbnailZoomTransitionAnimator
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
+        */
     }
     
 }

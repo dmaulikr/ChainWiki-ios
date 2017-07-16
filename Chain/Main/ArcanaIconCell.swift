@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Hero
 
 class ArcanaIconCell: UICollectionViewCell {
     
     var arcanaID: String!
-
+    
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView

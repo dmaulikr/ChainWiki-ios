@@ -45,11 +45,6 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
     }
     
-    fileprivate lazy var festivalButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "FESTIVAL", style: .plain, target: self, action: #selector(showFestival))
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
@@ -170,19 +165,6 @@ final class SearchArcanaViewController: ArcanaViewController {
     override func setupNavBar() {
         super.setupNavBar()
         title = "아르카나"
-        
-        FESTIVAL_REF.observeSingleEvent(of: .value, with: { snapshot in
-            
-            if snapshot.exists() {
-                DispatchQueue.main.async {
-                    self.navigationItem.leftBarButtonItem = self.festivalButton
-                }
-            }
-            else {
-                self.navigationItem.leftBarButtonItem = nil
-            }
-            
-        })
     }
     
     func setupSearchBar() {
@@ -443,12 +425,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
 
     }
-
-    @objc func showFestival() {
-        
-        let vc = FestivalViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
+    
 }
 
 extension SearchArcanaViewController: UISearchBarDelegate {
