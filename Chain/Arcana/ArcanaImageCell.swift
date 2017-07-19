@@ -15,7 +15,7 @@ class ArcanaImageCell: BaseTableViewCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -24,8 +24,8 @@ class ArcanaImageCell: BaseTableViewCell {
       
         addSubview(arcanaImageView)
 
-        arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-
+        arcanaImageView.anchor(top: topAnchor, leading: nil, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 290, heightConstant: 400)
+        arcanaImageView.anchorCenterXToSuperview()
     }
     
 }

@@ -84,7 +84,7 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     override func setupViews() {
         
-//        automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
         
         setupColumns()

@@ -117,7 +117,8 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .image:
-            return min(tableView.frame.width * 1.5, 500)
+//            return min(tableView.frame.width * 1.5, 500)
+            return 400
         case .attribute:
             return 90
         default:
@@ -155,7 +156,9 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
 //            if UIDevice.current.userInterfaceIdiom == .phone {
                 cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
-            cell.arcanaImageView.heroID = arcana.getUID()
+            if let arcanaSection = arcanaSection {
+                cell.arcanaImageView.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
+            }
 //            }
 //            if #available(iOS 11.0, *) {
 //                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
@@ -392,9 +395,11 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             }
             guard let encodedURL = arcanaURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed), let url = URL(string: (baseURL + encodedURL)) else { return }
             let vc = LinkViewController(url: url)
+            navigationController?.isHeroEnabled = false
             navigationController?.pushViewController(vc, animated: true)
         case .edit:
             let vc = ArcanaEditList(arcanaID: arcana.getUID())
+            navigationController?.isHeroEnabled = false
             navigationController?.pushViewController(vc, animated: true)
         default:
             break

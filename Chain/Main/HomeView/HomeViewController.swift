@@ -124,6 +124,11 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         downloadArcana()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
+    }
+    
     func setupViews() {
         
 //        if #available(iOS 11.0, *) {
@@ -153,8 +158,10 @@ class HomeViewController: UIViewController, HomeViewProtocol {
             arcana = legendArcanaArray[index]
         }
         
-        let detailVC = ArcanaDetail(arcana: arcana)
-//        detailVC.view.heroID = arcana.getUID()
+//        let detailVC = ArcanaDetail(arcana: arcana)
+        let detailVC = ArcanaDetail(arcana: arcana, arcanaSection: arcanaSection)
+//        detailVC.view.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
+        
         navigationController?.pushViewController(detailVC, animated: true)
         
     }

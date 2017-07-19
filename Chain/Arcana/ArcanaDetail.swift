@@ -29,6 +29,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     weak var presentingDelegate: LoadingArcanaViewController?
     var tableViewBottomConstraint: NSLayoutConstraint?
     var panDismissGesture: UIPanGestureRecognizer!
+    var arcanaSection: ArcanaSection?
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -127,7 +128,14 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         print("ARCANAID: \(arcana.getUID())")
         super.init(nibName: nil, bundle: nil)
         setupNavBar()
-
+    }
+    
+    init(arcana: Arcana, arcanaSection: ArcanaSection) {
+        self.arcana = arcana
+        self.arcanaSection = arcanaSection
+        print("ARCANAID: \(arcana.getUID())")
+        super.init(nibName: nil, bundle: nil)
+        setupNavBar()
     }
     
     init(arcana: Arcana, site: Bool) {
@@ -164,7 +172,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.setScreenName("ArcanaView", screenClass: nil)
-
+        navigationController?.isHeroEnabled = true
         if let bundleID = Bundle.main.bundleIdentifier {
             if bundleID != "com.jk.cckorea.debug" {
                 let dataRequest = FirebaseService.dataRequest
@@ -221,32 +229,64 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         panDismissGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
         panDismissGesture.delegate = self
         tableView.addGestureRecognizer(panDismissGesture)
+        
+//        popGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePop(gestureRecognizer:)))
+//        popGesture.delegate = self
+//        tableView.addGestureRecognizer(popGesture)
     }
     
     @objc
     func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
         // calculate the progress based on how far the user moved
         let translation = panDismissGesture.translation(in: nil)
-        let progress = translation.y / 2 / view.bounds.height
         
-        switch panDismissGesture.state {
-        case .began:
-            // begin the transition as normal
-//            dismiss(animated: true, completion: nil)
-            hero_dismissViewController()
-        case .changed:
-            Hero.shared.update(progress: Double(progress))
+        if translation.x > translation.y {
+            let progress = translation.x / view.bounds.width
             
-            // update views' position (limited to only vertical scroll)
-            Hero.shared.apply(modifiers: [.position(CGPoint(x: view.center.x, y:translation.y + view.center.y))], to: view)
-            
-        default:
-            // end or cancel the transition based on the progress and user's touch velocity
-            if progress + panDismissGesture.velocity(in: nil).y / view.bounds.height > 0.3 || panDismissGesture.velocity(in: nil).x < 0 {
-                Hero.shared.end()
-            } else {
-                Hero.shared.cancel()
+            switch panDismissGesture.state {
+            case .began:
+                // begin the transition as normal
+                //            dismiss(animated: true, completion: nil)
+                hero_dismissViewController()
+            case .changed:
+                Hero.shared.update(progress: Double(progress))
+                
+                // update views' position (limited to only vertical scroll)
+                Hero.shared.apply(modifiers: [.position(CGPoint(x: translation.x + view.center.x, y: view.center.y))], to: view)
+                
+            default:
+                // end or cancel the transition based on the progress and user's touch velocity
+                if progress + panDismissGesture.velocity(in: nil).x / view.bounds.width > 0.3 {
+                    Hero.shared.end()
+                } else {
+                    Hero.shared.cancel()
+                }
             }
+            
+        }
+        else {
+            let progress = translation.y / view.bounds.height
+            
+            switch panDismissGesture.state {
+            case .began:
+                // begin the transition as normal
+                //            dismiss(animated: true, completion: nil)
+                hero_dismissViewController()
+            case .changed:
+                Hero.shared.update(progress: Double(progress))
+                
+                // update views' position (limited to only vertical scroll)
+                Hero.shared.apply(modifiers: [.position(CGPoint(x: view.center.x, y:translation.y + view.center.y))], to: view)
+                
+            default:
+                // end or cancel the transition based on the progress and user's touch velocity
+                if progress + panDismissGesture.velocity(in: nil).y / view.bounds.height > 0.3 {
+                    Hero.shared.end()
+                } else {
+                    Hero.shared.cancel()
+                }
+            }
+            
         }
     }
     
@@ -255,7 +295,16 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
             if panGesture == panDismissGesture {
                 if tableView.contentOffset.y > 0 {
-                    return false
+                    if abs(panGesture.velocity(in: nil).y) > abs(panGesture.velocity(in: nil).x) {
+                        return false
+                    }
+                    else {
+//                        navigationController?.heroNavigationAnimationType = .pull(direction: .right)
+                        navigationController?.heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .pull(direction: .right))
+                    }
+//                    else {
+//                        navigationController?.heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .pull(direction: .left))
+//                    }
                 }
                 else {
                     if panGesture.velocity(in: nil).y < 0 {
@@ -497,6 +546,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
 
     @objc func edit() {
         
+        navigationController?.isHeroEnabled = false
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
             navigationController?.pushViewController(vc, animated: true)

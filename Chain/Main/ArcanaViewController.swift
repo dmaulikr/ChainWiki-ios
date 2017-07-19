@@ -378,7 +378,7 @@ class ArcanaViewController: UIViewController {
     func reloadIndexPathAt(_ index: Int) {
         
         var indexPath: IndexPath
-        if traitCollection.horizontalSizeClass == .compact {
+        if UIScreen.main.traitCollection.horizontalSizeClass == .compact {
             
             switch arcanaView {
                 

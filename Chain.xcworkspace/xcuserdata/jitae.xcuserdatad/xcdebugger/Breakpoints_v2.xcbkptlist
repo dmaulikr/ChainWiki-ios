@@ -26,7 +26,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "521857006.233836"
+                  timestampString = "522132420.922031"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -41,7 +41,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Arcana/SurveyViewController.swift"
-                  timestampString = "521857006.236845"
+                  timestampString = "522132420.923494"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "283"
@@ -74,7 +74,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "521857006.256839"
+                  timestampString = "522132420.927297"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "235"
@@ -89,7 +89,7 @@
                   moduleName = "Chain"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jitae/Desktop/Chain/Chain/Login/LoginHome.swift"
-                  timestampString = "521857006.261551"
+                  timestampString = "522132420.928708"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "236"
@@ -150,16 +150,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chain/Arcana/ArcanaDetail.swift"
-            timestampString = "521857005.943814"
+            filePath = "Chain/Arcana/ArcanaImageCell.swift"
+            timestampString = "521946860.24362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "gestureRecognizerShouldBegin(_:)"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "setupViews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
