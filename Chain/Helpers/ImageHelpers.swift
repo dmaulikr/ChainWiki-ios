@@ -83,10 +83,13 @@ extension UIImageView {
                         }
                         else {
                             DispatchQueue.main.async {
-                                UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-                                let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
-                                imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
-                                completion(arcanaID, placeholder)
+                                completion(arcanaID, #imageLiteral(resourceName: "AppLogo"))
+//                                UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+//                                if let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size) {
+//                                    imageCache.setObject(placeholder, forKey: "placeholder" as NSString)
+//                                    completion(arcanaID, placeholder)
+//                                }
+//
                             }
                         }
                         
@@ -145,10 +148,11 @@ extension UIImageView {
                     if (error != nil) {
                         
                         DispatchQueue.main.async {
-                            UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-                            let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
-                            imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                            completion(placeholder)
+                            completion(#imageLiteral(resourceName: "AppLogo"))
+//                            UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+//                            let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+//                            imageCache.setObject(placeholder, forKey: imageRef as NSString)
+//                            completion(placeholder)
                         }
                         
                     } else {
@@ -158,10 +162,11 @@ extension UIImageView {
                             if error != nil {
                                 
                                 DispatchQueue.main.async {
-                                    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-                                    let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
-                                    imageCache.setObject(placeholder, forKey: imageRef as NSString)
-                                    completion(placeholder)
+                                    completion(#imageLiteral(resourceName: "AppLogo"))
+//                                    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
+//                                    let placeholder = ChainLogo.drawPlaceholder(size: self.frame.size)
+//                                    imageCache.setObject(placeholder, forKey: imageRef as NSString)
+//                                    completion(placeholder)
                                 }
                                 
                             }

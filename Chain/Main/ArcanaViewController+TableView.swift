@@ -111,10 +111,10 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         let arcana = arcanaArray[indexPath.section]
         
         let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(arcanaDetailVC, animated: true)
-//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+//        navigationController?.pushViewController(arcanaDetailVC, animated: true)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
     }
     
@@ -203,10 +203,10 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let arcana = arcanaArray[indexPath.item]
         
         let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-        navigationController?.pushViewController(arcanaDetailVC, animated: true)
-//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+//        navigationController?.pushViewController(arcanaDetailVC, animated: true)
+        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
     }
     

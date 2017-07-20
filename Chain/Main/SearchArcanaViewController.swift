@@ -45,6 +45,11 @@ final class SearchArcanaViewController: ArcanaViewController {
         }
     }
     
+    fileprivate lazy var homeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "홈", style: .plain, target: self, action: #selector(showHome))
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
@@ -86,6 +91,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = homeButton
         
         setupColumns()
         
@@ -105,10 +111,10 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        let headerViewHeight: CGFloat = 70
+        let headerViewHeight: CGFloat
         if traitCollection.horizontalSizeClass == .compact {
             
-//            headerViewHeight = 70
+            headerViewHeight = 70
             
 //            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0)
 //            tableViewBottomConstraint?.isActive = true
@@ -116,7 +122,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
         }
         else {
-//            headerViewHeight = 100
+            headerViewHeight = 100
             
             filterView.anchor(top: headerView.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
             
@@ -208,6 +214,18 @@ final class SearchArcanaViewController: ArcanaViewController {
                 self.showUpdateAlert(text: info)
             }
         })
+    }
+    
+    @objc
+    func showHome() {
+        
+        let vc = HomeViewController()
+        
+        UIView.animate(withDuration: 0.2) {
+            self.splitViewController?.preferredDisplayMode = .primaryHidden
+        }
+        self.splitViewController?.showDetailViewController(NavigationController(vc), sender: nil)
+        
     }
     
     override func downloadArcana() {
@@ -376,13 +394,13 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     func showSearchBar(_ show: Bool) {
         
-        let headerViewHeight: CGFloat = 70
-//        if traitCollection.horizontalSizeClass == .compact {
-//            headerViewHeight = 70
-//        }
-//        else {
-//            headerViewHeight = 100
-//        }
+        let headerViewHeight: CGFloat
+        if traitCollection.horizontalSizeClass == .compact {
+            headerViewHeight = 70
+        }
+        else {
+            headerViewHeight = 100
+        }
         if show {
             if headerViewHeightConstraint?.constant != headerViewHeight {
                 headerViewHeightConstraint?.constant = headerViewHeight

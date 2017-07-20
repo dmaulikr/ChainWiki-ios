@@ -289,14 +289,12 @@ public class ChainLogo : NSObject {
         
         context.restoreGState()
         
-        
-        
         context.restoreGState()
     
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        return image!
+        return image
     }
 
     @objc public enum ResizingBehavior: Int {

@@ -111,7 +111,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
-        
+        tableView.allowsSelection = false
         tableView.register(HomeViewTableViewCell.self, forCellReuseIdentifier: "HomeViewTableViewCell")
         tableView.register(HomeTableViewHeaderCell.self, forCellReuseIdentifier: "HomeTableViewHeaderCell")
         
@@ -126,6 +126,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        isHeroEnabled = true
         navigationController?.heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
     }
     
@@ -169,8 +170,22 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     func viewMore(arcanaSection: ArcanaSection) {
         
         navigationController?.delegate = nil
-        let vc = SearchArcanaViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = SearchArcanaViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+        let welcomeVC = WelcomeViewController()
+        let masterNavVC = splitViewController!.viewControllers.first as! NavigationController
+        let masterVC = masterNavVC.topViewController as! SearchArcanaViewController
+
+        masterVC.welcomeDelegate = welcomeVC
+
+//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        UIView.animate(withDuration: 0.2) {
+            self.splitViewController?.preferredDisplayMode = .allVisible
+        }
+        
+        splitViewController?.showDetailViewController(NavigationController(welcomeVC), sender: nil)
     }
     
     func downloadArcana() {
@@ -226,7 +241,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
             
         })
         
-        /*
+        
         LEGEND_REF.observe(.childAdded) { (snapshot) in
             
             let arcanaID = snapshot.key
@@ -264,7 +279,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
                 }
             })
         }
-        */
+        
     }
     
 }

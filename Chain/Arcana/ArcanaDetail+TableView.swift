@@ -118,7 +118,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .image:
 //            return min(tableView.frame.width * 1.5, 500)
-            return 400
+            return 450
         case .attribute:
             return 90
         default:

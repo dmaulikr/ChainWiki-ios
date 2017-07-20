@@ -98,7 +98,7 @@ class ArcanaViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
-        
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
@@ -378,7 +378,7 @@ class ArcanaViewController: UIViewController {
     func reloadIndexPathAt(_ index: Int) {
         
         var indexPath: IndexPath
-        if UIScreen.main.traitCollection.horizontalSizeClass == .compact {
+        if traitCollection.horizontalSizeClass == .compact {
             
             switch arcanaView {
                 

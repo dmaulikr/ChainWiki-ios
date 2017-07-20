@@ -19,7 +19,7 @@ class SearchHistory: UIViewController {
         tableView.dataSource = self
         
         tableView.tableFooterView = UIView(frame: .zero)
-        
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.register(ArcanaTextCell.self, forCellReuseIdentifier: "ArcanaTextCell")
 
         return tableView

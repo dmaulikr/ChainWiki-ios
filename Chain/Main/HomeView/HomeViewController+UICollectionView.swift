@@ -48,14 +48,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.arcanaID = arcana.getUID()
         cell.heroID = arcana.getUID() + "\(collectionView.arcanaSection.rawValue)"
-        cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
-//        cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
-//            if arcanaID == cell.arcanaID {
-//                DispatchQueue.main.async {
-//                    cell.arcanaImageView.animateImage(arcanaImage)
-//                }
-//            }
-//        }
+//        cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
+        cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
+            if arcanaID == cell.arcanaID {
+                DispatchQueue.main.async {
+                    cell.arcanaImageView.animateImage(arcanaImage)
+                }
+            }
+        }
         
         return cell
     }
