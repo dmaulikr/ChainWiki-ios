@@ -27,7 +27,6 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         viewControllers = viewControllerList
         delegate = self
         view.backgroundColor = .white
-        maximumPrimaryColumnWidth = 300
         preferredDisplayMode = .primaryHidden
     }
     

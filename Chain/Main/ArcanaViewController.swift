@@ -12,8 +12,6 @@ import FirebaseDatabase
 enum ArcanaView: String {
     case list
     case main
-    case profile
-    case mainGrid
 }
 
 enum ArcanaVC {
@@ -107,32 +105,6 @@ class ArcanaViewController: UIViewController {
         return tableView
     }()
     
-    lazy var collectionView: UICollectionView = {
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        if #available(iOS 11.0, *) {
-            collectionView.dragDelegate = self
-        }
-        
-        collectionView.allowsMultipleSelection = false
-        collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .white
-        collectionView.alpha = 0
-        
-        collectionView.register(ArcanaIconCell.self, forCellWithReuseIdentifier: "ArcanaIconCell")
-        collectionView.register(ArcanaIconLabelCell.self, forCellWithReuseIdentifier: "ArcanaIconLabelCell")
-        collectionView.register(MainListTableView.self, forCellWithReuseIdentifier: "MainListTableView")
-        
-        return collectionView
-    }()
-    
     let filterView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -197,17 +169,6 @@ class ArcanaViewController: UIViewController {
     
     var updatedSize: CGSize!
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return
-        }
-        updatedSize = size
-        
-//        print(updatedSize)
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
-        
     func setupViews() {
         
         setupColumns()
@@ -216,14 +177,11 @@ class ArcanaViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(tableView)
-        view.addSubview(collectionView)
         view.addSubview(tipLabel)
         view.addSubview(filterView)
 
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        collectionView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-
         tipLabel.anchorCenterSuperview()
         
         filterView.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 225, heightConstant: 0)
@@ -296,7 +254,6 @@ class ArcanaViewController: UIViewController {
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
-            registerForPreviewing(with: self, sourceView: collectionView)
         }
         
         
@@ -316,54 +273,14 @@ class ArcanaViewController: UIViewController {
         setupColumns()
         arcanaCountView.setText(text: "아르카나 수 \(arcanaArray.count)")
         
-        if traitCollection.horizontalSizeClass == .compact {
-            
-            switch arcanaView {
-                
-            case .list, .main:
-                tableView.isScrollEnabled = true
-                collectionView.isScrollEnabled = false
-                if arcanaArray.count == 0 {
-                    tableView.alpha = 0
-                }
-                else {
-                    collectionView.alpha = 0
-                    tableView.reloadData()
-                    if tableView.alpha == 0 {
-                        tableView.fadeIn(withDuration: 0.5)
-                    }
-                }
-                
-            case .profile, .mainGrid:
-                tableView.isScrollEnabled = false
-                collectionView.isScrollEnabled = true
-                if arcanaArray.count == 0 {
-                    collectionView.alpha = 0
-                }
-                else {
-                    tableView.alpha = 0
-                    collectionView.reloadData()
-                    if collectionView.alpha == 0 {
-                        collectionView.fadeIn(withDuration: 0.5)
-                    }
-                }
-                
-            }
-
+        if arcanaArray.count == 0 {
+            tableView.alpha = 0
         }
-            
         else {
-            tableView.isScrollEnabled = false
-            collectionView.isScrollEnabled = true
-            if arcanaArray.count == 0 {
-                collectionView.alpha = 0
+            tableView.reloadData()
+            if tableView.alpha == 0 {
+                tableView.fadeIn(withDuration: 0.5)
             }
-            else {
-                tableView.alpha = 0
-                collectionView.reloadData()
-                collectionView.fadeIn(withDuration: 0.5)
-            }
-
         }
         
         if arcanaArray.count == 0 {
@@ -378,92 +295,36 @@ class ArcanaViewController: UIViewController {
     func reloadIndexPathAt(_ index: Int) {
         
         var indexPath: IndexPath
-        if traitCollection.horizontalSizeClass == .compact {
-            
-            switch arcanaView {
-                
-            case .list, .main:
-                if arcanaView == .list {
-                    indexPath = IndexPath(row: 0, section: index)
-                }
-                else {
-                    indexPath = IndexPath(row: 1, section: index)
-                }
-                tableView.beginUpdates()
-                tableView.reloadRows(at: [indexPath], with: .none)
-                tableView.endUpdates()
-
-            case .profile, .mainGrid:
-                indexPath = IndexPath(item: index, section: 0)
-
-                collectionView.performBatchUpdates({
-                    self.collectionView.reloadItems(at: [indexPath])
-                }, completion: nil)
-
-            }
-            
-            
+        
+        if arcanaView == .list {
+            indexPath = IndexPath(row: 0, section: index)
         }
         else {
-            indexPath = IndexPath(item: index, section: 0)
-            self.collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPath])
-            }, completion: nil)
-
+            indexPath = IndexPath(row: 1, section: index)
         }
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [indexPath], with: .none)
+        tableView.endUpdates()
         
     }
     
     func insertIndexPathAt(index: Int) {
 
         let indexSet = IndexSet(integer: index)
-
-        if traitCollection.horizontalSizeClass == .compact {
-            switch arcanaView {
-                
-            case .list, .main:
-                tableView.beginUpdates()
-                tableView.insertSections(indexSet, with: .automatic)
-                tableView.endUpdates()
-                
-            case .profile, .mainGrid:
-                collectionView.performBatchUpdates({
-                    self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
-                }, completion: nil)
-            }
-
-        }
-        else {
-            collectionView.performBatchUpdates({
-                self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
-            }, completion: nil)
-        }
+        
+        tableView.beginUpdates()
+        tableView.insertSections(indexSet, with: .automatic)
+        tableView.endUpdates()
+        
     }
     
     func deleteIndexPathAt(index: Int) {
         
         let indexSet = IndexSet(integer: index)
-
-        if traitCollection.horizontalSizeClass == .compact {
-            switch arcanaView {
-                
-            case .list, .main:
-                tableView.beginUpdates()
-                tableView.deleteSections(indexSet, with: .automatic)
-                tableView.endUpdates()
-                
-            case .profile, .mainGrid:
-                collectionView.performBatchUpdates({
-                    self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-                }, completion: nil)
-            }
-
-        }
-        else {
-            collectionView.performBatchUpdates({
-                self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-            }, completion: nil)
-        }
+        
+        tableView.beginUpdates()
+        tableView.deleteSections(indexSet, with: .automatic)
+        tableView.endUpdates()
         
     }
     
@@ -588,36 +449,16 @@ extension ArcanaViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        switch arcanaView {
-        case .list, .main:
-            guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
-            
-            let arcana: Arcana
-            arcana = arcanaArray[indexPath.section]
-            
-            let vc = ArcanaPeekPreview(arcana: arcana)
-            vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
-            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-            
-            return vc
-            
-            
-        case .profile, .mainGrid:
-            guard let indexPath = collectionView.indexPathForItem(at: location) else { return nil }
-            
-            let arcana: Arcana
-            arcana = arcanaArray[indexPath.item]
-            
-            let vc = ArcanaPeekPreview(arcana: arcana)
-            vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
-            if let frame = collectionView.cellForItem(at: indexPath)?.frame {
-                previewingContext.sourceRect = frame
-            }
-            
-            return vc
-            
-        }
-
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        
+        let arcana: Arcana
+        arcana = arcanaArray[indexPath.section]
+        
+        let vc = ArcanaPeekPreview(arcana: arcana)
+        vc.preferredContentSize = CGSize(width: 0, height: view.frame.height)
+        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+        
+        return vc
     }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class ArcanaViewTypePageViewController: UIPageViewController {
     
-    fileprivate let photos = [#imageLiteral(resourceName: "listPreview"), #imageLiteral(resourceName: "mainListPreview"), #imageLiteral(resourceName: "profilePreview"), #imageLiteral(resourceName: "mainGridPreview")]
+    fileprivate let photos = [#imageLiteral(resourceName: "listPreview"), #imageLiteral(resourceName: "mainListPreview")]
     fileprivate var currentIndex: Int!
     var selectedArcanaViews: [SelectedArcanaView]?
     

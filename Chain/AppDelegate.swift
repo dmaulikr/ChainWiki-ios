@@ -31,9 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
-        // check for update
-        if defaults.getStoredVersion() == nil || defaults.getStoredVersion() != defaults.getCurrentVersion() {
+        // check for new install or update
+        if defaults.getStoredVersion() == nil {
             defaults.setImagePermissions(value: true)
+            defaults.updateVersion()
+        }
+        else if defaults.getStoredVersion() != defaults.getCurrentVersion() {
             defaults.updateVersion()
         }
 
@@ -59,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     ])
             }
             
+            defaults.setAllArcanaView(value: "list")
         }
         
         window!.rootViewController = initialViewController
