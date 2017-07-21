@@ -158,6 +158,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
                 cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
             if let arcanaSection = arcanaSection {
                 cell.arcanaImageView.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
+                print("arcana detail ID: \(cell.arcanaImageView.heroID!)")
             }
 //            }
 //            if #available(iOS 11.0, *) {

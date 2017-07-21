@@ -39,5 +39,9 @@ class ArcanaIconCell: UICollectionViewCell {
         arcanaImageView.layer.borderColor = UIColor.clear.cgColor
         arcanaImageView.clipsToBounds = true
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        heroID = nil
+    }
 }

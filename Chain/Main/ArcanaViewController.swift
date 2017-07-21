@@ -73,7 +73,7 @@ class ArcanaViewController: UIViewController {
     var filters = [String: [String]]()
     var initialLoad = true
     var selectedIndexPath: IndexPath?
-    var arcanaView: ArcanaView = .list
+    var arcanaView: ArcanaView?
 
     var numberOfProfileImageColumns: CGFloat = 4
     var numberOfListColumns: CGFloat = 2

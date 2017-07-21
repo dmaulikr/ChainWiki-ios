@@ -138,6 +138,16 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         setupNavBar()
     }
     
+    var indexPath: IndexPath?
+    
+    init(arcana: Arcana, indexPath: IndexPath) {
+        self.arcana = arcana
+        self.indexPath = indexPath
+        print("ARCANAID: \(arcana.getUID())")
+        super.init(nibName: nil, bundle: nil)
+        setupNavBar()
+    }
+    
     init(arcana: Arcana, site: Bool) {
         self.arcana = arcana
         print("ARCANAID: \(arcana.getUID())")
@@ -198,7 +208,6 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     func setupViews() {
         
         isHeroEnabled = true
-        view.heroID = "arcanaCellImage"
         title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white

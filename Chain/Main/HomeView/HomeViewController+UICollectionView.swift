@@ -48,6 +48,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.arcanaID = arcana.getUID()
         cell.heroID = arcana.getUID() + "\(collectionView.arcanaSection.rawValue)"
+        print(cell.heroID)
         cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
             if arcanaID == cell.arcanaID {
                 DispatchQueue.main.async {
@@ -90,7 +91,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell else { return }
         
         let section = collectionView.arcanaSection
-        
+        print("selected \(cell.heroID!)")
         pushView(arcanaSection: section, index: indexPath.item)
     }
     

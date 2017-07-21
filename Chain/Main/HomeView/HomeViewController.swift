@@ -173,19 +173,22 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
 //        let vc = SearchArcanaViewController()
 //        navigationController?.pushViewController(vc, animated: true)
-        let welcomeVC = WelcomeViewController()
-        let masterNavVC = splitViewController!.viewControllers.first as! NavigationController
-        let masterVC = masterNavVC.topViewController as! SearchArcanaViewController
-
-        masterVC.welcomeDelegate = welcomeVC
-
-//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        UIView.animate(withDuration: 0.2) {
-            self.splitViewController?.preferredDisplayMode = .allVisible
+        if let masterNavVC = splitViewController?.viewControllers.first as? NavigationController, let masterVC = masterNavVC.topViewController as? SearchArcanaViewController {
+            let welcomeVC = WelcomeViewController()
+            masterVC.welcomeDelegate = welcomeVC
+            splitViewController?.showDetailViewController(NavigationController(welcomeVC), sender: nil)
+        }
+        else {
+            // phone.
+            
         }
         
-        splitViewController?.showDetailViewController(NavigationController(welcomeVC), sender: nil)
+//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+//        UIView.animate(withDuration: 0.2) {
+//            self.splitViewController?.preferredDisplayMode = .allVisible
+//        }
+        
     }
     
     func downloadArcana() {

@@ -12,10 +12,11 @@ import Firebase
 class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
     var viewControllerList = [UIViewController]()
+    let arcanaVC: ArcanaVC
     
     init(arcanaVC: ArcanaVC) {
+        self.arcanaVC = arcanaVC
         super.init(nibName: nil, bundle: nil)
-        setupControllers(arcanaVC)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,39 +25,45 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupControllers(arcanaVC)
         viewControllers = viewControllerList
         delegate = self
         view.backgroundColor = .white
-        preferredDisplayMode = .primaryHidden
+        maximumPrimaryColumnWidth = 300
+        presentsWithGesture = false
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return false
+        return true
     }
 
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
         let masterVC: ArcanaViewController
-        let homeVC = HomeViewController()
-        let welcomeVC = WelcomeViewController()
+        let detailVC: UIViewController
         
         switch arcanaVC {
             
         case .search:
             masterVC = SearchArcanaViewController()
-            
+            detailVC = HomeViewController()
+            preferredDisplayMode = .primaryHidden
         case .tavern:
             masterVC = SearchArcanaViewController()
-            
+            detailVC = WelcomeViewController()
+            masterVC.welcomeDelegate = detailVC as? WelcomeViewController
+            preferredDisplayMode = .automatic
         case .favorites:
             masterVC = FavoritesArcanaViewController()
-            
+            detailVC = WelcomeViewController()
+            masterVC.welcomeDelegate = detailVC as? WelcomeViewController
+            preferredDisplayMode = .automatic
         }
         
 //        let masterVC = HomeViewController()
 //        masterVC.welcomeDelegate = welcomeVC
         
-        viewControllerList = [NavigationController(masterVC), NavigationController(homeVC)]
+        viewControllerList = [NavigationController(masterVC), NavigationController(detailVC)]
 //        viewControllerList = [NavigationController(homeVC), NavigationController(welcomeVC)]
         
     }

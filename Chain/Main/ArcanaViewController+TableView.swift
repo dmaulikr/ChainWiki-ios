@@ -23,11 +23,11 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if arcanaView == .main {
-            return 2
+        if arcanaView == .list {
+            return 1
         }
         else {
-            return 1
+            return 2
         }
     }
     
@@ -90,7 +90,6 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             Analytics.logEvent("arcanaArrayCrashTV", parameters: [
                 "indexPath" : indexPath.row,
                 "arcanaArrayCount" : arcanaArray.count,
-                "arcanaView" : arcanaView.rawValue
                 ])
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell

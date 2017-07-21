@@ -92,55 +92,43 @@ class ArcanaViewTypeViewController: UIViewController {
         
         if selectedArcanaViews.contains(.all) {
             
-            switch tutorialIndex {
-            case 1:
-                defaults.setAllArcanaView(value: "main")
-            case 2:
-                defaults.setAllArcanaView(value: "profile")
-            case 3:
-                defaults.setAllArcanaView(value: "mainGrid")
-            default:
+            if tutorialIndex == 0 {
                 defaults.setAllArcanaView(value: "list")
             }
+            else {
+                defaults.setAllArcanaView(value: "main")
+            }
+            
         }
         
         else {
             if selectedArcanaViews.contains(.search) {
-                switch tutorialIndex {
-                case 1:
-                    defaults.setSearchView(value: "main")
-                case 2:
-                    defaults.setSearchView(value: "profile")
-                case 3:
-                    defaults.setSearchView(value: "mainGrid")
-                default:
-                    defaults.setSearchView(value: "list")
+                
+                if tutorialIndex == 0 {
+                    defaults.setAllArcanaView(value: "list")
+                }
+                else {
+                    defaults.setAllArcanaView(value: "main")
                 }
 
             }
             if selectedArcanaViews.contains(.tavern) {
-                switch tutorialIndex {
-                case 1:
-                    defaults.setTavernView(value: "main")
-                case 2:
-                    defaults.setTavernView(value: "profile")
-                case 3:
-                    defaults.setTavernView(value: "mainGrid")
-                default:
-                    defaults.setTavernView(value: "list")
+                
+                if tutorialIndex == 0 {
+                    defaults.setAllArcanaView(value: "list")
+                }
+                else {
+                    defaults.setAllArcanaView(value: "main")
                 }
 
             }
             if selectedArcanaViews.contains(.favorites) {
-                switch tutorialIndex {
-                case 1:
-                    defaults.setFavoritesView(value: "main")
-                case 2:
-                    defaults.setFavoritesView(value: "profile")
-                case 3:
-                    defaults.setFavoritesView(value: "mainGrid")
-                default:
-                    defaults.setFavoritesView(value: "list")
+                
+                if tutorialIndex == 0 {
+                    defaults.setAllArcanaView(value: "list")
+                }
+                else {
+                    defaults.setAllArcanaView(value: "main")
                 }
 
             }

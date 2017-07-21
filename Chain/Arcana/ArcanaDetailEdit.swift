@@ -34,7 +34,7 @@ class ArcanaDetailEdit: UIViewController, DisplayBanner {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.register(ArcanaDetailEditCell.self, forCellReuseIdentifier: "ArcanaDetailEditCell")
         
         return tableView
