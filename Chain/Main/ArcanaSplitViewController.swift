@@ -38,7 +38,7 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
         let masterVC: ArcanaViewController
-        let homeVC = HomeViewController()
+//        let homeVC = HomeViewController()
         let welcomeVC = WelcomeViewController()
         
         switch arcanaVC {
@@ -55,9 +55,9 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         }
         
 //        let masterVC = HomeViewController()
-//        masterVC.welcomeDelegate = welcomeVC
+        masterVC.welcomeDelegate = welcomeVC
         
-        viewControllerList = [NavigationController(masterVC), NavigationController(homeVC)]
+        viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]
 //        viewControllerList = [NavigationController(homeVC), NavigationController(welcomeVC)]
         
     }

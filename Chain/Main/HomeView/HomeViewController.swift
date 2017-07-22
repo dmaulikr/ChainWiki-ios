@@ -124,12 +124,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         downloadArcana()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        isHeroEnabled = true
-        navigationController?.heroNavigationAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
-    }
-    
     func setupViews() {
         
 //        if #available(iOS 11.0, *) {

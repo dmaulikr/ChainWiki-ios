@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import NVActivityIndicatorView
 import FirebaseAnalytics
-import Hero
+//import Hero
 
 enum ArcanaButton {
     case heart
@@ -172,7 +172,6 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.setScreenName("ArcanaView", screenClass: nil)
-        navigationController?.isHeroEnabled = true
         if let bundleID = Bundle.main.bundleIdentifier {
             if bundleID != "com.jk.cckorea.debug" {
                 let dataRequest = FirebaseService.dataRequest
@@ -197,8 +196,8 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     
     func setupViews() {
         
-        isHeroEnabled = true
-        view.heroID = "arcanaCellImage"
+//        isHeroEnabled = true
+//        view.heroID = "arcanaCellImage"
         title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -226,15 +225,15 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     }
     
     func setupGestures() {
-        panDismissGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
-        panDismissGesture.delegate = self
-        tableView.addGestureRecognizer(panDismissGesture)
+//        panDismissGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
+//        panDismissGesture.delegate = self
+//        tableView.addGestureRecognizer(panDismissGesture)
         
 //        popGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePop(gestureRecognizer:)))
 //        popGesture.delegate = self
 //        tableView.addGestureRecognizer(popGesture)
     }
-    
+    /*
     @objc
     func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
         // calculate the progress based on how far the user moved
@@ -316,7 +315,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         
         return true
     }
-    
+    */
     func animateUpload() {
         
         view.addSubview(animatedView)
@@ -546,7 +545,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
 
     @objc func edit() {
         
-        navigationController?.isHeroEnabled = false
+//        navigationController?.isHeroEnabled = false
         if defaults.canEdit() {
             let vc = ArcanaDetailEdit(arcana: arcana)
             navigationController?.pushViewController(vc, animated: true)
