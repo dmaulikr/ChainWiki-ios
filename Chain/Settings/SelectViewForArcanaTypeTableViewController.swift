@@ -27,7 +27,7 @@ class SelectViewForArcanaTypeViewController: UIViewController {
         
         tableView.allowsMultipleSelection = true
         tableView.isScrollEnabled = false
-        
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.register(ImageTypeCell.self, forCellReuseIdentifier: "SelectViewCell")
         
         return tableView

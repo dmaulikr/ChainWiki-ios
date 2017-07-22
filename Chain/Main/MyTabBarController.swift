@@ -46,8 +46,8 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         let dataTab = NavigationController(DataViewController())
         dataTab.tabBarItem = UITabBarItem(title: "자료", image: #imageLiteral(resourceName: "openSite"), tag: 3)
         
-        let favoritesTab = NavigationController(FavoritesArcanaViewController())
-//        let favoritesTab = ArcanaSplitViewController(arcanaVC: .favorites)
+//        let favoritesTab = NavigationController(FavoritesArcanaViewController())
+        let favoritesTab = ArcanaSplitViewController(arcanaVC: .favorites)
         favoritesTab.tabBarItem = UITabBarItem(title: "즐겨찾기", image: #imageLiteral(resourceName: "favorites"), tag: 4)
         
         viewControllers = [arcanaTab, abilityTab, tavernTab, dataTab, favoritesTab]
