@@ -111,11 +111,16 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
         let arcana = arcanaArray[indexPath.section]
         
         let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-//        navigationController?.pushViewController(arcanaDetailVC, animated: true)
-        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
         
+        if let splitVC = splitViewController {
+            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+            arcanaDetailVC.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
+            splitVC.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        }
+        else {
+            // only tavern is not in a splitVC because it is being pushed
+            navigationController?.pushViewController(arcanaDetailVC, animated: true)
+        }
     }
     
 }
@@ -203,10 +208,16 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let arcana = arcanaArray[indexPath.item]
         
         let arcanaDetailVC = ArcanaDetail(arcana: arcana)
-//        navigationController?.pushViewController(arcanaDetailVC, animated: true)
-        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        splitViewController?.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        
+        if let splitVC = splitViewController {
+            arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
+            arcanaDetailVC.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
+            splitVC.showDetailViewController(NavigationController(arcanaDetailVC), sender: nil)
+        }
+        else {
+            // only tavern is not in a splitVC because it is being pushed
+            navigationController?.pushViewController(arcanaDetailVC, animated: true)
+        }
         
     }
     
