@@ -32,7 +32,7 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return false
+        return true
     }
 
     func setupControllers(_ arcanaVC: ArcanaVC) {

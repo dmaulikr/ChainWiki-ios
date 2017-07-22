@@ -121,11 +121,11 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let arcana = arcana else { return }
-        let vc = ArcanaDetail(arcana: arcana)
-        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
-//        tableView.deselectRow(at: indexPath, animated: false)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        guard let arcana = arcana else { return }
+//        let vc = ArcanaDetail(arcana: arcana)
+//        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
+////        tableView.deselectRow(at: indexPath, animated: false)
+//    }
 }
