@@ -27,8 +27,8 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
         viewControllers = viewControllerList
         delegate = self
         view.backgroundColor = .white
-        maximumPrimaryColumnWidth = 300
-        preferredDisplayMode = .primaryHidden
+//        maximumPrimaryColumnWidth = 300
+        preferredDisplayMode = .allVisible
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {

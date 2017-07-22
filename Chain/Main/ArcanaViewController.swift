@@ -191,8 +191,14 @@ class ArcanaViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let row = tableView.indexPathForSelectedRow else { return }
-        tableView.deselectRow(at: row, animated: true)
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: row, animated: true)
+        }
+        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
+            for indexPath in selectedIndexPaths {
+                collectionView.deselectItem(at: indexPath, animated: true)
+            }
+        }
     }
     
     var updatedSize: CGSize!

@@ -54,13 +54,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         super.viewDidLoad()
         setupSearchBar()
         checkUpdate()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         if defaults.getShowedArcanaViewSelection() == false {
-            let vc = ArcanaViewTypePageViewController(selectedArcanaViews: [.all], showTip: true)
-            present(vc, animated: true, completion: nil)
+            arcanaView = .list
         }
         else {
             getArcanaView()
@@ -91,7 +86,7 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = homeButton
+//        navigationItem.leftBarButtonItem = homeButton
         
         setupColumns()
         
