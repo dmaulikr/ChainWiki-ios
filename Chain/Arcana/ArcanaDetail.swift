@@ -85,7 +85,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.bounces = false
         tableView.backgroundColor = .groupTableViewBackground
-        tableView.cellLayoutMarginsFollowReadableWidth = false
+        
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.contentInset = UIEdgeInsets.zero

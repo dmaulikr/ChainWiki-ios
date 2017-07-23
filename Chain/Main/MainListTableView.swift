@@ -91,14 +91,13 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsetsMake(0, 5, 0, 5)
             
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
                 
-                if arcanaID == cell.arcanaID {
-                    DispatchQueue.main.async {
-                        cell.arcanaImageView.animateImage(arcanaImage)
+                DispatchQueue.main.async {
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
                     }
                 }
-                
             })
             
             cell.setupCell(arcana: arcana)
@@ -108,9 +107,12 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageCollectionViewCell") as! ArcanaMainImageCollectionViewCell
             
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .main, completion: { arcanaImage in
+                
                 DispatchQueue.main.async {
-                    cell.arcanaImageView.animateImage(arcanaImage)
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaMainImageCollectionViewCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
+                    }
                 }
             })
             
@@ -119,11 +121,11 @@ extension MainListTableView: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let arcana = arcana else { return }
-        let vc = ArcanaDetail(arcana: arcana)
-        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        guard let arcana = arcana else { return }
+//        let vc = ArcanaDetail(arcana: arcana)
+//        collectionViewDelegate?.navigationController?.pushViewController(vc, animated: true)
+////        tableView.deselectRow(at: indexPath, animated: false)
+//    }
 }

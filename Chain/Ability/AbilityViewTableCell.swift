@@ -97,14 +97,13 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
             cell.arcanaNickKR.text = nil
             cell.arcanaNickJP.text = nil
             
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+            cell.arcanaImageView.loadArcanaImage(arcana.getUID(), imageType: .profile, completion: { arcanaImage in
                 
-                if arcanaID == cell.arcanaID {
-                    DispatchQueue.main.async {
-                        cell.arcanaImageView.animateImage(arcanaImage)
+                DispatchQueue.main.async {
+                    if let imageCell = tableView.cellForRow(at: indexPath) as? ArcanaCell {
+                        imageCell.arcanaImageView.animateImage(arcanaImage)
                     }
                 }
-                
             })
             
             cell.setupCell(arcana: arcana)
