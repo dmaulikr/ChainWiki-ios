@@ -70,4 +70,10 @@ extension UIView {
         anchorCenterYToSuperview()
     }
     
+    func anchorEdgesToSuperview() {
+        
+        anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+    }
+    
 }

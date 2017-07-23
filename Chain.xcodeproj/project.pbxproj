@@ -64,6 +64,9 @@
 		0449168F1EE3325D00123FF5 /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449168E1EE3325D00123FF5 /* SurveyCell.swift */; };
 		044AFD2A1EF64C81006DA5B2 /* UploadArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AFD271EF64C1A006DA5B2 /* UploadArcanaViewController.swift */; };
 		044AFD2C1EF64C88006DA5B2 /* UploadArcanaViewController+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AFD291EF64C1A006DA5B2 /* UploadArcanaViewController+UITextField.swift */; };
+		045AC9A81F252ED2002F8D6B /* ArcanaPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045AC9A71F252ED2002F8D6B /* ArcanaPreviewView.xib */; };
+		045AC9AA1F253424002F8D6B /* ArcanaPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AC9A91F253424002F8D6B /* ArcanaPreviewView.swift */; };
+		045AC9B61F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AC9B41F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift */; };
 		045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E4D0D1DB9D8A400EBC793 /* SearchController.swift */; };
 		045EF6AA1DAB5DEE002148DD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045EF6A91DAB5DEE002148DD /* Settings.swift */; };
 		0465F9851EE3449800282014 /* KRLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465F9841EE3449800282014 /* KRLabel.swift */; };
@@ -235,6 +238,9 @@
 		0449168E1EE3325D00123FF5 /* SurveyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
 		044AFD271EF64C1A006DA5B2 /* UploadArcanaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadArcanaViewController.swift; sourceTree = "<group>"; };
 		044AFD291EF64C1A006DA5B2 /* UploadArcanaViewController+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadArcanaViewController+UITextField.swift"; sourceTree = "<group>"; };
+		045AC9A71F252ED2002F8D6B /* ArcanaPreviewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaPreviewView.xib; sourceTree = "<group>"; };
+		045AC9A91F253424002F8D6B /* ArcanaPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewView.swift; sourceTree = "<group>"; };
+		045AC9B41F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewViewWrapperCell.swift; sourceTree = "<group>"; };
 		045E4D0D1DB9D8A400EBC793 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		045EF6A91DAB5DEE002148DD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0465F9841EE3449800282014 /* KRLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRLabel.swift; sourceTree = "<group>"; };
@@ -246,8 +252,6 @@
 		046FDD3B1D738060001E955B /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		047561561D946BB1004886BF /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		0475D2841E8DF0AA00F0D03A /* MainListTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainListTableView.swift; sourceTree = "<group>"; };
-		047B576D1EF8EC8F0077FAFB /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
-		047B576E1EF8EC8F0077FAFB /* ArcanaDetail+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+TableView.swift"; sourceTree = "<group>"; };
 		047B57731EF8EDAA0077FAFB /* ImageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelpers.swift; sourceTree = "<group>"; };
 		047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypePageViewController.swift; sourceTree = "<group>"; };
 		047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypeViewController.swift; sourceTree = "<group>"; };
@@ -375,15 +379,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		040F09071F0704DA00B9A319 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				047B576E1EF8EC8F0077FAFB /* ArcanaDetail+TableView.swift */,
-				047B576D1EF8EC8F0077FAFB /* ArcanaDetail.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		042834FC1D91EA1E0043BE6E /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +418,16 @@
 				040FA9A11E886B2200C315CD /* ArcanaAbilityPreviewCell.swift */,
 			);
 			path = Ability;
+			sourceTree = "<group>";
+		};
+		045AC9AB1F253F29002F8D6B /* ArcanaPreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				045AC9A71F252ED2002F8D6B /* ArcanaPreviewView.xib */,
+				045AC9A91F253424002F8D6B /* ArcanaPreviewView.swift */,
+				045AC9B41F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift */,
+			);
+			name = ArcanaPreviewView;
 			sourceTree = "<group>";
 		};
 		045EF6A81DAB5DCA002148DD /* Settings */ = {
@@ -492,6 +497,7 @@
 				0400A3071E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift */,
 				04691E8E1D97A87300E15C5F /* ArcanaCell.xib */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
+				045AC9AB1F253F29002F8D6B /* ArcanaPreviewView */,
 				040F090C1F07072700B9A319 /* ArcanaImageIDCell.swift */,
 				043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */,
 				040FA9A51E88952000C315CD /* ArcanaIconCell.swift */,
@@ -515,7 +521,6 @@
 				04A2EC921D6F7FA300189142 /* Products */,
 				B5ABB791CCC4485D0388B147 /* Pods */,
 				775C9A4348BE0849F66B6F00 /* Frameworks */,
-				040F09071F0704DA00B9A319 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -781,6 +786,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */,
+				045AC9A81F252ED2002F8D6B /* ArcanaPreviewView.xib in Resources */,
 				04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperCell.xib in Resources */,
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
@@ -953,6 +959,7 @@
 				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
+				045AC9AA1F253424002F8D6B /* ArcanaPreviewView.swift in Sources */,
 				04DFF8DC1EE148AB002C7D05 /* ArcanaBaseInfoCollectionView.swift in Sources */,
 				042835021D91EE250043BE6E /* LoginHome.swift in Sources */,
 				04CBBD431E2B4938009D5E5F /* SectionHeader.swift in Sources */,
@@ -1040,6 +1047,7 @@
 				0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				040F09141F0712EE00B9A319 /* PushNotificationViewController.swift in Sources */,
+				045AC9B61F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */,

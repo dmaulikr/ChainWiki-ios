@@ -49,6 +49,8 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             
             if arcanaView == .list || (arcanaView == .main && row == .arcana) {
                 
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaPreviewViewWrapperCell") as! ArcanaPreviewViewWrapperCell
+//                cell.arcanaPreviewView.setupCell(arcana: arcana)
                 let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
                 
                 cell.setupCell(arcana: arcana)
