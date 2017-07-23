@@ -111,14 +111,30 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        guard let section = Section(rawValue: indexPath.section) else { return 0 }
+        
+        switch section {
+        case .image:
+            return min(tableView.frame.width * 1.5, 500)
+        case .attribute:
+            return 90
+        default:
+            return 90
+        }
+
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard let section = Section(rawValue: indexPath.section) else { return 0 }
         
         switch section {
         case .image:
-//            return min(tableView.frame.width * 1.5, 500)
-            return 450
+            return min(tableView.frame.width * 1.5, 500)
+//            return 450
         case .attribute:
             return 90
         default:
