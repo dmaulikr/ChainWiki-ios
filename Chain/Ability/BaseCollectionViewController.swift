@@ -181,20 +181,7 @@ class BaseCollectionViewController: UIViewController {
         // Then check ability type
         let refPrefix = abilityType
         
-        var ref: DatabaseReference
-        let updatedVersion = "2.0"
-        
-        if let currentVersion = defaults.getStoredVersion() {
-            if currentVersion.versionToInt().lexicographicallyPrecedes(updatedVersion.versionToInt()) {
-                ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
-            }
-            else {
-                ref = FIREBASE_REF.child("ability").child("\(refPrefix)\(refSuffix)")
-            }
-        }
-        else {
-            ref = FIREBASE_REF.child("\(refPrefix)\(refSuffix)")
-        }
+        let ref = FIREBASE_REF.child("ability").child("\(refPrefix)\(refSuffix)")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
