@@ -167,11 +167,13 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case .image:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageViewWrapperCell") as! ArcanaMainImageViewWrapperCell
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
             cell.selectionStyle = .none
             
 //            if UIDevice.current.userInterfaceIdiom == .phone {
-                cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
+            cell.arcanaMainImageView.arcanaImageView.addGestureRecognizer(tapImageGesture)
+//                cell.arcanaImageView.addGestureRecognizer(tapImageGesture)
 //            if let arcanaSection = arcanaSection {
 //                cell.arcanaImageView.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
 //            }
@@ -179,10 +181,10 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
 //            if #available(iOS 11.0, *) {
 //                customEnableDropping(on: cell.arcanaImage, dropInteractionDelegate: self)
 //            }
-            cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
+            cell.arcanaMainImageView.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
                 DispatchQueue.main.async {
-                    cell.imageLoaded = true
-                    cell.arcanaImageView.animateImage(arcanaImage)
+                    cell.arcanaMainImageView.imageLoaded = true
+                    cell.arcanaMainImageView.arcanaImageView.animateImage(arcanaImage)
                 }
             })
             return cell

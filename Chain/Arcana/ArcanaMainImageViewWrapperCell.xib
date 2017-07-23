@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A306f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArcanaMainImageViewWrapperCell" rowHeight="218" id="KGk-i7-Jjw" customClass="ArcanaMainImageViewWrapperCell" customModule="Chain" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="218"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="355" height="217.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4h-Lx-rQo" customClass="ArcanaMainImageView" customModule="Chain" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="217.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="p4h-Lx-rQo" secondAttribute="bottom" id="FzQ-w6-Cxs"/>
+                    <constraint firstAttribute="trailing" secondItem="p4h-Lx-rQo" secondAttribute="trailing" id="Td3-uf-V6P"/>
+                    <constraint firstItem="p4h-Lx-rQo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vmi-zO-49l"/>
+                    <constraint firstItem="p4h-Lx-rQo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="k6d-3l-VUl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="arcanaMainImageView" destination="p4h-Lx-rQo" id="MBb-KT-eQR"/>
+            </connections>
+            <point key="canvasLocation" x="49.5" y="185"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -24,7 +24,7 @@ class ArcanaImageCell: BaseTableViewCell {
       
         addSubview(arcanaImageView)
 
-        arcanaImageView.anchor(top: topAnchor, leading: nil, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: min(frame.width * 1.5, 500))
+        arcanaImageView.anchor(top: topAnchor, leading: nil, trailing: nil, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         arcanaImageView.widthAnchor.constraint(equalTo: arcanaImageView.heightAnchor, multiplier: 2/3).isActive = true
         arcanaImageView.anchorCenterXToSuperview()
     }
