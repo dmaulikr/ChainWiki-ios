@@ -24,6 +24,21 @@ class HideBarsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    func resetBars() {
+        
+        if let hidden = navigationController?.isNavigationBarHidden, hidden == false {
+            return
+        }
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        guard var frame = tabBarController?.tabBar.frame else { return }
+        frame.origin.y = view.frame.size.height - frame.size.height
+        
+        self.tabBarController?.tabBar.frame = frame
+        self.view.layoutIfNeeded()
+
+    }
+    
     func showBars() {
         
         if horizontalSize != .compact { return }

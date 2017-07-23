@@ -75,7 +75,6 @@
 		046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FDD3B1D738060001E955B /* MyTabBarController.swift */; };
 		047561571D946BB1004886BF /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047561561D946BB1004886BF /* RoundedButton.swift */; };
 		0475D2851E8DF0AA00F0D03A /* MainListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475D2841E8DF0AA00F0D03A /* MainListTableView.swift */; };
-		047B57721EF8ED480077FAFB /* ArcanaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B57711EF8ED480077FAFB /* ArcanaImageCell.swift */; };
 		047B57741EF8EDAA0077FAFB /* ImageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B57731EF8EDAA0077FAFB /* ImageHelpers.swift */; };
 		047C0D4D1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */; };
 		047C0D4F1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */; };
@@ -249,7 +248,6 @@
 		0475D2841E8DF0AA00F0D03A /* MainListTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainListTableView.swift; sourceTree = "<group>"; };
 		047B576D1EF8EC8F0077FAFB /* ArcanaDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaDetail.swift; sourceTree = "<group>"; };
 		047B576E1EF8EC8F0077FAFB /* ArcanaDetail+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArcanaDetail+TableView.swift"; sourceTree = "<group>"; };
-		047B57711EF8ED480077FAFB /* ArcanaImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaImageCell.swift; sourceTree = "<group>"; };
 		047B57731EF8EDAA0077FAFB /* ImageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelpers.swift; sourceTree = "<group>"; };
 		047C0D4C1E8CA927008F83F3 /* ArcanaViewTypePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypePageViewController.swift; sourceTree = "<group>"; };
 		047C0D4E1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewTypeViewController.swift; sourceTree = "<group>"; };
@@ -449,7 +447,6 @@
 				04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */,
 				04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */,
 				040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */,
-				047B57711EF8ED480077FAFB /* ArcanaImageCell.swift */,
 				04BF62AA1F24712600954600 /* ArcanaMainImageView */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
@@ -1031,7 +1028,6 @@
 				0400A3061E74D23E00B195E9 /* ArcanaPeekPreview.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04B48A841F15EA6E001DCC21 /* HomeViewController+UICollectionView.swift in Sources */,
-				047B57721EF8ED480077FAFB /* ArcanaImageCell.swift in Sources */,
 				0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
 				04DFF8DA1EE13324002C7D05 /* ArcanaClassCell.swift in Sources */,

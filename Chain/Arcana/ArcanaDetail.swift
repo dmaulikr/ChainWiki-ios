@@ -91,7 +91,6 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
         tableView.contentInset = UIEdgeInsets.zero
         
         tableView.register(UINib(nibName: "ArcanaMainImageViewWrapperCell", bundle: nil), forCellReuseIdentifier: "ArcanaMainImageViewWrapperCell")
-        tableView.register(ArcanaImageCell.self, forCellReuseIdentifier: "ArcanaImageCell")
         tableView.register(UINib(nibName: "ArcanaNameCell", bundle: nil), forCellReuseIdentifier: "ArcanaNameCell")
         tableView.register(UINib(nibName: "ArcanaBaseInfoCell", bundle: nil), forCellReuseIdentifier: "ArcanaBaseInfoCell")
         tableView.register(ArcanaAttributeCell.self, forCellReuseIdentifier: "ArcanaAttributeCell")
@@ -192,20 +191,9 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
 //        showSurvey()
         
     }
-    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        coordinator.animate(alongsideTransition: { _ in
-//            self.tableView.reloadData()
-//
-//        }) { (_) in
-//        }
-//    }
-    
+
     func setupViews() {
-        
-//        isHeroEnabled = true
-//        view.heroID = "arcanaCellImage"
+
         title = arcana.getNameKR()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = .white
@@ -616,7 +604,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
             
             imageTapped = true
 
-            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaImageCell, cell.imageLoaded else { return }
+            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArcanaMainImageViewWrapperCell, cell.arcanaMainImageView.imageLoaded else { return }
             
             imageScrollView.setZoomScale(1, animated: false)
 
@@ -736,7 +724,7 @@ class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
             
             if let indexPath = tableView.indexPathForRow(at: location) {
                 
-                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaImageCell {
+                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaMainImageViewWrapperCell {
                     return false
                 }
                 if let _ = tableView.cellForRow(at: indexPath) as? ArcanaViewEditsCell {

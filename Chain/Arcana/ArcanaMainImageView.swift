@@ -25,22 +25,10 @@ class ArcanaMainImageView: UIView {
     }
     
     func xibSetup() {
-//        view = loadViewFromNib()
-//        
-//        // use bounds not frame or it'll be offset
-//        view.frame = bounds
-//        
-//        // Make the view stretch with containing view
-//        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-//        
-//        // Adding custom subview on top of our view (over any custom drawing > see note below)
-//        addSubview(view)
 
-        
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
         let nibItems = nib.instantiate(withOwner: self, options: nil)
         if let nibView = nibItems.first as? UIView {
-            //Add the view loaded from the nib into self.
             view = nibView
             if view != nil {
                 view.frame = bounds
@@ -48,14 +36,6 @@ class ArcanaMainImageView: UIView {
             }
         }
         
-    }
-    
-    func loadViewFromNib() -> UIView! {
-        
-        let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        
-        return view
     }
 
 }

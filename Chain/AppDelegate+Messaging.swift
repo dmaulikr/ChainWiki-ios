@@ -105,7 +105,7 @@ extension AppDelegate {
         } else {
             // Fallback on earlier versions
             
-            let notificationType = UIApplication.shared.currentUserNotificationSettings!.types
+//            let notificationType = UIApplication.shared.currentUserNotificationSettings!.types
             
             
         }
