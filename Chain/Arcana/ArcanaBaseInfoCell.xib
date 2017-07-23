@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,27 +21,27 @@
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lUz-qc-MLL">
                         <rect key="frame" x="10" y="10" width="300" height="69.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nbJ-XG-kkl">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nbJ-XG-kkl">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="69.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="레어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5M-dK-x9s" customClass="ArcanaAttributeHeaderLabel" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="35"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EY8-0Y-QAq">
-                                        <rect key="frame" x="0.0" y="39" width="150" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="35" width="150" height="34.5"/>
                                         <subviews>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mam-sI-IEN">
-                                                <rect key="frame" x="-10" y="5" width="20" height="20"/>
+                                                <rect key="frame" x="-10" y="7" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="0Pp-B5-pIc"/>
                                                     <constraint firstAttribute="height" constant="20" id="smQ-NU-xjT"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SSR 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8s-lb-Kp9" customClass="ArcanaAttributeDescLabel" customModule="Chain" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="5" width="150" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="7" width="150" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -51,17 +50,17 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="217-AD-qbz">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="217-AD-qbz">
                                 <rect key="frame" x="150" y="0.0" width="150" height="69.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코스트" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xa-rQ-oia" customClass="ArcanaAttributeHeaderLabel" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="35"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9c-OQ-5Lm" customClass="ArcanaAttributeDescLabel" customModule="Chain" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="39" width="20.5" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="35" width="20.5" height="34.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

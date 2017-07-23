@@ -33,7 +33,7 @@ class NavigationController: UINavigationController {
         else {
             fontSize = 20
         }
-        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white, NSAttributedStringKey.font.rawValue: UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize)!]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize)!]
         navigationBar.tintColor = UIColor.white
         navigationBar.barTintColor = Color.lightGreen
     }

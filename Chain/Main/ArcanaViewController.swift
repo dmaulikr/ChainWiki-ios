@@ -91,10 +91,7 @@ class ArcanaViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        if #available(iOS 11.0, *) {
-            tableView.dragDelegate = self
-        }
-        
+
         tableView.backgroundColor = .white
         tableView.alpha = 0
         tableView.estimatedRowHeight = 90
@@ -117,10 +114,7 @@ class ArcanaViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        if #available(iOS 11.0, *) {
-            collectionView.dragDelegate = self
-        }
-        
+
         collectionView.allowsMultipleSelection = false
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
@@ -499,7 +493,7 @@ class ArcanaViewController: UIViewController {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
-            "정렬", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.black]), forKey: "attributedTitle")
+            "정렬", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName: UIColor.black]), forKey: "attributedTitle")
         
         let alpha = UIAlertAction(title: "이름순", style: .default, handler: { action in
             self.sortArcanaByName()

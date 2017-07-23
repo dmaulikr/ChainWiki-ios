@@ -30,18 +30,12 @@ class UploadArcanaViewController: UIViewController {
     lazy var arcanaProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Color.gray247
-        if #available(iOS 11.0, *) {
-            customEnableDropping(on: imageView, dropInteractionDelegate: self)
-        }
         return imageView
     }()
     
     lazy var arcanaMainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Color.gray247
-        if #available(iOS 11.0, *) {
-            customEnableDropping(on: imageView, dropInteractionDelegate: self)
-        }
         return imageView
     }()
     

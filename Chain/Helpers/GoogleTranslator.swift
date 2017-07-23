@@ -11,11 +11,11 @@ import SwiftyJSON
 
 fileprivate let API_KEY = "AIzaSyBD9eX7ABB0Xu1N6CnSdKL-bnsNF5WgLtc"
 
-struct Translation: Codable {
-    
-    var translatedText: [String: String]
-    
-}
+//struct Translation: Codable {
+//    
+//    var translatedText: [String: String]
+//    
+//}
 
 class GoogleTranslator: NSObject {
     
