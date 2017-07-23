@@ -90,6 +90,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.contentInset = UIEdgeInsets.zero
         
+        tableView.register(UINib(nibName: "ArcanaMainImageViewWrapperCell", bundle: nil), forCellReuseIdentifier: "ArcanaMainImageViewWrapperCell")
         tableView.register(ArcanaImageCell.self, forCellReuseIdentifier: "ArcanaImageCell")
         tableView.register(UINib(nibName: "ArcanaNameCell", bundle: nil), forCellReuseIdentifier: "ArcanaNameCell")
         tableView.register(UINib(nibName: "ArcanaBaseInfoCell", bundle: nil), forCellReuseIdentifier: "ArcanaBaseInfoCell")
