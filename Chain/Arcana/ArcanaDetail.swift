@@ -22,12 +22,12 @@ protocol ArcanaDetailProtocol : class {
     func toggleFavorite(_ cell: ArcanaButtonsCell)
 }
 
-class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class ArcanaDetail: HideBarsViewController, UIScrollViewDelegate {
     
     var arcana: Arcana
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
-    var tableViewBottomConstraint: NSLayoutConstraint?
+//    var tableViewBottomConstraint: NSLayoutConstraint?
     var panDismissGesture: UIPanGestureRecognizer!
     var arcanaSection: ArcanaSection?
     
@@ -107,6 +107,13 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     var favorite = false
     var imageTapped = false
     
+    lazy var tapShowBarGesture: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBars))
+        tap.cancelsTouchesInView = false
+        tap.delegate = self
+        return tap
+    }()
+
     lazy var tapImageGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImage))
         tap.cancelsTouchesInView = false
@@ -203,6 +210,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         view.backgroundColor = .white
         
         view.addSubview(tableView)
+        tableView.addGestureRecognizer(tapShowBarGesture)
         
         updateCompactViews()
         
@@ -714,6 +722,35 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         imageTapped = false
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        // cancel tap gesture if user is taps the image, selects a button, or calls didSelect.
+        if gestureRecognizer == tapShowBarGesture {
+            
+            let location = touch.location(in: tableView)
+            
+            if location.x < 25 {
+                return false
+            }
+            
+            if let indexPath = tableView.indexPathForRow(at: location) {
+                
+                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaImageCell {
+                    return false
+                }
+                if let _ = tableView.cellForRow(at: indexPath) as? ArcanaViewEditsCell {
+                    return false
+                }
+            }
+            
+            if touch.view!.isKind(of: UIButton.self) {
+                return false
+            }
+        }
+        
+        return true
+    }
+
     func showSurvey() {
         
         let popup = RatePopupView()
