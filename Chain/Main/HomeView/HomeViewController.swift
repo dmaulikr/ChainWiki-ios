@@ -236,7 +236,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         })
         
         
-        LEGEND_REF.observe(.childAdded, with: { (snapshot) in
+        LEGEND_REF.observe(.childAdded) { (snapshot) in
             
             let arcanaID = snapshot.key
             
@@ -254,9 +254,9 @@ class HomeViewController: UIViewController, HomeViewProtocol {
                 }
             })
             
-        })
+        }
         
-        REWARD_REF.observe(.childAdded, with: { (snapshot) in
+        REWARD_REF.observe(.childAdded) { (snapshot) in
             
             let arcanaID = snapshot.key
             
@@ -272,7 +272,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
                     }
                 }
             })
-        })
+        }
         
     }
     

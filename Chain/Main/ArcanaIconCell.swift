@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class ArcanaIconCell: UICollectionViewCell {
     

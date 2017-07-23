@@ -27,8 +27,14 @@ class LinkViewController: SFSafariViewController, SFSafariViewControllerDelegate
     
     init(url: URL) {
         self.url = url
-
-        super.init(url: url, entersReaderIfAvailable: false)
+        
+        if #available(iOS 11.0, *) {
+            let a = SFSafariViewController.Configuration()
+            super.init(url: url, configuration: a)
+        }
+        else {
+            super.init(url: url, entersReaderIfAvailable: false)
+        }
         
     }
     
@@ -59,7 +65,7 @@ class LinkViewController: SFSafariViewController, SFSafariViewControllerDelegate
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         alertController.view.tintColor = Color.salmon
         alertController.setValue(NSAttributedString(string:
-            "브라우저 선택", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 20),NSForegroundColorAttributeName : UIColor.black]), forKey: "attributedTitle")
+            "브라우저 선택", attributes: [NSAttributedStringKey.foregroundColor : UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor : UIColor.black]), forKey: "attributedTitle")
         
         let chrome = UIAlertAction(title: "크롬으로 열기", style: .default, handler: { action in
             self.openChrome()
