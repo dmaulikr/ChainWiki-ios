@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A306f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GenericView" customModule="Chain" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="Cf3-dq-cKi" id="Xi2-pm-aBF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cf3-dq-cKi">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Cf3-dq-cKi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="30w-4U-YEH"/>
+                <constraint firstAttribute="bottom" secondItem="Cf3-dq-cKi" secondAttribute="bottom" id="KnE-Ir-TA6"/>
+                <constraint firstItem="Cf3-dq-cKi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="f5Q-oR-YyJ"/>
+                <constraint firstAttribute="trailing" secondItem="Cf3-dq-cKi" secondAttribute="trailing" id="hwL-sm-Fnv"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

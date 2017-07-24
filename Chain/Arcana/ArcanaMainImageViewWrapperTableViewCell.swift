@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaMainImageViewWrapperCell: UITableViewCell {
+class ArcanaMainImageViewWrapperTableViewCell: UITableViewCell {
     
     @IBOutlet weak var arcanaMainImageView: ArcanaMainImageView!
     

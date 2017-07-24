@@ -32,8 +32,12 @@
 		040FA9A41E886B7500C315CD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */; };
 		040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A51E88952000C315CD /* ArcanaIconCell.swift */; };
 		040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */; };
-		0416B9141F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.swift */; };
-		0416B9151F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.xib */; };
+		0416B9141F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.swift */; };
+		0416B9151F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.xib */; };
+		0416B9181F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0416B9161F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift */; };
+		0416B9191F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0416B9171F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.xib */; };
+		0416B9201F25BEC800BF4C32 /* GenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0416B91F1F25BEC800BF4C32 /* GenericView.swift */; };
+		0416B9221F25C03A00BF4C32 /* GenericView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0416B9211F25C03A00BF4C32 /* GenericView.xib */; };
 		041729071E7297D50090E634 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041729061E7297D50090E634 /* FloatingTextField.swift */; };
 		04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */; };
 		04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */; };
@@ -115,8 +119,8 @@
 		04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */; };
 		04BF62A31F24701F00954600 /* ArcanaMainImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF62A21F24701F00954600 /* ArcanaMainImageView.swift */; };
 		04BF62A51F24702600954600 /* ArcanaMainImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF62A41F24702600954600 /* ArcanaMainImageView.xib */; };
-		04BF62A81F24712100954600 /* ArcanaMainImageViewWrapperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperCell.swift */; };
-		04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperCell.xib */; };
+		04BF62A81F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.swift */; };
+		04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.xib */; };
 		04C17B3D1EA145AB00AB93CF /* LoadingArcanaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */; };
 		04CBBD411E2B3FBE009D5E5F /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */; };
 		04CBBD431E2B4938009D5E5F /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CBBD421E2B4938009D5E5F /* SectionHeader.swift */; };
@@ -203,8 +207,12 @@
 		040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		040FA9A51E88952000C315CD /* ArcanaIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconCell.swift; sourceTree = "<group>"; };
 		040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconLabelCell.swift; sourceTree = "<group>"; };
-		0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewViewWrapperCell.swift; sourceTree = "<group>"; };
-		0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaPreviewViewWrapperCell.xib; sourceTree = "<group>"; };
+		0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewViewWrapperTableViewCell.swift; sourceTree = "<group>"; };
+		0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaPreviewViewWrapperTableViewCell.xib; sourceTree = "<group>"; };
+		0416B9161F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaFullViewWrapperTableViewCell.swift; sourceTree = "<group>"; };
+		0416B9171F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaFullViewWrapperTableViewCell.xib; sourceTree = "<group>"; };
+		0416B91F1F25BEC800BF4C32 /* GenericView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericView.swift; path = ../CustomViews/GenericView.swift; sourceTree = "<group>"; };
+		0416B9211F25C03A00BF4C32 /* GenericView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GenericView.xib; path = ../CustomViews/GenericView.xib; sourceTree = "<group>"; };
 		041729061E7297D50090E634 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
 		04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TavernListTableCell.swift; path = ../Ability/TavernListTableCell.swift; sourceTree = "<group>"; };
@@ -294,8 +302,8 @@
 		04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewDataSource.swift; sourceTree = "<group>"; };
 		04BF62A21F24701F00954600 /* ArcanaMainImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageView.swift; sourceTree = "<group>"; };
 		04BF62A41F24702600954600 /* ArcanaMainImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaMainImageView.xib; sourceTree = "<group>"; };
-		04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageViewWrapperCell.swift; sourceTree = "<group>"; };
-		04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaMainImageViewWrapperCell.xib; sourceTree = "<group>"; };
+		04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaMainImageViewWrapperTableViewCell.swift; sourceTree = "<group>"; };
+		04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcanaMainImageViewWrapperTableViewCell.xib; sourceTree = "<group>"; };
 		04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingArcanaViewController.swift; sourceTree = "<group>"; };
 		04CBBD401E2B3FBE009D5E5F /* UIViewConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		04CBBD421E2B4938009D5E5F /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -381,6 +389,28 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		0416B91A1F25BDE900BF4C32 /* ArcanaFullView */ = {
+			isa = PBXGroup;
+			children = (
+				0416B9161F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift */,
+				0416B9171F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.xib */,
+			);
+			name = ArcanaFullView;
+			sourceTree = "<group>";
+		};
+		0416B9231F25C4E600BF4C32 /* Reusable Views */ = {
+			isa = PBXGroup;
+			children = (
+				0416B91F1F25BEC800BF4C32 /* GenericView.swift */,
+				0416B9211F25C03A00BF4C32 /* GenericView.xib */,
+				045AC9AB1F253F29002F8D6B /* ArcanaPreviewView */,
+				0416B91A1F25BDE900BF4C32 /* ArcanaFullView */,
+				04BF62AA1F24712600954600 /* ArcanaMainImageView */,
+			);
+			name = "Reusable Views";
+			path = Main;
+			sourceTree = "<group>";
+		};
 		042834FC1D91EA1E0043BE6E /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,8 +457,8 @@
 			children = (
 				045AC9A71F252ED2002F8D6B /* ArcanaPreviewView.xib */,
 				045AC9A91F253424002F8D6B /* ArcanaPreviewView.swift */,
-				0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.swift */,
-				0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.xib */,
+				0416B9121F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.swift */,
+				0416B9131F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.xib */,
 			);
 			name = ArcanaPreviewView;
 			sourceTree = "<group>";
@@ -455,7 +485,6 @@
 				04E78B0F1EF758F000B4F0FE /* ArcanaDetail+TableView.swift */,
 				04C17B3C1EA145AB00AB93CF /* LoadingArcanaViewController.swift */,
 				040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */,
-				04BF62AA1F24712600954600 /* ArcanaMainImageView */,
 				04349D0E1DAC333400216141 /* ArcanaButtonsCell.swift */,
 				0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */,
 				04ECE0191F077FD40005F013 /* ArcanaNameCell.swift */,
@@ -500,7 +529,6 @@
 				0400A3071E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift */,
 				04691E8E1D97A87300E15C5F /* ArcanaCell.xib */,
 				04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */,
-				045AC9AB1F253F29002F8D6B /* ArcanaPreviewView */,
 				040F090C1F07072700B9A319 /* ArcanaImageIDCell.swift */,
 				043EEFBE1E8B525500650B28 /* ArcanaMainImageCell.swift */,
 				040FA9A51E88952000C315CD /* ArcanaIconCell.swift */,
@@ -549,6 +577,7 @@
 				0447E1D71D87D09500670834 /* Ability */,
 				04A3B1761D8E7B7500BBF297 /* Tavern */,
 				04FAA2111E6F99A800E848B4 /* Data */,
+				0416B9231F25C4E600BF4C32 /* Reusable Views */,
 				04A2ECC51D6F80BF00189142 /* Custom Views */,
 				045EF6A81DAB5DCA002148DD /* Settings */,
 				04A2ECC71D6F80D300189142 /* Model */,
@@ -629,10 +658,11 @@
 			children = (
 				04BF62A21F24701F00954600 /* ArcanaMainImageView.swift */,
 				04BF62A41F24702600954600 /* ArcanaMainImageView.xib */,
-				04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperCell.swift */,
-				04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperCell.xib */,
+				04BF62A61F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.swift */,
+				04BF62A71F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.xib */,
 			);
 			name = ArcanaMainImageView;
+			path = ../Arcana;
 			sourceTree = "<group>";
 		};
 		04FAA2111E6F99A800E848B4 /* Data */ = {
@@ -790,9 +820,11 @@
 			files = (
 				043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */,
 				045AC9A81F252ED2002F8D6B /* ArcanaPreviewView.xib in Resources */,
-				0416B9151F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.xib in Resources */,
-				04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperCell.xib in Resources */,
+				0416B9151F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.xib in Resources */,
+				0416B9191F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.xib in Resources */,
+				04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.xib in Resources */,
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
+				0416B9221F25C03A00BF4C32 /* GenericView.xib in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
 				0435239B1DB461CA004D96A3 /* Credits.plist in Resources */,
@@ -986,13 +1018,14 @@
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
-				04BF62A81F24712100954600 /* ArcanaMainImageViewWrapperCell.swift in Sources */,
+				04BF62A81F24712100954600 /* ArcanaMainImageViewWrapperTableViewCell.swift in Sources */,
 				04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */,
 				0490A8231E68F701000E3E4D /* FilterCell.swift in Sources */,
 				04349D111DACD79600216141 /* ArcanaEditList.swift in Sources */,
 				04CBBD451E2B497D009D5E5F /* HorizontalBar.swift in Sources */,
 				04EF66AB1DB363D000E13370 /* SettingsCell.swift in Sources */,
 				040EA17A1DB8951F00193363 /* TavernNameHandler.swift in Sources */,
+				0416B9201F25BEC800BF4C32 /* GenericView.swift in Sources */,
 				047561571D946BB1004886BF /* RoundedButton.swift in Sources */,
 				04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */,
 				04180D2E1DEC0CD500E4303D /* AbilityListDataSource.swift in Sources */,
@@ -1037,6 +1070,7 @@
 				047C0D4F1E8CAA31008F83F3 /* ArcanaViewTypeViewController.swift in Sources */,
 				0468D2DF1ED907BF0040A87A /* FestivalViewController.swift in Sources */,
 				0400A3061E74D23E00B195E9 /* ArcanaPeekPreview.swift in Sources */,
+				0416B9181F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
 				04B48A841F15EA6E001DCC21 /* HomeViewController+UICollectionView.swift in Sources */,
 				0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */,
@@ -1051,7 +1085,7 @@
 				0400A30C1E752A4E00B195E9 /* ArcanaPeekTableViewHeader.swift in Sources */,
 				040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */,
 				040F09141F0712EE00B9A319 /* PushNotificationViewController.swift in Sources */,
-				0416B9141F25B65C00BF4C32 /* ArcanaPreviewViewWrapperCell.swift in Sources */,
+				0416B9141F25B65C00BF4C32 /* ArcanaPreviewViewWrapperTableViewCell.swift in Sources */,
 				04D6594F1DB60A3C00D30C21 /* TutorialViewController.swift in Sources */,
 				046710C61D97D18F000CF487 /* ArcanaTextCell.swift in Sources */,
 				040133441EF0F9F10050ED32 /* GoogleTranslator.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArcanaPreviewViewWrapperCell: UITableViewCell {
+class ArcanaPreviewViewWrapperTableViewCell: UITableViewCell {
 
     @IBOutlet weak var arcanaPreviewView: ArcanaPreviewView!
 

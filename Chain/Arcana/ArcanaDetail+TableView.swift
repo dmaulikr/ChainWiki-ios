@@ -167,7 +167,7 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
             
         case .image:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageViewWrapperCell") as! ArcanaMainImageViewWrapperCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaMainImageViewWrapperTableViewCell") as! ArcanaMainImageViewWrapperTableViewCell
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaImageCell") as! ArcanaImageCell
             cell.selectionStyle = .none
             

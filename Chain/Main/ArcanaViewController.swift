@@ -98,7 +98,8 @@ class ArcanaViewController: UIViewController {
         tableView.cellLayoutMarginsFollowReadableWidth = false
         tableView.tableFooterView = UIView(frame: .zero)
 
-        tableView.register(UINib(nibName: "ArcanaPreviewViewWrapperCell", bundle: nil), forCellReuseIdentifier: "ArcanaPreviewViewWrapperCell")
+        tableView.register(UINib(nibName: "ArcanaPreviewViewWrapperTableViewCell", bundle: nil), forCellReuseIdentifier: "ArcanaPreviewViewWrapperTableViewCell")
+        tableView.register(UINib(nibName: "ArcanaFullViewWrapperTableViewCell", bundle: nil), forCellReuseIdentifier: "ArcanaFullViewWrapperTableViewCell")
         tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
         tableView.register(ArcanaMainImageCell.self, forCellReuseIdentifier: "ArcanaMainImageCell")
         

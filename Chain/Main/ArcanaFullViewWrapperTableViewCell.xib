@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A306f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="588" id="KGk-i7-Jjw" customClass="ArcanaFullViewWrapperTableViewCell" customModule="Chain" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="328" height="588"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="328" height="587.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQl-S1-KB5" customClass="ArcanaMainImageView" customModule="Chain" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="-0.5" width="328" height="492.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="cQl-S1-KB5" secondAttribute="height" multiplier="2:3" id="wm8-8M-HkO"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FC9-C6-9gH" customClass="ArcanaPreviewView" customModule="Chain" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="492" width="328" height="90"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="90" id="abH-uW-rHw"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="FC9-C6-9gH" firstAttribute="top" secondItem="cQl-S1-KB5" secondAttribute="bottom" id="2HV-NV-dW2"/>
+                    <constraint firstItem="FC9-C6-9gH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AzR-Sg-UcN"/>
+                    <constraint firstAttribute="trailing" secondItem="cQl-S1-KB5" secondAttribute="trailing" id="MuD-qd-Meh"/>
+                    <constraint firstAttribute="bottom" secondItem="FC9-C6-9gH" secondAttribute="bottom" id="SUx-Gu-yMv"/>
+                    <constraint firstItem="cQl-S1-KB5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="elV-Qj-38m"/>
+                    <constraint firstItem="cQl-S1-KB5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qWy-hv-cS8"/>
+                    <constraint firstAttribute="trailing" secondItem="FC9-C6-9gH" secondAttribute="trailing" id="qqK-dY-2fx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="cQl-S1-KB5" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" id="TQF-iJ-hqe"/>
+            </constraints>
+            <connections>
+                <outlet property="arcanaImageView" destination="cQl-S1-KB5" id="mnh-4t-fh5"/>
+                <outlet property="arcanaPreviewView" destination="FC9-C6-9gH" id="jjh-GU-bOI"/>
+            </connections>
+            <point key="canvasLocation" x="29" y="324"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,9 +8,7 @@
 
 import UIKit
 
-class ArcanaPreviewView: UIView {
-
-    @IBOutlet var contentView: UIView!
+class ArcanaPreviewView: GenericView {
     
     var arcanaID: String!
     
@@ -24,36 +22,6 @@ class ArcanaPreviewView: UIView {
     @IBOutlet weak var arcanaWeaponLabel: UILabel!
     @IBOutlet weak var arcanaAffiliationLabel: UILabel!
     @IBOutlet weak var numberOfViewsLabel: UILabel!
-   
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        xibSetup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        xibSetup()
-    }
-    
-    func xibSetup() {
-        
-        let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
-        let nibItems = nib.instantiate(withOwner: self, options: nil)
-        if let nibView = nibItems.first as? UIView {
-            contentView = nibView
-            if contentView != nil {
-//                contentView.frame = bounds
-                translatesAutoresizingMaskIntoConstraints = false
-                addSubview(contentView)
-                contentView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-            }
-        }
-        
-    }
-    
-    class func instanceFromNib() -> ArcanaPreviewView {
-        return UINib(nibName: String(describing: type(of: self)), bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! ArcanaPreviewView
-    }
     
     func setupCell(arcana: Arcana) {
         
