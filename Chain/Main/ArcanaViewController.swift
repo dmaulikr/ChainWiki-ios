@@ -122,6 +122,8 @@ class ArcanaViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.alpha = 0
         
+        collectionView.register(UINib(nibName: "ArcanaPreviewViewWrapperCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ArcanaPreviewViewWrapperCollectionViewCell")
+        collectionView.register(UINib(nibName: "ArcanaFullViewWrapperCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ArcanaFullViewWrapperCollectionViewCell")
         collectionView.register(ArcanaIconCell.self, forCellWithReuseIdentifier: "ArcanaIconCell")
         collectionView.register(ArcanaIconLabelCell.self, forCellWithReuseIdentifier: "ArcanaIconLabelCell")
         collectionView.register(MainListTableView.self, forCellWithReuseIdentifier: "MainListTableView")

@@ -111,10 +111,6 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arcanaArray.count
     }
@@ -126,22 +122,60 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
             let arcana = arcanaArray[indexPath.row]
             
             switch arcanaView {
-            case .list, .main:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
-                cell.collectionViewDelegate = self
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if let splitVC = splitViewController {
-                        if splitVC.primaryColumnWidth <= 320 {
-                            cell.numberOfColumns = 1
-                        }
-                        else {
-                            cell.numberOfColumns = 2
+            case .list:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaPreviewViewWrapperCollectionViewCell", for: indexPath) as! ArcanaPreviewViewWrapperCollectionViewCell
+                cell.arcanaPreviewView.setupCell(arcana: arcana)
+                cell.arcanaPreviewView.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+                    
+                    if arcanaID == cell.arcanaPreviewView.arcanaID {
+                        DispatchQueue.main.async {
+                            cell.arcanaPreviewView.arcanaImageView.animateImage(arcanaImage)
                         }
                     }
-                }
-                cell.arcana = arcana
-                cell.arcanaView = arcanaView
+                    
+                })
                 return cell
+
+            case .main:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaFullViewWrapperCollectionViewCell", for: indexPath) as! ArcanaFullViewWrapperCollectionViewCell
+                
+                cell.arcanaImageView.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL, completion: { (arcanaID, arcanaImage) in
+                    
+//                    if arcanaID == cell.arcanaID {
+                    DispatchQueue.main.async {
+                        cell.arcanaImageView.arcanaImageView.animateImage(arcanaImage)
+                    }
+//                    }
+                    
+                })
+                cell.arcanaPreviewView.setupCell(arcana: arcana)
+                cell.arcanaPreviewView.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+                    
+                    if arcanaID == cell.arcanaPreviewView.arcanaID {
+                        DispatchQueue.main.async {
+                            cell.arcanaPreviewView.arcanaImageView.animateImage(arcanaImage)
+                        }
+                    }
+                    
+                })
+
+                return cell
+//            case .list, .main:
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
+//                cell.collectionViewDelegate = self
+//                if UIDevice.current.userInterfaceIdiom == .pad {
+//                    if let splitVC = splitViewController {
+//                        if splitVC.primaryColumnWidth <= 320 {
+//                            cell.numberOfColumns = 1
+//                        }
+//                        else {
+//                            cell.numberOfColumns = 2
+//                        }
+//                    }
+//                }
+//                cell.arcana = arcana
+//                cell.arcanaView = arcanaView
+//                return cell
                 
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                

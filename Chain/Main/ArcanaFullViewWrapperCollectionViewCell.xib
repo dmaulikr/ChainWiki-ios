@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A306f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArcanaFullViewWrapperCollectionViewCell" customModule="Chain" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="390"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="390"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6yz-n9-W3H">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="326"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21O-v9-TfB" customClass="ArcanaMainImageView" customModule="Chain" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="21O-v9-TfB" secondAttribute="height" multiplier="2:3" id="5CA-SA-lFa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4Q-eX-YAy" customClass="ArcanaPreviewView" customModule="Chain" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="300" width="200" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="3bP-xL-F2d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="21O-v9-TfB" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="9MY-qE-cKj"/>
+                <constraint firstAttribute="trailing" secondItem="6yz-n9-W3H" secondAttribute="trailing" id="Hbg-GM-lbw"/>
+                <constraint firstItem="6yz-n9-W3H" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Xwa-ul-jZx"/>
+                <constraint firstAttribute="bottom" secondItem="6yz-n9-W3H" secondAttribute="bottom" id="f9J-kx-Fgj"/>
+                <constraint firstItem="6yz-n9-W3H" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rMF-gg-4JZ"/>
+            </constraints>
+            <size key="customSize" width="464" height="697"/>
+            <connections>
+                <outlet property="arcanaImageView" destination="21O-v9-TfB" id="0eX-r6-QGj"/>
+                <outlet property="arcanaPreviewView" destination="C4Q-eX-YAy" id="Oxs-mi-03l"/>
+            </connections>
+            <point key="canvasLocation" x="240" y="379.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
