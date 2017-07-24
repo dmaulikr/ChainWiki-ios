@@ -19,20 +19,16 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("Notification in foreground")
-        let userInfo = notification.request.content.userInfo
-        // Print message ID.
-        if let type = userInfo["type"] as? String {
-            print(type)
-        }
-        
-        // Change this to your preferred presentation option
+
         completionHandler([.alert])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        handleUserInfo(userInfo)
+        
         completionHandler()
     }
 }

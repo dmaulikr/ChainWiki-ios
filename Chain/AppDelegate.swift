@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseMessaging
+import UserNotifications
 import FBSDKLoginKit
 import GoogleSignIn
 
@@ -22,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+        }
         Messaging.messaging().delegate = self
         application.registerForRemoteNotifications()
         Database.database().isPersistenceEnabled = true
@@ -111,11 +115,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
+        handleUserInfo(userInfo)
+    }
+    
+    func handleUserInfo(_ userInfo: [AnyHashable: Any]) {
+        if let type = userInfo["type"] as? String {
+            if type == "festival" {
+                showFestivalVC()
+            }
+        }
+    }
+    
+    func showFestivalVC() {
+        guard let tabVC = self.window?.rootViewController as? MyTabBarController else { return }
+        tabVC.selectedIndex = 0
         
-        // Print full message.
-        print(userInfo)
+        guard let splitVC = tabVC.viewControllers?.first as? ArcanaSplitViewController,
+            let navVC = splitVC.viewControllers.first as? NavigationController else { return }
+        navVC.popToRootViewController(animated: false)
+        
+        let festivalVC = FestivalViewController()
+        navVC.pushViewController(festivalVC, animated: true)
     }
 }

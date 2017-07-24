@@ -170,14 +170,15 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         FESTIVAL_REF.observeSingleEvent(of: .value, with: { snapshot in
             
-            if snapshot.exists() {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if snapshot.exists() {
                     self.navigationItem.leftBarButtonItem = self.festivalButton
                 }
+                else {
+                    self.navigationItem.leftBarButtonItem = nil
+                }
             }
-            else {
-                self.navigationItem.leftBarButtonItem = nil
-            }
+
             
         })
 
@@ -454,6 +455,13 @@ final class SearchArcanaViewController: ArcanaViewController {
 
     }
     
+    @objc
+    func showFestival() {
+        
+        let vc = FestivalViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }
 
 extension SearchArcanaViewController: UISearchBarDelegate {
