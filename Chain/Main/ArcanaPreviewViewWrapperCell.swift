@@ -8,15 +8,19 @@
 
 import UIKit
 
-class ArcanaPreviewViewWrapperCell: BaseTableViewCell {
-    
-    var arcanaPreviewView: ArcanaPreviewView!
-    
-    override func setupViews() {
+class ArcanaPreviewViewWrapperCell: UITableViewCell {
 
-        arcanaPreviewView = ArcanaPreviewView()
-        addSubview(arcanaPreviewView)
-        arcanaPreviewView.anchorEdgesToSuperview()
+    @IBOutlet weak var arcanaPreviewView: ArcanaPreviewView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        arcanaPreviewView.arcanaNickKRLabel.text = nil
+        arcanaPreviewView.arcanaNickJPLabel.text = nil
+        arcanaPreviewView.arcanaAffiliationLabel.text = nil
+    }
+
 }

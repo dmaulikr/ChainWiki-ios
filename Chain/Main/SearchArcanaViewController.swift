@@ -243,8 +243,8 @@ final class SearchArcanaViewController: ArcanaViewController {
         
         // For UI Testing.
 //        ref.queryLimited(toFirst: 800).observe(.childAdded, with: { snapshot in
-//         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-        ref.observe(.childAdded, with: { snapshot in
+         ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+//        ref.observe(.childAdded, with: { snapshot in
         
             if let arcana = Arcana(snapshot: snapshot) {
                 
@@ -252,11 +252,11 @@ final class SearchArcanaViewController: ArcanaViewController {
 
                     self.concurrentArcanaQueue.async(flags: .barrier) {
                         self._arcanaArray.insert(arcana, at: 0)
-                        if !self.initialLoad {
+//                        if !self.initialLoad {
                             DispatchQueue.main.async {
                                 self.reloadView()
                             }
-                        }
+//                        }
                     }
                     
                     self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
@@ -267,6 +267,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             
         })
         
+        /*
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             self.concurrentArcanaQueue.async(flags: .barrier) {
@@ -333,6 +334,7 @@ final class SearchArcanaViewController: ArcanaViewController {
             }
 
         })
+ */
         
     }
     

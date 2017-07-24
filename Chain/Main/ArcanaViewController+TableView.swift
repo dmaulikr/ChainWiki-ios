@@ -49,21 +49,22 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
             
             if arcanaView == .list || (arcanaView == .main && row == .arcana) {
                 
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaPreviewViewWrapperCell") as! ArcanaPreviewViewWrapperCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaPreviewViewWrapperCell") as! ArcanaPreviewViewWrapperCell
+                cell.arcanaPreviewView.setupCell(arcana: arcana)
 //                cell.arcanaPreviewView.setupCell(arcana: arcana)
-                let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
-                
-                cell.setupCell(arcana: arcana)
-                
-                cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
-                    
-                    if arcanaID == cell.arcanaID {
-                        DispatchQueue.main.async {
-                            cell.arcanaImageView.animateImage(arcanaImage)
-                        }
-                    }
-                    
-                })
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
+//                
+//                cell.setupCell(arcana: arcana)
+//                
+//                cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+//                    
+//                    if arcanaID == cell.arcanaID {
+//                        DispatchQueue.main.async {
+//                            cell.arcanaImageView.animateImage(arcanaImage)
+//                        }
+//                    }
+//                    
+//                })
                 
                 return cell
                 
