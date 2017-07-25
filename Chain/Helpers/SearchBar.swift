@@ -47,8 +47,8 @@ class SearchBar: UISearchBar {
             let attributeColor = [NSForegroundColorAttributeName: Color.lightGreen]
             searchTextField.attributedPlaceholder = NSAttributedString(string: "이름 검색", attributes: attributeColor)
         
-            if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton {
-                clearButton.setImage(clearButton.imageView!.image!.withRenderingMode(.alwaysTemplate), for: .normal)
+            if let clearButton = searchTextField.value(forKey: "clearButton") as? UIButton, let image = clearButton.imageView?.image {
+                clearButton.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
                 clearButton.tintColor = .lightGray
             }
             
