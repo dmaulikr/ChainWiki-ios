@@ -18,6 +18,7 @@ target 'Chain' do
     pod 'Firebase/Messaging'
     pod 'GoogleSignIn'
     
+    pod 'Reusable'
     pod 'Kanna', '~> 2.1.0'
     pod 'SwiftyJSON'
     pod 'KRWordWrapLabel'    

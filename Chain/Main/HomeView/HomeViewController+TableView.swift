@@ -11,15 +11,27 @@ import UIKit
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView.tag == 2 {
+            return 3
+        }
         return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if tableView.tag == 2 {
+            return 1
+        }
         return 4
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //TODO: Check if there is a festival
+        if tableView.tag == 2 {
+            return 90
+        }
         guard let section = ArcanaSection(rawValue: indexPath.section) else { return 0 }
         
         switch section {
@@ -71,6 +83,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        if tableView.tag == 2 {
+            return nil
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewHeaderCell") as! HomeTableViewHeaderCell
         
         guard let section = ArcanaSection(rawValue: section) else { return nil }
@@ -119,19 +134,47 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewTableViewCell") as! HomeViewTableViewCell
+        if tableView.tag == 2 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaPreviewViewWrapperTableViewCell") as! ArcanaPreviewViewWrapperTableViewCell
+//            cell.arcanaPreviewView.setupCell(arcana: arcana)
+//            cell.arcanaPreviewView.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
+//
+//                if arcanaID == cell.arcanaPreviewView.arcanaID {
+//                    DispatchQueue.main.async {
+//                        cell.arcanaPreviewView.arcanaImageView.animateImage(arcanaImage)
+//                    }
+//                }
+//
+//            })
+            
+            return cell
+        }
         
-        guard let section = ArcanaSection(rawValue: indexPath.section) else { return cell }
+        guard let section = ArcanaSection(rawValue: indexPath.section) else { return UITableViewCell() }
         
-        cell.setupCollectionView(self, arcanaSection: section)
-        cell.collectionView.reloadData()
+        switch section {
+        case .festival:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell") as! ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell
+            cell.arcanaPreviewHorizontalCollectionView.setupCollectionView(self)
+            
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewTableViewCell") as! HomeViewTableViewCell
+
+            cell.setupCollectionView(self, arcanaSection: section)
+            cell.collectionView.reloadData()
+            
+            return cell
+        }
+
 //        switch section {
 //        case .festival:
 //            cell.setupCollectionView(self, arcanaSection: .festival)
 //        case .new:
 //            cell.setupCollectionView(self, arcanaSection: .new)
 //        }
-        return cell
+//        return cell
     }
     
 }

@@ -37,24 +37,25 @@ class ArcanaSplitViewController: UISplitViewController, UISplitViewControllerDel
 
     func setupControllers(_ arcanaVC: ArcanaVC) {
         
-        let masterVC: ArcanaViewController
-//        let homeVC = HomeViewController()
+//        let masterVC: ArcanaViewController
+//        let welcomeVC = WelcomeViewController()
+//        
+//        switch arcanaVC {
+//            
+//        case .search:
+//            masterVC = SearchArcanaViewController()
+//            
+//        case .tavern:
+//            masterVC = SearchArcanaViewController()
+//            
+//        case .favorites:
+//            masterVC = FavoritesArcanaViewController()
+//            
+//        }
+        
+        let masterVC = HomeViewController()
         let welcomeVC = WelcomeViewController()
-        
-        switch arcanaVC {
-            
-        case .search:
-            masterVC = SearchArcanaViewController()
-            
-        case .tavern:
-            masterVC = SearchArcanaViewController()
-            
-        case .favorites:
-            masterVC = FavoritesArcanaViewController()
-            
-        }
-        
-//        let masterVC = HomeViewController()
+
         masterVC.welcomeDelegate = welcomeVC
         
         viewControllerList = [NavigationController(masterVC), NavigationController(welcomeVC)]

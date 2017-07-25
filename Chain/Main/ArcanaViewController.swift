@@ -24,6 +24,7 @@ enum ArcanaVC {
 
 class ArcanaViewController: UIViewController {
     
+    
     weak var welcomeDelegate: WelcomeViewController?
 
     let concurrentArcanaQueue =
@@ -100,8 +101,6 @@ class ArcanaViewController: UIViewController {
 
         tableView.register(UINib(nibName: "ArcanaPreviewViewWrapperTableViewCell", bundle: nil), forCellReuseIdentifier: "ArcanaPreviewViewWrapperTableViewCell")
         tableView.register(UINib(nibName: "ArcanaFullViewWrapperTableViewCell", bundle: nil), forCellReuseIdentifier: "ArcanaFullViewWrapperTableViewCell")
-        tableView.register(UINib(nibName: "ArcanaCell", bundle: nil), forCellReuseIdentifier: "arcanaCell")
-        tableView.register(ArcanaMainImageCell.self, forCellReuseIdentifier: "ArcanaMainImageCell")
         
         return tableView
     }()

@@ -62,6 +62,10 @@ extension UIImageView {
     
     func loadArcanaImage(arcanaID: String, urlString: String?, completion: @escaping (String, UIImage) -> ()) {
         
+        let image = #imageLiteral(resourceName: "sampleProfile")
+        completion(arcanaID, image)
+        return
+            
         self.image = nil
         
         if defaults.getImagePermissions() {

@@ -160,22 +160,6 @@ extension ArcanaViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 })
 
                 return cell
-//            case .list, .main:
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainListTableView", for: indexPath) as! MainListTableView
-//                cell.collectionViewDelegate = self
-//                if UIDevice.current.userInterfaceIdiom == .pad {
-//                    if let splitVC = splitViewController {
-//                        if splitVC.primaryColumnWidth <= 320 {
-//                            cell.numberOfColumns = 1
-//                        }
-//                        else {
-//                            cell.numberOfColumns = 2
-//                        }
-//                    }
-//                }
-//                cell.arcana = arcana
-//                cell.arcanaView = arcanaView
-//                return cell
                 
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell                

@@ -112,6 +112,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.allowsSelection = false
+        
+        tableView.register(ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.self, forCellReuseIdentifier: "ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell")
         tableView.register(HomeViewTableViewCell.self, forCellReuseIdentifier: "HomeViewTableViewCell")
         tableView.register(HomeTableViewHeaderCell.self, forCellReuseIdentifier: "HomeTableViewHeaderCell")
         

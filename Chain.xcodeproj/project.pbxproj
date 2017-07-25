@@ -93,6 +93,9 @@
 		0486C0091F072F7F00B6A7D8 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486C0081F072F7F00B6A7D8 /* AppDelegate+Messaging.swift */; };
 		0486E8FF1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */; };
 		0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */; };
+		0488822C1F26F8320093C720 /* ArcanaPreviewHorizontalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488822B1F26F8320093C720 /* ArcanaPreviewHorizontalCollectionView.swift */; };
+		0488822F1F26FB380093C720 /* ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488822D1F26FB380093C720 /* ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift */; };
+		048882331F2701920093C720 /* ArcanaPreviewTableViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048882321F2701920093C720 /* ArcanaPreviewTableViewCollectionViewCell.swift */; };
 		048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */; };
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		0490A8231E68F701000E3E4D /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0490A8221E68F701000E3E4D /* FilterCell.swift */; };
@@ -277,6 +280,9 @@
 		0486E8FE1DADF4F600FE6FA3 /* ArcanaViewEditsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaViewEditsCell.swift; sourceTree = "<group>"; };
 		0486E9001DADF8F300FE6FA3 /* ArcanaEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEdit.swift; sourceTree = "<group>"; };
 		04885B871D926EA800A69992 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		0488822B1F26F8320093C720 /* ArcanaPreviewHorizontalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewHorizontalCollectionView.swift; sourceTree = "<group>"; };
+		0488822D1F26FB380093C720 /* ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift; sourceTree = "<group>"; };
+		048882321F2701920093C720 /* ArcanaPreviewTableViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewTableViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		048B31271D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaSkillAbilityDescCell.swift; sourceTree = "<group>"; };
 		048E6E541D729A7D00687513 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = etc/GlobalConstants.swift; sourceTree = "<group>"; };
 		0490A8221E68F701000E3E4D /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
@@ -413,6 +419,7 @@
 			children = (
 				0416B91F1F25BEC800BF4C32 /* GenericView.swift */,
 				0416B9211F25C03A00BF4C32 /* GenericView.xib */,
+				048882311F26FB550093C720 /* ArcanaPreviewHorizontalCollectionView */,
 				045AC9AB1F253F29002F8D6B /* ArcanaPreviewView */,
 				0416B91A1F25BDE900BF4C32 /* ArcanaFullView */,
 				04BF62AA1F24712600954600 /* ArcanaMainImageView */,
@@ -554,6 +561,16 @@
 				043EEFB81E8B172500650B28 /* ArcanaViewPageController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		048882311F26FB550093C720 /* ArcanaPreviewHorizontalCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0488822D1F26FB380093C720 /* ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift */,
+				0488822B1F26F8320093C720 /* ArcanaPreviewHorizontalCollectionView.swift */,
+				048882321F2701920093C720 /* ArcanaPreviewTableViewCollectionViewCell.swift */,
+			);
+			name = ArcanaPreviewHorizontalCollectionView;
 			sourceTree = "<group>";
 		};
 		04A2EC881D6F7FA300189142 = {
@@ -1006,6 +1023,8 @@
 				040454951DFB981500A1F74E /* Ability.swift in Sources */,
 				04DD50CA1F1731A600E76C8F /* HomeTableViewHeaderCell.swift in Sources */,
 				04B48A811F15E9A5001DCC21 /* HomeViewTableViewCell.swift in Sources */,
+				0488822C1F26F8320093C720 /* ArcanaPreviewHorizontalCollectionView.swift in Sources */,
+				0488822F1F26FB380093C720 /* ArcanaPreviewHorizontalCollectionViewWrapperTableViewCell.swift in Sources */,
 				040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */,
 				040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */,
 				04EF66A71DB31A9600E13370 /* SettingsSectionHeader.swift in Sources */,
@@ -1087,6 +1106,7 @@
 				0400A3061E74D23E00B195E9 /* ArcanaPeekPreview.swift in Sources */,
 				0416B9181F25BDE500BF4C32 /* ArcanaFullViewWrapperTableViewCell.swift in Sources */,
 				049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */,
+				048882331F2701920093C720 /* ArcanaPreviewTableViewCollectionViewCell.swift in Sources */,
 				04B48A841F15EA6E001DCC21 /* HomeViewController+UICollectionView.swift in Sources */,
 				0400A3101E76333700B195E9 /* MenuBarViewController.swift in Sources */,
 				04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */,
