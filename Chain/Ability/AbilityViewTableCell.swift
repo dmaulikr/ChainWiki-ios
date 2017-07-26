@@ -96,7 +96,7 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "arcanaCell") as! ArcanaCell
             cell.arcanaNickKR.text = nil
             cell.arcanaNickJP.text = nil
-            
+            cell.arcanaID = arcana.getUID()
             cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
                 
                 if arcanaID == cell.arcanaID {
