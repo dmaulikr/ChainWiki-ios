@@ -390,26 +390,33 @@ class ArcanaViewController: UIViewController {
                 else {
                     indexPath = IndexPath(row: 1, section: index)
                 }
-                tableView.beginUpdates()
-                tableView.reloadRows(at: [indexPath], with: .none)
-                tableView.endUpdates()
+                
+                DispatchQueue.main.async {
+                    tableView.beginUpdates()
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                    tableView.endUpdates()
+                }
 
             case .profile, .mainGrid:
                 indexPath = IndexPath(item: index, section: 0)
 
-                collectionView.performBatchUpdates({
-                    self.collectionView.reloadItems(at: [indexPath])
-                }, completion: nil)
+                DispatchQueue.main.async {
+                    collectionView.performBatchUpdates({
+                        self.collectionView.reloadItems(at: [indexPath])
+                    }, completion: nil)
+                }
 
             }
-            
             
         }
         else {
             indexPath = IndexPath(item: index, section: 0)
-            self.collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPath])
-            }, completion: nil)
+            
+            DispatchQueue.main.async {
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.reloadItems(at: [indexPath])
+                }, completion: nil)
+            }
 
         }
         

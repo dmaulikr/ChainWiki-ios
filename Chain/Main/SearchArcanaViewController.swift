@@ -312,12 +312,12 @@ final class SearchArcanaViewController: ArcanaViewController {
             
             if let arcana = Arcana(snapshot: snapshot) {
 
-                DispatchQueue.global().async {
+                DispatchQueue.global(qos: .userInitiated).async {
                     
                     if let index = self.arcanaArray.index(where: {$0.getUID() == arcanaID}) {
                         self.concurrentArcanaQueue.async(flags: .barrier) {
                             self._arcanaArray[index] = arcana
-                            DispatchQueue.main.async {
+                            DispatchQueue.global(qos: .userInitiated).async {
                                 self.reloadIndexPathAt(index)
                             }
                         }
@@ -328,7 +328,6 @@ final class SearchArcanaViewController: ArcanaViewController {
                             self._originalArray[index] = arcana
                         }
                     }
-                    
                 }
             }
 
