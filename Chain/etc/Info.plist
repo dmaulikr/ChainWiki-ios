@@ -45,7 +45,7 @@
 	<key>CFBundleVersion</key>
 	<string>54</string>
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
-	<true/>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1660485270908040</string>
 	<key>FacebookDisplayName</key>
@@ -96,6 +96,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>firebase_crash_enabled</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

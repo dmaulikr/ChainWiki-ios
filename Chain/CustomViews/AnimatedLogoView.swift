@@ -16,7 +16,7 @@ class AnimatedLogoView: UIView {
     // the image to be filled
     let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "icoTab1")
+        imageView.image = #imageLiteral(resourceName: "AppLogo")
         return imageView
     }()
     
