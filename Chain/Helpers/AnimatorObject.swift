@@ -68,7 +68,7 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
             finalFrame = CGRect(x: 0, y: 20, width: detailVC.view.frame.width, height: detailVC.view.frame.width * 4/3)
         }
         else {
-            let size = CGSize(width: 400, height: 400*4/3)
+            let size = CGSize(width: 400, height: 600)
             let origin = CGPoint(x: detailVC.view.frame.width / 2 - size.width / 2, y: 100)
             finalFrame = CGRect(origin: origin, size: size)
         }
