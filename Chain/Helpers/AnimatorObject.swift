@@ -45,7 +45,7 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animatePresentation(_ transitionContext: UIViewControllerContextTransitioning) {
         
-//        self.thumbnailView.alpha = 0
+        self.thumbnailView.alpha = 0
         
         let fromVC = transitionContext.viewController(forKey: .from)!
         let detailVC = transitionContext.viewController(forKey: .to) as! NavigationController
@@ -54,6 +54,8 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         let finalFrame: CGRect
         
         snapshotView = thumbnailView.snapshotView(afterScreenUpdates: false)!
+        snapshotView.layer.cornerRadius = 3
+        snapshotView.layer.masksToBounds = true
         snapshotView.frame = initialFrame
         
         transitionContext.containerView.addSubview(snapshotView)

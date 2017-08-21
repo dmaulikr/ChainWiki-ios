@@ -71,8 +71,8 @@ class PresentationController: UIPresentationController, UIAdaptivePresentationCo
             NSLayoutConstraint.deactivate(compactConstraints)
             NSLayoutConstraint.activate(regularConstraints)
             presentedViewController.view.layer.masksToBounds = true
-            presentedViewController.view.layer.cornerRadius = 25
-            let a = UIEdgeInsetsInsetRect(<#T##rect: CGRect##CGRect#>, <#T##insets: UIEdgeInsets##UIEdgeInsets#>)
+            presentedViewController.view.layer.cornerRadius = 5
+//            let a = UIEdgeInsetsInsetRect(<#T##rect: CGRect##CGRect#>, <#T##insets: UIEdgeInsets##UIEdgeInsets#>)
         }
     }
     
