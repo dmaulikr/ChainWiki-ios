@@ -92,7 +92,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let section = collectionView.arcanaSection
         
-        pushView(arcanaSection: section, index: indexPath.item)
+        pushView(arcanaSection: section, index: indexPath.item, cell: cell)
     }
     
     // Flow Layout

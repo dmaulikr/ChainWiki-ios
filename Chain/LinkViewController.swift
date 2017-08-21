@@ -27,8 +27,14 @@ class LinkViewController: SFSafariViewController, SFSafariViewControllerDelegate
     
     init(url: URL) {
         self.url = url
-
-        super.init(url: url, entersReaderIfAvailable: false)
+        
+        if #available(iOS 11.0, *) {
+            let a = SFSafariViewController.Configuration()
+            super.init(url: url, configuration: a)
+        }
+        else {
+            super.init(url: url, entersReaderIfAvailable: false)
+        }
         
     }
     

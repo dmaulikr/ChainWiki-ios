@@ -62,7 +62,6 @@ class PageViewController: UIPageViewController {
 
 extension PageViewController: UIPageViewControllerDataSource {
     
-    // 1
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
@@ -75,7 +74,6 @@ extension PageViewController: UIPageViewControllerDataSource {
         return nil
     }
     
-    // 2
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         if let viewController = viewController as? TutorialViewController {

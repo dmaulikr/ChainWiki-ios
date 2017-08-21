@@ -392,16 +392,16 @@ class ArcanaViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    tableView.beginUpdates()
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                    tableView.endUpdates()
+                    self.tableView.beginUpdates()
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                    self.tableView.endUpdates()
                 }
 
             case .profile, .mainGrid:
                 indexPath = IndexPath(item: index, section: 0)
 
                 DispatchQueue.main.async {
-                    collectionView.performBatchUpdates({
+                    self.collectionView.performBatchUpdates({
                         self.collectionView.reloadItems(at: [indexPath])
                     }, completion: nil)
                 }

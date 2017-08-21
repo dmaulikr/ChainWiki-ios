@@ -30,6 +30,7 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     var tableViewBottomConstraint: NSLayoutConstraint?
     var panDismissGesture: UIPanGestureRecognizer!
     var arcanaSection: ArcanaSection?
+    var interactor: TransitioningDelegate!
     
     lazy var arcanaImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,6 +41,13 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
 //            customEnableDropping(on: imageView, dropInteractionDelegate: self)
 //        }
         return imageView
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "close"), for: .normal)
+        button.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        return button
     }()
     
     lazy var imageScrollView: UIScrollView = {
@@ -192,9 +200,16 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         view.backgroundColor = .white
         
         view.addSubview(tableView)
+        view.addSubview(closeButton)
+        
+        closeButton.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 0, widthConstant: 30, heightConstant: 30)
         
         updateCompactViews()
         
+    }
+    
+    @objc func dismissView() {
+        dismiss(animated: true, completion: nil)
     }
     
     func updateCompactViews() {
@@ -213,7 +228,62 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         
     }
     
+    
+    @objc func handleDownGesture(_ sender: UIPanGestureRecognizer) {
+        
+        let percentThreshold:CGFloat = 0.3
+        
+        // convert y-position to downward pull progress (percentage)
+        let translation = sender.translation(in: sender.view)
+        // using the helper method
+        var progress = (translation.y / 200)
+        progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))
+        print(progress)
+        
+        guard let interactor = interactor,
+            let originView = sender.view else { return }
+        
+        if originView == tableView {
+            if tableView.contentOffset.y > 0 || translation.y < 0 {
+                return
+            }
+        }
+        else {
+            
+        }
+        
+        
+        switch sender.state {
+            
+        case .began:
+            interactor.interactionInProgress = true
+            dismiss(animated: true, completion: nil)
+            
+        case .changed:
+            interactor.shouldCompleteTransition = progress > 0.5
+            interactor.update(progress)
+            
+        case .cancelled:
+            interactor.interactionInProgress = false
+            interactor.cancel()
+            
+        case .ended:
+            interactor.interactionInProgress = false
+            
+            if !interactor.shouldCompleteTransition {
+                interactor.cancel()
+            } else {
+                interactor.finish()
+            }
+            
+        default:
+            print("Unsupported")
+        }
+        
+    }
+    
     func setupGestures() {
+//        tableView.panGestureRecognizer.addTarget(self, action: #selector(handleDownGesture(_:)))
 //        panDismissGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
 //        panDismissGesture.delegate = self
 //        tableView.addGestureRecognizer(panDismissGesture)

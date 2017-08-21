@@ -10,12 +10,13 @@ import UIKit
 import Firebase
 
 protocol HomeViewProtocol: class {
-    func pushView(arcanaSection: ArcanaSection, index: Int)
+    func pushView(arcanaSection: ArcanaSection, index: Int, cell: UIView)
     func viewMore(arcanaSection: ArcanaSection)
 }
 
 class HomeViewController: UIViewController, HomeViewProtocol {
     
+    var zoomTransitioningDelegate: TransitioningDelegate?
     weak var welcomeDelegate: WelcomeViewController?
     var thumbnailZoomTransitionAnimator: ZoomingTransitionAnimator?
     var transitionThumbnail: UIImageView?
@@ -138,7 +139,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
     }
     
-    func pushView(arcanaSection: ArcanaSection, index: Int) {
+    func pushView(arcanaSection: ArcanaSection, index: Int, cell: UIView) {
         
         let arcana: Arcana
         
@@ -156,8 +157,17 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 //        let detailVC = ArcanaDetail(arcana: arcana)
         let detailVC = ArcanaDetail(arcana: arcana, arcanaSection: arcanaSection)
 //        detailVC.view.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
+        let navVC = NavigationController(detailVC)
+        navVC.isNavigationBarHidden = true
+        navVC.modalPresentationStyle = .custom
+        zoomTransitioningDelegate = TransitioningDelegate(thumbnailView: cell)
+        navVC.transitioningDelegate = zoomTransitioningDelegate
         
-        navigationController?.pushViewController(detailVC, animated: true)
+        let arcanaVC = navVC.topViewController as! ArcanaDetail
+        arcanaVC.interactor = zoomTransitioningDelegate
+        
+        present(navVC, animated: true, completion: nil)
+//        navigationController?.pushViewController(detailVC, animated: true)
         
     }
     

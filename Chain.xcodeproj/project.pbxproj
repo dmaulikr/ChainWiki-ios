@@ -90,6 +90,9 @@
 		048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E6E541D729A7D00687513 /* GlobalConstants.swift */; };
 		0490A8231E68F701000E3E4D /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0490A8221E68F701000E3E4D /* FilterCell.swift */; };
 		04941A3D1D6FAD2800BAE389 /* ArcanaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */; };
+		049A25651F341E4200B41407 /* AnimatorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A25641F341E2A00B41407 /* AnimatorObject.swift */; };
+		049A25661F341E4200B41407 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A25631F341E2A00B41407 /* PresentationController.swift */; };
+		049A25671F341E4200B41407 /* TransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A25621F341E2A00B41407 /* TransitioningDelegate.swift */; };
 		049C58F61DAF6FAC005924F9 /* ArcanaEditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */; };
 		049CBC2D1F1746C500D82BBB /* ZoomingTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CBC2C1F1746C500D82BBB /* ZoomingTransitionAnimator.swift */; };
 		049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CF7471D95E52B00B283EC /* TransitioningObject.swift */; };
@@ -266,6 +269,9 @@
 		0490A8221E68F701000E3E4D /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		04941A3C1D6FAD2800BAE389 /* ArcanaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaCell.swift; sourceTree = "<group>"; };
 		049926E61DF7590C00FD9889 /* BannerAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAlert.swift; sourceTree = "<group>"; };
+		049A25621F341E2A00B41407 /* TransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitioningDelegate.swift; sourceTree = "<group>"; };
+		049A25631F341E2A00B41407 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		049A25641F341E2A00B41407 /* AnimatorObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorObject.swift; sourceTree = "<group>"; };
 		049C58F51DAF6FAC005924F9 /* ArcanaEditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditHistory.swift; sourceTree = "<group>"; };
 		049CBC2C1F1746C500D82BBB /* ZoomingTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingTransitionAnimator.swift; sourceTree = "<group>"; };
 		049CF7471D95E52B00B283EC /* TransitioningObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitioningObject.swift; sourceTree = "<group>"; };
@@ -375,6 +381,9 @@
 				040133431EF0F9F10050ED32 /* GoogleTranslator.swift */,
 				040F090E1F070A9800B9A319 /* NotificationAlert.swift */,
 				049CBC2C1F1746C500D82BBB /* ZoomingTransitionAnimator.swift */,
+				049A25641F341E2A00B41407 /* AnimatorObject.swift */,
+				049A25631F341E2A00B41407 /* PresentationController.swift */,
+				049A25621F341E2A00B41407 /* TransitioningDelegate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -938,6 +947,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049A25651F341E4200B41407 /* AnimatorObject.swift in Sources */,
+				049A25661F341E4200B41407 /* PresentationController.swift in Sources */,
+				049A25671F341E4200B41407 /* TransitioningDelegate.swift in Sources */,
 				040F090D1F07072A00B9A319 /* ArcanaImageIDCell.swift in Sources */,
 				040F090B1F07060B00B9A319 /* ArcanaViewController+TableView.swift in Sources */,
 				040F09091F0705B500B9A319 /* ArcanaDetail.swift in Sources */,

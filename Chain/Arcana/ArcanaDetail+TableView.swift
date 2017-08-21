@@ -123,7 +123,6 @@ extension ArcanaDetail: UITableViewDelegate, UITableViewDataSource {
         default:
             return 90
         }
-
         
     }
     
