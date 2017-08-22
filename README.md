@@ -10,7 +10,7 @@ https://chainchronicle-ea233.firebaseapp.com/
 ## Synopsis
 iOS App that uses data translated from Japanese in Korean.  
 Allows users to sort and filter data based on individual needs.  
-Developed independently from scratch.  
+Independently Designed and Developed.  
 Auto Layout, designed for all trait variations.  
 1000 records fetched by script.  
 
