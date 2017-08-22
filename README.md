@@ -25,7 +25,7 @@ Optimized iPad multitasking layout.
 
 ## Screenshots
 
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ipadSample.gif" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/presentation.gif" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/splitView.gif" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ListPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ArcanaMainPreview.jpg" width="320">
