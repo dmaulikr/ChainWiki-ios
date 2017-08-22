@@ -24,6 +24,7 @@ protocol ArcanaDetailProtocol : class {
 
 class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
+    var presentedModally = false
     var arcana: Arcana
     var initialLoad = true
     weak var presentingDelegate: LoadingArcanaViewController?
@@ -200,9 +201,12 @@ class ArcanaDetail: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         view.backgroundColor = .white
         
         view.addSubview(tableView)
-        view.addSubview(closeButton)
         
-        closeButton.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 0, widthConstant: 30, heightConstant: 30)
+        if presentedModally {
+            view.addSubview(closeButton)
+            
+            closeButton.anchor(top: topLayoutGuide.bottomAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, topConstant: 10, leadingConstant: 0, trailingConstant: 10, bottomConstant: 0, widthConstant: 30, heightConstant: 30)
+        }
         
         updateCompactViews()
         

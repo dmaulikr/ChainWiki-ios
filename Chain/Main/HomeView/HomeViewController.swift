@@ -154,17 +154,13 @@ class HomeViewController: UIViewController, HomeViewProtocol {
             arcana = legendArcanaArray[index]
         }
         
-//        let detailVC = ArcanaDetail(arcana: arcana)
         let detailVC = ArcanaDetail(arcana: arcana, arcanaSection: arcanaSection)
-//        detailVC.view.heroID = arcana.getUID() + "\(arcanaSection.rawValue)"
+        detailVC.presentedModally = true
         let navVC = NavigationController(detailVC)
         navVC.isNavigationBarHidden = true
         navVC.modalPresentationStyle = .custom
         zoomTransitioningDelegate = TransitioningDelegate(thumbnailView: cell)
         navVC.transitioningDelegate = zoomTransitioningDelegate
-        
-        let arcanaVC = navVC.topViewController as! ArcanaDetail
-        arcanaVC.interactor = zoomTransitioningDelegate
         
         present(navVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(detailVC, animated: true)

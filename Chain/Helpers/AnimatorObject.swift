@@ -86,7 +86,9 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
             
         }) { finished in
 //            self.snapshotView.removeFromSuperview()
-            detailVC.view.alpha = 1
+            UIView.animate(withDuration: 0.5, animations: {
+                detailVC.view.alpha = 1
+            })
             transitionContext.completeTransition(finished)
         }
         
