@@ -25,12 +25,13 @@ Optimized iPad multitasking layout.
 
 ## Screenshots
 
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ipadSample.gif" width="320">
+<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/splitView.gif" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ListPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ArcanaMainPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/ArcanaDetailPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/AbilityPreview.jpg" width="320">
 <img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/Screenshots/iPadPreview.jpg" width="320">
-<img src="https://github.com/jitaek/ChainChronicleKoreaWiki/blob/master/ipadSample.gif" width="320">
 
 ## Tools Used
 Firebase Authentication, Realtime Database, Storage, Analytics   
