@@ -10,7 +10,7 @@ import UIKit
 
 class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
     
-    private let duration: TimeInterval = 0.8
+    private let duration: TimeInterval = 0.5
     let damping: CGFloat = 0.7
     let springVelocity: CGFloat = 0.1
     
@@ -65,31 +65,41 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         
         if detailVC.traitCollection.horizontalSizeClass == .compact {
 //            let size = CGSize(width: detailVC.view.frame.width, height: detailVC.view.frame.width * 4/3)
-            finalFrame = CGRect(x: 0, y: 20, width: detailVC.view.frame.width, height: detailVC.view.frame.width * 4/3)
+            let height = CGFloat(min(detailVC.view.frame.width * 1.5, 650))
+            let x = (650 - detailVC.view.frame.width)/2
+            if height == 650 {
+                finalFrame = CGRect(x: x, y: 20, width: height * 2/3, height: height)
+            }
+            else {
+                finalFrame = CGRect(x: 0, y: 20, width: height * 2/3, height: height)
+            }
+            
         }
         else {
             let size = CGSize(width: 400, height: 600)
             let origin = CGPoint(x: detailVC.view.frame.width / 2 - size.width / 2, y: 100)
             finalFrame = CGRect(origin: origin, size: size)
         }
-        
-//        let transform = self.transformFromRect(from: detailVC.view.frame, toRect: initialFrame)
-//        detailVC.view.transform = transform
-//        detailVC.headerView.transform = transform
-//
-//        transitionContext.containerView.addSubview(detailVC.view)
-        
+
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
+            
             self.snapshotView.frame = finalFrame
-//            detailVC.headerView.transform = .identity
-//            detailVC.view.transform = .identity
             
         }) { finished in
-//            self.snapshotView.removeFromSuperview()
-            UIView.animate(withDuration: 0.5, animations: {
-                detailVC.view.alpha = 1
+
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: .calculationModeLinear, animations: {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                    detailVC.view.alpha = 1
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                    self.snapshotView.alpha = 0
+                })
+                
+            }, completion: { (finished) in
+                transitionContext.completeTransition(finished)
             })
-            transitionContext.completeTransition(finished)
         }
         
     }
@@ -105,6 +115,7 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         arcanaDetailView.alpha = 0
         
         transitionContext.containerView.bringSubview(toFront: snapshotView)
+        snapshotView.alpha = 1
         snapshotView.frame = fromVC.view.frame
         // Animate the transition.
 //        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
