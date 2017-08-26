@@ -21,6 +21,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     var thumbnailZoomTransitionAnimator: ZoomingTransitionAnimator?
     var transitionThumbnail: UIImageView?
     
+    var observedRefs = [DatabaseReference]()
+    
     let concurrentRewardArcanaQueue =
         DispatchQueue(
             label: "com.jk.cckorea.rewardArcanaArrayQueue",
@@ -114,7 +116,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.allowsSelection = false
         tableView.register(HomeViewTableViewCell.self, forCellReuseIdentifier: "HomeViewTableViewCell")
-        tableView.register(HomeTableViewHeaderCell.self, forCellReuseIdentifier: "HomeTableViewHeaderCell")
+        tableView.register(HomeTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: "HomeTableViewHeaderCell")
         
         return tableView
     }()
@@ -122,16 +124,28 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         downloadArcana()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        for ref in observedRefs {
+            ref.removeAllObservers()
+        }
     }
     
     func setupViews() {
         
-//        if #available(iOS 11.0, *) {
-//            navigationController?.navigationBar.prefersLargeTitles = true
-//        }
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
         automaticallyAdjustsScrollViewInsets = false
         navigationItem.title = "아르카나"
+        
         view.backgroundColor = .white
         view.addSubview(tableView)
         
@@ -168,118 +182,265 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     }
     
     func viewMore(arcanaSection: ArcanaSection) {
-        
-        navigationController?.delegate = nil
-        
-//        let vc = SearchArcanaViewController()
-//        navigationController?.pushViewController(vc, animated: true)
-        let welcomeVC = WelcomeViewController()
-        let masterNavVC = splitViewController!.viewControllers.first as! NavigationController
-        let masterVC = masterNavVC.topViewController as! SearchArcanaViewController
 
-        masterVC.welcomeDelegate = welcomeVC
-
-//        arcanaDetailVC.navigationItem.leftItemsSupplementBackButton = true
-//        arcanaDetailVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        UIView.animate(withDuration: 0.2) {
-            self.splitViewController?.preferredDisplayMode = .allVisible
+        let vc = ArcanaCollectionViewController(arcanaSection: .festival)
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func reloadArcanaSection(_ section: ArcanaSection) {
+        
+        if tableView.numberOfSections > section.rawValue {
+//            tableView.reloadSections(IndexSet(integer: section.rawValue), with: .automatic)
+            tableView.reloadData()
         }
-        
-        splitViewController?.showDetailViewController(NavigationController(welcomeVC), sender: nil)
+
     }
     
     func downloadArcana() {
         
-        // Festival
-        FESTIVAL_REF.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in
-            
-            var uid = [String]()
-            
-            for child in snapshot.children {
-                let arcanaID = (child as AnyObject).key as String
-                uid.append(arcanaID)
-            }
-            
-            let group = DispatchGroup()
-            
-            for id in uid {
-                group.enter()
-                
-                let ref = ARCANA_REF.child(id)
-                
-                ref.observeSingleEvent(of: .value, with: { snapshot in
-                    if let arcana = Arcana(snapshot: snapshot) {
-                        
-                        self.concurrentFestivalArcanaQueue.async(flags: .barrier) {
-                            self._festivalArcanaArray.append(arcana)
-                        }
-                    }
-                    group.leave()
-                })
-            }
-            
-            group.notify(queue: DispatchQueue.main, execute: {
-                self.tableView.reloadData()
-            })
-            
-        })
+        observeFestivalRef()
         
+        observeArcanaRef()
+
+        observeLegendRef()
         
-        // New arcana
-        let ref = FIREBASE_REF.child("arcana")
-        ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-//            ref.observe(.childAdded, with: { snapshot in
-            if let arcana = Arcana(snapshot: snapshot) {
-                
-                self.concurrentNewArcanaQueue.async(flags: .barrier) {
-                    self._newArcanaArray.insert(arcana, at: 0)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-            
-        })
+        observeRewardRef()
         
-        
-        LEGEND_REF.observe(.childAdded, with: { (snapshot) in
-            
-            let arcanaID = snapshot.key
-            
-            // using the ID, go through /arcana to get full data
-            let arcanaRef = ARCANA_REF.child(arcanaID)
-            arcanaRef.observe(.value, with: { (snapshot) in
-                if let arcana = Arcana(snapshot: snapshot) {
-                    
-                    self.concurrentLegendArcanaQueue.async(flags: .barrier) {
-                        self._legendArcanaArray.insert(arcana, at: 0)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    }
-                }
-            })
-            
-        })
+    }
+    
+    func observeRewardRef() {
         
         REWARD_REF.observe(.childAdded, with: { (snapshot) in
             
             let arcanaID = snapshot.key
             
             let arcanaRef = ARCANA_REF.child(arcanaID)
+            self.observedRefs.append(arcanaRef)
+            
             arcanaRef.observe(.value, with: { (snapshot) in
                 if let arcana = Arcana(snapshot: snapshot) {
                     
-                    self.concurrentRewardArcanaQueue.async(flags: .barrier) {
-                        self._rewardArcanaArray.insert(arcana, at: 0)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                    DispatchQueue.global().async {
+                        
+                        // if arcana is already in the array, just update it
+                        if let index = self.rewardArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                            
+                            self.concurrentRewardArcanaQueue.async(flags: .barrier) {
+                                self._rewardArcanaArray[index] = arcana
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.reward)
+                                }
+                            }
+                        }
+                        else {
+                            // add the arcana
+                            self.concurrentRewardArcanaQueue.async(flags: .barrier) {
+                                self._rewardArcanaArray.insert(arcana, at: 0)
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.reward)
+                                }
+                            }
                         }
                     }
+                    
                 }
             })
         })
         
+        REWARD_REF.observe(.childRemoved, with: { (snapshot) in
+            
+            let arcanaID = snapshot.key
+            
+            DispatchQueue.global().async {
+                
+                if let index = self.rewardArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    self.concurrentRewardArcanaQueue.async(flags: .barrier) {
+                        self._rewardArcanaArray.remove(at: index)
+                        DispatchQueue.main.async {
+                            self.reloadArcanaSection(.reward)
+                        }
+                    }
+                }
+            }
+            
+        })
+    }
+    
+    func observeFestivalRef() {
+        
+        FESTIVAL_REF.observe(.childAdded, with: { (snapshot) in
+            
+            let arcanaID = snapshot.key
+            
+            let arcanaRef = ARCANA_REF.child(arcanaID)
+            self.observedRefs.append(arcanaRef)
+            
+            arcanaRef.observe(.value, with: { (snapshot) in
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    DispatchQueue.global().async {
+                        
+                        // if arcana is already in the array, just update it
+                        if let index = self.festivalArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                            
+                            self.concurrentFestivalArcanaQueue.async(flags: .barrier) {
+                                self._festivalArcanaArray[index] = arcana
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.festival)
+                                }
+                            }
+                        }
+                        else {
+                            // add the arcana
+                            self.concurrentFestivalArcanaQueue.async(flags: .barrier) {
+                                self._festivalArcanaArray.insert(arcana, at: 0)
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.festival)
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            })
+        })
+        
+        FESTIVAL_REF.observe(.childRemoved, with: { (snapshot) in
+            
+            let arcanaID = snapshot.key
+            
+            DispatchQueue.global().async {
+                
+                if let index = self.festivalArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    self.concurrentFestivalArcanaQueue.async(flags: .barrier) {
+                        self._festivalArcanaArray.remove(at: index)
+                        DispatchQueue.main.async {
+                            self.reloadArcanaSection(.festival)
+                        }
+                    }
+                }
+            }
+            
+        })
+    }
+    
+    func observeArcanaRef() {
+        
+        let ref = FIREBASE_REF.child("arcana")
+        ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+            //            ref.observe(.childAdded, with: { snapshot in
+            if let arcana = Arcana(snapshot: snapshot) {
+                
+                self.concurrentNewArcanaQueue.async(flags: .barrier) {
+                    self._newArcanaArray.insert(arcana, at: 0)
+                    DispatchQueue.main.async {
+                        self.reloadArcanaSection(.new)
+                    }
+                }
+            }
+            
+        })
+        
+        ref.observe(.childChanged, with: { snapshot in
+            
+            let arcanaID = snapshot.key
+            
+            if let arcana = Arcana(snapshot: snapshot) {
+                
+                DispatchQueue.global().async {
+                    
+                    if let index = self.newArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                        self.concurrentNewArcanaQueue.async(flags: .barrier) {
+                            self._newArcanaArray[index] = arcana
+                            DispatchQueue.main.async {
+                                self.reloadArcanaSection(.new)
+                            }
+                        }
+                    }
+
+                }
+            }
+            
+        })
+        
+        ref.observe(.childRemoved, with: { snapshot in
+            
+            let arcanaID = snapshot.key
+            
+            DispatchQueue.global().async {
+                
+                if let index = self.newArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    
+                    self.concurrentNewArcanaQueue.async(flags: .barrier) {
+                        self._newArcanaArray.remove(at: index)
+                        DispatchQueue.main.async {
+                            self.reloadArcanaSection(.new)
+                        }
+                    }
+                }
+                
+            }
+            
+        })
+    }
+    
+    func observeLegendRef() {
+        
+        LEGEND_REF.observe(.childAdded, with: { (snapshot) in
+            
+            let arcanaID = snapshot.key
+            
+            let arcanaRef = ARCANA_REF.child(arcanaID)
+            self.observedRefs.append(arcanaRef)
+            
+            arcanaRef.observe(.value, with: { (snapshot) in
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    DispatchQueue.global().async {
+                        
+                        // if arcana is already in the array, just update it
+                        if let index = self.legendArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                            
+                            self.concurrentLegendArcanaQueue.async(flags: .barrier) {
+                                self._legendArcanaArray[index] = arcana
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.legend)
+                                }
+                            }
+                        }
+                        else {
+                            // add the arcana
+                            self.concurrentLegendArcanaQueue.async(flags: .barrier) {
+                                self._legendArcanaArray.insert(arcana, at: 0)
+                                DispatchQueue.main.async {
+                                    self.reloadArcanaSection(.legend)
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            })
+        })
+        
+        LEGEND_REF.observe(.childRemoved, with: { (snapshot) in
+            
+            let arcanaID = snapshot.key
+            
+            DispatchQueue.global().async {
+                
+                if let index = self.legendArcanaArray.index(where: {$0.getUID() == arcanaID}) {
+                    self.concurrentLegendArcanaQueue.async(flags: .barrier) {
+                        self._legendArcanaArray.remove(at: index)
+                        DispatchQueue.main.async {
+                            self.reloadArcanaSection(.legend)
+                        }
+                    }
+                }
+            }
+            
+        })
     }
     
 }

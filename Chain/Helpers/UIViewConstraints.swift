@@ -72,7 +72,9 @@ extension UIView {
     
     func anchorEdgesToSuperview() {
         
-        anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        if let superview = superview {
+            anchor(top: superview.topAnchor, leading: superview.leadingAnchor, trailing: superview.trailingAnchor, bottom: superview.bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        }
         
     }
     

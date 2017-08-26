@@ -42,7 +42,7 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         }
 
     }
-    
+
     func animatePresentation(_ transitionContext: UIViewControllerContextTransitioning) {
         
         self.thumbnailView.alpha = 0
@@ -81,9 +81,11 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
             finalFrame = CGRect(origin: origin, size: size)
         }
 
+        let transform = transformFromRect(from: initialFrame, toRect: finalFrame)
+        
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
-            
-            self.snapshotView.frame = finalFrame
+
+            self.snapshotView.transform = transform
             
         }) { finished in
 
@@ -116,14 +118,10 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         
         transitionContext.containerView.bringSubview(toFront: snapshotView)
         snapshotView.alpha = 1
-        snapshotView.frame = fromVC.view.frame
         // Animate the transition.
-//        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
-//        UIView.animate(withDuration: 0.2, animations: {
-//            arcanaDetailView.transform = transform
-//            arcanaDetailView.frame = toFrame
-            self.snapshotView.frame = toFrame
+
+            self.snapshotView.transform = .identity
             
         }) { finished in
             self.snapshotView.removeFromSuperview()

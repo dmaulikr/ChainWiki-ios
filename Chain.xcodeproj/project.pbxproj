@@ -18,6 +18,8 @@
 		0401B28D1D75394400A0A728 /* ArcanaAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401B28C1D75394400A0A728 /* ArcanaAttributeCell.swift */; };
 		040454951DFB981500A1F74E /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040454941DFB981500A1F74E /* Ability.swift */; };
 		0409F2D91EF501E8006DC6A9 /* AnimateUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */; };
+		040CBDBA1F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CBDB81F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.swift */; };
+		040CBDBB1F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040CBDB91F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.xib */; };
 		040EA1741DB878AE00193363 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */; };
 		040EA1761DB87A5E00193363 /* ChangeRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1751DB87A5E00193363 /* ChangeRootVC.swift */; };
 		040EA1781DB8940E00193363 /* FadeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EA1771DB8940E00193363 /* FadeAnimation.swift */; };
@@ -32,6 +34,8 @@
 		040FA9A41E886B7500C315CD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */; };
 		040FA9A61E88952000C315CD /* ArcanaIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A51E88952000C315CD /* ArcanaIconCell.swift */; };
 		040FA9AA1E88BD0300C315CD /* ArcanaIconLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */; };
+		04166C591F4FE7D3006FB940 /* UpdateObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04166C581F4FE7D3006FB940 /* UpdateObserving.swift */; };
+		04166C5D1F50971C006FB940 /* FirebaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04166C5C1F50971C006FB940 /* FirebaseApi.swift */; };
 		041729071E7297D50090E634 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041729061E7297D50090E634 /* FloatingTextField.swift */; };
 		04180A381DF6368500C1BA72 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */; };
 		04180A3A1DF63A1F00C1BA72 /* TavernListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */; };
@@ -112,6 +116,7 @@
 		04BE11831F07199600030F8D /* PushNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BE11821F07199600030F8D /* PushNotificationViewController.xib */; };
 		04BE11851F07219A00030F8D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE11841F07219A00030F8D /* RoundButton.swift */; };
 		04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */; };
+		04BEB2EA1F4D3516007A5893 /* ArcanaCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BEB2E91F4D3516007A5893 /* ArcanaCollectionViewController.swift */; };
 		04BF5AFF1DF214BE00AE8CD8 /* ChainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */; };
 		04BF5B011DF214CF00AE8CD8 /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B001DF214CF00AE8CD8 /* PCView.swift */; };
 		04BF5B031DF26EBB00AE8CD8 /* AbilityViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */; };
@@ -192,6 +197,8 @@
 		040454941DFB981500A1F74E /* Ability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		0406BDE01D8BE3270085F4D8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0409F2D81EF501E8006DC6A9 /* AnimateUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateUploadView.swift; sourceTree = "<group>"; };
+		040CBDB81F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaPreviewWrapperCollectionViewCell.swift; sourceTree = "<group>"; };
+		040CBDB91F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArcanaPreviewWrapperCollectionViewCell.xib; sourceTree = "<group>"; };
 		040EA1731DB878AE00193363 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		040EA1751DB87A5E00193363 /* ChangeRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeRootVC.swift; sourceTree = "<group>"; };
 		040EA1771DB8940E00193363 /* FadeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeAnimation.swift; sourceTree = "<group>"; };
@@ -205,6 +212,8 @@
 		040FA9A31E886B7500C315CD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		040FA9A51E88952000C315CD /* ArcanaIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconCell.swift; sourceTree = "<group>"; };
 		040FA9A91E88BD0300C315CD /* ArcanaIconLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaIconLabelCell.swift; sourceTree = "<group>"; };
+		04166C581F4FE7D3006FB940 /* UpdateObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateObserving.swift; sourceTree = "<group>"; };
+		04166C5C1F50971C006FB940 /* FirebaseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseApi.swift; sourceTree = "<group>"; };
 		041729061E7297D50090E634 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
 		04180A371DF6368500C1BA72 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		04180A391DF63A1F00C1BA72 /* TavernListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TavernListTableCell.swift; path = ../Ability/TavernListTableCell.swift; sourceTree = "<group>"; };
@@ -293,6 +302,7 @@
 		04BE11821F07199600030F8D /* PushNotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushNotificationViewController.xib; sourceTree = "<group>"; };
 		04BE11841F07219A00030F8D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		04BE5BC41DB80E97005E7968 /* ArcanaEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcanaEditModel.swift; sourceTree = "<group>"; };
+		04BEB2E91F4D3516007A5893 /* ArcanaCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcanaCollectionViewController.swift; sourceTree = "<group>"; };
 		04BF5AFE1DF214BE00AE8CD8 /* ChainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainLogo.swift; sourceTree = "<group>"; };
 		04BF5B001DF214CF00AE8CD8 /* PCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		04BF5B021DF26EBB00AE8CD8 /* AbilityViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityViewDataSource.swift; sourceTree = "<group>"; };
@@ -384,6 +394,8 @@
 				049A25641F341E2A00B41407 /* AnimatorObject.swift */,
 				049A25631F341E2A00B41407 /* PresentationController.swift */,
 				049A25621F341E2A00B41407 /* TransitioningDelegate.swift */,
+				04166C581F4FE7D3006FB940 /* UpdateObserving.swift */,
+				04166C5C1F50971C006FB940 /* FirebaseApi.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,6 +447,8 @@
 				045AC9A71F252ED2002F8D6B /* ArcanaPreviewView.xib */,
 				045AC9A91F253424002F8D6B /* ArcanaPreviewView.swift */,
 				045AC9B41F2543C9002F8D6B /* ArcanaPreviewViewWrapperCell.swift */,
+				040CBDB81F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.swift */,
+				040CBDB91F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.xib */,
 			);
 			name = ArcanaPreviewView;
 			sourceTree = "<group>";
@@ -626,6 +640,7 @@
 				04DD50C91F1731A600E76C8F /* HomeTableViewHeaderCell.swift */,
 				04B48A801F15E9A5001DCC21 /* HomeViewTableViewCell.swift */,
 				04A47E671F18976F00031747 /* ArcanaHorizontalCollectionView.swift */,
+				04BEB2E91F4D3516007A5893 /* ArcanaCollectionViewController.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -797,6 +812,7 @@
 				043616021DBC976700BFFB64 /* FontAwesome.otf in Resources */,
 				045AC9A81F252ED2002F8D6B /* ArcanaPreviewView.xib in Resources */,
 				04BF62A91F24712100954600 /* ArcanaMainImageViewWrapperCell.xib in Resources */,
+				040CBDBB1F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.xib in Resources */,
 				04A2ECA21D6F7FA300189142 /* LaunchScreen.storyboard in Resources */,
 				04A2EC9F1D6F7FA300189142 /* Assets.xcassets in Resources */,
 				04D226671DBB29FA00802EFF /* GoogleService-Info.plist in Resources */,
@@ -847,13 +863,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Chain-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4540E040F161CA1C1FBF4868 /* [CP] Copy Pods Resources */ = {
@@ -862,9 +881,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Chain/Pods-Chain-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -877,13 +899,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChainUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		83361517803DC7A3512E7B83 /* [CP] Embed Pods Frameworks */ = {
@@ -892,9 +917,50 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Chain/Pods-Chain-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KRWordWrapLabel/KRWordWrapLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
+				"${BUILT_PRODUCTS_DIR}/LicensesViewController/LicensesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRWordWrapLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LicensesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MIBadgeButton_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -981,6 +1047,7 @@
 				040F090F1F070A9800B9A319 /* NotificationAlert.swift in Sources */,
 				0486C0091F072F7F00B6A7D8 /* AppDelegate+Messaging.swift in Sources */,
 				04BF62A31F24701F00954600 /* ArcanaMainImageView.swift in Sources */,
+				04166C591F4FE7D3006FB940 /* UpdateObserving.swift in Sources */,
 				049CF7481D95E52B00B283EC /* TransitioningObject.swift in Sources */,
 				0425D49C1E78FBC00030BF4A /* FavoritesArcanaViewController.swift in Sources */,
 				0449168B1EE286DF00123FF5 /* SurveyViewController.swift in Sources */,
@@ -991,6 +1058,7 @@
 				04FAA2101E6F99A200E848B4 /* DataViewController.swift in Sources */,
 				046FDD3C1D738060001E955B /* MyTabBarController.swift in Sources */,
 				04DFF8D81EE0ED54002C7D05 /* HideBars.swift in Sources */,
+				04BEB2EA1F4D3516007A5893 /* ArcanaCollectionViewController.swift in Sources */,
 				048B31281D76C84C0011477D /* ArcanaSkillAbilityDescCell.swift in Sources */,
 				04D28F411DEC255D00F55D3F /* MenuBar.swift in Sources */,
 				048E6E551D729A7D00687513 /* GlobalConstants.swift in Sources */,
@@ -1007,12 +1075,14 @@
 				0425D4961E78C0D40030BF4A /* ArcanaViewController.swift in Sources */,
 				04BE5BC51DB80E97005E7968 /* ArcanaEditModel.swift in Sources */,
 				04E78B101EF758F000B4F0FE /* ArcanaDetail+TableView.swift in Sources */,
+				040CBDBA1F4D3FA300BD8F06 /* ArcanaPreviewWrapperCollectionViewCell.swift in Sources */,
 				0434BD331E9362D900DF840E /* DataCell.swift in Sources */,
 				041FD5691DB9A6F50068657F /* FirebaseService.swift in Sources */,
 				0425D4921E7893690030BF4A /* NavigationController.swift in Sources */,
 				0486E9011DADF8F300FE6FA3 /* ArcanaEdit.swift in Sources */,
 				0400A3081E751B1100B195E9 /* ArcanaPeekPreviewSectionHeaderCell.swift in Sources */,
 				046C93371D7582E9000E3FBD /* ArcanaSkillCell.swift in Sources */,
+				04166C5D1F50971C006FB940 /* FirebaseApi.swift in Sources */,
 				040EA17C1DB8955200193363 /* DismissKeyboard.swift in Sources */,
 				049CBC2D1F1746C500D82BBB /* ZoomingTransitionAnimator.swift in Sources */,
 				045E4D0E1DB9D8A400EBC793 /* SearchController.swift in Sources */,

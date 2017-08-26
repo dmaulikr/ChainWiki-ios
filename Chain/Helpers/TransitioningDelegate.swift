@@ -23,12 +23,12 @@ class TransitioningDelegate: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
+
         let presentationController = PresentationController(presentedViewController: presented, presenting: presenting)
 //        presentationController.delegate = self
         return presentationController
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.isPresentation = true
         animator.thumbnailView = thumbnailView

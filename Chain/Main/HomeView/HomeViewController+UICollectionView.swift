@@ -98,14 +98,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // Flow Layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 290, height: 400)
+        return CGSize(width: 290, height: 450)
         
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        
+
         return UIEdgeInsetsMake(0, 10, 0, 10)
     }
 }

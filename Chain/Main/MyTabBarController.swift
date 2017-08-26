@@ -28,11 +28,12 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
         setupTabBar()
         tabBar.tintColor = Color.lightGreen
         tabBar.barTintColor = .white
+        tabBar.isTranslucent = true
     }
     
     func setupTabBar() {
         
-        let homeTab = NavigationController(HomeViewController())
+        let homeTab = UINavigationController(rootViewController: HomeViewController())
         homeTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
 
         let recentTab = ArcanaSplitViewController(arcanaVC: .search)

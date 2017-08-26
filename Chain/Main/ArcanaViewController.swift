@@ -181,6 +181,10 @@ class ArcanaViewController: UIViewController {
         setupViews()
         setupNavBar()
         setupGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         downloadArcana()
     }
     
@@ -194,6 +198,11 @@ class ArcanaViewController: UIViewController {
                 collectionView.deselectItem(at: indexPath, animated: true)
             }
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeAllObservers()
     }
     
     var updatedSize: CGSize!

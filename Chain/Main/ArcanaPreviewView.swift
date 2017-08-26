@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class ArcanaPreviewView: UIView {
 
     @IBOutlet var contentView: UIView!
@@ -37,16 +38,15 @@ class ArcanaPreviewView: UIView {
     
     func xibSetup() {
         
-        let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
-        let nibItems = nib.instantiate(withOwner: self, options: nil)
-        if let nibView = nibItems.first as? UIView {
-            contentView = nibView
-            if contentView != nil {
-                contentView.frame = bounds
-                addSubview(contentView)
-//                contentView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-            }
-        }
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
+        guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
+        
+        contentView = view
+        
+        contentView.frame = bounds
+        contentView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        addSubview(contentView)
         
     }
     

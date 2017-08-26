@@ -11,9 +11,10 @@ import Firebase
 
 class FestivalViewController: ArcanaViewController {
 
+    var observedRefs = [DatabaseReference]()
+    
     override func setupNavBar() {
         super.setupNavBar()
-        
         navigationItem.title = "FESTIVAL"
     }
     
@@ -22,34 +23,32 @@ class FestivalViewController: ArcanaViewController {
         Analytics.setScreenName("FestivalArcanaView", screenClass: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        for ref in observedRefs {
+            ref.removeAllObservers()
+        }
+    }
+    
     override func downloadArcana() {
         
-        ref = FIREBASE_REF.child("festival")
-        
-        ref.queryOrderedByValue().observeSingleEvent(of: .value, with: { snapshot in
+        FirebaseApi.shared.arcanaIDsOrderedByValue(FESTIVAL_REF) { (data, error) in
             
-            var uid = [String]()
-            
-            for child in snapshot.children {
-                let arcanaID = (child as AnyObject).key as String
-                uid.append(arcanaID)
-            }
-            
+            let uid = data
+
             let group = DispatchGroup()
             
             for id in uid {
                 group.enter()
                 
                 let ref = ARCANA_REF.child(id)
-                
-                ref.observeSingleEvent(of: .value, with: { snapshot in
+                self.observedRefs.append(ref)
+                ref.observe(.value, with: { (snapshot) in
+
                     if let arcana = Arcana(snapshot: snapshot) {
                         
                         self.concurrentArcanaQueue.async(flags: .barrier) {
                             self._arcanaArray.append(arcana)
-                        }
-                        self.concurrentArcanaOriginalQueue.async(flags: .barrier) {
-                            self._originalArray.append(arcana)
                         }
                     }
                     group.leave()
@@ -57,11 +56,11 @@ class FestivalViewController: ArcanaViewController {
             }
             
             group.notify(queue: DispatchQueue.main, execute: {
-                self.initialLoad = false
                 self.reloadView()
             })
             
-        })
+        }
     }
+        
 
 }

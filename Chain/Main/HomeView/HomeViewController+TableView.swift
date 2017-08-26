@@ -19,28 +19,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //TODO: Check if there is a festival
+
         guard let section = ArcanaSection(rawValue: indexPath.section) else { return 0 }
         
         switch section {
         case .reward:
             if rewardArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .festival:
             if festivalArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .new:
             if newArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .legend:
             if legendArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         }
-        return 400
+        return 450
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -50,19 +50,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .reward:
             if rewardArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .festival:
             if festivalArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .new:
             if newArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         case .legend:
             if legendArcanaArray.count == 0 {
-                return CGFloat.leastNormalMagnitude
+                return 0
             }
         }
         
@@ -71,7 +71,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewHeaderCell") as! HomeTableViewHeaderCell
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HomeTableViewHeaderCell") as! HomeTableViewHeaderCell
         
         guard let section = ArcanaSection(rawValue: section) else { return nil }
         
@@ -114,7 +114,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        
+        guard let section = ArcanaSection(rawValue: section) else { return 0 }
+        
+        if section == .legend {
+            return 20
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
