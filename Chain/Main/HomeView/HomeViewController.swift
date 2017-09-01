@@ -136,6 +136,10 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         for ref in observedRefs {
             ref.removeAllObservers()
         }
+        rewardArcanaArray.removeAll()
+        festivalArcanaArray.removeAll()
+        newArcanaArray.removeAll()
+        legendArcanaArray.removeAll()
     }
     
     func setupViews() {
@@ -336,7 +340,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
                 self.concurrentNewArcanaQueue.async(flags: .barrier) {
                     self._newArcanaArray.insert(arcana, at: 0)
                     DispatchQueue.main.async {
-                        self.reloadArcanaSection(.new)
+                        self.tableView.reloadData()
+//                        self.reloadArcanaSection(.new)
                     }
                 }
             }
@@ -355,7 +360,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
                         self.concurrentNewArcanaQueue.async(flags: .barrier) {
                             self._newArcanaArray[index] = arcana
                             DispatchQueue.main.async {
-                                self.reloadArcanaSection(.new)
+                                self.tableView.reloadData()
+//                                self.reloadArcanaSection(.new)
                             }
                         }
                     }
