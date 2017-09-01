@@ -183,7 +183,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     func viewMore(arcanaSection: ArcanaSection) {
 
-        let vc = ArcanaCollectionViewController(arcanaSection: .festival)
+        let vc = ArcanaCollectionViewController(arcanaSection: arcanaSection)
+        
         navigationController?.pushViewController(vc, animated: true)
         
     }

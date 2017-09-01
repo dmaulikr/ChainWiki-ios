@@ -74,7 +74,6 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
     
     func setupViews() {
         
-        
         view.addSubview(collectionView)
         
         collectionView.anchorEdgesToSuperview()
@@ -84,13 +83,17 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
         
         switch arcanaSection {
         case .reward:
+            title = "보상"
             break
         case .festival:
+            title = "페스티벌"
             getFestivalArcana()
             break
         case .new:
+            title = "최신"
             break
         case .legend:
+            title = "레전드"
             break
         }
         
