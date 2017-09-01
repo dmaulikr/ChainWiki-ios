@@ -55,6 +55,9 @@ extension ArcanaViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.setupCell(arcana: arcana)
                 
+                if shouldResetImages {
+                    cell.arcanaImageView.image = nil
+                }
                 cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.iconURL, completion: { (arcanaID, arcanaImage) in
                     
                     if arcanaID == cell.arcanaID {

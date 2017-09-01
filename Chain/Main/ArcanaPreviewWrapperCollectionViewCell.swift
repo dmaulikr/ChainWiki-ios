@@ -11,6 +11,7 @@ import UIKit
 class ArcanaPreviewWrapperCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var arcanaPreviewView: ArcanaPreviewView!
+    var arcanaID: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()

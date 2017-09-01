@@ -64,7 +64,7 @@ extension UIImageView {
         
 //        completion(arcanaID, #imageLiteral(resourceName: "sampleMainImage"))
 //        return
-        self.image = nil
+//        self.image = nil
         
         if defaults.getImagePermissions() {
             

@@ -40,7 +40,7 @@ class ArcanaViewController: UIViewController {
     var filterViewController: FilterViewController?
     
     var arcanaVC: ArcanaVC = .search
-    
+    var shouldResetImages = true
     // Not thread-safe
     var _arcanaArray: [Arcana] = []
     var _originalArray: [Arcana] = []
@@ -203,6 +203,9 @@ class ArcanaViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         ref.removeAllObservers()
+        arcanaArray.removeAll()
+        originalArray.removeAll()
+        initialLoad = true
     }
     
     var updatedSize: CGSize!
