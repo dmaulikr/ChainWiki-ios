@@ -31,59 +31,50 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArcanaIconCell", for: indexPath) as! ArcanaIconCell
         
-        guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return cell }
-        
-        let arcana: Arcana
-        
-        switch collectionView.arcanaSection {
-        case .reward:
-            arcana = rewardArcanaArray[indexPath.item]
-        case .festival:
-            arcana = festivalArcanaArray[indexPath.item]
-        case .new:
-            arcana = newArcanaArray[indexPath.item]
-        case .legend:
-            arcana = legendArcanaArray[indexPath.item]
-        }
-        
-        cell.arcanaID = arcana.getUID()
-//        cell.heroID = arcana.getUID() + "\(collectionView.arcanaSection.rawValue)"
-//        cell.arcanaImageView.image = #imageLiteral(resourceName: "sampleMain")
-        cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
-            if arcanaID == cell.arcanaID {
-                DispatchQueue.main.async {
-                    cell.arcanaImageView.animateImage(arcanaImage)
-                }
-            }
-        }
-        
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? ArcanaIconCell else { return }
         
         guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
         
-        for indexPath in indexPaths {
+        guard let arcana = arcanaAtIndexPathWithArcanaSection(indexPath, arcanaSection: collectionView.arcanaSection) else { return }
+        
+        cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
             
-            let arcana: Arcana
-            
-            switch collectionView.arcanaSection {
-            case .reward:
-                arcana = rewardArcanaArray[indexPath.item]
-            case .festival:
-                arcana = festivalArcanaArray[indexPath.item]
-            case .new:
-                arcana = newArcanaArray[indexPath.item]
-            case .legend:
-                arcana = legendArcanaArray[indexPath.item]
+            DispatchQueue.main.async {
+                guard let cell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell else { return }
+                cell.arcanaImageView.animateImage(arcanaImage)
             }
-            
-            ImageHelper.shared.prefetchImages(arcanaID: arcana.getUID(), urlString: arcana.imageURL)
         }
-        
-        
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+//        
+//        guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
+//        
+//        for indexPath in indexPaths {
+//            
+//            let arcana: Arcana
+//            
+//            switch collectionView.arcanaSection {
+//            case .reward:
+//                arcana = rewardArcanaArray[indexPath.item]
+//            case .festival:
+//                arcana = festivalArcanaArray[indexPath.item]
+//            case .new:
+//                arcana = newArcanaArray[indexPath.item]
+//            case .legend:
+//                arcana = legendArcanaArray[indexPath.item]
+//            }
+//            
+//            ImageHelper.shared.prefetchImages(arcanaID: arcana.getUID(), urlString: arcana.imageURL)
+//        }
+//        
+//        
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         

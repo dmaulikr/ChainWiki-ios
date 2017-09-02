@@ -97,6 +97,19 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
+    var updatedSize: CGSize!
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return
+        }
+        updatedSize = size
+        
+//        print(updatedSize)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     func reloadView() {
         collectionView.fadeIn()
         collectionView.reloadData()
@@ -266,13 +279,33 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
         return cell
         
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 0
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if updatedSize == nil {
+            updatedSize = collectionView.frame.size
+        }
         
         if traitCollection.horizontalSizeClass == .compact {
             return CGSize(width: collectionView.frame.width, height: 90)
         }
-        return CGSize(width: 200, height: 200)
+        
+        return CGSize(width: updatedSize.width/3, height: 90)
     }
     
 }

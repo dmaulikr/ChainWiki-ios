@@ -45,8 +45,8 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
 
     func animatePresentation(_ transitionContext: UIViewControllerContextTransitioning) {
         
-        self.thumbnailView.alpha = 0
-        
+//        self.thumbnailView.alpha = 0
+
         let fromVC = transitionContext.viewController(forKey: .from)!
         let detailVC = transitionContext.viewController(forKey: .to) as! NavigationController
         
@@ -85,6 +85,7 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
 
+            self.thumbnailView.transform = transform
             self.snapshotView.transform = transform
             
         }) { finished in
@@ -117,10 +118,11 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         arcanaDetailView.alpha = 0
         
         transitionContext.containerView.bringSubview(toFront: snapshotView)
-        snapshotView.alpha = 1
+//        snapshotView.alpha = 1
         // Animate the transition.
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
 
+            self.thumbnailView.transform = .identity
             self.snapshotView.transform = .identity
             
         }) { finished in

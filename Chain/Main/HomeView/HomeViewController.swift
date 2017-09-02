@@ -450,4 +450,31 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         })
     }
     
+    func arcanaAtIndexPathWithArcanaSection(_ indexPath: IndexPath, arcanaSection: ArcanaSection) -> Arcana? {
+        
+        var arcana: Arcana?
+        
+        switch arcanaSection {
+        case .reward:
+            if indexPath.row < rewardArcanaArray.count {
+                arcana = rewardArcanaArray[indexPath.row]
+            }
+        case .festival:
+            if indexPath.row < festivalArcanaArray.count {
+                arcana = festivalArcanaArray[indexPath.row]
+            }
+        case .new:
+            if indexPath.row < newArcanaArray.count {
+                arcana = newArcanaArray[indexPath.row]
+            }
+        case .legend:
+            if indexPath.row < legendArcanaArray.count {
+                arcana = legendArcanaArray[indexPath.row]
+            }
+        }
+        
+        return arcana
+        
+    }
+    
 }

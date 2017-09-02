@@ -32,6 +32,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func setupTabBar() {
+        tabBar.layer.zPosition = 100
         
         let homeTab = UINavigationController(rootViewController: HomeViewController())
         homeTab.tabBarItem = UITabBarItem(title: "아르카나", image: #imageLiteral(resourceName: "arcanaTab"), tag: 0)
