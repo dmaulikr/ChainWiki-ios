@@ -20,7 +20,7 @@ class HomeViewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCollectionView<D: UICollectionViewDataSource & UICollectionViewDelegate & UICollectionViewDataSourcePrefetching>(_ dataSourceDelegate: D, arcanaSection: ArcanaSection) {
+    func setupCollectionView<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, arcanaSection: ArcanaSection) {
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 10
@@ -31,9 +31,7 @@ class HomeViewTableViewCell: UITableViewCell {
         
         collectionView.delegate = dataSourceDelegate
         collectionView.dataSource = dataSourceDelegate
-        if #available(iOS 10.0, *) {
-            collectionView.prefetchDataSource = dataSourceDelegate
-        }
+
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white

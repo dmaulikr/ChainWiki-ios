@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -51,31 +51,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-//        
-//        guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
-//        
-//        for indexPath in indexPaths {
-//            
-//            let arcana: Arcana
-//            
-//            switch collectionView.arcanaSection {
-//            case .reward:
-//                arcana = rewardArcanaArray[indexPath.item]
-//            case .festival:
-//                arcana = festivalArcanaArray[indexPath.item]
-//            case .new:
-//                arcana = newArcanaArray[indexPath.item]
-//            case .legend:
-//                arcana = legendArcanaArray[indexPath.item]
-//            }
-//            
-//            ImageHelper.shared.prefetchImages(arcanaID: arcana.getUID(), urlString: arcana.imageURL)
-//        }
-//        
-//        
-//    }
-    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? ArcanaIconCell else { return }
+        
+        guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
+        
+        cell.arcanaImageView.image = nil
+        
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let collectionView = collectionView as? ArcanaHorizontalCollectionView,
