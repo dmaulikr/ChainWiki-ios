@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 protocol HomeViewProtocol: class {
-    func pushView(arcanaSection: ArcanaSection, index: Int, cell: UIView)
+    func pushView(arcanaSection: ArcanaSection, indexPath: IndexPath, cell: UIView)
     func viewMore(arcanaSection: ArcanaSection)
 }
 
@@ -114,7 +114,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.allowsSelection = false
+//        tableView.allowsSelection = false
         tableView.register(HomeViewTableViewCell.self, forCellReuseIdentifier: "HomeViewTableViewCell")
         tableView.register(HomeTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: "HomeTableViewHeaderCell")
         
@@ -131,8 +131,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         downloadArcana()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         for ref in observedRefs {
             ref.removeAllObservers()
         }
@@ -157,20 +157,9 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
     }
     
-    func pushView(arcanaSection: ArcanaSection, index: Int, cell: UIView) {
+    func pushView(arcanaSection: ArcanaSection, indexPath: IndexPath, cell: UIView) {
         
-        let arcana: Arcana
-        
-        switch arcanaSection {
-        case .reward:
-            arcana = rewardArcanaArray[index]
-        case .festival:
-            arcana = festivalArcanaArray[index]
-        case .new:
-            arcana = newArcanaArray[index]
-        case .legend:
-            arcana = legendArcanaArray[index]
-        }
+        guard let arcana = arcanaAtArcanaSectionWithIndexPath(arcanaSection, indexPath: indexPath) else { return }
         
         let detailVC = ArcanaDetail(arcana: arcana, arcanaSection: arcanaSection)
         detailVC.presentedModally = true
@@ -450,7 +439,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         })
     }
     
-    func arcanaAtIndexPathWithArcanaSection(_ indexPath: IndexPath, arcanaSection: ArcanaSection) -> Arcana? {
+    func arcanaAtArcanaSectionWithIndexPath(_ arcanaSection: ArcanaSection, indexPath: IndexPath) -> Arcana? {
         
         var arcana: Arcana?
         

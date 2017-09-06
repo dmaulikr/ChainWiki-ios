@@ -40,7 +40,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
         
-        guard let arcana = arcanaAtIndexPathWithArcanaSection(indexPath, arcanaSection: collectionView.arcanaSection) else { return }
+        guard let arcana = arcanaAtArcanaSectionWithIndexPath(collectionView.arcanaSection, indexPath: indexPath) else { return }
         
         cell.arcanaImageView.loadArcanaImage(arcanaID: arcana.getUID(), urlString: arcana.imageURL) { (arcanaID, arcanaImage) in
             
@@ -55,8 +55,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         guard let cell = cell as? ArcanaIconCell else { return }
         
-        guard let collectionView = collectionView as? ArcanaHorizontalCollectionView else { return }
-        
         cell.arcanaImageView.image = nil
         
     }
@@ -68,7 +66,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let section = collectionView.arcanaSection
         
-        pushView(arcanaSection: section, index: indexPath.item, cell: cell)
+        pushView(arcanaSection: section, indexPath: indexPath, cell: cell)
     }
     
     // Flow Layout
