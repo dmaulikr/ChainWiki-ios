@@ -72,6 +72,12 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
         syncArcana()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = false
+        }
+    }
     func setupViews() {
         
         view.backgroundColor = .white
@@ -251,6 +257,17 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
+    func arcanaAtIndexPath(_ indexPath: IndexPath) -> Arcana? {
+        
+        if indexPath.row < arcanaArray.count {
+            let arcana = arcanaArray[indexPath.row]
+            return arcana
+        }
+        
+        return nil
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arcanaArray.count
     }
@@ -277,6 +294,15 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
             
         }
         return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let arcana = arcanaAtIndexPath(indexPath) else { return }
+        
+        let arcanaDetailVC = ArcanaDetail(arcana: arcana)
+        navigationController?.pushViewController(arcanaDetailVC, animated: true)
         
     }
 

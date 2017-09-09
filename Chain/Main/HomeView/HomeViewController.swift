@@ -14,14 +14,20 @@ protocol HomeViewProtocol: class {
     func viewMore(arcanaSection: ArcanaSection)
 }
 
-class HomeViewController: UIViewController, HomeViewProtocol {
+class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelegate {
     
     var zoomTransitioningDelegate: TransitioningDelegate?
     weak var welcomeDelegate: WelcomeViewController?
     var thumbnailZoomTransitionAnimator: ZoomingTransitionAnimator?
     var transitionThumbnail: UIImageView?
+    var storedOffsets = [Int: CGFloat]()
     
     var observedRefs = [DatabaseReference]()
+    
+    var rewardArcanaCollectionView: ArcanaHorizontalCollectionView?
+    var festivalArcanaCollectionView: ArcanaHorizontalCollectionView?
+    var newArcanaCollectionView: ArcanaHorizontalCollectionView?
+    var legendArcanaCollectionView: ArcanaHorizontalCollectionView?
     
     let concurrentRewardArcanaQueue =
         DispatchQueue(
@@ -110,11 +116,13 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 //            tableView.dragDelegate = self
 //        }
 //
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
+//        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
 //        tableView.allowsSelection = false
+        tableView.sectionFooterHeight = 0
+        
         tableView.register(HomeViewTableViewCell.self, forCellReuseIdentifier: "HomeViewTableViewCell")
         tableView.register(HomeTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: "HomeTableViewHeaderCell")
         
@@ -144,9 +152,9 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     func setupViews() {
         
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
+//        if #available(iOS 11.0, *) {
+//            navigationController?.navigationBar.prefersLargeTitles = true
+//        }
         automaticallyAdjustsScrollViewInsets = false
         navigationItem.title = "아르카나"
         
@@ -163,13 +171,17 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
         let detailVC = ArcanaDetail(arcana: arcana, arcanaSection: arcanaSection)
         detailVC.presentedModally = true
-        let navVC = NavigationController(detailVC)
-        navVC.isNavigationBarHidden = true
-        navVC.modalPresentationStyle = .custom
+        detailVC.modalPresentationStyle = .custom
         zoomTransitioningDelegate = TransitioningDelegate(thumbnailView: cell)
-        navVC.transitioningDelegate = zoomTransitioningDelegate
+        detailVC.transitioningDelegate = zoomTransitioningDelegate
+        zoomTransitioningDelegate?.wireToViewController(viewController: detailVC)
         
-        present(navVC, animated: true, completion: nil)
+//        let navVC = NavigationController(detailVC)
+//        navVC.isNavigationBarHidden = true
+//        navVC.modalPresentationStyle = .custom
+//        navVC.transitioningDelegate = zoomTransitioningDelegate
+        
+        present(detailVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(detailVC, animated: true)
         
     }
@@ -463,6 +475,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         }
         
         return arcana
+        
         
     }
     

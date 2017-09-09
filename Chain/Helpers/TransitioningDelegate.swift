@@ -43,26 +43,41 @@ class TransitioningDelegate: UIPercentDrivenInteractiveTransition, UIViewControl
 //        return AnimatorObject(isPresentation: false, thumbnailView: thumbnailView)
     }
     
-    func wireToViewController(viewController: UIViewController!) {
-        self.viewController = viewController
-        prepareGestureRecognizerInView(view: viewController.view)
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self
     }
     
-    private func prepareGestureRecognizerInView(view: UIView) {
+    func wireToViewController(viewController: UIViewController!) {
+        self.viewController = viewController
+        prepareGestureRecognizerInView(viewController: viewController)
+    }
+    
+    private func prepareGestureRecognizerInView(viewController: UIViewController) {
         let backGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleBackGesture(_:)))
         backGesture.edges = UIRectEdge.left
-        view.addGestureRecognizer(backGesture)
+        viewController.view.addGestureRecognizer(backGesture)
         
         let downGesture = UIPanGestureRecognizer(target: self, action: #selector(handleDownGesture(_:)))
-        view.addGestureRecognizer(downGesture)
+        if let detailVC = viewController as? ArcanaDetail {
+            detailVC.tableView.panGestureRecognizer.addTarget(self, action: #selector(handleDownGesture(_:)))
+        }
+        else {
+            viewController.view.addGestureRecognizer(downGesture)
+        }
     }
     
     @objc func handleDownGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
         
-        let translation = gestureRecognizer.translation(in: gestureRecognizer.view!.superview!)
-        var progress = (translation.y / 200)
+        let translation = gestureRecognizer.translation(in: gestureRecognizer.view!)
+        var progress = (translation.y / 400)
         progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))
         
+        if let originView = gestureRecognizer.view as? UITableView {
+            if !interactionInProgress && (originView.contentOffset.y > 0 || translation.y < 0) {
+                return
+            }
+        }
+
         switch gestureRecognizer.state {
             
         case .began:

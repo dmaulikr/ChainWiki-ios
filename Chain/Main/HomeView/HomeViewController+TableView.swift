@@ -141,5 +141,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? HomeViewTableViewCell else { return }
+        
+        guard let section = ArcanaSection(rawValue: indexPath.section) else { return }
+        
+        cell.collectionView.arcanaSection = section
+        cell.collectionView.reloadData()
+        print(storedOffsets[section.rawValue])
+        cell.collectionViewOffset = storedOffsets[section.rawValue] ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? HomeViewTableViewCell else { return }
+        
+        guard let section = ArcanaSection(rawValue: indexPath.section) else { return }
+        
+        print(cell.collectionViewOffset)
+        storedOffsets[section.rawValue] = cell.collectionViewOffset
+        
+    }
+    
 }
 

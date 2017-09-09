@@ -45,11 +45,11 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
 
     func animatePresentation(_ transitionContext: UIViewControllerContextTransitioning) {
         
-//        self.thumbnailView.alpha = 0
-
-        let fromVC = transitionContext.viewController(forKey: .from)!
-        let detailVC = transitionContext.viewController(forKey: .to) as! NavigationController
+        self.thumbnailView.alpha = 0
         
+        let fromVC = transitionContext.viewController(forKey: .from)!
+//        let detailVC = transitionContext.viewController(forKey: .to) as! NavigationController
+        let detailVC = transitionContext.viewController(forKey: .to) as! ArcanaDetail
         let initialFrame = fromVC.view.convert(self.thumbnailView.frame, from: self.thumbnailView.superview)
         let finalFrame: CGRect
         
@@ -85,7 +85,6 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
 
-            self.thumbnailView.transform = transform
             self.snapshotView.transform = transform
             
         }) { finished in
@@ -110,7 +109,8 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
     func animateDismissal(_ transitionContext: UIViewControllerContextTransitioning) {
         
         let toVC = transitionContext.viewController(forKey: .to)!
-        let fromVC = transitionContext.viewController(forKey: .from) as! NavigationController
+//        let fromVC = transitionContext.viewController(forKey: .from) as! NavigationController
+        let fromVC = transitionContext.viewController(forKey: .from) as! ArcanaDetail
         let arcanaDetailView = fromVC.view!
         
         let toFrame = toVC.view.convert(self.thumbnailView.frame, from: self.thumbnailView.superview)
@@ -118,17 +118,23 @@ class AnimatorObject: NSObject, UIViewControllerAnimatedTransitioning {
         arcanaDetailView.alpha = 0
         
         transitionContext.containerView.bringSubview(toFront: snapshotView)
-//        snapshotView.alpha = 1
+        snapshotView.alpha = 1
         // Animate the transition.
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: self.damping, initialSpringVelocity: self.springVelocity, options: .curveLinear, animations: {
 
-            self.thumbnailView.transform = .identity
             self.snapshotView.transform = .identity
             
         }) { finished in
-            self.snapshotView.removeFromSuperview()
-            self.thumbnailView.alpha = 1
-            transitionContext.completeTransition(finished)
+            if (!transitionContext.transitionWasCancelled) {
+                self.snapshotView.removeFromSuperview()
+                self.thumbnailView.alpha = 1
+            }
+            else {
+//                transitionContext.containerView.bringSubview(toFront: arcanaDetailView)
+                arcanaDetailView.alpha = 1
+                self.snapshotView.alpha = 0
+            }
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
         
     }

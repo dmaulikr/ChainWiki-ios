@@ -16,7 +16,7 @@ class HomeTableViewHeaderCell: UITableViewHeaderFooterView {
     
     let sectionTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
+        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 22)
         return label
     }()
     
@@ -43,7 +43,8 @@ class HomeTableViewHeaderCell: UITableViewHeaderFooterView {
         addSubview(sectionTitleLabel)
         addSubview(viewMoreButton)
         
-        sectionTitleLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, topConstant: 10, leadingConstant: 10, trailingConstant: 0, bottomConstant: 10, widthConstant: 0, heightConstant: 0)
+        sectionTitleLabel.anchor(top: nil, leading: leadingAnchor, trailing: nil, bottom: nil, topConstant: 0, leadingConstant: 10, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
+        sectionTitleLabel.anchorCenterYToSuperview()
         
         viewMoreButton.anchor(top: topAnchor, leading: nil, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 10, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
     }

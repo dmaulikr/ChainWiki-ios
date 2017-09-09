@@ -22,6 +22,9 @@ class ArcanaHorizontalCollectionView: UICollectionView {
     init(arcanaSection: ArcanaSection, collectionViewLayout: UICollectionViewLayout) {
         self.arcanaSection = arcanaSection
         super.init(frame: .zero, collectionViewLayout: collectionViewLayout)
+        isScrollEnabled = true
+        showsHorizontalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
