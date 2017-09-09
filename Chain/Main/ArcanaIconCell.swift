@@ -14,6 +14,22 @@ class ArcanaIconCell: UICollectionViewCell {
     
     let arcanaImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = Color.gray247
+        imageView.layer.cornerRadius = 5
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.clear.cgColor
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    /**
+     Separate placeholder imageview because placeholder should be its original, smaller size
+     ArcanaImageView is scaled to fill the whole cell
+     **/
+    let placeholderImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "icoTab1")
+        imageView.tintColor = Color.lightGreen
         return imageView
     }()
     
@@ -31,12 +47,11 @@ class ArcanaIconCell: UICollectionViewCell {
         backgroundColor = .white
         
         addSubview(arcanaImageView)
+        addSubview(placeholderImageView)
         
         arcanaImageView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
-        arcanaImageView.layer.cornerRadius = 5
-        arcanaImageView.layer.borderWidth = 1
-        arcanaImageView.layer.borderColor = UIColor.clear.cgColor
-        arcanaImageView.clipsToBounds = true
+        
+        placeholderImageView.anchorCenterSuperview()
     }
 
 }
