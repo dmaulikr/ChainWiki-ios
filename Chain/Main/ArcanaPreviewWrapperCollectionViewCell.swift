@@ -15,6 +15,9 @@ class ArcanaPreviewWrapperCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.groupTableViewBackground
+        selectedBackgroundView = backgroundView
     }
     
 }

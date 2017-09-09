@@ -131,13 +131,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let section = ArcanaSection(rawValue: indexPath.section) else { return cell }
         
         cell.setupCollectionView(self, arcanaSection: section)
-        cell.collectionView.reloadData()
-//        switch section {
-//        case .festival:
-//            cell.setupCollectionView(self, arcanaSection: .festival)
-//        case .new:
-//            cell.setupCollectionView(self, arcanaSection: .new)
-//        }
+
         return cell
     }
     
@@ -149,7 +143,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.collectionView.arcanaSection = section
         cell.collectionView.reloadData()
-        print(storedOffsets[section.rawValue])
+
         cell.collectionViewOffset = storedOffsets[section.rawValue] ?? 0
     }
     
@@ -159,7 +153,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let section = ArcanaSection(rawValue: indexPath.section) else { return }
         
-        print(cell.collectionViewOffset)
         storedOffsets[section.rawValue] = cell.collectionViewOffset
         
     }

@@ -78,6 +78,13 @@ class ArcanaCollectionViewController: UIViewController, UICollectionViewDelegate
             navigationController?.navigationBar.prefersLargeTitles = false
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        collectionView.deselectItem(at: selectedIndexPath, animated: true)
+    }
+    
     func setupViews() {
         
         view.backgroundColor = .white

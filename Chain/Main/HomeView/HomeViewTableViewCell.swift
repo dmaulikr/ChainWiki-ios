@@ -14,7 +14,6 @@ class HomeViewTableViewCell: UITableViewCell {
     
     var collectionViewOffset: CGFloat {
         get {
-            print(collectionView.contentOffset.x)
             return collectionView.contentOffset.x
         }
         
@@ -43,12 +42,7 @@ class HomeViewTableViewCell: UITableViewCell {
             
             collectionView.delegate = dataSourceDelegate
             collectionView.dataSource = dataSourceDelegate
-            
-            collectionView.isScrollEnabled = true
-            collectionView.showsHorizontalScrollIndicator = false
-            collectionView.backgroundColor = .white
-            
-            collectionView.register(ArcanaIconCell.self, forCellWithReuseIdentifier: "ArcanaIconCell")
+
             
             addSubview(collectionView)
             

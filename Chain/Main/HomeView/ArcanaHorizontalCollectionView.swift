@@ -25,6 +25,8 @@ class ArcanaHorizontalCollectionView: UICollectionView {
         isScrollEnabled = true
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
+        register(ArcanaIconCell.self, forCellWithReuseIdentifier: "ArcanaIconCell")
+
     }
     
     required init?(coder aDecoder: NSCoder) {
