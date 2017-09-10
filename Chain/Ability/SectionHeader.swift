@@ -14,7 +14,7 @@ class SectionHeader: UIView {
         let label = UILabel()
         label.textColor = Color.lightGreen
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.alpha = 0
+        label.alpha = 1
         return label
     }()
     
@@ -40,10 +40,12 @@ class SectionHeader: UIView {
     }
     
     func setText(text: String) {
-        sectionLabel.text = text
-        if sectionLabel.alpha == 0 {
-            sectionLabel.fadeIn(withDuration: 0.2)
+        UIView.animate(withDuration: 0.2) {
+            self.sectionLabel.text = text
         }
+//        if sectionLabel.alpha == 0 {
+//            sectionLabel.fadeIn(withDuration: 0.2)
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {

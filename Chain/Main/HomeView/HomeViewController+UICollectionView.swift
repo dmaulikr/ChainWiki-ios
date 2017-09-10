@@ -47,7 +47,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             DispatchQueue.main.async {
                 guard let cell = collectionView.cellForItem(at: indexPath) as? ArcanaIconCell else { return }
                 cell.placeholderImageView.alpha = 0
-                cell.arcanaImageView.animateImage(arcanaImage)
+                
+                // Should only animate images once
+                let arcanaSectionWithIndexPath = IndexPath(row: indexPath.row, section: collectionView.arcanaSection.rawValue)
+                if !self.animatedIndexPaths.contains(arcanaSectionWithIndexPath) {
+                    self.animatedIndexPaths.insert(arcanaSectionWithIndexPath)
+                    cell.arcanaImageView.animateImage(arcanaImage)
+                }
+                else {
+                    cell.arcanaImageView.image = arcanaImage
+                }
             }
         }
     }

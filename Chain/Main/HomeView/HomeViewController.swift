@@ -22,9 +22,18 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
     var transitionThumbnail: UIImageView?
     var storedOffsets = [Int: CGFloat]()
     
+    var isDataLoading = false
+    var offset = 0
+    let limit = 10
+    var lastArcanaIDKey: String?
+    var storedArcanaIDs = Set<String>()
+    var fetchedArcanaCount = 10
+    var shouldAnimateImages = true
+    var animatedIndexPaths = Set<IndexPath>()
+    
     var observedRefs = [DatabaseReference]()
     
-    var rewardArcanaCollectionView: ArcanaHorizontalCollectionView?
+    //    var rewardArcanaCollectionView: ArcanaHorizontalCollectionView?
     var festivalArcanaCollectionView: ArcanaHorizontalCollectionView?
     var newArcanaCollectionView: ArcanaHorizontalCollectionView?
     var legendArcanaCollectionView: ArcanaHorizontalCollectionView?
@@ -144,6 +153,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
         for ref in observedRefs {
             ref.removeAllObservers()
         }
+        fetchedArcanaCount = newArcanaArray.count
         rewardArcanaArray.removeAll()
         festivalArcanaArray.removeAll()
         newArcanaArray.removeAll()
@@ -164,7 +174,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
         tableView.anchor(top: topLayoutGuide.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: bottomLayoutGuide.topAnchor, topConstant: 0, leadingConstant: 0, trailingConstant: 0, bottomConstant: 0, widthConstant: 0, heightConstant: 0)
         
     }
-    
+
     func pushView(arcanaSection: ArcanaSection, indexPath: IndexPath, cell: UIView) {
         
         guard let arcana = arcanaAtArcanaSectionWithIndexPath(arcanaSection, indexPath: indexPath) else { return }
@@ -197,21 +207,31 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
     func reloadArcanaSection(_ section: ArcanaSection) {
         
         if tableView.numberOfSections > section.rawValue {
+//            tableView.beginUpdates()
 //            tableView.reloadSections(IndexSet(integer: section.rawValue), with: .automatic)
-            tableView.reloadData()
+//            tableView.endUpdates()
+//            tableView.reloadData()
+            switch section {
+            case .new:
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? HomeViewTableViewCell else { return }
+                cell.collectionView.reloadData()
+                
+            default:
+                break
+            }
         }
 
     }
     
     func downloadArcana() {
         
+        observeRewardRef()
+
         observeFestivalRef()
         
         observeArcanaRef()
 
         observeLegendRef()
-        
-        observeRewardRef()
         
     }
     
@@ -334,11 +354,18 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
     func observeArcanaRef() {
         
         let ref = FIREBASE_REF.child("arcana")
-        ref.queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
-            //            ref.observe(.childAdded, with: { snapshot in
+        ref.queryLimited(toLast: UInt(fetchedArcanaCount)).observe(.childAdded, with: { snapshot in
+            
             if let arcana = Arcana(snapshot: snapshot) {
-                
+
+                self.storedArcanaIDs.update(with: snapshot.key)
                 self.concurrentNewArcanaQueue.async(flags: .barrier) {
+                    
+                    // Very first fetch.
+                    if self._newArcanaArray.count == 0 {
+                        self.lastArcanaIDKey = snapshot.key
+                    }
+                    
                     self._newArcanaArray.insert(arcana, at: 0)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -349,7 +376,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
             
         })
         
-        ref.observe(.childChanged, with: { snapshot in
+        ref.queryLimited(toLast: 10).observe(.childChanged, with: { snapshot in
             
             let arcanaID = snapshot.key
             
@@ -372,7 +399,7 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
             
         })
         
-        ref.observe(.childRemoved, with: { snapshot in
+        ref.queryLimited(toLast: 10).observe(.childRemoved, with: { snapshot in
             
             let arcanaID = snapshot.key
             
@@ -477,6 +504,66 @@ class HomeViewController: UIViewController, HomeViewProtocol, UIScrollViewDelega
         return arcana
         
         
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        print("scrollview dragging")
+        isDataLoading = false
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        guard let scrollView = scrollView as? ArcanaHorizontalCollectionView, scrollView.arcanaSection == .new else { return }
+        
+        if ((scrollView.contentOffset.x + scrollView.frame.size.width) >= scrollView.contentSize.width) {
+            
+            if !isDataLoading {
+                isDataLoading = true
+                self.fetchArcana()
+                
+            }
+            
+        }
+        
+    }
+    
+    func fetchArcana() {
+        
+        guard let lastArcanaIDKey = lastArcanaIDKey else { return }
+        
+        let ref = FIREBASE_REF.child("arcana")
+        
+        var count = 0
+        let insertIndex = newArcanaArray.count
+        
+        ref.queryOrderedByKey().queryEnding(atValue: lastArcanaIDKey).queryLimited(toLast: 10).observe(.childAdded, with: { snapshot in
+            
+            if count == 0 {
+                self.lastArcanaIDKey = snapshot.key
+            }
+            
+            if !self.storedArcanaIDs.contains(snapshot.key) {
+                
+                self.storedArcanaIDs.insert(snapshot.key)
+                
+                if let arcana = Arcana(snapshot: snapshot) {
+                    
+                    self.concurrentNewArcanaQueue.async(flags: .barrier) {
+                        
+                        self._newArcanaArray.insert(arcana, at: insertIndex)
+                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+                            self.reloadArcanaSection(.new)
+                        }
+                    }
+                }
+
+            }
+            
+            count += 1
+            
+        })
     }
     
 }

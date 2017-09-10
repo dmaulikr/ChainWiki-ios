@@ -129,7 +129,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewTableViewCell") as! HomeViewTableViewCell
         
         guard let section = ArcanaSection(rawValue: indexPath.section) else { return cell }
-        
+
         cell.setupCollectionView(self, arcanaSection: section)
 
         return cell

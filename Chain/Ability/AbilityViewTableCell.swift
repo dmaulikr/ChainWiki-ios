@@ -76,7 +76,9 @@ extension AbilityViewTableCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if arcanaArray.count > 0 && section == 0 {
-            return SectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+            let sectionHeader = SectionHeader(sectionTitle: "아르카나 수 \(arcanaArray.count)")
+            sectionHeader.setText(text: "아르카나 수 \(arcanaArray.count)")
+            return sectionHeader
         }
         
         return nil
