@@ -40,7 +40,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 return 0
             }
         }
-        return 450
+        return 475
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

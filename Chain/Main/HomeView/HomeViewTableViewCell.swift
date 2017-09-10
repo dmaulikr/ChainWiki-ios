@@ -43,6 +43,7 @@ class HomeViewTableViewCell: UITableViewCell {
             collectionView.delegate = dataSourceDelegate
             collectionView.dataSource = dataSourceDelegate
 
+            collectionView.showsHorizontalScrollIndicator = true
             
             addSubview(collectionView)
             
